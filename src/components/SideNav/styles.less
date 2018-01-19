@@ -1,0 +1,232 @@
+:global(.ant-menu-item) {
+    padding: 0 !important;
+    display: flex;
+    overflow: visible !important;
+    height: 62px !important;
+    margin: 5px 0 !important;
+
+    &>a {
+        margin: auto 0 auto 66px;
+    }
+}
+
+.ant-menu-item-selected {
+    background-color: transparent !important;
+}
+
+.ant-menu-inline .ant-menu-item:after {
+    border: none;
+}
+
+.selNav() {
+    display: flex !important;
+    background-color: blue;
+    box-shadow: 5px 5px 27px rgba(4, 149, 255, 0.44);
+}
+
+.sidenav-root {
+    width: 340px;
+    position: absolute;
+    height: 100%;
+    border-right: 1px solid #e8e8e8;
+    transition: 0.2s linear;
+
+    * {
+        transition: 0.2s linear;
+    }
+
+    .doctorProfileCard-specialty{
+    	margin-bottom: 	25px;
+    }
+
+    .logo{
+        position: relative;
+        width: 100%;
+        height: 100px;
+        padding: 24px 0;
+        border-bottom: 1px solid #e8e8e8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-img{
+            display: block;
+            background-size: contain;
+            height: 45px;
+            width: 210px;
+        }
+    }
+
+    &-short {
+        width: 170px;
+
+        .logo{
+
+            &-img{
+                height: 51px;
+                width: 66px;
+            }
+        }
+
+        a {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 55px;
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            &:before {
+                display: none;
+            }
+
+            &:active{
+
+            	&:before{
+            		display: none;
+            	}
+            }
+        }
+    }
+
+    .ant-menu-inline {
+        border-right: none;
+    }
+
+    &-menu {
+
+        a {
+
+            &:hover {
+                text-decoration: none;
+
+                .item-title{
+					color: blue;
+                }
+
+                .icon,.anticon{
+                	color: blue;
+                }
+            }
+
+            &:before {
+                display: none;
+            }
+
+            &:active{
+
+            	&:before{
+            		display: none;
+            	}
+            }
+        }
+
+        .selectedNavLink {
+
+            .selNav();
+            height: 60px;
+            border-radius: 31.5px;
+            padding: 0 35px;
+            width: auto;
+
+            &:hover {
+                text-decoration: none;
+
+                .item-title{
+					color: #fff;
+                }
+
+                .icon{
+                	color: #fff;
+                }
+
+                .anticon{
+                	margin: auto 20px auto 0
+                }
+            }
+
+            &>.sidenav-root-menu-item {}
+
+            .icon,.anticon {
+                color: #fff;
+            }
+
+            .item-title {
+                color: #fff;
+            }
+        }
+
+        &-item {
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &>.anticon{
+            	margin: auto 20px auto 0;
+            }
+
+            &>.icon {
+                margin: auto 20px auto 0;
+            } //&-selected{
+            //  background-color: @blue;
+            //}
+        }
+    }
+    &-menu-short {
+
+        .selectedNavLink {
+
+            .selNav();
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+
+            &>.sidenav-root-menu-item {
+                margin: auto !important;
+            }
+
+            .icon,.anticon{
+                color: #fff;
+            }
+
+            .item-title {
+                color: #fff;
+            }
+        }
+
+        .sidenav-root-menu-item {
+            display: flex;
+            font-size: 16px;
+
+            &>.item-title {
+                display: none;
+            }
+            &>.icon {
+                margin: auto;
+            }
+
+            &>.anticon{
+            	margin: auto;
+            }
+        }
+    }
+
+    &-btn {
+        position: absolute;
+        right: -11px;
+        top: 89px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        outline-width: 0;
+        border: 0;
+        padding: 0;
+        z-index: 100;
+        cursor: pointer;
+    }
+}

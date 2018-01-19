@@ -1,0 +1,25 @@
+.ant-layout {
+  background-color: #ddebf5;
+}
+.ant-layout-sider {
+  flex: 0 0 340px !important;
+  min-width: 340px !important;
+  width: 340px !important;
+  background-color: white;
+  transition: 0.2s linear;
+}
+.ant-layout-sider.collapsed {
+  flex: 0 0 170px !important;
+  min-width: 170px !important;
+  width: 170px !important;
+}
+.ant-layout-content {
+  padding: 40px 30px;
+}
+.ant-layout-header {
+  background-color: white;
+  height: 100px;
+}
+.ant-layout-footer {
+  background-color: transparent;
+}
