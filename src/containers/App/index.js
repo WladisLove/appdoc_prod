@@ -31,19 +31,20 @@ class App extends React.Component {
 
     render() {
         const {collapsed} = this.state;
-        const  siderClass = collapsed ? 'collapsed' : '';
+        const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
+        const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
         return (
-            <Layout>
-                <Layout.Sider className={siderClass}>
+            <div className="main">
+                <div className={siderClass}>
                     <SideNav onClick={this.toggle}
                              menuItems={menuItems}
                              isShort={this.state.collapsed}/>
-                </Layout.Sider>
-                <Layout>
-                    <Layout.Header>
+                </div>
+                <div className={wrapperClass}>
+                    <div className="main-header">
                         Header
-                    </Layout.Header>
-                    <Switch>
+                    </div>
+                    <div className="main-content">
                         {appRoutes.map(route => renderRoutes(route))}
                         <Route
                             exact
@@ -54,12 +55,13 @@ class App extends React.Component {
                                 </div>
                             )}
                         />
-                    </Switch>
-                    <Layout.Footer>
-                        Footer
-                    </Layout.Footer>
-                </Layout>
-            </Layout>
+                    </div>
+                </div>
+                <div className="main-footer">
+                        <div className="main-footer-item company">AppDoc 2017</div>
+                        <div className="main-footer-item copirate">© Все права защищены</div>
+                </div>
+            </div>
         );
     }
 }
