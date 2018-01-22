@@ -10,10 +10,8 @@ import { createStore/*, applyMiddleware, compose*/ } from 'redux'
 
 // const middleware = compose(applyMiddleware(thunkMiddleware, reduxPackMiddleware, historyMiddleware))
 
-function rootReducer(state = [], action) {
+function rootReducer(state = {}, action) {
     switch (action.type) {
-        case 'ADD_TODO':
-            return state.concat([action.text])
         default:
             return state
     }
