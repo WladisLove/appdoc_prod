@@ -1,9 +1,9 @@
 import React  from 'react';
 import {appRoutes, menuItems} from '../../routes'
-import LoginPage from '../LoginPage'
-import { Switch, Route } from 'react-router-dom'
-import { Button, Row, Col, SideNav} from 'appdoc-component'
-import {Layout} from 'antd'
+//import LoginPage from '../LoginPage'
+import { Route, Switch } from 'react-router-dom'
+import { /*Button, Row, Col,*/ SideNav} from 'appdoc-component'
+//import {Layout} from 'antd'
 
 //import SideNav from '../../components/SideNav'
 
@@ -46,16 +46,17 @@ class App extends React.Component {
                         Header
                     </div>
                     <div className="main-content">
-                        {appRoutes.map(route => renderRoutes(route))}
-                        <Route path="/login" component={LoginPage}/>
-                        <Route
-                            render ={() => (
-                                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                                    <h3>Страница не найдена</h3>
-                                    <p>Проверьте введённый адрес</p>
-                                </div>
-                            )}
-                        />
+                        <Switch>
+                            {appRoutes.map(route => renderRoutes(route))}
+                            <Route
+                                render ={() => (
+                                    <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                                        <h3>Страница не найдена</h3>
+                                        <p>Проверьте введённый адрес</p>
+                                    </div>
+                                )}
+                            />
+                        </Switch>
                     </div>
                 </div>
                 <div className="main-footer">
