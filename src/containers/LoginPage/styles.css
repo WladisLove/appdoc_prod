@@ -1,0 +1,20 @@
+.loginPage-header {
+  height: 100px;
+  background-color: #ffffff;
+  position: relative;
+  border: 1px solid #e1e1e1;
+  margin-bottom: 75px;
+}
+.loginPage-header-close {
+  width: 115px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-left: 1px solid #e1e1e1;
+  display: flex;
+  cursor: pointer;
+}
+.loginPage-header-close .icon {
+  margin: auto;
+}

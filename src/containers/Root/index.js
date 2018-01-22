@@ -1,10 +1,14 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
+import LoginPage from '../LoginPage'
 import App from '../App'
 
 const Root = () => (
-    <Route path="/" component={App} />
+    <Switch>
+        <Route path="/login" component={LoginPage}/>
+        <Route path="/" component={App} />
+    </Switch>
 );
 
 export default Root
