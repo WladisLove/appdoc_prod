@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Layout } from 'antd'
 // const { Content } = Layout;
 import { Icon, Row, Col, TopPanel, TopPanelItem, TableNoHead, TableNoHeadItem, Reviews, TreatmentTable } from 'appdoc-component'
 import Hoc from '../../hoc'
