@@ -18,7 +18,6 @@ class MainPage extends React.Component{
 					<Row className='section'>
 						<div className='topPanel'>
 							<Col span={6}>
-								<div className='flexCol'>
 									<TopPanelItem
 										className='first-col'
 										panelTitle="10 сентября 2017"
@@ -27,22 +26,18 @@ class MainPage extends React.Component{
 										icon='calendar'
 									>
 									</TopPanelItem>
-								</div>
 							</Col>
 
 							<Col span={6}>
-								<div className='flexCol'>
 									<TopPanelItem
 										panelTitle="Приемы сегодня"
 										panelText="12"
 										icon='info'
 									>
 									</TopPanelItem>
-								</div>
 							</Col>
 
 							<Col span={6}>
-								<div className='flexCol'>
 									<TopPanelItem
 											panelTitle="Актуальные обращения"
 											panelText="2"
@@ -50,32 +45,29 @@ class MainPage extends React.Component{
 											icon='clock'
 									>
 									</TopPanelItem>
-								</div>
 							</Col>
 
 							<Col span={6}>
-								<div className='flexCol'>
 									<TopPanelItem
 										panelTitle="Мои пациенты"
 										panelText="37"
 										icon='user'
 									>
 									</TopPanelItem>
-								</div>
 							</Col>
 						</div>
 					</Row>
 
 					<Row className="section">
-						<Col span={14} className='flexCol'>
+						<Col span={14}>
 							<TableNoHead data={scheduleArr}/>
 						</Col>
-						<Col span={10} className='flexCol'>
+						<Col span={10}>
 							<Reviews data={dataArr}/>
 						</Col>
 					</Row>
 					<Row className="section">
-						<Col span={24} className='flexCol'>
+						<Col span={24}>
 							<TreatmentTable data={treatmentArr}/>
 						</Col>
 					</Row>
