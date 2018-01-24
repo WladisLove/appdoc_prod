@@ -1,17 +1,22 @@
 import React from 'react'
+import { Icon, Row, Col, HistoryReceptions } from 'appdoc-component'
+import Hoc from '../../hoc'
 
-import {Layout} from 'antd'
-
+import {historyArr} from './mock-data'
+import './styles.css'
 class Treatment extends React.Component{
 
     render(){
 
 
         return (
-
-            <Layout.Content>
-                Treatment
-            </Layout.Content>
+            <Hoc>
+            	<Row>
+            		<Col span={24}>
+            			<HistoryReceptions data={historyArr}/>
+            		</Col>
+            	</Row>
+            </Hoc>
         )
     }
 }
