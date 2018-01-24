@@ -14,48 +14,54 @@ class MainPage extends React.Component{
     render(){
 
         return (
-
-            <Layout.Content>
                 <Hoc>
-					<Row className='section top-panel'>
+					<Row className='section'>
 						<div className='topPanel'>
-							<Col span={6} className='flexCol'>
-								<TopPanelItem
-									className='first-col'
-									PanelTitle="10 сентября 2017"
-									PanelText="Вторник  13:25"
-									svg
-									icon='calendar'
-								>
-								</TopPanelItem>
+							<Col span={6}>
+								<div className='flexCol'>
+									<TopPanelItem
+										className='first-col'
+										panelTitle="10 сентября 2017"
+                      					panelText="Вторник  13:25"
+										svg
+										icon='calendar'
+									>
+									</TopPanelItem>
+								</div>
 							</Col>
 
-							<Col span={6} className='flexCol'>
-								<TopPanelItem
-								PanelTitle="Приемы сегодня"
-								PanelText="12"
-								icon='info'
-								>
-								</TopPanelItem>
+							<Col span={6}>
+								<div className='flexCol'>
+									<TopPanelItem
+										panelTitle="Приемы сегодня"
+										panelText="12"
+										icon='info'
+									>
+									</TopPanelItem>
+								</div>
 							</Col>
 
-							<Col span={6} className='flexCol'>
-								<TopPanelItem
-									PanelTitle="Актуальные обращения"
-									PanelText="2"
-									svg
-									icon='clock'
-								>
-								</TopPanelItem>
+							<Col span={6}>
+								<div className='flexCol'>
+									<TopPanelItem
+											panelTitle="Актуальные обращения"
+											panelText="2"
+											svg
+											icon='clock'
+									>
+									</TopPanelItem>
+								</div>
 							</Col>
 
-							<Col span={6} className='flexCol'>
-								<TopPanelItem
-									PanelTitle="Мои пациенты"
-									PanelText="37"
-									icon='user'
-								>
-								</TopPanelItem>
+							<Col span={6}>
+								<div className='flexCol'>
+									<TopPanelItem
+										panelTitle="Мои пациенты"
+										panelText="37"
+										icon='user'
+									>
+									</TopPanelItem>
+								</div>
 							</Col>
 						</div>
 					</Row>
@@ -74,7 +80,6 @@ class MainPage extends React.Component{
 						</Col>
 					</Row>
                 </Hoc>
-            </Layout.Content>
         )
     }
 }
