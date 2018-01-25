@@ -1,112 +1,111 @@
-.ant-layout{
-  background-color: #ddebf5;
+.ant-layout {
+    background-color: #ddebf5;
 
-  &-sider{
-    flex: 0 0 340px !important;
-    min-width: 340px !important;
-    width: 340px !important;
-    background-color: white;
-    transition: 0.2s linear;
-  }
-  &-sider.collapsed{
-    flex: 0 0 170px !important;
-    min-width: 170px !important;
-    width: 170px !important;
-  }
-  &-content{
-    padding: 40px 30px;
-  }
-  &-header{
-    background-color: white;
-    height: 100px;
-  }
-  &-footer{
-    background-color: transparent;
-  }
+    &-sider {
+        flex: 0 0 340px !important;
+        min-width: 340px !important;
+        width: 340px !important;
+        background-color: white;
+        transition: 0.2s linear;
+    }
+    &-sider.collapsed {
+        flex: 0 0 170px !important;
+        min-width: 170px !important;
+        width: 170px !important;
+    }
+    &-content {
+        padding: 40px 30px;
+    }
+    &-header {
+        background-color: white;
+        height: 100px;
+    }
+    &-footer {
+        background-color: transparent;
+    }
 }
 
-.main{
-  display: flex;
-  flex-wrap: wrap;
-  background-color: #edf2f6;
-  overflow: hidden;
-  ///background-image: url("../../img/main-bg.svg");
-  background-size: 130%;
-  background-position: -33vw -15vw;
-  background-repeat: no-repeat;
-
-  &-sidebar{
-    position: relative;
-    width: 100%;
-    max-width: 340px;
-    min-height: 880px;
+.main {
     display: flex;
-    transition: 0.2s linear;
-    z-index: 3;
-    background-color: #fff;
+    flex-wrap: wrap;
+    background-color: #edf2f6;
+    overflow: hidden; ///background-image: url("../../img/main-bg.svg");
+    background-size: 130%;
+    background-position: -33vw -15vw;
+    background-repeat: no-repeat;
 
-    .sidenav-root{
-      position: fixed;
-      background-color: #fff;
-      min-height: 880px;
-    }
+    &-sidebar {
+        position: relative;
+        width: 100%;
+        max-width: 340px;
+        min-height: 880px;
+        display: flex;
+        transition: 0.2s linear;
+        z-index: 3;
+        background-color: #fff;
 
-    &.collapsed{
-      max-width: 170px;
-    }
-  }
-
-  &-wrapper{
-    display: flex;
-    flex-direction: column;
-    transition: 0.2s linear;
-    width: ~"calc(100% - 340px)";
-    min-height: ~"calc(100vh - 80px)";
-
-    &.collapsed{
-      width: ~"calc(100% - 170px)";
-      max-width: none;
-    }
-  }
-
-  &-header{
-    position: fixed;
-    top: 0;
-    background-color: #fff;
-    width: 100%;
-    height: 100px;
-    padding: 24px 45px 24px 35px;
-    border-bottom: 1px solid #e8e8e8;
-    display: flex;
-    align-items: center;
-    z-index: 2;
-  }
-
-  &-content{
-    margin-top: 100px;
-    padding: 40px 50px 40px 30px;
-  }
-
-  &-footer{
-    position: relative;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &-item{
-        color: #344051;
-
-        &.company{
-          font-size: 16px;
-          margin-right: 20px;
+        .sidenav-root {
+            position: fixed;
+            background-color: #fff;
+            min-height: 880px;
         }
 
-        &.copirate{
-          font-size: 12px;
-          letter-spacing: 0.12px;
+        &.collapsed {
+            max-width: 170px;
         }
     }
-  }
+
+    &-wrapper {
+        display: flex;
+        flex-direction: column;
+        transition: 0.2s linear;
+        width: ~"calc(100% - 340px)";
+        min-height: ~"calc(100vh - 80px)";
+
+        &.collapsed {
+            width: ~"calc(100% - 170px)";
+            max-width: none;
+        }
+    }
+
+    &-header {
+        position: fixed;
+        top: 0;
+        background-color: #fff;
+        width: 100%;
+        height: 100px;
+        padding: 24px 45px 24px 35px;
+        border-bottom: 1px solid #e8e8e8;
+        display: flex;
+        align-items: center;
+        z-index: 2;
+    }
+
+    &-content {
+        margin-top: 100px;
+        padding: 40px 50px 40px 30px;
+    }
+
+    &-footer {
+        position: relative;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-item {
+            color: #344051;
+
+            &.company {
+                font-size: 16px;
+                margin-right: 20px;
+            }
+
+            &.copirate {
+                font-size: 12px;
+                letter-spacing: 0.12px;
+            }
+        }
+    }
 }
