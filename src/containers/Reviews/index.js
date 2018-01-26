@@ -19,7 +19,7 @@ class Reviews extends React.Component{
 							<ReviewsTree data={dataArr} limit={2}/>
 					</Col>
 					<Col span={8}>
-						<RateIndicator rateValue={4} reviewsNum={36}/>
+						<RateIndicator rateValue={4} reviewsNum={dataArr.length}/>
 					</Col>
             	</Row>
             </Hoc>
