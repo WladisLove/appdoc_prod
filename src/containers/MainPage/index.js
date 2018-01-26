@@ -5,7 +5,7 @@ import Hoc from '../../hoc'
 
 
 import './styles.css'
-import {dataArr, scheduleArr, treatmentArr} from './mock-data'
+import {dataArr, scheduleArr, treatmentArr, panelArr} from './mock-data'
 
 class MainPage extends React.Component{
 
@@ -14,46 +14,9 @@ class MainPage extends React.Component{
         return (
                 <Hoc>
 					<Row className='section'>
-						<div className='topPanel'>
-							<Col span={6}>
-									<TopPanelItem
-										className='first-col'
-										panelTitle="10 сентября 2017"
-                      					panelText="Вторник  13:25"
-										svg
-										icon='calendar'
-									>
-									</TopPanelItem>
-							</Col>
-
-							<Col span={6}>
-									<TopPanelItem
-										panelTitle="Приемы сегодня"
-										panelText="12"
-										icon='info'
-									>
-									</TopPanelItem>
-							</Col>
-
-							<Col span={6}>
-									<TopPanelItem
-											panelTitle="Актуальные обращения"
-											panelText="2"
-											svg
-											icon='clock'
-									>
-									</TopPanelItem>
-							</Col>
-
-							<Col span={6}>
-									<TopPanelItem
-										panelTitle="Мои пациенты"
-										panelText="37"
-										icon='user'
-									>
-									</TopPanelItem>
-							</Col>
-						</div>
+						<Col span={24}>
+							<TopPanel  data={panelArr}/>
+						</Col>
 					</Row>
 
 					<Row className="section">
