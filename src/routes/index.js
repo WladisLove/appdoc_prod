@@ -2,6 +2,7 @@ import MainPage from '../containers/MainPage'
 import Schedule from '../containers/Schedule'
 import Treatment from '../containers/Treatment'
 import Patients from '../containers/Patients'
+import PatientsPage from '../containers/PatientsPage'
 import PersonalInfo from '../containers/PersonalInfo'
 import Reviews from '../containers/Reviews'
 
@@ -25,6 +26,11 @@ export const appRoutes = [
     {
         path: '/patients',
         component: Patients,
+        exact: true,
+    },
+    {
+        path: '/patients-page',
+        component: PatientsPage,
         exact: true,
     },
     {
