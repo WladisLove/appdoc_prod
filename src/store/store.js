@@ -3,11 +3,14 @@ import thunk from 'redux-thunk';
 
 import patientsReducer from './reducers/patients'
 import reviewsReducer from './reducers/reviews'
+import schedulesReducer from './reducers/schedules'
+
 
 
 const rootReducer = combineReducers({
     patients: patientsReducer,
     reviews: reviewsReducer,
+    schedules: schedulesReducer,
 });
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;

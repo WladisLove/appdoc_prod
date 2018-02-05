@@ -1,16 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux';
 
 import Hoc from '../../hoc'
 import { Row, Col, Button, Calendar } from 'appdoc-component'
 
-import  {events } from './mock-data'
 import './styles.css'
-
 
 class Schedule extends React.Component{
 
     render(){
-
 
         return (
 
@@ -28,13 +26,13 @@ class Schedule extends React.Component{
                 </Row>
                 <Row >
                     <Col span={19}>
-                        <Calendar receptionNum={events.length}
+                        <Calendar receptionNum={this.props.events.length}
                                   selectable
                                   onSelectEvent={(obj) => console.log('Receive', obj)}
                                   onSelectSlot={(slot) => console.log('Slot info', slot)}
                                   defaultView="week"
                                   step = {5}
-                                  events={events}
+                                  events={this.props.events}
                         />
                     </Col>
                 </Row>
@@ -43,4 +41,16 @@ class Schedule extends React.Component{
     }
 }
 
-export default Schedule;
+const mapStateToProps = state => {
+    return {
+        events: state.schedules.events,
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Schedule);
