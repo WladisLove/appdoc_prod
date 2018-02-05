@@ -6,8 +6,7 @@ import { Provider } from 'react-redux'
 
 import './index.css';
 
-import { store, /*persistor,*/ history } from './store'
-
+import { store, history } from './store'
 
 import Root from './containers/Root'
 import registerServiceWorker from './registerServiceWorker';

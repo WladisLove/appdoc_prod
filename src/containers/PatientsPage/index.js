@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Row, Col, ProfilePatient, DiseasesTable, HistoryReceptions } from 'appdoc-component'
+import { Row, Col, ProfilePatient, DiseasesTable, HistoryReceptions } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import {patientArr, diseasesArr, historyArr} from './mock-data'

@@ -1,9 +1,6 @@
-//import { persistStore } from 'redux-persist'
-
-import configureStore from './configureStore'
+import configureStore from './store'
 import history from './history'
 
-const store = configureStore({});
-//const persistor = persistStore(store)
+const store = configureStore();
 
-export { store, history/*, persistor*/ }
+export { store, history }
