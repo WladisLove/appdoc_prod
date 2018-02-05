@@ -52,5 +52,5 @@ export const menuItems =[
     {name: 'patients', title: 'Мои пациенты', iconType: 'user',},
     {name: 'personal-info', title: 'Личные данные', iconType: 'setting_edit', svg: true},
     {name: 'reviews', title: 'Отзывы пациентов', iconType: 'chat', svg: true},
-]
+];
 
