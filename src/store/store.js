@@ -1,20 +1,23 @@
-import { createStore, applyMiddleware, compose, combineReducers} from 'redux'
-import thunk from 'redux-thunk';
+import { createStore/*, applyMiddleware, compose*/ } from 'redux'
+// import thunkMiddleware from 'redux-thunk'
+// import { middleware as reduxPackMiddleware } from 'redux-pack'
+// import { routerMiddleware } from 'react-router-redux'
 
-import patientsReducer from './reducers/patients'
-import reviewsReducer from './reducers/reviews'
+//import history from './history'
+//import rootReducer from '../modules'
 
+//const historyMiddleware = routerMiddleware(history)
 
-const rootReducer = combineReducers({
-    patients: patientsReducer,
-    reviews: reviewsReducer,
-});
+// const middleware = compose(applyMiddleware(thunkMiddleware, reduxPackMiddleware, historyMiddleware))
 
-const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+function rootReducer(state = {}, action) {
+    switch (action.type) {
+        default:
+            return state
+    }
+}
 
-
-export default function configureStore() {
-    return createStore(rootReducer, composeEnhancers(
-        applyMiddleware(thunk)
-    ));
+export default function configureStore(initialState) {
+    return createStore(rootReducer, initialState);
+    // return createStore(/*rootReducer,*/ initialState/*, middleware*/)
 }
