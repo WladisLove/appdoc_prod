@@ -1,23 +1,76 @@
 import React from 'react'
+import moment from 'moment'
 import { connect } from 'react-redux';
 
 import Hoc from '../../hoc'
-import { Row, Col, Button, Calendar } from 'appdoc-component'
+import { Row, Col, Button, Calendar, SmallCalendar, CancelVisitModal } from 'appdoc-component'
 
 import './styles.css'
 
 class Schedule extends React.Component{
+    constructor(props){
+        super(props);
+        this.state= {
+            currentDate: new Date(2018,1,1),
+            cancelModal: false,
+            cancelData: {
+                rangeSet: [],
+            }
+        }
+    };
+
+    selectEventHandler = (event) => {
+        this.setState({
+            cancelData:{
+                rangeSet:[{
+                    defaultStartValue: moment(event.start),
+                    defaultEndValue: moment(event.end),
+                }]
+            }
+        });
+    };
+
+    openCancelModal = () => {
+        this.setState({
+            cancelModal: true,
+        })
+    };
+
+    onSaveEventHandler = (obj) => {
+        console.log(obj);
+        this.setState({
+            cancelModal: false,
+            cancelData: {
+                rangeSet: null,
+            },
+        });
+    };
+    closeCancelModal = () => {
+        console.log(this.state);
+        this.setState({
+            cancelModal: false,
+            cancelData: {
+                rangeSet: null
+            }
+        });
+    };
+
+    dateChangeHandler = (date) => {
+        this.setState({
+            currentDate: date,
+        })
+    };
+
 
     render(){
-
         return (
-
             <Hoc>
                 <Row style={{marginBottom: 25,}}>
                     <Col span={19} className='schedule-title'>
                         График работы
                     </Col>
-                    <Col span={5} className='schedule-editBtn'>
+                    <Col span={5}
+                         className='schedule-editBtn'>
                         <Button btnText='Редактор графика'
                                 type='yellow'
                                 icon='setting_edit'
@@ -28,14 +81,34 @@ class Schedule extends React.Component{
                     <Col span={19}>
                         <Calendar receptionNum={this.props.events.length}
                                   selectable
-                                  onSelectEvent={(obj) => console.log('Receive', obj)}
+                                  onSelectEvent={this.selectEventHandler}
                                   onSelectSlot={(slot) => console.log('Slot info', slot)}
                                   defaultView="week"
+                                  date={this.state.currentDate}
+                                  onNavigate={this.dateChangeHandler}
                                   step = {5}
                                   events={this.props.events}
+                                  onPopoverClose = {e => console.log(e)}
                         />
                     </Col>
+                    <Col span={5} style={{textAlign: 'center'}}>
+                        <Button
+                            btnText='Отменить приемы'
+                            onClick={this.openCancelModal}
+                            size='link'
+                            type='link'
+                            icon='circle_close'
+                            svg
+                        />
+                        <SmallCalendar date={this.state.currentDate}
+                                       onChange={this.dateChangeHandler}/>
+                    </Col>
                 </Row>
+                <CancelVisitModal visible={this.state.cancelModal}
+                                  {...this.state.cancelData}
+                                  onSave={this.onSaveEventHandler}
+                                  onCancel = {this.closeCancelModal}
+                />
             </Hoc>
         )
     }
