@@ -1,17 +1,1 @@
-.schedule-title {
-  font-size: 32px;
-  color: #344051;
-}
-.schedule-editBtn {
-  text-align: center;
-}
-.rbc-month-view > .rbc-month-row:nth-child(2) {
-  margin-top: 60px;
-}
-.rbc-month-view > .rbc-month-row:last-child {
-  margin-bottom: 100px;
-}
-.rbc-month-view .rbc-month-row,
-.rbc-month-view .rbc-header {
-  background-color: white;
-}
+.schedule-title{font-size:32px;color:#344051}.schedule-editBtn{text-align:center}.rbc-month-view>.rbc-month-row:nth-child(2){margin-top:0}.rbc-month-view>.rbc-month-row:last-child{margin-bottom:0}.rbc-month-view .rbc-header,.rbc-month-view .rbc-month-row{background-color:#fff}
