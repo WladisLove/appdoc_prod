@@ -5,33 +5,105 @@ import { connect } from 'react-redux';
 import Hoc from '../../hoc'
 import { Row, Col, Button,
     Calendar, SmallCalendar,
-    CancelVisitModal, NewVisitModal } from 'appdoc-component'
+    CancelVisitModal, NewVisitModal, NewMessageModal, ReceptionsScheduleModal } from 'appdoc-component'
 
 import './styles.css'
+
+const schedules = [
+    {
+        id: 12,
+        isEditable: false,
+        time: [{
+            start: new Date(2018, 0, 15, 8, 30, 0),
+            end: new Date(2018, 0, 15, 10, 0, 0),
+        },{
+            start: new Date(2018, 0, 15, 12, 0, 0),
+            end: new Date(2018, 0, 15, 13, 30, 0),
+        },{
+            start: new Date(2018, 0, 15, 18, 0, 0),
+            end: new Date(2018, 0, 15, 19, 0, 0),
+        }],
+        emergencyTime: [],
+    },
+    {
+        id: 12,
+        isEditable: false,
+        time: [{
+            start: new Date(2018, 0, 25, 8, 30, 0),
+            end: new Date(2018, 0, 25, 10, 0, 0),
+        },{
+            start: new Date(2018, 0, 25, 12, 0, 0),
+            end: new Date(2018, 0, 25, 13, 30, 0),
+        },{
+            start: new Date(2018, 0, 25, 18, 0, 0),
+            end: new Date(2018, 0, 25, 19, 0, 0),
+        }],
+        emergencyTime: [],
+    },
+    {
+        id: 13,
+        isEditable: true,
+        time: [{
+            start: new Date(2018, 1, 8, 8, 30, 0),
+            end: new Date(2018, 1, 8, 9, 30, 0),
+        },{
+            start: new Date(2018, 1, 8, 13, 0, 0),
+            end: new Date(2018, 1, 8, 18, 30, 0),
+        }],
+        emergencyTime: [{
+            start: new Date(2018, 1, 8, 14, 30, 0),
+            end: new Date(2018, 1, 8, 15, 0, 0),
+        },{
+            start: new Date(2018, 1, 8, 17, 0, 0),
+            end: new Date(2018, 1, 8, 17, 30, 0),
+        }],
+    },
+    {
+        id: 15,
+        isEditable: false,
+        time: [{
+            start: new Date(2018, 1, 7, 8, 30, 0),
+            end: new Date(2018, 1, 7, 9, 30, 0),
+        },{
+            start: new Date(2018, 1, 7, 13, 0, 0),
+            end: new Date(2018, 1, 7, 18, 30, 0),
+        }],
+        emergencyTime: [{
+            start: new Date(2018, 1, 7, 17, 0, 0),
+            end: new Date(2018, 1, 7, 17, 30, 0),
+        }],
+    },
+];
 
 class Schedule extends React.Component{
     constructor(props){
         super(props);
         this.state= {
-            currentDate: new Date(2018,1,1),
+            isEditorMode: false,
+            currentDate: new Date(),
             cancelModal: false,
             cancelData: {
-                id: null,
                 rangeSet: [],
             },
+            chosenData: {
+                id: null,
+                userName: '',
+            },
             newVisitModal: false,
+            newVisitData: {
+                date: null,
+                patients: [],
+            },
+            newMessageModal: false,
+            receptionsScheduleModal: false,
         }
     };
 
     selectEventHandler = (event) => {
-        console.log(event)
         this.setState({
-            cancelData:{
+            chosenData:{
                 id: event.id,
-                rangeSet:[{
-                    defaultStartValue: moment(event.start),
-                    defaultEndValue: moment(event.end),
-                }]
+                userName: event.title,
             }
         });
     };
@@ -69,20 +141,96 @@ class Schedule extends React.Component{
     };
 
     onEventDelete = () => {
-        console.log('delete '+ this.state.cancelData.id)
+        console.log('delete '+ this.state.chosenData.id)
     };
 
     onAddVisit = (info) => {
-        console.log(info);
-        this.setState({newVisitModal: true})
+        this.setState({
+            newVisitModal: true,
+            newVisitData: {
+                date: info.start,
+            }
+        })
     };
 
     closeNewVisitModal = () => {
-        console.log(1);
-        this.setState({newVisitModal: false})
+        this.setState({
+            newVisitModal: false,
+        })
+    };
+
+    onSaveNewVisit = (obj) => {
+        console.log(obj);
+        this.setState({
+            newVisitModal: false,
+        })
+    };
+
+    onPatientEmail = () => {
+        this.setState({newMessageModal: true,})
+    };
+    
+    closeNewMessage = () => {
+        this.setState({newMessageModal: false,})
+    };
+    
+    onSendNewMessage = (info) => {
+        console.log(info);
+        this.setState({newMessageModal: false,})
+    };
+
+    changeToEditorMode = (isEditorMode) => {
+        this.setState({isEditorMode})
+    };
+
+    closeReceptionSchedule = () => {
+        this.setState({receptionsScheduleModal: false,})
+    };
+
+    onSaveReceptionSchedule = (info) => {
+        console.log(info);
+        this.setState({receptionsScheduleModal: false,})
     };
 
     render(){
+
+        let editorBtn, calendar;
+
+        if(this.state.isEditorMode){
+            editorBtn = (<Button btnText='Вернуться к графику'
+                                 onClick={() => this.changeToEditorMode(false)}
+                                 type='yellow'
+                                 icon='arrow2_left'/>);
+            calendar=(<Calendar receptionNum={23}
+                                selectable
+                                editor
+                                onMonthSelect={(date,schedule) => {
+                                    if(date.length !== 0) console.log(date, schedule)
+                                }}
+                                schedules={schedules}
+                                date={this.state.currentDate}
+                                onNavigate={this.dateChangeHandler}
+            />)
+        }
+        else{
+            editorBtn = (<Button btnText='Редактор графика'
+                                 onClick={() => this.changeToEditorMode(true)}
+                                 type='yellow'
+                                 icon='setting_edit'/>)
+            calendar=(<Calendar receptionNum={this.props.events.length}
+                                selectable
+                                onSelectEvent={this.selectEventHandler}
+                                onSelectSlot={(slot) => this.onAddVisit(slot)}
+                                defaultView="week"
+                                date={this.state.currentDate}
+                                onNavigate={this.dateChangeHandler}
+                                step = {5}
+                                events={this.props.events}
+                                onPopoverClose = {this.onEventDelete}
+                                onPopoverEmail={this.onPatientEmail}
+            />)
+        }
+
         return (
             <Hoc>
                 <Row style={{marginBottom: 25,}}>
@@ -91,25 +239,12 @@ class Schedule extends React.Component{
                     </Col>
                     <Col span={5}
                          className='schedule-editBtn'>
-                        <Button btnText='Редактор графика'
-                                type='yellow'
-                                icon='setting_edit'
-                        />
+                        {editorBtn}
                     </Col>
                 </Row>
                 <Row >
                     <Col span={19}>
-                        <Calendar receptionNum={this.props.events.length}
-                                  selectable
-                                  onSelectEvent={this.selectEventHandler}
-                                  onSelectSlot={(slot) => this.onAddVisit(slot)}
-                                  defaultView="week"
-                                  date={this.state.currentDate}
-                                  onNavigate={this.dateChangeHandler}
-                                  step = {5}
-                                  events={this.props.events}
-                                  onPopoverClose = {this.onEventDelete}
-                        />
+                        {calendar}
                     </Col>
                     <Col span={5} style={{textAlign: 'center'}}>
                         <Button
@@ -130,7 +265,18 @@ class Schedule extends React.Component{
                                   onCancel = {this.closeCancelModal}
                 />
                 <NewVisitModal visible={this.state.newVisitModal}
+                               {...this.state.newVisitData}
                                onCancel={this.closeNewVisitModal}
+                               onSave={(info) => this.onSaveNewVisit(info)}
+                />
+                <NewMessageModal visible={this.state.newMessageModal}
+                                 {...this.state.chosenData}
+                                 onCancel={this.closeNewMessage}
+                                 onSend={info => this.onSendNewMessage(info)}
+                />
+                <ReceptionsScheduleModal visible={this.state.receptionsScheduleModal}
+                                         onCancel={this.closeReceptionSchedule}
+                                         onSave={(e) => this.onSaveReceptionSchedule(e)}
                 />
             </Hoc>
         )
