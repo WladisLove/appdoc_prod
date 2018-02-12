@@ -3,7 +3,9 @@ import moment from 'moment'
 import { connect } from 'react-redux';
 
 import Hoc from '../../hoc'
-import { Row, Col, Button, Calendar, SmallCalendar, CancelVisitModal } from 'appdoc-component'
+import { Row, Col, Button,
+    Calendar, SmallCalendar,
+    CancelVisitModal, NewVisitModal } from 'appdoc-component'
 
 import './styles.css'
 
@@ -14,14 +16,18 @@ class Schedule extends React.Component{
             currentDate: new Date(2018,1,1),
             cancelModal: false,
             cancelData: {
+                id: null,
                 rangeSet: [],
-            }
+            },
+            newVisitModal: false,
         }
     };
 
     selectEventHandler = (event) => {
+        console.log(event)
         this.setState({
             cancelData:{
+                id: event.id,
                 rangeSet:[{
                     defaultStartValue: moment(event.start),
                     defaultEndValue: moment(event.end),
@@ -41,16 +47,17 @@ class Schedule extends React.Component{
         this.setState({
             cancelModal: false,
             cancelData: {
-                rangeSet: null,
+                rangeSet: [],
             },
         });
     };
+
     closeCancelModal = () => {
         console.log(this.state);
         this.setState({
             cancelModal: false,
             cancelData: {
-                rangeSet: null
+                rangeSet: [],
             }
         });
     };
@@ -61,6 +68,19 @@ class Schedule extends React.Component{
         })
     };
 
+    onEventDelete = () => {
+        console.log('delete '+ this.state.cancelData.id)
+    };
+
+    onAddVisit = (info) => {
+        console.log(info);
+        this.setState({newVisitModal: true})
+    };
+
+    closeNewVisitModal = () => {
+        console.log(1);
+        this.setState({newVisitModal: false})
+    };
 
     render(){
         return (
@@ -82,13 +102,13 @@ class Schedule extends React.Component{
                         <Calendar receptionNum={this.props.events.length}
                                   selectable
                                   onSelectEvent={this.selectEventHandler}
-                                  onSelectSlot={(slot) => console.log('Slot info', slot)}
+                                  onSelectSlot={(slot) => this.onAddVisit(slot)}
                                   defaultView="week"
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
                                   step = {5}
                                   events={this.props.events}
-                                  onPopoverClose = {e => console.log(e)}
+                                  onPopoverClose = {this.onEventDelete}
                         />
                     </Col>
                     <Col span={5} style={{textAlign: 'center'}}>
@@ -108,6 +128,9 @@ class Schedule extends React.Component{
                                   {...this.state.cancelData}
                                   onSave={this.onSaveEventHandler}
                                   onCancel = {this.closeCancelModal}
+                />
+                <NewVisitModal visible={this.state.newVisitModal}
+                               onCancel={this.closeNewVisitModal}
                 />
             </Hoc>
         )
