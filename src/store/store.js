@@ -13,11 +13,15 @@ const rootReducer = combineReducers({
     schedules: schedulesReducer,
 });
 
-const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+// const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
+
+// export default function configureStore() {
+//     return createStore(rootReducer, composeEnhancers(
+//         applyMiddleware(thunk)
+//     ));
+// }
 
 export default function configureStore() {
-    return createStore(rootReducer, composeEnhancers(
-        applyMiddleware(thunk)
-    ));
+    return createStore(rootReducer, applyMiddleware(thunk));
 }

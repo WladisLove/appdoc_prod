@@ -100,6 +100,7 @@ class Schedule extends React.Component {
             receptionsScheduleModal: false,
             receptionData: {
                 dates: [],
+                currentSched: {},
             }
         }
     };
@@ -153,6 +154,7 @@ class Schedule extends React.Component {
         this.setState({
             newVisitModal: true,
             newVisitData: {
+                ...this.state.newVisitData,
                 date: info.start,
             }
         })
@@ -192,6 +194,7 @@ class Schedule extends React.Component {
         this.setState({
             receptionsScheduleModal: false,
             receptionData: {
+                ...this.state.receptionData,
                 dates: [],
             }
         })
@@ -202,6 +205,7 @@ class Schedule extends React.Component {
         this.setState({
             receptionsScheduleModal: false,
             receptionData: {
+                ...this.state.receptionData,
                 dates: [],
             }
         })
@@ -209,10 +213,19 @@ class Schedule extends React.Component {
 
     openReceptionSchedule = (date, schedule) => {
         console.log(date, schedule);
+        if(schedule){
+            this.setState({
+                receptionData: {
+                    ...this.state.receptionData,
+                    currentSched: schedule
+                }
+            })
+        }
         if (date.length !== 0) {
             this.setState({
                 receptionsScheduleModal: true,
                 receptionData: {
+                    ...this.state.receptionData,
                     dates: [].concat(this.state.receptionData.dates, date)
                 }
             })
@@ -220,8 +233,25 @@ class Schedule extends React.Component {
     };
 
     render() {
-        const {dates} = this.state.receptionData;
-        let editorBtn, calendar;
+        const {dates, currentSched} = this.state.receptionData;
+        let editorBtn, calendar, timeSetCall = [], timeSetReception = [];
+
+
+        if ('time' in currentSched || 'emergencyTime' in currentSched){
+            timeSetCall = currentSched.time.map(item => {
+                return {
+                    defaultStartValue: moment(item.start),
+                    defaultEndValue: moment(item.end),
+                }
+            });
+            timeSetReception = currentSched.emergencyTime.map(item => {
+                return {
+                    defaultStartValue: moment(item.start),
+                    defaultEndValue: moment(item.end),
+                }
+            });
+
+        }
 
 
         if (this.state.isEditorMode) {
@@ -301,11 +331,12 @@ class Schedule extends React.Component {
                                  onSend={info => this.onSendNewMessage(info)}
                 />
                 <ReceptionsScheduleModal visible={this.state.receptionsScheduleModal}
-                                         {...this.state.receptionData}
                                          dateSet={{
                                              defaultStartValue: moment(dates[0]),
                                              defaultEndValue: moment(dates[dates.length - 1]),
                                          }}
+                                         timeSetCall={timeSetCall}
+                                         timeSetReception={timeSetReception}
                                          onCancel={this.closeReceptionSchedule}
                                          onSave={(info) => this.onSaveReceptionSchedule(info)}
                 />
