@@ -73,10 +73,107 @@ const initialState = {
             desc: 'Most important meal of the day',
         },
     ],
+    schedules: [
+        {
+            id: 12,
+            isEditable: false,
+            time: [{
+                start: new Date(2018, 0, 15, 8, 30, 0),
+                end: new Date(2018, 0, 15, 10, 0, 0),
+            }, {
+                start: new Date(2018, 0, 15, 12, 0, 0),
+                end: new Date(2018, 0, 15, 13, 30, 0),
+            }, {
+                start: new Date(2018, 0, 15, 18, 0, 0),
+                end: new Date(2018, 0, 15, 19, 0, 0),
+            }],
+            emergencyTime: [],
+        },
+        {
+            id: 12,
+            isEditable: false,
+            time: [{
+                start: new Date(2018, 0, 25, 8, 30, 0),
+                end: new Date(2018, 0, 25, 10, 0, 0),
+            }, {
+                start: new Date(2018, 0, 25, 12, 0, 0),
+                end: new Date(2018, 0, 25, 13, 30, 0),
+            }, {
+                start: new Date(2018, 0, 25, 18, 0, 0),
+                end: new Date(2018, 0, 25, 19, 0, 0),
+            }],
+            emergencyTime: [],
+        },
+        {
+            id: 13,
+            isEditable: true,
+            time: [{
+                start: new Date(2018, 1, 8, 8, 30, 0),
+                end: new Date(2018, 1, 8, 9, 30, 0),
+            }, {
+                start: new Date(2018, 1, 8, 13, 0, 0),
+                end: new Date(2018, 1, 8, 18, 30, 0),
+            }],
+            emergencyTime: [{
+                start: new Date(2018, 1, 8, 14, 30, 0),
+                end: new Date(2018, 1, 8, 15, 0, 0),
+            }, {
+                start: new Date(2018, 1, 8, 17, 0, 0),
+                end: new Date(2018, 1, 8, 17, 30, 0),
+            }],
+        },
+        {
+            id: 15,
+            isEditable: false,
+            time: [{
+                start: new Date(2018, 1, 7, 8, 30, 0),
+                end: new Date(2018, 1, 7, 9, 30, 0),
+            }, {
+                start: new Date(2018, 1, 7, 13, 0, 0),
+                end: new Date(2018, 1, 7, 18, 30, 0),
+            }],
+            emergencyTime: [{
+                start: new Date(2018, 1, 7, 17, 0, 0),
+                end: new Date(2018, 1, 7, 17, 30, 0),
+            }],
+        },
+    ],
+    chosenData: {
+        id: null,
+        userName: '',
+    },
+    cancelModal: false,
+    cancelData: {
+        rangeSet: [],
+    },
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
+        case actionTypes.SELECT_EVENT:
+            return {
+                ...state,
+                chosenData: {
+                    id: action.event.id,
+                    userName: action.event.title,
+                }
+            };
+        case actionTypes.OPEN_CANCEL_MODAL:
+            return{
+                ...state,
+                cancelModal: true,
+            };
+        case actionTypes.CLOSE_CANCEL_MODAL:
+            if(action.toSave){
+                console.log('[SAVE]: ', action.object)
+            }
+            return{
+                ...state,
+                cancelModal: false,
+                cancelData: {
+                    rangeSet: [],
+                }
+            };
         default: return state;
     }
 };
