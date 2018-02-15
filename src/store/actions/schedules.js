@@ -7,6 +7,12 @@ export const selectEvent = (event) => {
     }
 };
 
+export const deleteEvent = () => {
+    return {
+        type: actionTypes.DELETE_EVENT,
+    }
+};
+
 export const openCancelModal = () =>{
     return {
         type: actionTypes.OPEN_CANCEL_MODAL

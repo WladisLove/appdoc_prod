@@ -158,6 +158,15 @@ const reducer = (state = initialState, action) => {
                     userName: action.event.title,
                 }
             };
+        case actionTypes.DELETE_EVENT:
+            console.log('[Delete]', this.state.chosenData.id);
+            return {
+                ...state,
+                chosenData: {
+                    id: null,
+                    userName: '',
+                },
+            };
         case actionTypes.OPEN_CANCEL_MODAL:
             return{
                 ...state,

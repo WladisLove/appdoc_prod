@@ -40,9 +40,7 @@ class Schedule extends React.Component {
         })
     };
 
-    onEventDelete = () => {
-        console.log('delete ' + this.state.chosenData.id)
-    };
+    
 
     onAddVisit = (info) => {
         this.setState({
@@ -176,7 +174,7 @@ class Schedule extends React.Component {
                                   onNavigate={this.dateChangeHandler}
                                   step={5}
                                   events={this.props.events}
-                                  onPopoverClose={this.onEventDelete}
+                                  onPopoverClose={this.props.onEventDelete}
                                   onPopoverEmail={this.onPatientEmail}
             />)
         }
@@ -254,6 +252,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onSelectEvent: (event) => dispatch(actions.selectEvent(event)),
+        onEventDelete: () => dispatch(actions.deleteEvent()),
         onOpenCancelModal: () => dispatch(actions.openCancelModal()),
         onCloseCancelModal: (toSave, obj) => dispatch(actions.closeCancelModal(toSave,obj))
     }
