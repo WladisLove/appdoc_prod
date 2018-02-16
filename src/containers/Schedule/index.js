@@ -9,7 +9,6 @@ import {
     CancelVisitModal, NewVisitModal, NewMessageModal, ReceptionsScheduleModal
 } from 'appdoc-component'
 
-import * as actionType from '../../store/actions/actionTypes'
 import * as actions from '../../store/actions'
 
 import './styles.css'
@@ -40,7 +39,7 @@ class Schedule extends React.Component {
         })
     };
 
-    
+
 
     onAddVisit = (info) => {
         this.setState({
@@ -178,8 +177,6 @@ class Schedule extends React.Component {
                                   onPopoverEmail={this.onPatientEmail}
             />)
         }
-
-        console.log('[this.props.cancelData]', this.props.cancelData)
 
         return (
             <Hoc>

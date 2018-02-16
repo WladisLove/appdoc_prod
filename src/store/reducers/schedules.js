@@ -159,7 +159,7 @@ const reducer = (state = initialState, action) => {
                 }
             };
         case actionTypes.DELETE_EVENT:
-            console.log('[Delete]', this.state.chosenData.id);
+            console.log('[Delete]', state.chosenData.id);
             return {
                 ...state,
                 chosenData: {
