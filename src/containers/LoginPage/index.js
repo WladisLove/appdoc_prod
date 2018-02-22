@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 import {Route} from 'react-router-dom'
 import Hoc from '../../hoc'
@@ -15,6 +16,12 @@ const LoginPage = (props) => {
     const closeAuthPage = (e) => {
         e.preventDefault();
         console.log('Close & go back')
+    };
+
+    const replaceToAction = (rez) => {
+        axios.post('http://appdoc/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
+            .then(res => console.log('response: ',res))
+            .catch(err => console.log('error: ',err))
     };
 
 
@@ -48,7 +55,12 @@ const LoginPage = (props) => {
                     />
                     <Route path="/registration"
                            exact
-                           render={() => <Registration/>}
+                           render={() => <Registration onFinish={obj => console.log(obj)}
+                                                       langs={[]}
+                                                       payments={[]}
+                                                       academicTitle = {[]}
+                                                       finalText=''
+                           />}
                     />
                 </Col>
             </Row>
