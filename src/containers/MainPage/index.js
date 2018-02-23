@@ -13,22 +13,22 @@ class MainPage extends React.Component{
 
         return (
                 <Hoc>
-					<Row className='section'>
-						<Col span={24}>
+					<Row>
+						<Col span={24} className='section'>
 							<TopPanel  data={panelArr}/>
 						</Col>
 					</Row>
 
-					<Row className="section">
-						<Col span={14}>
+					<Row>
+						<Col xs={24} xxl={14} className='section'>
 							<TableNoHead data={scheduleArr}/>
 						</Col>
-						<Col span={10}>
+						<Col xs={24} xxl={10} className='section'>
 							<Reviews data={dataArr}/>
 						</Col>
 					</Row>
-					<Row className="section">
-						<Col span={24}>
+					<Row>
+						<Col span={24} className='section'>
 							<TreatmentTable data={treatmentArr}/>
 						</Col>
 					</Row>

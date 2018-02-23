@@ -178,7 +178,7 @@ export const panelArr = [
         className: "first-col",
         panelTitle: "10 сентября 2017",
         panelText: 'Вторник  13:25',
-        icon: 'calendar',
+        icon: 'mark',
     }, {
         panelTitle: "Приемы сегодня",
         panelText: '12',
@@ -190,7 +190,7 @@ export const panelArr = [
     }, {
         panelTitle: "Мои пациенты",
         panelText: '37',
-        icon: 'user',
+        icon: 'people',
     }
 ];
 

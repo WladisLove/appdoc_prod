@@ -15,10 +15,10 @@ class Reviews extends React.Component{
 
             <Hoc>
             	<Row>
-            		<Col span={16}>
+            		<Col xs={24} xxl={16} className='section'>
 							<ReviewsTree data={dataArr} limit={2}/>
 					</Col>
-					<Col span={8}>
+					<Col xs={24} xxl={8} className='section'>
 						<RateIndicator rateValue={4} reviewsNum={dataArr.length}/>
 					</Col>
             	</Row>

@@ -12,7 +12,7 @@ class Treatment extends React.Component{
         return (
             <Hoc>
             	<Row>
-            		<Col span={24}>
+            		<Col span={24} className='section'>
             			<HistoryReceptions data={historyArr}/>
             		</Col>
             	</Row>

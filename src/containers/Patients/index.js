@@ -13,12 +13,12 @@ class Patients extends React.Component{
         return (
         	<Hoc>
         		<Row>
-        			<Col span={18}>
+        			<Col span={24}>
         				<h1 className='page-title'>Отзывы пациентов</h1>
         			</Col>
         		</Row>
             	<Row>
-            		<Col span={18}>
+            		<Col xs={24} xxl={18}>
             			<PatientTable countPatient='9' data={patientArr}/>
             		</Col>
             	</Row>

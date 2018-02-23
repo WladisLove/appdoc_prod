@@ -13,12 +13,12 @@ class PatientsPage extends React.Component{
         return (
         	<Hoc>
         		<Row>
-        			<Col span={18}>
+        			<Col span={24}>
         				<h1 className='page-title'>Профиль пациента</h1>
         			</Col>
         		</Row>
             	<Row>
-            		<Col span={16}>
+            		<Col xs={24} xxl={16} className='section'>
             			<ProfilePatient
                             secondname="Петров-Иванов"
                             firstname="Александр"
@@ -33,7 +33,7 @@ class PatientsPage extends React.Component{
                             weight="85"
                         />
             		</Col>
-                    <Col span={8}>
+                    <Col xs={24} xxl={8} className='section'>
                         <DiseasesTable data={diseasesArr}/>
                     </Col>
             	</Row>

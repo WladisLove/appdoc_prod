@@ -12,7 +12,7 @@ class PersonalInfo extends React.Component{
 
             <Hoc>
             	<Row>
-            		<Col span={18}>
+            		<Col span={24}>
             			<PersonalContact 
 			                secondname="Иванова" 
 			                firstname="Иван" 
@@ -25,7 +25,7 @@ class PersonalInfo extends React.Component{
             		</Col>
             	</Row>
             	<Row>
-            		<Col span={18}>
+            		<Col xs={24} xxl={18}>
             			<PersonalEducation 
 			                mainInstitution="Белорусский государственный медицинский университет" 
 			                mainSpecialty="Факультет стоматологии. Стоматолог" 
@@ -40,7 +40,7 @@ class PersonalInfo extends React.Component{
             		</Col>
             	</Row>
             	<Row>
-            		<Col span={18}>
+            		<Col xs={24} xxl={18}>
             			<PersonalExperience 
 			                post="Стоматолог"
 			                placeOfWord="Мед центр «Lorem ipsum dolor sit amet»"
@@ -50,7 +50,7 @@ class PersonalInfo extends React.Component{
             		</Col>
             	</Row>
             	<Row>
-            		<Col span={18}>
+            		<Col xs={24} xxl={18}>
             			<PersonalInformation 
 			                langData={['Английский', 'Русский', 'Немецкий', 'Японский']}
 			                priceData={['50 - 100 руб', '100 - 200 руб', '200 - 500 руб', '500 - 1000 руб']}
