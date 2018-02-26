@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux';
 import axios from 'axios'
 
 import {Route} from 'react-router-dom'
@@ -8,6 +9,8 @@ import {
     Icon, Row, Col,
     Login, LoginForget, Registration
 } from 'appdoc-component'
+
+import * as actions from '../../store/actions'
 
 import './styles.css'
 
@@ -55,7 +58,7 @@ const LoginPage = (props) => {
                     />
                     <Route path="/registration"
                            exact
-                           render={() => <Registration onFinish={obj => console.log(obj)}
+                           render={() => <Registration onFinish={obj => this.props.onRegisterDoctor(obj)}
                                                        langs={['rus','eng','ua']}
                                                        payments={[50,75,100,125,150]}
                                                        academicTitle = {['title1', 'title2']}
@@ -69,4 +72,16 @@ const LoginPage = (props) => {
 
 }
 
-export default LoginPage;
+const mapStateToProps = state => {
+    return {
+        
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onRegisterDoctor: (info) => dispatch(actions.register(info)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
