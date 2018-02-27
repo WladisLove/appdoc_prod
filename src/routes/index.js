@@ -6,6 +6,8 @@ import PatientsPage from '../containers/PatientsPage'
 import PersonalInfo from '../containers/PersonalInfo'
 import Reviews from '../containers/Reviews'
 
+import Chat from '../containers/Chat'
+
 
 export const appRoutes = [
     {
@@ -36,6 +38,11 @@ export const appRoutes = [
     {
         path: '/personal-info',
         component: PersonalInfo,
+        exact: true,
+    },
+    {
+        path: '/chat',
+        component: Chat,
         exact: true,
     },
     {
