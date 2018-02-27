@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import axios from 'axios'
 
 import {Route} from 'react-router-dom'
 import Hoc from '../../hoc'
@@ -21,15 +20,10 @@ const LoginPage = (props) => {
         console.log('Close & go back')
     };
 
-    const replaceToAction = (rez) => {
-        axios.post('http://appdoc/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
-            .then(res => console.log('response: ',res))
-            .catch(err => console.log('error: ',err))
-    };
-
 
     return (
         <Hoc>
+
             <div className="loginPage-header">
                 <div className="loginPage-header-close">
                     <Icon type='close' svg onClick={closeAuthPage}/>
@@ -58,7 +52,7 @@ const LoginPage = (props) => {
                     />
                     <Route path="/registration"
                            exact
-                           render={() => <Registration onFinish={obj => this.props.onRegisterDoctor(obj)}
+                           render={() => <Registration onFinish={obj => props.onRegisterDoctor(obj)}
                                                        langs={['rus','eng','ua']}
                                                        payments={[50,75,100,125,150]}
                                                        academicTitle = {['title1', 'title2']}
@@ -80,7 +74,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRegisterDoctor: (info) => dispatch(actions.register(info)),
+        onRegisterDoctor: (info) => dispatch(actions.register(JSON.stringify(info))),
+        test: () => console.log('eeeeeeeee')
     }
 };
 
