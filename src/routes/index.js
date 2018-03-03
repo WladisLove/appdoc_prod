@@ -8,6 +8,7 @@ import Reviews from '../containers/Reviews'
 
 import Chat from '../containers/Chat'
 
+
 export const appRoutes = [
     {
         path: '/',
