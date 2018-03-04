@@ -11,6 +11,7 @@ import { store, history } from './store'
 import Root from './containers/Root'
 import registerServiceWorker from './registerServiceWorker';
 
+
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
