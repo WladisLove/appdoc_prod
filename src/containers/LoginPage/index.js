@@ -19,7 +19,7 @@ const LoginPage = (props) => {
     };
 
     const replaceToAction = (rez) => {
-        axios.post('http://appdoc/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
+        axios.post('http://178.172.235.105/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
             .then(res => console.log('response: ',res))
             .catch(err => console.log('error: ',err))
     };
