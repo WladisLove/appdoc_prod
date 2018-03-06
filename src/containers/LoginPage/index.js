@@ -55,7 +55,7 @@ const LoginPage = (props) => {
                     />
                     <Route path="/registration"
                            exact
-                           render={() => <Registration onFinish={obj => console.log(obj)}
+                           render={() => <Registration onFinish={obj => replaceToAction(obj)}
                                                        langs={['rus','eng','ua']}
                                                        payments={[50,75,100,125,150]}
                                                        academicTitle = {['title1', 'title2']}
