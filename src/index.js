@@ -17,7 +17,6 @@ ReactDOM.render(
     <CookiesProvider>
         {/* ??? HOW does it act*/}
 
-
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Root />
