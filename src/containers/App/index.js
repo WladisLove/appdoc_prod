@@ -43,7 +43,7 @@ class App extends React.Component {
                 </div>
                 <div className={wrapperClass}>
                     <div className="main-header">
-                        Header
+                        Header (replace)
                     </div>
                     <div className="main-content">
                         <Switch>
