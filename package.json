@@ -6,7 +6,11 @@
     "antd": "^3.1.3",
     "appdoc-component": "^1.0.76",
     "axios": "^0.17.1",
+    "express": "^4.16.2",
     "history": "^4.7.2",
+    "kurento-client": "^6.6.0",
+    "kurento-utils": "^6.7.0",
+    "minimist": "^1.2.0",
     "moment": "^2.20.1",
     "react": "^16.2.0",
     "react-cookie": "^2.1.2",
@@ -16,7 +20,9 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.1.0",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "webrtc-adapter": "^6.1.3",
+    "ws": "^5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
