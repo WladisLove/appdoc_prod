@@ -35,26 +35,15 @@ var callState = null
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class ChatVideoContent extends React.Component {
 	constructor(props){
 		super(props);
+
+		this.state = {
+			from: 0,
+			to: 0,
+			isCalling: false,
+		}
 
 		this.ws = new WebSocket('wss://' + 'localhost:8443' + '/one2one');
 		this.ws.onmessage = (message) => {
@@ -85,11 +74,15 @@ class ChatVideoContent extends React.Component {
 				console.error('Unrecognized message', parsedMessage);
 			}
 		}
-		window.ws = this.ws;
+	}
+
+	componentWillMount(){
+		this.register();
 	}
 
 	componentDidMount(){
-		this.setRegisterState(NOT_REGISTERED);
+		//this.setRegisterState(NOT_REGISTERED);
+
 	}
 
 	componentWillUnmount(){
@@ -202,21 +195,19 @@ class ChatVideoContent extends React.Component {
 	}
 
 	register = () => {
-		var name = document.getElementById('name').value;
-		console.log(document.getElementById('name'))
+		let name = window.prompt('Enter your ID');
 		if (name == '') {
 			window.alert("You must insert your user name");
 			return;
 		}
-	
+
+		this.setState({from: name});	
 		this.setRegisterState(REGISTERING);
 	
-		var message = {
+		this.ws.onopen = () => this.sendMessage({
 			id : 'register',
 			name : name
-		};
-		this.sendMessage(message);
-		document.getElementById('peer').focus();
+		});
 	}
 
 	stop = (message) => {
@@ -269,7 +260,8 @@ class ChatVideoContent extends React.Component {
                 this.setCallState(NO_CALL);
             }
 
-    
+	
+			const {from, to} = that.state;
     
             this.generateOffer(function(error, offerSdp) {
                 if (error) {
@@ -278,7 +270,7 @@ class ChatVideoContent extends React.Component {
                 }
                 var message = {
                     id : 'call',
-                    from : document.getElementById('name').value,
+                    from,
                     to : document.getElementById('peer').value,
                     sdpOffer : offerSdp
                 };
@@ -288,80 +280,71 @@ class ChatVideoContent extends React.Component {
     
     }
 
+	onCall = () => {
+		this.setState({isCalling: true});
+		this.call();
+	}
+	onStop = () => {
+		this.setState({isCalling: false});
+		this.stop();
+	}
     
     
     render() {
         const {isActive, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': isActive});
 
+		const content = this.state.isCalling 
+			? <div>   
+			<div className="col-md-5">
+				<label className="control-label">Peer</label>
+				<div className="row">
+					<div className="col-md-6">
+					<input id="peer" name="peer" className="form-control" type="text"/>
+					</div>
+					<div className="col-md-6 text-right">
+					<a id="call" href="#" className="btn btn-success" onClick={this.onCall}>
+						<span className="glyphicon glyphicon-play"></span> Call</a>
+					<a id="terminate" href="#" className="btn btn-danger" onClick = {this.onStop}>
+						<span className="glyphicon glyphicon-stop"></span> Stop</a>
+					</div>
+				</div>
+				<br/>
+				</div>
+				
+		<div className='chat-card-message__area'>
+				
+				<video className='chat-card-video__box' 
+						autoPlay
+						ref={video => {videoOutput = video;}}
+						></video>
+				<video className='chat-card-video__mini' 
+						autoPlay
+						ref={video => {videoInput = video;}}
+						></video>
+				<div className='chat-card-video__panel'>
+					<ChatVideoPanel  duration='00:00:34' onStop={this.onStop}/>
+				</div>
+			</div>
+			</div>
+			: <Button btnText='lol' onClick={this.onCall}/>;
+
         return (
 
             <div className={dialogsClass}>
-				<div>   
-                <div className="col-md-5">
-                    <label className="control-label">Name</label>
-                    <div className="row">
-                        <div className="col-md-6">
-                        <input id="name" name="name" className="form-control" type="text"/>
-                        </div>
-                        <div className="col-md-6 text-right">
-                        <a id="register" href="#" className="btn btn-primary" onClick={this.register}>
-                            <span className="glyphicon glyphicon-plus"></span> Register</a>
-                        </div>
-                    </div>
-                    <br/>
-                    <br/>
-                    <label className="control-label">Peer</label>
-                    <div className="row">
-                        <div className="col-md-6">
-                        <input id="peer" name="peer" className="form-control" type="text"/>
-                        </div>
-                        <div className="col-md-6 text-right">
-                        <a id="call" href="#" className="btn btn-success" onClick={this.call}>
-                            <span className="glyphicon glyphicon-play"></span> Call</a>
-                        <a id="terminate" href="#" className="btn btn-danger" onClick = {this.stop}>
-                            <span className="glyphicon glyphicon-stop"></span> Stop</a>
-                        </div>
-                    </div>
-                    <br/>
-                    </div>
-                    
-            <div className='chat-card-message__area'>
-                    
-                    <video className='chat-card-video__box' 
-                            autoPlay
-                            ref={video => {videoOutput = video;}}
-                            poster="https://i.ytimg.com/vi/gLa1sVtgGyI/maxresdefault.jpg"></video>
-                    <video className='chat-card-video__mini' 
-                            autoPlay
-                            ref={video => {videoInput = video;}}
-                            poster="https://i.ytimg.com/vi/gLa1sVtgGyI/maxresdefault.jpg"></video>
-                    <div className='chat-card-video__panel'>
-                        <ChatVideoPanel  duration='00:00:34' onStop={this.stop}/>
-                    </div>
-                </div>
-                </div>
-                            </div>
+				{content}
+			</div>
 
         )
     }
 }
 
 ChatVideoContent.propTypes = {
-    from: PropTypes.number,
-    to: PropTypes.number,
-
     videoCalling: PropTypes.bool,
-    onVideoCallBegin: PropTypes.func,
-    onVideoCallStop: PropTypes.func,
 };
 
 ChatVideoContent.defaultProps = {
     videoCalling: false,
-    onVideoCallBegin: () => {},
-    onVideoCallStop: () => {},
-
-    kurentoUtils: null,
 };
 
 export default ChatVideoContent
