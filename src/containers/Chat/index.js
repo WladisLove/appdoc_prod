@@ -21,6 +21,7 @@ class Chat extends React.Component{
             <Hoc>
                 <Row>
                     <Col span={24} className='section'>
+                    lol
                         <ChatCard videoCalling={this.state.videoCalling}
                                     ws={new WebSocket('wss://' + 'localhost:8443' + '/one2one')}
                                     kurentoUtils={kurentoUtils}
