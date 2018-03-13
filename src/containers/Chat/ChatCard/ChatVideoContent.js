@@ -1,13 +1,16 @@
-import React from 'react'
+import React from 'react';
 import kurentoUtils from 'kurento-utils'
-import { Icon, Row, Col, HistoryReceptions } from 'appdoc-component'
-import Hoc from '../../hoc'
 
-import {historyArr} from './mock-data'
-import './styles.css'
+import PropTypes from 'prop-types'
+import cn from 'classnames'
+
+import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatVideoPanel } from 'appdoc-component'
 
 
-var ws = new WebSocket('wss://' + 'localhost:8443' + '/one2one');
+import './style.css'
+
+
+/*var ws = new WebSocket('wss://' + 'localhost:8443' + '/one2one');
 var videoInput;
 var videoOutput;
 var webRtcPeer;
@@ -212,13 +215,15 @@ function onIceCandidate(candidate) {
 		candidate : candidate
 	}
 	sendMessage(message);
-}
+}*/
+
+ 
 
 
+class ChatVideoContent extends React.Component {
+    
 
-class Treatment extends React.Component{
-
-    call = () => {
+    /*call = () => {
         if (document.getElementById('peer').value == '') {
             window.alert("You must specify the peer name");
             return;
@@ -259,60 +264,74 @@ class Treatment extends React.Component{
             });
         });
     
-    }
+    }*/
+    
+    render() {
+        const {isActive, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
+        const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': isActive});
 
-    render(){
-
-
-        return (
-            <Hoc>
-                <div className="col-md-5">
-                    <label className="control-label">Name</label>
-                    <div className="row">
-                        <div className="col-md-6">
+       /* const content = videoCalling
+            ?<div>   
+                <div>
                         <input id="name" name="name" className="form-control" type="text"/>
-                        </div>
-                        <div className="col-md-6 text-right">
+                        
                         <a id="register" href="#" className="btn btn-primary" onClick={register}>
                             <span className="glyphicon glyphicon-plus"></span> Register</a>
-                        </div>
-                    </div>
                     <br/>
                     <br/>
                     <label className="control-label">Peer</label>
-                    <div className="row">
-                        <div className="col-md-6">
+                    
                         <input id="peer" name="peer" className="form-control" type="text"/>
-                        </div>
-                        <div className="col-md-6 text-right">
+                        
                         <a id="call" href="#" className="btn btn-success" onClick={this.call}>
                             <span className="glyphicon glyphicon-play"></span> Call</a>
                         <a id="terminate" href="#" className="btn btn-danger" onClick = {stop}>
                             <span className="glyphicon glyphicon-stop"></span> Stop</a>
-                        </div>
+                        
                     </div>
-                    <br/>
+            <div className='chat-card-message__area'>
+                    
+                    <video className='chat-card-video__box' 
+                            autoPlay
+                            ref={video => {videoOutput = video;}}
+                            poster="https://i.ytimg.com/vi/gLa1sVtgGyI/maxresdefault.jpg"></video>
+                    <video className='chat-card-video__mini' 
+                            autoPlay
+                            ref={video => {videoInput = video;}}
+                            poster="https://i.ytimg.com/vi/gLa1sVtgGyI/maxresdefault.jpg"></video>
+                    <div className='chat-card-video__panel'>
+                        <ChatVideoPanel  duration='00:00:34' onStop={stop}/>
                     </div>
-                    <div className="col-md-7">
-                    <div id="videoBig">
-                        <video id="videoOutput" autoPlay width="640px" 
-                        height="480px" poster="img/webrtc.png" 
-                        ref={video => {videoOutput = video}}></video>
-                    </div>
-                    <div id="videoSmall">
-                        <video id="videoInput" autoPlay width="240px" 
-                        height="180px" poster="img/webrtc.png"
-                        ref={video => {videoInput = video}}></video>
-                    </div>
-		</div>
-            	<Row>
-            		<Col span={24} className='section'>
-            			<HistoryReceptions data={historyArr}/>
-            		</Col>
-            	</Row>
-            </Hoc>
+                </div>
+                </div>
+            : <Button btnText='Call'
+                    onClick={this.call}
+            />*/
+
+        return (
+
+            <div className={dialogsClass}>
+                            </div>
+
         )
     }
 }
 
-export default Treatment;
+ChatVideoContent.propTypes = {
+    from: PropTypes.number,
+    to: PropTypes.number,
+
+    videoCalling: PropTypes.bool,
+    onVideoCallBegin: PropTypes.func,
+    onVideoCallStop: PropTypes.func,
+};
+
+ChatVideoContent.defaultProps = {
+    videoCalling: false,
+    onVideoCallBegin: () => {},
+    onVideoCallStop: () => {},
+
+    kurentoUtils: null,
+};
+
+export default ChatVideoContent
