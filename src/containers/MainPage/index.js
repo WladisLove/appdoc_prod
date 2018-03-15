@@ -24,12 +24,14 @@ class MainPage extends React.Component{
 							<TableNoHead data={scheduleArr}/>
 						</Col>
 						<Col xs={24} xxl={10} className='section'>
-							<Reviews data={dataArr}/>
+							<Reviews data={dataArr}
+									 redirect={() => this.props.history.push('/reviews')}/>
 						</Col>
 					</Row>
 					<Row>
 						<Col span={24} className='section'>
-							<TreatmentTable data={treatmentArr}/>
+							<TreatmentTable data={treatmentArr}
+											redirect={() => this.props.history.push('/treatment')}/>
 						</Col>
 					</Row>
                 </Hoc>

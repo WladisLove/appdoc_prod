@@ -196,6 +196,7 @@ class Schedule extends React.Component {
                     <Col span={5} style={{textAlign: 'center'}}>
                         <Button
                             btnText='Отменить приемы'
+                            className={'cancel_rec'}
                             onClick={this.props.onOpenCancelModal}
                             size='link'
                             type='link'
