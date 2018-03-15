@@ -1,6 +1,5 @@
 import React from 'react'
 import { Icon, Row, Col } from 'appdoc-component'
-import kurentoUtils from 'kurento-utils'
 import Hoc from '../../hoc'
 
 import ChatCard from './ChatCard'
@@ -22,8 +21,7 @@ class Chat extends React.Component{
                 <Row>
                     <Col span={24} className='section'>
                         <ChatCard videoCalling={this.state.videoCalling}
-                                    ws={new WebSocket('wss://' + 'localhost:8443' + '/one2one')}
-                                    kurentoUtils={kurentoUtils}
+                                    wsURL={'wss://localhost:8443/one2one'}
 
                                     from={this.state.from}
                                     onRegister = {(from) => this.setState({from})}

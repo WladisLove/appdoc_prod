@@ -45,7 +45,7 @@ class ChatVideoContent extends React.Component {
 			isCalling: false,
 		}
 
-		this.ws = new WebSocket('wss://' + 'localhost:8443' + '/one2one');
+		this.ws = new WebSocket(props.wsURL);
 		this.ws.onmessage = (message) => {
 			var parsedMessage = JSON.parse(message.data);
 			console.info('Received message: ' + message.data);
@@ -151,6 +151,7 @@ class ChatVideoContent extends React.Component {
 		this.setCallState(PROCESSING_CALL);
 		if (window.confirm('User ' + message.from
 		+ ' is calling you. Do you accept the call?')) {
+			this.setState({isCalling: true})
 	
 			var options = {
 				localVideo : videoInput,
@@ -238,15 +239,10 @@ class ChatVideoContent extends React.Component {
 	}
 	
 	call = () => {
-        if (document.getElementById('peer').value == '') {
-            window.alert("You must specify the peer name");
-            return;
-        }
+		this.setState({isCalling: true})
+		this.setCallState(PROCESSING_CALL);
     
-        this.setCallState(PROCESSING_CALL);
-    
-    
-        var options = {
+        let options = {
             localVideo : videoInput,
             remoteVideo : videoOutput,
             onicecandidate : this.onIceCandidate
@@ -271,7 +267,7 @@ class ChatVideoContent extends React.Component {
                 var message = {
                     id : 'call',
                     from,
-                    to : document.getElementById('peer').value,
+                    to,
                     sdpOffer : offerSdp
                 };
                 that.sendMessage(message);
@@ -281,7 +277,13 @@ class ChatVideoContent extends React.Component {
     }
 
 	onCall = () => {
-		this.setState({isCalling: true});
+		const answer = window.prompt('Enter ID to call');
+        if (answer == '') {
+            window.alert("You must specify the peer name");
+            return;
+		}
+		this.setState({to: answer});
+		
 		this.call();
 	}
 	onStop = () => {
@@ -292,29 +294,15 @@ class ChatVideoContent extends React.Component {
     
     render() {
         const {isActive, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
-        const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': isActive});
+		const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': isActive});
+		
 
-		const content = this.state.isCalling 
-			? <div>   
-			<div className="col-md-5">
-				<label className="control-label">Peer</label>
-				<div className="row">
-					<div className="col-md-6">
-					<input id="peer" name="peer" className="form-control" type="text"/>
-					</div>
-					<div className="col-md-6 text-right">
-					<a id="call" href="#" className="btn btn-success" onClick={this.onCall}>
-						<span className="glyphicon glyphicon-play"></span> Call</a>
-					<a id="terminate" href="#" className="btn btn-danger" onClick = {this.onStop}>
-						<span className="glyphicon glyphicon-stop"></span> Stop</a>
-					</div>
-				</div>
-				<br/>
-				</div>
-				
-		<div className='chat-card-message__area'>
-				
-				<video className='chat-card-video__box' 
+        return (
+
+            <div className={dialogsClass}>
+			<div className='chat-card-message__area'>
+			<video className='chat-card-video__box' 
+						poster='http://bipbap.ru/wp-content/uploads/2017/04/72fqw2qq3kxh.jpg'
 						autoPlay
 						ref={video => {videoOutput = video;}}
 						></video>
@@ -322,17 +310,13 @@ class ChatVideoContent extends React.Component {
 						autoPlay
 						ref={video => {videoInput = video;}}
 						></video>
+						</div>
 				<div className='chat-card-video__panel'>
-					<ChatVideoPanel  duration='00:00:34' onStop={this.onStop}/>
+					<ChatVideoPanel  duration='00:00:34' 
+								onStop={this.onStop} 
+								onCall={this.onCall} 
+								isCalling={this.state.isCalling}/>
 				</div>
-			</div>
-			</div>
-			: <Button btnText='lol' onClick={this.onCall}/>;
-
-        return (
-
-            <div className={dialogsClass}>
-				{content}
 			</div>
 
         )
@@ -340,11 +324,13 @@ class ChatVideoContent extends React.Component {
 }
 
 ChatVideoContent.propTypes = {
-    videoCalling: PropTypes.bool,
+	videoCalling: PropTypes.bool,
+	wsURL: PropTypes.string.isRequired,
 };
 
 ChatVideoContent.defaultProps = {
-    videoCalling: false,
+	videoCalling: false,
+	wsURL: '',
 };
 
 export default ChatVideoContent
