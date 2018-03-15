@@ -4,6 +4,8 @@ import Hoc from '../../hoc'
 
 import {historyArr} from './mock-data'
 import './styles.css'
+
+
 class Treatment extends React.Component{
 
     render(){
