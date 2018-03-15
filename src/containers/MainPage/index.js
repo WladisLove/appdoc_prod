@@ -15,7 +15,7 @@ class MainPage extends React.Component{
                 <Hoc>
 					<Row>
 						<Col span={24} className='section'>
-							<TopPanel  data={panelArr}/>
+							<TopPanel  {...panelArr}/>
 						</Col>
 					</Row>
 
