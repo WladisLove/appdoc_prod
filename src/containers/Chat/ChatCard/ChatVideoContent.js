@@ -212,6 +212,7 @@ class ChatVideoContent extends React.Component {
 	}
 
 	stop = (message) => {
+		this.setState({isCalling: false});
 		this.setCallState(NO_CALL);
 		if (webRtcPeer) {
 			webRtcPeer.dispose();
@@ -287,7 +288,6 @@ class ChatVideoContent extends React.Component {
 		this.call();
 	}
 	onStop = () => {
-		this.setState({isCalling: false});
 		this.stop();
 	}
     
@@ -296,12 +296,13 @@ class ChatVideoContent extends React.Component {
         const {isActive, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': isActive});
 		
+		console.log(this.state.isCalling)
 
         return (
 
             <div className={dialogsClass}>
 			<div className='chat-card-message__area'>
-			<video className='chat-card-video__box' 
+				<video className='chat-card-video__box' 
 						poster='http://bipbap.ru/wp-content/uploads/2017/04/72fqw2qq3kxh.jpg'
 						autoPlay
 						ref={video => {videoOutput = video;}}

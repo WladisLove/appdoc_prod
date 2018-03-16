@@ -1,12 +1,20 @@
 import React from 'react'
+import {connect} from 'react-redux';
+
 import { Row, Col, ReviewsTree, RateIndicator } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import {dataArr} from './mock-data'
+import * as actions from '../../store/actions'
+
 import './styles.css'
 
 
 class Reviews extends React.Component{
+
+	componentWillMount(){
+		this.props.onGetAllReviews();
+	}
 
     render(){
 
@@ -27,4 +35,16 @@ class Reviews extends React.Component{
     }
 }
 
-export default Reviews;
+const mapStateToProps = state => {
+	return {
+
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onGetAllReviews: () => dispatch(actions.getAllReviews()),
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
