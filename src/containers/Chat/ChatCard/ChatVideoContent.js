@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatVideoPanel } from 'appdoc-component'
-
+import ChatContent from './ChatContent'
 
 import './style.css'
 
@@ -43,6 +43,7 @@ class ChatVideoContent extends React.Component {
 			from: 0,
 			to: 0,
 			isCalling: false,
+			isActive: this.props.isActive,
 		}
 
 		this.ws = new WebSocket(props.wsURL);
@@ -294,8 +295,8 @@ class ChatVideoContent extends React.Component {
     
     render() {
         const {isActive, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
-		const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': isActive});
-		
+		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
+		const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
 		console.log(this.state.isCalling)
 
         return (
@@ -317,7 +318,21 @@ class ChatVideoContent extends React.Component {
 								onStop={this.onStop} 
 								onCall={this.onCall} 
 								isCalling={this.state.isCalling}/>
+
+					<Button
+                            btnText=''
+                            size='small'
+                            type='no-brd'
+                            icon='menu'
+                            svg
+                            title='Открыть прикреплённые файлы'
+                            style={{width: 30}}
+                            onClick={() => this.setState(prev => ({isActive: !prev.isActive}))}
+                    />
 				</div>
+				<div className={filesClass}>
+                 	<ChatContent/>
+                </div>
 			</div>
 
         )

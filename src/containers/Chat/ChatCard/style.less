@@ -1,4 +1,4 @@
-@import url("../../styles/variables");
+// @import url("../../styles/variables");
 
 .chat{
 
@@ -11,7 +11,7 @@
 		    display: flex;
 			align-items: center;
 			justify-content: flex-start;
-			background-color: @blue;
+			background-color: #0495ff;
 			border-radius: 2px;
 		}
 
@@ -55,7 +55,7 @@
 					background-color: #fff;
 
 					.icon{
-						color: @blue;
+						color: #0495ff;
 					}
 				}
 
@@ -64,7 +64,7 @@
 					border: none;
 
 					.icon{
-						color: @blue;
+						color: #0495ff;
 					}
 				}
 			}
@@ -93,7 +93,7 @@
 					background-color: transparent;
 
 					.icon{
-						color: @blue;
+						color: #0495ff;
 					}
 				}
 			}
@@ -116,7 +116,7 @@
 			border-radius: 16px;
 			text-transform: capitalize;
 			font-size: 12px;
-			font-family: @f-r;
+			// font-family: @f-r;
 			line-height: 1;
 
 			&:before{
@@ -162,6 +162,48 @@
 			&-active{
 				
 			}
+
+			&-row{
+				flex-direction: row;
+
+				.chat-card-files-active{
+					width: 450px;
+				}
+
+				.message__send{
+					flex-wrap: wrap;
+					padding: 14px;
+
+					&-smileys{
+						padding: 0;
+						margin: 0;
+						align-items: center;
+						max-width: 50px;
+					}
+
+					&-area{
+						margin-bottom: 10px;
+						max-width: ~'calc(100% - 50px)';
+
+						.ant-input{
+							height: auto !important;
+							border-bottom: 1px solid #0495ff;
+
+							&:focus{
+								border-color: #204d8d
+							}
+						}
+					}
+
+					&-btns{
+						padding-right: 0;
+
+						.btn{
+							margin-right: 10px;
+						}
+					}
+				}
+			}
 		}
 
 		&-files{
@@ -196,7 +238,7 @@
 						background-color: transparent;
 
 						.icon{
-							color: @blue;
+							color: #0495ff;
 						}
 					}
 				}
