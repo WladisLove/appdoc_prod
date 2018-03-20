@@ -53,6 +53,8 @@ export const appRoutes = [
 
 export const menuItems =[
     {name: '', title: 'Главная', iconType: 'dashboard', svg: true},
+    {name: 'chat', title: 'Чат', iconType: 'incoming-calls', svg: true},
+    {name: 'registration', title: 'Регистрация', iconType: 'order-form', svg: true},
     {name: 'schedule', title: 'График работы', iconType: 'calendar', svg: true},
     {name: 'treatment', title: 'Обращения', iconType: 'order-form', svg: true},
     {name: 'patients', title: 'Мои пациенты', iconType: 'user',},

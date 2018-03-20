@@ -21,7 +21,7 @@ class Chat extends React.Component{
                 <Row>
                     <Col span={24} className='section'>
                         <ChatCard videoCalling={this.state.videoCalling}
-                                    wsURL={'wss://localhost:8443/one2one'}
+                                    wsURL={'wss://178.172.235.105:8443/one2one'}
 
                                     from={this.state.from}
                                     onRegister = {(from) => this.setState({from})}
@@ -33,7 +33,7 @@ class Chat extends React.Component{
                 </Row>
             </Hoc>
         )
-    }
+    }z
 }
 
 export default Chat;

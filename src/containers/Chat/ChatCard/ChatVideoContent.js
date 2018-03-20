@@ -196,7 +196,7 @@ class ChatVideoContent extends React.Component {
 	}
 
 	register = () => {
-		let name = window.prompt('Enter your ID');
+		let name = 'doctor';
 		if (name == '') {
 			window.alert("You must insert your user name");
 			return;
