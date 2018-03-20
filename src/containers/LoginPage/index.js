@@ -1,8 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import {connect} from 'react-redux';
 
 import {Route} from 'react-router-dom'
 import Hoc from '../../hoc'
+
+import * as actions from '../../store/actions'
 
 import {
     Icon, Row, Col,
@@ -24,6 +27,10 @@ const LoginPage = (props) => {
             .catch(err => console.log('error: ',err))
     };
 
+    const loginHandler = (obj) => {
+        console.log(obj);
+        props.onLogin('sample@login.com',"1111");
+    };
 
     return (
         <Hoc>
@@ -44,6 +51,7 @@ const LoginPage = (props) => {
                            render={() => (
                                <Login urlForget={props.match.url + '/forget'}
                                       urlRegistration='/registration'
+                                      onSubmit={(obj)=>loginHandler(obj)}
                                />
                            )}/>
                     <Route path="/login/forget"
@@ -67,6 +75,18 @@ const LoginPage = (props) => {
         </Hoc>
     )
 
-}
+};
 
-export default LoginPage;
+const mapStateToProps = state => {
+    return {
+
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogin: (login, password) => dispatch(actions.auth(login,password)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
