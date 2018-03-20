@@ -41,13 +41,13 @@ const mapStateToProps = state => {
 	return {
 		reviews: state.reviews.reviews,
 	}
-}
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
 		onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 	}
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
