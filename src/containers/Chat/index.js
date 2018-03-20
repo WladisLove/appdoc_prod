@@ -33,7 +33,7 @@ class Chat extends React.Component{
                 </Row>
             </Hoc>
         )
-    }z
+    }
 }
 
 export default Chat;
