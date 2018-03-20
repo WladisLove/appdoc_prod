@@ -38,6 +38,7 @@ class App extends React.Component {
             <div className="main">
                 <div className={siderClass}>
                     <SideNav onClick={this.toggle}
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
                              menuItems={menuItems}
                              isShort={this.state.collapsed}/>
                 </div>

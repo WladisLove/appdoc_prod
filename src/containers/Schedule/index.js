@@ -39,8 +39,6 @@ class Schedule extends React.Component {
         })
     };
 
-
-
     onAddVisit = (info) => {
         this.setState({
             newVisitModal: true,

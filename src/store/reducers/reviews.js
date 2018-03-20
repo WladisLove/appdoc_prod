@@ -6,6 +6,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
+        case actionTypes.GET_ALL_REVIEWS:
+            return {
+                ...state,
+                reviews: action.reviews,
+            }
         default: return state;
     }
 };
