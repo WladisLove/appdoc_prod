@@ -19,14 +19,14 @@ const LoginPage = (props) => {
     };
 
     const replaceToAction = (rez) => {
-        axios.post('http://178.172.235.105/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
+        axios.post('https://178.172.235.105/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
             .then(res => console.log('response: ',res))
             .catch(err => console.log('error: ',err))
     };
 
     const loginHandler = (values) => {
         console.log(values)
-        axios.post('http://178.172.235.105/~api/json/fusers.doc/loginDoc',
+        axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
             JSON.stringify({
                 login: values.userName,
                 password: values.password,

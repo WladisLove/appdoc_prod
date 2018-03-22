@@ -18,7 +18,7 @@ class Treatment extends React.Component{
 
     componentDidMount(){
         console.log('here')
-        axios.get('http://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/2732')
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/2732')
             .then(rez => {
                 console.log(rez);
                 this.setState({treatments: rez.data})
