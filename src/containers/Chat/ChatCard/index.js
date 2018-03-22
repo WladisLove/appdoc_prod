@@ -73,7 +73,7 @@ class ChatCard extends React.Component {
                     <div className='chat-card-btns'>
                         <Radio icons={icons}
                                defaultValue={this.state.mode}
-                               onChange={(mode) => this.setState({mode})}/>
+                               onChange={(mode) => this.setState({mode: mode.target.value})}/>
                         <div className='chat-card-archive'>
                             <Button
                                 btnText=''
