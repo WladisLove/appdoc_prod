@@ -4,7 +4,7 @@ import * as actionTypes from './actionTypes';
 export const getAllReviews = () => {
 
     return (dispatch) => {
-        axios.post('http://178.172.235.105/~api/json/catalog.doc2/getCommentToDoc',
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getCommentToDoc',
                     JSON.stringify({id_doc: '2697'}))
             .then(res => {
 
@@ -26,7 +26,7 @@ export const putCommentAnswer = (answer) => {
     return (dispatch) => {
         dispatch({type: actionTypes.PUT_COMMENT_ANSWER})
 
-        axios.post('http://178.172.235.105/~api/json/catalog.doc2/putAnsCommentToDoc',
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/putAnsCommentToDoc',
                     JSON.stringify(answer))
             .then(res => {
                 dispatch(getAllReviews());
