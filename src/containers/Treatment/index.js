@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Icon, Row, Col, HistoryReceptions, HistoryReceptionsTabs } from 'appdoc-component'
+
 import Hoc from '../../hoc'
 
 import {historyArr} from './mock-data'

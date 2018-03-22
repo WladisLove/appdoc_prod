@@ -12,7 +12,7 @@ class PersonalInfo extends React.Component{
 
             <Hoc>
             	<Row>
-            		<Col span={24}>
+            		<Col xs={24} xxl={18}>
             			<PersonalContact 
 			                secondname="Иванова" 
 			                firstname="Иван" 
