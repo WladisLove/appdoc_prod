@@ -297,6 +297,7 @@ class ChatVideoContent extends React.Component {
         const {isActive, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
 		const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
+		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.state.isActive});
 		console.log(this.state.isCalling)
 
         return (
@@ -313,7 +314,7 @@ class ChatVideoContent extends React.Component {
 						ref={video => {videoInput = video;}}
 						></video>
 						</div>
-				<div className='chat-card-video__panel'>
+				<div className={panelClass}>
 					<ChatVideoPanel  duration='00:00:34' 
 								onStop={this.onStop} 
 								onCall={this.onCall} 

@@ -1,8 +1,12 @@
 import React from 'react'
-import { Icon, Row, Col } from 'appdoc-component'
+import {connect} from 'react-redux';
+
+import { Icon, Row, Col, ChatDialogs } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import ChatCard from './ChatCard'
+
+import {dialogArr} from './mock-data'
 
 class Chat extends React.Component{
     constructor(props){
@@ -19,7 +23,10 @@ class Chat extends React.Component{
         return (
             <Hoc>
                 <Row>
-                    <Col span={24} className='section'>
+                    <Col xs={24} xxl={7} className='section'>
+                        <ChatDialogs  data={dialogArr}/>
+                    </Col>
+                    <Col xs={24} xxl={17} className='section'>
                         <ChatCard videoCalling={this.state.videoCalling}
                                     wsURL={'wss://178.172.235.105:8443/one2one'}
 

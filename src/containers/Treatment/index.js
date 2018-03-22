@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Row, Col, HistoryReceptions } from 'appdoc-component'
+import { Icon, Row, Col, HistoryReceptionsTabs } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import {historyArr} from './mock-data'
@@ -15,7 +15,7 @@ class Treatment extends React.Component{
             <Hoc>
             	<Row>
             		<Col span={24} className='section'>
-            			<HistoryReceptions data={historyArr}/>
+            			<HistoryReceptionsTabs data={historyArr}/>
             		</Col>
             	</Row>
             </Hoc>
