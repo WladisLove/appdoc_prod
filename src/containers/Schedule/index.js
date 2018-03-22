@@ -13,6 +13,8 @@ import * as actions from '../../store/actions'
 
 import './styles.css'
 
+import {patientsArr,timePeriod} from './mock-data'
+
 class Schedule extends React.Component {
     constructor(props) {
         super(props);
@@ -212,6 +214,7 @@ class Schedule extends React.Component {
                 />
                 <NewVisitModal visible={this.state.newVisitModal}
                                {...this.state.newVisitData}
+                               patients={patientsArr}
                                onCancel={this.closeNewVisitModal}
                                onSave={(info) => this.onSaveNewVisit(info)}
                 />
@@ -225,6 +228,7 @@ class Schedule extends React.Component {
                                              defaultStartValue: moment(dates[0]),
                                              defaultEndValue: moment(dates[dates.length - 1]),
                                          }}
+                                         selOptions={timePeriod}
                                          timeSetCall={timeSetCall}
                                          timeSetReception={timeSetReception}
                                          onCancel={this.closeReceptionSchedule}
