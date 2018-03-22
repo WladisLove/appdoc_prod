@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import { Icon, Row, Col, TopPanel, TopPanelItem, TableNoHead, TableNoHeadItem, Reviews, TreatmentTable } from 'appdoc-component'
+import { Icon, Row, Col, TopPanel, TopPanelItem, TableNoHead, TableNoHeadItem, Reviews, TreatmentTable, NewVisitModalPage } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import * as actions from '../../store/actions'
@@ -40,6 +40,7 @@ class MainPage extends React.Component{
 											redirect={() => this.props.history.push('/treatment')}/>
 						</Col>
 					</Row>
+					<NewVisitModalPage visible={false}/>
                 </Hoc>
         )
     }

@@ -4,6 +4,7 @@ import {appRoutes, menuItems} from '../../routes'
 import { Route, Switch } from 'react-router-dom'
 import { /*Button, Row, Col,*/ SideNav} from 'appdoc-component'
 //import {Layout} from 'antd'
+import { NavLink } from 'react-router-dom'
 
 //import SideNav from '../../components/SideNav'
 
@@ -44,7 +45,23 @@ class App extends React.Component {
                 </div>
                 <div className={wrapperClass}>
                     <div className="main-header">
-                        Header  (replace)
+                        {/*Header  (replace) */}
+                        <NavLink exact to='/registration'
+                            style={{padding: '0 5px', borderRight: '1px solid blue'}}>
+                            Регистрация
+                        </NavLink>
+                        <NavLink exact to='/login'
+                            style={{padding: '0 5px', borderRight: '1px solid blue'}}>
+                            Логин
+                        </NavLink>
+                        <NavLink exact to='/chat'
+                            style={{padding: '0 5px', borderRight: '1px solid blue'}}>
+                            Чат
+                        </NavLink>
+                        <NavLink exact to='/patients-page'
+                            style={{padding: '0 5px', borderRight: '1px solid blue'}}>
+                            Страница пациента
+                        </NavLink>
                     </div>
                     <div className="main-content">
                         <Switch>
