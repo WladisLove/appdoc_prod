@@ -20,10 +20,35 @@ const LoginPage = (props) => {
         console.log('Close & go back')
     };
 
+    const replaceToAction = (rez) => {
+        axios.post('https://178.172.235.105/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
+            .then(res => console.log('response: ',res))
+            .catch(err => console.log('error: ',err))
+    };
+
+    const loginHandler = (values) => {
+        console.log(values)
+        axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
+            JSON.stringify({
+                login: values.userName,
+                password: values.password,
+            }))
+                .then(res => {
+                    console.log('response: ',res);
+
+                    !res.data.error
+                        ? props.history.push('/')
+                        : res.data.error.code === 400
+                            ? alert('неверный логин или пароль')
+                            : alert('такого пользователя не существует')
+
+                })
+                .catch(err => console.log('error: ',err))
+    }
+
 
     return (
         <Hoc>
-
             <div className="loginPage-header">
                 <div className="loginPage-header-close">
                     <Icon type='close' svg onClick={closeAuthPage}/>
@@ -41,6 +66,7 @@ const LoginPage = (props) => {
                            render={() => (
                                <Login urlForget={props.match.url + '/forget'}
                                       urlRegistration='/registration'
+                                      onSubmit={loginHandler}
                                />
                            )}/>
                     <Route path="/login/forget"
@@ -68,7 +94,7 @@ const LoginPage = (props) => {
 
 const mapStateToProps = state => {
     return {
-        
+
     };
 };
 

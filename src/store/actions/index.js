@@ -3,7 +3,9 @@ export {
 } from './patients';
 
 export {
-
+    getAllReviews,
+    putCommentAnswer,
+    
 } from './reviews';
 
 export {

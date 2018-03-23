@@ -187,9 +187,9 @@ anymatch@^1.3.0:
     micromatch "^2.1.5"
     normalize-path "^2.0.0"
 
-appdoc-component@^1.0.73:
-  version "1.0.73"
-  resolved "https://registry.yarnpkg.com/appdoc-component/-/appdoc-component-1.0.73.tgz#19a823b86e712979d249e6ffea4a392ce3b0b6bf"
+appdoc-component@^1.0.96:
+  version "1.0.96"
+  resolved "https://registry.yarnpkg.com/appdoc-component/-/appdoc-component-1.0.96.tgz#bb2880f5f97595b44500d2cfd9162f3ce95f7f0f"
   dependencies:
     antd "^3.0.2"
     babel-plugin-transform-class-properties "^6.24.1"
@@ -347,6 +347,10 @@ async-each@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/async-each/-/async-each-1.0.1.tgz#19d386a1d9edc6e7c1c85d388aedbcc56d33602d"
 
+async-limiter@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
+
 async-validator@1.x:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/async-validator/-/async-validator-1.8.2.tgz#b77597226e96242f8d531c0d46ae295f62422ba4"
@@ -362,6 +366,10 @@ async@^2.1.2, async@^2.1.4, async@^2.4.1:
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
   dependencies:
     lodash "^4.14.0"
+
+async@~1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/async/-/async-1.2.1.tgz#a4816a17cd5ff516dfa2c7698a453369b9790de0"
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -1088,6 +1096,10 @@ babylon@^6.17.0, babylon@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
 
+backoff@~2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/backoff/-/backoff-2.3.0.tgz#ee7c7e38093f92e472859db635e7652454fc21ea"
+
 balanced-match@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
@@ -1587,6 +1599,10 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
 commander@2.12.x:
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.2.tgz#0f5946c427ed9ec0d91a46bb9def53e54650e555"
+
+commander@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.1.0.tgz#d121bbae860d9992a3d517ba96f56588e47c6781"
 
 commander@~2.13.0:
   version "2.13.0"
@@ -2286,6 +2302,10 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
+error-tojson@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/error-tojson/-/error-tojson-0.0.1.tgz#a7b1aa94ffc00e9078c2eba26e204bd87cf2cbb9"
+
 es-abstract@^1.7.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.10.0.tgz#1ecb36c197842a00d8ee4c2dfd8646bb97d60864"
@@ -2329,6 +2349,10 @@ es6-map@^0.1.3:
     es6-set "~0.1.5"
     es6-symbol "~3.1.1"
     event-emitter "~0.3.5"
+
+es6-promise@^3.2.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
 
 es6-promise@^4.0.5:
   version "4.2.2"
@@ -2570,7 +2594,7 @@ events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
 
-eventsource@0.1.6:
+eventsource@0.1.6, eventsource@~0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/eventsource/-/eventsource-0.1.6.tgz#0acede849ed7dd1ccc32c811bb11b944d4f29232"
   dependencies:
@@ -2619,7 +2643,7 @@ expand-tilde@^2.0.0, expand-tilde@^2.0.2:
   dependencies:
     homedir-polyfill "^1.0.1"
 
-express@^4.13.3:
+express@^4.13.3, express@^4.16.2:
   version "4.16.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.2.tgz#e35c6dfe2d64b7dca0a5cd4f21781be3299e076c"
   dependencies:
@@ -2653,6 +2677,10 @@ express@^4.13.3:
     type-is "~1.6.15"
     utils-merge "1.0.1"
     vary "~1.1.2"
+
+extend@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-2.0.1.tgz#1ee8010689e7395ff9448241c98652bc759a8260"
 
 extend@~3.0.0, extend@~3.0.1:
   version "3.0.1"
@@ -2933,6 +2961,12 @@ form-data@~2.3.1:
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
+
+freeice@^2.1.2:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/freeice/-/freeice-2.2.0.tgz#f9d2b3b2967c0b9d5af3f1453d35df5e86d517c3"
+  dependencies:
+    normalice "^1.0.0"
 
 fresh@0.5.2:
   version "0.5.2"
@@ -3234,6 +3268,12 @@ har-validator@~5.0.3:
   dependencies:
     ajv "^5.1.0"
     har-schema "^2.0.0"
+
+hark@1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/hark/-/hark-1.1.3.tgz#679cb786c48f2b197768c89d7a3e0d8ac626d558"
+  dependencies:
+    wildemitter "^1.2.0"
 
 has-ansi@^2.0.0:
   version "2.0.0"
@@ -3800,6 +3840,10 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
+isbuffer@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/isbuffer/-/isbuffer-0.0.0.tgz#38c146d9df528b8bf9b0701c3d43cf12df3fc39b"
+
 isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
@@ -4246,6 +4290,62 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
+kurento-browser-extensions@*:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/kurento-browser-extensions/-/kurento-browser-extensions-0.0.2.tgz#4b2bac2b820aa004b724acf6ae3eb4dfe8126abb"
+
+kurento-client-core@6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/kurento-client-core/-/kurento-client-core-6.6.0.tgz#550f385e6117df598d872ad1f53163c06d48ab6f"
+
+kurento-client-elements@6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/kurento-client-elements/-/kurento-client-elements-6.6.0.tgz#ac3632df535e47df3d2d9eaec5e8d9a72318176e"
+
+kurento-client-filters@6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/kurento-client-filters/-/kurento-client-filters-6.6.0.tgz#af517e534dc329b1113e4995b9af36dc80ba9568"
+
+kurento-client@^6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/kurento-client/-/kurento-client-6.6.0.tgz#e5862a41df6a6283c360817e9ea0965b33fd2a40"
+  dependencies:
+    async "~1.2.1"
+    error-tojson "0.0.1"
+    es6-promise "^3.2.1"
+    extend "^2.0.1"
+    inherits "~2.0.1"
+    kurento-client-core "6.6.0"
+    kurento-client-elements "6.6.0"
+    kurento-client-filters "6.6.0"
+    kurento-jsonrpc "5.1.3"
+    minimist "^1.1.1"
+    promise "7.0.2"
+    promisecallback "0.0.4"
+    reconnect-ws KurentoForks/reconnect-ws#0.0.1
+
+kurento-jsonrpc@5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/kurento-jsonrpc/-/kurento-jsonrpc-5.1.3.tgz#ce0b977e2676a878ed2c0464c825425857422030"
+  dependencies:
+    inherits "^2.0.1"
+    sockjs-client "1.1.1"
+    ws "^0.4.31"
+
+kurento-utils@^6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/kurento-utils/-/kurento-utils-6.7.0.tgz#cbda3072816b9dc270a0b1871ed1c60e6861e7c3"
+  dependencies:
+    freeice "^2.1.2"
+    hark "1.1.3"
+    inherits "^2.0.1"
+    merge "^1.2.0"
+    sdp-translator "^0.1.15"
+    ua-parser-js "^0.7.7"
+    uuid "~2.0.1"
+  optionalDependencies:
+    kurento-browser-extensions "*"
+
 latest-version@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/latest-version/-/latest-version-2.0.0.tgz#56f8d6139620847b8017f8f1f4d78e211324168b"
@@ -4541,7 +4641,7 @@ merge-stream@^0.1.7:
   dependencies:
     through2 "^0.6.1"
 
-merge@^1.1.3:
+merge@^1.1.3, merge@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
 
@@ -4686,6 +4786,10 @@ nan@^2.3.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
 
+nan@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-1.0.0.tgz#ae24f8850818d662fcab5acf7f3b95bfaa2ccf38"
+
 natives@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.1.tgz#011acce1f7cbd87f7ba6b3093d6cd9392be1c574"
@@ -4788,6 +4892,10 @@ nopt@^4.0.1:
   dependencies:
     abbrev "1"
     osenv "^0.1.4"
+
+normalice@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/normalice/-/normalice-1.0.1.tgz#03435c2eecd5631a6bca02da3930ec3e345a80f7"
 
 normalize-package-data@^2.3.2, normalize-package-data@^2.3.4:
   version "2.4.0"
@@ -4932,6 +5040,10 @@ optionator@^0.8.1, optionator@^0.8.2:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
     wordwrap "~1.0.0"
+
+options@>=0.0.5:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/options/-/options-0.0.6.tgz#ec22d312806bb53e731773e7cdaefcf1c643128f"
 
 ordered-read-streams@^0.1.0:
   version "0.1.0"
@@ -5504,6 +5616,12 @@ progress@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
 
+promise@7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/promise/-/promise-7.0.2.tgz#acef01fc16750d49fd5b5b8d88534795910fc625"
+  dependencies:
+    asap "~2.0.3"
+
 promise@8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/promise/-/promise-8.0.1.tgz#e45d68b00a17647b6da711bf85ed6ed47208f450"
@@ -5515,6 +5633,10 @@ promise@^7.1.1:
   resolved "https://registry.yarnpkg.com/promise/-/promise-7.3.1.tgz#064b72602b18f90f29192b8b1bc418ffd1ebd3bf"
   dependencies:
     asap "~2.0.3"
+
+promisecallback@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/promisecallback/-/promisecallback-0.0.4.tgz#b934f13c04e443622b4d66de4e42ea5f6ce66e74"
 
 prop-types@15.x, prop-types@^15.0.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
   version "15.6.0"
@@ -6198,6 +6320,19 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
+reconnect-core@KurentoForks/reconnect-core:
+  version "1.0.0"
+  resolved "https://codeload.github.com/KurentoForks/reconnect-core/tar.gz/921d43e91578abb2fb2613f585c010c1939cf734"
+  dependencies:
+    backoff "~2.3.0"
+
+reconnect-ws@KurentoForks/reconnect-ws#0.0.1:
+  version "0.0.0"
+  resolved "https://codeload.github.com/KurentoForks/reconnect-ws/tar.gz/7fb7020e3ca1ffeaaa8bb4ddd690cf28c8d02a2b"
+  dependencies:
+    reconnect-core KurentoForks/reconnect-core
+    websocket-stream "~0.5.1"
+
 recursive-readdir@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/recursive-readdir/-/recursive-readdir-2.2.1.tgz#90ef231d0778c5ce093c9a48d74e5c5422d13a99"
@@ -6480,6 +6615,12 @@ rmc-feedback@^1.0.0:
     babel-runtime "6.x"
     classnames "^2.2.5"
 
+rtcpeerconnection-shim@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/rtcpeerconnection-shim/-/rtcpeerconnection-shim-1.2.9.tgz#612bd7a63f4d9a76d6064e3963028fee62b67378"
+  dependencies:
+    sdp "^2.6.0"
+
 run-async@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
@@ -6521,6 +6662,20 @@ schema-utils@^0.3.0:
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
   dependencies:
     ajv "^5.0.0"
+
+sdp-transform@1.5.*:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/sdp-transform/-/sdp-transform-1.5.3.tgz#8a6d0f8bd699ce3abc310ba4b1cde598928a0816"
+
+sdp-translator@^0.1.15:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/sdp-translator/-/sdp-translator-0.1.24.tgz#83fb8d634a63f15cd9944237dd90bd406906c6f3"
+  dependencies:
+    sdp-transform "1.5.*"
+
+sdp@^2.6.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/sdp/-/sdp-2.7.0.tgz#02b64ea0c29d73179afa19794e466b123b1b29f3"
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -6686,6 +6841,17 @@ sntp@2.x.x:
   resolved "https://registry.yarnpkg.com/sntp/-/sntp-2.1.0.tgz#2c6cec14fedc2222739caf9b5c3d85d1cc5a2cc8"
   dependencies:
     hoek "4.x.x"
+
+sockjs-client@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/sockjs-client/-/sockjs-client-1.1.1.tgz#284843e9a9784d7c474b1571b3240fca9dda4bb0"
+  dependencies:
+    debug "^2.2.0"
+    eventsource "~0.1.6"
+    faye-websocket "~0.11.0"
+    inherits "^2.0.1"
+    json3 "^3.3.2"
+    url-parse "^1.1.1"
 
 sockjs-client@1.1.4:
   version "1.1.4"
@@ -7088,6 +7254,10 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
+tinycolor@0.x:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/tinycolor/-/tinycolor-0.0.1.tgz#320b5a52d83abb5978d81a3e887d4aefb15a6164"
+
 tmp@^0.0.33:
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
@@ -7159,7 +7329,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-ua-parser-js@^0.7.9:
+ua-parser-js@^0.7.7, ua-parser-js@^0.7.9:
   version "0.7.17"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 
@@ -7283,7 +7453,7 @@ url-parse@1.0.x:
     querystringify "0.0.x"
     requires-port "1.0.x"
 
-url-parse@^1.1.8:
+url-parse@^1.1.1, url-parse@^1.1.8:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.2.0.tgz#3a19e8aaa6d023ddd27dcc44cb4fc8f7fec23986"
   dependencies:
@@ -7319,7 +7489,7 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
-uuid@^2.0.1, uuid@^2.0.2:
+uuid@^2.0.1, uuid@^2.0.2, uuid@~2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
@@ -7543,6 +7713,13 @@ webpack@^2.6.1:
     webpack-sources "^1.0.1"
     yargs "^6.0.0"
 
+webrtc-adapter@^6.1.3:
+  version "6.1.3"
+  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-6.1.3.tgz#81d736a59bf70a3615f43673a916a757853d6206"
+  dependencies:
+    rtcpeerconnection-shim "^1.2.9"
+    sdp "^2.6.0"
+
 websocket-driver@>=0.5.1:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/websocket-driver/-/websocket-driver-0.7.0.tgz#0caf9d2d755d93aee049d4bdd0d3fe2cca2a24eb"
@@ -7553,6 +7730,14 @@ websocket-driver@>=0.5.1:
 websocket-extensions@>=0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.3.tgz#5d2ff22977003ec687a4b87073dfbbac146ccf29"
+
+websocket-stream@~0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/websocket-stream/-/websocket-stream-0.5.1.tgz#622cd1f0566fb84ce0a4d6f854526f3dc4d70e48"
+  dependencies:
+    isbuffer "0.0.0"
+    through "~2.3.4"
+    ws "~0.4.30"
 
 whatwg-encoding@^1.0.1:
   version "1.0.3"
@@ -7601,6 +7786,10 @@ widest-line@^1.0.0:
   dependencies:
     string-width "^1.0.1"
 
+wildemitter@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/wildemitter/-/wildemitter-1.2.0.tgz#29dd3a72d699c3e279dd021c3cd2150b82c9a211"
+
 window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
@@ -7648,6 +7837,21 @@ write@^0.2.1:
   resolved "https://registry.yarnpkg.com/write/-/write-0.2.1.tgz#5fc03828e264cea3fe91455476f7a3c566cb0757"
   dependencies:
     mkdirp "^0.5.1"
+
+ws@^0.4.31, ws@~0.4.30:
+  version "0.4.32"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-0.4.32.tgz#787a6154414f3c99ed83c5772153b20feb0cec32"
+  dependencies:
+    commander "~2.1.0"
+    nan "~1.0.0"
+    options ">=0.0.5"
+    tinycolor "0.x"
+
+ws@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-5.0.0.tgz#fb4ede3fddcff99b157d292a1069ace8d6e04db9"
+  dependencies:
+    async-limiter "~1.0.0"
 
 xdg-basedir@^2.0.0:
   version "2.0.0"
