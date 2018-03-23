@@ -96,13 +96,15 @@ const LoginPage = (props) => {
 
 const mapStateToProps = state => {
 	return {
-		//reviews: state.reviews.reviews,
+        //reviews: state.reviews.reviews,
+        error: state.auth.error,
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		//onGetAllReviews: () => dispatch(actions.getAllReviews()),
+        //onGetAllReviews: () => dispatch(actions.getAllReviews()),
+        onLogin: (userName, password) => dispatch(actions.login())
 		//onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 	}
 };
