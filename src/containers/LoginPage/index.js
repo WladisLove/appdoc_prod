@@ -28,7 +28,7 @@ const LoginPage = (props) => {
             .catch(err => console.log('error: ',err))
     };
 
-    const loginHandler = (values) => {
+    /*const loginHandler = (values) => {
         console.log(values)
         axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
             JSON.stringify({
@@ -46,7 +46,7 @@ const LoginPage = (props) => {
                     
                 })
                 .catch(err => console.log('error: ',err))
-    }
+    }*/
 
 
     return (
@@ -68,7 +68,7 @@ const LoginPage = (props) => {
                            render={() => (
                                <Login urlForget={props.match.url + '/forget'}
                                       urlRegistration='/registration'
-                                      onSubmit={loginHandler}
+                                      onSubmit={() => onLogin}
                                />
                            )}/>
                     <Route path="/login/forget"
@@ -104,7 +104,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
         //onGetAllReviews: () => dispatch(actions.getAllReviews()),
-        onLogin: (userName, password) => dispatch(actions.login())
+        onLogin: (userName, password, remember) => dispatch(actions.login(userName, password, remember))
 		//onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 	}
 };

@@ -1,10 +1,10 @@
 import axios from 'axios'
 import * as actionTypes from './actionTypes';
 
-export const login = (userName, password, rememberMe) => {
+export const login = (userName, password, remember) => {
 
     return (dispatch) => {
-        console.log(userName,password,rememberMe);
+        console.log(userName,password,remember);
 
         dispatch(authStart());
         axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
@@ -20,7 +20,7 @@ export const login = (userName, password, rememberMe) => {
                         !res.data.error 
                             ? (
                                 dispatch(authSuccess()),
-                                rememberMe(rememberMe)
+                                rememberMe(remember)
                             )
                             : dispatch(authFail(res.data.error));
 
