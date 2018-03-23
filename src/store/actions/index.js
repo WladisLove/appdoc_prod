@@ -1,5 +1,5 @@
 export {
-
+    getDoctorsPatients,
 } from './patients';
 export {
     getAllReviews,
