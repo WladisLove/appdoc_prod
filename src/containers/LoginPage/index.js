@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import {connect} from 'react-redux';
+
 
 import {Route} from 'react-router-dom'
 import Hoc from '../../hoc'
@@ -9,6 +11,8 @@ import {
     Login, LoginForget, Registration
 } from 'appdoc-component'
 
+
+import * as actions from '../../store/actions'
 import './styles.css'
 
 const LoginPage = (props) => {
@@ -90,4 +94,17 @@ const LoginPage = (props) => {
 
 }
 
-export default LoginPage;
+const mapStateToProps = state => {
+	return {
+		//reviews: state.reviews.reviews,
+	}
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		//onGetAllReviews: () => dispatch(actions.getAllReviews()),
+		//onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
