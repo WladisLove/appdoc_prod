@@ -48,7 +48,7 @@ const LoginPage = (props) => {
                                <Login urlForget={props.match.url + '/forget'}
                                       urlRegistration='/registration'
                                       errorCode={props.errorCode}
-                                      onSubmit={(obj) => props.onLogin(obj)}
+                                      onSubmit={(obj) => props.onLogin(obj, props.history)}
                                />
                            )}/>
                     <Route path="/login/forget"
@@ -84,7 +84,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
         //onGetAllReviews: () => dispatch(actions.getAllReviews()),
-        onLogin: ({userName, password, remember}) => dispatch(actions.login(userName, password, remember))
+        onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history))
 		//onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 	}
 };

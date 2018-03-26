@@ -26,6 +26,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 id: action.id,
+                mode: action.usergroup,
             };
         default: return state;
     }

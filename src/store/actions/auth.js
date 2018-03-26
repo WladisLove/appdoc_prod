@@ -1,11 +1,22 @@
 import axios from 'axios'
 import * as actionTypes from './actionTypes';
 
-export const login = (userName, password, remember) => {
+
+export const autoLogin = (history) => {
+    return (dispatch) => {
+
+        const login = localStorage.getItem('_appdoc-user');
+        const passw = localStorage.getItem('_appdoc-pass');
+
+        if(login && passw){
+            dispatch(login(login, passw, false, history, true));
+        }
+    }
+}
+
+export const login = (userName, password, remember, history, isAuto) => {
 
     return (dispatch) => {
-        console.log(userName,password,remember);
-
         dispatch(authStart());
         axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
                 JSON.stringify({
@@ -19,17 +30,18 @@ export const login = (userName, password, remember) => {
 
                         !res.data.error 
                             ? (
-                                dispatch(authSuccess()),
-                                rememberMe(remember)
+                                dispatch(authSuccess(res.data.id, res.data.usergroup)),
+                                rememberMe(remember, userName, password),
+                                history.push('/') 
                             )
-                            : dispatch(authFail(res.data.error));
-
-                        /*!res.data.error 
-                            ? history.push('/') 
-                            : res.data.error.code === 400 
-                                ? alert('неверный логин или пароль')
-                                : alert('такого пользователя не существует')
-                        */
+                            : (
+                                dispatch(authFail(res.data.error)),
+                                    isAuto && (
+                                        // TODO: test
+                                        localStorage.removeItem('_appdoc-user'),
+                                        localStorage.removeItem('_appdoc-pass')
+                                    )
+                            );
                     })
                     .catch(err => {
                         console.log('error: ',err);
@@ -38,9 +50,10 @@ export const login = (userName, password, remember) => {
     }
 }
 
-const rememberMe = (flag) => {
+const rememberMe = (flag, userName, password) => {
     flag ? 
-        localStorage.setItem('_appdoc-id',)
+        (localStorage.setItem('_appdoc-user',userName),
+        localStorage.setItem('_appdoc-pass',password))
         : null;
 }
 
@@ -50,10 +63,11 @@ const authStart = () => {
     };
 };
 
-const authSuccess = (id) => {
+const authSuccess = (id, usergroup) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        id: id
+        id,
+        usergroup,
     };
 };
 
