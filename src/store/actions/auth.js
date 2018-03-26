@@ -60,6 +60,7 @@ const authSuccess = (id) => {
 const authFail = (error) => {
     return {
         type: actionTypes.AUTH_FAIL,
-        error: error
+        error: error,
+        errorCode: error.code,
     };
 };

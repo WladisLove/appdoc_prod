@@ -48,7 +48,6 @@ const LoginPage = (props) => {
                 .catch(err => console.log('error: ',err))
     }*/
 
-
     return (
         <Hoc>
             <div className="loginPage-header">
@@ -68,7 +67,8 @@ const LoginPage = (props) => {
                            render={() => (
                                <Login urlForget={props.match.url + '/forget'}
                                       urlRegistration='/registration'
-                                      onSubmit={() => onLogin}
+                                      errorCode={props.errorCode}
+                                      onSubmit={(obj) => props.onLogin(obj)}
                                />
                            )}/>
                     <Route path="/login/forget"
@@ -97,14 +97,14 @@ const LoginPage = (props) => {
 const mapStateToProps = state => {
 	return {
         //reviews: state.reviews.reviews,
-        error: state.auth.error,
+        errorCode: state.auth.errorCode,
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
         //onGetAllReviews: () => dispatch(actions.getAllReviews()),
-        onLogin: (userName, password, remember) => dispatch(actions.login(userName, password, remember))
+        onLogin: ({userName, password, remember}) => dispatch(actions.login(userName, password, remember))
 		//onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 	}
 };
