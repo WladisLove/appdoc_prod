@@ -1,5 +1,6 @@
 export {
-    getDoctorsPatients,
+    getDocPatients,
+    getNotDocPatients,
 } from './patients';
 export {
     getAllReviews,

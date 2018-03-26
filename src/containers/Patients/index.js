@@ -18,7 +18,12 @@ class Patients extends React.Component{
 	}
 
 	componentDidMount(){
-		this.props.onGetDocPatients();		
+		this.props.onGetDocPatients();	
+	}
+
+	showModalHandler = () => {
+		this.props.onGetNotDocPatients();
+		this.setState({addNew_show: true});
 	}
 
     render(){
@@ -34,9 +39,9 @@ class Patients extends React.Component{
             	<Row>
             		<Col xs={24} xxl={18}>
 						<PatientTable countPatient='9' 
-										data={this.props.patients}
+										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
-										onAdd = {() => this.setState({addNew_show: true})}
+										onAdd = {this.showModalHandler}
 										
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => console.log(val)}
@@ -44,7 +49,7 @@ class Patients extends React.Component{
 										/>
             		</Col>
             	</Row>
-				<AddNewPatient data={this.props.patients} 
+				<AddNewPatient data={this.props.notDocPatients} 
 							visible={this.state.addNew_show} 
 							onCancel={() => this.setState({addNew_show: false})}
 							onSearch = {(val) => console.log(val)}
@@ -56,13 +61,15 @@ class Patients extends React.Component{
 
 const mapStateToProps = state => {
 	return {
-		patients: state.patients.patients,
+		docPatients: state.patients.docPatients,
+		notDocPatients: state.patients.notDocPatients,
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onGetDocPatients: () => dispatch(actions.getDoctorsPatients()),
+		onGetDocPatients: () => dispatch(actions.getDocPatients()),
+		onGetNotDocPatients: () => dispatch(actions.getNotDocPatients()),
 	}
 };
 
