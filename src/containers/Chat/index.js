@@ -28,7 +28,7 @@ class Chat extends React.Component{
                     </Col>
                     <Col xs={24} xxl={17} className='section'>
                         <ChatCard videoCalling={this.state.videoCalling}
-                                    wsURL={'wss://178.172.235.105:8443/one2one'}
+                                    wsURL={'wss://localhost:8443/one2one'}
 
                                     from={this.state.from}
                                     onRegister = {(from) => this.setState({from})}
