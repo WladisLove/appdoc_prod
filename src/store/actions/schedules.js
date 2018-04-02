@@ -9,18 +9,22 @@ export const addInterval = (interval) => {
         let obj = {
             ...interval,
             id_doc: 2697,
+            isEditable: 1,
+            intervalOb: "text",
+            intervalEx: "text",
         }
         
         console.log(JSON.stringify(obj));
 
-       /* axios.post('https://178.172.235.105/~api/json/catalog.doc2/dateWorkInterval',
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/dateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
+                console.log('add response',res)
                 //dispatch()
             })
             .catch(err => {
                 console.log(err);
-            })*/
+            })
     }
 }
 
@@ -36,13 +40,10 @@ export const getAllIntervals = (start, end) => {
     
     return (dispatch) => {
         console.log(JSON.stringify(obj));
-        /*axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval',
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
-
-                console.log('-------------')
-                console.log(obj)
-                console.log(res)
+                console.log('get response',res.data)
                 dispatch({
                     type: actionTypes.GET_ALL_INTERVALS,
                     intervals: res.data.result,
@@ -50,7 +51,7 @@ export const getAllIntervals = (start, end) => {
             })
             .catch(err => {
                 console.log(err);
-            });*/
+            });
     }
 }
 

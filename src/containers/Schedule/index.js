@@ -96,7 +96,7 @@ class Schedule extends React.Component {
     };
 
     onSaveNewVisit = (obj) => {
-        console.log(obj);
+        //console.log(obj);
         this.setState({
             newVisitModal: false,
         })
@@ -141,10 +141,10 @@ class Schedule extends React.Component {
     };
 
     onSaveReceptionSchedule = (interval) => {
-        console.log(interval);
-        console.log('[before]');
+        //console.log(interval);
+        //console.log('[before]');
         this.props.onAddInterval(interval);
-        console.log('[after]');
+        //console.log('[after]');
         this.props.onGetAllIntervals(this.state.interval.start,this.state.interval.end);
         this.setState({
             receptionsScheduleModal: false,
@@ -234,7 +234,7 @@ class Schedule extends React.Component {
             />)
         }
 
-        console.log(this.state.interval)
+        //console.log(this.state.interval)
 
         return (
             <Hoc>
