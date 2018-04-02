@@ -7,6 +7,11 @@ export {
     
 } from './reviews';
 export {
+
+    addInterval,
+    getAllIntervals,
+
+    //--------
     selectEvent,
     deleteEvent,
     openCancelModal,
