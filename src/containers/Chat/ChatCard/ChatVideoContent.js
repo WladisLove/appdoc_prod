@@ -44,7 +44,15 @@ class ChatVideoContent extends React.Component {
 			to: 0,
 			isCalling: false,
 			isActive: this.props.isActive,
+			duration: 0,
+			timer: {
+				s: 0,
+				m: 0,
+				h: 0,
+			},
 		}
+
+		this.timerInterval;
 
 		this.ws = new WebSocket(props.wsURL);
 		this.ws.onmessage = (message) => {
@@ -77,6 +85,30 @@ class ChatVideoContent extends React.Component {
 		}
 	}
 
+	timer = () => {
+		this.state.timer.s >= 59 
+			? (
+				this.state.timer.m >= 59 
+					? (
+						this.setState(prev => ({timer: {
+							h: prev.timer.h +1,
+							s: 0,
+							m: 0,
+						}}))
+					)
+					: this.setState(prev => ({timer: {
+						...prev.timer,
+						m: prev.timer.m +1,
+						s: 0,
+					}}))
+			)
+			: 
+			this.setState(prev => ({timer: {
+				...prev.timer,
+				s: prev.timer.s +1,
+			}}));
+	}
+
 	componentWillMount(){
 		this.register();
 	}
@@ -87,6 +119,7 @@ class ChatVideoContent extends React.Component {
 	}
 
 	componentWillUnmount(){
+		clearInterval(this.timerInterval);
 		this.ws.close();
 	}
 
@@ -103,6 +136,7 @@ class ChatVideoContent extends React.Component {
 	}
 
 	setCallState = (nextState) => {
+		nextState === IN_CALL ? this.timerInterval = setInterval(this.timer, 1000) : null;
 		callState = nextState;
 	}
 
@@ -214,6 +248,12 @@ class ChatVideoContent extends React.Component {
 
 	stop = (message) => {
 		this.setState({isCalling: false});
+		clearInterval(this.timerInterval);
+		this.setState({timer: {
+			s: 0,
+			m: 0,
+			h: 0,
+		}})
 		this.setCallState(NO_CALL);
 		if (webRtcPeer) {
 			webRtcPeer.dispose();
@@ -300,6 +340,9 @@ class ChatVideoContent extends React.Component {
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.state.isActive});
 		console.log(this.state.isCalling)
 
+		let {s, m, h} = this.state.timer;
+		console.log(h, m ,s)
+
         return (
 
             <div className={dialogsClass}>
@@ -315,21 +358,15 @@ class ChatVideoContent extends React.Component {
 						></video>
 						</div>
 				<div className={panelClass}>
-					<ChatVideoPanel  duration='00:00:34' 
+					<ChatVideoPanel  
 								onStop={this.onStop} 
 								onCall={this.onCall} 
+								onChat = {() => this.setState(prev => ({isActive: !prev.isActive}))}
+								sec= {s}
+								min={m}
+								hour={h}
 								isCalling={this.state.isCalling}/>
 
-					<Button
-                            btnText=''
-                            size='small'
-                            type='no-brd'
-                            icon='menu'
-                            svg
-                            title='Открыть прикреплённые файлы'
-                            style={{width: 30}}
-                            onClick={() => this.setState(prev => ({isActive: !prev.isActive}))}
-                    />
 				</div>
 				<div className={filesClass}>
                  	<ChatContent/>
