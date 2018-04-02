@@ -143,9 +143,9 @@ class Schedule extends React.Component {
     onSaveReceptionSchedule = (interval) => {
         //console.log(interval);
         //console.log('[before]');
-        this.props.onAddInterval(interval);
+        this.props.onAddInterval(interval, this.state.interval.start,this.state.interval.end);
         //console.log('[after]');
-        this.props.onGetAllIntervals(this.state.interval.start,this.state.interval.end);
+        //this.props.onGetAllIntervals(this.state.interval.start,this.state.interval.end);
         this.setState({
             receptionsScheduleModal: false,
             receptionData: {
@@ -234,7 +234,7 @@ class Schedule extends React.Component {
             />)
         }
 
-        //console.log(this.state.interval)
+        console.log(this.state.interval)
 
         return (
             <Hoc>
@@ -314,7 +314,7 @@ const mapDispatchToProps = dispatch => {
         onGetDocPatients: () => dispatch(actions.getDoctorsPatients()),
 
         onGetAllIntervals: (start, end) => dispatch(actions.getAllIntervals(start, end)),
-        onAddInterval: (obj) => dispatch(actions.addInterval(obj)),
+        onAddInterval: (obj, start, end) => dispatch(actions.addInterval(obj, start, end)),
 
 
 

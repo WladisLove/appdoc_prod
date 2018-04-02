@@ -4,22 +4,19 @@ import * as actionTypes from './actionTypes'
 
 
 
-export const addInterval = (interval) => {
+export const addInterval = (interval, start, end) => {
     return (dispatch) => {
         let obj = {
             ...interval,
             id_doc: 2697,
             isEditable: 1,
-            intervalOb: "text",
-            intervalEx: "text",
         }
         
-        console.log(JSON.stringify(obj));
-
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/dateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
-                console.log('add response',res)
+                //console.log('add response',res)
+                start && dispatch(getAllIntervals(start,end))
                 //dispatch()
             })
             .catch(err => {
@@ -32,18 +29,17 @@ export const getAllIntervals = (start, end) => {
     
     let obj = {
         id_doc: 2697,
-        datestart: 946508400/*start.getTime()/1000*/,
-        dateend: 946854000/*end.getTime()/1000*/,
+        datestart: start.getTime()/1000,
+        dateend: end.getTime()/1000,
     }
 
 
     
     return (dispatch) => {
-        console.log(JSON.stringify(obj));
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
-                console.log('get response',res.data)
+                //console.log('get response',res.data)
                 dispatch({
                     type: actionTypes.GET_ALL_INTERVALS,
                     intervals: res.data.result,
