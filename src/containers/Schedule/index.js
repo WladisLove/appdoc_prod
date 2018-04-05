@@ -97,7 +97,7 @@ class Schedule extends React.Component {
 
     onSaveNewVisit = (obj) => {
         console.log(obj);
-        this.props.onAddNewVisit(obj);
+        this.props.onAddNewVisit(obj, this.state.interval.start, this.state.interval.end);
         this.setState({
             newVisitModal: false,
         })
@@ -181,7 +181,7 @@ class Schedule extends React.Component {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = [], timeSetReception = [];
 
-        console.log('visits',this.props.visits)
+        //console.log('visits',this.props.visits)
 
         if ('time' in currentSched || 'emergencyTime' in currentSched){
             timeSetCall = currentSched.time.map(item => {
@@ -236,7 +236,7 @@ class Schedule extends React.Component {
             />)
         }
 
-        console.log(this.state.interval)
+        //console.log(this.state.interval)
 
         return (
             <Hoc>
