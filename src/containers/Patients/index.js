@@ -70,6 +70,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		onGetDocPatients: () => dispatch(actions.getDocPatients()),
 		onGetNotDocPatients: () => dispatch(actions.getNotDocPatients()),
+	
 	}
 };
 
