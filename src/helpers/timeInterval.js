@@ -11,8 +11,8 @@ export const findTimeInterval = (date, mode) => {
     switch(mode){
         case 'day':
             return {
-                start: date,
-                end: date,
+                start: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+                end: new Date(date.getFullYear(), date.getMonth(), date.getDate()+1),
             };
         case 'week':
             return findWeekInterval(date);

@@ -42,7 +42,7 @@ class Schedule extends React.Component {
 
     setIntervalAndView = (date, view) => {
         const {start, end} = findTimeInterval(date, view);
-        this.state.isEditorMode && this.props.onGetAllIntervals(start, end);
+        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
         
         this.setState({
             interval: {
@@ -64,7 +64,7 @@ class Schedule extends React.Component {
 
     dateChangeHandler = (date) => {
         const {start, end} = findTimeInterval(date, this.state.view);
-        this.state.isEditorMode && this.props.onGetAllIntervals(start, end);
+        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
         
         this.setState({
             currentDate: date,
@@ -96,7 +96,8 @@ class Schedule extends React.Component {
     };
 
     onSaveNewVisit = (obj) => {
-        //console.log(obj);
+        console.log(obj);
+        this.props.onAddNewVisit(obj, this.state.interval.start, this.state.interval.end);
         this.setState({
             newVisitModal: false,
         })
@@ -118,7 +119,7 @@ class Schedule extends React.Component {
     changeToEditorMode = (isEditorMode) => {
         let mode = isEditorMode ? 'month' : 'week'
         const {start, end} = findTimeInterval(this.state.currentDate, mode);
-        isEditorMode && this.props.onGetAllIntervals(start, end);
+        isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
 
         this.setState({
             view: mode,
@@ -180,6 +181,7 @@ class Schedule extends React.Component {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = [], timeSetReception = [];
 
+        //console.log('visits',this.props.visits)
 
         if ('time' in currentSched || 'emergencyTime' in currentSched){
             timeSetCall = currentSched.time.map(item => {
@@ -217,7 +219,7 @@ class Schedule extends React.Component {
                                  onClick={() => this.changeToEditorMode(true)}
                                  type='yellow'
                                  icon='setting_edit'/>)
-            calendar = (<Calendar receptionNum={this.props.events.length}
+            calendar = (<Calendar receptionNum={this.props.visits.length}
                                   selectable
                                   onSelectEvent={this.props.onSelectEvent}
                                   onSelectSlot={(slot) => this.onAddVisit(slot)}
@@ -228,13 +230,13 @@ class Schedule extends React.Component {
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
                                   step={5}
-                                  events={this.props.events}
+                                  events={this.props.visits}
                                   onPopoverClose={this.props.onEventDelete}
                                   onPopoverEmail={this.onPatientEmail}
             />)
         }
 
-        console.log(this.state.interval)
+        //console.log(this.state.interval)
 
         return (
             <Hoc>
@@ -301,7 +303,7 @@ const mapStateToProps = state => {
     return {
         patients: state.patients.patients,
 
-        events: state.schedules.events,
+        visits: state.schedules.visits,
         schedules: state.schedules.schedules,
         chosenData: state.schedules.chosenData,
         cancelModal: state.schedules.cancelModal,
@@ -316,7 +318,8 @@ const mapDispatchToProps = dispatch => {
         onGetAllIntervals: (start, end) => dispatch(actions.getAllIntervals(start, end)),
         onAddInterval: (obj, start, end) => dispatch(actions.addInterval(obj, start, end)),
 
-
+        onAddNewVisit: (obj, start, end) => dispatch(actions.addVisit(obj, start, end)),
+        onGetAllVisits: (start,end) => dispatch(actions.getAllVisits(start,end)),
 
         onSelectEvent: (event) => dispatch(actions.selectEvent(event)),
         onEventDelete: () => dispatch(actions.deleteEvent()),

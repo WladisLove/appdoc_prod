@@ -11,6 +11,9 @@ export {
     addInterval,
     getAllIntervals,
 
+    addVisit,
+    getAllVisits,
+
     //--------
     selectEvent,
     deleteEvent,
