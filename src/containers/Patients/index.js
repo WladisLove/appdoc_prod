@@ -22,12 +22,11 @@ class Patients extends React.Component{
 	}
 
 	showModalHandler = () => {
-		this.props.onGetNotDocPatients();
+		//this.props.onGetNotDocPatients();
 		this.setState({addNew_show: true});
 	}
 
     render(){
-
 
         return (
         	<Hoc>
@@ -45,15 +44,18 @@ class Patients extends React.Component{
 										
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => console.log(val)}
-										onDelete = {(val) => console.log(val)}
+										onDelete = {(val) => this.props.removePatient(val)}
 										/>
             		</Col>
             	</Row>
 				<AddNewPatient data={this.props.notDocPatients} 
 							visible={this.state.addNew_show} 
-							onCancel={() => this.setState({addNew_show: false})}
-							onSearch = {(val) => console.log(val)}
-							onAdd={(obj)=>console.log('eee',obj)}/>
+							onCancel={() => {
+								this.setState({addNew_show: false});
+								//this.props.onClearNotDocPatients();
+							}}
+							onSearch = {(name) => this.props.onGetNotDocPatients(name)}
+							onAdd={(id)=>this.props.addPatient(id)}/>
             </Hoc>
         )
     }
@@ -69,8 +71,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		onGetDocPatients: () => dispatch(actions.getDocPatients()),
-		onGetNotDocPatients: () => dispatch(actions.getNotDocPatients()),
-	
+		onGetNotDocPatients: (name) => dispatch(actions.getNotDocPatients(name)),
+		onClearNotDocPatients: () => dispatch(actions.clearNotDocPatients()),
+		addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
+		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
 	}
 };
 
