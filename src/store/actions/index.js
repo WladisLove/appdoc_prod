@@ -12,6 +12,14 @@ export {
     
 } from './reviews';
 export {
+
+    addInterval,
+    getAllIntervals,
+
+    addVisit,
+    getAllVisits,
+
+    //--------
     selectEvent,
     deleteEvent,
     openCancelModal,

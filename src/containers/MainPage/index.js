@@ -12,9 +12,8 @@ import {dataArr, scheduleArr, treatmentArr, panelArr} from './mock-data'
 class MainPage extends React.Component{
 
     render(){
-		console.log(this.props.reviews);
 
-		!this.props.reviews.length && this.props.onGetAllReviews();
+		this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
 
         return (
                 <Hoc>
