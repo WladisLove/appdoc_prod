@@ -52,7 +52,7 @@ class Patients extends React.Component{
 							visible={this.state.addNew_show} 
 							onCancel={() => {
 								this.setState({addNew_show: false});
-								//this.props.onClearNotDocPatients();
+								this.props.onClearNotDocPatients();
 							}}
 							onSearch = {(name) => this.props.onGetNotDocPatients(name)}
 							onAdd={(id)=>this.props.addPatient(id)}/>

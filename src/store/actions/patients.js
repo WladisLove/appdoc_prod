@@ -69,7 +69,6 @@ export const addPatient = (id, name) => {
     }
 }
 
-// /removePatientFromDoctor/id/{id}/patientId/{patientId}
 export const removePatient = (id_user, id_doctor) => {
     id_doctor = 2732;
     return (dispatch) => {
@@ -81,5 +80,13 @@ export const removePatient = (id_user, id_doctor) => {
 			.catch(err => {
                 console.log(err);
             })
+    }
+}
+
+
+// /putMessage
+export const sendMessage = () => {
+    return (dispatch) => {
+        
     }
 }
