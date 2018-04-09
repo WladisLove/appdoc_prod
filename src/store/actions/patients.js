@@ -85,8 +85,19 @@ export const removePatient = (id_user, id_doctor) => {
 
 
 // /putMessage
-export const sendMessage = () => {
+export const sendMessage = (message) => {
+
+ let obj = {
+     ...message,
+     from: "2697",
+ }
     return (dispatch) => {
-        
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/putMessage',JSON.stringify(obj))
+        .then(rez => {
+            console.log(rez)
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
 }
