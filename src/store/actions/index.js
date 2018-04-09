@@ -1,5 +1,10 @@
 export {
-    getDoctorsPatients,
+    getDocPatients,
+    getNotDocPatients,
+    clearNotDocPatients,
+    addPatient,
+    removePatient,
+    sendMessage,
 } from './patients';
 export {
     getAllReviews,

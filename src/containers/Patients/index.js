@@ -18,12 +18,15 @@ class Patients extends React.Component{
 	}
 
 	componentDidMount(){
-		this.props.onGetDocPatients();		
+		this.props.onGetDocPatients();	
+	}
+
+	showModalHandler = () => {
+		//this.props.onGetNotDocPatients();
+		this.setState({addNew_show: true});
 	}
 
     render(){
-		console.log(this.props.patients)
-
 
         return (
         	<Hoc>
@@ -35,21 +38,24 @@ class Patients extends React.Component{
             	<Row>
             		<Col xs={24} xxl={18}>
 						<PatientTable countPatient='9' 
-										data={this.props.patients}
+										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
-										onAdd = {() => this.setState({addNew_show: true})}
+										onAdd = {this.showModalHandler}
 										
 										onNewVisit={(val) => console.log(val)}
-										onNewMessage = {(val) => console.log(val)}
-										onDelete = {(val) => console.log(val)}
+										onNewMessage = {(val) => this.props.onSendMessage(val)}
+										onDelete = {(val) => this.props.removePatient(val)}
 										/>
             		</Col>
             	</Row>
-				<AddNewPatient data={this.props.patients} 
+				<AddNewPatient data={this.props.notDocPatients} 
 							visible={this.state.addNew_show} 
-							onCancel={() => this.setState({addNew_show: false})}
-							onSearch = {(val) => console.log(val)}
-							onAdd={(obj)=>console.log('eee',obj)}/>
+							onCancel={() => {
+								this.setState({addNew_show: false});
+								this.props.onClearNotDocPatients();
+							}}
+							onSearch = {(name) => this.props.onGetNotDocPatients(name)}
+							onAdd={(id)=>this.props.addPatient(id)}/>
             </Hoc>
         )
     }
@@ -57,13 +63,19 @@ class Patients extends React.Component{
 
 const mapStateToProps = state => {
 	return {
-		patients: state.patients.patients,
+		docPatients: state.patients.docPatients,
+		notDocPatients: state.patients.notDocPatients,
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onGetDocPatients: () => dispatch(actions.getDoctorsPatients()),
+		onGetDocPatients: () => dispatch(actions.getDocPatients()),
+		onGetNotDocPatients: (name) => dispatch(actions.getNotDocPatients(name)),
+		onClearNotDocPatients: () => dispatch(actions.clearNotDocPatients()),
+		addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
+		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
+		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 	}
 };
 
