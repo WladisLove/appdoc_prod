@@ -43,7 +43,7 @@ class Patients extends React.Component{
 										onAdd = {this.showModalHandler}
 										
 										onNewVisit={(val) => console.log(val)}
-										onNewMessage = {(val) => console.log(val)}
+										onNewMessage = {(val) => this.props.onSendMessage(val)}
 										onDelete = {(val) => this.props.removePatient(val)}
 										/>
             		</Col>
@@ -75,6 +75,7 @@ const mapDispatchToProps = dispatch => {
 		onClearNotDocPatients: () => dispatch(actions.clearNotDocPatients()),
 		addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
 		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
+		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 	}
 };
 

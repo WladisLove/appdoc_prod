@@ -4,6 +4,7 @@ export {
     clearNotDocPatients,
     addPatient,
     removePatient,
+    sendMessage,
 } from './patients';
 export {
     getAllReviews,
