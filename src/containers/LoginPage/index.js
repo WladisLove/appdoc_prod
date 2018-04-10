@@ -30,6 +30,35 @@ class LoginPage extends React.Component {
     };
 
     render(){
+
+        const langs = [{
+            title: 'Русский',
+            value: 'russian',
+        },{
+            title: 'Английсктй',
+            value: 'english',
+        },{
+            title: 'Немецкий',
+            value: 'german',
+        }];
+        const payments = [100,300,500];
+        const academicTitle = [{
+            title: 'Кандидат медицинских наук',
+            value: 'candidat_medicine_science',
+        },{
+            title: 'Доктор медицинских наук',
+            value: 'doctor_medicine_science',
+        }];
+        const academicDegree = [{
+            title: 'Доцент',
+            value: 'docent',
+        },{
+            title: 'Профессор',
+            value: 'professor',
+        }];
+
+
+
         return (
             <Hoc>
                 <div className="loginPage-header">
@@ -63,9 +92,10 @@ class LoginPage extends React.Component {
                         <Route path="/registration"
                                exact
                                render={() => <Registration onFinish={obj => this.replaceToAction(obj)}
-                                                           langs={['rus','eng','ua']}
+                                                           langs={langs}
                                                            payments={[50,75,100,125,150]}
-                                                           academicTitle = {['title1', 'title2']}
+                                                           academicTitle = {academicTitle}
+                                                           academicDegree = {academicDegree}
                                                            finalText='to continue'
                                />}
                         />
