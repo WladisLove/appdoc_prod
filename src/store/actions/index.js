@@ -6,16 +6,19 @@ export {
     removePatient,
     sendMessage,
 } from './patients';
+
 export {
     getAllReviews,
     putCommentAnswer,
     
 } from './reviews';
+
 export {
     selectEvent,
     deleteEvent,
     openCancelModal,
     closeCancelModal,
+
     getAllIntervals,
     addInterval,
     addVisit,
@@ -25,3 +28,8 @@ export {
     getActualTreatments,
     getAllTreatments,
 } from './treatment'
+
+
+export {
+    login,
+} from './auth'

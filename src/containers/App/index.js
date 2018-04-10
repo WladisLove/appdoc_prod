@@ -1,20 +1,18 @@
 import React  from 'react';
 import {appRoutes, menuItems} from '../../routes'
-//import LoginPage from '../LoginPage'
-import { Route, Switch } from 'react-router-dom'
-import { /*Button, Row, Col,*/ SideNav} from 'appdoc-component'
-//import {Layout} from 'antd'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { SideNav} from 'appdoc-component'
+import Hoc from '../../hoc'
+
 import { NavLink } from 'react-router-dom'
 
-//import SideNav from '../../components/SideNav'
+import {connect} from 'react-redux';
 
-// import { connect } from 'react-redux'
-
+import * as actions from '../../store/actions'
 import './styles.css';
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
-    //<PrivateRoute key={path} exact={exact} path={path} component={component} />
 );
 
 class App extends React.Component {
@@ -31,13 +29,28 @@ class App extends React.Component {
         });
     };
 
+    componentWillMount(){
+        const login = localStorage.getItem('_appdoc-user'),
+                pass = localStorage.getItem('_appdoc-pass');
+        (!this.props.id && login && pass) &&
+        this.props.onLogin({
+            userName: login, 
+            password: pass,
+        }, this.props.history);
+    }
+
     render() {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
+                
         return (
             <div className="main">
-                <div className={siderClass}>
+            {
+                this.props.id ? 
+            
+                (<Hoc>
+                    <div className={siderClass}>
                     <SideNav onClick={this.toggle}
                             img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
                              menuItems={menuItems}
@@ -80,10 +93,32 @@ class App extends React.Component {
                 <div className="main-footer">
                         <div className="main-footer-item company">AppDoc 2017</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
-                </div>
+                </div> </Hoc>)
+            : (
+                /*(localStorage.getItem('_appdoc-user') && localStorage.getItem('_appdoc-pass'))
+                    ?  this.props.onLogin({
+                        userName: localStorage.getItem('_appdoc-user'), 
+                        password: localStorage.getItem('_appdoc-pass'),
+                    }, this.props.history)
+                    :*/ <Redirect to='login'/>
+            )
+            }
             </div>
         );
     }
 }
 
-export default App;
+const mapStateToProps = state =>{
+    return {
+        auth: state.auth,
+        id: state.auth.id,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+        onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history))
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

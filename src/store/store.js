@@ -5,6 +5,7 @@ import patientsReducer from './reducers/patients'
 import reviewsReducer from './reducers/reviews'
 import schedulesReducer from './reducers/schedules'
 import treatmentsReducer from './reducers/treatment'
+import authReducer from './reducers/auth'
 
 
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     reviews: reviewsReducer,
     schedules: schedulesReducer,
     treatments: treatmentsReducer,
+    auth: authReducer,
 });
 
 // const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
