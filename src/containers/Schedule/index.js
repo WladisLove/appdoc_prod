@@ -313,7 +313,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetDocPatients: () => dispatch(actions.getDoctorsPatients()),
+        onGetDocPatients: () => dispatch(actions.getDocPatients()),
 
         onGetAllIntervals: (start, end) => dispatch(actions.getAllIntervals(start, end)),
         onAddInterval: (obj, start, end) => dispatch(actions.addInterval(obj, start, end)),
