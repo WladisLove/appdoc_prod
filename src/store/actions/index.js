@@ -6,11 +6,13 @@ export {
     removePatient,
     sendMessage,
 } from './patients';
+
 export {
     getAllReviews,
     putCommentAnswer,
     
 } from './reviews';
+
 export {
 
     addInterval,
@@ -25,3 +27,7 @@ export {
     openCancelModal,
     closeCancelModal,
 } from './schedules';
+
+export {
+    login,
+} from './auth'
