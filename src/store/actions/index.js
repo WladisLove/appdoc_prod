@@ -1,5 +1,10 @@
 export {
-    getDoctorsPatients,
+    getDocPatients,
+    getNotDocPatients,
+    clearNotDocPatients,
+    addPatient,
+    removePatient,
+    sendMessage,
 } from './patients';
 
 export {
@@ -9,6 +14,14 @@ export {
 } from './reviews';
 
 export {
+
+    addInterval,
+    getAllIntervals,
+
+    addVisit,
+    getAllVisits,
+
+    //--------
     selectEvent,
     deleteEvent,
     openCancelModal,

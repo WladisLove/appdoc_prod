@@ -7,6 +7,7 @@ export const getAllReviews = () => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getCommentToDoc',
                     JSON.stringify({id_doc: '2697'}))
             .then(res => {
+                console.log(res)
 
                 dispatch({
                     type: actionTypes.GET_ALL_REVIEWS,
