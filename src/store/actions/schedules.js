@@ -81,7 +81,6 @@ export const getAllVisits = (start, end) => {
         dateend: end.getTime()/1000,
     }
 
-    console.log(JSON.stringify(obj))
 
     return (dispatch) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',

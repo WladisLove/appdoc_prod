@@ -10,10 +10,15 @@ import './styles.css'
 import {dataArr, scheduleArr, treatmentArr, panelArr} from './mock-data'
 
 class MainPage extends React.Component{
+	componentDidMount(){
+		this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
+		this.props.onGetActualTreatments();
+		let now = new Date();
+		this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+										new Date(now.getFullYear(), now.getMonth(), now.getDate()+1));
+	}
 
     render(){
-
-		this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
 
         return (
                 <Hoc>
@@ -25,7 +30,7 @@ class MainPage extends React.Component{
 
 					<Row>
 						<Col xs={24} xxl={14} className='section'>
-							<TableNoHead data={scheduleArr}/>
+							<TableNoHead data={this.props.visits}/>
 						</Col>
 						<Col xs={24} xxl={10} className='section'>
 							<Reviews data={this.props.reviews}
@@ -35,7 +40,7 @@ class MainPage extends React.Component{
 					</Row>
 					<Row>
 						<Col span={24} className='section'>
-							<TreatmentTable data={treatmentArr}
+							<TreatmentTable data={this.props.actualTreatments}
 											redirect={() => this.props.history.push('/treatment')}/>
 						</Col>
 					</Row>
@@ -47,13 +52,17 @@ class MainPage extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        reviews: state.reviews.reviews,
+		visits: state.schedules.visits,
+		reviews: state.reviews.reviews,
+		actualTreatments: state.treatments.actualTreatments,
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetAllReviews: () => dispatch(actions.getAllReviews()),
+		onGetTodayVisits: (start, end) => dispatch(actions.getAllVisits(start, end)),
+		onGetAllReviews: () => dispatch(actions.getAllReviews()),
+		onGetActualTreatments: () => dispatch(actions.getActualTreatments()),
     }
 };
 
