@@ -15,62 +15,66 @@ import {
 import * as actions from '../../store/actions'
 import './styles.css'
 
-const LoginPage = (props) => {
+class LoginPage extends React.Component {
+    
 
-    const closeAuthPage = (e) => {
+    closeAuthPage = (e) => {
         e.preventDefault();
         console.log('Close & go back')
     };
 
-    const replaceToAction = (rez) => {
+    replaceToAction = (rez) => {
         axios.post('https://178.172.235.105/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
             .then(res => console.log('response: ',res))
             .catch(err => console.log('error: ',err))
     };
 
-    return (
-        <Hoc>
-            <div className="loginPage-header">
-                <div className="loginPage-header-close">
-                    <Icon type='close' svg onClick={closeAuthPage}/>
+    render(){
+        return (
+            <Hoc>
+                <div className="loginPage-header">
+                    <div className="loginPage-header-close">
+                        <Icon type='close' svg onClick={this.closeAuthPage}/>
+                    </div>
                 </div>
-            </div>
-
-            <Row>
-                <Col xs={{span: 24}}
-                     sm={{span: 22, offset: 1}}
-                     md={{span: 18, offset: 3}}
-                     lg={{span: 14, offset: 5}}
-                     xl={{span: 12, offset: 6}}>
-                    <Route path="/login"
-                           exact
-                           render={() => (
-                               <Login urlForget={props.match.url + '/forget'}
-                                      urlRegistration='/registration'
-                                      errorCode={props.errorCode}
-                                      onSubmit={(obj) => props.onLogin(obj, props.history)}
-                               />
-                           )}/>
-                    <Route path="/login/forget"
-                           exact
-                           render={() => <LoginForget urlLogin={props.match.url}
-                                                      onUrlChange={() => {
-                                                          props.history.replace(props.match.url)
-                                                      }}/>}
-                    />
-                    <Route path="/registration"
-                           exact
-                           render={() => <Registration onFinish={obj => replaceToAction(obj)}
-                                                       langs={['rus','eng','ua']}
-                                                       payments={[50,75,100,125,150]}
-                                                       academicTitle = {['title1', 'title2']}
-                                                       finalText='to continue'
-                           />}
-                    />
-                </Col>
-            </Row>
-        </Hoc>
-    )
+    
+                <Row>
+                    <Col xs={{span: 24}}
+                         sm={{span: 22, offset: 1}}
+                         md={{span: 18, offset: 3}}
+                         lg={{span: 14, offset: 5}}
+                         xl={{span: 12, offset: 6}}>
+                        <Route path="/login"
+                               exact
+                               render={() => (
+                                   <Login urlForget={this.props.match.url + '/forget'}
+                                          urlRegistration='/registration'
+                                          errorCode={this.props.errorCode}
+                                          onSubmit={(obj) => this.props.onLogin(obj, this.props.history)}
+                                   />
+                               )}/>
+                        <Route path="/login/forget"
+                               exact
+                               render={() => <LoginForget urlLogin={this.props.match.url}
+                                                          onUrlChange={() => {
+                                                              this.props.history.replace(this.props.match.url)
+                                                          }}/>}
+                        />
+                        <Route path="/registration"
+                               exact
+                               render={() => <Registration onFinish={obj => this.replaceToAction(obj)}
+                                                           langs={['rus','eng','ua']}
+                                                           payments={[50,75,100,125,150]}
+                                                           academicTitle = {['title1', 'title2']}
+                                                           finalText='to continue'
+                               />}
+                        />
+                    </Col>
+                </Row>
+            </Hoc>
+        )
+    }
+    
 
 }
 

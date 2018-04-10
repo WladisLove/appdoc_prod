@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom'
 
 import {connect} from 'react-redux';
 
+import * as actions from '../../store/actions'
 import './styles.css';
 
 const renderRoutes = ({ path, component, exact }) => (
@@ -28,11 +29,21 @@ class App extends React.Component {
         });
     };
 
+    componentWillMount(){
+        const login = localStorage.getItem('_appdoc-user'),
+                pass = localStorage.getItem('_appdoc-pass');
+        (!this.props.id && login && pass) &&
+        this.props.onLogin({
+            userName: login, 
+            password: pass,
+        }, this.props.history);
+    }
+
     render() {
-        console.log('auth',this.props.auth)
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
+                
         return (
             <div className="main">
             {
@@ -83,7 +94,14 @@ class App extends React.Component {
                         <div className="main-footer-item company">AppDoc 2017</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div> </Hoc>)
-            : <Redirect to='login'/> 
+            : (
+                /*(localStorage.getItem('_appdoc-user') && localStorage.getItem('_appdoc-pass'))
+                    ?  this.props.onLogin({
+                        userName: localStorage.getItem('_appdoc-user'), 
+                        password: localStorage.getItem('_appdoc-pass'),
+                    }, this.props.history)
+                    :*/ <Redirect to='login'/>
+            )
             }
             </div>
         );
@@ -97,4 +115,10 @@ const mapStateToProps = state =>{
     }
 }
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = dispatch => {
+	return {
+        onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history))
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -18,6 +18,7 @@ export const login = (userName, password, remember, history, isAuto) => {
 
     return (dispatch) => {
         dispatch(authStart());
+
         axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
                 JSON.stringify({
                     login: userName,
