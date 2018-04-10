@@ -12,16 +12,16 @@ export {
     
 } from './reviews';
 export {
-
-    addInterval,
-    getAllIntervals,
-
-    addVisit,
-    getAllVisits,
-
-    //--------
     selectEvent,
     deleteEvent,
     openCancelModal,
     closeCancelModal,
+    getAllIntervals,
+    addInterval,
+    addVisit,
+    getAllVisits,
 } from './schedules';
+export {
+    getActualTreatments,
+    getAllTreatments,
+} from './treatment'

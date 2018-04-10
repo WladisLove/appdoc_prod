@@ -10,10 +10,12 @@ import './styles.css'
 import {dataArr, scheduleArr, treatmentArr, panelArr} from './mock-data'
 
 class MainPage extends React.Component{
+	componentDidMount(){
+		this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
+		this.props.onGetActualTreatments();
+	}
 
     render(){
-
-		this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
 
         return (
                 <Hoc>
@@ -35,7 +37,7 @@ class MainPage extends React.Component{
 					</Row>
 					<Row>
 						<Col span={24} className='section'>
-							<TreatmentTable data={treatmentArr}
+							<TreatmentTable data={this.props.actualTreatments}
 											redirect={() => this.props.history.push('/treatment')}/>
 						</Col>
 					</Row>
@@ -47,13 +49,15 @@ class MainPage extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        reviews: state.reviews.reviews,
+		reviews: state.reviews.reviews,
+		actualTreatments: state.treatments.actualTreatments,
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetAllReviews: () => dispatch(actions.getAllReviews()),
+		onGetAllReviews: () => dispatch(actions.getAllReviews()),
+		onGetActualTreatments: () => dispatch(actions.getActualTreatments()),
     }
 };
 
