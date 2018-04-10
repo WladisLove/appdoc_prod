@@ -14,9 +14,6 @@ import './styles.css'
 class Treatment extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            treatments: [],
-        }
     }
 
     componentDidMount(){
@@ -31,8 +28,6 @@ class Treatment extends React.Component{
     }
 
     render(){
-        console.log(this.state)
-
 
         return (
             <Hoc>
