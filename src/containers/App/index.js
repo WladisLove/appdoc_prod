@@ -41,6 +41,11 @@ class App extends React.Component {
         this.props.id && (this.props.getDocShortInfo(), this.props.onGetDocPatients());
     }
 
+    gotoHandler = (id) => {
+		this.props.onSelectPatient(id);
+		this.props.history.push('/patients-page');
+    }
+    
     render() {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
@@ -62,6 +67,7 @@ class App extends React.Component {
                 <div className={wrapperClass}>
                     <div className="main-header">
                         <Header data={this.props.docPatients}
+                                onAdd={this.gotoHandler}
                                 logout={this.props.onLogout}/>
                     </div>
                     <div className="main-content">
@@ -111,6 +117,7 @@ const mapDispatchToProps = dispatch => {
         onLogout: () => dispatch(actions.logout()),
         getDocShortInfo: () => dispatch(actions.getDocShortInfo()),
         onGetDocPatients: () => dispatch(actions.getDocPatients()),
+        onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 	}
 };
 

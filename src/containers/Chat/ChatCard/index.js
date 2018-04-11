@@ -43,12 +43,12 @@ class ChatCard extends React.Component {
 
         let content;
         switch (this.state.mode) {
-            case 'chat1':
+            case 'chat':
                 content = <ChatContent isActive={this.state.isActive}/>;
                 break;
-            case 'telephone':
+            case 'voice':
                 break;
-            case "video-camera":
+            case "video":
                 content = <ChatVideoContent {...this.props}/>;
                 break;
         }
@@ -118,7 +118,7 @@ ChatCard.propTypes = {
     patientName: PropTypes.string,
     online: PropTypes.oneOf(['offline', 'online']),
     isActive: PropTypes.bool,
-    mode: PropTypes.oneOf(['chat1', 'telephone', "video-camera"]),
+    mode: PropTypes.oneOf(['chat', 'voice', "video"]),
 
     videoContent: PropTypes.node,
 };
@@ -128,7 +128,7 @@ ChatCard.defaultProps = {
     patientName: '',
     online: 'offline',
     isActive: false,
-    mode: 'chat1',
+    mode: 'chat',
 };
 
 export default ChatCard
