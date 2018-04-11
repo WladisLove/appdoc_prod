@@ -2,12 +2,11 @@ import axios from 'axios'
 import * as actionTypes from './actionTypes';
 
 export const getDocPatients = () => {
-
     return (dispatch) => {
-        let id = '2732';
+        let id = '2697';
 		axios.get('https://178.172.235.105/~api/json/catalog.doc2/getPatientsByDoctorId/id/'+id)
 			.then(rez => {
-                console.log('getDocPatients',rez)
+                //console.log('getDocPatients',rez)
                 dispatch({
                     type: actionTypes.GET_DOCTORS_PATIENTS,
                     patients: rez.data,
@@ -19,17 +18,37 @@ export const getDocPatients = () => {
     }
 }
 
-export const getNotDocPatients = (name) => {
+export const getSelectedPatientInfo = () => {
+    return (dispatch, getState) => {
+        const state = getState();
 
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getInfoByUserId/id_user/'+state.patients.selectedId+'/id_doc/'+state.auth.id)
+			.then(rez => {
+                console.log('getDocPatients',rez);
+                const {diseasesArr, treatmentArr, infoUser} = rez.data.result;
+                dispatch({
+                    type: actionTypes.GET_SELECTED_PATIENT_INFO,
+                    diseases: diseasesArr,
+                    treatments: treatmentArr,
+                    infoUser: infoUser,
+                })
+			})
+			.catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const getNotDocPatients = (name) => {
     return (dispatch) => {
         let obj = {
-            id: 2732,
+            id: 2697,
             name,
         }
-        console.log(JSON.stringify(obj))
+        //console.log(JSON.stringify(obj))
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
 			.then(rez => {
-                console.log('getNotDocPatients',rez)
+                //console.log('getNotDocPatients',rez)
 
                 dispatch({
                     type: actionTypes.GET_NOT_DOCTORS_PATIENTS,
@@ -52,13 +71,12 @@ export const clearNotDocPatients = () => {
 export const addPatient = (id, name) => {
     return (dispatch) => {
         let obj = {
-            doctorID: 2732,
+            doctorID: 2697,
             patientID: id,
         }
-        console.log(JSON.stringify(obj))
+        //console.log(JSON.stringify(obj))
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/putPatientsByDoctorId', JSON.stringify(obj))
 			.then(rez => {
-                console.log(rez)
 
                 dispatch(getNotDocPatients(name))
                 dispatch(getDocPatients())
@@ -70,16 +88,29 @@ export const addPatient = (id, name) => {
 }
 
 export const removePatient = (id_user, id_doctor) => {
-    id_doctor = 2732;
+    id_doctor = 2697;
     return (dispatch) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/removePatientFromDoctor/id/'+id_doctor+'/patientId/'+id_user)
 			.then(rez => {
-                console.log(rez)
                 dispatch(getDocPatients())
 			})
 			.catch(err => {
                 console.log(err);
             })
+    }
+}
+
+
+export const selectPatient = (id) => {
+    return {
+        type: actionTypes.SELECT_PATIENT,
+        id: id,
+    }
+}
+
+export const unselectPatient = () => {
+    return {
+        type: actionTypes.UNSELECT_PATIENT,
     }
 }
 

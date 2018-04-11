@@ -25,7 +25,7 @@ export const login = (userName, password, remember, history, isAuto) => {
                     password: password,
                 }))
                     .then(res => {
-                        console.log('response: ',res);
+                        //console.log('response: ',res);
                         
                         //dispatch(authSuccess(response.data.idToken, response.data.localId));
 
@@ -49,6 +49,15 @@ export const login = (userName, password, remember, history, isAuto) => {
                         //dispatch(authFail(err.response.data.error));
                     })
     }
+}
+
+export const logout = () => {
+    return dispatch => {
+        localStorage.removeItem('_appdoc-user');
+        localStorage.removeItem('_appdoc-pass');
+        dispatch(authSuccess(0, ''));
+    }
+
 }
 
 const rememberMe = (flag, userName, password) => {
