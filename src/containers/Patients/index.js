@@ -17,6 +17,10 @@ class Patients extends React.Component{
 		}
 	}
 
+	gotoHandler = (id) => {
+		this.props.onSelectPatient(id);
+		this.props.history.push('/patients-page');
+	}
 	componentDidMount(){
 		this.props.onGetDocPatients();	
 	}
@@ -27,7 +31,6 @@ class Patients extends React.Component{
 	}
 
     render(){
-
         return (
         	<Hoc>
         		<Row>
@@ -42,6 +45,7 @@ class Patients extends React.Component{
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
 										
+										onGoto={(id) => this.gotoHandler(id)}
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => this.props.onSendMessage(val)}
 										onDelete = {(val) => this.props.removePatient(val)}
@@ -76,6 +80,7 @@ const mapDispatchToProps = dispatch => {
 		addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
 		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
+		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 	}
 };
 

@@ -12,7 +12,6 @@ export const addInterval = (interval, start, end) => {
             isEditable: 1,
         }
 
-        console.log(JSON.stringify(obj))
         
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/dateWorkInterval',
                     JSON.stringify(obj))
@@ -39,7 +38,6 @@ export const getAllIntervals = (start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
-                //console.log('get response',res.data)
                 dispatch({
                     type: actionTypes.GET_ALL_INTERVALS,
                     intervals: res.data.result,
@@ -58,12 +56,10 @@ export const addVisit = (reception, start, end) => {
             
             id_doc: 2697,
         }
-        console.log(JSON.stringify(obj))
         
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log('[add response]',res)
                 start && dispatch(getAllVisits(start,end))
                 //dispatch()
             })
@@ -86,7 +82,6 @@ export const getAllVisits = (start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log('[get response]',res.data)
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
                     visits: res.data.result,

@@ -1,7 +1,7 @@
 import React  from 'react';
 import {appRoutes, menuItems} from '../../routes'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { SideNav} from 'appdoc-component'
+import { SideNav, Header} from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import { NavLink } from 'react-router-dom'
@@ -37,6 +37,8 @@ class App extends React.Component {
             userName: login, 
             password: pass,
         }, this.props.history);
+
+        this.props.id && (this.props.getDocShortInfo(), this.props.onGetDocPatients());
     }
 
     render() {
@@ -51,30 +53,16 @@ class App extends React.Component {
             
                 (<Hoc>
                     <div className={siderClass}>
-                    <SideNav onClick={this.toggle}
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                             menuItems={menuItems}
-                             isShort={this.state.collapsed}/>
+                    <SideNav {...this.props.shortDocInfo}
+                            rateValue={+(this.props.shortDocInfo.rateValue)}
+                            onClick={this.toggle}
+                            menuItems={menuItems}
+                            isShort={this.state.collapsed}/>
                 </div>
                 <div className={wrapperClass}>
                     <div className="main-header">
-                        {/*Header  (replace) */}
-                        <NavLink exact to='/registration'
-                            style={{padding: '0 5px', borderRight: '1px solid blue'}}>
-                            Регистрация
-                        </NavLink>
-                        <NavLink exact to='/login'
-                            style={{padding: '0 5px', borderRight: '1px solid blue'}}>
-                            Логин
-                        </NavLink>
-                        <NavLink exact to='/chat'
-                            style={{padding: '0 5px', borderRight: '1px solid blue'}}>
-                            Чат
-                        </NavLink>
-                        <NavLink exact to='/patients-page'
-                            style={{padding: '0 5px', borderRight: '1px solid blue'}}>
-                            Страница пациента
-                        </NavLink>
+                        <Header data={this.props.docPatients}
+                                logout={this.props.onLogout}/>
                     </div>
                     <div className="main-content">
                         <Switch>
@@ -112,12 +100,17 @@ const mapStateToProps = state =>{
     return {
         auth: state.auth,
         id: state.auth.id,
+        shortDocInfo: state.doctor.shortInfo,
+        docPatients: state.patients.docPatients,
     }
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-        onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history))
+        onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
+        onLogout: () => dispatch(actions.logout()),
+        getDocShortInfo: () => dispatch(actions.getDocShortInfo()),
+        onGetDocPatients: () => dispatch(actions.getDocPatients()),
 	}
 };
 

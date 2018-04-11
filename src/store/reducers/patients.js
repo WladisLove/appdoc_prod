@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     docPatients: [],
     notDocPatients: [],
-    selectedId: null,
+    selectedId: 0,
+    selectedPatientInfo:{},
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,25 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 notDocPatients: action.patients,
+            }
+        case actionTypes.GET_SELECTED_PATIENT_INFO:
+            return {
+                ...state,
+                selectedPatientInfo: {
+                    diseases: action.diseases,
+                    treatments: action.treatments,
+                    infoUser: action.infoUser,
+                }
+            }
+        case actionTypes.SELECT_PATIENT:
+            return {
+                ...state,
+                selectedId: action.id,
+            }
+        case actionTypes.UNSELECT_PATIENT:
+            return {
+                ...state,
+                selectedId: 0,
             }
         default: return state;
     }

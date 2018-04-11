@@ -14,7 +14,7 @@ import * as actions from '../../store/actions'
 import './styles.css'
 
 import {findTimeInterval} from '../../helpers/timeInterval'
-import {patientsArr,timePeriod} from './mock-data'
+import {timePeriod} from './mock-data'
 
 class Schedule extends React.Component {
     constructor(props) {
@@ -56,10 +56,6 @@ class Schedule extends React.Component {
     componentDidMount(){
         this.setIntervalAndView(this.state.currentDate, 'week');
 
-
-       /* this.props.onAddInterval({
-
-        })*/
     }
 
     dateChangeHandler = (date) => {
@@ -77,7 +73,7 @@ class Schedule extends React.Component {
     };
 
     onAddVisit = (info) => {
-        this.props.patients.length == 0 ? 
+        this.props.patients.length === 0 ? 
             this.props.onGetDocPatients() : null;
 
         this.setState({
@@ -96,7 +92,7 @@ class Schedule extends React.Component {
     };
 
     onSaveNewVisit = (obj) => {
-        console.log(obj);
+        //console.log(obj);
         this.props.onAddNewVisit(obj, this.state.interval.start, this.state.interval.end);
         this.setState({
             newVisitModal: false,
@@ -112,7 +108,7 @@ class Schedule extends React.Component {
     };
 
     onSendNewMessage = (info) => {
-        console.log(info);
+        //console.log(info);
         this.setState({newMessageModal: false,})
     };
 
@@ -157,7 +153,7 @@ class Schedule extends React.Component {
     };
 
     openReceptionSchedule = (date, schedule) => {
-        console.log(date, schedule);
+        //console.log(date, schedule);
         if(schedule){
             this.setState({
                 receptionData: {
@@ -301,7 +297,7 @@ class Schedule extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        patients: state.patients.patients,
+        patients: state.patients.docPatients,
 
         visits: state.schedules.visits,
         schedules: state.schedules.schedules,

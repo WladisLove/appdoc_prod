@@ -4,6 +4,12 @@ export {
     clearNotDocPatients,
     addPatient,
     removePatient,
+
+    selectPatient,
+    unselectPatient,
+
+    getSelectedPatientInfo,
+    
     sendMessage,
 } from './patients';
 
@@ -32,4 +38,10 @@ export {
 
 export {
     login,
+    logout,
 } from './auth'
+
+export {
+    getDocTodayInfo,
+    getDocShortInfo,
+} from './doctor'
