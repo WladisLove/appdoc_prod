@@ -20,7 +20,7 @@ export const getDocTodayInfo = () => {
 export const getDocShortInfo = () => {
 
     return (dispatch) => {
-        axios.get('http://178.172.235.105/~api/json/catalog.doc2/dopInfoDocBiId/id_doc/'+2697)
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/dopInfoDocBiId/id_doc/'+2697)
             .then(res => {
                 console.log(res)
                 dispatch({
