@@ -22,8 +22,7 @@ export {
 export {
     selectEvent,
     deleteEvent,
-    openCancelModal,
-    closeCancelModal,
+    cancelEventsRange,
 
     getAllIntervals,
     addInterval,

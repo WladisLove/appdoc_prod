@@ -18,11 +18,12 @@ export const getDocPatients = () => {
     }
 }
 
-export const getSelectedPatientInfo = () => {
+export const getSelectedPatientInfo = (id) => {
     return (dispatch, getState) => {
         const state = getState();
+        let user_id = id ? id : state.patients.selectedId;
 
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getInfoByUserId/id_user/'+state.patients.selectedId+'/id_doc/'+state.auth.id)
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getInfoByUserId/id_user/'+user_id+'/id_doc/'+state.auth.id)
 			.then(rez => {
                 console.log('getDocPatients',rez);
                 const {diseasesArr, treatmentArr, infoUser} = rez.data.result;
@@ -45,7 +46,7 @@ export const getNotDocPatients = (name) => {
             id: 2697,
             name,
         }
-        //console.log(JSON.stringify(obj))
+        console.log(JSON.stringify(obj))
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
 			.then(rez => {
                 //console.log('getNotDocPatients',rez)
@@ -68,7 +69,7 @@ export const clearNotDocPatients = () => {
     }
 }
 
-export const addPatient = (id, name) => {
+export const addPatient = (id, name, getInfo = false) => {
     return (dispatch) => {
         let obj = {
             doctorID: 2697,
@@ -78,8 +79,9 @@ export const addPatient = (id, name) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/putPatientsByDoctorId', JSON.stringify(obj))
 			.then(rez => {
 
-                dispatch(getNotDocPatients(name))
-                dispatch(getDocPatients())
+                name && dispatch(getNotDocPatients(name));
+                getInfo && dispatch(getSelectedPatientInfo(id));
+                dispatch(getDocPatients()); 
 			})
 			.catch(err => {
                 console.log(err);
@@ -92,7 +94,8 @@ export const removePatient = (id_user, id_doctor) => {
     return (dispatch) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/removePatientFromDoctor/id/'+id_doctor+'/patientId/'+id_user)
 			.then(rez => {
-                dispatch(getDocPatients())
+                dispatch(getDocPatients());
+                dispatch(getNotDocPatients(''));
 			})
 			.catch(err => {
                 console.log(err);

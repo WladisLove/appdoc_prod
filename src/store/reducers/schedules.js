@@ -7,7 +7,6 @@ const initialState = {
         id: null,
         userName: '',
     },
-    cancelModal: false,
     cancelData: {
         rangeSet: [],
     },
@@ -25,7 +24,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 visits: action.visits,
             }
-
+        case actionTypes.DELETE_EVENT:
+            return {
+                ...state,
+                chosenData: {
+                    id: 0,
+                    userName: '',
+                },
+            };
 
 
 
@@ -38,30 +44,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 chosenData: {
                     id: action.event.id,
-                    userName: action.event.title,
+                    userName: action.event.fio,
                 }
             };
-        case actionTypes.DELETE_EVENT:
-            console.log('[Delete]', state.chosenData.id);
-            return {
-                ...state,
-                chosenData: {
-                    id: null,
-                    userName: '',
-                },
-            };
-        case actionTypes.OPEN_CANCEL_MODAL:
-            return{
-                ...state,
-                cancelModal: true,
-            };
+        
         case actionTypes.CLOSE_CANCEL_MODAL:
-            if(action.toSave){
-                console.log('[SAVE]: ', action.object)
-            }
             return{
                 ...state,
-                cancelModal: false,
                 cancelData: {
                     rangeSet: [],
                 }

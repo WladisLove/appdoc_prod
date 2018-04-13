@@ -3,8 +3,8 @@ import * as actionTypes from './actionTypes';
 
 export const getDocTodayInfo = () => {
 
-    return (dispatch) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/todayActualZap/id_doc/'+2697)
+    return (dispatch, getState) => {
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/todayActualZap/id_doc/'+getState().auth.id)
             .then(res => {
                 dispatch({
                     type: actionTypes.GET_DOCTOR_TODAY_INFO,
@@ -19,10 +19,9 @@ export const getDocTodayInfo = () => {
 
 export const getDocShortInfo = () => {
 
-    return (dispatch) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/dopInfoDocBiId/id_doc/'+2697)
+    return (dispatch, getState) => {
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/dopInfoDocBiId/id_doc/'+getState().auth.id)
             .then(res => {
-                console.log(res)
                 dispatch({
                     type: actionTypes.GET_DOCTOR_SHORT_INFO,
                     info: res.data.result,
