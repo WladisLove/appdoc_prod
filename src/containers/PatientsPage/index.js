@@ -43,7 +43,8 @@ class PatientsPage extends React.Component{
 
                 <Row> 
                     <Col span={24}>
-                        <HistoryReceptions data={treatments}/>
+                        <HistoryReceptions data={treatments}
+                                            onGotoChat = {(id) => this.props.history.push('/chat')}/>
                     </Col> 
                 </Row>
             </Hoc>
