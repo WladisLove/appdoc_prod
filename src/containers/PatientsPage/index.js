@@ -29,6 +29,8 @@ class PatientsPage extends React.Component{
             		<Col xs={24} xxl={16} className='section'>
             			<ProfilePatient
                             {...infoUser}
+                            onAdd={(id) => this.props.addPatient(id)}
+                            id={this.props.id_user}
                             doctorType="врач-терапевт"
                             doctor="Тимошенко Т.И"
                             
@@ -51,13 +53,15 @@ class PatientsPage extends React.Component{
 
 const mapStateToProps = state => {
     return {
-		info: state.patients.selectedPatientInfo,
+        info: state.patients.selectedPatientInfo,
+        id_user: state.patients.selectedId,
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-		getPatientInfo: () => dispatch(actions.getSelectedPatientInfo()),
+        getPatientInfo: () => dispatch(actions.getSelectedPatientInfo()),
+        addPatient: (id) => dispatch(actions.addPatient(id, '', true))
     }
 };
 

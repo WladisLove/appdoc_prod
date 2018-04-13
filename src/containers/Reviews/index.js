@@ -37,7 +37,7 @@ class Reviews extends React.Component{
 							/>
 					</Col>
 					<Col xs={24} xxl={8} className='section'>
-						<RateIndicator rateValue={4} reviewsNum={reviews.length}/>
+						<RateIndicator rateValue={this.props.ratingAll} reviewsNum={reviews.length}/>
 					</Col>
             	</Row>
             </Hoc>
@@ -48,6 +48,7 @@ class Reviews extends React.Component{
 const mapStateToProps = state => {
 	return {
 		reviews: state.reviews.reviews,
+		ratingAll: state.reviews.ratingAll,
 	}
 };
 

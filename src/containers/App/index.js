@@ -38,7 +38,7 @@ class App extends React.Component {
             password: pass,
         }, this.props.history);
 
-        this.props.id && (this.props.getDocShortInfo(), this.props.onGetDocPatients());
+        this.props.id && (this.props.getDocShortInfo());
     }
 
     gotoHandler = (id) => {
@@ -51,6 +51,8 @@ class App extends React.Component {
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
                 
+
+        console.log('[patients]',this.props.notDocPatients)
         return (
             <div className="main">
             {
@@ -66,8 +68,16 @@ class App extends React.Component {
                 </div>
                 <div className={wrapperClass}>
                     <div className="main-header">
-                        <Header data={this.props.docPatients}
-                                onAdd={this.gotoHandler}
+                        <Header data={this.props.notDocPatients}
+                                onGoto={this.gotoHandler}
+                                onAdd={(id, name) => {
+                                    this.props.addPatient(id, name)
+                                    console.log(id,name)
+                                }}
+                                findName={(name) => {
+                                    this.props.onGetNotDocPatients(name),
+                                    console.log(name)
+                                }}
                                 logout={this.props.onLogout}/>
                     </div>
                     <div className="main-content">
@@ -107,7 +117,7 @@ const mapStateToProps = state =>{
         auth: state.auth,
         id: state.auth.id,
         shortDocInfo: state.doctor.shortInfo,
-        docPatients: state.patients.docPatients,
+        notDocPatients: state.patients.notDocPatients,
     }
 }
 
@@ -116,8 +126,9 @@ const mapDispatchToProps = dispatch => {
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
         onLogout: () => dispatch(actions.logout()),
         getDocShortInfo: () => dispatch(actions.getDocShortInfo()),
-        onGetDocPatients: () => dispatch(actions.getDocPatients()),
+        onGetNotDocPatients: (name) => dispatch(actions.getNotDocPatients(name)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
+        addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
 	}
 };
 
