@@ -1,14 +1,22 @@
 import React from 'react'
+import {connect} from 'react-redux';
+
 import { Row, Col, ProfilePatient, DiseasesTable, HistoryReceptions } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import {patientArr, diseasesArr, historyArr} from './mock-data'
+import * as actions from '../../store/actions'
+
 import './styles.css';
 
 class PatientsPage extends React.Component{
 
-    render(){
+    componentDidMount(){
+        this.props.getPatientInfo();
+    }
 
+    render(){
+        const {diseases = [], treatments = [], infoUser = {}} = this.props.info;
 
         return (
         	<Hoc>
@@ -20,27 +28,23 @@ class PatientsPage extends React.Component{
             	<Row>
             		<Col xs={24} xxl={16} className='section'>
             			<ProfilePatient
-                            secondname="Петров-Иванов"
-                            firstname="Александр"
-                            patronymic="Константинович"
-                            img="https://24smi.org/public/media/resize/660x-/person/2017/10/25/cdRRFH0JWoYv_supermen.jpg"
-                            lastDate="01.01.2000"
+                            {...infoUser}
+                            onAdd={(id) => this.props.addPatient(id)}
+                            id={this.props.id_user}
                             doctorType="врач-терапевт"
                             doctor="Тимошенко Т.И"
-                            birthday="31.12.1999"
-                            age="18"
-                            height="187"
-                            weight="85"
+                            
                         />
             		</Col>
                     <Col xs={24} xxl={8} className='section'>
-                        <DiseasesTable data={diseasesArr}/>
+                        <DiseasesTable data={diseases}/>
                     </Col>
             	</Row>
 
                 <Row> 
                     <Col span={24}>
-                        <HistoryReceptions data={historyArr}/>
+                        <HistoryReceptions data={treatments}
+                                            onGotoChat = {(id) => this.props.history.push('/chat')}/>
                     </Col> 
                 </Row>
             </Hoc>
@@ -48,4 +52,18 @@ class PatientsPage extends React.Component{
     }
 }
 
-export default PatientsPage;
+const mapStateToProps = state => {
+    return {
+        info: state.patients.selectedPatientInfo,
+        id_user: state.patients.selectedId,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getPatientInfo: () => dispatch(actions.getSelectedPatientInfo()),
+        addPatient: (id) => dispatch(actions.addPatient(id, '', true))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientsPage);

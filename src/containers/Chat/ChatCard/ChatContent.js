@@ -42,16 +42,6 @@ class ChatContent extends React.Component {
                                 time={Date.now()}
                             />
                             <ChatMessage
-                                img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                                message="Здарова!"
-                                time={Date.now()}
-                            />
-                            <ChatMessage
-                                img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                                message="Здарова!"
-                                time={Date.now()}
-                            />
-                            <ChatMessage
                                 isMy
                                 message="Здоровей видали!!"
                                 time={Date.now()}

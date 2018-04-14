@@ -231,12 +231,9 @@ class ChatVideoContent extends React.Component {
 	}
 
 	register = () => {
-		let name = window.prompt();
-		if (name == '') {
-			window.alert("You must insert your user name");
-			return;
-		}
-
+		let name = ''+this.props.callerID;
+		console.log('[my ID is]', name)
+		
 		this.setState({from: name});	
 		this.setRegisterState(REGISTERING);
 	

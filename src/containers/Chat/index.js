@@ -6,6 +6,8 @@ import Hoc from '../../hoc'
 
 import ChatCard from './ChatCard'
 
+import * as actions from '../../store/actions'
+
 import {dialogArr} from './mock-data'
 
 class Chat extends React.Component{
@@ -18,7 +20,6 @@ class Chat extends React.Component{
     }
 
     render(){
-
 
         return (
             <Hoc>
@@ -33,6 +34,7 @@ class Chat extends React.Component{
                                     from={this.state.from}
                                     onRegister = {(from) => this.setState({from})}
 
+                                    callerID = {this.props.id}
 
                                     onVideoCallBegin={()=> {this.setState({videoCalling: true});console.log('Begin video calling')}}
                                     onVideoCallStop={console.log('Close video calling')}/>
@@ -43,4 +45,16 @@ class Chat extends React.Component{
     }
 }
 
-export default Chat;
+const mapStateToProps = state =>{
+    return {
+        id: state.auth.id,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+        
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
