@@ -9,8 +9,14 @@ import './style.css'
 
 class ChatContent extends React.Component {
 
+    shouldComponentUpdate(nextProps){
+        return this.props.data.length !== nextProps.data.length;
+    }
+
     render() {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.props.isActive});
+
+        console.log(this.props.data)
 
         return (
 
@@ -29,28 +35,24 @@ class ChatContent extends React.Component {
                                     btnText='Начать приём'
                                     size='small'
                                     type='yellow'
+                                    onClick={this.props.onBegin}
                                 />
                             </div>
-                            <ChatMessage
-                                img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                                message="Здарова!"
-                                time={Date.now()}
-                            />
-                            <ChatMessage
-                                isMy
-                                message="Здоровей видали!!"
-                                time={Date.now()}
-                            />
-                            <ChatMessage
-                                isMy
-                                message="Здоровей видали!!"
-                                time={Date.now()}
-                            />
+
+                            {
+                                this.props.data.map((e, i) => {
+                                    return ( <ChatMessage
+                                        img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                                        {...e}
+                                        key={e.date + '' + i}
+                                    />)
+                                })
+                            }
                         </div>
                     </div>
                 </div>
                 <div className='chat-card-message__send'>
-                    <ChatSend />
+                    <ChatSend send={message => this.props.onSend(message)}/>
                 </div>
             </div>
 
@@ -58,8 +60,16 @@ class ChatContent extends React.Component {
     }
 }
 
-ChatContent.propTypes = {};
+ChatContent.propTypes = {
+    onSend: PropTypes.func,
+    data: PropTypes.array,
+    onBegin: PropTypes.func,
+};
 
-ChatContent.defaultProps = {};
+ChatContent.defaultProps = {
+    onSend: () => {},
+    data: [],
+    onBegin: () => {},
+};
 
 export default ChatContent

@@ -207,11 +207,7 @@ CallMediaPipeline.prototype.release = function() {
 
 var asUrl = url.parse(argv.as_uri);
 var port = asUrl.port;
-var server = https.createServer(options, app).listen(port, function() {
-    console.log('Kurento Tutorial started');
-    console.log(wss)
-    console.log('Open ' + url.format(asUrl) + ' with a WebRTC capable browser');
-});
+var server = https.createServer(options, app).listen(port, function() {});
 
 var wss = new ws.Server({
     server : server,
@@ -220,22 +216,24 @@ var wss = new ws.Server({
 
 wss.on('connection', function(ws) {
     var sessionId = nextUniqueId();
-    console.log('Connection received with sessionId ' + sessionId);
+    //console.log('Connection received with sessionId ' + sessionId);
 
     ws.on('error', function(error) {
-        console.log('Connection ' + sessionId + ' error');
+        //console.log('Connection ' + sessionId + ' error');
         stop(sessionId);
     });
 
     ws.on('close', function() {
-        console.log('Connection ' + sessionId + ' closed');
+        //console.log('Connection ' + sessionId + ' closed');
         stop(sessionId);
         userRegistry.unregister(sessionId);
     });
 
     ws.on('message', function(_message) {
         var message = JSON.parse(_message);
-        console.log('Connection ' + sessionId + ' received message ', message);
+        //message.id !== 'onIceCandidate' && console.log('Received message ', message);
+        //console.log('userRegistry', userRegistry);
+        //console.log('userRegistry.getById(sessionId)', userRegistry.getById(sessionId));
 
         switch (message.id) {
         case 'register':
@@ -252,6 +250,11 @@ wss.on('connection', function(ws) {
 
         case 'stop':
             stop(sessionId);
+            break;
+
+        case 'chat':
+            //console.log(message)
+            chatting(sessionId, message.to, message.from, message.text, message.date);
             break;
 
         case 'onIceCandidate':
@@ -284,6 +287,40 @@ function getKurentoClient(callback) {
         kurentoClient = _kurentoClient;
         callback(null, kurentoClient);
     });
+}
+
+function chatting(callerId, to, from, text, date){
+    //clearCandidatesQueue(callerId);
+    
+
+    var caller = userRegistry.getById(callerId);
+    var rejectCause = '';
+    //var rejectCause = 'User ' + to + ' is not registered';
+    if (userRegistry.getByName(to)) {
+        var callee = userRegistry.getByName(to);
+        callee.peer = from;
+        caller.peer = to;
+        var message = {
+            id: 'chat',
+            from,
+            to,
+            text,
+            date,
+        };
+        try{
+            callee.sendMessage(message);
+            caller.sendMessage({...message, isMy: true});
+            return;
+        } catch(exception) {
+            rejectCause = "Error " + exception;
+        }
+    }
+    var message  = {
+        id: 'chat',
+        response: 'rejected: ',
+        message: rejectCause
+    };
+    caller.sendMessage(message);
 }
 
 function stop(sessionId) {
@@ -386,6 +423,7 @@ function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws) {
 
 function call(callerId, to, from, sdpOffer) {
     clearCandidatesQueue(callerId);
+    
 
     var caller = userRegistry.getById(callerId);
     var rejectCause = 'User ' + to + ' is not registered';

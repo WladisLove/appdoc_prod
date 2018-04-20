@@ -45,7 +45,7 @@ class ChatCard extends React.Component {
         console.log(this.state.mode)
         switch (this.state.mode) {
             case 'chat':
-                content = <ChatContent isActive={this.state.isActive}/>;
+                content = <ChatContent isActive={this.state.isActive} {...this.props}/>;
                 break;
             case 'voice':
                 break;

@@ -35,7 +35,7 @@ var callState = null
 
 
 
-class ChatVideoContent extends React.Component {
+class ChatTextContent extends React.Component {
 	constructor(props){
 		super(props);
 
@@ -63,12 +63,6 @@ class ChatVideoContent extends React.Component {
 			switch (parsedMessage.id) {
 			case 'registerResponse':
 				this.resgisterResponse(parsedMessage);
-				break;
-			case 'callResponse':
-				this.callResponse(parsedMessage);
-				break;
-			case 'incomingCall':
-				this.incomingCall(parsedMessage);
 				break;
 			case 'startCommunication':
 				this.startCommunication(parsedMessage);
@@ -118,10 +112,6 @@ class ChatVideoContent extends React.Component {
 		this.register();
 	}
 
-	componentDidMount(){
-		//this.setRegisterState(NOT_REGISTERED);
-
-	}
 
 	componentWillUnmount(){
 		clearInterval(this.timerInterval);
@@ -157,82 +147,9 @@ class ChatVideoContent extends React.Component {
 		}
 	}
 
-	callResponse = (message) => {
-		if (message.response != 'accepted') {
-			console.info('Call not accepted by peer. Closing call');
-			var errorMessage = message.message ? message.message
-					: 'Unknown reason for call rejection.';
-			console.log(errorMessage);
-			this.stop(true);
-		} else {
-			this.setCallState(IN_CALL);
-			webRtcPeer.processAnswer(message.sdpAnswer);
-		}
-	}
-
 	startCommunication = (message) => {
 		this.setCallState(IN_CALL);
 		webRtcPeer.processAnswer(message.sdpAnswer);
-	}
-
-	incomingCall = (message) => {
-		// If bussy just reject without disturbing user
-		if (callState != NO_CALL) {
-			var response = {
-				id : 'incomingCallResponse',
-				from : message.from,
-				callResponse : 'reject',
-				message : 'bussy'
-	
-			};
-			return this.sendMessage(response);
-		}
-	
-		this.setCallState(PROCESSING_CALL);
-		if (window.confirm('User ' + message.from
-		+ ' is calling you. Do you accept the call?')) {
-			this.setState({isCalling: true, to: message.from})
-	
-			var options = {
-				localVideo : videoInput,
-				remoteVideo : videoOutput,
-				onicecandidate : this.onIceCandidate
-			}
-			
-			let that = this;
-	
-			webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
-					function(error) {
-						if (error) {
-							console.error(error);
-							this.setCallState(NO_CALL);
-						}
-	
-						this.generateOffer(function(error, offerSdp) {
-							if (error) {
-								console.error(error);
-								this.setCallState(NO_CALL);
-							}
-							var response = {
-								id : 'incomingCallResponse',
-								from : message.from,
-								callResponse : 'accept',
-								sdpOffer : offerSdp
-							};
-							that.sendMessage(response);
-						});
-					});
-	
-		} else {
-			var response = {
-				id : 'incomingCallResponse',
-				from : message.from,
-				callResponse : 'reject',
-				message : 'user declined'
-			};
-			this.sendMessage(response);
-			this.stop(true);
-		}
 	}
 
 	register = () => {
@@ -337,62 +254,29 @@ class ChatVideoContent extends React.Component {
     
     
     render() {
-        const {isActive, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
-		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
-		const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
-		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.state.isActive});
-
-		let {s, m, h} = this.state.timer;
+        const {isActive} = this.props;
 
         return (
-
-            <div className={dialogsClass}>
-			<div className='chat-card-message__area'>
-				<video className='chat-card-video__box' 
-						poster='http://bipbap.ru/wp-content/uploads/2017/04/72fqw2qq3kxh.jpg'
-						autoPlay
-						ref={video => {videoOutput = video;}}
-						></video>
-				<video className='chat-card-video__mini' 
-						autoPlay
-						ref={video => {videoInput = video;}}
-						></video>
-						</div>
-				<div className={panelClass}>
-					<ChatVideoPanel  
-								onStop={this.onStop} 
-								onCall={this.onCall} 
-								onChat = {() => this.setState(prev => ({isActive: !prev.isActive}))}
-								sec= {s}
-								min={m}
-								hour={h}
-								isCalling={this.state.isCalling}/>
-
-				</div>
-				<div className={filesClass}>
-                 	<ChatContent onSend={mes => this.sendMessage({
+            <ChatContent onSend={mes => this.sendMessage({
 						 id: 'chat',
 						 from: this.state.from,
 						 to: this.state.to,
 						 ...mes,
-					 })}
-					 	data={this.state.chatStory}
-					/>
-                </div>
-			</div>
-
+                     })}
+                     isActive = {isActive}
+                     data={this.state.chatStory}
+                     
+		    />
         )
     }
 }
 
 ChatVideoContent.propTypes = {
-	videoCalling: PropTypes.bool,
 	wsURL: PropTypes.string.isRequired,
 };
 
 ChatVideoContent.defaultProps = {
-	videoCalling: false,
 	wsURL: '',
 };
 
-export default ChatVideoContent
+export default ChatTextContent
