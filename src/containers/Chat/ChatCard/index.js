@@ -36,6 +36,7 @@ class ChatCard extends React.Component {
         super(props);
         this.state = {
             isActive: this.props.isActive,
+            isActiveChat: false,
             mode: this.props.mode,
 
             from: 0,
@@ -326,14 +327,7 @@ class ChatCard extends React.Component {
     
     }
 
-	onCall = () => {
-		const answer = window.prompt('Enter ID to call');
-        if (answer == '') {
-            window.alert("You must specify the peer name");
-            return;
-		}
-		this.setState({to: answer});
-		
+	onCall = () => {		
 		this.call();
 	}
 	onStop = () => {
@@ -367,6 +361,18 @@ class ChatCard extends React.Component {
                 break;
             case "video":
                 content = <ChatVideoContent ws={this.ws}
+                                            setVideoOut = {(video)=>videoOutput=video}
+                                            setVideoIn = {(video)=>videoInput=video}
+                                            onStop={this.onStop}
+                                            onCall={this.onCall}
+                                            from={this.state.from}
+                                            to={this.state.to}
+                                            onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
+                                            timer = {this.state.timer}
+                                            isCalling={this.state.isCalling}
+                                            sendMessage = {this.sendMessage}
+                                            chatStory={this.state.chatStory}
+                                            isActiveChat={this.state.isActiveChat}
                                             {...this.props}/>;
                 break;
         }
