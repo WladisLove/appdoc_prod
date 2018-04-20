@@ -6,6 +6,7 @@ import { Button, Radio,ChatFiles, ChatSend, ChatMessage } from 'appdoc-component
 
 
 import ChatContent from './ChatContent'
+import ChatTextContent from './ChatTextContent'
 import ChatVideoContent from './ChatVideoContent'
 
 import './style.css'
@@ -17,6 +18,7 @@ class ChatCard extends React.Component {
             isActive: this.props.isActive,
             mode: this.props.mode,
         }
+        this.ws = new WebSocket(props.wsURL)
     }
 
     filesRender = (dataArr) => {
@@ -45,12 +47,15 @@ class ChatCard extends React.Component {
         console.log(this.state.mode)
         switch (this.state.mode) {
             case 'chat':
-                content = <ChatContent isActive={this.state.isActive} {...this.props}/>;
+                content = <ChatTextContent isActive={this.state.isActive} 
+                                            ws={this.ws} 
+                                            {...this.props}/>;
                 break;
             case 'voice':
                 break;
             case "video":
-                content = <ChatVideoContent {...this.props}/>;
+                content = <ChatVideoContent ws={this.ws}
+                                            {...this.props}/>;
                 break;
         }
 

@@ -78,7 +78,6 @@ class ChatVideoContent extends React.Component {
 				this.stop(true);
 				break;
 			case 'chat':
-				console.log("=== [ CHAT ] ===");
 				this.setState({chatStory: [...this.state.chatStory, parsedMessage]})
 				break;
 			case 'iceCandidate':
