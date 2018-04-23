@@ -44,3 +44,8 @@ export {
     getDocTodayInfo,
     getDocShortInfo,
 } from './doctor'
+
+export {
+    getInfoDoctor,
+    sendNewInfoDoctor,
+} from './doctorData';

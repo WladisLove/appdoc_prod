@@ -1,65 +1,95 @@
 import React from 'react'
 
-import { Icon, Row, Col, PersonalContact, PersonalEducation, PersonalExperience, PersonalInformation } from 'appdoc-component'
+import { Icon, Row, Col, PersonalContact, PersonalEducation, PersonalExperience, PersonalInformation,WarningModal } from 'appdoc-component'
 import Hoc from '../../hoc'
-
 import './styles.css'
-class PersonalInfo extends React.Component{
+import {connect} from "react-redux";
+import * as actions from "../../store/actions";
+import{compileToClientDoctor, compileToServerDoctor} from './compilerDoc'
 
+
+
+
+class PersonalInfo extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            visible: false
+        }
+    }
+
+    componentDidMount(){
+        this.props.onGetInfoDoctor();
+    };
+
+    onVisible = () => {
+      this.setState({visible:false}) ;
+    };
+
+    onSubmit = (profileDoctor) => {
+        profileDoctor = compileToServerDoctor(profileDoctor);
+        this.props.onSendNewInfoDoctor(profileDoctor);
+        this.setState({visible:true}) ;
+    };
     render(){
+        let doctor = compileToClientDoctor(this.props.profileDoctor);
 
         return (
 
             <Hoc>
             	<Row>
             		<Col xs={24} xxl={18}>
-            			<PersonalContact 
-			                secondname="Иванова" 
-			                firstname="Иван" 
-			                patronymic="Иванович" 
-			                phone="+375 29 111 11 11" 
-			                email="test@test.com" 
-			                oldPassword="1111" 
-			                newPassword="" 
+            			<PersonalContact
+                            profileDoctor={ doctor}
+                            onSubmit ={this.onSubmit}
 			            />
             		</Col>
             	</Row>
             	<Row>
             		<Col xs={24} xxl={18}>
-            			<PersonalEducation 
-			                mainInstitution="Белорусский государственный медицинский университет" 
-			                mainSpecialty="Факультет стоматологии. Стоматолог" 
-			                secondInstitution="Медицинский университет Lorem ipsum dolor sit amet" 
-			                secondSpecialty="Курс стоматологии. Стоматолог"
-			                mainDateStart="30.07.2012"
-			                mainDateEnd="30.07.2018"
-			                dateStart="30.07.2012"
-			                dateEnd="30.07.2018"
-			                degree="Кандидат медицинских наук"
-			            />
+            			<PersonalEducation
+                            profileDoctor={ doctor}
+                            onSubmit ={this.onSubmit}
+                        />
             		</Col>
             	</Row>
             	<Row>
             		<Col xs={24} xxl={18}>
-            			<PersonalExperience 
-			                post="Стоматолог"
-			                placeOfWord="Мед центр «Lorem ipsum dolor sit amet»"
-			                dateStart="2011"
-			                expWork="10"
-			            />
+            			<PersonalExperience
+                            profileDoctor={doctor}
+                            onSubmit ={this.onSubmit}
+                        />
             		</Col>
             	</Row>
             	<Row>
             		<Col xs={24} xxl={18}>
-            			<PersonalInformation 
-			                langData={['Английский', 'Русский', 'Немецкий', 'Японский']}
-			                priceData={['50 - 100 руб', '100 - 200 руб', '200 - 500 руб', '500 - 1000 руб']}
-			            />
+            			<PersonalInformation
+                            profileDoctor={doctor}
+                            onSubmit ={this.onSubmit}
+                        />
             		</Col>
             	</Row>
+                <WarningModal visible={this.state.visible} onClick={this.onVisible}
+                              message="Изменения всупят в силу после проверки администратором"/>
             </Hoc>
         )
     }
 }
 
-export default PersonalInfo;
+const mapStateToProps = state => {
+    return {
+        profileDoctor: state.profileDoctor,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onGetInfoDoctor: () => dispatch(actions.getInfoDoctor()),
+        onSendNewInfoDoctor: (info) => dispatch(actions.sendNewInfoDoctor(info))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalInfo);
+/*
+
+export default PersonalInfo;*/
