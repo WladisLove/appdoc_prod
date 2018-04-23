@@ -1,5 +1,6 @@
 import React from 'react';
 import kurentoUtils from 'kurento-utils'
+//import kurentoClient from 'kurento-client'
 
 import PropTypes from 'prop-types'
 import cn from 'classnames'
@@ -139,7 +140,6 @@ class ChatCard extends React.Component {
 		case REGISTERED:
 			this.setCallState(NO_CALL);
 			break;
-	
 		default:
 			return;
 		}
@@ -287,7 +287,7 @@ class ChatCard extends React.Component {
 			candidate : candidate
 		}
 		this.sendMessage(message);
-	}
+    }
 	
 	call = () => {
 		this.setState({isCalling: true})
@@ -314,14 +314,73 @@ class ChatCard extends React.Component {
                 if (error) {
                     console.error(error);
                     this.setCallState(NO_CALL);
-                }
+				}
                 var message = {
                     id : 'call',
                     from,
                     to,
                     sdpOffer : offerSdp
                 };
-                that.sendMessage(message);
+				that.sendMessage(message);
+				
+				/*kurentoClient(that.props.wsURL, function(error, client) {
+					if (error) return console.log(error);
+			  
+					client.create('MediaPipeline', function(error, pipeline) {
+					  if (error) return console.log(error);
+			  			  
+					  var elements =
+					  [
+						{type: 'RecorderEndpoint', params: {uri : that.props.wsURL}},
+						{type: 'WebRtcEndpoint', params: {}}
+					  ]
+			  
+					  /*
+					  pipeline.create(elements, function(error, elements){
+						if (error) return console.log(error);
+			  
+						var recorder = elements[0]
+						var webRtc   = elements[1]
+			  
+						setIceCandidateCallbacks(webRtcPeer, webRtc, onError)
+			  
+						webRtc.processOffer(offer, function(error, answer) {
+						  if (error) return onError(error);
+			  
+						  console.log("offer");
+			  
+						  webRtc.gatherCandidates(onError);
+						  webRtcPeer.processAnswer(answer);
+						});
+			  
+						client.connect(webRtc, webRtc, recorder, function(error) {
+						  if (error) return onError(error);
+			  
+						  console.log("Connected");
+			  
+						  recorder.record(function(error) {
+							if (error) return onError(error);
+			  
+							console.log("record");
+			  
+							stopRecordButton.addEventListener("click", function(event){
+							  recorder.stop();
+							  pipeline.release();
+							  webRtcPeer.dispose();
+							  videoInput.src = "";
+							  videoOutput.src = "";
+			  
+							  hideSpinner(videoInput, videoOutput);
+			  
+							  var playButton = document.getElementById('play');
+							  playButton.addEventListener('click', startPlaying);
+							})
+						  });
+						});
+					  });
+					  
+					});
+				  });*/
             });
         });
     

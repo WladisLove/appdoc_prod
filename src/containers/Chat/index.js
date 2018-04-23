@@ -30,6 +30,7 @@ class Chat extends React.Component{
                     <Col xs={24} xxl={17} className='section'>
                         <ChatCard videoCalling={this.state.videoCalling}
                                     wsURL={'wss://localhost:8443/one2one'}
+                                    fileURL = {'file:///home/vladik/recorder_demo.webm'}
 
                                     from={this.state.from}
                                     onRegister = {(from) => this.setState({from})}
