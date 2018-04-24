@@ -36,6 +36,10 @@ class Chat extends React.Component{
                                     onRegister = {(from) => this.setState({from})}
 
                                     callerID = {this.props.id}
+                                    user_mode = {this.props.user_mode}
+
+                                    user_id = {1000}
+                                    patientName = {'Иванов Иван Иванович'}
 
                                     onVideoCallBegin={()=> {this.setState({videoCalling: true});console.log('Begin video calling')}}
                                     onVideoCallStop={console.log('Close video calling')}/>
@@ -49,6 +53,7 @@ class Chat extends React.Component{
 const mapStateToProps = state =>{
     return {
         id: state.auth.id,
+        user_mode: state.auth.mode,
     }
 }
 

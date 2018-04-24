@@ -42,7 +42,6 @@ class ChatVideoContent extends React.Component {
 		this.state = {
 			from: 0,
 			to: 0,
-			isCalling: false,
 			isActive: this.props.isActive,
 		}
 
@@ -92,7 +91,9 @@ class ChatVideoContent extends React.Component {
 						 to: this.props.to,
 						 ...mes,
 					 })}
-					 	data={this.props.chatStory}
+						 data={this.props.chatStory}
+						 from={this.props.from}
+						 receptionStarts={this.props.isCalling}
 					/>
                 </div>
 			</div>

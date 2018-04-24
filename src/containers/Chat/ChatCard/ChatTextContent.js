@@ -18,17 +18,13 @@ class ChatTextContent extends React.Component {
 
 		this.state = {
 			isActive: this.props.isActive,
-			chatStory: [],
 		}
-
-		//this.ws = new WebSocket(props.wsURL);
-		this.ws = props.ws;
 	}
     
     
     render() {
 		console.log('from:', this.props.from, 'to', this.props.to)
-        const {isActive} = this.props;
+		const {isActive} = this.props;
 
         return (
             <ChatContent onSend={mes => this.props.sendMessage({
@@ -38,8 +34,11 @@ class ChatTextContent extends React.Component {
 						 ...mes,
                      })}
                      isActive = {isActive}
-                     data={this.props.chatStory}
-                     
+					 data={this.props.chatStory}
+					 from={this.props.from}  
+					 onBegin = {this.props.onBegin}
+					 onEnd = {this.props.onEnd}
+					 receptionStarts = {this.props.receptionStarts}   
 		    />
         )
     }
@@ -48,11 +47,15 @@ class ChatTextContent extends React.Component {
 ChatTextContent.propTypes = {
 	wsURL: PropTypes.string.isRequired,
 	sendMessage: PropTypes.func,
+	onBegin: PropTypes.func,
+	onEnd: PropTypes.func,
 };
 
 ChatTextContent.defaultProps = {
 	wsURL: '',
 	sendMessage: () => {},
+	onBegin: () => {},
+	onEnd: () => {},
 };
 
 export default ChatTextContent

@@ -25,6 +25,7 @@ var app = express();
 
 var kurentoClient = null;
 var userRegistry = new UserRegistry();
+var chatStories = new ChatStories();
 var pipelines = {};
 var candidatesQueue = {};
 var idCounter = 0;
@@ -34,9 +35,6 @@ function nextUniqueId() {
     return idCounter.toString();
 }
 
-/*
- * Definition of helper classes
- */
 
 // Represents caller and callee sessions
 function UserSession(id, name, ws) {
@@ -81,6 +79,35 @@ UserRegistry.prototype.removeById = function(id) {
     if (!userSession) return;
     delete this.usersById[id];
     delete this.usersByName[userSession.name];
+}
+
+// {'id_doc1':{'id_user1': [], 'id_user2': [] ...}}
+function ChatStories(){
+    this.doctorsChat = {};
+}
+
+ChatStories.prototype.addDoctor = function(id){
+    this.doctorsChat[id] 
+        ? null : this.doctorsChat[id] = {};
+    console.log('add doctor', id);
+}
+
+ChatStories.prototype.addPatient = function(doc_id, user_id){
+    this.doctorsChat[doc_id][user_id] = [];
+}
+
+ChatStories.prototype.isChatOpen = function(doc_id, user_id){
+    return this.doctorsChat[doc_id]
+        ? (this.doctorsChat[doc_id].hasOwnProperty(user_id))
+        : false;
+}
+
+ChatStories.prototype.addMessage = function(doc_id, user_id, message){
+    this.doctorsChat[doc_id][user_id].push(message);
+}
+
+ChatStories.prototype.getMessages = function(doc_id, user_id){
+    return this.doctorsChat[doc_id][user_id];
 }
 
 // Represents a B2B active call
@@ -196,28 +223,23 @@ var wss = new ws.Server({
 
 wss.on('connection', function(ws) {
     var sessionId = nextUniqueId();
-    //console.log('Connection received with sessionId ' + sessionId);
 
     ws.on('error', function(error) {
-        //console.log('Connection ' + sessionId + ' error');
         stop(sessionId);
     });
 
     ws.on('close', function() {
-        //console.log('Connection ' + sessionId + ' closed');
         stop(sessionId);
         userRegistry.unregister(sessionId);
     });
 
     ws.on('message', function(_message) {
         var message = JSON.parse(_message);
-        //message.id !== 'onIceCandidate' && console.log('Received message ', message);
-        //console.log('userRegistry', userRegistry);
-        //console.log('userRegistry.getById(sessionId)', userRegistry.getById(sessionId));
 
+        console.log(chatStories.doctorsChat)
         switch (message.id) {
         case 'register':
-            register(sessionId, message.name, ws);
+            register(sessionId, message.name, message.other_name, ws, message.mode);
             break;
 
         case 'call':
@@ -233,8 +255,11 @@ wss.on('connection', function(ws) {
             break;
 
         case 'chat':
-            //console.log(message)
             chatting(sessionId, message.to, message.from, message.text, message.date);
+            break;
+        
+        case 'startReception':
+            startReception(message.name, message.other_name);
             break;
 
         case 'onIceCandidate':
@@ -269,16 +294,20 @@ function getKurentoClient(callback) {
     });
 }
 
+function sendCurrentChat(whom, doc_id, user_id){
+    var message = {
+        id: 'chatHistory',
+        chat: chatStories.getMessages(doc_id, user_id),
+    };
+    userRegistry.getByName(whom).sendMessage(message)
+}
+
 function chatting(callerId, to, from, text, date){
-    //clearCandidatesQueue(callerId);
     
     var caller = userRegistry.getById(callerId);
-    var rejectCause = '';
-    //var rejectCause = 'User ' + to + ' is not registered';
-    if (userRegistry.getByName(to)) {
-        var callee = userRegistry.getByName(to);
-        callee.peer = from;
-        caller.peer = to;
+    var callee = userRegistry.getByName(to);
+        callee && (callee.peer = from);
+        caller && (caller.peer = to);
         var message = {
             id: 'chat',
             from,
@@ -286,20 +315,31 @@ function chatting(callerId, to, from, text, date){
             text,
             date,
         };
-        try{
-            callee.sendMessage(message);
-            caller.sendMessage({...message, isMy: true});
-            return;
-        } catch(exception) {
-            rejectCause = "Error " + exception;
+
+        if(chatStories.doctorsChat[from]){
+            chatStories.addMessage(from, to, message);
+            try{
+                callee && callee.sendMessage(message);
+                caller && caller.sendMessage(message);
+                return;
+            } catch(exception) {
+                console.log("Error " + exception);
+            }
         }
-    }
-    /*var message  = {
-        id: 'chat',
-        response: 'rejected: ',
-        message: rejectCause
-    };
-    caller.sendMessage(message);*/
+        else{
+            if(chatStories.doctorsChat[to] && chatStories.isChatOpen(to, from)){
+                chatStories.addMessage(to, from, message);
+                try{
+                    callee && callee.sendMessage(message);
+                    caller && caller.sendMessage(message);
+                    return;
+                } catch(exception) {
+                    console.log("Error " + exception);
+                }
+            }
+            else
+                console.log('doctor is not ready')
+        }
 }
 
 function stop(sessionId) {
@@ -429,7 +469,26 @@ function call(callerId, to, from, sdpOffer) {
     caller.sendMessage(message);
 }
 
-function register(id, name, ws, callback) {
+function startReception(name, other_name){
+    /*if(+name !== 2){
+        console.log('name', name, 'other_name', other_name);*/
+        !chatStories.isChatOpen(name, other_name) && (
+            chatStories.addDoctor(name),
+            chatStories.addPatient(name, other_name)
+        )
+        var callee = userRegistry.getByName(other_name);
+        try{
+            callee && callee.sendMessage({
+                id: 'startReception',
+            });
+            return;
+        } catch(exception) {
+            console.log("Error " + exception);
+        }
+   // }
+}
+
+function register(id, name, other_name, ws, mode, callback) {
     function onError(error) {
         ws.send(JSON.stringify({id:'registerResponse', response : 'rejected ', message: error}));
     }
@@ -443,6 +502,15 @@ function register(id, name, ws, callback) {
     }
 
     userRegistry.register(new UserSession(id, name, ws));
+
+    mode === 'doc' 
+        ? (chatStories.isChatOpen(name, other_name) 
+            && sendCurrentChat(name, name, other_name)
+            )
+        : (chatStories.isChatOpen(other_name, name) 
+            && sendCurrentChat(name, other_name, name)
+        )
+
     try {
         ws.send(JSON.stringify({id: 'registerResponse', response: 'accepted'}));
     } catch(exception) {
