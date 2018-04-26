@@ -10,7 +10,8 @@ var https = require('https');
 var argv = minimist(process.argv.slice(2), {
   default: {
       as_uri: "https://localhost:8443/",
-      ws_uri: "ws://localhost:8888/kurento"
+      ws_uri: "ws://localhost:8888/kurento",
+      file_uri: 'file:///tmp/recorder_demo.webm',
   }
 });
 
@@ -29,6 +30,8 @@ var chatStories = new ChatStories();
 var pipelines = {};
 var candidatesQueue = {};
 var idCounter = 0;
+
+var recorder;
 
 function nextUniqueId() {
     idCounter++;
@@ -122,26 +125,57 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, ca
         if (error) {
             return callback(error);
         }
-
+                      
         kurentoClient.create('MediaPipeline', function(error, pipeline) {
             if (error) {
                 return callback(error);
             }
 
-            pipeline.create('WebRtcEndpoint', function(error, callerWebRtcEndpoint) {
+            var elements = [
+                {type: 'RecorderEndpoint', params: {uri : argv.file_uri}},
+                {type: 'WebRtcEndpoint', params: {}}
+            ];
+
+            //pipeline.create('WebRtcEndpoint', function(error, callerWebRtcEndpoint) {
+
+            /*
+            _pipeline.create( 'Composite',  function( error, _composite ) {
+                console.log("creating Composite");
+                if (error) {
+                    return callback(error);
+                }
+                composite = _composite;
+                callback( null, composite );
+            });
+
+            _composite.createHubPort( function(error, _hubPort) {
+                console.info("Creating hubPort");
+                if (error) {
+                    return callback(error);
+                }
+                callback( null, _hubPort );
+            });
+            */
+            pipeline.create(elements, function(error, elements){
                 if (error) {
                     pipeline.release();
                     return callback(error);
                 }
 
+                //----
+                var rec = elements[0];
+                var webRtc   = elements[1];
+                //----*/
+                //console.log('webRtc', callerWebRtcEndpoint);
+
                 if (candidatesQueue[callerId]) {
                     while(candidatesQueue[callerId].length) {
                         var candidate = candidatesQueue[callerId].shift();
-                        callerWebRtcEndpoint.addIceCandidate(candidate);
+                        webRtc.addIceCandidate(candidate);
                     }
                 }
 
-                callerWebRtcEndpoint.on('OnIceCandidate', function(event) {
+                webRtc.on('OnIceCandidate', function(event) {
                     var candidate = kurento.getComplexType('IceCandidate')(event.candidate);
                     userRegistry.getById(callerId).ws.send(JSON.stringify({
                         id : 'iceCandidate',
@@ -170,21 +204,36 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, ca
                         }));
                     });
 
-                    callerWebRtcEndpoint.connect(calleeWebRtcEndpoint, function(error) {
+                    webRtc.connect(calleeWebRtcEndpoint, function(error) {
                         if (error) {
                             pipeline.release();
                             return callback(error);
                         }
 
-                        calleeWebRtcEndpoint.connect(callerWebRtcEndpoint, function(error) {
+                        calleeWebRtcEndpoint.connect(webRtc, function(error) {
                             if (error) {
                                 pipeline.release();
                                 return callback(error);
                             }
                         });
 
+                        
+
+                        kurentoClient.connect(webRtc, calleeWebRtcEndpoint, rec, function(err){
+                            if (error) return console.log(err);
+
+                            console.log("Connected");
+                            recorder = rec;
+
+                            recorder.record(function(err){
+                                if (error) return console.log(err);
+
+                                console.log("record");
+                            })
+                        })
+
                         self.pipeline = pipeline;
-                        self.webRtcEndpoint[callerId] = callerWebRtcEndpoint;
+                        self.webRtcEndpoint[callerId] = webRtc;
                         self.webRtcEndpoint[calleeId] = calleeWebRtcEndpoint;
                         callback(null);
                     });
@@ -236,7 +285,6 @@ wss.on('connection', function(ws) {
     ws.on('message', function(_message) {
         var message = JSON.parse(_message);
 
-        console.log(chatStories.doctorsChat)
         switch (message.id) {
         case 'register':
             register(sessionId, message.name, message.other_name, ws, message.mode);
@@ -349,6 +397,7 @@ function stop(sessionId) {
 
     var pipeline = pipelines[sessionId];
     delete pipelines[sessionId];
+    recorder.stop();
     pipeline.release();
     var stopperUser = userRegistry.getById(sessionId);
     var stoppedUser = userRegistry.getByName(stopperUser.peer);
@@ -365,6 +414,11 @@ function stop(sessionId) {
     }
 
     clearCandidatesQueue(sessionId);
+
+    //startPlaying
+    console.log("Start playing");
+
+
 }
 
 function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws) {
