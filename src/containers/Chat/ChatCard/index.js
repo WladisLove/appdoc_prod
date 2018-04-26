@@ -1,6 +1,5 @@
 import React from 'react';
 import kurentoUtils from 'kurento-utils'
-//import kurentoClient from 'kurento-client'
 
 import PropTypes from 'prop-types'
 import cn from 'classnames'
@@ -58,7 +57,8 @@ class ChatCard extends React.Component {
 			reception_vis: false,
 			treatment_vis: false,
 			visit_vis: false,
-        }
+		}
+		console.log(props.wsURL);
         this.ws = new WebSocket(props.wsURL);
         this.ws.onmessage = (message) => {
 			var parsedMessage = JSON.parse(message.data);
