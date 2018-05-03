@@ -30,8 +30,10 @@ var chatStories = new ChatStories();
 var pipelines = {};
 var candidatesQueue = {};
 var idCounter = 0;
+var candidates_ready = {};
 
 var recorder;
+var recordsCounter = 0;
 
 function nextUniqueId() {
     idCounter++;
@@ -131,51 +133,20 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, ca
                 return callback(error);
             }
 
-            var elements = [
-                {type: 'RecorderEndpoint', params: {uri : argv.file_uri}},
-                {type: 'WebRtcEndpoint', params: {}}
-            ];
-
-            //pipeline.create('WebRtcEndpoint', function(error, callerWebRtcEndpoint) {
-
-            /*
-            _pipeline.create( 'Composite',  function( error, _composite ) {
-                console.log("creating Composite");
-                if (error) {
-                    return callback(error);
-                }
-                composite = _composite;
-                callback( null, composite );
-            });
-
-            _composite.createHubPort( function(error, _hubPort) {
-                console.info("Creating hubPort");
-                if (error) {
-                    return callback(error);
-                }
-                callback( null, _hubPort );
-            });
-            */
-            pipeline.create(elements, function(error, elements){
+            pipeline.create('WebRtcEndpoint', function(error, callerWebRtcEndpoint){
                 if (error) {
                     pipeline.release();
                     return callback(error);
                 }
 
-                //----
-                var rec = elements[0];
-                var webRtc   = elements[1];
-                //----*/
-                //console.log('webRtc', callerWebRtcEndpoint);
-
                 if (candidatesQueue[callerId]) {
                     while(candidatesQueue[callerId].length) {
                         var candidate = candidatesQueue[callerId].shift();
-                        webRtc.addIceCandidate(candidate);
+                        callerWebRtcEndpoint.addIceCandidate(candidate);
                     }
                 }
 
-                webRtc.on('OnIceCandidate', function(event) {
+                callerWebRtcEndpoint.on('OnIceCandidate', function(event) {
                     var candidate = kurento.getComplexType('IceCandidate')(event.candidate);
                     userRegistry.getById(callerId).ws.send(JSON.stringify({
                         id : 'iceCandidate',
@@ -204,13 +175,116 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, ca
                         }));
                     });
 
-                    webRtc.connect(calleeWebRtcEndpoint, function(error) {
+
+                    pipeline.create('Composite', function(error, _composite) {
                         if (error) {
                             pipeline.release();
                             return callback(error);
                         }
 
-                        calleeWebRtcEndpoint.connect(webRtc, function(error) {
+                        _composite.createHubPort(function(error, _callerHubport) {
+                            if (error) {
+                                pipeline.release();
+                                return callback(error);
+                            }
+                            _composite.createHubPort(function(error, _calleeHubport) {
+                                if (error) {
+                                    pipeline.release();
+                                    return callback(error);
+                                }
+                                _composite.createHubPort(function(error, _recorderHubport) {
+                                    if (error) {
+                                        pipeline.release();
+                                        return callback(error);
+                                    }
+
+                                    recordsCounter++;
+                                    var recorderParams = {
+                                        //mediaProfile: 'MP4',
+                                        uri : argv.file_uri,
+                                    }
+
+                                    pipeline.create('RecorderEndpoint', recorderParams, function(error, recorderEndpoint) {
+                                        if (error) {
+                                            pipeline.release();
+                                            return callback(error);
+                                        }
+
+                                        self.recorderEndpoint = recorderEndpoint;
+
+                                        _recorderHubport.connect(recorderEndpoint, function(error) {
+                                            if (error) {
+                                                pipeline.release();
+                                                return callback(error);
+                                            }
+
+                                            callerWebRtcEndpoint.connect(_callerHubport, function(error) {
+                                                if (error) {
+                                                    pipeline.release();
+                                                    return callback(error);
+                                                }
+
+                                                calleeWebRtcEndpoint.connect(_calleeHubport, function(error) {
+                                                    if (error) {
+                                                        pipeline.release();
+                                                        return callback(error);
+                                                    }
+
+                                                    console.log('Hubports are created');
+
+                                                    /*_callerHubport.connect(callerWebRtcEndpoint, function(error) {
+                                                        if (error) {
+                                                            pipeline.release();
+                                                            return callback(error);
+                                                        }
+
+                                                        _calleeHubport.connect(calleeWebRtcEndpoint, function(error) {
+                                                            if (error) {
+                                                                pipeline.release();
+                                                                return callback(error);
+                                                            }*/
+
+                                                            callerWebRtcEndpoint.connect(calleeWebRtcEndpoint, function(error) {
+                                                                if (error) {
+                                                                    pipeline.release();
+                                                                    return callback(error);
+                                                                }
+                                        
+                                                                calleeWebRtcEndpoint.connect(callerWebRtcEndpoint, function(error) {
+                                                                    if (error) {
+                                                                        pipeline.release();
+                                                                        return callback(error);
+                                                                    }
+                                                                });
+                                                            });
+                                                            
+                                                            recorderEndpoint.record();
+                                                            self.pipeline = pipeline;
+                                                            self.webRtcEndpoint[callerId] = callerWebRtcEndpoint;
+                                                            self.webRtcEndpoint[calleeId] = calleeWebRtcEndpoint;
+                                                            callback(null);
+                                                        //});
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+
+
+
+
+
+                    /*callerWebRtcEndpoint.connect(calleeWebRtcEndpoint, function(error) {
+                        if (error) {
+                            pipeline.release();
+                            return callback(error);
+                        }
+
+                        calleeWebRtcEndpoint.connect(callerWebRtcEndpoint, function(error) {
                             if (error) {
                                 pipeline.release();
                                 return callback(error);
@@ -218,26 +292,12 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, ca
                         });
 
                         
-
-                        kurentoClient.connect(webRtc, calleeWebRtcEndpoint, rec, function(err){
-                            if (error) return console.log(err);
-
-                            console.log("Connected");
-                            recorder = rec;
-
-                            recorder.record(function(err){
-                                if (error) return console.log(err);
-
-                                console.log("record");
-                            })
-                        })
-
-                        self.pipeline = pipeline;
-                        self.webRtcEndpoint[callerId] = webRtc;
+                        /*self.pipeline = pipeline;
+                        self.webRtcEndpoint[callerId] = callerWebRtcEndpoint;
                         self.webRtcEndpoint[calleeId] = calleeWebRtcEndpoint;
-                        callback(null);
-                    });
-                });
+                        callback(null);*/
+                    //});
+                //});
             });
         });
     })
@@ -397,7 +457,11 @@ function stop(sessionId) {
 
     var pipeline = pipelines[sessionId];
     delete pipelines[sessionId];
-    recorder.stop();
+    //recorder.stop();
+
+    if (pipeline.recorderEndpoint)
+        pipeline.recorderEndpoint.stop();
+
     pipeline.release();
     var stopperUser = userRegistry.getById(sessionId);
     var stoppedUser = userRegistry.getByName(stopperUser.peer);

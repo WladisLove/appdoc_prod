@@ -490,6 +490,7 @@ class ChatCard extends React.Component {
                                             chatStory={this.state.chatStory}
 											isActiveChat={this.state.isActiveChat}
 											onBegin = {() => console.log('eeeeee')}
+											onEnd={this.beforeCloseReseption}
                                             />;
                 break;
         }
