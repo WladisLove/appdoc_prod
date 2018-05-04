@@ -2,7 +2,9 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     todayInfo: {},
-    shortInfo: {},
+    shortInfo: {
+        specialty: [],
+    },
 };
 
 const reducer = (state = initialState, action) => {
