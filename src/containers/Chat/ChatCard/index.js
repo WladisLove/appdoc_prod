@@ -10,9 +10,9 @@ import { Button, Radio,ChatFiles, ChatSend, ChatMessage,
 	NewVisitModalPage, } from 'appdoc-component'
 
 
-import ChatContent from './ChatContent'
 import ChatTextContent from './ChatTextContent'
 import ChatVideoContent from './ChatVideoContent'
+import ChatAudioContent from './ChatAudioContent'
 import Hoc from '../../../hoc'
 
 import './style.css'
@@ -40,7 +40,7 @@ class ChatCard extends React.Component {
         super(props);
         this.state = {
             isActive: this.props.isActive,
-            isActiveChat: false,
+			isActiveChat: props.isEnded ? true : false,
             mode: this.props.mode,
 
             from: 0,
@@ -52,13 +52,13 @@ class ChatCard extends React.Component {
 				h: 0,
 			},
 			receptionStarts: false,
+			isCalling: false,
 			chatStory: [],
 
 			reception_vis: false,
 			treatment_vis: false,
 			visit_vis: false,
 		}
-		console.log(props.wsURL);
         this.ws = new WebSocket(props.wsURL);
         this.ws.onmessage = (message) => {
 			var parsedMessage = JSON.parse(message.data);
@@ -208,13 +208,21 @@ class ChatCard extends React.Component {
 		this.setCallState(PROCESSING_CALL);
 		if (window.confirm('User ' + message.from
 		+ ' is calling you. Do you accept the call?')) {
-			this.setState({receptionStarts: true, to: message.from})
+			this.setState({receptionStarts: true, isCalling: true, to: message.from})
 	
-			var options = {
-				localVideo : videoInput,
-				remoteVideo : videoOutput,
-				onicecandidate : this.onIceCandidate
-			}
+			
+			var options = this.state.mode === 'video' ? 
+				{
+					localVideo : videoInput,
+					remoteVideo : videoOutput,
+					onicecandidate : this.onIceCandidate
+				} : {
+					mediaConstraints: {  
+						audio:true,  
+						video:false  
+					},
+					onicecandidate : this.onIceCandidate
+				};
 			
 			let that = this;
 	
@@ -234,7 +242,8 @@ class ChatCard extends React.Component {
 								id : 'incomingCallResponse',
 								from : message.from,
 								callResponse : 'accept',
-								sdpOffer : offerSdp
+								sdpOffer : offerSdp,
+								mode: that.state.mode,
 							};
 							that.sendMessage(response);
 						});
@@ -277,8 +286,17 @@ class ChatCard extends React.Component {
 		});
 	}
 
+	startReception = () => {												
+		this.sendMessage({
+			id : 'startReception',
+			name : this.state.from,
+			other_name: this.state.to,
+		});
+		this.setState({receptionStarts: true});
+	}
+
 	stop = (message) => {
-		this.setState({receptionStarts: false});
+		this.setState({isCalling: false});
 		clearInterval(this.timerInterval);
 		this.setState({timer: {
 			s: 0,
@@ -312,14 +330,23 @@ class ChatCard extends React.Component {
     }
 	
 	call = () => {
-		this.setState({receptionStarts: true})
+		!this.state.receptionStarts && this.setState({receptionStarts: true});
+		this.setState({isCalling: true});
 		this.setCallState(PROCESSING_CALL);
     
-        let options = {
-            localVideo : videoInput,
-            remoteVideo : videoOutput,
-            onicecandidate : this.onIceCandidate
-		}
+		let options = this.state.mode === 'video' ? 
+				{
+					localVideo : videoInput,
+					remoteVideo : videoOutput,
+					onicecandidate : this.onIceCandidate
+				} : {
+					mediaConstraints: {  
+						audio:true,  
+						video:false  
+					},
+					onicecandidate : this.onIceCandidate
+				};
+
 		let that = this;
     
         webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(
@@ -344,65 +371,6 @@ class ChatCard extends React.Component {
                     sdpOffer : offerSdp
                 };
 				that.sendMessage(message);
-				
-				/*kurentoClient(that.props.wsURL, function(error, client) {
-					if (error) return console.log(error);
-			  
-					client.create('MediaPipeline', function(error, pipeline) {
-					  if (error) return console.log(error);
-			  			  
-					  var elements =
-					  [
-						{type: 'RecorderEndpoint', params: {uri : that.props.wsURL}},
-						{type: 'WebRtcEndpoint', params: {}}
-					  ]
-			  
-					  /*
-					  pipeline.create(elements, function(error, elements){
-						if (error) return console.log(error);
-			  
-						var recorder = elements[0]
-						var webRtc   = elements[1]
-			  
-						setIceCandidateCallbacks(webRtcPeer, webRtc, onError)
-			  
-						webRtc.processOffer(offer, function(error, answer) {
-						  if (error) return onError(error);
-			  
-						  console.log("offer");
-			  
-						  webRtc.gatherCandidates(onError);
-						  webRtcPeer.processAnswer(answer);
-						});
-			  
-						client.connect(webRtc, webRtc, recorder, function(error) {
-						  if (error) return onError(error);
-			  
-						  console.log("Connected");
-			  
-						  recorder.record(function(error) {
-							if (error) return onError(error);
-			  
-							console.log("record");
-			  
-							stopRecordButton.addEventListener("click", function(event){
-							  recorder.stop();
-							  pipeline.release();
-							  webRtcPeer.dispose();
-							  videoInput.src = "";
-							  videoOutput.src = "";
-			  
-							  hideSpinner(videoInput, videoOutput);
-			  
-							  var playButton = document.getElementById('play');
-							  playButton.addEventListener('click', startPlaying);
-							})
-						  });
-						});
-					  });
-					  
-					});
-				  });*/
             });
         });
     
@@ -461,19 +429,28 @@ class ChatCard extends React.Component {
 											sendMessage = {this.sendMessage}
 											receptionStarts = {this.state.receptionStarts}
 											onEnd={this.beforeCloseReseption}
-											onBegin = {() => {
-												console.log('begin chat reception');
-												
-												this.sendMessage({
-													id : 'startReception',
-													name : this.state.from,
-													other_name: this.state.to,
-												});
-												this.setState({receptionStarts: true});
-											}}
+											onBegin = {this.startReception}
                                             />;
                 break;
-            case 'voice':
+			case 'voice':
+				content = <ChatAudioContent ws={this.ws}
+											onStop={this.onStop}
+											onCall={this.onCall}
+											from={this.state.from}
+											to={this.state.to}
+											onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
+											timer = {this.state.timer}
+											receptionStarts={this.state.receptionStarts}
+											isCalling = {this.state.isCalling}
+											sendMessage = {this.sendMessage}
+											chatStory={this.state.chatStory}
+											isActiveChat={this.state.isActiveChat}
+											onBegin = {this.startReception}
+											onEnd={this.beforeCloseReseption}
+
+											fileURL = {this.props.fileURL}
+											isEnded={this.props.isEnded}
+                                            />;
                 break;
             case "video":
                 content = <ChatVideoContent ws={this.ws}
@@ -485,12 +462,16 @@ class ChatCard extends React.Component {
                                             to={this.state.to}
                                             onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
                                             timer = {this.state.timer}
-                                            isCalling={this.state.receptionStarts}
+											receptionStarts={this.state.receptionStarts}
+											isCalling = {this.state.isCalling}
                                             sendMessage = {this.sendMessage}
                                             chatStory={this.state.chatStory}
 											isActiveChat={this.state.isActiveChat}
-											onBegin = {() => console.log('eeeeee')}
+											onBegin = {this.startReception}
 											onEnd={this.beforeCloseReseption}
+
+											fileURL = {this.props.fileURL}
+											isEnded={this.props.isEnded}
                                             />;
                 break;
         }
@@ -581,7 +562,8 @@ ChatCard.propTypes = {
 	user_id: PropTypes.number,
     online: PropTypes.oneOf(['offline', 'online']),
     isActive: PropTypes.bool,
-    mode: PropTypes.oneOf(['chat', 'voice', "video"]),
+	mode: PropTypes.oneOf(['chat', 'voice', "video"]),
+	isEnded: PropTypes.bool,
 
     videoContent: PropTypes.node,
 };
@@ -592,7 +574,8 @@ ChatCard.defaultProps = {
 	user_id: 0,
     online: 'offline',
     isActive: false,
-    mode: 'chat',
+	mode: 'chat',
+	
 };
 
 export default ChatCard

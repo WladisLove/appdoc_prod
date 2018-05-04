@@ -10,14 +10,11 @@ import ChatContent from './ChatContent'
 import './style.css'
 
 
-//import { Icon, Row, Col, HistoryReceptions } from 'appdoc-component'
 import Hoc from '../../../hoc'
 import webm from './recorder_demo.webm'
 
 
 
-var videoInput;
-var videoOutput;
 var webRtcPeer;
 
 var registerName = null;
@@ -35,7 +32,7 @@ var callState = null
 
 
 
-class ChatVideoContent extends React.Component {
+class ChatAudioContent extends React.Component {
 	constructor(props){
 		super(props);
 
@@ -50,23 +47,6 @@ class ChatVideoContent extends React.Component {
 		this.ws = props.ws;
 	}
 
-	renderPlayer = () => {
-		console.log('renderPlayer',this.props.fileURL)
-		return (<Hoc>
-			<div className='chat-card-message__area'>
-				<video className='chat-card-video__box' 
-						 preload="auto" 
-						 controls
-						>
-					<source src={webm} />
-						
-					<p>Ваш браузер не поддерживает просмотр</p> 
-					<a href={webm}>Скачать видео</a>
-				</video>
-			</div>
-		</Hoc>)
-	}
-
 	renderCallArea = () => {
 		console.log('renderCallArea')
 
@@ -77,12 +57,6 @@ class ChatVideoContent extends React.Component {
 			<div className='chat-card-message__area'>
 				<video className='chat-card-video__box' 
 						poster='http://bipbap.ru/wp-content/uploads/2017/04/72fqw2qq3kxh.jpg'
-						autoPlay
-						ref={video => this.props.setVideoOut(video)}
-						></video>
-				<video className='chat-card-video__mini' 
-						autoPlay
-						ref={video => this.props.setVideoIn(video)}
 						></video>
 			</div>
 				<div className={panelClass}>
@@ -111,13 +85,12 @@ class ChatVideoContent extends React.Component {
 
 		
 		console.log(this.props.isCalling);
-		let videoContent = this.props.isEnded ?
-			this.renderPlayer() : this.renderCallArea()
+		let audioContent = this.renderCallArea()
 
         return (
 
             <div className={dialogsClass}>
-				{videoContent}
+				{audioContent}
 				<div className={filesClass}>
                  	<ChatContent onSend={mes => this.props.sendMessage({
 						 id: 'chat',
@@ -138,14 +111,14 @@ class ChatVideoContent extends React.Component {
     }
 }
 
-ChatVideoContent.propTypes = {
+ChatAudioContent.propTypes = {
 	videoCalling: PropTypes.bool,
 	wsURL: PropTypes.string.isRequired,
 };
 
-ChatVideoContent.defaultProps = {
+ChatAudioContent.defaultProps = {
 	videoCalling: false,
 	wsURL: '',
 };
 
-export default ChatVideoContent
+export default ChatAudioContent

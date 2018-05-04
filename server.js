@@ -11,7 +11,8 @@ var argv = minimist(process.argv.slice(2), {
   default: {
       as_uri: "https://localhost:8443/",
       ws_uri: "ws://localhost:8888/kurento",
-      file_uri: 'file:///tmp/recorder_demo.webm',
+      video_uri: 'file:///tmp/recorder_demo.mp4',
+      audio_uri: 'file:///tmp/recorder_demo.mp3',
   }
 });
 
@@ -121,7 +122,7 @@ function CallMediaPipeline() {
     this.webRtcEndpoint = {};
 }
 
-CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, callback) {
+CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mode, callback) {
     var self = this;
     getKurentoClient(function(error, kurentoClient) {
         if (error) {
@@ -200,8 +201,7 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, ca
 
                                     recordsCounter++;
                                     var recorderParams = {
-                                        //mediaProfile: 'MP4',
-                                        uri : argv.file_uri,
+                                        uri : mode === 'video' ? argv.video_uri : argv.audio_uri,
                                     }
 
                                     pipeline.create('RecorderEndpoint', recorderParams, function(error, recorderEndpoint) {
@@ -355,7 +355,7 @@ wss.on('connection', function(ws) {
             break;
 
         case 'incomingCallResponse':
-            incomingCallResponse(sessionId, message.from, message.callResponse, message.sdpOffer, ws);
+            incomingCallResponse(sessionId, message.from, message.callResponse, message.sdpOffer, ws, message.mode);
             break;
 
         case 'stop':
@@ -485,7 +485,7 @@ function stop(sessionId) {
 
 }
 
-function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws) {
+function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws, mode) {
 
     clearCandidatesQueue(calleeId);
 
@@ -518,7 +518,7 @@ function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws) {
         pipelines[caller.id] = pipeline;
         pipelines[callee.id] = pipeline;
 
-        pipeline.createPipeline(caller.id, callee.id, ws, function(error) {
+        pipeline.createPipeline(caller.id, callee.id, ws, mode, function(error) {
             if (error) {
                 return onError(error, error);
             }
