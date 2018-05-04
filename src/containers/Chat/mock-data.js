@@ -6,6 +6,7 @@ export const dialogArr = [
         consultation: 'Консультация по результатам анализа asdasdasds',
         status: "extra",
         iconType: "chat1",
+        id: 120635,
     },{
         name: "Иванова А. К.",
         img: "https://www.proza.ru/pics/2017/06/03/1990.jpg",

@@ -32,6 +32,8 @@ export {
 export {
     getActualTreatments,
     getAllTreatments,
+
+    completeReception,
 } from './treatment'
 
 

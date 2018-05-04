@@ -32,6 +32,9 @@ class Chat extends React.Component{
 
                                     user_id = {1000}
                                     patientName = {'Иванов Иван Иванович'}
+
+                                    completeReception = {this.props.completeReception}
+                                    
                         />
                     </Col>
                 </Row>
@@ -49,7 +52,7 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch => {
 	return {
-        
+        completeReception: (obj) => dispatch(actions.completeReception(obj))
 	}
 };
 

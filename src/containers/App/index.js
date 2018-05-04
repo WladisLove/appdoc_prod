@@ -60,11 +60,11 @@ class App extends React.Component {
                 (<Hoc>
                     <div className={siderClass}>
                     
-                    <SideNav //{...this.props.shortDocInfo}
+                    {/*<SideNav {...this.props.shortDocInfo}
                             rateValue={+(this.props.shortDocInfo.rateValue)}
                             onClick={this.toggle}
                             menuItems={menuItems}
-                            isShort={this.state.collapsed}/>
+                            isShort={this.state.collapsed}/>*/}
                             
                 </div>
                 <div className={wrapperClass}>

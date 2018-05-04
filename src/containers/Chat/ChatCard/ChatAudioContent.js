@@ -11,8 +11,6 @@ import './style.css'
 
 
 import Hoc from '../../../hoc'
-import webm from './recorder_demo.webm'
-
 
 
 var webRtcPeer;

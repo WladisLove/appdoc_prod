@@ -393,6 +393,16 @@ class ChatCard extends React.Component {
 		/* завершение чата, обнуление истории на сервере*/
 		/* отправка чата, диагноза, isHronic */
 
+		//console.log('[onCloseReception]');
+		//console.log(obj)
+		let new_obj = {
+			...obj,
+			id: 120635,
+			chat: this.state.chatStory,
+		}
+		//console.log(new_obj)
+		this.props.completeReception(new_obj);
+
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
 

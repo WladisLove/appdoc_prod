@@ -12,8 +12,6 @@ import './style.css'
 
 //import { Icon, Row, Col, HistoryReceptions } from 'appdoc-component'
 import Hoc from '../../../hoc'
-import webm from './recorder_demo.webm'
-
 
 
 var videoInput;
@@ -50,7 +48,7 @@ class ChatVideoContent extends React.Component {
 		this.ws = props.ws;
 	}
 
-	renderPlayer = () => {
+	/*renderPlayer = () => {
 		console.log('renderPlayer',this.props.fileURL)
 		return (<Hoc>
 			<div className='chat-card-message__area'>
@@ -65,7 +63,7 @@ class ChatVideoContent extends React.Component {
 				</video>
 			</div>
 		</Hoc>)
-	}
+	}*/
 
 	renderCallArea = () => {
 		console.log('renderCallArea')
@@ -111,8 +109,8 @@ class ChatVideoContent extends React.Component {
 
 		
 		console.log(this.props.isCalling);
-		let videoContent = this.props.isEnded ?
-			this.renderPlayer() : this.renderCallArea()
+		let videoContent = /*this.props.isEnded ?
+			this.renderPlayer() :*/ this.renderCallArea()
 
         return (
 
