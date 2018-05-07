@@ -2,16 +2,20 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     todayInfo: {},
-    shortInfo: {},
+    shortInfo: {
+        specialty: [],
+    },
 };
 
 const reducer = (state = initialState, action) => {
-    switch (action.type){
+
+     switch (action.type){
         case actionTypes.GET_DOCTOR_TODAY_INFO:
             return {
                 ...state,
                 todayInfo: action.todayInfo,
             }
+
         case actionTypes.GET_DOCTOR_SHORT_INFO:
             return {
                 ...state,

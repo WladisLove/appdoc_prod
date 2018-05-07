@@ -2,7 +2,6 @@ import moment from 'moment';
 
 
 export const compileToClientDoctor = (doc) => {
-
     let arrayMain = [];
     let arraySecond = [];
         for(let i = 0; i < doc.educationsgroup1.length; i++){
@@ -35,17 +34,19 @@ export const compileToClientDoctor = (doc) => {
             })
         }
 
-   /* doc.workdate*/
-    const f = moment(+doc.workdate * 1000);
+        let arrayExpWork = [];
+   
+    for(let i = 0; i < doc.works.length; i++){
+        arrayExpWork.push({
+            id: i,
+            post: doc.works[i].post,
+            dateStart  : moment(doc.works[i].workdate * 1000),
+            placeOfWord : doc.works[i].worknow,
+            documents : doc.works[i].copycontract
+        })
+    }
 
-    const work =(doc.post) ? [
-        {
-            id: 0,
-            post: doc.post,
-            placeOfWord: doc.worknow,
-            dateStart: f,
-            isWorking: doc.isworking
-        }] : [];
+
     if(!doc.language)
         doc.language = [];
 
@@ -65,7 +66,7 @@ export const compileToClientDoctor = (doc) => {
         degree : { 'name' : doc.academicdegree },
         /*personExperience*/
         expWork      : doc.experience,
-        arrayExpWork : work,
+        arrayExpWork : arrayExpWork,
         category : doc.category,
 
         /*personInformation */
@@ -76,13 +77,11 @@ export const compileToClientDoctor = (doc) => {
 
         /*experience: doc.experience || "Нет опыта",*/
         isWorking : doc.isworking ||  true,
-
-        post      : doc.post,
+        
         datebirth : doc.datebirth,
         sex       : doc.sex,
         academicstatus      : doc.academicstatus,
         academicstatusdoc   : doc.academicstatusdoc,
-        copycontract        : doc.copycontract,
         academicdegreedoc   : doc.academicdegreedoc,
         active              : doc.active,
         avatar              : doc.avatar
@@ -128,16 +127,14 @@ export const compileToServerDoctor = (doc) => {
             diplomphoto      : doc.arraySecondInstitution[i].documents
         })
     }
-    let worknow = null;
-    let post = null;
-    let workdate = null;
-    let copycontract = null;
-
-    if(doc.arrayExpWork[0]){
-        worknow = doc.arrayExpWork[doc.arrayExpWork.length-1].placeOfWord;
-        post = doc.arrayExpWork[doc.arrayExpWork.length-1].post;
-        workdate = String(Math.floor(+doc.arrayExpWork[doc.arrayExpWork.length-1].dateStart.format('x') / 1000));
-        copycontract =  doc.arrayExpWork[doc.arrayExpWork.length-1].documents;
+    let arrayExpWork = [];
+    for(let i = 0; i < doc.arrayExpWork.length; i++){
+        arrayExpWork.push({
+            post: doc.arrayExpWork[i].post,
+            workdate:  String(Math.floor(+doc.arrayExpWork[i].dateStart.format('x') / 1000)),
+            worknow : doc.arrayExpWork[i].placeOfWord,
+            copycontract : doc.arrayExpWork[i].documents
+        })
     }
 
     const newDoctor = {
@@ -148,21 +145,22 @@ export const compileToServerDoctor = (doc) => {
         "datebirth": doc.datebirth,
         "educationsgroup1": arrayMain,
         "educationsgroup2": arraySecond,
-        "worknow": worknow,
-        "post": post,
-        "workdate": workdate,
+        //"worknow": worknow,
+        //"post": post,
+        //"workdate": workdate,
         "category": doc.category,
         "academicdegree": doc.degree.name,
         "academicdegreedoc": doc.degree.documents, // зачем
         "academicstatus": doc.academicstatus,
         "academicstatusdoc": doc.academicstatusdoc,
-        "copycontract": copycontract,
+        //"copycontract": copycontract,
         "language": doc.langData,
         "consultationPrice": doc.priceData,
         "isChildConsult": doc.consultChildren,
         "isFreeConsult": doc.freeConsult,
         "id": doc.id,
 
+        "works": arrayExpWork,
         "experience": doc.experience,
         "isworking" : doc.isWorking,
 
@@ -172,5 +170,6 @@ export const compileToServerDoctor = (doc) => {
         "avatar"      : doc.avatar
     };
 
+    console.log("POST", newDoctor);
     return newDoctor;
 };

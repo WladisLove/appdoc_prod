@@ -26,6 +26,7 @@ let  profileDoctor = {
     "isworking":false,
     "active" :'1',
     "avatar" : null,
+    "works": [],
 
 };
 

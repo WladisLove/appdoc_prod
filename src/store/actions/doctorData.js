@@ -26,6 +26,7 @@ export const getInfoDoctor = (id) => {
         axios.post('https://178.172.235.105/~api/json/fusers.doc/infoDoc',
          JSON.stringify(ids))
             .then(res => {
+                console.log("resss", res);
                 res.data.result.id= ids.id;
 
                 dispatch({

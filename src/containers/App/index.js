@@ -51,8 +51,6 @@ class App extends React.Component {
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
                 
-
-        console.log('[patients]',this.props.notDocPatients)
         return (
             <div className="main">
             {
