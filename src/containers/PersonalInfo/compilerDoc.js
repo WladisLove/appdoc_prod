@@ -27,7 +27,7 @@ export const compileToClientDoctor = (doc) => {
             arraySecond.push({
                 id                 : i,
                 secondInstitution  : doc.educationsgroup2[i].education,
-                secondSpecialty    : "", //есть только doc.education
+                secondSpecialty    : "", 
                 dateStart          : date11,
                 dateEnd            : date22,
                 documents          : doc.educationsgroup2[i].diplomphoto
@@ -50,8 +50,7 @@ export const compileToClientDoctor = (doc) => {
     if(!doc.language)
         doc.language = [];
 
-
-    const newProfile = {
+    return {
         /*personalContact*/
         id          : doc.id,
         fio         : doc.fio ,
@@ -59,7 +58,7 @@ export const compileToClientDoctor = (doc) => {
         email       : doc.email ,
         oldPassword : "",
         newPassword : "",
-        
+
         /*personEducation*/
         arrayMainInstitution     : arrayMain,
         arraySecondInstitution   : arraySecond,
@@ -75,8 +74,7 @@ export const compileToClientDoctor = (doc) => {
         consultChildren : doc.isChildConsult,
         freeConsult : doc.isFreeConsult,
 
-        /*experience: doc.experience || "Нет опыта",*/
-        isWorking : doc.isworking ||  true,
+        isWorking : doc.isworking /*||  true*/,
         
         datebirth : doc.datebirth,
         sex       : doc.sex,
@@ -86,19 +84,17 @@ export const compileToClientDoctor = (doc) => {
         active              : doc.active,
         avatar              : doc.avatar
     };
-
-    return newProfile;
 };
 
 export const compileToServerDoctor = (doc) => {
     let arrayMain = [];
     let arraySecond = [];
-    // цикл
     for(let i = 0; i < doc.arrayMainInstitution.length; i++){
 
         let date1 = Math.floor(+doc.arrayMainInstitution[i].mainDateStart.format('x') / 1000);
         let date2 = Math.floor(+doc.arrayMainInstitution[i].mainDateEnd.format('x') / 1000);
 
+        
         arrayMain.push({
             id               : i,
             education        : doc.arrayMainInstitution[i].mainInstitution ,
@@ -122,7 +118,7 @@ export const compileToServerDoctor = (doc) => {
         const spec = doc.arraySecondInstitution[i].secondSpecialty;
         arraySecond.push({
             id               : i,
-            education        : doc.arraySecondInstitution[i].secondInstitution + " " + spec,//есть только doc.education
+            education        : doc.arraySecondInstitution[i].secondInstitution + " " + spec,
             ucationyears     : [ date11, date22],
             diplomphoto      : doc.arraySecondInstitution[i].documents
         })
@@ -137,7 +133,8 @@ export const compileToServerDoctor = (doc) => {
         })
     }
 
-    const newDoctor = {
+  
+    return {
         "email": doc.email,
         "fio": doc.fio,
         "phone": doc.phone,
@@ -145,15 +142,11 @@ export const compileToServerDoctor = (doc) => {
         "datebirth": doc.datebirth,
         "educationsgroup1": arrayMain,
         "educationsgroup2": arraySecond,
-        //"worknow": worknow,
-        //"post": post,
-        //"workdate": workdate,
         "category": doc.category,
         "academicdegree": doc.degree.name,
-        "academicdegreedoc": doc.degree.documents, // зачем
+        "academicdegreedoc": doc.degree.documents,
         "academicstatus": doc.academicstatus,
         "academicstatusdoc": doc.academicstatusdoc,
-        //"copycontract": copycontract,
         "language": doc.langData,
         "consultationPrice": doc.priceData,
         "isChildConsult": doc.consultChildren,
@@ -169,7 +162,4 @@ export const compileToServerDoctor = (doc) => {
         "active"      : doc.active,
         "avatar"      : doc.avatar
     };
-
-    console.log("POST", newDoctor);
-    return newDoctor;
 };
