@@ -1,20 +1,3 @@
-/*
- * (C) Copyright 2014 Kurento (http://kurento.org/)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
 var path = require('path');
 var express = require('express');
 var ws = require('ws');
@@ -27,7 +10,9 @@ var https = require('https');
 var argv = minimist(process.argv.slice(2), {
   default: {
       as_uri: "https://localhost:8443/",
-      ws_uri: "ws://localhost:8888/kurento"
+      ws_uri: "ws://localhost:8888/kurento",
+      video_uri: 'file:///tmp/recorder_demo.mp4',
+      audio_uri: 'file:///tmp/recorder_demo.mp3',
   }
 });
 
@@ -39,24 +24,23 @@ var options =
 
 var app = express();
 
-/*
- * Definition of global variables.
- */
 
 var kurentoClient = null;
 var userRegistry = new UserRegistry();
+var chatStories = new ChatStories();
 var pipelines = {};
 var candidatesQueue = {};
 var idCounter = 0;
+var candidates_ready = {};
+
+var recorder;
+var recordsCounter = 0;
 
 function nextUniqueId() {
     idCounter++;
     return idCounter.toString();
 }
 
-/*
- * Definition of helper classes
- */
 
 // Represents caller and callee sessions
 function UserSession(id, name, ws) {
@@ -103,25 +87,54 @@ UserRegistry.prototype.removeById = function(id) {
     delete this.usersByName[userSession.name];
 }
 
+// {'id_doc1':{'id_user1': [], 'id_user2': [] ...}}
+function ChatStories(){
+    this.doctorsChat = {};
+}
+
+ChatStories.prototype.addDoctor = function(id){
+    this.doctorsChat[id] 
+        ? null : this.doctorsChat[id] = {};
+    //console.log('add doctor', id);
+}
+
+ChatStories.prototype.addPatient = function(doc_id, user_id){
+    this.doctorsChat[doc_id][user_id] = [];
+}
+
+ChatStories.prototype.isChatOpen = function(doc_id, user_id){
+    return this.doctorsChat[doc_id]
+        ? (this.doctorsChat[doc_id].hasOwnProperty(user_id))
+        : false;
+}
+
+ChatStories.prototype.addMessage = function(doc_id, user_id, message){
+    this.doctorsChat[doc_id][user_id].push(message);
+}
+
+ChatStories.prototype.getMessages = function(doc_id, user_id){
+    return this.doctorsChat[doc_id][user_id];
+}
+
 // Represents a B2B active call
 function CallMediaPipeline() {
     this.pipeline = null;
     this.webRtcEndpoint = {};
 }
 
-CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, callback) {
+CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mode, receptionId, callback) {
     var self = this;
     getKurentoClient(function(error, kurentoClient) {
         if (error) {
             return callback(error);
         }
-
+                      
         kurentoClient.create('MediaPipeline', function(error, pipeline) {
             if (error) {
                 return callback(error);
             }
 
-            pipeline.create('WebRtcEndpoint', function(error, callerWebRtcEndpoint) {
+            pipeline.create('WebRtcEndpoint', function(error, callerWebRtcEndpoint){
                 if (error) {
                     pipeline.release();
                     return callback(error);
@@ -163,25 +176,89 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, ca
                         }));
                     });
 
-                    callerWebRtcEndpoint.connect(calleeWebRtcEndpoint, function(error) {
+
+                    pipeline.create('Composite', function(error, _composite) {
                         if (error) {
                             pipeline.release();
                             return callback(error);
                         }
 
-                        calleeWebRtcEndpoint.connect(callerWebRtcEndpoint, function(error) {
+                        _composite.createHubPort(function(error, _callerHubport) {
                             if (error) {
                                 pipeline.release();
                                 return callback(error);
                             }
-                        });
+                            _composite.createHubPort(function(error, _calleeHubport) {
+                                if (error) {
+                                    pipeline.release();
+                                    return callback(error);
+                                }
+                                _composite.createHubPort(function(error, _recorderHubport) {
+                                    if (error) {
+                                        pipeline.release();
+                                        return callback(error);
+                                    }
 
-                        self.pipeline = pipeline;
-                        self.webRtcEndpoint[callerId] = callerWebRtcEndpoint;
-                        self.webRtcEndpoint[calleeId] = calleeWebRtcEndpoint;
-                        callback(null);
+                                    recordsCounter++;
+                                    var recorderParams = {
+                                        uri : mode === 'video' 
+                                            ? 'file:///media/audiovideo/'+receptionId+'.mp4'
+                                            : 'file:///media/audiovideo/'+receptionId+'.mp3',
+                                    }
+
+                                    pipeline.create('RecorderEndpoint', recorderParams, function(error, recorderEndpoint) {
+                                        if (error) {
+                                            pipeline.release();
+                                            return callback(error);
+                                        }
+
+                                        self.recorderEndpoint = recorderEndpoint;
+
+                                        _recorderHubport.connect(recorderEndpoint, function(error) {
+                                            if (error) {
+                                                pipeline.release();
+                                                return callback(error);
+                                            }
+
+                                            callerWebRtcEndpoint.connect(_callerHubport, function(error) {
+                                                if (error) {
+                                                    pipeline.release();
+                                                    return callback(error);
+                                                }
+
+                                                calleeWebRtcEndpoint.connect(_calleeHubport, function(error) {
+                                                    if (error) {
+                                                        pipeline.release();
+                                                        return callback(error);
+                                                    }
+                                                            callerWebRtcEndpoint.connect(calleeWebRtcEndpoint, function(error) {
+                                                                if (error) {
+                                                                    pipeline.release();
+                                                                    return callback(error);
+                                                                }
+                                        
+                                                                calleeWebRtcEndpoint.connect(callerWebRtcEndpoint, function(error) {
+                                                                    if (error) {
+                                                                        pipeline.release();
+                                                                        return callback(error);
+                                                                    }
+                                                                });
+                                                            });
+                                                            
+                                                            recorderEndpoint.record();
+                                                            self.pipeline = pipeline;
+                                                            self.webRtcEndpoint[callerId] = callerWebRtcEndpoint;
+                                                            self.webRtcEndpoint[calleeId] = calleeWebRtcEndpoint;
+                                                            callback(null);
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
                     });
-                });
             });
         });
     })
@@ -207,11 +284,7 @@ CallMediaPipeline.prototype.release = function() {
 
 var asUrl = url.parse(argv.as_uri);
 var port = asUrl.port;
-var server = https.createServer(options, app).listen(port, function() {
-    console.log('Kurento Tutorial started');
-    console.log(wss)
-    console.log('Open ' + url.format(asUrl) + ' with a WebRTC capable browser');
-});
+var server = https.createServer(options, app).listen(port, function() {});
 
 var wss = new ws.Server({
     server : server,
@@ -220,26 +293,22 @@ var wss = new ws.Server({
 
 wss.on('connection', function(ws) {
     var sessionId = nextUniqueId();
-    console.log('Connection received with sessionId ' + sessionId);
 
     ws.on('error', function(error) {
-        console.log('Connection ' + sessionId + ' error');
         stop(sessionId);
     });
 
     ws.on('close', function() {
-        console.log('Connection ' + sessionId + ' closed');
         stop(sessionId);
         userRegistry.unregister(sessionId);
     });
 
     ws.on('message', function(_message) {
         var message = JSON.parse(_message);
-        console.log('Connection ' + sessionId + ' received message ', message);
 
         switch (message.id) {
         case 'register':
-            register(sessionId, message.name, ws);
+            register(sessionId, message.name, message.other_name, ws, message.mode);
             break;
 
         case 'call':
@@ -247,11 +316,19 @@ wss.on('connection', function(ws) {
             break;
 
         case 'incomingCallResponse':
-            incomingCallResponse(sessionId, message.from, message.callResponse, message.sdpOffer, ws);
+            incomingCallResponse(sessionId, message.from, message.callResponse, message.sdpOffer, ws, message.mode, message.receptionId);
             break;
 
         case 'stop':
             stop(sessionId);
+            break;
+
+        case 'chat':
+            chatting(sessionId, message.to, message.from, message.text, message.date);
+            break;
+        
+        case 'startReception':
+            startReception(message.name, message.other_name);
             break;
 
         case 'onIceCandidate':
@@ -286,13 +363,64 @@ function getKurentoClient(callback) {
     });
 }
 
+function sendCurrentChat(whom, doc_id, user_id){
+    var message = {
+        id: 'chatHistory',
+        chat: chatStories.getMessages(doc_id, user_id),
+    };
+    userRegistry.getByName(whom).sendMessage(message);
+}
+
+function chatting(callerId, to, from, text, date){
+    
+    var caller = userRegistry.getById(callerId);
+    var callee = userRegistry.getByName(to);
+        callee && (callee.peer = from);
+        caller && (caller.peer = to);
+        var message = {
+            id: 'chat',
+            from,
+            to,
+            text,
+            date,
+        };
+
+        if(chatStories.doctorsChat[from]){
+            chatStories.addMessage(from, to, message);
+            try{
+                callee && callee.sendMessage(message);
+                caller && caller.sendMessage(message);
+                return;
+            } catch(exception) {
+                console.log("Error " + exception);
+            }
+        }
+        else{
+            if(chatStories.doctorsChat[to] && chatStories.isChatOpen(to, from)){
+                chatStories.addMessage(to, from, message);
+                try{
+                    callee && callee.sendMessage(message);
+                    caller && caller.sendMessage(message);
+                    return;
+                } catch(exception) {
+                    console.log("Error " + exception);
+                }
+            }
+            else
+                console.log('doctor is not ready')
+        }
+}
+
 function stop(sessionId) {
     if (!pipelines[sessionId]) {
         return;
     }
-
     var pipeline = pipelines[sessionId];
     delete pipelines[sessionId];
+
+    if (pipeline.recorderEndpoint)
+        pipeline.recorderEndpoint.stop();
+
     pipeline.release();
     var stopperUser = userRegistry.getById(sessionId);
     var stoppedUser = userRegistry.getByName(stopperUser.peer);
@@ -309,9 +437,10 @@ function stop(sessionId) {
     }
 
     clearCandidatesQueue(sessionId);
+
 }
 
-function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws) {
+function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws, mode, receptionId) {
 
     clearCandidatesQueue(calleeId);
 
@@ -344,7 +473,7 @@ function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws) {
         pipelines[caller.id] = pipeline;
         pipelines[callee.id] = pipeline;
 
-        pipeline.createPipeline(caller.id, callee.id, ws, function(error) {
+        pipeline.createPipeline(caller.id, callee.id, ws, mode, receptionId, function(error) {
             if (error) {
                 return onError(error, error);
             }
@@ -386,6 +515,7 @@ function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws) {
 
 function call(callerId, to, from, sdpOffer) {
     clearCandidatesQueue(callerId);
+    
 
     var caller = userRegistry.getById(callerId);
     var rejectCause = 'User ' + to + ' is not registered';
@@ -412,7 +542,26 @@ function call(callerId, to, from, sdpOffer) {
     caller.sendMessage(message);
 }
 
-function register(id, name, ws, callback) {
+function startReception(name, other_name){
+    /*if(+name !== 2){
+        console.log('name', name, 'other_name', other_name);*/
+        !chatStories.isChatOpen(name, other_name) && (
+            chatStories.addDoctor(name),
+            chatStories.addPatient(name, other_name)
+        )
+        var callee = userRegistry.getByName(other_name);
+        try{
+            callee && callee.sendMessage({
+                id: 'startReception',
+            });
+            return;
+        } catch(exception) {
+            console.log("Error " + exception);
+        }
+   // }
+}
+
+function register(id, name, other_name, ws, mode, callback) {
     function onError(error) {
         ws.send(JSON.stringify({id:'registerResponse', response : 'rejected ', message: error}));
     }
@@ -426,6 +575,15 @@ function register(id, name, ws, callback) {
     }
 
     userRegistry.register(new UserSession(id, name, ws));
+
+    mode === 'doc' 
+        ? (chatStories.isChatOpen(name, other_name) 
+            && sendCurrentChat(name, name, other_name)
+            )
+        : (chatStories.isChatOpen(other_name, name) 
+            && sendCurrentChat(name, other_name, name)
+        )
+
     try {
         ws.send(JSON.stringify({id: 'registerResponse', response: 'accepted'}));
     } catch(exception) {

@@ -32,3 +32,16 @@ export const getActualTreatments = () => {
         })
     }    
 }
+
+export const completeReception = (obj) => {
+    return dispatch => {
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/toFinishReception', 
+            JSON.stringify(obj))
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err);
+        })
+    }
+}

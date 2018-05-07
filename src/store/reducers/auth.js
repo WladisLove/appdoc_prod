@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     id: 0,
-    mode: "", // doctor / patient
+    mode: "", // doc / user
     error: null,
     errorCode: 0,
 };

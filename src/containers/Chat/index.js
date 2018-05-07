@@ -11,16 +11,16 @@ import * as actions from '../../store/actions'
 import {dialogArr} from './mock-data'
 
 class Chat extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            videoCalling: true,
-            from: 0,
-        }
+
+    componentWillMount(){
+        //this.props.getTodayReceptions();
+    }
+
+    componentWillUnmount(){
+        this.props.clearTodayReceptions();
     }
 
     render(){
-
         return (
             <Hoc>
                 <Row>
@@ -28,16 +28,21 @@ class Chat extends React.Component{
                         <ChatDialogs  data={dialogArr}/>
                     </Col>
                     <Col xs={24} xxl={17} className='section'>
-                        <ChatCard videoCalling={this.state.videoCalling}
+                        <ChatCard 
                                     wsURL={'wss://178.172.235.105:8443/one2one'}
+                                    mode='video'
+                                    receptionId={this.props.receptionId}
 
-                                    from={this.state.from}
-                                    onRegister = {(from) => this.setState({from})}
+                                    //isEnded = {true}
 
                                     callerID = {this.props.id}
+                                    user_mode = {this.props.user_mode}
 
-                                    onVideoCallBegin={()=> {this.setState({videoCalling: true});console.log('Begin video calling')}}
-                                    onVideoCallStop={console.log('Close video calling')}/>
+                                    user_id = {1000}
+                                    patientName = {'Иванов Иван Иванович'}
+
+                                    completeReception = {this.props.completeReception}
+                        />
                     </Col>
                 </Row>
             </Hoc>
@@ -48,12 +53,19 @@ class Chat extends React.Component{
 const mapStateToProps = state =>{
     return {
         id: state.auth.id,
+        user_mode: state.auth.mode,
+
+        schedules: state.schedules.schedules,
+
+        receptionId: state.treatments.choosenReceptionId,
     }
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-        
+        completeReception: (obj) => dispatch(actions.completeReception(obj)),
+        //getTodayReceptions: () => dispatch(),
+        clearTodayReceptions: () => dispatch(actions.clearIntervals()),
 	}
 };
 
