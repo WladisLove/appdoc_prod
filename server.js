@@ -95,7 +95,7 @@ function ChatStories(){
 ChatStories.prototype.addDoctor = function(id){
     this.doctorsChat[id] 
         ? null : this.doctorsChat[id] = {};
-    console.log('add doctor', id);
+    //console.log('add doctor', id);
 }
 
 ChatStories.prototype.addPatient = function(doc_id, user_id){
@@ -229,21 +229,6 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mo
                                                         pipeline.release();
                                                         return callback(error);
                                                     }
-
-                                                    console.log('Hubports are created');
-
-                                                    /*_callerHubport.connect(callerWebRtcEndpoint, function(error) {
-                                                        if (error) {
-                                                            pipeline.release();
-                                                            return callback(error);
-                                                        }
-
-                                                        _calleeHubport.connect(calleeWebRtcEndpoint, function(error) {
-                                                            if (error) {
-                                                                pipeline.release();
-                                                                return callback(error);
-                                                            }*/
-
                                                             callerWebRtcEndpoint.connect(calleeWebRtcEndpoint, function(error) {
                                                                 if (error) {
                                                                     pipeline.release();
@@ -263,7 +248,6 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mo
                                                             self.webRtcEndpoint[callerId] = callerWebRtcEndpoint;
                                                             self.webRtcEndpoint[calleeId] = calleeWebRtcEndpoint;
                                                             callback(null);
-                                                        //});
                                                     });
                                                 });
                                             });
@@ -273,31 +257,6 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mo
                             });
                         });
                     });
-
-
-
-
-
-                    /*callerWebRtcEndpoint.connect(calleeWebRtcEndpoint, function(error) {
-                        if (error) {
-                            pipeline.release();
-                            return callback(error);
-                        }
-
-                        calleeWebRtcEndpoint.connect(callerWebRtcEndpoint, function(error) {
-                            if (error) {
-                                pipeline.release();
-                                return callback(error);
-                            }
-                        });
-
-                        
-                        /*self.pipeline = pipeline;
-                        self.webRtcEndpoint[callerId] = callerWebRtcEndpoint;
-                        self.webRtcEndpoint[calleeId] = calleeWebRtcEndpoint;
-                        callback(null);*/
-                    //});
-                //});
             });
         });
     })
@@ -407,7 +366,7 @@ function sendCurrentChat(whom, doc_id, user_id){
         id: 'chatHistory',
         chat: chatStories.getMessages(doc_id, user_id),
     };
-    userRegistry.getByName(whom).sendMessage(message)
+    userRegistry.getByName(whom).sendMessage(message);
 }
 
 function chatting(callerId, to, from, text, date){
@@ -454,10 +413,8 @@ function stop(sessionId) {
     if (!pipelines[sessionId]) {
         return;
     }
-
     var pipeline = pipelines[sessionId];
     delete pipelines[sessionId];
-    //recorder.stop();
 
     if (pipeline.recorderEndpoint)
         pipeline.recorderEndpoint.stop();
@@ -478,10 +435,6 @@ function stop(sessionId) {
     }
 
     clearCandidatesQueue(sessionId);
-
-    //startPlaying
-    console.log("Start playing");
-
 
 }
 

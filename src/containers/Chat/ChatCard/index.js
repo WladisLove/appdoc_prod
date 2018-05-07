@@ -215,8 +215,14 @@ class ChatCard extends React.Component {
 				{
 					localVideo : videoInput,
 					remoteVideo : videoOutput,
+					mediaConstraints: {  
+						audio:true,  
+						video:true,  
+					},
 					onicecandidate : this.onIceCandidate
 				} : {
+					localVideo : videoInput,
+					remoteVideo : videoOutput,
 					mediaConstraints: {  
 						audio:true,  
 						video:false  
@@ -428,7 +434,6 @@ class ChatCard extends React.Component {
         const icons = ['chat1', 'telephone', "video-camera"];
 
         let content;
-		console.log(this.state.mode)
         switch (this.state.mode) {
             case 'chat':
                 content = <ChatTextContent isActive={this.state.isActive} 
@@ -444,6 +449,8 @@ class ChatCard extends React.Component {
                 break;
 			case 'voice':
 				content = <ChatAudioContent ws={this.ws}
+											setVideoOut = {(video)=>videoOutput=video}
+                                            setVideoIn = {(video)=>videoInput=video}
 											onStop={this.onStop}
 											onCall={this.onCall}
 											from={this.state.from}
@@ -458,7 +465,6 @@ class ChatCard extends React.Component {
 											onBegin = {this.startReception}
 											onEnd={this.beforeCloseReseption}
 
-											fileURL = {this.props.fileURL}
 											isEnded={this.props.isEnded}
                                             />;
                 break;
@@ -480,7 +486,6 @@ class ChatCard extends React.Component {
 											onBegin = {this.startReception}
 											onEnd={this.beforeCloseReseption}
 
-											fileURL = {this.props.fileURL}
 											isEnded={this.props.isEnded}
                                             />;
                 break;

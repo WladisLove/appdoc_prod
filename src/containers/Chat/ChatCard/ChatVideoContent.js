@@ -66,8 +66,6 @@ class ChatVideoContent extends React.Component {
 	}*/
 
 	renderCallArea = () => {
-		console.log('renderCallArea')
-
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isActiveChat});
 
 		let {s, m, h} = this.props.timer;
@@ -89,6 +87,8 @@ class ChatVideoContent extends React.Component {
 									this.props.onStop();
 								}} 
 								onCall={() => {
+									!this.props.receptionStarts && 
+										this.props.onBegin();
 									this.props.onCall();
 								}} 
 								onChat = {this.props.onChat}
@@ -108,8 +108,7 @@ class ChatVideoContent extends React.Component {
 		const filesClass = cn('chat-card-files', {'chat-card-files-active': isActiveChat});
 
 		
-		console.log(this.props.isCalling);
-		let videoContent = /*this.props.isEnded ?
+			let videoContent = /*this.props.isEnded ?
 			this.renderPlayer() :*/ this.renderCallArea()
 
         return (

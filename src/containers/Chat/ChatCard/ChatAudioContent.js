@@ -54,6 +54,8 @@ class ChatAudioContent extends React.Component {
 		return (<Hoc>
 			<div className='chat-card-message__area'>
 				<video className='chat-card-video__box' 
+						ref={video => this.props.setVideoOut(video)}
+						autoPlay
 						poster='http://bipbap.ru/wp-content/uploads/2017/04/72fqw2qq3kxh.jpg'
 						></video>
 			</div>
@@ -63,6 +65,8 @@ class ChatAudioContent extends React.Component {
 									this.props.onStop();
 								}} 
 								onCall={() => {
+									!this.props.receptionStarts && 
+										this.props.onBegin();
 									this.props.onCall();
 								}} 
 								onChat = {this.props.onChat}
