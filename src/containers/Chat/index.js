@@ -11,8 +11,16 @@ import * as actions from '../../store/actions'
 import {dialogArr} from './mock-data'
 
 class Chat extends React.Component{
-    render(){
 
+    componentWillMount(){
+        //this.props.getTodayReceptions();
+    }
+
+    componentWillUnmount(){
+        this.props.clearTodayReceptions();
+    }
+
+    render(){
         return (
             <Hoc>
                 <Row>
@@ -23,6 +31,7 @@ class Chat extends React.Component{
                         <ChatCard 
                                     wsURL={'wss://localhost:8443/one2one'}
                                     mode='video'
+                                    receptionId={this.props.receptionId}
 
                                     //isEnded = {true}
 
@@ -33,7 +42,6 @@ class Chat extends React.Component{
                                     patientName = {'Иванов Иван Иванович'}
 
                                     completeReception = {this.props.completeReception}
-                                    
                         />
                     </Col>
                 </Row>
@@ -46,12 +54,18 @@ const mapStateToProps = state =>{
     return {
         id: state.auth.id,
         user_mode: state.auth.mode,
+
+        schedules: state.schedules.schedules,
+
+        receptionId: state.treatments.choosenReceptionId,
     }
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-        completeReception: (obj) => dispatch(actions.completeReception(obj))
+        completeReception: (obj) => dispatch(actions.completeReception(obj)),
+        //getTodayReceptions: () => dispatch(),
+        clearTodayReceptions: () => dispatch(actions.clearIntervals()),
 	}
 };
 

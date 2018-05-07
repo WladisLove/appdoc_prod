@@ -46,6 +46,13 @@ export const getAllIntervals = (start, end) => {
     }
 }
 
+export const clearIntervals = () => {
+
+    return ({
+        type: actionTypes.CLEAR_INTERVALS,
+    })
+}
+
 export const addVisit = (reception, start, end) => {
     return (dispatch) => {
         let obj = {

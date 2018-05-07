@@ -25,6 +25,7 @@ export {
     cancelEventsRange,
 
     getAllIntervals,
+    clearIntervals,
     addInterval,
     addVisit,
     getAllVisits,

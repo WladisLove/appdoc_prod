@@ -19,6 +19,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 schedules: action.intervals,
             }
+        case actionTypes.CLEAR_INTERVALS:
+            return {
+                ...state,
+                schedules: [],
+            }
         case actionTypes.GET_ALL_VISITS:
             return {
                 ...state,

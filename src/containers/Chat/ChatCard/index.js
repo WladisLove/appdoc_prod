@@ -250,6 +250,7 @@ class ChatCard extends React.Component {
 								callResponse : 'accept',
 								sdpOffer : offerSdp,
 								mode: that.state.mode,
+								receptionId: that.props.receptionId,
 							};
 							that.sendMessage(response);
 						});

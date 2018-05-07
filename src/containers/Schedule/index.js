@@ -60,6 +60,10 @@ class Schedule extends React.Component {
 
     }
 
+    componentWillUnmount(){
+        this.props.clearReceptions();
+    }
+
     dateChangeHandler = (date) => {
         const {start, end} = findTimeInterval(date, this.state.view);
         this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
@@ -318,6 +322,7 @@ const mapDispatchToProps = dispatch => {
         onGetDocPatients: () => dispatch(actions.getDocPatients()),
 
         onGetAllIntervals: (start, end) => dispatch(actions.getAllIntervals(start, end)),
+        clearReceptions: () => dispatch(actions.clearIntervals()),
         onAddInterval: (obj, start, end) => dispatch(actions.addInterval(obj, start, end)),
 
         onAddNewVisit: (obj, start, end) => dispatch(actions.addVisit(obj, start, end)),

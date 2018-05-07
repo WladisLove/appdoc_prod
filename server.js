@@ -122,7 +122,7 @@ function CallMediaPipeline() {
     this.webRtcEndpoint = {};
 }
 
-CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mode, callback) {
+CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mode, receptionId, callback) {
     var self = this;
     getKurentoClient(function(error, kurentoClient) {
         if (error) {
@@ -201,7 +201,9 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mo
 
                                     recordsCounter++;
                                     var recorderParams = {
-                                        uri : mode === 'video' ? argv.video_uri : argv.audio_uri,
+                                        uri : mode === 'video' 
+                                            ? 'file:///media/audiovideo/'+receptionId+'.mp4'
+                                            : 'file:///media/audiovideo/'+receptionId+'.mp3',
                                     }
 
                                     pipeline.create('RecorderEndpoint', recorderParams, function(error, recorderEndpoint) {
@@ -314,7 +316,7 @@ wss.on('connection', function(ws) {
             break;
 
         case 'incomingCallResponse':
-            incomingCallResponse(sessionId, message.from, message.callResponse, message.sdpOffer, ws, message.mode);
+            incomingCallResponse(sessionId, message.from, message.callResponse, message.sdpOffer, ws, message.mode, message.receptionId);
             break;
 
         case 'stop':
@@ -438,7 +440,7 @@ function stop(sessionId) {
 
 }
 
-function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws, mode) {
+function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws, mode, receptionId) {
 
     clearCandidatesQueue(calleeId);
 
@@ -471,7 +473,7 @@ function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws, mode)
         pipelines[caller.id] = pipeline;
         pipelines[callee.id] = pipeline;
 
-        pipeline.createPipeline(caller.id, callee.id, ws, mode, function(error) {
+        pipeline.createPipeline(caller.id, callee.id, ws, mode, receptionId, function(error) {
             if (error) {
                 return onError(error, error);
             }
