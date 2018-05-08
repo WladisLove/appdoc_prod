@@ -32,6 +32,10 @@ class MainPage extends React.Component{
 	onAddVisit = () => {
 		this.props.onGetDocPatients();
 		this.setState({addModal: true});
+		let now = new Date();
+		this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+										new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
+		this.props.getDocTodayInfo();
 	}
 
 	onSaveNewVisit = (obj) => {
@@ -39,7 +43,16 @@ class MainPage extends React.Component{
         this.setState({
             addModal: false,
         })
-    };
+	};
+	
+	/*shouldComponentUpdate(nextProps, nextState){
+		return this.props.visits.length !== nextProps.visits.length
+			|| this.props.docTodayInfo.receptionsToday !== nextProps.docTodayInfo.receptionsToday
+			|| this.props.docTodayInfo.patients !== nextProps.docTodayInfo.patients
+			|| this.state.cancelModal !== nextState.cancelModal
+			|| this.state.addModal !== nextState.addModal
+			|| this.props.patients.length !== nextProps.patients.length;
+	}*/
 
     render(){
 
@@ -110,7 +123,7 @@ const mapDispatchToProps = dispatch => {
 		onGetDocPatients: () => dispatch(actions.getDocPatients()),
 		onAddNewVisit: (obj) => dispatch(actions.addVisit(obj)),
 
-		onGetTodayVisits: (start, end) => dispatch(actions.getAllVisits(start, end)),
+		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
 		onGetActualTreatments: () => dispatch(actions.getActualTreatments()),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),

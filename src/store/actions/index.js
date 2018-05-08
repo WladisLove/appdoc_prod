@@ -29,6 +29,7 @@ export {
     addInterval,
     addVisit,
     getAllVisits,
+    getTodayVisits,
 } from './schedules';
 export {
     getActualTreatments,
@@ -47,3 +48,8 @@ export {
     getDocTodayInfo,
     getDocShortInfo,
 } from './doctor'
+
+export {
+    sendNewInfoDoctor,
+    getInfoDoctor,
+} from './doctorData'

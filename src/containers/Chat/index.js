@@ -31,7 +31,7 @@ class Chat extends React.Component{
             <Hoc>
                 <Row>
                     <Col xs={24} xxl={7} className='section'>
-                        <ChatDialogs  data={dialogArr}
+                        <ChatDialogs  data={this.props.visits}
                                     onGoto = {(id) => this.gotoHandler(id)}
                         />
                     </Col>
@@ -64,6 +64,7 @@ const mapStateToProps = state =>{
         user_mode: state.auth.mode,
 
         schedules: state.schedules.schedules,
+        visits: state.schedules.visits,
 
         receptionId: state.treatments.choosenReceptionId,
     }
@@ -75,6 +76,7 @@ const mapDispatchToProps = dispatch => {
         //getTodayReceptions: () => dispatch(),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
+        onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 	}
 };
 
