@@ -25,6 +25,7 @@ export {
     cancelEventsRange,
 
     getAllIntervals,
+    clearIntervals,
     addInterval,
     addVisit,
     getAllVisits,
@@ -32,6 +33,8 @@ export {
 export {
     getActualTreatments,
     getAllTreatments,
+
+    completeReception,
 } from './treatment'
 
 

@@ -35,7 +35,9 @@ class Treatment extends React.Component{
             		<Col span={24} className='section'>
                         <HistoryReceptionsTabs data={this.props.treatments}
                                             onGoto={(id) => this.gotoHandler(id)}
-                                            onGotoChat = {(id) => this.props.history.push('/chat')}
+                                            onGotoChat = {(id) => {
+                                                this.props.history.push('/chat')
+                                            }}
                         />
             		</Col>
             	</Row>

@@ -52,7 +52,6 @@ class App extends React.Component {
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
                 
 
-        console.log('[patients]',this.props.notDocPatients)
         return (
             <div className="main">
             {
@@ -60,13 +59,16 @@ class App extends React.Component {
             
                 (<Hoc>
                     <div className={siderClass}>
+                    
                     <SideNav {...this.props.shortDocInfo}
                             rateValue={+(this.props.shortDocInfo.rateValue)}
                             onClick={this.toggle}
                             menuItems={menuItems}
                             isShort={this.state.collapsed}/>
+                            
                 </div>
                 <div className={wrapperClass}>
+                <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
                         <Header data={this.props.notDocPatients}
                                 onGoto={this.gotoHandler}
@@ -95,7 +97,7 @@ class App extends React.Component {
                     </div>
                 </div>
                 <div className="main-footer">
-                        <div className="main-footer-item company">AppDoc 2017</div>
+                        <div className="main-footer-item company">AppDoc 2018</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div> </Hoc>)
             : (
