@@ -187,9 +187,9 @@ anymatch@^1.3.0:
     micromatch "^2.1.5"
     normalize-path "^2.0.0"
 
-appdoc-component@^1.1.59:
-  version "1.1.59"
-  resolved "https://registry.yarnpkg.com/appdoc-component/-/appdoc-component-1.1.59.tgz#ae45da69baefb2060a37241fd8e9bfac1214a43d"
+appdoc-component@^1.1.62:
+  version "1.1.62"
+  resolved "https://registry.yarnpkg.com/appdoc-component/-/appdoc-component-1.1.62.tgz#2ce06e2b517d213a6adfb4b66591fd5eab7b8df5"
   dependencies:
     antd "^3.0.2"
     babel-plugin-transform-class-properties "^6.24.1"

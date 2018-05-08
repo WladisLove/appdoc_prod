@@ -10,6 +10,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type){
         case actionTypes.GET_ALL_TREATMENTS:
+        console.log(action.treatments)
             return {
                 ...state,
                 treatments: action.treatments,
