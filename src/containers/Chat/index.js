@@ -20,12 +20,20 @@ class Chat extends React.Component{
         this.props.clearTodayReceptions();
     }
 
+    gotoHandler = (id) => {
+        console.log('patient id',id)
+		this.props.onSelectPatient(id);
+		this.props.history.push('/patients-page');
+	}
+
     render(){
         return (
             <Hoc>
                 <Row>
                     <Col xs={24} xxl={7} className='section'>
-                        <ChatDialogs  data={dialogArr}/>
+                        <ChatDialogs  data={dialogArr}
+                                    onGoto = {(id) => this.gotoHandler(id)}
+                        />
                     </Col>
                     <Col xs={24} xxl={17} className='section'>
                         <ChatCard 
@@ -65,6 +73,7 @@ const mapDispatchToProps = dispatch => {
 	return {
         completeReception: (obj) => dispatch(actions.completeReception(obj)),
         //getTodayReceptions: () => dispatch(),
+        onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
 	}
 };

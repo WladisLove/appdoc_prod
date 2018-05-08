@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import { Icon, Row, Col, TopPanel, TopPanelItem, TableNoHead, TableNoHeadItem, Reviews, TreatmentTable, NewVisitModalPage, CancelVisitModal } from 'appdoc-component'
+import { Icon, Row, Col, TopPanel, TopPanelItem, TableNoHead, TableNoHeadItem, Reviews, TreatmentTable, NewVisitModal, CancelVisitModal } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import * as actions from '../../store/actions'
@@ -12,7 +12,9 @@ import {dataArr, scheduleArr, treatmentArr, panelArr} from './mock-data'
 class MainPage extends React.Component{
 	state = {
 		cancelModal: false,
+		addModal: false,
 	}
+
 	componentDidMount(){
 		this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
 		this.props.onGetActualTreatments();
@@ -26,6 +28,18 @@ class MainPage extends React.Component{
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patients-page');
 	}
+
+	onAddVisit = () => {
+		this.props.onGetDocPatients();
+		this.setState({addModal: true});
+	}
+
+	onSaveNewVisit = (obj) => {
+        this.props.onAddNewVisit(obj);
+        this.setState({
+            addModal: false,
+        })
+    };
 
     render(){
 
@@ -43,6 +57,7 @@ class MainPage extends React.Component{
 										onGoto={(val) => this.gotoHandler(val)}
 										onBegin={() => this.props.history.push('/chat')}
 										onCancel={() => {this.setState({cancelModal: true})}}
+										onAdd = {this.onAddVisit}
 							/>
 						</Col>
 						<Col xs={24} xxl={10} className='section'>
@@ -63,7 +78,13 @@ class MainPage extends React.Component{
 											redirect={() => this.props.history.push('/treatment')}/>
 						</Col>
 					</Row>
-					<NewVisitModalPage visible={false}/>
+					<NewVisitModal visible={this.state.addModal}
+									date={new Date()}
+									isChoosebleTime={true}
+									patients={this.props.patients}
+									onCancel={() => {this.setState({addModal: false})}}
+									onSave = {(obj) => this.onSaveNewVisit(obj)}
+					/>
 					<CancelVisitModal visible={this.state.cancelModal} 
 									onGoto={() => {}}
 									onCancel={() => {this.setState({cancelModal: false})}}
@@ -76,6 +97,7 @@ class MainPage extends React.Component{
 
 const mapStateToProps = state => {
     return {
+		patients: state.patients.docPatients,
 		visits: state.schedules.visits,
 		reviews: state.reviews.reviews,
 		actualTreatments: state.treatments.actualTreatments,
@@ -85,6 +107,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+		onGetDocPatients: () => dispatch(actions.getDocPatients()),
+		onAddNewVisit: (obj) => dispatch(actions.addVisit(obj)),
+
 		onGetTodayVisits: (start, end) => dispatch(actions.getAllVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
 		onGetActualTreatments: () => dispatch(actions.getActualTreatments()),
