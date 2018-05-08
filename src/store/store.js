@@ -7,7 +7,7 @@ import schedulesReducer from './reducers/schedules'
 import treatmentsReducer from './reducers/treatment'
 import authReducer from './reducers/auth'
 import doctorReducer from './reducers/doctor'
-
+import infoDoctorReducer from './reducers/doctorData'
 
 
 const rootReducer = combineReducers({
@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
     treatments: treatmentsReducer,
     auth: authReducer,
     doctor: doctorReducer,
+    profileDoctor: infoDoctorReducer,
 });
 
 // const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
