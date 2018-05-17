@@ -47,3 +47,23 @@ export const completeReception = (obj) => {
         })
     }
 }
+
+export const uploadFiles = (arr) => {
+    let obj = {
+        id_zap: 126029,
+        id_user: "54321",
+        file: arr
+    }
+    console.log(obj)
+    console.log(JSON.stringify(obj))
+    return dispatch => {
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/toFinishReception',
+            JSON.stringify(obj))
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+}

@@ -434,60 +434,45 @@ class ChatCard extends React.Component {
 
         const icons = ['chat1', 'telephone', "video-camera"];
 
-        let content;
+		let content;
+		let commonProps = {
+			ws: this.ws,
+			from: this.state.from,
+			to: this.state.to,
+			receptionStarts: this.state.receptionStarts,
+			chatStory: this.state.chatStory,
+			onEnd: this.beforeCloseReseption,
+			onBegin: this.startReception,
+			sendMessage: this.sendMessage,
+			uploadFiles: this.props.uploadFiles,
+			uploadConclusion: (arr) => {console.log('uploadConclusion',arr)}
+		};
+		let notTextProps = {
+			setVideoOut: (video)=>videoOutput=video,
+			setVideoIn: (video)=>videoInput=video,
+			onStop: this.onStop,
+			onCall: this.onCall,
+			onChat: () => this.setState(prev => ({isActiveChat: !prev.isActiveChat})),
+			timer: this.state.timer,
+			isCalling: this.state.isCalling,
+			isActiveChat: this.state.isActiveChat,
+			isEnded: this.props.isEnded,
+		};
         switch (this.state.mode) {
             case 'chat':
                 content = <ChatTextContent isActive={this.state.isActive} 
-                                            ws={this.ws} 
-                                            from={this.state.from}
-                                            to={this.state.to}
-                                            chatStory={this.state.chatStory}
-											sendMessage = {this.sendMessage}
-											receptionStarts = {this.state.receptionStarts}
-											onEnd={this.beforeCloseReseption}
-											onBegin = {this.startReception}
-                                            />;
+                                        	{...commonProps}/>;
                 break;
 			case 'voice':
-				content = <ChatAudioContent ws={this.ws}
-											setVideoOut = {(video)=>videoOutput=video}
-                                            setVideoIn = {(video)=>videoInput=video}
-											onStop={this.onStop}
-											onCall={this.onCall}
-											from={this.state.from}
-											to={this.state.to}
-											onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
-											timer = {this.state.timer}
-											receptionStarts={this.state.receptionStarts}
-											isCalling = {this.state.isCalling}
-											sendMessage = {this.sendMessage}
-											chatStory={this.state.chatStory}
-											isActiveChat={this.state.isActiveChat}
-											onBegin = {this.startReception}
-											onEnd={this.beforeCloseReseption}
-
-											isEnded={this.props.isEnded}
+				content = <ChatAudioContent 
+											{...commonProps}
+											{...notTextProps}
                                             />;
                 break;
             case "video":
-                content = <ChatVideoContent ws={this.ws}
-                                            setVideoOut = {(video)=>videoOutput=video}
-                                            setVideoIn = {(video)=>videoInput=video}
-                                            onStop={this.onStop}
-                                            onCall={this.onCall}
-                                            from={this.state.from}
-                                            to={this.state.to}
-                                            onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
-                                            timer = {this.state.timer}
-											receptionStarts={this.state.receptionStarts}
-											isCalling = {this.state.isCalling}
-                                            sendMessage = {this.sendMessage}
-                                            chatStory={this.state.chatStory}
-											isActiveChat={this.state.isActiveChat}
-											onBegin = {this.startReception}
-											onEnd={this.beforeCloseReseption}
-
-											isEnded={this.props.isEnded}
+                content = <ChatVideoContent 
+											{...commonProps}
+											{...notTextProps}
                                             />;
                 break;
         }

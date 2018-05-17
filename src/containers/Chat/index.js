@@ -49,6 +49,7 @@ class Chat extends React.Component{
                                     user_id = {1000}
                                     patientName = {'Иванов Иван Иванович'}
 
+                                    uploadFiles = {this.props.uploadFiles}
                                     completeReception = {this.props.completeReception}
                         />
                     </Col>
@@ -77,6 +78,7 @@ const mapDispatchToProps = dispatch => {
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
         onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
+        uploadFiles: (arr) => dispatch(actions.uploadFiles(arr)),
 	}
 };
 

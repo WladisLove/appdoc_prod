@@ -38,7 +38,9 @@ class ChatTextContent extends React.Component {
 					 from={this.props.from}  
 					 onBegin = {this.props.onBegin}
 					 onEnd = {this.props.onEnd}
-					 receptionStarts = {this.props.receptionStarts}   
+					 receptionStarts = {this.props.receptionStarts}
+					 uploadFiles= {this.props.uploadFiles}
+					uploadConclusion = {this.props.uploadConclusion}
 		    />
         )
     }

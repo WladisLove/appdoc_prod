@@ -36,6 +36,7 @@ export {
     getAllTreatments,
 
     completeReception,
+    uploadFiles,
 } from './treatment'
 
 
