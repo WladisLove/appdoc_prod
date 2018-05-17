@@ -105,6 +105,8 @@ class ChatAudioContent extends React.Component {
 						 onBegin = {this.props.onBegin}
 					 	 onEnd = {this.props.onEnd}
 						 receptionStarts={this.props.receptionStarts}
+						 uploadFiles= {this.props.uploadFiles}
+						 uploadConclusion = {this.props.uploadConclusion}
 					/>
                 </div>
 			</div>

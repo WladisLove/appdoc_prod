@@ -25,6 +25,7 @@ const reducer = (state = initialState, action) => {
                 schedules: [],
             }
         case actionTypes.GET_ALL_VISITS:
+            console.log(action.visits)
             return {
                 ...state,
                 visits: action.visits,
