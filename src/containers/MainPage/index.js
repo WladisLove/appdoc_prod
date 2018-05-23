@@ -1,7 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import reqwest from 'reqwest';
-
 
 import { Icon, Row, Col, TopPanel, TopPanelItem, TableNoHead, TableNoHeadItem, Reviews, TreatmentTable, NewVisitModal, CancelVisitModal } from 'appdoc-component'
 
@@ -15,133 +13,6 @@ import * as actions from '../../store/actions'
 
 import './styles.css'
 import {dataArr, scheduleArr, treatmentArr, panelArr} from './mock-data'
-
-const FormItem = Form.Item;
-
-class ContentForm extends React.Component {
-	state = {
-		fileList: [],
-		uploading: false,
-	}
-
-	handleUpload = () => {
-		const { fileList } = this.state;
-		//const formData = new FormData();
-		let formData = {};
-		console.log(fileList)
-
-		fileList.forEach((file) => {
-		  //formData.append('uploadfiles[]', file);
-		  formData = {
-			'uploadfiles[]': file,
-		  }
-		});
-	
-		this.setState({
-		  uploading: true,
-		});
-		console.log(formData);
-	
-		// You can use any AJAX library you like
-		reqwest({
-		  url: 'http://178.172.235.105/~api/json/catalog.doc2/saveFilesChat',
-		  method: 'post',
-		  processData: false,
-		  data: JSON.stringify(formData),
-		  success: (res) => {
-			this.setState({
-			  fileList: [],
-			  uploading: false,
-			});
-			console.log(res);
-			alert('upload successfully.');
-		  },
-		  error: (err) => {
-			this.setState({
-			  uploading: false,
-			});
-			console.log(err);
-			alert('upload failed.');
-		  },
-		});
-	  }
-
-    handleSubmit = (e) => {
-		e.stopPropagation();
-		  e.nativeEvent.stopImmediatePropagation();
-		  e.preventDefault();
-        let response = {
-            file: this.props.form.getFieldValue('file') 
-                ? this.props.form.getFieldValue('file').fileList 
-                : [],
-			id_zap: "12345",
-			id_user: "54321"
-		};
-		console.log('eeeee', response);
-		console.log(JSON.stringify(response))
-		axios.post('http://178.172.235.105/~api/json/catalog.doc2/saveFilesChat',
-                    JSON.stringify(response))
-            .then(res => {
-				console.log(res);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    };
-
-
-    render() {
-		const {getFieldDecorator} = this.props.form;
-		
-		const props = {
-			action: 'http://178.172.235.105/~api/json/catalog.doc2/saveFilesChat',
-			onRemove: (file) => {
-			  this.setState(({ fileList }) => {
-				const index = fileList.indexOf(file);
-				const newFileList = fileList.slice();
-				newFileList.splice(index, 1);
-				return {
-				  fileList: newFileList,
-				};
-			  });
-			},
-			beforeUpload: (file) => {
-			  this.setState(({ fileList }) => ({
-				fileList: [...fileList, file],
-			  }));
-			  return false;
-			},
-			fileList: this.state.fileList,
-			onChange: () =>{
-				console.log(this.state.fileList)
-			}
-		  };
-
-        return (
-            <Form>
-                <FormItem>
-                    {getFieldDecorator('file')(
-						<Upload 
-							text="Go"
-							name="uploadfiles"
-							{...props}
-							//action="http://178.172.235.105/~api/json/catalog.doc2/saveFilesChat"
-							>
-						</Upload>
-                    )}
-                </FormItem>
-                <Button size='default'
-                        btnText='Отправить'
-						//htmlType="submit"
-						onClick={this.handleUpload}
-						//onClick={this.handleSubmit}
-                        type='float'/>
-            </Form>
-        )
-    }
-}
-
-const Content = Form.create()(ContentForm);
 
 class MainPage extends React.Component{
 	state = {
@@ -193,12 +64,7 @@ class MainPage extends React.Component{
                 <Hoc>
 					<Row>
 						<Col span={24} className='section'>
-							{/*<TopPanel  {...this.props.docTodayInfo}/>*/}
-<div>
-			<Content/>
-</div>
-
-							
+							<TopPanel  {...this.props.docTodayInfo}/>
 						</Col>
 					</Row>
 

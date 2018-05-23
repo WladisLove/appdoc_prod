@@ -124,6 +124,8 @@ export const sendMessage = (message) => {
             from: getState().auth.id,
         }
 
+        console.log(JSON.stringify(obj));
+
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/putMessage',JSON.stringify(obj))
         .then(rez => {
             console.log(rez)
