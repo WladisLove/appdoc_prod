@@ -47,3 +47,28 @@ export const completeReception = (obj) => {
         })
     }
 }
+
+export const uploadFiles = (arr) => {
+    console.log(arr[0])
+    console.log(arr[0].thumbUrl)
+    let obj = {
+        id_zap: 126029,
+        id_user: "54321",
+        file: arr
+    }
+    console.log(obj)
+    console.log(JSON.stringify(obj))
+    console.log('-----------')
+    console.log((obj.file.thumbUrl))
+    console.log(JSON.stringify(obj.file.thumbUrl))
+    return dispatch => {
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveFilesChat',
+            JSON.stringify(obj))
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+}

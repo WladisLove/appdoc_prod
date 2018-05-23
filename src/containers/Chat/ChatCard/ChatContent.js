@@ -56,6 +56,8 @@ class ChatContent extends React.Component {
                     <ChatSend 
                         disable={!this.props.receptionStarts}
                         closeVisit={this.props.onEnd}
+                        uploadFiles = {(arr) => this.props.uploadFiles(arr)}
+                        uploadConclusion = {(arr) => this.props.uploadConclusion(arr)}
                         send={message => this.props.onSend(message)}/>
                 </div>
             </div>

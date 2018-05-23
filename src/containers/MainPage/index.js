@@ -2,7 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux';
 
 import { Icon, Row, Col, TopPanel, TopPanelItem, TableNoHead, TableNoHeadItem, Reviews, TreatmentTable, NewVisitModal, CancelVisitModal } from 'appdoc-component'
+
+import { Upload, Button, Input } from 'appdoc-component'
+
 import Hoc from '../../hoc'
+import {Form} from 'antd';
+import axios from 'axios'
 
 import * as actions from '../../store/actions'
 
@@ -55,7 +60,6 @@ class MainPage extends React.Component{
 	}*/
 
     render(){
-
         return (
                 <Hoc>
 					<Row>
