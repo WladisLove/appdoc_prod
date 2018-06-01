@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
+import moment from 'moment'
 
 import { Icon, Row, Col, PatientTable, AddNewPatient } from 'appdoc-component'
 import Hoc from '../../hoc'
@@ -28,7 +29,18 @@ class Patients extends React.Component{
 	componentDidMount(){
 		this.props.onGetDocPatients();	
 
-		this.props.onGetIntervalForDate(1395985227);
+		// this.onChangeDate
+		
+		// let date =  moment(1524111050);
+		// let date2 = moment(1524111050);
+		// console.log("date",date)
+		// date.startOf('date');
+		// let beginDay = date;
+		// date2.endOf('date');
+		// let endDay = date2;
+		// console.log("eeDay", beginDay, endDay);
+
+		// this.props.onGetIntervalForDate(1525122000);
 	}
 
 	showModalHandler = () => {
