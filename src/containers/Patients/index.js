@@ -17,12 +17,18 @@ class Patients extends React.Component{
 		}
 	}
 
+	onChangeDate = (date) => {
+		console.log(date);// отдать год-месяц-день и отправляем на сервер
+		// this.props.onGetIntervalForDate(date);
+	}
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patients-page');
 	}
 	componentDidMount(){
 		this.props.onGetDocPatients();	
+
+		this.props.onGetIntervalForDate(1395985227);
 	}
 
 	showModalHandler = () => {
@@ -31,6 +37,7 @@ class Patients extends React.Component{
 	}
 
     render(){
+		console.log("patients", this.props.docPatients);
         return (
         	<Hoc>
         		<Row>
@@ -44,7 +51,14 @@ class Patients extends React.Component{
 										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
-										
+										availableArea={[
+											{
+												from : 1395985227000,
+												to   : 1395990227000
+											}]}
+
+										onChangeDate={this.onChangeDate}
+
 										onGoto={(id) => this.gotoHandler(id)}
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => this.props.onSendMessage(val)}
@@ -81,6 +95,8 @@ const mapDispatchToProps = dispatch => {
 		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
+		onGetIntervalForDate: (date) => dispatch(actions.getDateInterval(date)),
+		
 	}
 };
 

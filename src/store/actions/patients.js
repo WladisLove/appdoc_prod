@@ -1,6 +1,30 @@
 import axios from 'axios'
 import * as actionTypes from './actionTypes';
 
+export const getDateInterval = (date) => {
+    return (dispatch, getState) => {
+        debugger;
+        let obj = 
+        {
+            "id_doc": String(getState().auth.id),
+            "datestart": "946508400",
+            "dateend": "946854000"
+          }
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/dateWorkInterval', JSON.stringify(obj))
+			.then(rez => {
+                debugger;
+                console.log("rez.data", rez.data);
+                dispatch({
+                    type: actionTypes.GET_DATE_INTERVAL,
+                    patients: rez.data,
+                })
+			})
+			.catch(err => {
+                console.log(err);
+            })
+    }
+}
+
 export const getDocPatients = () => {
     return (dispatch, getState) => {
 		axios.get('https://178.172.235.105/~api/json/catalog.doc2/getPatientsByDoctorId/id/'+getState().auth.id)
