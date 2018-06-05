@@ -30,6 +30,7 @@ class App extends React.Component {
     };
 
     componentWillMount(){
+        console.log('App')
         const login = localStorage.getItem('_appdoc-user'),
                 pass = localStorage.getItem('_appdoc-pass');
         (!this.props.id && login && pass) &&

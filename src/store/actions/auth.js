@@ -28,7 +28,7 @@ export const login = (userName, password, remember, history, isAuto) => {
                         //console.log('response: ',res);
                         
                         //dispatch(authSuccess(response.data.idToken, response.data.localId));
-
+//console.log(history)
                         !res.data.error 
                             ? (
                                 dispatch(authSuccess(res.data.id, res.data.usergroup)),
@@ -40,7 +40,8 @@ export const login = (userName, password, remember, history, isAuto) => {
                                     isAuto && (
                                         // TODO: test
                                         localStorage.removeItem('_appdoc-user'),
-                                        localStorage.removeItem('_appdoc-pass')
+                                        localStorage.removeItem('_appdoc-pass')//,
+                                        //sessionStorage.setItem('_appdoc-id', 'Tom')
                                     )
                             );
                     })
