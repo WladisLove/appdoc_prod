@@ -7,7 +7,6 @@ import Hoc from '../../hoc'
 import * as actions from '../../store/actions'
 
 import './styles.css'
-import {dataArr, scheduleArr, treatmentArr, panelArr} from './mock-data'
 
 class MainPage extends React.Component{
 	state = {

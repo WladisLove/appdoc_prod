@@ -73,12 +73,13 @@ class App extends React.Component {
                         <Header data={this.props.notDocPatients}
                                 onGoto={this.gotoHandler}
                                 onAdd={(id, name) => {
-                                    this.props.addPatient(id, name)
-                                    console.log(id,name)
+                                    this.props.addPatient(id, name);
+                                    this.props.getDocTodayInfo();
+                                    //console.log(id,name)
                                 }}
                                 findName={(name) => {
-                                    this.props.onGetNotDocPatients(name),
-                                    console.log(name)
+                                    this.props.onGetNotDocPatients(name)
+                                    //console.log(name)
                                 }}
                                 logout={this.props.onLogout}/>
                     </div>
@@ -131,6 +132,7 @@ const mapDispatchToProps = dispatch => {
         onGetNotDocPatients: (name) => dispatch(actions.getNotDocPatients(name)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
+        getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
 	}
 };
 
