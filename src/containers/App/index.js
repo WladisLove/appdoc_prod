@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 
 import * as actions from '../../store/actions'
 import './styles.css';
+import ab from '../../autobahn.js'
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -26,8 +27,37 @@ class App extends React.Component {
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
-        });
+        }); 
     };
+
+    componentDidMount() {
+        if(this.props.id){
+            let that = this;
+            let conn = new ab.Session('ws://178.172.235.105:8080',
+                function() {
+                    conn.subscribe(""+that.props.id, function(topic, data) {
+
+                        console.log('New message from doc_id "' + topic + '" : ' + data.arr);
+                    });
+                },
+                function() {
+                    console.warn('WebSocket connection closed');
+                },
+                {'skipSubprotocolCheck': true}
+            );
+
+            /*
+            this.main_ws = new WebSocket('ws://178.172.235.105:8080', ["wamp"]);
+            console.log(this.main_ws)
+            this.main_ws.onopen = () => {
+                this.main_ws.send(JSON.stringify([5,'2663']))
+            }
+            this.main_ws.onmessage = (mes) => {
+                console.log(mes)
+            }*/
+        }
+        
+    }
 
     componentWillMount(){
         const login = localStorage.getItem('_appdoc-user'),
