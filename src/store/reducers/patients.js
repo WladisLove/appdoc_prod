@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.GET_DATE_INTERVAL:
             return {
                 ...state,
-                availableAreaTime: action.interval,
+                intervals: action.intervals,
             }
 
         case actionTypes.SELECT_PATIENT:

@@ -187,6 +187,8 @@ class Schedule extends React.Component {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = [], timeSetReception = [];
         
+        console.log("schedules", this.props.schedules);
+
         if ('time' in currentSched || 'emergencyTime' in currentSched){
             timeSetCall = currentSched.time.map(item => {
                 return {

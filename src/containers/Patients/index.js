@@ -20,7 +20,16 @@ class Patients extends React.Component{
 
 	onChangeDate = (date) => {
 		console.log(date);// отдать год-месяц-день и отправляем на сервер
-		// this.props.onGetIntervalForDate(date);
+		let date1 =  moment(date);
+		let date2 = moment(date);
+		console.log("date",date)
+		date1.startOf('date');
+		let beginDay = date1;
+		date2.endOf('date');
+		let endDay = date2;
+		console.log("eeDay", beginDay, endDay);
+
+		this.props.onGetIntervalForDate(beginDay.format('X'), endDay.format('X'));
 	}
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
@@ -29,16 +38,8 @@ class Patients extends React.Component{
 	componentDidMount(){
 		this.props.onGetDocPatients();	
 
+
 		// this.onChangeDate
-		
-		// let date =  moment(1524111050);
-		// let date2 = moment(1524111050);
-		// console.log("date",date)
-		// date.startOf('date');
-		// let beginDay = date;
-		// date2.endOf('date');
-		// let endDay = date2;
-		// console.log("eeDay", beginDay, endDay);
 
 		// this.props.onGetIntervalForDate(1525122000);
 	}
@@ -48,8 +49,28 @@ class Patients extends React.Component{
 		this.setState({addNew_show: true});
 	}
 
+	getInterval = () => {
+		let intervals = [];
+		const arr = this.props.intervals;
+		for(let i = 0; arr && i < arr.length; i++){
+			for(let j = 0; j < arr[i].intervalOb.length; j++){
+
+				intervals.push({from: arr[i].intervalOb[j].start*1000, to: arr[i].intervalOb[j].end*1000});
+			}
+		}
+		return intervals;
+	}
+
     render(){
-		console.log("patients", this.props.docPatients);
+
+		console.log("getInterval()", this.getInterval());
+		let availableArea = this.getInterval();
+		if(availableArea.length){
+			console.log(moment(availableArea[0].from));																																																																																																																																																																																																																					
+		}
+			
+
+
         return (
         	<Hoc>
         		<Row>
@@ -63,11 +84,7 @@ class Patients extends React.Component{
 										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
-										availableArea={[
-											{
-												from : 1395985227000,
-												to   : 1395990227000
-											}]}
+										availableArea={availableArea}
 
 										onChangeDate={this.onChangeDate}
 
@@ -95,6 +112,7 @@ const mapStateToProps = state => {
 	return {
 		docPatients: state.patients.docPatients,
 		notDocPatients: state.patients.notDocPatients,
+		intervals: state.patients.intervals,
 	}
 };
 
@@ -107,7 +125,7 @@ const mapDispatchToProps = dispatch => {
 		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
-		onGetIntervalForDate: (date) => dispatch(actions.getDateInterval(date)),
+		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateInterval(beginDay, endDay)),
 		
 	}
 };
