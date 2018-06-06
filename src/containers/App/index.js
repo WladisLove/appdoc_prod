@@ -21,6 +21,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             collapsed: true,
+            notifications: [],
         };
     }
 
@@ -38,6 +39,8 @@ class App extends React.Component {
                     conn.subscribe(""+that.props.id, function(topic, data) {
 
                         console.log('New message from doc_id "' + topic + '" : ' + data.arr);
+                        console.log(JSON.parse(data.arr));
+                        that.setState({notifications: JSON.parse(data.arr)})
                     });
                 },
                 function() {
@@ -45,16 +48,6 @@ class App extends React.Component {
                 },
                 {'skipSubprotocolCheck': true}
             );
-
-            /*
-            this.main_ws = new WebSocket('ws://178.172.235.105:8080', ["wamp"]);
-            console.log(this.main_ws)
-            this.main_ws.onopen = () => {
-                this.main_ws.send(JSON.stringify([5,'2663']))
-            }
-            this.main_ws.onmessage = (mes) => {
-                console.log(mes)
-            }*/
         }
         
     }
@@ -101,6 +94,7 @@ class App extends React.Component {
                 <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
                         <Header data={this.props.notDocPatients}
+                                notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
                                 onAdd={(id, name) => {
                                     this.props.addPatient(id, name)
