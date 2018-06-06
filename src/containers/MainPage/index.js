@@ -54,7 +54,7 @@ class MainPage extends React.Component{
 	}*/
 
     render(){
-
+		console.log('reviews',this.props.reviews)
         return (
                 <Hoc>
 					<Row>

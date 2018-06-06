@@ -30,7 +30,7 @@ class App extends React.Component {
     };
 
     componentWillMount(){
-        console.log('App')
+        //console.log('App')
         const login = localStorage.getItem('_appdoc-user'),
                 pass = localStorage.getItem('_appdoc-pass');
         (!this.props.id && login && pass) &&
@@ -51,7 +51,6 @@ class App extends React.Component {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
-                
 
         return (
             <div className="main">

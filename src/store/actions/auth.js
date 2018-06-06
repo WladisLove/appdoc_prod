@@ -18,20 +18,17 @@ export const login = (userName, password, remember, history, isAuto) => {
 
     return (dispatch) => {
         dispatch(authStart());
-
         axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
                 JSON.stringify({
                     login: userName,
                     password: password,
                 }))
-                    .then(res => {
-                        //console.log('response: ',res);
-                        
+                    .then(res => {                        
                         //dispatch(authSuccess(response.data.idToken, response.data.localId));
-//console.log(history)
                         !res.data.error 
                             ? (
                                 dispatch(authSuccess(res.data.id, res.data.usergroup)),
+                                sessionStorage.setItem('_appdoc-id', res.data.id),
                                 rememberMe(remember, userName, password),
                                 history.push('/') 
                             )
@@ -40,8 +37,8 @@ export const login = (userName, password, remember, history, isAuto) => {
                                     isAuto && (
                                         // TODO: test
                                         localStorage.removeItem('_appdoc-user'),
-                                        localStorage.removeItem('_appdoc-pass')//,
-                                        //sessionStorage.setItem('_appdoc-id', 'Tom')
+                                        localStorage.removeItem('_appdoc-pass'),
+                                        sessionStorage.removeItem('_appdoc-id')
                                     )
                             );
                     })
@@ -56,6 +53,7 @@ export const logout = () => {
     return dispatch => {
         localStorage.removeItem('_appdoc-user');
         localStorage.removeItem('_appdoc-pass');
+        sessionStorage.removeItem('_appdoc-id');
         dispatch(authSuccess(0, ''));
     }
 
