@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 
 import * as actions from '../../store/actions'
 import './styles.css';
+import ab from '../../autobahn.js'
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -20,14 +21,36 @@ class App extends React.Component {
         super(props);
         this.state = {
             collapsed: true,
+            notifications: [],
         };
     }
 
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
-        });
+        }); 
     };
+
+    componentDidMount() {
+        if(this.props.id){
+            let that = this;
+            let conn = new ab.Session('ws://178.172.235.105:8080',
+                function() {
+                    conn.subscribe(""+that.props.id, function(topic, data) {
+
+                        console.log('New message from doc_id "' + topic + '" : ' + data.arr);
+                        console.log(JSON.parse(data.arr));
+                        that.setState({notifications: JSON.parse(data.arr)})
+                    });
+                },
+                function() {
+                    console.warn('WebSocket connection closed');
+                },
+                {'skipSubprotocolCheck': true}
+            );
+        }
+        
+    }
 
     componentWillMount(){
         const login = localStorage.getItem('_appdoc-user'),
@@ -71,6 +94,7 @@ class App extends React.Component {
                 <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
                         <Header data={this.props.notDocPatients}
+                                notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
                                 onAdd={(id, name) => {
                                     this.props.addPatient(id, name);
