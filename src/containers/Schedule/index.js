@@ -143,10 +143,7 @@ class Schedule extends React.Component {
     };
 
     onSaveReceptionSchedule = (interval) => {
-        //console.log(interval);
-        //console.log('[before]');
         this.props.onAddInterval(interval, this.state.interval.start,this.state.interval.end);
-        //console.log('[after]');
         //this.props.onGetAllIntervals(this.state.interval.start,this.state.interval.end);
         this.setState({
             receptionsScheduleModal: false,
@@ -158,7 +155,6 @@ class Schedule extends React.Component {
     };
 
     openReceptionSchedule = (date, schedule) => {
-        //console.log(date, schedule);
         if(schedule){
             this.setState({
                 receptionData: {
@@ -186,6 +182,8 @@ class Schedule extends React.Component {
     render() {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = [], timeSetReception = [];
+
+        //console.log(this.props.intervals, this.props.min, this.props.max)
         
         if ('time' in currentSched || 'emergencyTime' in currentSched){
             timeSetCall = currentSched.time.map(item => {
@@ -234,6 +232,9 @@ class Schedule extends React.Component {
                                   onNavigate={this.dateChangeHandler}
                                   step={5}
                                   events={this.props.visits}
+                                  //intervals={this.props.intervals}
+                                  min={new Date(this.props.min*1000)}
+                                  max={new Date(this.props.max*1000)}
                                   onPopoverClose={this.eventDeleteHandler}
                                   onPopoverEmail={this.onPatientEmail}
             />)
@@ -311,6 +312,9 @@ const mapStateToProps = state => {
         patients: state.patients.docPatients,
 
         visits: state.schedules.visits,
+        intervals: state.schedules.visIntervals,
+        min: state.schedules.min,
+        max: state.schedules.max,
         schedules: state.schedules.schedules,
         chosenData: state.schedules.chosenData,
         cancelData: state.schedules.cancelData,
