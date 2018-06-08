@@ -36,10 +36,8 @@ class App extends React.Component {
             let that = this;
             let conn = new ab.Session('ws://178.172.235.105:8080',
                 function() {
+                    that.props.getNotifications(that.props.id)
                     conn.subscribe(""+that.props.id, function(topic, data) {
-
-                        console.log('New message from doc_id "' + topic + '" : ' + data.arr);
-                        console.log(JSON.parse(data.arr));
                         that.setState({notifications: JSON.parse(data.arr)})
                     });
                 },
@@ -53,7 +51,6 @@ class App extends React.Component {
     }
 
     componentWillMount(){
-        //console.log('App')
         const login = localStorage.getItem('_appdoc-user'),
                 pass = localStorage.getItem('_appdoc-pass');
         (!this.props.id && login && pass) &&
@@ -99,11 +96,9 @@ class App extends React.Component {
                                 onAdd={(id, name) => {
                                     this.props.addPatient(id, name);
                                     this.props.getDocTodayInfo();
-                                    //console.log(id,name)
                                 }}
                                 findName={(name) => {
                                     this.props.onGetNotDocPatients(name)
-                                    //console.log(name)
                                 }}
                                 logout={this.props.onLogout}/>
                     </div>
@@ -126,12 +121,7 @@ class App extends React.Component {
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div> </Hoc>)
             : (
-                /*(localStorage.getItem('_appdoc-user') && localStorage.getItem('_appdoc-pass'))
-                    ?  this.props.onLogin({
-                        userName: localStorage.getItem('_appdoc-user'), 
-                        password: localStorage.getItem('_appdoc-pass'),
-                    }, this.props.history)
-                    :*/ <Redirect to='login'/>
+                <Redirect to='login'/>
             )
             }
             </div>
@@ -157,6 +147,7 @@ const mapDispatchToProps = dispatch => {
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
         getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
+        getNotifications: (id) => dispatch(actions.getNotifications(id))
 	}
 };
 
