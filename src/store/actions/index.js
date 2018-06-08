@@ -52,4 +52,5 @@ export {
 export {
     sendNewInfoDoctor,
     getInfoDoctor,
+    getNotifications,
 } from './doctorData'
