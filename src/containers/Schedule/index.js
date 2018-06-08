@@ -98,6 +98,7 @@ class Schedule extends React.Component {
     };
 
     onSaveNewVisit = (obj) => {
+        console.log('save')
         this.props.onAddNewVisit(obj, this.state.interval.start, this.state.interval.end);
         this.setState({
             newVisitModal: false,
@@ -232,7 +233,7 @@ class Schedule extends React.Component {
                                   onNavigate={this.dateChangeHandler}
                                   step={5}
                                   events={this.props.visits}
-                                  //intervals={this.props.intervals}
+                                  intervals={this.props.intervals}
                                   min={new Date(this.props.min*1000)}
                                   max={new Date(this.props.max*1000)}
                                   onPopoverClose={this.eventDeleteHandler}

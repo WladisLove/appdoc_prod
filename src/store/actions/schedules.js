@@ -15,6 +15,7 @@ export const addInterval = (interval, start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/dateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
+                console.log('create',JSON.stringify(obj))
                 start && dispatch(getAllIntervals(start,end))
             })
             .catch(err => {
