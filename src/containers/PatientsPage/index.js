@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import { Row, Col, ProfilePatient, DiseasesTable, HistoryReceptions } from 'appdoc-component'
 import Hoc from '../../hoc'
 
-import {patientArr, diseasesArr, historyArr} from './mock-data'
 import * as actions from '../../store/actions'
 
 import './styles.css';
