@@ -236,13 +236,13 @@ class ChatCard extends React.Component {
 					function(error) {
 						if (error) {
 							console.error(error);
-							this.setCallState(NO_CALL);
+							that.setCallState(NO_CALL);
 						}
 	
 						this.generateOffer(function(error, offerSdp) {
 							if (error) {
 								console.error(error);
-								this.setCallState(NO_CALL);
+								that.setCallState(NO_CALL);
 							}
 							var response = {
 								id : 'incomingCallResponse',
@@ -360,7 +360,7 @@ class ChatCard extends React.Component {
                 error) {
             if (error) {
                 console.error(error);
-                this.setCallState(NO_CALL);
+                that.setCallState(NO_CALL);
             }
 
 	
@@ -369,7 +369,7 @@ class ChatCard extends React.Component {
             this.generateOffer(function(error, offerSdp) {
                 if (error) {
                     console.error(error);
-                    this.setCallState(NO_CALL);
+                    that.setCallState(NO_CALL);
 				}
                 var message = {
                     id : 'call',
@@ -434,60 +434,44 @@ class ChatCard extends React.Component {
 
         const icons = ['chat1', 'telephone', "video-camera"];
 
-        let content;
+		let content;
+		const chatProps= {
+			ws: this.ws,
+			from: this.state.from,
+			to: this.state.to,
+			chatStory: this.state.chatStory,
+			sendMessage: this.sendMessage,
+			onEnd: this.beforeCloseReseption,
+			onBegin: this.startReception,
+			receptionStarts: this.state.receptionStarts,
+		};
+		const chatAdditionalProps = {
+			setVideoOut: (video)=>videoOutput=video,
+			setVideoIn: (video)=>videoInput=video,
+			onStop: this.onStop,
+			onCall: this.onCall,
+			onChat: () => this.setState(prev => ({isActiveChat: !prev.isActiveChat})),
+			timer: this.state.timer,
+			isCalling: this.state.isCalling,
+			isActiveChat: this.state.isActiveChat,
+			isEnded: this.props.isEnded,
+		}
         switch (this.state.mode) {
             case 'chat':
-                content = <ChatTextContent isActive={this.state.isActive} 
-                                            ws={this.ws} 
-                                            from={this.state.from}
-                                            to={this.state.to}
-                                            chatStory={this.state.chatStory}
-											sendMessage = {this.sendMessage}
-											receptionStarts = {this.state.receptionStarts}
-											onEnd={this.beforeCloseReseption}
-											onBegin = {this.startReception}
+                content = <ChatTextContent isActive={this.state.isActive} 		
+											{...chatProps}
                                             />;
                 break;
 			case 'voice':
-				content = <ChatAudioContent ws={this.ws}
-											setVideoOut = {(video)=>videoOutput=video}
-                                            setVideoIn = {(video)=>videoInput=video}
-											onStop={this.onStop}
-											onCall={this.onCall}
-											from={this.state.from}
-											to={this.state.to}
-											onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
-											timer = {this.state.timer}
-											receptionStarts={this.state.receptionStarts}
-											isCalling = {this.state.isCalling}
-											sendMessage = {this.sendMessage}
-											chatStory={this.state.chatStory}
-											isActiveChat={this.state.isActiveChat}
-											onBegin = {this.startReception}
-											onEnd={this.beforeCloseReseption}
-
-											isEnded={this.props.isEnded}
+				content = <ChatAudioContent 
+											{...chatProps}
+											{...chatAdditionalProps}
                                             />;
                 break;
             case "video":
-                content = <ChatVideoContent ws={this.ws}
-                                            setVideoOut = {(video)=>videoOutput=video}
-                                            setVideoIn = {(video)=>videoInput=video}
-                                            onStop={this.onStop}
-                                            onCall={this.onCall}
-                                            from={this.state.from}
-                                            to={this.state.to}
-                                            onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
-                                            timer = {this.state.timer}
-											receptionStarts={this.state.receptionStarts}
-											isCalling = {this.state.isCalling}
-                                            sendMessage = {this.sendMessage}
-                                            chatStory={this.state.chatStory}
-											isActiveChat={this.state.isActiveChat}
-											onBegin = {this.startReception}
-											onEnd={this.beforeCloseReseption}
-
-											isEnded={this.props.isEnded}
+                content = <ChatVideoContent 
+											{...chatProps}
+											{...chatAdditionalProps}
                                             />;
                 break;
         }
@@ -501,7 +485,7 @@ class ChatCard extends React.Component {
                             btnText=''
                             size='small'
                             type='no-brd'
-                            icon='menu'
+                            icon='file'
                             svg
                             title='Открыть прикреплённые файлы'
                             style={{width: 30}}
