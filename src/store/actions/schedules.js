@@ -15,7 +15,6 @@ export const addInterval = (interval, start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/dateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
-                console.log('create',JSON.stringify(obj))
                 start && dispatch(getAllIntervals(start,end))
             })
             .catch(err => {
@@ -74,7 +73,7 @@ export const addVisit = (reception, start, end) => {
     }
 }
 
-export const getAllVisits = (start, end) => {
+export const getAllVisits = (start, end, key) => {
     
     return (dispatch, getState) => {
         let obj = {
@@ -85,8 +84,7 @@ export const getAllVisits = (start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log(JSON.stringify(obj))
-                console.log('getApp',res.data)
+                console.log(JSON.stringify(obj), '['+key+']')
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
                     visits: res.data.result,

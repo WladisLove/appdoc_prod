@@ -43,8 +43,9 @@ class Schedule extends React.Component {
     };
 
     setIntervalAndView = (date, view) => {
+        console.log('view in setter', date, view)
         const {start, end} = findTimeInterval(date, view);
-        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
+        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end, 'setter');
         
         this.setState({
             interval: {
@@ -64,17 +65,29 @@ class Schedule extends React.Component {
         this.props.clearReceptions();
     }
 
-    dateChangeHandler = (date) => {
-        const {start, end} = findTimeInterval(date, this.state.view);
-        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
+    dateChangeHandler = (date, view, action, isOnDay) => {
+        const {start, end} = isOnDay ? 
+            findTimeInterval(date, 'day') : findTimeInterval(date, this.state.view);
+            console.log('handler')
+        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end, 'handler');
         
-        this.setState({
-            currentDate: date,
-            interval: {
-                start,
-                end,
-            }
-        })
+        isOnDay ?
+            this.setState({
+                currentDate: date,
+                interval: {
+                    start,
+                    end,
+                },
+                view: 'day'
+            })
+            :
+            this.setState({
+                currentDate: date,
+                interval: {
+                    start,
+                    end,
+                },
+            })
 
     };
 
@@ -121,7 +134,7 @@ class Schedule extends React.Component {
     changeToEditorMode = (isEditorMode) => {
         let mode = isEditorMode ? 'month' : 'week';
         const {start, end} = findTimeInterval(this.state.currentDate, mode);
-        isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
+        isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end, 'mode');
 
         this.setState({
             view: mode,
@@ -183,8 +196,6 @@ class Schedule extends React.Component {
     render() {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = [], timeSetReception = [];
-
-        //console.log(this.props.intervals, this.props.min, this.props.max)
         
         if ('time' in currentSched || 'emergencyTime' in currentSched){
             timeSetCall = currentSched.time.map(item => {
@@ -226,11 +237,13 @@ class Schedule extends React.Component {
                                   onSelectEvent={this.props.onSelectEvent}
                                   onSelectSlot={(slot) => this.onAddVisit(slot)}
                                   defaultView="week"
-                                  onView = {(view) => {
+                                  onView = {(view, date) => {
+                                      console.log(view ,date) // date use when onDrillDown
                                       this.setIntervalAndView(this.state.currentDate, view);
                                   }}
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
+                                  //onDrillDown={this.dateChangeHandler}
                                   step={5}
                                   events={this.props.visits}
                                   intervals={this.props.intervals}
@@ -331,7 +344,7 @@ const mapDispatchToProps = dispatch => {
         onAddInterval: (obj, start, end) => dispatch(actions.addInterval(obj, start, end)),
 
         onAddNewVisit: (obj, start, end) => dispatch(actions.addVisit(obj, start, end)),
-        onGetAllVisits: (start,end) => dispatch(actions.getAllVisits(start,end)),
+        onGetAllVisits: (start,end, key) => dispatch(actions.getAllVisits(start,end, key)),
 
         onSendMessage: (mess) => dispatch(actions.sendMessage(mess)),
         onCloseCancelModal: (obj) => dispatch(actions.cancelEventsRange(obj)),
