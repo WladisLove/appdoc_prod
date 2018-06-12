@@ -38,6 +38,7 @@ class App extends React.Component {
                 function() {
                     that.props.getNotifications(that.props.id)
                     conn.subscribe(""+that.props.id, function(topic, data) {
+                        console.log(JSON.parse(data.arr))
                         that.setState({notifications: JSON.parse(data.arr)})
                     });
                 },

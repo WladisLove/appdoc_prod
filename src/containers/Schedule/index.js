@@ -57,24 +57,34 @@ class Schedule extends React.Component {
 
     componentDidMount(){
         this.setIntervalAndView(this.state.currentDate, 'week');
-
     }
 
     componentWillUnmount(){
         this.props.clearReceptions();
     }
 
-    dateChangeHandler = (date) => {
-        const {start, end} = findTimeInterval(date, this.state.view);
+    dateChangeHandler = (date, view, action, isOnDay) => {
+        const {start, end} = isOnDay ? 
+            findTimeInterval(date, 'day') : findTimeInterval(date, this.state.view);
         this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
         
-        this.setState({
-            currentDate: date,
-            interval: {
-                start,
-                end,
-            }
-        })
+        isOnDay ?
+            this.setState({
+                currentDate: date,
+                interval: {
+                    start,
+                    end,
+                },
+                view: 'day'
+            })
+            :
+            this.setState({
+                currentDate: date,
+                interval: {
+                    start,
+                    end,
+                },
+            })
 
     };
 
@@ -98,7 +108,6 @@ class Schedule extends React.Component {
     };
 
     onSaveNewVisit = (obj) => {
-        console.log('save')
         this.props.onAddNewVisit(obj, this.state.interval.start, this.state.interval.end);
         this.setState({
             newVisitModal: false,
@@ -145,7 +154,6 @@ class Schedule extends React.Component {
 
     onSaveReceptionSchedule = (interval) => {
         this.props.onAddInterval(interval, this.state.interval.start,this.state.interval.end);
-        //this.props.onGetAllIntervals(this.state.interval.start,this.state.interval.end);
         this.setState({
             receptionsScheduleModal: false,
             receptionData: {
@@ -183,8 +191,6 @@ class Schedule extends React.Component {
     render() {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = [], timeSetReception = [];
-
-        //console.log(this.props.intervals, this.props.min, this.props.max)
         
         if ('time' in currentSched || 'emergencyTime' in currentSched){
             timeSetCall = currentSched.time.map(item => {
@@ -226,11 +232,12 @@ class Schedule extends React.Component {
                                   onSelectEvent={this.props.onSelectEvent}
                                   onSelectSlot={(slot) => this.onAddVisit(slot)}
                                   defaultView="week"
-                                  onView = {(view) => {
-                                      this.setIntervalAndView(this.state.currentDate, view);
+                                  onView = {(view, date) => {
+                                      !date ? this.setIntervalAndView(this.state.currentDate, view) : () => {};
                                   }}
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
+                                  gotoEditor={() => console.log('go to editor')}
                                   step={5}
                                   events={this.props.visits}
                                   intervals={this.props.intervals}
