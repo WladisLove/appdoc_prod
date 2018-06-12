@@ -43,7 +43,6 @@ class Schedule extends React.Component {
     };
 
     setIntervalAndView = (date, view) => {
-        console.log('[setIntervalAndView]')
         const {start, end} = findTimeInterval(date, view);
         this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
         
@@ -65,8 +64,6 @@ class Schedule extends React.Component {
     }
 
     dateChangeHandler = (date, view, action, isOnDay) => {
-        console.log(date, view, action, isOnDay)
-        console.log('[dateChangeHandler]')
         const {start, end} = this.state.isEditorMode 
             ? findTimeInterval(date, 'month') 
             : isOnDay ? 
@@ -234,7 +231,6 @@ class Schedule extends React.Component {
                 currD = currDate.getDate();
             let min = new Date(new Date(this.props.min*1000).setFullYear(currY,currM,currD)),
                 max = new Date(new Date(this.props.max*1000+300000).setFullYear(currY,currM,currD));
-            console.log(min, max)
             editorBtn = (<Button btnText='Редактор графика'
                                  onClick={() => this.changeToEditorMode(true)}
                                  type='yellow'
@@ -249,7 +245,7 @@ class Schedule extends React.Component {
                                   }}
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
-                                  gotoEditor={() => console.log('go to editor')}
+                                  gotoEditor={() => this.changeToEditorMode(true)}
                                   step={5}
                                   events={this.props.visits}
                                   intervals={this.props.intervals}

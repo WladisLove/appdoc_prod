@@ -38,8 +38,6 @@ class App extends React.Component {
                 function() {
                     that.props.getNotifications(that.props.id)
                     conn.subscribe(""+that.props.id, function(topic, data) {
-                        console.log(data)
-                        console.log(JSON.parse(data.arr))
                         that.setState({notifications: JSON.parse(data.arr)})
                     });
                 },
@@ -102,6 +100,7 @@ class App extends React.Component {
                                 findName={(name) => {
                                     this.props.onGetNotDocPatients(name)
                                 }}
+                                getNotifId = {id => console.log(id)}
                                 logout={this.props.onLogout}/>
                     </div>
                     <div className="main-content">

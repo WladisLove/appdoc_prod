@@ -44,11 +44,19 @@ export const getNotifications = (id) => {
     return (dispatch) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/connect/id/' + id)
             .then(res => {
-                console.log('res', res)
-                /*dispatch({
-                    type: actionTypes.GET_DOCTOR_TODAY_INFO,
-                    todayInfo: res.data.result,                    
-                });*/
+                console.log('getNotifications', res)
+            })
+            .catch(err => {
+                console.log(err);
+        })
+    }
+}
+
+export const readNotification = (id) => {
+    return (dispatch) => {
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/isreadMessInDB/id/' + id)
+            .then(res => {
+                console.log('readNotification', res)
             })
             .catch(err => {
                 console.log(err);
