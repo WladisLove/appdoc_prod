@@ -100,7 +100,7 @@ class App extends React.Component {
                                 findName={(name) => {
                                     this.props.onGetNotDocPatients(name)
                                 }}
-                                getNotifId = {id => console.log(id)}
+                                getNotifId = {id => this.props.readNotification(id)}
                                 logout={this.props.onLogout}/>
                     </div>
                     <div className="main-content">
@@ -148,7 +148,8 @@ const mapDispatchToProps = dispatch => {
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
         getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
-        getNotifications: (id) => dispatch(actions.getNotifications(id))
+        getNotifications: (id) => dispatch(actions.getNotifications(id)),
+        readNotification: (id) => dispatch(actions.readNotification(id)),
 	}
 };
 

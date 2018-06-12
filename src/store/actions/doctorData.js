@@ -54,6 +54,7 @@ export const getNotifications = (id) => {
 
 export const readNotification = (id) => {
     return (dispatch) => {
+        console.log('read',id)
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/isreadMessInDB/id/' + id)
             .then(res => {
                 console.log('readNotification', res)
