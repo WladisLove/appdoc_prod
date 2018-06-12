@@ -43,9 +43,8 @@ class Schedule extends React.Component {
     };
 
     setIntervalAndView = (date, view) => {
-        console.log('view in setter', date, view)
         const {start, end} = findTimeInterval(date, view);
-        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end, 'setter');
+        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
         
         this.setState({
             interval: {
@@ -58,7 +57,6 @@ class Schedule extends React.Component {
 
     componentDidMount(){
         this.setIntervalAndView(this.state.currentDate, 'week');
-
     }
 
     componentWillUnmount(){
@@ -68,8 +66,7 @@ class Schedule extends React.Component {
     dateChangeHandler = (date, view, action, isOnDay) => {
         const {start, end} = isOnDay ? 
             findTimeInterval(date, 'day') : findTimeInterval(date, this.state.view);
-            console.log('handler')
-        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end, 'handler');
+        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
         
         isOnDay ?
             this.setState({
@@ -111,7 +108,6 @@ class Schedule extends React.Component {
     };
 
     onSaveNewVisit = (obj) => {
-        console.log('save')
         this.props.onAddNewVisit(obj, this.state.interval.start, this.state.interval.end);
         this.setState({
             newVisitModal: false,
@@ -134,7 +130,7 @@ class Schedule extends React.Component {
     changeToEditorMode = (isEditorMode) => {
         let mode = isEditorMode ? 'month' : 'week';
         const {start, end} = findTimeInterval(this.state.currentDate, mode);
-        isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end, 'mode');
+        isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
 
         this.setState({
             view: mode,
@@ -158,7 +154,6 @@ class Schedule extends React.Component {
 
     onSaveReceptionSchedule = (interval) => {
         this.props.onAddInterval(interval, this.state.interval.start,this.state.interval.end);
-        //this.props.onGetAllIntervals(this.state.interval.start,this.state.interval.end);
         this.setState({
             receptionsScheduleModal: false,
             receptionData: {
@@ -238,12 +233,11 @@ class Schedule extends React.Component {
                                   onSelectSlot={(slot) => this.onAddVisit(slot)}
                                   defaultView="week"
                                   onView = {(view, date) => {
-                                      console.log(view ,date) // date use when onDrillDown
-                                      this.setIntervalAndView(this.state.currentDate, view);
+                                      !date ? this.setIntervalAndView(this.state.currentDate, view) : () => {};
                                   }}
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
-                                  //onDrillDown={this.dateChangeHandler}
+                                  gotoEditor={() => console.log('go to editor')}
                                   step={5}
                                   events={this.props.visits}
                                   intervals={this.props.intervals}
@@ -344,7 +338,7 @@ const mapDispatchToProps = dispatch => {
         onAddInterval: (obj, start, end) => dispatch(actions.addInterval(obj, start, end)),
 
         onAddNewVisit: (obj, start, end) => dispatch(actions.addVisit(obj, start, end)),
-        onGetAllVisits: (start,end, key) => dispatch(actions.getAllVisits(start,end, key)),
+        onGetAllVisits: (start,end) => dispatch(actions.getAllVisits(start,end)),
 
         onSendMessage: (mess) => dispatch(actions.sendMessage(mess)),
         onCloseCancelModal: (obj) => dispatch(actions.cancelEventsRange(obj)),

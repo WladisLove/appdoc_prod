@@ -73,7 +73,7 @@ export const addVisit = (reception, start, end) => {
     }
 }
 
-export const getAllVisits = (start, end, key) => {
+export const getAllVisits = (start, end) => {
     
     return (dispatch, getState) => {
         let obj = {
@@ -84,7 +84,6 @@ export const getAllVisits = (start, end, key) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log(JSON.stringify(obj), '['+key+']')
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
                     visits: res.data.result,
