@@ -27,6 +27,7 @@ class Chat extends React.Component{
 	}
 
     render(){
+        console.log('VISITS', this.props.visits)
         return (
             <Hoc>
                 <Row>

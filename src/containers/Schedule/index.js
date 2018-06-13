@@ -64,9 +64,11 @@ class Schedule extends React.Component {
     }
 
     dateChangeHandler = (date, view, action, isOnDay) => {
-        const {start, end} = isOnDay ? 
-            findTimeInterval(date, 'day') : findTimeInterval(date, this.state.view);
-        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
+        const {start, end} = this.state.isEditorMode 
+            ? findTimeInterval(date, 'month') 
+            : isOnDay ? 
+                findTimeInterval(date, 'day') : findTimeInterval(date, this.state.view);
+        this.state.isEditorMode ? isOnDay ? null : this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
         
         isOnDay ?
             this.setState({
@@ -223,6 +225,12 @@ class Schedule extends React.Component {
             />)
         }
         else {
+            const currDate = this.state.currentDate,
+                currY = currDate.getFullYear(),
+                currM = currDate.getMonth(),
+                currD = currDate.getDate();
+            let min = new Date(new Date(this.props.min*1000).setFullYear(currY,currM,currD)),
+                max = new Date(new Date(this.props.max*1000+300000).setFullYear(currY,currM,currD));
             editorBtn = (<Button btnText='Редактор графика'
                                  onClick={() => this.changeToEditorMode(true)}
                                  type='yellow'
@@ -237,16 +245,19 @@ class Schedule extends React.Component {
                                   }}
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
-                                  gotoEditor={() => console.log('go to editor')}
+                                  gotoEditor={() => this.changeToEditorMode(true)}
                                   step={5}
                                   events={this.props.visits}
                                   intervals={this.props.intervals}
-                                  min={new Date(this.props.min*1000)}
-                                  max={new Date(this.props.max*1000)}
+                                  min={min}
+                                    max={max}
+                                  /*min={new Date(this.props.min*1000)}
+                                  max={new Date(this.props.max*1000 + 300000)}*/
                                   onPopoverClose={this.eventDeleteHandler}
                                   onPopoverEmail={this.onPatientEmail}
             />)
         }
+
 
         return (
             <Hoc>

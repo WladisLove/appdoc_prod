@@ -47,10 +47,13 @@ export {
 export {
     getDocTodayInfo,
     getDocShortInfo,
+    setExIntervalInfo,
+    switchExInterval,
 } from './doctor'
 
 export {
     sendNewInfoDoctor,
     getInfoDoctor,
     getNotifications,
+    readNotification,
 } from './doctorData'
