@@ -47,6 +47,8 @@ export {
 export {
     getDocTodayInfo,
     getDocShortInfo,
+    setExIntervalInfo,
+    switchExInterval,
 } from './doctor'
 
 export {

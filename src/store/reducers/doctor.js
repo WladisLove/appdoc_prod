@@ -5,6 +5,8 @@ const initialState = {
     shortInfo: {
         specialty: [],
     },
+    isEx: false,
+    isUserSetEx: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +20,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 shortInfo: action.info,
+            }
+        case actionTypes.SET_EX_INTERVAL_INFO:
+            return {
+                ...state,
+                isEx: action.isIn,
+                isUserSetEx: action.isUserSet,
+            }
+        case actionTypes.SWITCH_EX_INTERVAL:
+            return {
+                ...state,
+                isEx: action.isIn,
+                isUserSetEx: true,
             }
             
         default: return state;

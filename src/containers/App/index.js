@@ -4,8 +4,6 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import { SideNav, Header} from 'appdoc-component'
 import Hoc from '../../hoc'
 
-import { NavLink } from 'react-router-dom'
-
 import {connect} from 'react-redux';
 
 import * as actions from '../../store/actions'
@@ -22,6 +20,8 @@ class App extends React.Component {
         this.state = {
             collapsed: true,
             notifications: [],
+            isIn: false,
+            isUserSet: false,
         };
     }
 
@@ -38,6 +38,7 @@ class App extends React.Component {
                 function() {
                     that.props.getNotifications(that.props.id)
                     conn.subscribe(""+that.props.id, function(topic, data) {
+                        that.props.setExInfo(data.exInterval)
                         that.setState({notifications: JSON.parse(data.arr)})
                     });
                 },
@@ -101,7 +102,11 @@ class App extends React.Component {
                                     this.props.onGetNotDocPatients(name)
                                 }}
                                 getNotifId = {id => this.props.readNotification(id)}
-                                logout={this.props.onLogout}/>
+                                getNotifications={() =>  this.props.getNotifications(this.props.id)}
+                                onChange={(flag) => this.props.switchExInterval(flag)}
+                                checked={this.props.isIn}
+                                disabled={this.props.isIn && !this.props.isUserSet}
+                                logout={this.state.onLogout}/>
                     </div>
                     <div className="main-content">
                         <Switch>
@@ -136,6 +141,8 @@ const mapStateToProps = state =>{
         id: state.auth.id,
         shortDocInfo: state.doctor.shortInfo,
         notDocPatients: state.patients.notDocPatients,
+        isIn: state.doctor.isEx,
+        isUserSet: state.doctor.isUserSetEx,
     }
 }
 
@@ -150,6 +157,8 @@ const mapDispatchToProps = dispatch => {
         getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
         getNotifications: (id) => dispatch(actions.getNotifications(id)),
         readNotification: (id) => dispatch(actions.readNotification(id)),
+        setExInfo: ({isIn, isUserSet}) => dispatch(actions.setExIntervalInfo(isIn, isUserSet)),
+        switchExInterval: (flag) => dispatch(actions.switchExInterval(flag))
 	}
 };
 

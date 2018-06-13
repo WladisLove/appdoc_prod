@@ -66,6 +66,8 @@ export const addVisit = (reception, start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
                     JSON.stringify(obj))
             .then(res => {
+                console.log(JSON.stringify(obj))
+                console.log('[addVisit]',res)
                 start && dispatch(getAllVisits(start,end))
                 //dispatch()
             })
