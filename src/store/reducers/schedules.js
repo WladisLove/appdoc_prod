@@ -13,6 +13,7 @@ const initialState = {
     cancelData: {
         rangeSet: [],
     },
+    visitInfo: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +27,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 schedules: [],
+                visitInfo: {},
             }
         case actionTypes.GET_ALL_VISITS:
             return {
@@ -34,6 +36,11 @@ const reducer = (state = initialState, action) => {
                 visIntervals: action.intervals,
                 min: action.min,
                 max: action.max,
+            }
+        case actionTypes.SELECT_VISIT:
+            return {
+                ...state,
+                visitInfo: action.visitInfo,
             }
         case actionTypes.DELETE_EVENT:
             return {

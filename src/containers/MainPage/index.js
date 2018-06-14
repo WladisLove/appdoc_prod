@@ -66,7 +66,10 @@ class MainPage extends React.Component{
 						<Col xs={24} xxl={14} className='section'>
 							<TableNoHead data={this.props.visits}
 										onGoto={(val) => this.gotoHandler(val)}
-										onBegin={() => this.props.history.push('/chat')}
+										onBegin={(val) => {
+											this.props.onSelectReception(val)
+											this.props.history.push('/chat')
+										}}
 										onCancel={() => {this.setState({cancelModal: true})}}
 										onAdd = {this.onAddVisit}
 							/>
@@ -120,6 +123,7 @@ const mapDispatchToProps = dispatch => {
     return {
 		onGetDocPatients: () => dispatch(actions.getDocPatients()),
 		onAddNewVisit: (obj) => dispatch(actions.addVisit(obj)),
+		onSelectReception: (id) => dispatch(actions.seletVisit(id)),
 
 		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),

@@ -30,6 +30,7 @@ export {
     addVisit,
     getAllVisits,
     getTodayVisits,
+    seletVisit,
 } from './schedules';
 export {
     getActualTreatments,

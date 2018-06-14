@@ -6,7 +6,7 @@ export const getAllTreatments = () => {
     return (dispatch, getState) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/')
             .then(res => {
-                console.log(res.data)
+                console.log('[getAllTreatments]',res.data)
                 dispatch({
                     type: actionTypes.GET_ALL_TREATMENTS,
                     treatments: res.data,
@@ -40,6 +40,7 @@ export const completeReception = (obj) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/toFinishReception', 
             JSON.stringify(obj))
             .then(res => {
+                console.log('[completeReception]',JSON.stringify(obj))
                 console.log(res.data)
             })
             .catch(err => {

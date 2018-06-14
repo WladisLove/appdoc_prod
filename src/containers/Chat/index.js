@@ -12,6 +12,10 @@ import {dialogArr} from './mock-data'
 
 class Chat extends React.Component{
 
+    componentDidMount(){
+        console.log('get visits')
+        this.props.onGetTodayVisits()
+    }
     componentWillMount(){
         //this.props.getTodayReceptions();
     }
@@ -27,28 +31,31 @@ class Chat extends React.Component{
 	}
 
     render(){
-        console.log('VISITS', this.props.visits)
+        console.log('visitInfo',this.props.visitInfo)
+        const {id_user,name, id: visitId, contactLevel,comment,chat,avatar, status} = this.props.visitInfo;
         return (
             <Hoc>
                 <Row>
                     <Col xs={24} xxl={7} className='section'>
                         <ChatDialogs  data={this.props.visits}
+                                    onGotoChat = {id => this.props.onSelectReception(id)}
                                     onGoto = {(id) => this.gotoHandler(id)}
                         />
                     </Col>
                     <Col xs={24} xxl={17} className='section'>
                         <ChatCard 
                                     wsURL={'wss://178.172.235.105:8443/one2one'}
-                                    mode='video'
-                                    receptionId={this.props.receptionId}
+                                    mode={contactLevel}
+                                    receptionId={visitId}
 
                                     //isEnded = {true}
 
                                     callerID = {this.props.id}
                                     user_mode = {this.props.user_mode}
 
-                                    user_id = {1000}
-                                    patientName = {'Иванов Иван Иванович'}
+                                    user_id = {+id_user}
+                                    patientName = {name}
+                                    online={status}
 
                                     completeReception = {this.props.completeReception}
                         />
@@ -66,8 +73,7 @@ const mapStateToProps = state =>{
 
         schedules: state.schedules.schedules,
         visits: state.schedules.visits,
-
-        receptionId: state.treatments.choosenReceptionId,
+        visitInfo: state.schedules.visitInfo,
     }
 }
 
@@ -76,6 +82,7 @@ const mapDispatchToProps = dispatch => {
         completeReception: (obj) => dispatch(actions.completeReception(obj)),
         //getTodayReceptions: () => dispatch(),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
+        onSelectReception: (id) => dispatch(actions.seletVisit(id)),
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
         onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 	}
