@@ -48,3 +48,42 @@ export const completeReception = (obj) => {
         })
     }
 }
+
+
+export const selectTreatment = (treatId) => {
+
+    return (dispatch) => {
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentBiId/id/'+treatId)
+            .then(res => {
+                dispatch({
+                    type: actionTypes.SELECT_TREATMENT,
+                    treatInfo: res.data.result,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+        })
+    }    
+}
+
+export const seletVisit = (visId) => {
+    return (dispatch) => {
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getInfoByMakingAppId/id/'+visId)
+            .then(res => {
+                console.log(res.data)
+                dispatch({
+                    type: actionTypes.SELECT_VISIT,
+                    visitInfo: res.data,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+}
+
+export const clearSelections = () => {
+    return ({
+        type: actionTypes.CLEAR_VISIT_AND_TREAT,
+    })
+}

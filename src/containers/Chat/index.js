@@ -1,20 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import { Icon, Row, Col, ChatDialogs } from 'appdoc-component'
+import { Row, Col, ChatDialogs } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import ChatCard from './ChatCard'
 
 import * as actions from '../../store/actions'
 
-import {dialogArr} from './mock-data'
-
 class Chat extends React.Component{
 
     componentDidMount(){
-        console.log('get visits')
-        this.props.onGetTodayVisits()
+        this.props.onGetTodayVisits();
     }
     componentWillMount(){
         //this.props.getTodayReceptions();
@@ -22,6 +19,8 @@ class Chat extends React.Component{
 
     componentWillUnmount(){
         this.props.clearTodayReceptions();
+        this.props.clearSelectionsTRandVIS();
+
     }
 
     gotoHandler = (id) => {
@@ -32,7 +31,15 @@ class Chat extends React.Component{
 
     render(){
         console.log('visitInfo',this.props.visitInfo)
-        const {id_user,name, id: visitId, contactLevel,comment,chat,avatar, status} = this.props.visitInfo;
+        console.log('treatInfo',this.props.treatInfo)
+        let  id_user, name, avatar, status, chat, visitId, contactLevel, comment;
+        
+
+        this.props.fromTR_VIS == 1 ? (
+            {id_user,name_user: name, avatar, status, chat} = this.props.treatInfo
+        ) : (
+            {id_user,name, id: visitId, contactLevel,comment, chat, avatar, status} = this.props.visitInfo
+        )
         return (
             <Hoc>
                 <Row>
@@ -56,8 +63,10 @@ class Chat extends React.Component{
                                     user_id = {+id_user}
                                     patientName = {name}
                                     online={status}
+                                    chat={chat}
 
                                     completeReception = {this.props.completeReception}
+                                    fromTR_VIS = {this.props.fromTR_VIS}
                         />
                     </Col>
                 </Row>
@@ -73,7 +82,9 @@ const mapStateToProps = state =>{
 
         schedules: state.schedules.schedules,
         visits: state.schedules.visits,
-        visitInfo: state.schedules.visitInfo,
+        visitInfo: state.treatments.visitInfo,
+        treatInfo: state.treatments.treatInfo,
+        fromTR_VIS: state.treatments.from,
     }
 }
 
@@ -85,6 +96,7 @@ const mapDispatchToProps = dispatch => {
         onSelectReception: (id) => dispatch(actions.seletVisit(id)),
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
         onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
+        clearSelectionsTRandVIS: () => dispatch(actions.clearSelections()),
 	}
 };
 

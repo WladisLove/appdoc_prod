@@ -54,6 +54,7 @@ class MainPage extends React.Component{
 	}*/
 
     render(){
+		console.log(this.props.reviews)
         return (
                 <Hoc>
 					<Row>
@@ -79,7 +80,10 @@ class MainPage extends React.Component{
 									 numToDisplay = {7}
 									 onGoto={(val) => this.gotoHandler(val)}
 									 onGotoChat={(id) => this.props.history.push('/chat')}
-									 redirect={() => this.props.history.push('/reviews')}/>
+									 redirect={() => {
+										 // !!!
+										 this.props.history.push('/reviews')
+									}}/>
 						</Col>
 					</Row>
 					<Row>
@@ -87,7 +91,10 @@ class MainPage extends React.Component{
 							<TreatmentTable data={this.props.actualTreatments}
 
 											onGoto={(id) => this.gotoHandler(id)}
-											onGotoChat = {(id) => this.props.history.push('/chat')}
+											onGotoChat = {(id) => {
+												// !!!
+												this.props.history.push('/chat')
+											}}
 
 											redirect={() => this.props.history.push('/treatment')}/>
 						</Col>

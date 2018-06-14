@@ -275,7 +275,7 @@ class ChatCard extends React.Component {
 	}
 
 	register = (id1, id2, user_mode) => {
-		
+
 		/*console.log('[REGISTER]')
 		let a = window.prompt();
 		console.log(typeof a)
@@ -442,18 +442,22 @@ class ChatCard extends React.Component {
             'chat': 'chat1',
             'voice': 'telephone', 
             'video': "video-camera",
-        }
-
+		}
+		
 		let content;
+
+		console.log('-----------------')
+		console.log(this.props)
 		const chatProps= {
 			ws: this.ws,
 			from: this.state.from,
 			to: this.state.to,
-			chatStory: this.state.chatStory,
+			chatStory: this.props.fromTR_VIS == 1 ? this.props.chat : this.state.chatStory,
 			sendMessage: this.sendMessage,
 			onEnd: this.beforeCloseReseption,
 			onBegin: this.startReception,
 			receptionStarts: this.state.receptionStarts,
+			fromTR_VIS: this.props.fromTR_VIS,
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>videoOutput=video,

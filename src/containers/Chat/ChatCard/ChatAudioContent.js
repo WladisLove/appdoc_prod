@@ -46,8 +46,6 @@ class ChatAudioContent extends React.Component {
 	}
 
 	renderCallArea = () => {
-		console.log('renderCallArea')
-
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isActiveChat});
 
 		let {s, m, h} = this.props.timer;
@@ -94,17 +92,15 @@ class ChatAudioContent extends React.Component {
             <div className={dialogsClass}>
 				{audioContent}
 				<div className={filesClass}>
-                 	<ChatContent onSend={mes => this.props.sendMessage({
+					 <ChatContent 
+					 {...this.props}
+					 onSend={mes => this.props.sendMessage({
 						 id: 'chat',
 						 from: this.props.from,
 						 to: this.props.to,
 						 ...mes,
 					 })}
 						 data={this.props.chatStory}
-						 from={this.props.from}
-						 onBegin = {this.props.onBegin}
-					 	 onEnd = {this.props.onEnd}
-						 receptionStarts={this.props.receptionStarts}
 					/>
                 </div>
 			</div>
