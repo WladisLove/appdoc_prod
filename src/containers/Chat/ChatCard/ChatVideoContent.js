@@ -116,17 +116,15 @@ class ChatVideoContent extends React.Component {
             <div className={dialogsClass}>
 				{videoContent}
 				<div className={filesClass}>
-                 	<ChatContent onSend={mes => this.props.sendMessage({
+					 <ChatContent 
+					 {...this.props}
+					 onSend={mes => this.props.sendMessage({
 						 id: 'chat',
 						 from: this.props.from,
 						 to: this.props.to,
 						 ...mes,
 					 })}
 						 data={this.props.chatStory}
-						 from={this.props.from}
-						 onBegin = {this.props.onBegin}
-					 	 onEnd = {this.props.onEnd}
-						 receptionStarts={this.props.receptionStarts}
 					/>
                 </div>
 			</div>

@@ -34,6 +34,9 @@ export {
 export {
     getActualTreatments,
     getAllTreatments,
+    seletVisit,
+    selectTreatment,
+    clearSelections,
 
     completeReception,
 } from './treatment'

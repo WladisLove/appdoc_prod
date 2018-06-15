@@ -108,7 +108,7 @@ export const getTodayVisits = () => {
         console.log(getState().auth.id)
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/todayZap/id_doc/'+getState().auth.id)
             .then(res => {
-                console.log(res.data.result)
+                console.log('getTodayVisits',res.data.result)
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
                     visits: res.data.result,

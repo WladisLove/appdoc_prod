@@ -1,23 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import { Icon, Row, Col, ChatDialogs } from 'appdoc-component'
+import { Row, Col, ChatDialogs } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import ChatCard from './ChatCard'
 
 import * as actions from '../../store/actions'
 
-import {dialogArr} from './mock-data'
-
 class Chat extends React.Component{
 
+    componentDidMount(){
+        this.props.onGetTodayVisits();
+    }
     componentWillMount(){
         //this.props.getTodayReceptions();
     }
 
     componentWillUnmount(){
         this.props.clearTodayReceptions();
+        this.props.clearSelectionsTRandVIS();
+
     }
 
     gotoHandler = (id) => {
@@ -27,30 +30,43 @@ class Chat extends React.Component{
 	}
 
     render(){
-        console.log('VISITS', this.props.visits)
+        console.log('visitInfo',this.props.visitInfo)
+        console.log('treatInfo',this.props.treatInfo)
+        let  id_user, name, avatar, status, chat, visitId, contactLevel, comment;
+        
+
+        this.props.fromTR_VIS == 1 ? (
+            {id_user,name_user: name, avatar, status, chat} = this.props.treatInfo
+        ) : (
+            {id_user,name, id: visitId, contactLevel,comment, chat, avatar, status} = this.props.visitInfo
+        )
         return (
             <Hoc>
                 <Row>
                     <Col xs={24} xxl={7} className='section'>
                         <ChatDialogs  data={this.props.visits}
+                                    onGotoChat = {id => this.props.onSelectReception(id)}
                                     onGoto = {(id) => this.gotoHandler(id)}
                         />
                     </Col>
                     <Col xs={24} xxl={17} className='section'>
                         <ChatCard 
                                     wsURL={'wss://178.172.235.105:8443/one2one'}
-                                    mode='video'
-                                    receptionId={this.props.receptionId}
+                                    mode={contactLevel}
+                                    receptionId={visitId}
 
                                     //isEnded = {true}
 
                                     callerID = {this.props.id}
                                     user_mode = {this.props.user_mode}
 
-                                    user_id = {1000}
-                                    patientName = {'Иванов Иван Иванович'}
+                                    user_id = {+id_user}
+                                    patientName = {name}
+                                    online={status}
+                                    chat={chat}
 
                                     completeReception = {this.props.completeReception}
+                                    fromTR_VIS = {this.props.fromTR_VIS}
                         />
                     </Col>
                 </Row>
@@ -66,8 +82,9 @@ const mapStateToProps = state =>{
 
         schedules: state.schedules.schedules,
         visits: state.schedules.visits,
-
-        receptionId: state.treatments.choosenReceptionId,
+        visitInfo: state.treatments.visitInfo,
+        treatInfo: state.treatments.treatInfo,
+        fromTR_VIS: state.treatments.from,
     }
 }
 
@@ -76,8 +93,10 @@ const mapDispatchToProps = dispatch => {
         completeReception: (obj) => dispatch(actions.completeReception(obj)),
         //getTodayReceptions: () => dispatch(),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
+        onSelectReception: (id) => dispatch(actions.seletVisit(id)),
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
         onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
+        clearSelectionsTRandVIS: () => dispatch(actions.clearSelections()),
 	}
 };
 

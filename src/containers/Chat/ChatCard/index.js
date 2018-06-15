@@ -138,7 +138,15 @@ class ChatCard extends React.Component {
 	}
 
 	componentWillMount(){
-		this.register();
+		this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
+	}
+
+	componentWillReceiveProps(nextProps){
+		//console.log(this.props.receptionId, nextProps.receptionId)
+		''+this.props.receptionId != ''+nextProps.receptionId 
+			&& this.register(''+nextProps.callerID, ''+nextProps.user_id, nextProps.user_mode);
+		''+this.state.mode != ''+nextProps.mode
+			&& this.setState({mode: nextProps.mode})
 	}
 
 	componentWillUnmount(){
@@ -268,28 +276,32 @@ class ChatCard extends React.Component {
 		}
 	}
 
-	register = () => {
+	register = (id1, id2, user_mode) => {
+
+		/*console.log('[REGISTER]')
 		let a = window.prompt();
+		console.log(typeof a)
 		let name = a ? a : ''+this.props.callerID;
 		let mode = window.confirm('Are you doctor?') 
-			? 'doc' : 'user';
-		this.setState({from: name});
-
+			? 'doc' : 'user';*/
+		this.setState({from: id1});
 		this.setRegisterState(REGISTERING);
 	
-		const answer = window.prompt('Enter ID to call');
+		/*const answer = window.prompt('Enter ID to call');
         if (answer == '') {
             window.alert("You must specify the peer name");
             return;
-        }
-		this.setState({to: answer});
+        }*/
+		this.setState({to: id2});
+
+		//console.log('[after register]', name, answer)
 		
 		this.ws.onopen = () => this.sendMessage({
 			id : 'register',
-			name : name,
-			other_name: answer,
-			doc_name: mode === 'doc' ? name : answer,
-			mode,
+			name : id1,
+			other_name: id2,
+			doc_name: user_mode === 'doc' ? id1 : id2,
+			mode: user_mode,
 		});
 	}
 
@@ -329,11 +341,10 @@ class ChatCard extends React.Component {
 	}
 
 	onIceCandidate = (candidate) => {
-		var message = {
+		this.sendMessage({
 			id : 'onIceCandidate',
 			candidate : candidate
-		}
-		this.sendMessage(message);
+		});
     }
 	
 	call = () => {
@@ -404,7 +415,7 @@ class ChatCard extends React.Component {
 		//console.log(obj)
 		let new_obj = {
 			...obj,
-			id: 120635,
+			id: this.props.receptionId,
 			chat: this.state.chatStory,
 		}
 		//console.log(new_obj)
@@ -417,14 +428,11 @@ class ChatCard extends React.Component {
 
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
-
-	onGotoNextUser = () => {
-		/* Сменить обстановку чата под другого user */
-	}
 	
 
     render() {
-        const {patientName, user_id, online} = this.props;
+		const {patientName, user_id, online: onl} = this.props;
+		const online = +onl ?'online' :  'offline';
 
         const rootClass = cn('chat-card');
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
@@ -432,18 +440,26 @@ class ChatCard extends React.Component {
         const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
 
-        const icons = ['chat1', 'telephone', "video-camera"];
-
+		const key_val = {
+            'chat': 'chat1',
+            'voice': 'telephone', 
+            'video': "video-camera",
+		}
+		
 		let content;
+
+		console.log('-----------------')
+		console.log(this.props)
 		const chatProps= {
 			ws: this.ws,
 			from: this.state.from,
 			to: this.state.to,
-			chatStory: this.state.chatStory,
+			chatStory: this.props.fromTR_VIS == 1 ? this.props.chat : this.state.chatStory,
 			sendMessage: this.sendMessage,
 			onEnd: this.beforeCloseReseption,
 			onBegin: this.startReception,
 			receptionStarts: this.state.receptionStarts,
+			fromTR_VIS: this.props.fromTR_VIS,
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>videoOutput=video,
@@ -474,7 +490,9 @@ class ChatCard extends React.Component {
 											{...chatAdditionalProps}
                                             />;
                 break;
-        }
+		}
+		
+		console.log()
 
         return (
 			<Hoc>
@@ -495,9 +513,10 @@ class ChatCard extends React.Component {
                         <div className={statusClass}>{online}</div>
                     </div>
                     <div className='chat-card-btns'>
-                        <Radio icons={icons}
-                               defaultValue={this.state.mode}
-                               onChange={(mode) => this.setState({mode: mode.target.value})}/>
+                        <Radio icons={['chat1', 'telephone', "video-camera"]}
+							   value={this.state.mode}
+							   onChange = {() => {}}
+                               /*onChange={(mode) => this.setState({mode: mode.target.value})}*//>
                         <div className='chat-card-archive'>
                             <Button
                                 btnText=''
@@ -560,7 +579,7 @@ ChatCard.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
 	patientName: PropTypes.string,
 	user_id: PropTypes.number,
-    online: PropTypes.oneOf(['offline', 'online']),
+    online: PropTypes.number,//oneOf(['offline', 'online']),
     isActive: PropTypes.bool,
 	mode: PropTypes.oneOf(['chat', 'voice', "video"]),
 	isEnded: PropTypes.bool,
@@ -572,7 +591,7 @@ ChatCard.defaultProps = {
     data: [],
 	patientName: '',
 	user_id: 0,
-    online: 'offline',
+    online: 0,
     isActive: false,
 	mode: 'chat',
 	

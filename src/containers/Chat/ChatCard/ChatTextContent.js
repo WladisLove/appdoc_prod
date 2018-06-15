@@ -2,15 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types'
 
-import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatVideoPanel } from 'appdoc-component'
 import ChatContent from './ChatContent'
 
 import './style.css'
-
-
-//import { Icon, Row, Col, HistoryReceptions } from 'appdoc-component'
-import Hoc from '../../../hoc'
-
 
 class ChatTextContent extends React.Component {
 	constructor(props){
@@ -23,22 +17,18 @@ class ChatTextContent extends React.Component {
     
     
     render() {
-		console.log('from:', this.props.from, 'to', this.props.to)
-		const {isActive} = this.props;
 
+		console.log(this.props.chatStory)
         return (
-            <ChatContent onSend={mes => this.props.sendMessage({
+			<ChatContent 
+				{...this.props} 
+				onSend={mes => this.props.sendMessage({
 						 id: 'chat',
 						 from: this.props.from,
 						 to: this.props.to,
 						 ...mes,
                      })}
-                     isActive = {isActive}
-					 data={this.props.chatStory}
-					 from={this.props.from}  
-					 onBegin = {this.props.onBegin}
-					 onEnd = {this.props.onEnd}
-					 receptionStarts = {this.props.receptionStarts}   
+					 data={this.props.chatStory}  
 		    />
         )
     }

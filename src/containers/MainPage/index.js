@@ -54,6 +54,7 @@ class MainPage extends React.Component{
 	}*/
 
     render(){
+		console.log(this.props.reviews)
         return (
                 <Hoc>
 					<Row>
@@ -66,7 +67,10 @@ class MainPage extends React.Component{
 						<Col xs={24} xxl={14} className='section'>
 							<TableNoHead data={this.props.visits}
 										onGoto={(val) => this.gotoHandler(val)}
-										onBegin={() => this.props.history.push('/chat')}
+										onBegin={(val) => {
+											this.props.onSelectReception(val)
+											this.props.history.push('/chat')
+										}}
 										onCancel={() => {this.setState({cancelModal: true})}}
 										onAdd = {this.onAddVisit}
 							/>
@@ -76,7 +80,10 @@ class MainPage extends React.Component{
 									 numToDisplay = {7}
 									 onGoto={(val) => this.gotoHandler(val)}
 									 onGotoChat={(id) => this.props.history.push('/chat')}
-									 redirect={() => this.props.history.push('/reviews')}/>
+									 redirect={() => {
+										 // !!!
+										 this.props.history.push('/reviews')
+									}}/>
 						</Col>
 					</Row>
 					<Row>
@@ -84,7 +91,10 @@ class MainPage extends React.Component{
 							<TreatmentTable data={this.props.actualTreatments}
 
 											onGoto={(id) => this.gotoHandler(id)}
-											onGotoChat = {(id) => this.props.history.push('/chat')}
+											onGotoChat = {(id) => {
+												// !!!
+												this.props.history.push('/chat')
+											}}
 
 											redirect={() => this.props.history.push('/treatment')}/>
 						</Col>
@@ -120,6 +130,7 @@ const mapDispatchToProps = dispatch => {
     return {
 		onGetDocPatients: () => dispatch(actions.getDocPatients()),
 		onAddNewVisit: (obj) => dispatch(actions.addVisit(obj)),
+		onSelectReception: (id) => dispatch(actions.seletVisit(id)),
 
 		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
