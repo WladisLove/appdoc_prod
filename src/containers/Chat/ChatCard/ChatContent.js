@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 
-import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatComments } from 'appdoc-component'
+import { Button, ChatSend, ChatMessage, ChatComments } from 'appdoc-component'
 
 import './style.css'
-
-// fromTR_VIS
 
 class ChatContent extends React.Component {
 
@@ -26,9 +24,7 @@ class ChatContent extends React.Component {
             <div className={dialogsClass}>
                 <div className='chat-card-message__area'>
                     <div className='chat-card-message__comments'>
-                     <ChatComments
-                     comments="Жалоба пациента или комментарий к приему. Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах."
-                     />  
+                     <ChatComments {...this.props.comment}/>  
                      </div>
 
                     <div className='chat-card-message__box'>
@@ -76,6 +72,10 @@ ChatContent.propTypes = {
     onBegin: PropTypes.func,
     receptionStarts: PropTypes.bool,
     onEnd: PropTypes.func,
+    comment: PropTypes.shape({
+        comments: PropTypes.string,
+        files: PropTypes.array,
+    })
 };
 
 ChatContent.defaultProps = {
@@ -84,6 +84,10 @@ ChatContent.defaultProps = {
     onBegin: () => {},
     receptionStarts: false,
     onEnd: () => {},
+    comment: {
+        comments: "",
+        files: [],
+    }
 };
 
 export default ChatContent

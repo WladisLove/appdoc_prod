@@ -32,13 +32,13 @@ class Chat extends React.Component{
     render(){
         console.log('visitInfo',this.props.visitInfo)
         console.log('treatInfo',this.props.treatInfo)
-        let  id_user, name, avatar, status, chat, visitId, contactLevel, comment;
+        let  id_user, name, avatar, status, chat, visitId, contactLevel, comment, id_treatment;
         
 
         this.props.fromTR_VIS == 1 ? (
             {id_user,name_user: name, avatar, status, chat} = this.props.treatInfo
         ) : (
-            {id_user,name, id: visitId, contactLevel,comment, chat, avatar, status} = this.props.visitInfo
+            {id_user,name, id: visitId, contactLevel,comment, chat, avatar, status, id_treatment} = this.props.visitInfo
         )
         return (
             <Hoc>
@@ -62,10 +62,13 @@ class Chat extends React.Component{
 
                                     user_id = {+id_user}
                                     patientName = {name}
+                                    id_treatment = {id_treatment}
                                     online={status}
                                     chat={chat}
+                                    comment={comment}
 
                                     completeReception = {this.props.completeReception}
+                                    closeTreatm = {this.props.closeTreatment}
                                     fromTR_VIS = {this.props.fromTR_VIS}
                         />
                     </Col>
@@ -91,6 +94,7 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch => {
 	return {
         completeReception: (obj) => dispatch(actions.completeReception(obj)),
+        closeTreatment: (id) => dispatch(actions.closeTreatment(id)),
         //getTodayReceptions: () => dispatch(),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onSelectReception: (id) => dispatch(actions.seletVisit(id)),
