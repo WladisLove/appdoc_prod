@@ -33,16 +33,7 @@ class ChatContent extends React.Component {
 
                     <div className='chat-card-message__box'>
                         <div className='chat-card-message__overlay'>
-                            <div className='btn-start'>
-                                {this.props.fromTR_VIS === 2 && !this.props.receptionStarts
-                                && <Button
-                                    btnText='Начать приём'
-                                    size='small'
-                                    type='yellow'
-                                    onClick={this.props.onBegin}
-                                />}
-                            </div>
-                            {
+                        {
                                 this.props.data.map((e, i) => {
                                     return ( <ChatMessage
                                         img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
@@ -52,6 +43,15 @@ class ChatContent extends React.Component {
                                     />)
                                 })
                             }
+                            <div className='btn-start'>
+                                {this.props.fromTR_VIS === 2 && !this.props.receptionStarts
+                                && <Button
+                                    btnText='Начать приём'
+                                    size='small'
+                                    type='yellow'
+                                    onClick={this.props.onBegin}
+                                />}
+                            </div>
                         </div>
                     </div>
                 </div>

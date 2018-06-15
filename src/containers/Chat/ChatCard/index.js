@@ -144,7 +144,9 @@ class ChatCard extends React.Component {
 	componentWillReceiveProps(nextProps){
 		//console.log(this.props.receptionId, nextProps.receptionId)
 		''+this.props.receptionId != ''+nextProps.receptionId 
-			&& this.register(''+nextProps.callerID, ''+nextProps.user_id, nextProps.user_mode)
+			&& this.register(''+nextProps.callerID, ''+nextProps.user_id, nextProps.user_mode);
+		''+this.state.mode != ''+nextProps.mode
+			&& this.setState({mode: nextProps.mode})
 	}
 
 	componentWillUnmount(){
@@ -488,7 +490,9 @@ class ChatCard extends React.Component {
 											{...chatAdditionalProps}
                                             />;
                 break;
-        }
+		}
+		
+		console.log()
 
         return (
 			<Hoc>
@@ -510,7 +514,8 @@ class ChatCard extends React.Component {
                     </div>
                     <div className='chat-card-btns'>
                         <Radio icons={['chat1', 'telephone', "video-camera"]}
-                               defaultValue={key_val[this.state.mode]}
+							   value={this.state.mode}
+							   onChange = {() => {}}
                                /*onChange={(mode) => this.setState({mode: mode.target.value})}*//>
                         <div className='chat-card-archive'>
                             <Button
