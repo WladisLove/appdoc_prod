@@ -1,10 +1,8 @@
 import React from 'react';
-import kurentoUtils from 'kurento-utils'
-
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatVideoPanel } from 'appdoc-component'
+import { ChatVideoPanel } from 'appdoc-component'
 import ChatContent from './ChatContent'
 
 import './style.css'
