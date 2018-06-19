@@ -448,11 +448,12 @@ class ChatCard extends React.Component {
 
 		console.log('-----------------')
 		console.log(this.props)
+		
 		const chatProps= {
 			ws: this.ws,
 			from: this.state.from,
 			to: this.state.to,
-			chatStory: this.props.chat,
+			chatStory: [...this.props.chat, ...this.state.chatStory],
 			sendMessage: this.sendMessage,
 			onEnd: this.beforeCloseReseption,
 			onBegin: this.startReception,
@@ -572,7 +573,8 @@ class ChatCard extends React.Component {
 }
 
 ChatCard.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object),
+	data: PropTypes.arrayOf(PropTypes.object),
+	chat: PropTypes.array,
 	patientName: PropTypes.string,
 	user_id: PropTypes.number,
     online: PropTypes.number,//oneOf(['offline', 'online']),
@@ -590,6 +592,7 @@ ChatCard.defaultProps = {
     online: 0,
     isActive: false,
 	mode: 'chat',
+	chat: [],
 	
 };
 
