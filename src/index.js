@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { CookiesProvider } from 'react-cookie'
 import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
+import { LocaleProvider, ru_RU } from "appdoc-component"
 
 import './index.css';
 
@@ -17,13 +18,14 @@ ReactDOM.render(
     <CookiesProvider>
         {/* ??? HOW does it act*/}
 
+<LocaleProvider locale={ru_RU}>
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Root />
             </ConnectedRouter>
         </Provider>
 
-
+</LocaleProvider>
     </CookiesProvider>,
     rootElement);
 registerServiceWorker();
