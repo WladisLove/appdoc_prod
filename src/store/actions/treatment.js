@@ -49,6 +49,18 @@ export const completeReception = (obj) => {
     }
 }
 
+export const closeTreatment = (id) => {
+    return dispatch => {
+        console.log('closeTreatment', id)
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/changeStatus/id/'+id+'/status/completed')
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err);
+        })
+    }
+}
 
 export const selectTreatment = (treatId) => {
 

@@ -39,6 +39,7 @@ export {
     clearSelections,
 
     completeReception,
+    closeTreatment,
 } from './treatment'
 
 

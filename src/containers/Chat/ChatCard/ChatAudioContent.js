@@ -1,34 +1,15 @@
 import React from 'react';
-import kurentoUtils from 'kurento-utils'
 
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatVideoPanel } from 'appdoc-component'
+import { ChatVideoPanel } from 'appdoc-component'
 import ChatContent from './ChatContent'
 
 import './style.css'
 
 
 import Hoc from '../../../hoc'
-
-
-var webRtcPeer;
-
-var registerName = null;
-const NOT_REGISTERED = 0;
-const REGISTERING = 1;
-const REGISTERED = 2;
-var registerState = null
-
-
-
-const NO_CALL = 0;
-const PROCESSING_CALL = 1;
-const IN_CALL = 2;
-var callState = null
-
-
 
 class ChatAudioContent extends React.Component {
 	constructor(props){
