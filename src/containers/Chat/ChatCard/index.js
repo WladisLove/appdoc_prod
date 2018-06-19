@@ -143,7 +143,10 @@ class ChatCard extends React.Component {
 	componentWillReceiveProps(nextProps){
 		//console.log(this.props.receptionId, nextProps.receptionId)
 		''+this.props.receptionId != ''+nextProps.receptionId 
-			&& this.register(''+nextProps.callerID, ''+nextProps.user_id, nextProps.user_mode);
+			? (
+				this.register(''+nextProps.callerID, ''+nextProps.user_id, nextProps.user_mode),
+				this.setState({receptionStarts: false})
+			) : null;
 		''+this.state.mode != ''+nextProps.mode
 			&& this.setState({mode: nextProps.mode})
 	}
@@ -327,10 +330,9 @@ class ChatCard extends React.Component {
 			webRtcPeer = null;
 	
 			if (!message) {
-				var message = {
+				this.sendMessage({
 					id : 'stop'
-				}
-				this.sendMessage(message);
+				});
 			}
 		}
 	}
@@ -409,18 +411,22 @@ class ChatCard extends React.Component {
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере*/
 		/* отправка чата, диагноза, isHronic */
-
-		//console.log('[onCloseReception]');
-		//console.log(obj)
 		let new_obj = {
 			...obj,
 			id: this.props.receptionId,
 			chat: this.state.chatStory,
 		}
-		//console.log(new_obj)
 		this.props.completeReception(new_obj);
 
 		this.setState({reception_vis: false,treatment_vis: true});
+		this.props.extr ?
+			this.setState({reception_vis: false})
+			: this.setState({reception_vis: false,treatment_vis: true});
+	}
+
+	onCloseTreatment = () => {
+		this.props.closeTreatm(this.props.id_treatment);
+		this.setState({treatment_vis: false});
 	}
 
 	onAddVisit = (obj) => {
@@ -446,7 +452,7 @@ class ChatCard extends React.Component {
 			ws: this.ws,
 			from: this.state.from,
 			to: this.state.to,
-			chatStory: this.props.fromTR_VIS == 1 ? this.props.chat : this.state.chatStory,
+			chatStory: this.props.chat,
 			sendMessage: this.sendMessage,
 			onEnd: this.beforeCloseReseption,
 			onBegin: this.startReception,
@@ -484,8 +490,6 @@ class ChatCard extends React.Component {
                 break;
 		}
 		
-		console.log()
-
         return (
 			<Hoc>
             <div className='chat-card'>
@@ -553,7 +557,7 @@ class ChatCard extends React.Component {
 				visible={this.state.treatment_vis}
 				onCancel={() =>  this.setState({treatment_vis: false})}
 				onAdd={() => this.setState({treatment_vis: false, visit_vis: true})}
-				onComplete={()=> console.log('[CompleteAppeal]')}
+				onComplete={this.onCloseTreatment}
 			/>
 			<NewVisitModalPage 
 				visible={this.state.visit_vis}
