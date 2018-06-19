@@ -4,7 +4,7 @@ import kurentoUtils from 'kurento-utils'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import { Button, Radio,ChatFiles, ChatSend, ChatMessage,
+import { Button, Radio,ChatFiles,
 	CompletionReceptionModal,
 	CompleteAppeal,
 	NewVisitModalPage, } from 'appdoc-component'
@@ -21,7 +21,6 @@ var videoInput;
 var videoOutput;
 var webRtcPeer;
 
-var registerName = null;
 const NOT_REGISTERED = 0;
 const REGISTERING = 1;
 const REGISTERED = 2;
@@ -434,18 +433,11 @@ class ChatCard extends React.Component {
 		const {patientName, user_id, online: onl} = this.props;
 		const online = +onl ?'online' :  'offline';
 
-        const rootClass = cn('chat-card');
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
 
         const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
-
-		const key_val = {
-            'chat': 'chat1',
-            'voice': 'telephone', 
-            'video': "video-camera",
-		}
-		
+	
 		let content;
 
 		console.log('-----------------')
@@ -496,7 +488,7 @@ class ChatCard extends React.Component {
 
         return (
 			<Hoc>
-            <div className={rootClass}>
+            <div className='chat-card'>
                 <div className='chat-card-head'>
                     <div className='chat-card-title'>
                         <Button

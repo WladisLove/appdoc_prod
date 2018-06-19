@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 
-import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatComments } from 'appdoc-component'
+import { Button, ChatSend, ChatMessage, ChatComments } from 'appdoc-component'
 
 import './style.css'
-
-// fromTR_VIS
 
 class ChatContent extends React.Component {
 
