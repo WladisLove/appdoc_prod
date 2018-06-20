@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
     id: sessionStorage.getItem('_appdoc-id') ? sessionStorage.getItem('_appdoc-id') : 0,
-    mode: "", // doc / user
+    mode: sessionStorage.getItem('_appdoc-mode') ? sessionStorage.getItem('_appdoc-mode') : "", // doc / user
     error: null,
     errorCode: 0,
 };
