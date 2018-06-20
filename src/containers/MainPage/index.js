@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import { Icon, Row, Col, TopPanel, TopPanelItem, TableNoHead, TableNoHeadItem, Reviews, TreatmentTable, NewVisitModal, CancelVisitModal } from 'appdoc-component'
+import { Row, Col, TopPanel, TableNoHead, Reviews, TreatmentTable, NewVisitModal, CancelVisitModal } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import * as actions from '../../store/actions'

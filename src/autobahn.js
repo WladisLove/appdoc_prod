@@ -13,7 +13,6 @@
  * See license text at http://www.opensource.org/licenses/mit-license.php
  */
 
-"use strict";
 
 /** @define {string} */
 var AUTOBAHNJS_VERSION = '?.?.?';
@@ -37,7 +36,6 @@ ab._version = AUTOBAHNJS_VERSION;
 (function () {
     if (!Array.prototype.indexOf) {
         Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
-            "use strict";
             if (this === null) {
                 throw new TypeError();
             }

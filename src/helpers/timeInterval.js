@@ -18,6 +18,8 @@ export const findTimeInterval = (date, mode) => {
             return findWeekInterval(date);
         case 'month': 
             return findMonthInterval(date);
+        default: 
+            return {};
     }  
 }
 

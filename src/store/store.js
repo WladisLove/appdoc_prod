@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose, combineReducers} from 'redux'
+import { createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk';
 
 import patientsReducer from './reducers/patients'
@@ -19,15 +19,6 @@ const rootReducer = combineReducers({
     doctor: doctorReducer,
     profileDoctor: infoDoctorReducer,
 });
-
-// const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
-
-
-// export default function configureStore() {
-//     return createStore(rootReducer, composeEnhancers(
-//         applyMiddleware(thunk)
-//     ));
-// }
 
 export default function configureStore() {
     return createStore(rootReducer, applyMiddleware(thunk));
