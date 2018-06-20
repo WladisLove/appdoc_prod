@@ -106,7 +106,7 @@ class App extends React.Component {
                                 onChange={(flag) => this.props.switchExInterval(flag)}
                                 checked={this.props.isIn}
                                 disabled={this.props.isIn && !this.props.isUserSet}
-                                logout={this.state.onLogout}/>
+                                logout={this.props.onLogout}/>
                     </div>
                     <div className="main-content">
                         <Switch>
