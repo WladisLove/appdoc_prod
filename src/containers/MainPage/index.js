@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux';
 
 import DoctorPage from "./DoctorPage"
+import PatientPage from "./PatientPage"
 
 import * as actions from '../../store/actions'
 
@@ -54,19 +55,20 @@ class MainPage extends React.Component{
 	}*/
 
     render(){
-		const isUser = this.props.mode === "user";
-        return (
-				<DoctorPage 
-					showCancel = {() => {this.setState({cancelModal: true})}}
-					onAdd = {this.onAddVisit}
-					addModal = {this.state.addModal}
-					closeAdd= {() => {this.setState({addModal: false})}}
-					onSaveNewVisit = {this.onSaveNewVisit}
-					cancelModal ={this.state.cancelModal}
-					closeCancel= {() => {this.setState({cancelModal: false})}}
-					saveCancel = {() => {}}
-					{...this.props}/>
-        )
+        return (this.props.mode === "user") ? (
+			<PatientPage/>
+		) : (
+			<DoctorPage 
+				showCancel = {() => {this.setState({cancelModal: true})}}
+				onAdd = {this.onAddVisit}
+				addModal = {this.state.addModal}
+				closeAdd= {() => {this.setState({addModal: false})}}
+				onSaveNewVisit = {this.onSaveNewVisit}
+				cancelModal ={this.state.cancelModal}
+				closeCancel= {() => {this.setState({cancelModal: false})}}
+				saveCancel = {() => {}}
+				{...this.props}/>
+		)
     }
 }
 
