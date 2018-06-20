@@ -41,7 +41,7 @@ class LoginPage extends React.Component {
             title: 'Немецкий',
             value: 'german',
         }];
-        const payments = [100,300,500];
+        const payments = [50,75,100,125,150];
         const academicTitle = [{
             title: 'Кандидат медицинских наук',
             value: 'candidat_medicine_science',
@@ -93,7 +93,7 @@ class LoginPage extends React.Component {
                                exact
                                render={() => <Registration onFinish={obj => this.replaceToAction(obj)}
                                                            langs={langs}
-                                                           payments={[50,75,100,125,150]}
+                                                           payments={payments}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='to continue'

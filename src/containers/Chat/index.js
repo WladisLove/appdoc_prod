@@ -35,7 +35,7 @@ class Chat extends React.Component{
         let  id_user, name, avatar, status, chat, visitId, contactLevel, comment, id_treatment;
         
 
-        this.props.fromTR_VIS == 1 ? (
+        this.props.fromTR_VIS === 1 ? (
             {id_user,name_user: name, avatar, status, chat} = this.props.treatInfo
         ) : (
             {id_user,name, id: visitId, contactLevel,comment, chat, avatar, status, id_treatment} = this.props.visitInfo
