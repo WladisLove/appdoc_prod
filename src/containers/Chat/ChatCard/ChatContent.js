@@ -40,7 +40,7 @@ class ChatContent extends React.Component {
                                 })
                             }
                             <div className='btn-start'>
-                                {this.props.fromTR_VIS === 2 && !this.props.receptionStarts
+                                {this.props.fromTR_VIS === 2 && !this.props.receptionStarts && this.props.user_mode !== "user"
                                 && <Button
                                     btnText='Начать приём'
                                     size='small'

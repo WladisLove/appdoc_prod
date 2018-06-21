@@ -67,6 +67,13 @@ class ChatCard extends React.Component {
 			case 'registerResponse':
 				this.resgisterResponse(parsedMessage);
 				break;
+			case 'startReception':
+				this.setState({receptionStarts: true});
+				break;
+			case 'closeReception':
+				console.log('closeReception')
+				this.setState({receptionStarts: false});
+				break;
 			case 'callResponse':
 				this.callResponse(parsedMessage);
 				break;
@@ -85,13 +92,12 @@ class ChatCard extends React.Component {
 				this.setState({chatStory: [...this.state.chatStory, parsedMessage]})
 				break;
 			case 'chatHistory':
-				console.log('[chatHistory]', parsedMessage);
-				(parsedMessage.chat.length > 0 && !this.state.receptionStarts)
+				(parsedMessage.chat.length > 0)
 					? this.setState({
 						receptionStarts: true,
 						chatStory: parsedMessage.chat,
 					})
-					: this.setState({chatStory: parsedMessage.chat});
+					: null;
 				break;
 			case 'iceCandidate':
 				webRtcPeer.addIceCandidate(parsedMessage.candidate)
@@ -137,7 +143,12 @@ class ChatCard extends React.Component {
 	}
 
 	componentWillMount(){
-		this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
+
+		// TOFIX
+		this.props.user_mode === "user" ? 
+			this.register(''+this.props.callerID, ''+2697, this.props.user_mode) 
+			: this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
+		//this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -205,14 +216,13 @@ class ChatCard extends React.Component {
 	incomingCall = (message) => {
 		// If bussy just reject without disturbing user
 		if (callState != NO_CALL) {
-			var response = {
+			return this.sendMessage({
 				id : 'incomingCallResponse',
 				from : message.from,
 				callResponse : 'reject',
 				message : 'bussy'
 	
-			};
-			return this.sendMessage(response);
+			});
 		}
 	
 		this.setCallState(PROCESSING_CALL);
@@ -254,15 +264,14 @@ class ChatCard extends React.Component {
 								console.error(error);
 								that.setCallState(NO_CALL);
 							}
-							var response = {
+							that.sendMessage({
 								id : 'incomingCallResponse',
 								from : message.from,
 								callResponse : 'accept',
 								sdpOffer : offerSdp,
 								mode: that.state.mode,
 								receptionId: that.props.receptionId,
-							};
-							that.sendMessage(response);
+							});
 						});
 					});
 	
@@ -302,18 +311,21 @@ class ChatCard extends React.Component {
 			id : 'register',
 			name : id1,
 			other_name: id2,
-			doc_name: user_mode === 'doc' ? id1 : id2,
+			//doc_name: user_mode === 'doc' ? id1 : id2,
 			mode: user_mode,
 		});
 	}
 
-	startReception = () => {												
+	startReception = () => {	
+												
 		this.sendMessage({
 			id : 'startReception',
-			name : this.state.from,
-			other_name: this.state.to,
+			from : this.state.from,
+			to: this.state.to,
 		});
-		this.setState({receptionStarts: true});
+		this.setState({
+			receptionStarts: true,
+		});
 	}
 
 	stop = (message) => {
@@ -375,21 +387,19 @@ class ChatCard extends React.Component {
                 that.setCallState(NO_CALL);
             }
 
-	
 			const {from, to} = that.state;
-    
+
             this.generateOffer(function(error, offerSdp) {
                 if (error) {
                     console.error(error);
                     that.setCallState(NO_CALL);
 				}
-                var message = {
+				that.sendMessage({
                     id : 'call',
                     from,
                     to,
                     sdpOffer : offerSdp
-                };
-				that.sendMessage(message);
+                });
             });
         });
     
@@ -410,12 +420,16 @@ class ChatCard extends React.Component {
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере*/
-		/* отправка чата, диагноза, isHronic */
 		let new_obj = {
 			...obj,
 			id: this.props.receptionId,
 			chat: this.state.chatStory,
 		}
+		this.sendMessage({
+			id : 'closeReception',
+			from : this.state.from,
+			to: this.state.to,
+		})
 		this.props.completeReception(new_obj);
 
 		this.setState({reception_vis: false,treatment_vis: true});
@@ -440,7 +454,6 @@ class ChatCard extends React.Component {
 		const online = +onl ?'online' :  'offline';
 
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
-
         const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
 	
@@ -459,6 +472,7 @@ class ChatCard extends React.Component {
 			onBegin: this.startReception,
 			receptionStarts: this.state.receptionStarts,
 			fromTR_VIS: this.props.fromTR_VIS,
+			user_mode: this.props.user_mode,
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>videoOutput=video,

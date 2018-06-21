@@ -50,7 +50,9 @@ class Chat extends React.Component{
                         />
                     </Col>
                     <Col xs={24} xxl={17} className='section'>
-                        <ChatCard 
+                        {
+                            this.props.user_mode === "user" ? (
+                                <ChatCard 
                                     wsURL={'wss://178.172.235.105:8443/one2one'}
                                     mode={contactLevel}
                                     receptionId={visitId}
@@ -69,8 +71,30 @@ class Chat extends React.Component{
 
                                     completeReception = {this.props.completeReception}
                                     closeTreatm = {this.props.closeTreatment}
-                                    fromTR_VIS = {this.props.fromTR_VIS}
-                        />
+                                    fromTR_VIS = {2}/>
+                            ) : (
+                                <ChatCard 
+                                    wsURL={'wss://178.172.235.105:8443/one2one'}
+                                    mode={contactLevel}
+                                    receptionId={visitId}
+
+                                    //isEnded = {true}
+
+                                    callerID = {this.props.id}
+                                    user_mode = {this.props.user_mode}
+
+                                    user_id = {+id_user}
+                                    patientName = {name}
+                                    id_treatment = {id_treatment}
+                                    online={status}
+                                    chat={chat}
+                                    comment={comment}
+
+                                    completeReception = {this.props.completeReception}
+                                    closeTreatm = {this.props.closeTreatment}
+                                    fromTR_VIS = {this.props.fromTR_VIS}/>
+                            )
+                        }
                     </Col>
                 </Row>
             </Hoc>
