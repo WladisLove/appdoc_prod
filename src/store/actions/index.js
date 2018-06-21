@@ -40,6 +40,7 @@ export {
 
     completeReception,
     closeTreatment,
+    uploadChatFile,
 } from './treatment'
 
 

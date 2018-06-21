@@ -92,6 +92,7 @@ class Chat extends React.Component{
 
                                     completeReception = {this.props.completeReception}
                                     closeTreatm = {this.props.closeTreatment}
+                                    uploadFile={this.props.uploadFile}
                                     fromTR_VIS = {this.props.fromTR_VIS}/>
                             )
                         }
@@ -125,6 +126,7 @@ const mapDispatchToProps = dispatch => {
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
         onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
         clearSelectionsTRandVIS: () => dispatch(actions.clearSelections()),
+        uploadFile: (file) => dispatch(actions.uploadChatFile(file)),
 	}
 };
 

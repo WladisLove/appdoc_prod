@@ -473,6 +473,7 @@ class ChatCard extends React.Component {
 			receptionStarts: this.state.receptionStarts,
 			fromTR_VIS: this.props.fromTR_VIS,
 			user_mode: this.props.user_mode,
+			uploadFile: this.props.uploadFile,
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>videoOutput=video,

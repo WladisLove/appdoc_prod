@@ -78,6 +78,26 @@ export const selectTreatment = (treatId) => {
     }    
 }
 
+export const uploadChatFile = (file) => {
+
+    return (dispatch) => {
+        console.log(file.thumbUrl.substr(0,50));
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveFilesChat',
+            JSON.stringify([file]))
+            .then(res => {
+                console.log(JSON.stringify([file]))
+                console.log(res)
+                /*dispatch({
+                    type: actionTypes.SELECT_TREATMENT,
+                    treatInfo: res.data.result,
+                });*/
+            })
+            .catch(err => {
+                console.log(err);
+        })
+    }    
+}
+
 export const seletVisit = (visId) => {
     return (dispatch) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/getInfoByMakingAppId/id/'+visId)
