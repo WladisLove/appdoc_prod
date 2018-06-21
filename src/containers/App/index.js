@@ -1,5 +1,5 @@
 import React  from 'react';
-import {appRoutes, menuItems} from '../../routes'
+import {docRoutes, patientRoutes, menuDoc, menuPatient} from '../../routes'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { SideNav, Header} from 'appdoc-component'
 import Hoc from '../../hoc'
@@ -20,8 +20,6 @@ class App extends React.Component {
         this.state = {
             collapsed: true,
             notifications: [],
-            isIn: false,
-            isUserSet: false,
         };
     }
 
@@ -54,7 +52,7 @@ class App extends React.Component {
     componentWillMount(){
         const login = localStorage.getItem('_appdoc-user'),
                 pass = localStorage.getItem('_appdoc-pass');
-        (!this.props.id && login && pass) &&
+        (!this.props.id && !this.props.mode && login && pass) &&
         this.props.onLogin({
             userName: login, 
             password: pass,
@@ -67,12 +65,18 @@ class App extends React.Component {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patients-page');
     }
+
+    logoClick = () => {
+        (this.props.history.location.pathname !== "/") && this.props.history.push('/');
+    }
     
     render() {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
 
+        console.log(this.props)
+        const isUser = (this.props.mode === "user");
         return (
             <div className="main">
             {
@@ -84,7 +88,8 @@ class App extends React.Component {
                     <SideNav {...this.props.shortDocInfo}
                             rateValue={+(this.props.shortDocInfo.rateValue)}
                             onClick={this.toggle}
-                            menuItems={menuItems}
+                            onLogoClick={this.logoClick}
+                            menuItems={isUser ? menuPatient : menuDoc}
                             isShort={this.state.collapsed}/>
                             
                 </div>
@@ -106,11 +111,13 @@ class App extends React.Component {
                                 onChange={(flag) => this.props.switchExInterval(flag)}
                                 checked={this.props.isIn}
                                 disabled={this.props.isIn && !this.props.isUserSet}
-                                logout={this.state.onLogout}/>
+                                logout={this.props.onLogout}/>
                     </div>
                     <div className="main-content">
                         <Switch>
-                            {appRoutes.map(route => renderRoutes(route))}
+                            {isUser ?
+                                patientRoutes.map(route => renderRoutes(route)) : docRoutes.map(route => renderRoutes(route))
+                            }
                             <Route
                                 render ={() => (
                                     <div style={{ textAlign: 'center', padding: '40px 20px' }}>
@@ -139,6 +146,7 @@ const mapStateToProps = state =>{
     return {
         auth: state.auth,
         id: state.auth.id,
+        mode: state.auth.mode,
         shortDocInfo: state.doctor.shortInfo,
         notDocPatients: state.patients.notDocPatients,
         isIn: state.doctor.isEx,

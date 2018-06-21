@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 import { ChatVideoPanel } from 'appdoc-component'
@@ -78,7 +77,7 @@ class ChatVideoContent extends React.Component {
     
     
     render() {
-        const {isActive,isActiveChat, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
+        const {isActive,isActiveChat, onVideoCallBegin, onVideoCallStop} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
 		const filesClass = cn('chat-card-files', {'chat-card-files-active': isActiveChat});
 
@@ -107,15 +106,5 @@ class ChatVideoContent extends React.Component {
         )
     }
 }
-
-ChatVideoContent.propTypes = {
-	videoCalling: PropTypes.bool,
-	wsURL: PropTypes.string.isRequired,
-};
-
-ChatVideoContent.defaultProps = {
-	videoCalling: false,
-	wsURL: '',
-};
 
 export default ChatVideoContent

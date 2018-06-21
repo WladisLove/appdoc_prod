@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const findTimeInterval = (date, mode) => {
     if(!(date instanceof Date)) {
         console.log('not a Date');

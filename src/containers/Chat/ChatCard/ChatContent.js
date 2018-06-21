@@ -40,7 +40,7 @@ class ChatContent extends React.Component {
                                 })
                             }
                             <div className='btn-start'>
-                                {this.props.fromTR_VIS === 2 && !this.props.receptionStarts
+                                {this.props.fromTR_VIS === 2 && !this.props.receptionStarts && this.props.user_mode !== "user"
                                 && <Button
                                     btnText='Начать приём'
                                     size='small'
@@ -56,7 +56,9 @@ class ChatContent extends React.Component {
                 (<div className='chat-card-message__send'>
                     <ChatSend 
                         disable={!this.props.receptionStarts}
+                        isUser={this.props.user_mode === "user"}
                         closeVisit={this.props.onEnd}
+                        uploadFiles = {(file) => this.props.uploadFile(file)}
                         send={message => this.props.onSend(message)}/>
                 </div>)
                 }
@@ -75,7 +77,8 @@ ChatContent.propTypes = {
     comment: PropTypes.shape({
         comments: PropTypes.string,
         files: PropTypes.array,
-    })
+    }),
+    uploadFile: PropTypes.func,
 };
 
 ChatContent.defaultProps = {
@@ -88,6 +91,7 @@ ChatContent.defaultProps = {
         comments: "",
         files: [],
     },
+    uploadFile: () => {},
 };
 
 export default ChatContent

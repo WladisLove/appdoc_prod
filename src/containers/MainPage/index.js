@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import { Row, Col, TopPanel, TableNoHead, Reviews, TreatmentTable, NewVisitModal, CancelVisitModal } from 'appdoc-component'
-import Hoc from '../../hoc'
+import DoctorPage from "./DoctorPage"
+import PatientPage from "./PatientPage"
 
 import * as actions from '../../store/actions'
 
@@ -15,17 +15,18 @@ class MainPage extends React.Component{
 	}
 
 	componentDidMount(){
-		this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
-		this.props.onGetActualTreatments();
-		let now = new Date();
-		this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-										new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
-		this.props.getDocTodayInfo();
-	}
+		if (this.props.mode === "user"){
 
-	gotoHandler = (id) => {
-		this.props.onSelectPatient(id);
-		this.props.history.push('/patients-page');
+		}
+		else {
+			this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
+			this.props.onGetActualTreatments();
+			let now = new Date();
+			this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+											new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
+			this.props.getDocTodayInfo();
+		}
+		
 	}
 
 	onAddVisit = () => {
@@ -54,70 +55,26 @@ class MainPage extends React.Component{
 	}*/
 
     render(){
-		console.log(this.props.reviews)
-        return (
-                <Hoc>
-					<Row>
-						<Col span={24} className='section'>
-							<TopPanel  {...this.props.docTodayInfo}/>
-						</Col>
-					</Row>
-
-					<Row>
-						<Col xs={24} xxl={14} className='section'>
-							<TableNoHead data={this.props.visits}
-										onGoto={(val) => this.gotoHandler(val)}
-										onBegin={(val) => {
-											this.props.onSelectReception(val)
-											this.props.history.push('/chat')
-										}}
-										onCancel={() => {this.setState({cancelModal: true})}}
-										onAdd = {this.onAddVisit}
-							/>
-						</Col>
-						<Col xs={24} xxl={10} className='section'>
-							<Reviews data={this.props.reviews}
-									 numToDisplay = {7}
-									 onGoto={(val) => this.gotoHandler(val)}
-									 onGotoChat={(id) => this.props.history.push('/chat')}
-									 redirect={() => {
-										 // !!!
-										 this.props.history.push('/reviews')
-									}}/>
-						</Col>
-					</Row>
-					<Row>
-						<Col span={24} className='section'>
-							<TreatmentTable data={this.props.actualTreatments}
-
-											onGoto={(id) => this.gotoHandler(id)}
-											onGotoChat = {(id) => {
-												// !!!
-												this.props.history.push('/chat')
-											}}
-
-											redirect={() => this.props.history.push('/treatment')}/>
-						</Col>
-					</Row>
-					<NewVisitModal visible={this.state.addModal}
-									date={new Date()}
-									isChoosebleTime={true}
-									patients={this.props.patients}
-									onCancel={() => {this.setState({addModal: false})}}
-									onSave = {(obj) => this.onSaveNewVisit(obj)}
-					/>
-					<CancelVisitModal visible={this.state.cancelModal} 
-									onGoto={() => {}}
-									onCancel={() => {this.setState({cancelModal: false})}}
-									onSave={() => {this.setState({cancelModal: false})}}
-					/>
-                </Hoc>
-        )
+        return (this.props.mode === "user") ? (
+			<PatientPage/>
+		) : (
+			<DoctorPage 
+				showCancel = {() => {this.setState({cancelModal: true})}}
+				onAdd = {this.onAddVisit}
+				addModal = {this.state.addModal}
+				closeAdd= {() => {this.setState({addModal: false})}}
+				onSaveNewVisit = {this.onSaveNewVisit}
+				cancelModal ={this.state.cancelModal}
+				closeCancel= {() => {this.setState({cancelModal: false})}}
+				saveCancel = {() => {}}
+				{...this.props}/>
+		)
     }
 }
 
 const mapStateToProps = state => {
     return {
+		mode: state.auth.mode,
 		patients: state.patients.docPatients,
 		visits: state.schedules.visits,
 		reviews: state.reviews.reviews,
@@ -131,7 +88,7 @@ const mapDispatchToProps = dispatch => {
 		onGetDocPatients: () => dispatch(actions.getDocPatients()),
 		onAddNewVisit: (obj) => dispatch(actions.addVisit(obj)),
 		onSelectReception: (id) => dispatch(actions.seletVisit(id)),
-
+		onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
 		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
 		onGetActualTreatments: () => dispatch(actions.getActualTreatments()),

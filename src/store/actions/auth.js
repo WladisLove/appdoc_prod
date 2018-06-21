@@ -23,14 +23,14 @@ export const login = (userName, password, remember, history, isAuto) => {
                     login: userName,
                     password: password,
                 }))
-                    .then(res => {                        
-                        //dispatch(authSuccess(response.data.idToken, response.data.localId));
+                    .then(res => {       
                         !res.data.error 
                             ? (
                                 dispatch(authSuccess(res.data.id, res.data.usergroup)),
                                 sessionStorage.setItem('_appdoc-id', res.data.id),
+                                sessionStorage.setItem('_appdoc-mode', res.data.usergroup),
                                 rememberMe(remember, userName, password),
-                                history.push('/') 
+                                history.push('/')
                             )
                             : (
                                 dispatch(authFail(res.data.error)),
@@ -38,7 +38,8 @@ export const login = (userName, password, remember, history, isAuto) => {
                                         // TODO: test
                                         localStorage.removeItem('_appdoc-user'),
                                         localStorage.removeItem('_appdoc-pass'),
-                                        sessionStorage.removeItem('_appdoc-id')
+                                        sessionStorage.removeItem('_appdoc-id'),
+                                        sessionStorage.removeItem('_appdoc-mode')
                                     )
                             );
                     })
@@ -54,6 +55,7 @@ export const logout = () => {
         localStorage.removeItem('_appdoc-user');
         localStorage.removeItem('_appdoc-pass');
         sessionStorage.removeItem('_appdoc-id');
+        sessionStorage.removeItem('_appdoc-mode');
         dispatch(authSuccess(0, ''));
     }
 
