@@ -90,6 +90,7 @@ class App extends React.Component {
                             onClick={this.toggle}
                             onLogoClick={this.logoClick}
                             menuItems={isUser ? menuPatient : menuDoc}
+                            isUser={isUser}
                             isShort={this.state.collapsed}/>
                             
                 </div>
