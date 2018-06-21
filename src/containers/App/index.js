@@ -65,6 +65,10 @@ class App extends React.Component {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patients-page');
     }
+
+    logoClick = () => {
+        (this.props.history.location.pathname !== "/") && this.props.history.push('/');
+    }
     
     render() {
         const {collapsed} = this.state;
@@ -84,6 +88,7 @@ class App extends React.Component {
                     <SideNav {...this.props.shortDocInfo}
                             rateValue={+(this.props.shortDocInfo.rateValue)}
                             onClick={this.toggle}
+                            onLogoClick={this.logoClick}
                             menuItems={isUser ? menuPatient : menuDoc}
                             isShort={this.state.collapsed}/>
                             
