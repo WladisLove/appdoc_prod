@@ -35,8 +35,13 @@ export {
 export {
     getActualTreatments,
     getAllTreatments,
+    seletVisit,
+    selectTreatment,
+    clearSelections,
 
     completeReception,
+    closeTreatment,
+    uploadChatFile,
 } from './treatment'
 
 
@@ -48,9 +53,13 @@ export {
 export {
     getDocTodayInfo,
     getDocShortInfo,
+    setExIntervalInfo,
+    switchExInterval,
 } from './doctor'
 
 export {
     sendNewInfoDoctor,
     getInfoDoctor,
+    getNotifications,
+    readNotification,
 } from './doctorData'

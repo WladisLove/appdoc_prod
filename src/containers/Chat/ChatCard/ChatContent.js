@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 
-import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatComments } from 'appdoc-component'
+import { Button, ChatSend, ChatMessage, ChatComments } from 'appdoc-component'
 
 import './style.css'
 
@@ -17,30 +17,20 @@ class ChatContent extends React.Component {
     render() {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.props.isActive});
 
+        console.log('CHAT ', this.props.data)
+
         return (
 
             <div className={dialogsClass}>
                 <div className='chat-card-message__area'>
                     <div className='chat-card-message__comments'>
-                     <ChatComments
-                     comments="Жалоба пациента или комментарий к приему. Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах."
-                     />  
+                     <ChatComments {...this.props.comment}/>  
                      </div>
 
                     <div className='chat-card-message__box'>
                         <div className='chat-card-message__overlay'>
-                            <div className='btn-start'>
-                                {!this.props.receptionStarts 
-                                && <Button
-                                    btnText='Начать приём'
-                                    size='small'
-                                    type='yellow'
-                                    onClick={this.props.onBegin}
-                                />}
-                            </div>
-                            {
+                        {
                                 this.props.data.map((e, i) => {
-                                    console.log(e)
                                     return ( <ChatMessage
                                         img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
                                         {...e}
@@ -49,15 +39,29 @@ class ChatContent extends React.Component {
                                     />)
                                 })
                             }
+                            <div className='btn-start'>
+                                {this.props.fromTR_VIS === 2 && !this.props.receptionStarts && this.props.user_mode !== "user"
+                                && <Button
+                                    btnText='Начать приём'
+                                    size='small'
+                                    type='yellow'
+                                    onClick={this.props.onBegin}
+                                />}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className='chat-card-message__send'>
+                {
+                    this.props.fromTR_VIS === 2 &&
+                (<div className='chat-card-message__send'>
                     <ChatSend 
                         disable={!this.props.receptionStarts}
+                        isUser={this.props.user_mode === "user"}
                         closeVisit={this.props.onEnd}
+                        uploadFiles = {(file) => this.props.uploadFile(file)}
                         send={message => this.props.onSend(message)}/>
-                </div>
+                </div>)
+                }
             </div>
 
         )
@@ -70,6 +74,11 @@ ChatContent.propTypes = {
     onBegin: PropTypes.func,
     receptionStarts: PropTypes.bool,
     onEnd: PropTypes.func,
+    comment: PropTypes.shape({
+        comments: PropTypes.string,
+        files: PropTypes.array,
+    }),
+    uploadFile: PropTypes.func,
 };
 
 ChatContent.defaultProps = {
@@ -78,6 +87,11 @@ ChatContent.defaultProps = {
     onBegin: () => {},
     receptionStarts: false,
     onEnd: () => {},
+    comment: {
+        comments: "",
+        files: [],
+    },
+    uploadFile: () => {},
 };
 
 export default ChatContent

@@ -3,6 +3,9 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     schedules: [],
     visits: [],
+    visIntervals: [],
+    min: 0,
+    max: 0,
     chosenData: {
         id: null,
         userName: '',
@@ -28,6 +31,9 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 visits: action.visits,
+                visIntervals: action.intervals,
+                min: action.min,
+                max: action.max,
             }
         case actionTypes.DELETE_EVENT:
             return {

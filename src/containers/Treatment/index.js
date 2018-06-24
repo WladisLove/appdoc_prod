@@ -36,7 +36,8 @@ class Treatment extends React.Component{
                         <HistoryReceptionsTabs data={this.props.treatments}
                                             onGoto={(id) => this.gotoHandler(id)}
                                             onGotoChat = {(id) => {
-                                                this.props.history.push('/chat')
+                                                this.props.onSelectTretment(id);
+                                                this.props.history.push('/chat');
                                             }}
                         />
             		</Col>
@@ -56,6 +57,7 @@ const mapDispatchToProps = dispatch => {
 	return {
         onGetTreatments: () => dispatch(actions.getAllTreatments()),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
+        onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
 	}
 };
 

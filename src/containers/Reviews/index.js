@@ -22,6 +22,7 @@ class Reviews extends React.Component{
 
     render(){
 		const {reviews} = this.props;
+		console.log(reviews)
 
         return (
 

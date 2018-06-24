@@ -1,34 +1,15 @@
 import React from 'react';
-import kurentoUtils from 'kurento-utils'
 
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatVideoPanel } from 'appdoc-component'
+import { ChatVideoPanel } from 'appdoc-component'
 import ChatContent from './ChatContent'
 
 import './style.css'
 
 
 import Hoc from '../../../hoc'
-
-
-var webRtcPeer;
-
-var registerName = null;
-const NOT_REGISTERED = 0;
-const REGISTERING = 1;
-const REGISTERED = 2;
-var registerState = null
-
-
-
-const NO_CALL = 0;
-const PROCESSING_CALL = 1;
-const IN_CALL = 2;
-var callState = null
-
-
 
 class ChatAudioContent extends React.Component {
 	constructor(props){
@@ -46,8 +27,6 @@ class ChatAudioContent extends React.Component {
 	}
 
 	renderCallArea = () => {
-		console.log('renderCallArea')
-
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isActiveChat});
 
 		let {s, m, h} = this.props.timer;
@@ -94,17 +73,15 @@ class ChatAudioContent extends React.Component {
             <div className={dialogsClass}>
 				{audioContent}
 				<div className={filesClass}>
-                 	<ChatContent onSend={mes => this.props.sendMessage({
+					 <ChatContent 
+					 {...this.props}
+					 onSend={mes => this.props.sendMessage({
 						 id: 'chat',
 						 from: this.props.from,
 						 to: this.props.to,
 						 ...mes,
 					 })}
 						 data={this.props.chatStory}
-						 from={this.props.from}
-						 onBegin = {this.props.onBegin}
-					 	 onEnd = {this.props.onEnd}
-						 receptionStarts={this.props.receptionStarts}
 					/>
                 </div>
 			</div>

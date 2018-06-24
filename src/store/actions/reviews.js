@@ -9,7 +9,7 @@ export const getAllReviews = () => {
             .then(res => {
                 dispatch({
                     type: actionTypes.GET_ALL_REVIEWS,
-                    reviews: res.data.result,
+                    reviews: res.data.result ? res.data.result : [],
                     ratingAll: res.data.ratingAll,
                 });
             })

@@ -4,7 +4,7 @@ import kurentoUtils from 'kurento-utils'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import { Button, Radio,ChatFiles, ChatSend, ChatMessage,
+import { Button, Radio,ChatFiles,
 	CompletionReceptionModal,
 	CompleteAppeal,
 	NewVisitModalPage, } from 'appdoc-component'
@@ -21,7 +21,6 @@ var videoInput;
 var videoOutput;
 var webRtcPeer;
 
-var registerName = null;
 const NOT_REGISTERED = 0;
 const REGISTERING = 1;
 const REGISTERED = 2;
@@ -68,6 +67,13 @@ class ChatCard extends React.Component {
 			case 'registerResponse':
 				this.resgisterResponse(parsedMessage);
 				break;
+			case 'startReception':
+				this.setState({receptionStarts: true});
+				break;
+			case 'closeReception':
+				console.log('closeReception')
+				this.setState({receptionStarts: false});
+				break;
 			case 'callResponse':
 				this.callResponse(parsedMessage);
 				break;
@@ -86,13 +92,12 @@ class ChatCard extends React.Component {
 				this.setState({chatStory: [...this.state.chatStory, parsedMessage]})
 				break;
 			case 'chatHistory':
-				console.log('[chatHistory]', parsedMessage);
-				(parsedMessage.chat.length > 0 && !this.state.receptionStarts)
+				(parsedMessage.chat.length > 0)
 					? this.setState({
 						receptionStarts: true,
 						chatStory: parsedMessage.chat,
 					})
-					: this.setState({chatStory: parsedMessage.chat});
+					: null;
 				break;
 			case 'iceCandidate':
 				webRtcPeer.addIceCandidate(parsedMessage.candidate)
@@ -138,7 +143,23 @@ class ChatCard extends React.Component {
 	}
 
 	componentWillMount(){
-		this.register();
+
+		// TOFIX
+		this.props.user_mode === "user" ? 
+			this.register(''+this.props.callerID, ''+2697, this.props.user_mode) 
+			: this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
+		//this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
+	}
+
+	componentWillReceiveProps(nextProps){
+		//console.log(this.props.receptionId, nextProps.receptionId)
+		''+this.props.receptionId != ''+nextProps.receptionId 
+			? (
+				this.register(''+nextProps.callerID, ''+nextProps.user_id, nextProps.user_mode),
+				this.setState({receptionStarts: false})
+			) : null;
+		''+this.state.mode != ''+nextProps.mode
+			&& this.setState({mode: nextProps.mode})
 	}
 
 	componentWillUnmount(){
@@ -195,14 +216,13 @@ class ChatCard extends React.Component {
 	incomingCall = (message) => {
 		// If bussy just reject without disturbing user
 		if (callState != NO_CALL) {
-			var response = {
+			return this.sendMessage({
 				id : 'incomingCallResponse',
 				from : message.from,
 				callResponse : 'reject',
 				message : 'bussy'
 	
-			};
-			return this.sendMessage(response);
+			});
 		}
 	
 		this.setCallState(PROCESSING_CALL);
@@ -236,23 +256,22 @@ class ChatCard extends React.Component {
 					function(error) {
 						if (error) {
 							console.error(error);
-							this.setCallState(NO_CALL);
+							that.setCallState(NO_CALL);
 						}
 	
 						this.generateOffer(function(error, offerSdp) {
 							if (error) {
 								console.error(error);
-								this.setCallState(NO_CALL);
+								that.setCallState(NO_CALL);
 							}
-							var response = {
+							that.sendMessage({
 								id : 'incomingCallResponse',
 								from : message.from,
 								callResponse : 'accept',
 								sdpOffer : offerSdp,
 								mode: that.state.mode,
 								receptionId: that.props.receptionId,
-							};
-							that.sendMessage(response);
+							});
 						});
 					});
 	
@@ -268,38 +287,45 @@ class ChatCard extends React.Component {
 		}
 	}
 
-	register = () => {
+	register = (id1, id2, user_mode) => {
+
+		/*console.log('[REGISTER]')
 		let a = window.prompt();
+		console.log(typeof a)
 		let name = a ? a : ''+this.props.callerID;
 		let mode = window.confirm('Are you doctor?') 
-			? 'doc' : 'user';
-		this.setState({from: name});
-
+			? 'doc' : 'user';*/
+		this.setState({from: id1});
 		this.setRegisterState(REGISTERING);
 	
-		const answer = window.prompt('Enter ID to call');
+		/*const answer = window.prompt('Enter ID to call');
         if (answer == '') {
             window.alert("You must specify the peer name");
             return;
-        }
-		this.setState({to: answer});
+        }*/
+		this.setState({to: id2});
+
+		//console.log('[after register]', name, answer)
 		
 		this.ws.onopen = () => this.sendMessage({
 			id : 'register',
-			name : name,
-			other_name: answer,
-			doc_name: mode === 'doc' ? name : answer,
-			mode,
+			name : id1,
+			other_name: id2,
+			//doc_name: user_mode === 'doc' ? id1 : id2,
+			mode: user_mode,
 		});
 	}
 
-	startReception = () => {												
+	startReception = () => {	
+												
 		this.sendMessage({
 			id : 'startReception',
-			name : this.state.from,
-			other_name: this.state.to,
+			from : this.state.from,
+			to: this.state.to,
 		});
-		this.setState({receptionStarts: true});
+		this.setState({
+			receptionStarts: true,
+		});
 	}
 
 	stop = (message) => {
@@ -316,10 +342,9 @@ class ChatCard extends React.Component {
 			webRtcPeer = null;
 	
 			if (!message) {
-				var message = {
+				this.sendMessage({
 					id : 'stop'
-				}
-				this.sendMessage(message);
+				});
 			}
 		}
 	}
@@ -329,11 +354,10 @@ class ChatCard extends React.Component {
 	}
 
 	onIceCandidate = (candidate) => {
-		var message = {
+		this.sendMessage({
 			id : 'onIceCandidate',
 			candidate : candidate
-		}
-		this.sendMessage(message);
+		});
     }
 	
 	call = () => {
@@ -360,24 +384,22 @@ class ChatCard extends React.Component {
                 error) {
             if (error) {
                 console.error(error);
-                this.setCallState(NO_CALL);
+                that.setCallState(NO_CALL);
             }
 
-	
 			const {from, to} = that.state;
-    
+
             this.generateOffer(function(error, offerSdp) {
                 if (error) {
                     console.error(error);
-                    this.setCallState(NO_CALL);
+                    that.setCallState(NO_CALL);
 				}
-                var message = {
+				that.sendMessage({
                     id : 'call',
                     from,
                     to,
                     sdpOffer : offerSdp
-                };
-				that.sendMessage(message);
+                });
             });
         });
     
@@ -398,110 +420,102 @@ class ChatCard extends React.Component {
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере*/
-		/* отправка чата, диагноза, isHronic */
-
-		//console.log('[onCloseReception]');
-		//console.log(obj)
 		let new_obj = {
 			...obj,
-			id: 120635,
+			id: this.props.receptionId,
 			chat: this.state.chatStory,
 		}
-		//console.log(new_obj)
+		this.sendMessage({
+			id : 'closeReception',
+			from : this.state.from,
+			to: this.state.to,
+		})
 		this.props.completeReception(new_obj);
 
 		this.setState({reception_vis: false,treatment_vis: true});
+		this.props.extr ?
+			this.setState({reception_vis: false})
+			: this.setState({reception_vis: false,treatment_vis: true});
+	}
+
+	onCloseTreatment = () => {
+		this.props.closeTreatm(this.props.id_treatment);
+		this.setState({treatment_vis: false});
 	}
 
 	onAddVisit = (obj) => {
 
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
-
-	onGotoNextUser = () => {
-		/* Сменить обстановку чата под другого user */
-	}
 	
 
     render() {
-        const {patientName, user_id, online} = this.props;
+		const {patientName, user_id, online: onl} = this.props;
+		const online = +onl ?'online' :  'offline';
 
-        const rootClass = cn('chat-card');
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
-
         const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
+	
+		let content;
 
-        const icons = ['chat1', 'telephone', "video-camera"];
-
-        let content;
+		console.log('-----------------')
+		console.log(this.props)
+		
+		const chatProps= {
+			ws: this.ws,
+			from: this.state.from,
+			to: this.state.to,
+			chatStory: [...this.props.chat, ...this.state.chatStory],
+			sendMessage: this.sendMessage,
+			onEnd: this.beforeCloseReseption,
+			onBegin: this.startReception,
+			receptionStarts: this.state.receptionStarts,
+			fromTR_VIS: this.props.fromTR_VIS,
+			user_mode: this.props.user_mode,
+			uploadFile: this.props.uploadFile,
+		};
+		const chatAdditionalProps = {
+			setVideoOut: (video)=>videoOutput=video,
+			setVideoIn: (video)=>videoInput=video,
+			onStop: this.onStop,
+			onCall: this.onCall,
+			onChat: () => this.setState(prev => ({isActiveChat: !prev.isActiveChat})),
+			timer: this.state.timer,
+			isCalling: this.state.isCalling,
+			isActiveChat: this.state.isActiveChat,
+			isEnded: this.props.isEnded,
+		}
         switch (this.state.mode) {
             case 'chat':
-                content = <ChatTextContent isActive={this.state.isActive} 
-                                            ws={this.ws} 
-                                            from={this.state.from}
-                                            to={this.state.to}
-                                            chatStory={this.state.chatStory}
-											sendMessage = {this.sendMessage}
-											receptionStarts = {this.state.receptionStarts}
-											onEnd={this.beforeCloseReseption}
-											onBegin = {this.startReception}
+                content = <ChatTextContent isActive={this.state.isActive} 		
+											{...chatProps}
                                             />;
                 break;
 			case 'voice':
-				content = <ChatAudioContent ws={this.ws}
-											setVideoOut = {(video)=>videoOutput=video}
-                                            setVideoIn = {(video)=>videoInput=video}
-											onStop={this.onStop}
-											onCall={this.onCall}
-											from={this.state.from}
-											to={this.state.to}
-											onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
-											timer = {this.state.timer}
-											receptionStarts={this.state.receptionStarts}
-											isCalling = {this.state.isCalling}
-											sendMessage = {this.sendMessage}
-											chatStory={this.state.chatStory}
-											isActiveChat={this.state.isActiveChat}
-											onBegin = {this.startReception}
-											onEnd={this.beforeCloseReseption}
-
-											isEnded={this.props.isEnded}
+				content = <ChatAudioContent 
+											{...chatProps}
+											{...chatAdditionalProps}
                                             />;
                 break;
             case "video":
-                content = <ChatVideoContent ws={this.ws}
-                                            setVideoOut = {(video)=>videoOutput=video}
-                                            setVideoIn = {(video)=>videoInput=video}
-                                            onStop={this.onStop}
-                                            onCall={this.onCall}
-                                            from={this.state.from}
-                                            to={this.state.to}
-                                            onChat = {() => this.setState(prev => ({isActiveChat: !prev.isActiveChat}))}
-                                            timer = {this.state.timer}
-											receptionStarts={this.state.receptionStarts}
-											isCalling = {this.state.isCalling}
-                                            sendMessage = {this.sendMessage}
-                                            chatStory={this.state.chatStory}
-											isActiveChat={this.state.isActiveChat}
-											onBegin = {this.startReception}
-											onEnd={this.beforeCloseReseption}
-
-											isEnded={this.props.isEnded}
+                content = <ChatVideoContent 
+											{...chatProps}
+											{...chatAdditionalProps}
                                             />;
                 break;
-        }
-
+		}
+		
         return (
 			<Hoc>
-            <div className={rootClass}>
+            <div className='chat-card'>
                 <div className='chat-card-head'>
                     <div className='chat-card-title'>
                         <Button
                             btnText=''
                             size='small'
                             type='no-brd'
-                            icon='menu'
+                            icon='file'
                             svg
                             title='Открыть прикреплённые файлы'
                             style={{width: 30}}
@@ -511,9 +525,10 @@ class ChatCard extends React.Component {
                         <div className={statusClass}>{online}</div>
                     </div>
                     <div className='chat-card-btns'>
-                        <Radio icons={icons}
-                               defaultValue={this.state.mode}
-                               onChange={(mode) => this.setState({mode: mode.target.value})}/>
+                        <Radio icons={['chat1', 'telephone', "video-camera"]}
+							   value={this.state.mode}
+							   onChange = {() => {}}
+                               /*onChange={(mode) => this.setState({mode: mode.target.value})}*//>
                         <div className='chat-card-archive'>
                             <Button
                                 btnText=''
@@ -558,7 +573,7 @@ class ChatCard extends React.Component {
 				visible={this.state.treatment_vis}
 				onCancel={() =>  this.setState({treatment_vis: false})}
 				onAdd={() => this.setState({treatment_vis: false, visit_vis: true})}
-				onComplete={()=> console.log('[CompleteAppeal]')}
+				onComplete={this.onCloseTreatment}
 			/>
 			<NewVisitModalPage 
 				visible={this.state.visit_vis}
@@ -573,10 +588,11 @@ class ChatCard extends React.Component {
 }
 
 ChatCard.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object),
+	data: PropTypes.arrayOf(PropTypes.object),
+	chat: PropTypes.array,
 	patientName: PropTypes.string,
 	user_id: PropTypes.number,
-    online: PropTypes.oneOf(['offline', 'online']),
+    online: PropTypes.number,//oneOf(['offline', 'online']),
     isActive: PropTypes.bool,
 	mode: PropTypes.oneOf(['chat', 'voice', "video"]),
 	isEnded: PropTypes.bool,
@@ -588,9 +604,10 @@ ChatCard.defaultProps = {
     data: [],
 	patientName: '',
 	user_id: 0,
-    online: 'offline',
+    online: 0,
     isActive: false,
 	mode: 'chat',
+	chat: [],
 	
 };
 

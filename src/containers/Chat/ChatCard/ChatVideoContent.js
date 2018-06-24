@@ -1,37 +1,11 @@
 import React from 'react';
-import kurentoUtils from 'kurento-utils'
-
-import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import { Button, Radio, ChatFiles, ChatSend, ChatMessage, ChatVideoPanel } from 'appdoc-component'
+import { ChatVideoPanel } from 'appdoc-component'
 import ChatContent from './ChatContent'
 
 import './style.css'
-
-
-//import { Icon, Row, Col, HistoryReceptions } from 'appdoc-component'
 import Hoc from '../../../hoc'
-
-
-var videoInput;
-var videoOutput;
-var webRtcPeer;
-
-var registerName = null;
-const NOT_REGISTERED = 0;
-const REGISTERING = 1;
-const REGISTERED = 2;
-var registerState = null
-
-
-
-const NO_CALL = 0;
-const PROCESSING_CALL = 1;
-const IN_CALL = 2;
-var callState = null
-
-
 
 class ChatVideoContent extends React.Component {
 	constructor(props){
@@ -103,7 +77,7 @@ class ChatVideoContent extends React.Component {
     
     
     render() {
-        const {isActive,isActiveChat, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
+        const {isActive,isActiveChat, onVideoCallBegin, onVideoCallStop} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
 		const filesClass = cn('chat-card-files', {'chat-card-files-active': isActiveChat});
 
@@ -116,17 +90,15 @@ class ChatVideoContent extends React.Component {
             <div className={dialogsClass}>
 				{videoContent}
 				<div className={filesClass}>
-                 	<ChatContent onSend={mes => this.props.sendMessage({
+					 <ChatContent 
+					 {...this.props}
+					 onSend={mes => this.props.sendMessage({
 						 id: 'chat',
 						 from: this.props.from,
 						 to: this.props.to,
 						 ...mes,
 					 })}
 						 data={this.props.chatStory}
-						 from={this.props.from}
-						 onBegin = {this.props.onBegin}
-					 	 onEnd = {this.props.onEnd}
-						 receptionStarts={this.props.receptionStarts}
 					/>
                 </div>
 			</div>
@@ -134,15 +106,5 @@ class ChatVideoContent extends React.Component {
         )
     }
 }
-
-ChatVideoContent.propTypes = {
-	videoCalling: PropTypes.bool,
-	wsURL: PropTypes.string.isRequired,
-};
-
-ChatVideoContent.defaultProps = {
-	videoCalling: false,
-	wsURL: '',
-};
 
 export default ChatVideoContent

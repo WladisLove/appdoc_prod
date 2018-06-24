@@ -1,17 +1,11 @@
 import React from 'react'
 
-import { Icon, Row, Col, PersonalContact, PersonalEducation, PersonalExperience, PersonalInformation,WarningModal } from 'appdoc-component'
+import { Row, Col, PersonalContact, PersonalEducation, PersonalExperience, PersonalInformation,WarningModal } from 'appdoc-component'
 import Hoc from '../../hoc'
 import './styles.css'
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
 import{compileToClientDoctor, compileToServerDoctor} from './compilerDoc'
-import authReducer from "../../store/reducers/auth";
-import infoDoctorReducer from "../../store/reducers/doctorData";
-import doctorReducer from "../../store/reducers/doctor";
-
-
-
 
 class PersonalInfo extends React.Component{
     constructor(props){

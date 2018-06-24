@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import { Row, Col, ProfilePatient, DiseasesTable, HistoryReceptions } from 'appdoc-component'
 import Hoc from '../../hoc'
 
-import {patientArr, diseasesArr, historyArr} from './mock-data'
 import * as actions from '../../store/actions'
 
 import './styles.css';
@@ -30,10 +29,7 @@ class PatientsPage extends React.Component{
             			<ProfilePatient
                             {...infoUser}
                             onAdd={(id) => this.props.addPatient(id)}
-                            id={this.props.id_user}
-                            doctorType="врач-терапевт"
-                            doctor="Тимошенко Т.И"
-                            
+                            id={this.props.id_user}                           
                         />
             		</Col>
                     <Col xs={24} xxl={8} className='section'>

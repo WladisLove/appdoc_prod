@@ -2,10 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux';
 import moment from 'moment'
 
-import { Icon, Row, Col, PatientTable, AddNewPatient } from 'appdoc-component'
+import { Row, Col, PatientTable, AddNewPatient } from 'appdoc-component'
 import Hoc from '../../hoc'
 
-import {patientArr} from './mock-data'
 import * as actions from '../../store/actions'
 
 import './styles.css';

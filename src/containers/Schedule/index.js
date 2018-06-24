@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import moment from 'moment'
 import {connect} from 'react-redux';
@@ -57,24 +58,36 @@ class Schedule extends React.Component {
 
     componentDidMount(){
         this.setIntervalAndView(this.state.currentDate, 'week');
-
     }
 
     componentWillUnmount(){
         this.props.clearReceptions();
     }
 
-    dateChangeHandler = (date) => {
-        const {start, end} = findTimeInterval(date, this.state.view);
-        this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
+    dateChangeHandler = (date, view, action, isOnDay) => {
+        const {start, end} = this.state.isEditorMode 
+            ? findTimeInterval(date, 'month') 
+            : isOnDay ? 
+                findTimeInterval(date, 'day') : findTimeInterval(date, this.state.view);
+        this.state.isEditorMode ? isOnDay ? null : this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
         
-        this.setState({
-            currentDate: date,
-            interval: {
-                start,
-                end,
-            }
-        })
+        isOnDay ?
+            this.setState({
+                currentDate: date,
+                interval: {
+                    start,
+                    end,
+                },
+                view: 'day'
+            })
+            :
+            this.setState({
+                currentDate: date,
+                interval: {
+                    start,
+                    end,
+                },
+            })
 
     };
 
@@ -143,11 +156,7 @@ class Schedule extends React.Component {
     };
 
     onSaveReceptionSchedule = (interval) => {
-        //console.log(interval);
-        //console.log('[before]');
         this.props.onAddInterval(interval, this.state.interval.start,this.state.interval.end);
-        //console.log('[after]');
-        //this.props.onGetAllIntervals(this.state.interval.start,this.state.interval.end);
         this.setState({
             receptionsScheduleModal: false,
             receptionData: {
@@ -158,7 +167,6 @@ class Schedule extends React.Component {
     };
 
     openReceptionSchedule = (date, schedule) => {
-        //console.log(date, schedule);
         if(schedule){
             this.setState({
                 receptionData: {
@@ -218,6 +226,12 @@ class Schedule extends React.Component {
             />)
         }
         else {
+            const currDate = this.state.currentDate,
+                currY = currDate.getFullYear(),
+                currM = currDate.getMonth(),
+                currD = currDate.getDate();
+            let min = new Date(new Date(this.props.min*1000).setFullYear(currY,currM,currD)),
+                max = new Date(new Date(this.props.max*1000+300000).setFullYear(currY,currM,currD));
             editorBtn = (<Button btnText='Редактор графика'
                                  onClick={() => this.changeToEditorMode(true)}
                                  type='yellow'
@@ -227,17 +241,24 @@ class Schedule extends React.Component {
                                   onSelectEvent={this.props.onSelectEvent}
                                   onSelectSlot={(slot) => this.onAddVisit(slot)}
                                   defaultView="week"
-                                  onView = {(view) => {
-                                      this.setIntervalAndView(this.state.currentDate, view);
+                                  onView = {(view, date) => {
+                                      !date ? this.setIntervalAndView(this.state.currentDate, view) : () => {};
                                   }}
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
+                                  gotoEditor={() => this.changeToEditorMode(true)}
                                   step={5}
                                   events={this.props.visits}
+                                  intervals={this.props.intervals}
+                                  min={min}
+                                    max={max}
+                                  /*min={new Date(this.props.min*1000)}
+                                  max={new Date(this.props.max*1000 + 300000)}*/
                                   onPopoverClose={this.eventDeleteHandler}
                                   onPopoverEmail={this.onPatientEmail}
             />)
         }
+
 
         return (
             <Hoc>
@@ -311,6 +332,9 @@ const mapStateToProps = state => {
         patients: state.patients.docPatients,
 
         visits: state.schedules.visits,
+        intervals: state.schedules.visIntervals,
+        min: state.schedules.min,
+        max: state.schedules.max,
         schedules: state.schedules.schedules,
         chosenData: state.schedules.chosenData,
         cancelData: state.schedules.cancelData,

@@ -1,16 +1,19 @@
 import * as actionTypes from '../actions/actionTypes'
 
+const FR_TREAT = 1,
+    FR_VISIT = 2;
+
 const initialState = {
     treatments: [],
     actualTreatments: [],
-
-    choosenReceptionId: 0,
+    visitInfo: {},
+    treatInfo: {},
+    from: 0,
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
         case actionTypes.GET_ALL_TREATMENTS:
-        console.log(action.treatments)
             return {
                 ...state,
                 treatments: action.treatments,
@@ -19,6 +22,25 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 actualTreatments: action.treatments,
+            }
+        case actionTypes.SELECT_VISIT:
+            return {
+                ...state,
+                visitInfo: action.visitInfo,
+                from: FR_VISIT,
+            }
+        case actionTypes.SELECT_TREATMENT:
+            return {
+                ...state,
+                treatInfo: action.treatInfo,
+                from: FR_TREAT,
+            }
+        case actionTypes.CLEAR_VISIT_AND_TREAT: 
+            return {
+                ...state,
+                from: 0,
+                treatInfo: {},
+                visitInfo: {},
             }
         default: return state;
     }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const findTimeInterval = (date, mode) => {
     if(!(date instanceof Date)) {
         console.log('not a Date');
@@ -18,6 +19,8 @@ export const findTimeInterval = (date, mode) => {
             return findWeekInterval(date);
         case 'month': 
             return findMonthInterval(date);
+        default: 
+            return {};
     }  
 }
 

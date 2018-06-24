@@ -32,9 +32,11 @@ export const getAllIntervals = (start, end) => {
     }
 
     return (dispatch) => {
+        
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
+                console.log('[getAllIntervals]',res.data.result)
                 dispatch({
                     type: actionTypes.GET_ALL_INTERVALS,
                     intervals: res.data.result,
@@ -64,6 +66,8 @@ export const addVisit = (reception, start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
                     JSON.stringify(obj))
             .then(res => {
+                console.log(JSON.stringify(obj))
+                console.log('[addVisit]',res)
                 start && dispatch(getAllVisits(start,end))
                 //dispatch()
             })
@@ -84,10 +88,13 @@ export const getAllVisits = (start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log(res.data.result)
+                console.log('[getAllVisits]',res.data)
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
                     visits: res.data.result,
+                    intervals: res.data.interval.interval,
+                    min: res.data.interval.min,
+                    max: res.data.interval.max,
                 })
             })
             .catch(err => {
@@ -101,7 +108,7 @@ export const getTodayVisits = () => {
         console.log(getState().auth.id)
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/todayZap/id_doc/'+getState().auth.id)
             .then(res => {
-                console.log(res.data.result)
+                console.log('getTodayVisits',res.data.result)
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
                     visits: res.data.result,

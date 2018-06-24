@@ -18,29 +18,28 @@ export const login = (userName, password, remember, history, isAuto) => {
 
     return (dispatch) => {
         dispatch(authStart());
-
         axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
                 JSON.stringify({
                     login: userName,
                     password: password,
                 }))
-                    .then(res => {
-                        //console.log('response: ',res);
-                        
-                        //dispatch(authSuccess(response.data.idToken, response.data.localId));
-
+                    .then(res => {       
                         !res.data.error 
                             ? (
                                 dispatch(authSuccess(res.data.id, res.data.usergroup)),
+                                sessionStorage.setItem('_appdoc-id', res.data.id),
+                                sessionStorage.setItem('_appdoc-mode', res.data.usergroup),
                                 rememberMe(remember, userName, password),
-                                history.push('/') 
+                                history.push('/')
                             )
                             : (
                                 dispatch(authFail(res.data.error)),
                                     isAuto && (
                                         // TODO: test
                                         localStorage.removeItem('_appdoc-user'),
-                                        localStorage.removeItem('_appdoc-pass')
+                                        localStorage.removeItem('_appdoc-pass'),
+                                        sessionStorage.removeItem('_appdoc-id'),
+                                        sessionStorage.removeItem('_appdoc-mode')
                                     )
                             );
                     })
@@ -55,6 +54,8 @@ export const logout = () => {
     return dispatch => {
         localStorage.removeItem('_appdoc-user');
         localStorage.removeItem('_appdoc-pass');
+        sessionStorage.removeItem('_appdoc-id');
+        sessionStorage.removeItem('_appdoc-mode');
         dispatch(authSuccess(0, ''));
     }
 

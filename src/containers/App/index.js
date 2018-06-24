@@ -1,15 +1,14 @@
 import React  from 'react';
-import {appRoutes, menuItems} from '../../routes'
+import {docRoutes, patientRoutes, menuDoc, menuPatient} from '../../routes'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { SideNav, Header} from 'appdoc-component'
 import Hoc from '../../hoc'
-
-import { NavLink } from 'react-router-dom'
 
 import {connect} from 'react-redux';
 
 import * as actions from '../../store/actions'
 import './styles.css';
+import ab from '../../autobahn.js'
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -20,19 +19,40 @@ class App extends React.Component {
         super(props);
         this.state = {
             collapsed: true,
+            notifications: [],
         };
     }
 
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
-        });
+        }); 
     };
+
+    componentDidMount() {
+        if(this.props.id){
+            let that = this;
+            let conn = new ab.Session('ws://178.172.235.105:8080',
+                function() {
+                    that.props.getNotifications(that.props.id)
+                    conn.subscribe(""+that.props.id, function(topic, data) {
+                        that.props.setExInfo(data.exInterval)
+                        that.setState({notifications: JSON.parse(data.arr)})
+                    });
+                },
+                function() {
+                    console.warn('WebSocket connection closed');
+                },
+                {'skipSubprotocolCheck': true}
+            );
+        }
+        
+    }
 
     componentWillMount(){
         const login = localStorage.getItem('_appdoc-user'),
                 pass = localStorage.getItem('_appdoc-pass');
-        (!this.props.id && login && pass) &&
+        (!this.props.id && !this.props.mode && login && pass) &&
         this.props.onLogin({
             userName: login, 
             password: pass,
@@ -45,13 +65,18 @@ class App extends React.Component {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patients-page');
     }
+
+    logoClick = () => {
+        (this.props.history.location.pathname !== "/") && this.props.history.push('/');
+    }
     
     render() {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
-                
 
+        console.log(this.props)
+        const isUser = (this.props.mode === "user");
         return (
             <div className="main">
             {
@@ -63,7 +88,9 @@ class App extends React.Component {
                     <SideNav {...this.props.shortDocInfo}
                             rateValue={+(this.props.shortDocInfo.rateValue)}
                             onClick={this.toggle}
-                            menuItems={menuItems}
+                            onLogoClick={this.logoClick}
+                            menuItems={isUser ? menuPatient : menuDoc}
+                            isUser={isUser}
                             isShort={this.state.collapsed}/>
                             
                 </div>
@@ -71,20 +98,27 @@ class App extends React.Component {
                 <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
                         <Header data={this.props.notDocPatients}
+                                notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
                                 onAdd={(id, name) => {
-                                    this.props.addPatient(id, name)
-                                    console.log(id,name)
+                                    this.props.addPatient(id, name);
+                                    this.props.getDocTodayInfo();
                                 }}
                                 findName={(name) => {
-                                    this.props.onGetNotDocPatients(name),
-                                    console.log(name)
+                                    this.props.onGetNotDocPatients(name)
                                 }}
+                                getNotifId = {id => this.props.readNotification(id)}
+                                getNotifications={() =>  this.props.getNotifications(this.props.id)}
+                                onChange={(flag) => this.props.switchExInterval(flag)}
+                                checked={this.props.isIn}
+                                disabled={this.props.isIn && !this.props.isUserSet}
                                 logout={this.props.onLogout}/>
                     </div>
                     <div className="main-content">
                         <Switch>
-                            {appRoutes.map(route => renderRoutes(route))}
+                            {isUser ?
+                                patientRoutes.map(route => renderRoutes(route)) : docRoutes.map(route => renderRoutes(route))
+                            }
                             <Route
                                 render ={() => (
                                     <div style={{ textAlign: 'center', padding: '40px 20px' }}>
@@ -101,12 +135,7 @@ class App extends React.Component {
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div> </Hoc>)
             : (
-                /*(localStorage.getItem('_appdoc-user') && localStorage.getItem('_appdoc-pass'))
-                    ?  this.props.onLogin({
-                        userName: localStorage.getItem('_appdoc-user'), 
-                        password: localStorage.getItem('_appdoc-pass'),
-                    }, this.props.history)
-                    :*/ <Redirect to='login'/>
+                <Redirect to='login'/>
             )
             }
             </div>
@@ -118,8 +147,11 @@ const mapStateToProps = state =>{
     return {
         auth: state.auth,
         id: state.auth.id,
+        mode: state.auth.mode,
         shortDocInfo: state.doctor.shortInfo,
         notDocPatients: state.patients.notDocPatients,
+        isIn: state.doctor.isEx,
+        isUserSet: state.doctor.isUserSetEx,
     }
 }
 
@@ -131,6 +163,11 @@ const mapDispatchToProps = dispatch => {
         onGetNotDocPatients: (name) => dispatch(actions.getNotDocPatients(name)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
+        getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
+        getNotifications: (id) => dispatch(actions.getNotifications(id)),
+        readNotification: (id) => dispatch(actions.readNotification(id)),
+        setExInfo: ({isIn, isUserSet}) => dispatch(actions.setExIntervalInfo(isIn, isUserSet)),
+        switchExInterval: (flag) => dispatch(actions.switchExInterval(flag))
 	}
 };
 
