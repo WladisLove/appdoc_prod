@@ -19,13 +19,11 @@ class Patients extends React.Component{
 	}
 
 	onChangeDate = (date) => {
-		let date1 =  moment(date);
-		let date2 = moment(date);
-		date1.startOf('date');
-		let beginDay = date1;
-		date2.endOf('date');
-		let endDay = date2;
-		console.log("eeDay", beginDay, endDay);
+		let beginDay =  moment(date),
+			endDay = moment(date);
+			
+		beginDay.startOf('date');
+		endDay.endOf('date');
 
 		this.props.onGetIntervalForDate(beginDay.format('X'), endDay.format('X'));
 	}
@@ -35,15 +33,9 @@ class Patients extends React.Component{
 	}
 	componentDidMount(){
 		this.props.onGetDocPatients();	
-
-
-		// this.onChangeDate
-
-		// this.props.onGetIntervalForDate(1525122000);
 	}
 
 	showModalHandler = () => {
-		//this.props.onGetNotDocPatients();
 		this.setState({addNew_show: true});
 	}
 
