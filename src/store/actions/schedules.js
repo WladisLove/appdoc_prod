@@ -35,7 +35,6 @@ export const getAllIntervals = (start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
-                console.log("myInterval", res.data.result);
                 dispatch({
                     type: actionTypes.GET_ALL_INTERVALS,
                     intervals: res.data.result,

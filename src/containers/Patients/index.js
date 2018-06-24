@@ -19,10 +19,8 @@ class Patients extends React.Component{
 	}
 
 	onChangeDate = (date) => {
-		console.log(date);// отдать год-месяц-день и отправляем на сервер
 		let date1 =  moment(date);
 		let date2 = moment(date);
-		console.log("date",date)
 		date1.startOf('date');
 		let beginDay = date1;
 		date2.endOf('date');
@@ -52,10 +50,11 @@ class Patients extends React.Component{
 	getInterval = () => {
 		let intervals = [];
 		const arr = this.props.intervals;
+		
 		for(let i = 0; arr && i < arr.length; i++){
 			for(let j = 0; j < arr[i].intervalOb.length; j++){
 
-				intervals.push({from: arr[i].intervalOb[j].start*1000, to: arr[i].intervalOb[j].end*1000});
+				intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000});
 			}
 		}
 		return intervals;
@@ -63,14 +62,7 @@ class Patients extends React.Component{
 
     render(){
 
-		console.log("getInterval()", this.getInterval());
 		let availableArea = this.getInterval();
-		if(availableArea.length){
-			console.log(moment(availableArea[0].from));																																																																																																																																																																																																																					
-		}
-			
-
-
         return (
         	<Hoc>
         		<Row>
