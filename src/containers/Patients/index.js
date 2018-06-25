@@ -44,7 +44,6 @@ class Patients extends React.Component{
 		
 		for(let i = 0; arr && i < arr.length; i++){
 			for(let j = 0; j < arr[i].intervalOb.length; j++){
-
 				intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000});
 			}
 		}
@@ -53,7 +52,7 @@ class Patients extends React.Component{
 
     render(){
 
-		let availableArea = this.getInterval();
+	let availableArea = this.getInterval();
         return (
         	<Hoc>
         		<Row>
