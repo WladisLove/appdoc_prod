@@ -5,6 +5,7 @@ const initialState = {
     notDocPatients: [],
     selectedId: 0,
     selectedPatientInfo:{},
+    availableAreaTime: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,6 +29,13 @@ const reducer = (state = initialState, action) => {
                     infoUser: action.infoUser,
                 }
             }
+
+        case actionTypes.GET_DATE_INTERVAL:
+            return {
+                ...state,
+                intervals: action.intervals,
+            }
+
         case actionTypes.SELECT_PATIENT:
             return {
                 ...state,

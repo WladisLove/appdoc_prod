@@ -4,6 +4,7 @@ export {
     clearNotDocPatients,
     addPatient,
     removePatient,
+    getDateInterval,
 
     selectPatient,
     unselectPatient,

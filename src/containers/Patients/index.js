@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
+import moment from 'moment'
 
 import { Row, Col, PatientTable, AddNewPatient } from 'appdoc-component'
 import Hoc from '../../hoc'
@@ -16,6 +17,15 @@ class Patients extends React.Component{
 		}
 	}
 
+	onChangeDate = (date) => {
+		let beginDay =  moment(date),
+			endDay = moment(date);
+			
+		beginDay.startOf('date');
+		endDay.endOf('date');
+
+		this.props.onGetIntervalForDate(beginDay.format('X'), endDay.format('X'));
+	}
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patients-page');
@@ -25,11 +35,24 @@ class Patients extends React.Component{
 	}
 
 	showModalHandler = () => {
-		//this.props.onGetNotDocPatients();
 		this.setState({addNew_show: true});
 	}
 
+	getInterval = () => {
+		let intervals = [];
+		const arr = this.props.intervals;
+		
+		for(let i = 0; arr && i < arr.length; i++){
+			for(let j = 0; j < arr[i].intervalOb.length; j++){
+				intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000});
+			}
+		}
+		return intervals;
+	}
+
     render(){
+
+	let availableArea = this.getInterval();
         return (
         	<Hoc>
         		<Row>
@@ -43,7 +66,8 @@ class Patients extends React.Component{
 										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
-										
+										availableArea={availableArea}
+										onChangeDate={this.onChangeDate}
 										onGoto={(id) => this.gotoHandler(id)}
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => this.props.onSendMessage(val)}
@@ -68,6 +92,7 @@ const mapStateToProps = state => {
 	return {
 		docPatients: state.patients.docPatients,
 		notDocPatients: state.patients.notDocPatients,
+		intervals: state.patients.intervals,
 	}
 };
 
@@ -80,6 +105,8 @@ const mapDispatchToProps = dispatch => {
 		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
+		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateInterval(beginDay, endDay)),
+		
 	}
 };
 
