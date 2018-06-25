@@ -68,9 +68,7 @@ class Patients extends React.Component{
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
 										availableArea={availableArea}
-
 										onChangeDate={this.onChangeDate}
-
 										onGoto={(id) => this.gotoHandler(id)}
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => this.props.onSendMessage(val)}
