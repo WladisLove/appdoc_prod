@@ -9,12 +9,7 @@ export const getDateInterval = (beginDay, endDay) => {
             datestart: beginDay,
             dateend:   endDay
         }
-        // let obj = 
-        // {
-        //     id_doc: getState().auth.id,
-        //     datestart: 1525122000,
-        //     dateend:   1525854000
-        //   }
+	
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval', JSON.stringify(obj))
 			.then(rez => {
                 console.log("rez.data", rez.data.result);
