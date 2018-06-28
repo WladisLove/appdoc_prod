@@ -32,7 +32,7 @@ class App extends React.Component {
     componentDidMount() {
         if(this.props.id){
             let that = this;
-            let conn = new ab.Session('ws://178.172.235.105:8080',
+            /*let conn = new ab.Session('ws://178.172.235.105:8080',
                 function() {
                     that.props.getNotifications(that.props.id)
                     conn.subscribe(""+that.props.id, function(topic, data) {
@@ -44,7 +44,7 @@ class App extends React.Component {
                     console.warn('WebSocket connection closed');
                 },
                 {'skipSubprotocolCheck': true}
-            );
+            );*/
         }
         
     }
