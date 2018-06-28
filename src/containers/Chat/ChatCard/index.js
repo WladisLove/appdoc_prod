@@ -405,7 +405,8 @@ class ChatCard extends React.Component {
     
     }
 
-	onCall = () => {		
+	onCall = () => {	
+		!this.state.receptionStarts && this.startReception();
 		this.call();
 	}
 	onStop = () => {
