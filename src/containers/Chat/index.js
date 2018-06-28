@@ -54,7 +54,7 @@ class Chat extends React.Component{
                             this.props.user_mode === "user" ? (
                                 <ChatCard 
                                     wsURL={'wss://178.172.235.105:8443/one2one'}
-                                    mode={contactLevel}
+                                    mode={"video"}
                                     receptionId={visitId}
 
                                     //isEnded = {true}
