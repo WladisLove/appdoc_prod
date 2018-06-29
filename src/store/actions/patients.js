@@ -114,7 +114,7 @@ export const removePatient = (id_user, id_doctor) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/removePatientFromDoctor/id/'+doc_id+'/patientId/'+id_user)
 			.then(rez => {
                 dispatch(getDocPatients());
-                dispatch(getNotDocPatients(''));
+                //dispatch(getNotDocPatients(''));
 			})
 			.catch(err => {
                 console.log(err);
