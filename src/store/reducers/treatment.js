@@ -27,12 +27,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 visitInfo: action.visitInfo,
+                treatInfo: {},
                 from: FR_VISIT,
             }
         case actionTypes.SELECT_TREATMENT:
             return {
                 ...state,
                 treatInfo: action.treatInfo,
+                visitInfo: {},
                 from: FR_TREAT,
             }
         case actionTypes.CLEAR_VISIT_AND_TREAT: 
