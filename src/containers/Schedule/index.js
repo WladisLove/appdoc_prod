@@ -231,7 +231,7 @@ class Schedule extends React.Component {
                 currM = currDate.getMonth(),
                 currD = currDate.getDate();
             let min = new Date(new Date(this.props.min*1000).setFullYear(currY,currM,currD)),
-                max = new Date(new Date(this.props.max*1000+300000).setFullYear(currY,currM,currD));
+                max = new Date(new Date(this.props.max*1000).setFullYear(currY,currM,currD));
             editorBtn = (<Button btnText='Редактор графика'
                                  onClick={() => this.changeToEditorMode(true)}
                                  type='yellow'
@@ -252,8 +252,6 @@ class Schedule extends React.Component {
                                   intervals={this.props.intervals}
                                   min={min}
                                     max={max}
-                                  /*min={new Date(this.props.min*1000)}
-                                  max={new Date(this.props.max*1000 + 300000)}*/
                                   onPopoverClose={this.eventDeleteHandler}
                                   onPopoverEmail={this.onPatientEmail}
             />)
