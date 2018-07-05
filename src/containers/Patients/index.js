@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux';
 import moment from 'moment'
 
-import { Row, Col, PatientTable, AddNewPatient } from 'appdoc-component'
+import { Row, Col, PatientTable, AddNewPatient, NewMessageModal, NewVisitModalPage } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import * as actions from '../../store/actions'
@@ -14,29 +14,38 @@ class Patients extends React.Component{
 		super(props);
 		this.state = {
 			addNew_show: false,
-		}
-	}
+            modal1Visible: false,
+            modal2Visible: false,
+        }
+    }
 
-	onChangeDate = (date) => {
-		let beginDay =  moment(date),
-			endDay = moment(date);
-			
-		beginDay.startOf('date');
-		endDay.endOf('date');
+    setModal1Visible = (modal1Visible, id, name)=> {
+        this.setState({modal1Visible, id, name});
+    };
 
-		this.props.onGetIntervalForDate(beginDay.format('X'), endDay.format('X'));
-	}
-	gotoHandler = (id) => {
-		this.props.onSelectPatient(id);
-		this.props.history.push('/patients-page');
-	}
+    setModal2Visible = (modal2Visible, id, name) => {
+        this.setState({modal2Visible, id, name});
+    };
+
+    onChangeDate = (date) => {
+        let beginDay = moment(date),
+            endDay = moment(date);
+
+        beginDay.startOf('date');
+        endDay.endOf('date');
+        this.props.onGetIntervalForDate(beginDay.format('X'), endDay.format('X'));
+    };
+    gotoHandler = (id) => {
+        this.props.onSelectPatient(id);
+        this.props.history.push('/patients-page');
+    };
 	componentDidMount(){
 		this.props.onGetDocPatients();	
 	}
 
 	showModalHandler = () => {
 		this.setState({addNew_show: true});
-	}
+	};
 
 	getInterval = () => {
 		let intervals = [];
@@ -48,7 +57,7 @@ class Patients extends React.Component{
 			}
 		}
 		return intervals;
-	}
+	};
 
     render(){
 
@@ -66,23 +75,52 @@ class Patients extends React.Component{
 										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
-										availableArea={availableArea}
 										onChangeDate={this.onChangeDate}
 										onGoto={(id) => this.gotoHandler(id)}
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => this.props.onSendMessage(val)}
 										onDelete = {(val) => this.props.removePatient(val)}
+                                        setModal1Visible = {this.setModal1Visible}
+                                        setModal2Visible = {this.setModal2Visible}
 										/>
             		</Col>
             	</Row>
-				<AddNewPatient data={this.props.notDocPatients} 
-							visible={this.state.addNew_show} 
-							onCancel={() => {
-								this.setState({addNew_show: false});
-								this.props.onClearNotDocPatients();
-							}}
-							onSearch = {(name) => this.props.onGetNotDocPatients(name)}
-							onAdd={(id)=>this.props.addPatient(id)}/>
+				<AddNewPatient
+                    data={this.props.notDocPatients}
+                    visible={this.state.addNew_show}
+                    onCancel={() => {
+                        this.setState({addNew_show: false});
+                        this.props.onClearNotDocPatients();
+                    }}
+                    onSearch = {(name) => this.props.onGetNotDocPatients(name)}
+                    onAdd={(id)=>this.props.addPatient(id)}
+                />
+
+                <NewVisitModalPage
+                    visible={this.state.modal1Visible}
+                    onSave={(a) => {
+                        this.setModal1Visible(false);
+                        this.props.onNewVisit(a)
+                    }}
+                    onCancel={() => this.setModal1Visible(false)}
+                    userName={this.state.name}
+                    availableArea={availableArea}
+                    onChangeDate={this.onChangeDate}
+                    id={this.state.id}
+                />
+
+                <NewMessageModal
+                     visible={this.state.modal2Visible}
+                     onSend={(a) => {
+                         this.setModal2Visible(false);
+                         //console.log(a)
+                         this.props.onNewMessage(a)
+                     }}
+                     onCancel={() => this.setModal2Visible(false)}
+                     userName={this.state.name}
+                     id={this.state.id}
+                />
+
             </Hoc>
         )
     }
