@@ -26,7 +26,7 @@ class Chat extends React.Component{
     gotoHandler = (id) => {
         console.log('patient id',id)
 		this.props.onSelectPatient(id);
-		this.props.history.push('/patients-page');
+		this.props.history.push('/patient'+id);
 	}
 
     render(){
