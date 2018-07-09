@@ -28,7 +28,7 @@ class Patients extends React.Component{
 	}
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
-		this.props.history.push('/patients-page');
+		this.props.history.push('/patient'+id);
 	}
 	componentDidMount(){
 		this.props.onGetDocPatients();	
@@ -106,7 +106,6 @@ const mapDispatchToProps = dispatch => {
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateInterval(beginDay, endDay)),
-		
 	}
 };
 

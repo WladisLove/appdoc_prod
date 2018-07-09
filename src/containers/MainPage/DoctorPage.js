@@ -6,7 +6,7 @@ const DoctorPage = props => {
 
     const gotoHandler = (id) => {
 		props.onSelectPatient(id);
-		props.history.push('/patients-page');
+		props.history.push('/patient'+id);
 	}
 
     return (
