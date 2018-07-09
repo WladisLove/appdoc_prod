@@ -18,7 +18,6 @@ class PatientsPage extends React.Component{
     render(){
         const {diseases = [], treatments = [], infoUser = {}} = this.props.info;
         const info = this.props.info.infoUser;
-        console.log("INFO", info);
         if(!info) {
             return(
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>
