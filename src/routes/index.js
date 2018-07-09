@@ -30,7 +30,7 @@ export const docRoutes = [
         exact: true,
     },
     {
-        path: '/patients-page',
+        path: '/patient:id',
         component: PatientsPage,
         exact: true,
     },

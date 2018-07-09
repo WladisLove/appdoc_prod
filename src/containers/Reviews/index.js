@@ -17,7 +17,7 @@ class Reviews extends React.Component{
 
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
-		this.props.history.push('/patients-page');
+		this.props.history.push('/patient'+id);
 	}
 
     render(){

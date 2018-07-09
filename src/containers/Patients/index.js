@@ -23,6 +23,7 @@ class Patients extends React.Component{
         this.setState({modal1Visible, id, name});
     };
 
+
     setModal2Visible = (modal2Visible, id, name) => {
         this.setState({modal2Visible, id, name});
     };
@@ -35,10 +36,12 @@ class Patients extends React.Component{
         endDay.endOf('date');
         this.props.onGetIntervalForDate(beginDay.format('X'), endDay.format('X'));
     };
-    gotoHandler = (id) => {
-        this.props.onSelectPatient(id);
-        this.props.history.push('/patients-page');
-    };
+
+	gotoHandler = (id) => {
+		this.props.onSelectPatient(id);
+		this.props.history.push('/patient'+id);
+	}
+
 	componentDidMount(){
 		this.props.onGetDocPatients();	
 	}
@@ -144,7 +147,6 @@ const mapDispatchToProps = dispatch => {
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateInterval(beginDay, endDay)),
-		
 	}
 };
 

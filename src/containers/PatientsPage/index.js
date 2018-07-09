@@ -11,42 +11,55 @@ import './styles.css';
 class PatientsPage extends React.Component{
 
     componentDidMount(){
-        this.props.getPatientInfo();
+        this.props.getPatientInfo(this.props.match.params.id);
+
     }
 
     render(){
         const {diseases = [], treatments = [], infoUser = {}} = this.props.info;
-
+        const info = this.props.info.infoUser;
+        if(!info) {
+            return(
+                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                    <h3>Страница не найдена</h3>
+                    <p>Проверьте введённый адрес</p>
+                </div>
+            )
+        } else {
         return (
-        	<Hoc>
-        		<Row>
-        			<Col span={24}>
-        				<h1 className='page-title'>Профиль пациента</h1>
-        			</Col>
-        		</Row>
-            	<Row>
-            		<Col xs={24} xxl={16} className='section'>
-            			<ProfilePatient
-                            {...infoUser}
-                            onAdd={(id) => this.props.addPatient(id)}
-                            id={this.props.id_user}                           
-                        />
-            		</Col>
-                    <Col xs={24} xxl={8} className='section'>
-                        <DiseasesTable data={diseases}/>
-                    </Col>
-            	</Row>
+            <Hoc>
+                <div>
+                    <Row>
+                        <Col span={24}>
+                            <h1 className='page-title'>Профиль пациента</h1>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24} xxl={16} className='section'>
+                            <ProfilePatient
+                                {...infoUser}
+                                onAdd={(id) => this.props.addPatient(id)}
+                                id={this.props.match.params.id}
+                            />
+                        </Col>
+                        <Col xs={24} xxl={8} className='section'>
+                            <DiseasesTable data={diseases}/>
+                        </Col>
+                    </Row>
 
-                <Row> 
-                    <Col span={24}>
-                        <HistoryReceptions data={treatments}
-                                            onGotoChat = {(id) => this.props.history.push('/chat')}/>
-                    </Col> 
-                </Row>
+                    <Row>
+                        <Col span={24}>
+                            <HistoryReceptions data={treatments}
+                                               onGotoChat={(id) => this.props.history.push('/chat')}/>
+                        </Col>
+                    </Row>
+                </div>
             </Hoc>
-        )
+        )}
     }
 }
+
+
 
 const mapStateToProps = state => {
     return {
@@ -57,7 +70,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getPatientInfo: () => dispatch(actions.getSelectedPatientInfo()),
+        getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
         addPatient: (id) => dispatch(actions.addPatient(id, '', true))
     }
 };

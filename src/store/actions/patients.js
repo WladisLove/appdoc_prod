@@ -45,13 +45,20 @@ export const getSelectedPatientInfo = (id) => {
 
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/getInfoByUserId/id_user/'+user_id+'/id_doc/'+getState().auth.id)
 			.then(rez => {
+			    if(rez.data.code === 501) {
+                    dispatch({
+                        type: actionTypes.GET_SELECTED_PATIENT_INFO,
+                        infoUser: null,
+                    })
+                } else {
                 const {diseasesArr, treatmentArr, infoUser} = rez.data.result;
-                dispatch({
-                    type: actionTypes.GET_SELECTED_PATIENT_INFO,
-                    diseases: diseasesArr,
-                    treatments: treatmentArr,
-                    infoUser: infoUser,
-                })
+                    dispatch({
+                        type: actionTypes.GET_SELECTED_PATIENT_INFO,
+                        diseases: diseasesArr,
+                        treatments: treatmentArr,
+                        infoUser: infoUser,
+                    })
+                }
 			})
 			.catch(err => {
                 console.log(err);
