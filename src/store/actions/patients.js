@@ -22,6 +22,27 @@ export const getDateInterval = (beginDay, endDay) => {
             })
     }
 }
+export const getDateIntervalWithoutMakingApp = (beginDay, endDay) => {
+    return (dispatch, getState) => {
+        let obj =
+            {
+                id_doc: getState().auth.id,
+                datestart: beginDay,
+                dateend: endDay
+            };
+
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkIntervalWithoutMakingApp', JSON.stringify(obj))
+            .then(rez => {
+                dispatch({
+                    type: actionTypes.GET_DATE_INTERVAL_WITHOUT_MAKING_APP,
+                    intervals: rez.data,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
 
 export const getDocPatients = () => {
     return (dispatch, getState) => {

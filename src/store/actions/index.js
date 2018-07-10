@@ -5,7 +5,7 @@ export {
     addPatient,
     removePatient,
     getDateInterval,
-
+    getDateIntervalWithoutMakingApp,
     selectPatient,
     unselectPatient,
 

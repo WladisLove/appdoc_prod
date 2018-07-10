@@ -35,6 +35,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 intervals: action.intervals,
             }
+        case actionTypes.GET_DATE_INTERVAL_WITHOUT_MAKING_APP:
+            return {
+                ...state,
+                intervals: action.intervals,
+            }
 
         case actionTypes.SELECT_PATIENT:
             return {
