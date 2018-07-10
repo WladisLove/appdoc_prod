@@ -52,11 +52,11 @@ class Patients extends React.Component{
 
 	getInterval = () => {
 		let intervals = [];
+
 		const arr = this.props.intervals;
-		
 		for(let i = 0; arr && i < arr.length; i++){
 			for(let j = 0; j < arr[i].intervalOb.length; j++){
-				intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000});
+				intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000, type: (arr[i].type)});
 			}
 		}
 		return intervals;
@@ -103,7 +103,7 @@ class Patients extends React.Component{
                     visible={this.state.modal1Visible}
                     onSave={(a) => {
                         this.setModal1Visible(false);
-                        this.props.onNewVisit(a)
+                        console.log(a);
                     }}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.name}
@@ -146,7 +146,7 @@ const mapDispatchToProps = dispatch => {
 		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
-		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateInterval(beginDay, endDay)),
+		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
 	}
 };
 
