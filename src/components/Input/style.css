@@ -1,0 +1,51 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.input-root {
+  border-bottom: 1px solid #e1e1e1;
+}
+.input-root-focus {
+  border-bottom: 1px solid #0495ff;
+}
+.has-error .input-root-focus {
+  border-bottom: #ff4242 1px solid;
+}
+.has-error .input-root {
+  border-bottom: #ff4242 1px solid;
+}
+.has-error .ant-input:focus {
+  box-shadow: none;
+}
+.has-error .ant-input-group-addon {
+  color: #777777;
+}
+.ant-input {
+  border: none;
+  border-radius: 0;
+  outline: 0;
+  color: #191919;
+  font-size: 0.875rem;
+  order: 2;
+  padding: 0;
+  font-family: 'GothamPro';
+}
+.ant-input:focus,
+.ant-input:hover {
+  box-shadow: none ;
+}
+.ant-input-group-addon {
+  border: none;
+  background-color: transparent;
+  color: #777777;
+  padding-left: 0;
+}
+.ant-input-search .ant-input {
+  font-size: 0.75rem;
+  border-radius: 2rem;
+  height: 2.5rem;
+  padding-left: 2rem;
+  border: 1px solid #ebebeb;
+}
+.ant-input-search:not(.ant-input-search-small) > .ant-input-suffix {
+  right: 1.5rem;
+}

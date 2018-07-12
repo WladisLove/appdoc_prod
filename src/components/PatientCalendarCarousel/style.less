@@ -1,0 +1,125 @@
+@import url("../../styles/variables");
+
+
+.calendar{
+
+	&-carousel{
+		position: relative;
+		width: 100%;
+		max-width: 555px;
+
+		.ant-carousel{
+
+			.slick-initialized{
+
+				.slick-slide{
+					display: flex;
+				}
+			}
+
+			.slick-dots{
+				display: none !important;
+			}
+		}
+
+		&-slide{
+			display: flex;
+			justify-content: flex-start;
+			overflow: hidden;
+			transition: @ease;
+			position: relative;
+
+			.btn-prev{
+				position: absolute;
+				top: 5px;
+				left: 0;
+				background-color: transparent;
+				transition: none;
+
+				.icon{
+					color: #344051;
+					font-size: 13px !important;
+				}
+
+				&:hover{
+					background-color: transparent;
+					border: none;
+
+					.icon{
+						color: @blue;
+					}
+				}
+			}
+
+			.btn-next{
+				position: absolute;
+				top: 5px;
+				right: 0;
+				background-color: transparent;
+				transition: none;
+
+				.icon{
+					color: #344051;
+					font-size: 13px !important;
+				}
+
+				&:hover{
+					background-color: transparent;
+					border: none;
+
+					.icon{
+						color: @blue;
+					}
+				}
+			}
+		}
+
+		&-col{
+			width: 100%;
+			min-width: 33%;
+		}
+
+		&-days{
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		&-day{
+			text-align: center;
+			color: #344051;
+			font-size: 14px;
+			line-height: 1;
+			padding: 20px 0;
+			border-bottom: 1px solid #ebebeb;
+		}
+
+		&-time{
+			color: #344051;
+			background-color: #edf4f9;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 90px;
+			height: 40px;
+			font-size: 16px;
+			border-radius: 5px;
+			margin: 10px auto;
+			cursor: pointer;
+
+			&:nth-child(2){
+				margin-top: 20px;
+			}
+
+			&:hover{
+				background-color: @blue;
+				color: #fff;
+			}
+
+			&.close{
+				background-color: #ffeeb5 !important;
+				color: #344051 !important;
+				cursor: default;
+			}
+		}
+	}
+}

@@ -1,0 +1,79 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.header {
+  display: flex;
+  align-items: center;
+}
+.header-search {
+  width: 100%;
+  max-width: 300px;
+}
+.header-search .ant-input-search {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+}
+.header-search .ant-input-search .ant-input {
+  border: none;
+  border-radius: 0;
+  color: #000;
+  position: relative;
+  padding-left: 20px;
+}
+.header-search .ant-input-search .ant-input-suffix {
+  position: relative;
+  right: auto;
+  top: auto;
+  transform: none;
+}
+.header-search .ant-input-search .ant-input-suffix .anticon,
+.header-search .ant-input-search .ant-input-suffix .icon {
+  color: #344051;
+}
+.header-call {
+  margin-left: auto;
+  margin-right: 135px;
+}
+.header-call button {
+  margin-right: 25px;
+}
+.header-call button:last-child {
+  margin-right: 0;
+}
+.header-notification {
+  position: relative;
+  margin-right: 65px;
+}
+.header-notification .icon {
+  cursor: pointer;
+}
+.header-notification .icon:hover {
+  color: #0495ff;
+}
+.header-exit .btn {
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: none;
+}
+.header-exit .btn .icon {
+  color: #344051;
+}
+.header-exit .btn:hover {
+  border: none;
+  background-color: transparent;
+}
+.header-exit .btn:hover .icon {
+  color: #0495ff;
+}

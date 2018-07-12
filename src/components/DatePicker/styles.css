@@ -1,0 +1,84 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.ant-calendar-picker-input {
+  border: none;
+}
+.ant-calendar-picker-icon:after {
+  color: #0495ff;
+}
+.ant-calendar-picker-clear {
+  color: #d8d8d8;
+}
+.ant-calendar-picker-clear:hover {
+  color: #0495ff;
+}
+.datepicker-base {
+  cursor: pointer;
+  display: inline-block;
+}
+.datepicker-base-range {
+  width: 100%;
+  min-width: 340px;
+}
+.datepicker-base-range-chosen input {
+  color: #0495ff;
+}
+.datepicker-base-range-delim {
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+.datepicker-base > i {
+  font-size: 35px;
+}
+.datepicker-base .ant-calendar-picker-clear,
+.datepicker-base .ant-calendar-picker-icon {
+  position: absolute;
+  right: 5px;
+}
+.datepicker-base .ant-calendar-picker {
+  min-width: 150px;
+  max-width: 44%;
+  border-bottom: 1px solid #ebebeb;
+}
+.datepicker-base .ant-calendar-picker-input {
+  font-size: 14px;
+  cursor: pointer;
+  height: 35px;
+}
+.datepicker > div {
+  position: relative;
+}
+.datepicker > div .icon {
+  position: relative;
+  bottom: -5px;
+  margin-right: 20px;
+}
+.datepicker > div .icon:last-child {
+  margin-left: 5px;
+  color: #bbbbbb;
+}
+.datepicker > div .icon:last-child:hover {
+  cursor: pointer;
+  color: #898989;
+}
+.datepicker > div .datepicker-small {
+  width: 165px;
+  display: inline-block;
+  border-bottom: 1px dashed #344051;
+  position: relative;
+}
+.datepicker > div .datepicker-small .ant-calendar-picker-input {
+  height: 21px;
+  position: relative;
+}
+.datepicker > div .datepicker-small .ant-calendar-picker-input input {
+  width: 75px;
+  height: 21px;
+  font-size: 12px;
+  color: #344051;
+}
+.datepicker > div .datepicker-small .ant-calendar-picker-input .ant-calendar-picker-icon {
+  display: none;
+}

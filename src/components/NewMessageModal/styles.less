@@ -1,0 +1,33 @@
+@import "../../styles/variables";
+
+.newMessageModal{
+  padding: 20px 30px 40px 30px;
+
+  &-user{
+    display: inline-block;
+    position: relative;
+    margin-bottom: 30px;
+
+    &-icon{
+      position: absolute;
+      display: inline-block;
+    }
+    &-name{
+      margin-left: 40px;
+      display: inline-block;
+      font-family: @f-m;
+      font-size: 14px;
+      color: @dark-blue;
+      line-height: 18px;
+    }
+  }
+
+  &-txtarea{
+    margin-bottom: 12px;
+  }
+
+  &-upload{
+    display: block;
+    margin-bottom: 0px;
+  }
+}

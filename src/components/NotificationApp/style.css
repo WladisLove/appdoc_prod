@@ -1,0 +1,31 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.notific_component .notific_container {
+  padding: 10px;
+}
+.notific_component .notific_container .notific_number {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: baseline !important;
+  background-color: #fdc401;
+  padding-top: 3px;
+  width: 25px;
+  height: 25px;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
+  border-radius: 60px;
+  font-weight: bold;
+}

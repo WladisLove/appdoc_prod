@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import {  Row, Col, HistoryReceptionsTabs } from 'appdoc-component'
+import Row from "../../components/Row";
+import Col from "../../components/Col";
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 import Hoc from '../../hoc'
 

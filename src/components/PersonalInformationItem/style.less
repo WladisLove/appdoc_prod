@@ -1,0 +1,153 @@
+@import url("../../styles/variables");
+a{
+	color: #204d8d;
+
+	&:hover{
+		color: #204d8d;
+		text-decoration: underline;
+	}
+}
+
+.personal{
+
+	&-information{
+
+		.personal{
+
+			&-title{
+				font-size: 12px;
+				letter-spacing: 0px;
+				text-transform: none;
+			}
+			
+			&-block{
+				border-bottom: 1px solid #ebebeb;
+				padding: 0px 100px 0;
+				margin-bottom: 0px;
+				display: flex;
+				flex-direction: column;
+				margin-bottom: 35px;
+
+				&:last-child{
+					align-items: self-start;
+					margin-bottom: 0;
+					border-bottom: 0;
+				}
+				
+				.personal-item{
+					max-width: 650px;
+					margin-right: 0px;
+					width: 100%;
+
+					&:first-child{
+						width: 100%;
+					}
+				}
+			}
+
+			&-btn{
+				margin-bottom: 30px;
+			}
+
+			&-delete{
+				position: absolute;
+				right: 0;
+				top: 0;
+				text-transform: none;
+				font-size: 12px;
+				color: #204d8d;
+			}
+
+			&-edit{
+				position: absolute;
+				left: 300px;
+				top: -0.625rem;
+			}
+
+			&-info{
+				font-size: 14px;
+				color: #344051;
+				margin-bottom: 5px;
+			}
+
+			&-item{
+				position: relative;
+				max-width: 650px;
+				width: 100%;
+				margin-bottom: 25px;
+
+				.expWork{
+					color: #344051;
+					font-size: 18px;
+					margin-bottom: 35px;
+				}
+			}
+		}
+
+		.ant-checkbox-wrapper{
+			display: block;
+		}
+
+		.datepicker-base{
+		    max-width: 47.5%;
+		    display: inline-block;
+		    width: 100%;
+
+			.ant-calendar-picker{
+				width: 100%;
+				max-width: none;
+				border-bottom-color: #e1e1e1;
+			}
+		}
+
+		.uploadContent{
+			margin-bottom: 30px;
+			display: block;
+			padding-left: 0;
+		}
+
+		.radio{
+
+			&-block{
+				display: flex;
+				align-items: center;
+
+				.ant-radio-wrapper{
+					margin-right: 40px;
+				}
+			}
+
+			&-title{
+				font-size: 14px;
+				color: #777;
+				margin-right: 45px;
+			}
+		}
+	}
+}
+
+.mb{
+
+	&-35{
+		margin-bottom: 35px;
+	}
+}
+
+.pb{
+
+	&-25{
+		padding-bottom: 25px;
+	}
+}
+
+.brd{
+
+	&-b{
+		border-bottom-width: 1px;
+		border-bottom-color: #e1e1e1;
+	}
+
+	&-d{
+		border-bottom-style: dashed;
+	}
+}

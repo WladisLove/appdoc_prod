@@ -1,6 +1,12 @@
 import React from 'react'
+import Row from "../../components/Row";
+import Col from "../../components/Col";
+import PersonalContact from "../../components/PersonalContact";
+import PersonalEducation from "../../components/PersonalEducation";
+import PersonalExperience from "../../components/PersonalExperience";
+import PersonalInformation from "../../components/PersonalInformation";
+import WarningModal from "../../components/WarningModal";
 
-import { Row, Col, PersonalContact, PersonalEducation, PersonalExperience, PersonalInformation,WarningModal } from 'appdoc-component'
 import Hoc from '../../hoc'
 import './styles.css'
 import {connect} from "react-redux";

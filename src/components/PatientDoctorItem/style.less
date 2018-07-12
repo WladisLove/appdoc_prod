@@ -1,0 +1,68 @@
+@import url("../../styles/variables");
+
+.doctor{
+
+	&-item{
+	    display: flex;
+	    padding: 30px 0;
+	    border-bottom: 1px dashed #e1e1e1;
+
+	    &:last-child{
+	    	border-bottom: 0;
+	    }
+
+		&-avatar{
+			position: relative;
+			margin-right: 20px;
+		}
+
+		&-block{
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+		}
+
+		&-info{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			margin-bottom: 10px;
+		}
+
+		&-doctor{
+
+			&__name{
+				position: relative;
+				color: #204d8d;
+				line-height: 1;
+				font-size: 14px;
+				margin-right: 25px;
+			}
+
+			&__specialty{
+				position: relative;
+				color: #999;
+				line-height: 1;
+				font-size: 12px;
+			}
+
+			&__rating{
+				position: relative;
+				margin-left: auto;
+				margin-top: -8px;
+			}
+		}
+
+		&-text{
+			font-size: 12px;
+			color: #344051;
+			font-size: 12px;
+			line-height: 20px;
+			font-family: @f-r;
+			margin-bottom: 20px;
+		}
+
+		&-btn{}
+	}
+}

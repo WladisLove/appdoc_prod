@@ -2,13 +2,18 @@
 import React from 'react'
 import moment from 'moment'
 import {connect} from 'react-redux';
-
 import Hoc from '../../hoc'
-import {
-    Row, Col, Button,
-    Calendar, SmallCalendar,
-    CancelVisitModal, NewVisitModal, NewMessageModal, ReceptionsScheduleModal, WarningModal
-} from 'appdoc-component'
+import Row from "../../components/Row";
+import Col from "../../components/Col";
+import Button from "../../components/Button";
+import Calendar from "../../components/Calendar22";
+import SmallCalendar from "../../components/SmallCalendar";
+import CancelVisitModal from "../../components/CancelVisitModal";
+import NewVisitModal from "../../components/NewVisitModal";
+import NewMessageModal from "../../components/NewMessageModal";
+import ReceptionsScheduleModal from "../../components/ReceptionsScheduleModal";
+import WarningModal from "../../components/WarningModal";
+// import {WarningModal} from "appdoc-component"
 
 import * as actions from '../../store/actions'
 
@@ -193,16 +198,15 @@ class Schedule extends React.Component {
 
     render() {
         const {dates, currentSched} = this.state.receptionData;
-        let editorBtn, calendar, timeSetCall = [], timeSetReception = [];
-        
-        if ('time' in currentSched || 'emergencyTime' in currentSched){
-            timeSetCall = currentSched.time.map(item => {
+        let editorBtn, calendar, timeSetCall = this.state.receptionData.currentSched.intervalOb, timeSetReception = [];
+        if ('intervalOb' in currentSched || 'intervalEx' in currentSched){
+            timeSetCall = currentSched.intervalOb.map(item => {
                 return {
                     defaultStartValue: moment(item.start),
                     defaultEndValue: moment(item.end),
                 }
             });
-            timeSetReception = currentSched.emergencyTime.map(item => {
+            timeSetReception = currentSched.intervalEx.map(item => {
                 return {
                     defaultStartValue: moment(item.start),
                     defaultEndValue: moment(item.end),
@@ -219,7 +223,9 @@ class Schedule extends React.Component {
             calendar = (<Calendar receptionNum={23}
                                   selectable
                                   editor
-                                  onMonthSelect={(date, schedule) => this.openReceptionSchedule(date, schedule)}
+                                  onMonthSelect={(date, schedule) => {
+                                      this.openReceptionSchedule(date, schedule)
+                                  }}
                                   schedules={this.props.schedules}
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}

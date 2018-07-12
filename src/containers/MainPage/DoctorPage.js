@@ -1,5 +1,13 @@
 import React from 'react'
-import { Row, Col, TopPanel, TableNoHead, Reviews, TreatmentTable, NewVisitModal, CancelVisitModal } from 'appdoc-component'
+import Row from "../../components/Row";
+import Col from "../../components/Col";
+import TopPanel from "../../components/TopPanel";
+import Reviews from "../../components/Reviews";
+import TreatmentTable from "../../components/TreatmentTable";
+import NewVisitModal from "../../components/NewVisitModal";
+import TableNoHead from "../../components/TableNoHead";
+import CancelVisitModal from "../../components/CancelVisitModal";
+
 import Hoc from '../../hoc'
 
 const DoctorPage = props => {

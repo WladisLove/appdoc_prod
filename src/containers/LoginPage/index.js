@@ -1,15 +1,14 @@
 import React from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux';
-
-
 import {Route} from 'react-router-dom'
 import Hoc from '../../hoc'
-
-import {
-    Icon, Row, Col,
-    Login, LoginForget, Registration
-} from 'appdoc-component'
+import Icon from "../../components/Icon/index.js";
+import Row from "../../components/Row/index.js";
+import Col from "../../components/Col/index.js";
+import Login from "../../components/Login/index.js";
+import LoginForget from "../../components/LoginForget/index.js";
+import Registration from "../../components/Registration/index.js";
 
 
 import * as actions from '../../store/actions'

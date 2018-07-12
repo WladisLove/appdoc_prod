@@ -1,0 +1,38 @@
+@import url("../../styles/variables");
+
+.dialog{
+
+	&-title{
+		position: relative;
+		width: 100%;
+		color: #344051;
+		font-size: 18px;
+		margin-bottom: 25px;
+		display: flex;
+    	align-items: center;
+	}
+
+	&-num_item{
+		position: relative;
+		padding: 7px 15px;
+		background-color: @blue;
+		color: #fff;
+		font-size: 12px;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 16px;
+		margin-left: 18px;
+		line-height: 1;
+	}
+
+	&-list{
+		position: relative;
+		max-height: 750px;
+		height: 100%;
+
+		@media(max-width: 1599px){
+			max-height: 285px; 
+		}
+	}	
+}

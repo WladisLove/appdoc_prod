@@ -1,0 +1,301 @@
+@import url("../../styles/variables");
+
+.rbc-time-view,
+.rbc-month-view {
+    background-color: #ffffff;
+}
+
+.rbc-toolbar {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+    font-size: 20px;
+
+    .arrowsGroup {
+        margin-left: 20px;
+        background-color: transparent;
+    }
+    &-label {
+        margin-left: 20px;
+        text-transform: capitalize;
+    }
+    &-receptionCount {
+        margin: auto auto auto 10px;
+        height: 20px;
+        width: auto;
+        font-size: 12px;
+        color: white;
+        background-color: @blue;
+        border-radius: 10px;
+        padding: 0 10px;
+    }
+}
+
+.rbc-header {
+    font-size: 12px;
+    color: @dark-blue;
+    display: flex;
+    min-height: 60px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &>span {
+        margin: auto;
+        text-transform: capitalize;
+    }
+}
+
+
+.rbc-month-row {
+    min-height: 135px;
+}
+
+.rbc-date-cell {
+    text-align: left;
+    padding: 15px 0 0 15px;
+    z-index: 7;
+}
+
+.rbc-row{
+    height: 100%;
+}
+
+.month-row {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+
+.rbc-month-row {
+    cursor: pointer;
+
+    .month-row-segment {
+        display: flex;
+        font-size: 32px;
+        height: 100px;
+
+        &-content {
+            margin: 0 auto;
+
+            .icon-count {
+                display: inline-block;
+                text-align: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                color: white;
+                background-color: #dddddd;
+            }
+        }
+
+        .root_schedule {
+            width: 100%;
+            height: 135px;
+            box-sizing: border-box;
+            position: relative;
+            top: -36px;
+            padding-top: 40px;
+            border: 1px solid transparent;
+            border-left: 1px solid #ddd;
+            background-color: #fff;
+
+            &:hover {
+                border: #85cafd 1px solid;
+            }
+            &.no-edit:hover {
+                border: #f25328 1px solid;
+            }
+
+            &>.icon-no {
+                color: #f25328;
+            }
+            &>.icon {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                z-index: 10;
+            }
+        }
+
+        &-schedule {
+            display: table;
+            position: relative;
+            width: 100%; //height: 100px;
+            // border-left: 1px solid #DDD;
+            background-color: white;
+            z-index: 2;
+
+            .schedule-time {
+                display: table-row;
+
+                &-item {
+                    display: table-cell;
+                    font-size: 14px;
+                    color: @dark-blue;
+
+                    &.empty {
+                        width: 35%;
+                    }
+                }
+            }
+            .schedule-emrgtime {
+                display: table-row;
+
+                &-item {
+                    display: table-cell;
+                    font-size: 14px;
+                    color: #f25328;
+
+                    &.with-sign {
+                        width: 35%;
+                        display: flex;
+                        height: 100%;
+
+                        div {
+                            display: inline-block;
+                            margin-left: auto;
+                        }
+                    }
+                }
+            }
+        }
+
+        &-coming {
+            .month-row-segment-content {
+                color: @blue;
+            }
+            .icon-count {
+                background-color: @blue;
+            }
+        }
+    }
+}
+
+.rbc-label.rbc-header-gutter.rbc-clock-icon {
+    width: 10%;
+    max-width: 90px;
+    display: flex;
+    color: @blue;
+    .icon {
+        margin: auto;
+    }
+}
+
+.rbc-time-gutter.rbc-time-column {
+    width: 10%;
+    max-width: 90px;
+}
+
+.rbc-day-slot.rbc-time-column {
+    .rbc-timeslot-group {
+        font-family: 'icon' !important;
+        color: #b6e0ff;
+        font-size: 25px;
+        text-align: center;
+        height: 52px;
+        line-height: 52px;
+
+        &-NOT{
+            background-color: #eeeeee;
+        }
+        &-OK:hover {
+            position: relative;
+            z-index: 5;
+            background-color: #f1f9ff;
+            &:before {
+                content: "\E900";
+            }
+            border: 1px #85cafd dashed;
+            cursor: pointer;
+        }
+    }
+}
+
+.rbc-time-slot.rbc-label {
+    color: @blue;
+    display: flex;
+    &>span {
+        margin: auto;
+    }
+}
+
+
+.rbc-header {
+    cursor: pointer;
+
+    .header-month {
+        margin: auto;
+    }
+    .header-week {
+        &-weekday {
+            font-size: 12px;
+        }
+        &-day {
+            font-size: 14px;
+            text-align: center;
+        }
+    }
+}
+
+.rbc-header.rbc-today {
+    background-color: #fefcf4;
+    .header-week>div {
+        font-family: @f-b;
+    }
+}
+
+.rbc-day-slot.rbc-today.rbc-time-column {
+    background-color: #fefcf4;
+}
+
+.rbc-day-slot {
+    .rbc-event-content {
+        line-height: 1.3;
+
+        background-color: @blue;
+        border-radius: 6px;
+        width: 100%;
+        height: 100%;
+
+        padding: 6px 20px;
+        color: #ffffff;
+        font-size: 12px;
+    }
+    .rbc-event {
+        display: flex;
+
+        border: transparent 4px solid;
+        background-color: transparent;
+        width: 100%;
+        position: absolute;
+        z-index: 6;
+    }
+}
+
+.calendar-editor {
+    .rbc-selected-cell {
+        font-family: 'icon' !important;
+        color: #b6e0ff;
+        font-size: 25px;
+        text-align: center;
+        height: 135px;
+        line-height: 130px;
+        position: relative;
+        z-index: 1;
+        background-color: #f1f9ff;
+        &:before {
+            content: "\E900";
+        }
+        border: 1px #85cafd dashed;
+        cursor: pointer;
+    }
+}

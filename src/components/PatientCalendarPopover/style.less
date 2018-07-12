@@ -1,0 +1,95 @@
+@import url("../../styles/variables");
+
+.popover{
+
+	&-calendar{
+		background-color: #f6fbff;
+		padding: 25px;
+		box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+		border-radius: 5px;
+		max-width: 370px;
+		width: 100%;
+
+		&-title{
+			color: #344051;
+			font-size: 14px;
+			font-family: @f-m;
+			margin-bottom: 25px;
+		}
+
+		&-item{
+			display: flex;
+			margin-bottom: 30px;
+		}
+
+		&-num{
+			display: flex;
+			align-items: flex-start;
+			margin-right: 15px;
+
+			span{
+				background-color: @blue;
+				width: 24px;
+				height: 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #fff;
+				line-height: 1;
+				font-size: 12px;
+				border-radius: 50%;
+			}
+		}
+
+		&-block{
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+		}
+
+		&-speciality{
+			font-size: 14px;
+			line-height: 18px;
+			color: #204d8d;
+			position: relative;
+			width: 100%;
+		}
+
+		&-name{
+			font-size: 14px;
+			line-height: 18px;
+			color: #204d8d;
+			position: relative;
+			width: 100%;
+			margin-bottom: 5px;
+		}
+
+		&-info{
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			margin-bottom: 5px;
+		}
+
+		&-date{
+			color: #344051;
+			font-size: 12px;
+			margin-right: 35px;
+		}
+
+		&-type{
+			.icon{
+				color: #344051;
+			}
+		}
+
+		&-text{
+			color: #344051;
+			font-size: 12px;
+			margin-right: 35px;
+		}
+
+	}
+}

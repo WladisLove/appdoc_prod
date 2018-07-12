@@ -1,0 +1,77 @@
+@import url("../../styles/variables");
+
+.panelItem{
+	display: inline-block;
+	z-index: 2;
+    position: relative;
+
+	&.first-col{
+
+		.panelItem-header{
+			margin-bottom: 0.25rem;
+			flex-wrap: wrap;
+
+		    .icon,.anticon{
+		    	color: #fff;
+		    	margin-bottom: 0.25rem;
+
+		    	@media(max-width: 1620px){
+		    		font-size: 24px !important;
+		    	}
+		    }
+
+		    .panel-title{
+		    	color: #fff;
+		    	width: 100%;
+		    	font-size: 28px;
+
+		    	@media(max-width: 1620px){
+		    		font-size: 22.5px;
+		    	}
+		    }
+		}
+
+		.panelItem-num{
+			color: #fff;
+			font-size: 1rem;
+			font-family: @f-r;
+			text-align: left;
+		}
+	}
+
+	&-header{
+	    display: flex;
+	    align-items: center;
+	    width: 100%;
+	    margin-bottom: 1rem;
+
+	    .icon,.anticon{
+	    	margin-right: 1.25rem;
+	    	color: #fdc401;
+	    }
+
+	    .panel-title{
+	    	font-size: 20px;
+	    	color: #344051;
+	    	white-space: nowrap;
+
+	    	@media(max-width: 1620px){
+				font-size: 16px;
+			}
+	    }
+	}
+
+	&-num{
+		color: @blue;
+		font-size: 50px;
+		font-family: @f-l;
+		text-align: right;
+		display: block;
+		width: 100%;
+		line-height: 1;
+
+		@media(max-width: 1620px){
+			font-size: 40px;
+		}
+	}
+}

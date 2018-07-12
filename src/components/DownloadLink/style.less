@@ -1,0 +1,40 @@
+@import url("../../styles/variables");
+
+.link{
+	display: flex;
+	justify-content: flex-start;
+	align-items: baseline;
+	color: #204d8d;
+	font-size: 14px;
+	border-bottom: 1px solid transparent;
+	cursor: pointer;
+
+	.icon{
+		margin-right: 1rem;
+	}
+
+	&.downloaded{
+		color: #344051;
+	}
+
+	&:hover{
+		color: #204d8d;
+		//text-decoration: none;
+
+		span{
+			text-decoration: underline;
+		}
+
+		.icon{
+			text-decoration: none;
+		}
+	}
+
+	&:active,&:focus{
+		color: #344051;
+
+		.icon{
+			color: #b7b7b7;
+		}
+	}
+}

@@ -1,0 +1,11 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.ant-tabs-tab {
+  text-transform: uppercase;
+  font-family: 'GothamPro';
+  font-size: 11px;
+}
+.ant-tabs-tab-active {
+  font-family: 'GothamPro-Bold';
+}

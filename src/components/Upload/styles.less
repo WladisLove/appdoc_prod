@@ -1,0 +1,33 @@
+@import "../../styles/variables";
+
+.uploadContent {
+    &-text {
+        color: @dark-blue;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    .ant-input {
+        font-family: @f-r;
+    }
+
+    .datepicker-base .ant-calendar-picker {
+        border-bottom-color: #e1e1e1;
+    }
+
+    .ant-upload-list-picture .ant-upload-list-item, .ant-upload-list-picture-card .ant-upload-list-item{
+        border: none;
+    }
+
+    .ant-upload-list-item-error, .ant-upload-list-item-error .anticon-paper-clip, .ant-upload-list-item-error .ant-upload-list-item-name{
+        color: @blue;
+    }
+
+    .ant-upload-list-item-error .anticon-cross{
+        color: @blue !important;
+    }
+}
+
+.ant-tooltip{
+    display: none;
+}

@@ -6,6 +6,7 @@ export {
     removePatient,
     getDateInterval,
     getDateIntervalWithoutMakingApp,
+    setReception,
     selectPatient,
     unselectPatient,
 

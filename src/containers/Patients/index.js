@@ -1,8 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import moment from 'moment'
+import Row from "../../components/Row";
+import Col from "../../components/Col";
+import PatientTable from "../../components/PatientTable";
+import AddNewPatient from "../../components/AddNewPatient";
+import NewMessageModal from "../../components/NewMessageModal";
+import NewVisitModalPage from "../../components/NewVisitModalPage";
 
-import { Row, Col, PatientTable, AddNewPatient, NewMessageModal, NewVisitModalPage } from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import * as actions from '../../store/actions'
@@ -16,11 +21,13 @@ class Patients extends React.Component{
 			addNew_show: false,
             modal1Visible: false,
             modal2Visible: false,
+			id: null,
+			name: ""
         }
     }
 
     setModal1Visible = (modal1Visible, id, name)=> {
-        this.setState({modal1Visible, id, name});
+        this.setState({modal1Visible, id, name, isReceptionRecorded: false});
     };
 
 
@@ -63,7 +70,6 @@ class Patients extends React.Component{
 	};
 
     render(){
-
 	let availableArea = this.getInterval();
         return (
         	<Hoc>
@@ -74,7 +80,7 @@ class Patients extends React.Component{
         		</Row>
             	<Row>
             		<Col xs={24} xxl={18}>
-						<PatientTable countPatient='9' 
+						<PatientTable countPatient='9'
 										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
@@ -85,6 +91,7 @@ class Patients extends React.Component{
 										onDelete = {(val) => this.props.removePatient(val)}
                                         setModal1Visible = {this.setModal1Visible}
                                         setModal2Visible = {this.setModal2Visible}
+
 										/>
             		</Col>
             	</Row>
@@ -97,26 +104,28 @@ class Patients extends React.Component{
                     }}
                     onSearch = {(name) => this.props.onGetNotDocPatients(name)}
                     onAdd={(id)=>this.props.addPatient(id)}
+
                 />
 
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
                     onSave={(a) => {
-                        this.setModal1Visible(false);
-                        console.log(a);
+                        this.props.onSaveReception(a)
                     }}
+					isDateInvalid = {this.props.isReceptionRecorded}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.name}
                     availableArea={availableArea}
                     onChangeDate={this.onChangeDate}
                     id={this.state.id}
+                    isReceptionRecorded = {this.props.isReceptionRecorded}
+                    setModal1Visible = {this.setModal1Visible}
                 />
 
                 <NewMessageModal
                      visible={this.state.modal2Visible}
                      onSend={(a) => {
                          this.setModal2Visible(false);
-                         //console.log(a)
                          this.props.onNewMessage(a)
                      }}
                      onCancel={() => this.setModal2Visible(false)}
@@ -134,6 +143,7 @@ const mapStateToProps = state => {
 		docPatients: state.patients.docPatients,
 		notDocPatients: state.patients.notDocPatients,
 		intervals: state.patients.intervals,
+		isReceptionRecorded: state.patients.isReceptionRecorded
 	}
 };
 
@@ -147,6 +157,7 @@ const mapDispatchToProps = dispatch => {
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
+        onSaveReception: (reception) => dispatch(actions.setReception(reception)),
 	}
 };
 

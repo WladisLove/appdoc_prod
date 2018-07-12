@@ -1,0 +1,61 @@
+@import url("../../styles/variables");
+
+.new-patient{
+
+	&-item{
+		display: flex;
+		align-items: center;
+		padding: 18px 85px 18px 30px;
+		cursor: pointer;
+
+		&:nth-child(even){
+			background-color: #f0f9ff;
+		}
+
+		&:hover{
+			background-color: #fffbec;
+		}
+	}
+	
+	&-avatar{
+		position: relative;
+		margin-right: 20px;
+	}
+
+	&-info{
+		display: flex;
+		flex-direction: column;
+	}
+
+	&-name{
+		font-size: 14px;
+		line-height: 18px;
+		color: #204d8d;
+	}
+
+	&-age{
+		font-size: 14px;
+		line-height: 18px;
+		color: #888;
+	}
+
+	&-btn{
+		margin-left: auto;
+
+		.btn{
+
+			.icon{
+				margin-right: 0;
+				font-size: 30px !important;
+				color: #204d8d;
+			}
+
+			&:hover{
+
+				.icon{
+					color: @blue;
+				}
+			}
+		}
+	}
+}

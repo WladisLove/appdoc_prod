@@ -1,0 +1,35 @@
+@import url("../../styles/variables");
+
+.disease{
+	border-bottom: 1px solid #ebebeb;
+
+	&:last-child{
+		border-bottom: 0;
+	}
+
+	&-item{
+		position: relative;
+		padding: 50px 100px;
+		
+		&-title{
+			position: relative;
+			color: @blue;
+			font-size: 12px;
+			margin-bottom: 20px;
+		}
+
+		&-list{
+			display: flex;
+			flex-direction: column;
+
+		}
+
+		&-li{
+			position: relative;
+			color: #344051;
+			font-size: 14px;
+			margin-bottom: 10px;
+			width: 100%;
+		}
+	}
+}

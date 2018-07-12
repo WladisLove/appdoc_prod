@@ -1,0 +1,65 @@
+@import url('../../styles/variables');
+
+
+
+.input-root{
+	border-bottom: 1px solid #e1e1e1;
+	&-focus{
+		border-bottom: 1px solid @blue;
+	}
+}
+
+.has-error{
+	.input-root-focus{
+		border-bottom: #ff4242 1px solid;
+	}
+	.input-root{
+		border-bottom: #ff4242 1px solid;
+	}
+	.ant-input:focus{
+		box-shadow: none;
+	}
+	.ant-input-group-addon{
+		color: #777777;
+	}
+}
+
+.ant {
+	&-input {
+		border: none;
+		border-radius: 0;
+		outline: 0;
+		color: #191919;
+		font-size: 0.875rem;
+		order: 2;
+		padding: 0;
+		//height: 36px;
+		font-family: @f-r;
+
+		&:focus, &:hover {
+			box-shadow: none ;
+		}
+
+		&-group-addon{
+			border: none;
+			background-color: transparent;
+			color: #777777;
+			padding-left: 0;
+		}
+
+		&-search{
+
+			.ant-input{
+				font-size: 0.75rem;
+				border-radius: 2rem;
+				height: 2.5rem;
+				padding-left: 2rem;
+				border: 1px solid #ebebeb;
+			}
+
+			&:not(.ant-input-search-small) > .ant-input-suffix{
+				right: 1.5rem;
+			}
+		}
+	}
+}
