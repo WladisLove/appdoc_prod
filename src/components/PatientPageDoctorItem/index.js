@@ -55,7 +55,7 @@ class PatientPageDoctorItem extends React.Component{
                     </div>
                     <div className='page__doctor-item-language'>
                         <div className='page__doctor-item-language-title'>Знание языков</div>
-                        {doctorLanguages.map((item, index)=> <div className='page__doctor-item-language-li' key={index+1}>{item.language}</div>)}
+                        {doctorLanguages.map((item, index)=> <div className='page__doctor-item-language-li' key={index+1}>{item}</div>)}
                     </div>
                     <div className='page__doctor-item-child'>
                         {doctorChild && (

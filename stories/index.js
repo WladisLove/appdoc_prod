@@ -124,6 +124,11 @@ const loadStories = () => {
     require('../src/components/HistoryReceptionsItems/stories');
     require('../src/components/AddNewPatient/stories');
     require('../src/components/AddNewPatientItem/stories');
+    require('../src/components/AddNewDoctor/stories');
+    require('../src/components/AddNewDoctorItem/stories');
+    require('../src/components/PatientDoctorsHeader/stories');
+    require('../src/components/PatientDoctorsItem/stories');
+    require('../src/components/PatientDoctors/stories');
     require('../src/components/Header/stories');
     require('../src/components/AutoComplete/stories');
 };

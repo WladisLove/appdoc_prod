@@ -1,1 +1,64 @@
-.entry-list{display:flex;width:100%;align-items:center;justify-content:center;height:100%;font-size:1.25rem;color:#eee}.auto__complete-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background-color:transparent;display:none}.auto__complete-overlay-focus{display:block}.auto__complete-result{display:none;background-color:#fff;width:100%;max-width:670px;box-shadow:0 4px 12px rgba(0,0,0,.15);border-radius:4px;position:absolute}.auto__complete-result-focus{display:block}.auto__complete-title{position:relative;padding:35px 30px;color:#344051;font-size:20px;display:flex;align-items:center}.auto__complete-count{background-color:#0495ff;border-radius:20px;line-height:1;font-size:12px;color:#fff;display:inline-flex;align-items:center;justify-content:center;height:20px;padding:0 15px;margin-left:20px}.auto__complete-list{position:relative;height:400px}.auto__complete-list .new-patient-item{padding:14px 30px}
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.auto__complete-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  display: none;
+}
+.auto__complete-overlay-focus {
+  display: block;
+}
+.auto__complete-result {
+  display: none;
+  background-color: #fff;
+  width: 100%;
+  max-width: 670px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  position: absolute;
+}
+.auto__complete-result-focus {
+  display: block;
+}
+.auto__complete-title {
+  position: relative;
+  padding: 35px 30px;
+  color: #344051;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+.auto__complete-count {
+  background-color: #0495ff;
+  border-radius: 20px;
+  line-height: 1;
+  font-size: 12px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  padding: 0 15px;
+  margin-left: 20px;
+}
+.auto__complete-list {
+  position: relative;
+  height: 400px;
+}
+.auto__complete-list .new-patient-item {
+  padding: 14px 30px;
+}

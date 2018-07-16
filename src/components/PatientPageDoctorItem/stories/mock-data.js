@@ -18,4 +18,4 @@ export const nearArr = [
         dateMonth: "января",
         time: "16:00 - 16:20",
 	},
-]
+];

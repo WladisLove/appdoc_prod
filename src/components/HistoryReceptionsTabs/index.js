@@ -168,7 +168,7 @@ class HistoryReceptionsTabs extends React.Component {
                 </div>
                 <div className="tableheader menu-header">
                     <div className="flex-col">
-                        <div className="tableheader-name">Имя пациента</div>
+                        <div className="tableheader-name">{this.props.isUser? "Врач" : "Имя пациента"}</div>
                     </div>
                     <div className="flex-col">
                         <div className="tableheader-name">Дата приема</div>

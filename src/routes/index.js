@@ -5,6 +5,7 @@ import Patients from '../containers/Patients'
 import PatientsPage from '../containers/PatientsPage'
 import PersonalInfo from '../containers/PersonalInfo'
 import Reviews from '../containers/Reviews'
+import MyDoctors from '../containers/MyDoctors'
 
 import Chat from '../containers/Chat'
 
@@ -69,7 +70,7 @@ export const patientRoutes = [
     },
     {
         path: '/doctors',
-        component: Patients,
+        component: MyDoctors,
         exact: true,
     },
     {

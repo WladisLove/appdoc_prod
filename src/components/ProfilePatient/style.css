@@ -1,1 +1,87 @@
-.entry-list{display:flex;width:100%;align-items:center;justify-content:center;height:100%;font-size:1.25rem;color:#eee}*{box-sizing:border-box}.profile-patient .ant-card-body>div{display:flex;align-items:flex-start;padding:5px 10px}.profile-patient .ant-card-body>div .profileAvatar{margin-right:27px}.profile-patient .ant-card-body .flex-div{display:flex;align-items:flex-start;padding:25px 1.5rem;min-width:900px}.profile-patient .ant-card-body .flex-div .profileAvatar{margin-right:27px}.profile-patient .patient-info{padding-right:30px;border-right:1px solid #ebebeb;margin-right:30px;min-width:465px;min-height:162.5px;position:relative}.profile-patient .patient-info .btn-row .btn:first-child{margin-right:26px}.profile-patient .patient-info .btn-row .btn-add{position:absolute;top:0;right:0}.profile-patient .patient-name{color:#344051;font-size:24px;line-height:32px;letter-spacing:-.6px;margin-bottom:12px}.profile-patient .patient__last-active{color:#616d7e;font-size:12px;margin-bottom:25px;max-width:425px}.profile-patient .patient-info__more{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;min-height:162.5px;min-width:215px}.profile-patient .patient-row{display:flex;justify-content:space-between;width:100%}.profile-patient .patient-row .title{font-size:14px;line-height:1;color:#616d7e;width:60%}.profile-patient .patient-row .text{font-size:14px;line-height:1;color:#344051;font-family:GothamPro-Medium;width:40%}
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+* {
+  box-sizing: border-box;
+}
+.profile-patient .ant-card-body > div {
+  display: flex;
+  align-items: flex-start;
+  padding: 5px 10px;
+}
+.profile-patient .ant-card-body > div .profileAvatar {
+  margin-right: 27px;
+}
+.profile-patient .ant-card-body .flex-div {
+  display: flex;
+  align-items: flex-start;
+  padding: 25px 1.5rem;
+  min-width: 900px;
+}
+.profile-patient .ant-card-body .flex-div .profileAvatar {
+  margin-right: 27px;
+}
+.profile-patient .patient-info {
+  padding-right: 30px;
+  border-right: 1px solid #ebebeb;
+  margin-right: 30px;
+  min-width: 465px;
+  min-height: 162.5px;
+  position: relative;
+}
+.profile-patient .patient-info .btn-row .btn:first-child {
+  margin-right: 26px;
+}
+.profile-patient .patient-info .btn-row .btn-add {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.profile-patient .patient-name {
+  color: #344051;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.6px;
+  margin-bottom: 12px;
+}
+.profile-patient .patient__last-active {
+  color: #616d7e;
+  font-size: 12px;
+  margin-bottom: 25px;
+  max-width: 425px;
+}
+.profile-patient .patient-info__more {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 162.5px;
+  min-width: 215px;
+}
+.profile-patient .patient-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.profile-patient .patient-row .title {
+  font-size: 14px;
+  line-height: 1;
+  color: #616d7e;
+  width: 60%;
+}
+.profile-patient .patient-row .text {
+  font-size: 14px;
+  line-height: 1;
+  color: #344051;
+  font-family: 'GothamPro-Medium';
+  width: 40%;
+}

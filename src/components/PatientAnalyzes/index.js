@@ -26,7 +26,7 @@ class PatientAnalyzes extends React.Component{
 
         return (
             <div className='analyzes-all'>
-                <Card title="Напоминания">
+                <Card style={{height: 500}} title="Напоминания">
                     {this.analyzesRender(this.props.data)}
                 </Card>
             </div>

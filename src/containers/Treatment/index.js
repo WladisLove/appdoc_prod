@@ -41,6 +41,7 @@ class Treatment extends React.Component{
                                                 this.props.onSelectTretment(id);
                                                 this.props.history.push('/chat');
                                             }}
+                                               isUser={this.props.mode === "user"}
                         />
             		</Col>
             	</Row>
@@ -51,7 +52,8 @@ class Treatment extends React.Component{
 
 const mapStateToProps = state => {
 	return {
-		treatments: state.treatments.treatments,
+        mode: state.auth.mode,
+        treatments: state.treatments.treatments,
 	}
 };
 

@@ -1,6 +1,15 @@
 /* fonts */
 /* COLORS */
 /* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .message__panel {
   position: relative;
   background-color: rgba(0, 0, 0, 0.77);

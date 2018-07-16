@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
-
 import { Collapse } from 'antd';
-const Panel = Collapse.Panel;
-
 import Icon from '../Icon'
 import './style.css'
 import '../../icon/style.css'
+const Panel = Collapse.Panel;
+
 
 class PopoverItem extends React.Component {
     render() {

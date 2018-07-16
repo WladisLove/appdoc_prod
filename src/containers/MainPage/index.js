@@ -56,7 +56,13 @@ class MainPage extends React.Component{
 
     render(){
         return (this.props.mode === "user") ? (
-			<PatientPage/>
+			<PatientPage
+				isUser = {this.props.mode === "user"}
+
+
+
+
+			/>
 		) : (
 			<DoctorPage 
 				showCancel = {() => {this.setState({cancelModal: true})}}

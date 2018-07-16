@@ -99,6 +99,7 @@ class App extends React.Component {
                         <Header data={this.props.notDocPatients}
                                 notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
+                                isUser={isUser}
                                 onAdd={(id, name) => {
                                     this.props.addPatient(id, name);
                                     this.props.getDocTodayInfo();

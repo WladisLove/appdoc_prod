@@ -38,7 +38,7 @@ class TreatmentTable extends React.Component{
                             contentClassName="content"
                     >
                     <div className="tableheader">
-                        <div className="flex-col"><div className="tableheader-name">Имя пациента</div></div>
+                        <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Имя доктора" : "Имя пациента"}</div></div>
                         <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
                         <div className="flex-col"><div className="tableheader-name">диагноз</div></div>
                         <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>

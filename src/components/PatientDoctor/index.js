@@ -26,7 +26,7 @@ class PatientDoctor extends React.Component{
 
         return (
             <div className='doctor-all'>
-                <Card title="Мои врачи" extra={
+                <Card style={{height: 500}} title="Мои врачи" extra={
                     <div onClick={onGoto} className='go-to'>
                         <Icon svg type='people' size={18} /> Весь список
                     </div>}>

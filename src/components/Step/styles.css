@@ -1,6 +1,15 @@
 /* fonts */
 /* COLORS */
 /* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .steps-content {
   margin-top: 40px;
   border: 1px dashed #e9e9e9;

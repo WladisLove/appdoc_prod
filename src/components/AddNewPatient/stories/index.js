@@ -8,6 +8,6 @@ import {patientsArr} from './mock-data'
 storiesOf('Modal - AddNewPatient', module)
     .add('modal', () => (
         <div>
-            <AddNewPatient data={[]} visible={true} onAdd={(obj)=>console.log('eee',obj)}/>
+            <AddNewPatient data={patientsArr} visible={true} onAdd={(obj)=>console.log('eee',obj)}/>
         </div>
     ));
