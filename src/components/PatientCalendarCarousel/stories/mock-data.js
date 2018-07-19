@@ -26,11 +26,6 @@ export const timeIntervals = [
         "type": "voice"
     },
     {
-        "intervalOb": [],
-        "date": "1528146000",
-        "type": ""
-    },
-    {
         "intervalOb": [
             {
                 "start": "1528970400",
@@ -65,11 +60,6 @@ export const timeIntervals = [
         ],
         "date": "1529528400",
         "type": "chat"
-    },
-    {
-        "intervalOb": [],
-        "date": "1529614800",
-        "type": ""
     },
     {
         "intervalOb": [

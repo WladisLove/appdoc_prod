@@ -56,6 +56,24 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 selectedId: 0,
             }
+        case actionTypes.GET_NOT_PATIENT_DOCTORS:
+            return {
+                ...state,
+                notPatientDoctors: action.notPatientDoctors,
+            }
+        case actionTypes.GET_PATIENT_DOCTORS:
+            return {
+                ...state,
+                patientDoctors: action.patientDoctors,
+                isLoadingPatientDoctors: false,
+
+            }
+        case actionTypes.GET_PATIENT_DOCTORS_LOADING:
+            return {
+                ...state,
+                isLoadingPatientDoctors: true,
+            }
+
         default: return state;
     }
 }

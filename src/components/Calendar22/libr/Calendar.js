@@ -183,7 +183,7 @@ class Calendar extends React.Component {
   }
 
   getView = () => {
-    const views = this.getViews()
+    const views = this.getViews();
     return views[this.props.view]
   }
 

@@ -13,12 +13,8 @@ import NewVisitModal from "../../components/NewVisitModal";
 import NewMessageModal from "../../components/NewMessageModal";
 import ReceptionsScheduleModal from "../../components/ReceptionsScheduleModal";
 import WarningModal from "../../components/WarningModal";
-// import {WarningModal} from "appdoc-component"
-
 import * as actions from '../../store/actions'
-
 import './styles.css'
-
 import {findTimeInterval} from '../../helpers/timeInterval'
 import {timePeriod} from './mock-data'
 
@@ -51,7 +47,7 @@ class Schedule extends React.Component {
     setIntervalAndView = (date, view) => {
         const {start, end} = findTimeInterval(date, view);
         this.state.isEditorMode ? this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
-        
+
         this.setState({
             interval: {
                 start,
@@ -61,21 +57,21 @@ class Schedule extends React.Component {
         })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.setIntervalAndView(this.state.currentDate, 'week');
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.props.clearReceptions();
     }
 
     dateChangeHandler = (date, view, action, isOnDay) => {
-        const {start, end} = this.state.isEditorMode 
-            ? findTimeInterval(date, 'month') 
-            : isOnDay ? 
+        const {start, end} = this.state.isEditorMode
+            ? findTimeInterval(date, 'month')
+            : isOnDay ?
                 findTimeInterval(date, 'day') : findTimeInterval(date, this.state.view);
         this.state.isEditorMode ? isOnDay ? null : this.props.onGetAllIntervals(start, end) : this.props.onGetAllVisits(start, end);
-        
+
         isOnDay ?
             this.setState({
                 currentDate: date,
@@ -97,7 +93,7 @@ class Schedule extends React.Component {
     };
 
     onAddVisit = (info) => {
-        this.props.patients.length === 0 ? 
+        this.props.patients.length === 0 ?
             this.props.onGetDocPatients() : null;
 
         this.setState({
@@ -161,7 +157,7 @@ class Schedule extends React.Component {
     };
 
     onSaveReceptionSchedule = (interval) => {
-        this.props.onAddInterval(interval, this.state.interval.start,this.state.interval.end);
+        this.props.onAddInterval(interval, this.state.interval.start, this.state.interval.end);
         this.setState({
             receptionsScheduleModal: false,
             receptionData: {
@@ -172,7 +168,8 @@ class Schedule extends React.Component {
     };
 
     openReceptionSchedule = (date, schedule) => {
-        if(schedule){
+
+        if (schedule) {
             this.setState({
                 receptionData: {
                     ...this.state.receptionData,
@@ -191,7 +188,7 @@ class Schedule extends React.Component {
         }
     };
 
-    eventDeleteHandler =(id) => {
+    eventDeleteHandler = (id) => {
         this.props.onEventDelete(id);
         this.setState({warningModal: true});
     }
@@ -199,7 +196,7 @@ class Schedule extends React.Component {
     render() {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = this.state.receptionData.currentSched.intervalOb, timeSetReception = [];
-        if ('intervalOb' in currentSched || 'intervalEx' in currentSched){
+        if ('intervalOb' in currentSched || 'intervalEx' in currentSched) {
             timeSetCall = currentSched.intervalOb.map(item => {
                 return {
                     defaultStartValue: moment(item.start),
@@ -236,8 +233,8 @@ class Schedule extends React.Component {
                 currY = currDate.getFullYear(),
                 currM = currDate.getMonth(),
                 currD = currDate.getDate();
-            let min = new Date(new Date(this.props.min*1000).setFullYear(currY,currM,currD)),
-                max = new Date(new Date(this.props.max*1000).setFullYear(currY,currM,currD));
+            let min = new Date(new Date(this.props.min * 1000).setFullYear(currY, currM, currD)),
+                max = new Date(new Date(this.props.max * 1000).setFullYear(currY, currM, currD));
             editorBtn = (<Button btnText='Редактор графика'
                                  onClick={() => this.changeToEditorMode(true)}
                                  type='yellow'
@@ -247,8 +244,9 @@ class Schedule extends React.Component {
                                   onSelectEvent={this.props.onSelectEvent}
                                   onSelectSlot={(slot) => this.onAddVisit(slot)}
                                   defaultView="week"
-                                  onView = {(view, date) => {
-                                      !date ? this.setIntervalAndView(this.state.currentDate, view) : () => {};
+                                  onView={(view, date) => {
+                                      !date ? this.setIntervalAndView(this.state.currentDate, view) : () => {
+                                      };
                                   }}
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
@@ -257,7 +255,7 @@ class Schedule extends React.Component {
                                   events={this.props.visits}
                                   intervals={this.props.intervals}
                                   min={min}
-                                    max={max}
+                                  max={max}
                                   onPopoverClose={this.eventDeleteHandler}
                                   onPopoverEmail={this.onPatientEmail}
             />)
@@ -275,7 +273,7 @@ class Schedule extends React.Component {
                         {editorBtn}
                     </Col>
                 </Row>
-                <Row >
+                <Row>
                     <Col span={19}>
                         {calendar}
                     </Col>
@@ -298,7 +296,7 @@ class Schedule extends React.Component {
                                   onSave={(obj) => {
                                       this.props.onCloseCancelModal(obj);
                                       this.setState({cancelModal: false, warningModal: true});
-                                    }}
+                                  }}
                                   onCancel={() => this.setState({cancelModal: false})}
                 />
                 <NewVisitModal visible={this.state.newVisitModal}
@@ -324,8 +322,8 @@ class Schedule extends React.Component {
                                          onSave={(info) => this.onSaveReceptionSchedule(info)}
                 />
                 <WarningModal visible={this.state.warningModal}
-                            onClick={() => this.setState({warningModal: false})}
-                            message='Изменения всупят в силу после проверки администратором'/>
+                              onClick={() => this.setState({warningModal: false})}
+                              message='Изменения всупят в силу после проверки администратором'/>
             </Hoc>
         )
     }
@@ -354,7 +352,7 @@ const mapDispatchToProps = dispatch => {
         onAddInterval: (obj, start, end) => dispatch(actions.addInterval(obj, start, end)),
 
         onAddNewVisit: (obj, start, end) => dispatch(actions.addVisit(obj, start, end)),
-        onGetAllVisits: (start,end) => dispatch(actions.getAllVisits(start,end)),
+        onGetAllVisits: (start, end) => dispatch(actions.getAllVisits(start, end)),
 
         onSendMessage: (mess) => dispatch(actions.sendMessage(mess)),
         onCloseCancelModal: (obj) => dispatch(actions.cancelEventsRange(obj)),

@@ -3,39 +3,37 @@ import {connect} from 'react-redux';
 import moment from 'moment'
 import Row from "../../components/Row";
 import Col from "../../components/Col";
-import PatientTable from "../../components/PatientTable";
-import AddNewPatient from "../../components/AddNewPatient";
-import NewMessageModal from "../../components/NewMessageModal";
-import NewVisitModalPage from "../../components/NewVisitModalPage";
-
 import Hoc from '../../hoc'
-
 import * as actions from '../../store/actions'
-
 import './styles.css';
 import PatientDoctors from "../../components/PatientDoctors";
+import AddNewDoctor from "../../components/AddNewDoctor";
+import NewVisitByPatientModal from "../../components/NewVisitByPatientModal";
+import Spinner from "../../components/Spinner";
 
 class Patients extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
 			addNew_show: false,
-            modal1Visible: false,
-            modal2Visible: false,
+            isModalNewVisitVisible: false,
 			id: null,
-			name: ""
+			name: "",
+			isModalAddNewDoctorVisible: false,
+			newVisit: {
+				time: moment(),
+				type: "chat",
+				name: ""
+			}
         }
     }
 
-    setModal1Visible = (modal1Visible, id, name)=> {
-        this.setState({modal1Visible, id, name, isReceptionRecorded: false});
-    };
-
-
-    setModal2Visible = (modal2Visible, id, name) => {
-        this.setState({modal2Visible, id, name});
-    };
-
+	addNewVisitVisible = (isModalNewVisitVisible, id, name) => {
+        this.setState({isModalNewVisitVisible, id, name});
+	};
+    addNewDoctorVisible = () => {
+    	this.setState({isModalAddNewDoctorVisible: true})
+	};
     onChangeDate = (date) => {
         let beginDay = moment(date),
             endDay = moment(date);
@@ -49,12 +47,16 @@ class Patients extends React.Component{
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patient'+id);
 	}
+    //
+	// componentDidMount(){
+	// 	this.props.onGetPatientDoctors();
+	// }
 
-	componentDidMount(){
-		this.props.onGetDocPatients();	
-	}
+    componentWillMount() {
+		this.props.onGetPatientDoctors();
+    }
 
-	showModalHandler = () => {
+    showModalHandler = () => {
 		this.setState({addNew_show: true});
 	};
 
@@ -72,7 +74,9 @@ class Patients extends React.Component{
 
     render(){
 	let availableArea = this.getInterval();
-        return (
+        return this.props.isLoadingPatientDoctors ? (
+			<Spinner size="large"/>
+	):(
         	<Hoc>
         		<Row>
         			<Col span={24}>
@@ -81,47 +85,34 @@ class Patients extends React.Component{
         		</Row>
             	<Row>
             		<Col xs={24} xxl={18}>
-						<PatientDoctors />
+						<PatientDoctors
+							data = {this.props.patientDoctors ? this.props.patientDoctors : []}
+							addNewDoctorVisible={this.addNewDoctorVisible}
+							newVisitVisible = {this.addNewVisitVisible}
+						/>
             		</Col>
             	</Row>
-				<AddNewPatient
-                    data={this.props.notDocPatients}
-                    visible={this.state.addNew_show}
+
+                <NewVisitByPatientModal
+                    visible={this.state.isModalNewVisitVisible}
+                    // userName='Петров-Иванов Александр Константинович'
+                    date={this.state.newVisit.time}
+                    isChoosebleTime={false}
+                    onSave = {(obj) => console.log(obj)}
+                    doctorName = {this.state.newVisit.doctorName}
+                    type = {this.state.newVisit.type}
+                    onCancel={() => this.setState({isModalNewVisitVisible: false})}
+                />
+                <AddNewDoctor
+                    data={this.props.notPatientDoctors}
+                    visible={this.state.isModalAddNewDoctorVisible}
                     onCancel={() => {
-                        this.setState({addNew_show: false});
-                        this.props.onClearNotDocPatients();
+                        this.setState({isModalAddNewDoctorVisible: false});
+                        this.props.onClearNotPatientDoctors();
                     }}
-                    onSearch = {(name) => this.props.onGetNotDocPatients(name)}
-                    onAdd={(id)=>this.props.addPatient(id)}
-
+					onSearch={(name)=>this.props.onGetNotPatientDoctors(name)}
+                    onAdd={(id)=>this.props.addDoctor(id)}
                 />
-
-                <NewVisitModalPage
-                    visible={this.state.modal1Visible}
-                    onSave={(a) => {
-                        this.props.onSaveReception(a)
-                    }}
-					isDateInvalid = {this.props.isReceptionRecorded}
-                    onCancel={() => this.setModal1Visible(false)}
-                    userName={this.state.name}
-                    availableArea={availableArea}
-                    onChangeDate={this.onChangeDate}
-                    id={this.state.id}
-                    isReceptionRecorded = {this.props.isReceptionRecorded}
-                    setModal1Visible = {this.setModal1Visible}
-                />
-
-                <NewMessageModal
-                     visible={this.state.modal2Visible}
-                     onSend={(a) => {
-                         this.setModal2Visible(false);
-                         this.props.onNewMessage(a)
-                     }}
-                     onCancel={() => this.setModal2Visible(false)}
-                     userName={this.state.name}
-                     id={this.state.id}
-                />
-
             </Hoc>
         )
     }
@@ -129,8 +120,9 @@ class Patients extends React.Component{
 
 const mapStateToProps = state => {
 	return {
-		docPatients: state.patients.docPatients,
-		notDocPatients: state.patients.notDocPatients,
+        isLoadingPatientDoctors: state.patients.isLoadingPatientDoctors,
+		patientDoctors: state.patients.patientDoctors,
+        notPatientDoctors: state.patients.notPatientDoctors,
 		intervals: state.patients.intervals,
 		isReceptionRecorded: state.patients.isReceptionRecorded
 	}
@@ -138,10 +130,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onGetDocPatients: () => dispatch(actions.getDocPatients()),
-		onGetNotDocPatients: (name) => dispatch(actions.getNotDocPatients(name)),
-		onClearNotDocPatients: () => dispatch(actions.clearNotDocPatients()),
-		addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
+		onGetPatientDoctors: () => dispatch(actions.getPatientDoctors()),
+		onGetNotPatientDoctors: (name) => dispatch(actions.getNotPatientDoctors(name)),
+		onClearNotPatientDoctors: () => dispatch(actions.clearNotPatientDoctors()),
+		addDoctor: (id) => dispatch(actions.addDoctor(id, "")), //нужно что то сделать со вторым параметром
 		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
 		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),

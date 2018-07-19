@@ -53,10 +53,12 @@ class PatientPageDoctorItem extends React.Component{
                         <div className='page__doctor-item-price-title'>Стоимость<br />консультации</div>
                         <div className='page__doctor-item-price-coast'>{doctorPrice} руб</div>
                     </div>
-                    <div className='page__doctor-item-language'>
-                        <div className='page__doctor-item-language-title'>Знание языков</div>
-                        {doctorLanguages.map((item, index)=> <div className='page__doctor-item-language-li' key={index+1}>{item}</div>)}
-                    </div>
+                    {doctorLanguages &&
+                        <div className='page__doctor-item-language'>
+                            <div className='page__doctor-item-language-title'>Знание языков</div>
+                            {doctorLanguages.map((item, index)=> <div className='page__doctor-item-language-li' key={index+1}>{item}</div>)}
+                        </div>
+                    }
                     <div className='page__doctor-item-child'>
                         {doctorChild && (
                             <Icon type='toy_kids' size={50} svg />

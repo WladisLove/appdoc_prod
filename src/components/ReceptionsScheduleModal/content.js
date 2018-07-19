@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form} from 'antd'
+import {Form, TimePicker as ANTDTP} from 'antd'
 import DatePicker from '../DatePicker'
 import Tabs from '../Tabs'
 import TimePicker from '../TimePicker'
@@ -34,9 +34,10 @@ class ContentForm extends React.Component {
     };
 
     changeFieldsVal = (props = this.props) => {
+        console.log("changeFieldsVal");
         const {dateSet, timeSetCall, timeSetReception} = props;
         let {defaultStartValue, defaultEndValue} = dateSet;
-        props.form.setFieldsValue({
+            props.form.setFieldsValue({
             ['day']: [defaultStartValue, defaultEndValue],
         });
 
@@ -45,10 +46,12 @@ class ContentForm extends React.Component {
     };
 
     initializeTP = (set, flag) => {
+        console.log("initializeTP");
         if (set.length) {
             for (let i = 0; i < this.state.tpNum[flag]; i++) {
                 if(set[i]){
                     let {defaultStartValue, defaultEndValue} = set[i];
+
                     this.props.form.setFieldsValue({
                         [flag + 'Tp' + i]: [defaultStartValue, defaultEndValue],
                     });
@@ -72,14 +75,17 @@ class ContentForm extends React.Component {
         })
     }
     componentWillReceiveProps(nextProps) {
+
         const dateSet_pr = this.props.dateSet,
             dateSet_cur = nextProps.dateSet;
         if(!(this.compareDates(dateSet_pr.defaultEndValue,dateSet_cur.defaultEndValue))
             || !(this.compareDates(dateSet_pr.defaultStartValue,dateSet_cur.defaultStartValue))){
+            console.log(1);
             this.setState({shouldDPUpdate:true})
         }
 
         if (nextProps.visible === true && this.props.visible === false) {
+            console.log(2);
             this.setState({
                 tpNum: {
                     'call': nextProps.timeSetCall.length || 1,
@@ -90,6 +96,7 @@ class ContentForm extends React.Component {
         }
 
         if(nextProps.visible === false && this.props.visible === true){
+            console.log(3);
             this.props.form.setFieldsValue({
                 ['day']: [null, null],
             });
@@ -131,15 +138,28 @@ class ContentForm extends React.Component {
             tpNum: {
                 'reception': 1,
                 'call': 1,
-        }});
+            }});
     };
 
-    handleTPChange = () => {
-        this.setState({isReset: false});
+    handleTPChange = (value, position, id) => {
+        console.log("handleTPChange");
+        //this.setState({isReset: false});
+
+        let {defaultStartValue, defaultEndValue} = value;
+
+        this.props.form.setFieldsValue({
+            [id]: [defaultStartValue, defaultEndValue],
+        });
+        // this.props.form.setFieldsValue({
+        //     [id]: [123, 45634]
+        // })
     };
     handleSubmit = (e) => {
+        console.log("handleSubmit", this.props.form.getFieldsValue());
+
         e.preventDefault();
-        const {day, isDayOff, intervalTime, type, ...rest} = this.props.form.getFieldsValue();
+        const {day, intervalTime, type, ...rest} = this.props.form.getFieldsValue();
+        console.log("REST FROM RECEPTION SCHEDULE MODAL", rest);
         let time = [],
             emergencyTime = [];
 
@@ -163,17 +183,18 @@ class ContentForm extends React.Component {
         let obj = {
             datestart: (day[0]).unix(),
             dateend: (day[1]).unix(),
-            isDayOff, 
+            isDayOff: this.state.isReset,
             intervalTime, 
             type,
             intervalOb: time,
             intervalEx: emergencyTime,
         }
 
-        this.props.onSave(obj);
+        //this.props.onSave(obj);
     };
 
     addTp = (tab, e) => {
+        console.log("addTp");
         e.preventDefault();
         const n = this.state.tpNum[tab];
         let tpNum = this.state.tpNum;
@@ -186,13 +207,16 @@ class ContentForm extends React.Component {
     };
 
     renderTp = (tab, timeSet, fieldDecorator) => {
+        console.log("renderTp");
+
         let tpArr = [];
         const tpNum = this.state.tpNum[tab];
         for (let i = 0; i < tpNum; i++) {
             tpArr.push(
-                <FormItem key={tab + i}>
+                <FormItem key={tab + i} >
                     {fieldDecorator(`${tab}Tp${i}`)(
                         <TimePicker onChange={this.handleTPChange}
+                                    id = {`${tab}Tp${i}`}
                                     range
                                     isReset={this.state.isReset}
                                     rangeSet={timeSet[i]}
@@ -213,6 +237,8 @@ class ContentForm extends React.Component {
     };
 
     renderTpBlock = (tab, timeSet, fieldDecorator) => {
+        console.log("renderTpBlock");
+
         return (
             <div>
                 <div className="receptionsScheduleModal-tabs-title">
@@ -224,6 +250,8 @@ class ContentForm extends React.Component {
     };
 
     renderOptions = (selOptions) => {
+        console.log("renderOptions");
+
         let options = [];
         selOptions.map((el, index) => {
             options.push(<Select.Option value={+el}

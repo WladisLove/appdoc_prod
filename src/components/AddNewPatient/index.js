@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ScrollArea from 'react-scrollbar'
-
 import AddNewPatientItem from '../AddNewPatientItem'
 import Modal from '../Modal'
 import Input from '../Input'
-
 import './styles.css'
 
 
@@ -14,13 +12,14 @@ class AddNewPatient extends React.Component{
         super(props);
         this.state = {
             patients: props.data,
-        }
+        };
         this.inp;
     }
     
 
     patientsRender = (dataArr) => {
         return dataArr.map((item, index) => {
+            console.log(item, "ITEM FROM ADD NEW PATIENT");
             return (<AddNewPatientItem {...item} 
                                         onAdd={this.props.onAdd} 
                                         key={item.id + ''+index}/>)

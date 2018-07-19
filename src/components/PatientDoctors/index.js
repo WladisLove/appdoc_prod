@@ -14,17 +14,23 @@ import PatientCalendarCarousel from "../PatientCalendarCarousel";
 import PatientPageDoctorItem from "../PatientPageDoctorItem";
 import PatientDoctorsHeader from "../PatientDoctorsHeader";
 import PatientDoctorsItem from "../PatientDoctorsItem";
-import {doctors} from "./stories/mock-data";
+
+
 
 class PatientDoctors extends React.Component {
 
     render() {
+        console.log(this.props.data, "DATA PROPS FROM PATIENTDOCTORS INDEX.JS");
         return (
             <div>
                 <PatientDoctorsHeader {...this.props}/>
 
-                {doctors.map((item, index)=>
-                    <PatientDoctorsItem key = {index+1} {...item} />
+                {this.props.data.map((item, index)=>
+                    <PatientDoctorsItem
+                        key = {index+1}
+                        {...item}
+                        doctorFavorite={true}
+                        newVisitVisible = {this.props.newVisitVisible} />
                 )}
             </div>
         )

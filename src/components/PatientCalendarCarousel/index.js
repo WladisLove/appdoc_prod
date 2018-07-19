@@ -13,50 +13,85 @@ class PatientCalendarCarousel extends React.Component {
         modalVisible: false,
         isFull: false,
         rowCount: 4,
-        intervals: []
+        intervals: [],
+        carouselStep: 0,
     };
+
     setModalVisible(modalVisible) {
         this.setState({modalVisible});
     }
+    dateClickHandler = (e) => {
+        console.log(e.target.getAttribute("data-timestamp"), "VALUE");
+        this.props.newVisitVisible(true)
+    };
+    nextCarouselItem = () => {
+        if (this.state.carouselStep < this.props.intervals.length - 3) {
+            this.setState({
+                carouselStep: this.state.carouselStep + 1
+            })
+        }
+    };
+    prevCarouselItem = () => {
+        if (this.state.carouselStep > 0) {
+            this.setState({
+                carouselStep: this.state.carouselStep - 1
+            })
+        }
+    };
 
 
     renderAvailableAppointments = (intervals) => {
-        let headers =[];
+        let headers = [];
         let timeIntervals = [];
-        if(!intervals) { return }
+        if (!intervals) {
+            return
+        }
         for (let i = 0; i < intervals.length; i++) {
             let time = [];
             if (intervals[i].intervalOb.length) {
-                headers.push(moment(this.props.intervals[i].date*1000).format('ddd D MMMM'));
-                for(let j=0; j<intervals[i].intervalOb.length; j++) {
-                    for(let t = +intervals[i].intervalOb[j].start; t < +intervals[i].intervalOb[j].end; t+=300) {
-                        time.push(moment(+t*1000).format('H:mm'));
+                headers.push(moment(this.props.intervals[i].date * 1000).format('ddd D MMMM'));
+                for (let j = 0; j < intervals[i].intervalOb.length; j++) {
+                    for (let t = +intervals[i].intervalOb[j].start; t < +intervals[i].intervalOb[j].end; t += 300) {
+                        time.push({
+                            timeToDisplay: moment(+t * 1000).format('H:mm'),
+                            timestamp: +t
+                        });
                     }
                 }
                 timeIntervals.push(time);
             }
         }
-            console.log(timeIntervals)
-        {
-            return headers.map((item, indexDay)=>
-                <div className='calendar-carousel-col'>
-                    <div className='calendar-carousel-day' key={indexDay+1}>{item}</div>
-                    { this.state.rowCount ?
-                        timeIntervals[indexDay].slice(0, this.state.rowCount).map((item, indexTime)=>
-                            <div className='calendar-carousel-time' onClick={() => this.setModalVisible(true)} key={indexTime+1}>{item}</div>
-                        )
-                        :
-                        timeIntervals[indexDay].map((item, indexTime)=>
-                            <div className='calendar-carousel-time' onClick={() => this.setModalVisible(true)} key={indexTime+1}>{item}</div>
-                        )
-                    }
-                </div>
-            )
-        }
+        return headers.map((item, indexDay) =>
+            <div className='calendar-carousel-col' key={indexDay + 1}>
+                <div className='calendar-carousel-day' key={indexDay + 1}>{item}</div>
+                {this.state.rowCount ?
+                    timeIntervals[indexDay].slice(0, this.state.rowCount).map((item, indexTime) =>
+                        <div className='calendar-carousel-time'
+                             onClick={(e) => this.dateClickHandler(e)}
+                             key={indexTime + 1}
+                             data-timestamp={item.timestamp}
+                        >
+                            {item.timeToDisplay}
+                        </div>
+                    )
+                    :
+                    timeIntervals[indexDay].map((item, indexTime) =>
+                        <div className='calendar-carousel-time'
+                             onClick={()=>this.props.newVisitVisible(true)}
+                             key={indexTime + 1}
+                             data-timestamp={item.timestamp}
+                        >
+                            {item.timeToDisplay}
+                         </div>
+                    )
+                }
+            </div>
+        )
     };
 
     render() {
         const {intervals} = this.props;
+        console.log(this.props);
         const rootClass = cn('calendar-carousel');
         return (
             <div className={rootClass}>
@@ -67,6 +102,7 @@ class PatientCalendarCarousel extends React.Component {
                             type='icon'
                             icon='arrow_left'
                             svg
+                            onClick={this.prevCarouselItem}
                     />
                     <Button className='btn-next'
                             btnText=''
@@ -74,9 +110,12 @@ class PatientCalendarCarousel extends React.Component {
                             type='icon'
                             icon='arrow_right'
                             svg
+                            onClick={this.nextCarouselItem}
                     />
-
-                    {this.renderAvailableAppointments(intervals)}
+                    <div className="carouselPosition"
+                         style={{transform: `translateX(-${this.state.carouselStep * 33}%)`}}>
+                        {this.renderAvailableAppointments(intervals)}
+                    </div>
                 </div>
                 <div className="table-footer"
                      key="btn"
@@ -102,13 +141,11 @@ class PatientCalendarCarousel extends React.Component {
 
 PatientCalendarCarousel.propTypes = {
     doctorRate: PropTypes.number,
-    carouselTimes: PropTypes.array,
     carouselDays: PropTypes.array,
 };
 
 PatientCalendarCarousel.defaultProps = {
     doctorRate: 0,
-    carouselTimes: [],
     carouselDays: [],
 };
 

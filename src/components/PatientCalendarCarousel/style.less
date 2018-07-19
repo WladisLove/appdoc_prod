@@ -23,12 +23,13 @@
 		}
 
 		&-slide{
-			display: flex;
-			justify-content: flex-start;
 			overflow: hidden;
-			transition: @ease;
-			position: relative;
-
+			.carouselPosition {
+				display: flex;
+				justify-content: flex-start;
+				transition: @ease;
+				position: relative;
+			}
 			.btn-prev{
 				position: absolute;
 				top: 5px;

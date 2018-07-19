@@ -4,7 +4,6 @@ import ScrollArea from 'react-scrollbar'
 import AddNewDoctorItem from '../AddNewPatientItem'
 import Modal from '../Modal'
 import Input from '../Input'
-
 import './styles.css'
 
 
@@ -13,8 +12,8 @@ class AddNewDoctor extends React.Component{
         super(props);
         this.state = {
             patients: props.data,
+            inputValue: ""
         };
-        this.inp;
     }
     
 
@@ -28,13 +27,24 @@ class AddNewDoctor extends React.Component{
     };
 
     componentWillReceiveProps(nextProps){
-        (nextProps.visible === false && this.inp) ? this.inp.input.input.value = '' : null;
+        nextProps.visible === false ? this.state.inputValue = '' : null;
     }
 
+    componentWillMount() {
+        this.timer = null;
+    }
+
+    handleChange = (e) => {
+        this.setState({inputValue: e.target.value});
+        clearTimeout(this.timer);
+        this.timer = setTimeout(this.triggerChange, 1000);
+    };
+
+    triggerChange = () => {
+        this.props.onSearch(this.state.inputValue)
+    };
 
     render(){
-        this.inp && console.log(this.inp.input.input.value)
-
         const {visible, onCancel} = this.props;
 
         return (
@@ -47,7 +57,9 @@ class AddNewDoctor extends React.Component{
                     <div className='new-doctor-search'>
                         <Input.Search placeholder="Введите ФИО доктора"
                                     ref={inp => this.inp = inp}
-                                    onSearch={value => this.props.onSearch(value)}/>
+                                    onSearch={value => this.props.onSearch(value)}
+                                    onChange={this.handleChange}
+                                    value={this.state.inputValue}  />
                     </div>
                     <div className='new-doctor-title'>Результаты поиска</div>
                     <ScrollArea
@@ -57,7 +69,7 @@ class AddNewDoctor extends React.Component{
                             horizontal={false}
                     >
                         {this.props.data.length === 0 ?
-                        (<div className="no-doctors">Пациенты не найдены</div>)
+                        (<div className="no-doctors">Доктора не найдены</div>)
                         : this.doctorsRender(this.props.data)}
                     </ScrollArea>
                 </div>

@@ -91,6 +91,7 @@ const loadStories = () => {
     require('../src/components/ChatMessage/stories');
     require('../src/components/ChatComments/stories');
     require('../src/components/NewVisitModal/stories');
+    require('../src/components/NewVisitByPatientModal/stories');
     require('../src/components/ChatCard/stories');
     require('../src/components/ChatFiles/stories');
     require('../src/components/ChatSend/stories');
@@ -131,6 +132,7 @@ const loadStories = () => {
     require('../src/components/PatientDoctors/stories');
     require('../src/components/Header/stories');
     require('../src/components/AutoComplete/stories');
+    require('../src/components/Spinner/stories');
 };
 
 configure(loadStories, module);

@@ -2,7 +2,6 @@ import React from 'react'
 import  moment from 'moment'
 import {TimePicker  as AntTimePicker} from 'antd'
 import PropTypes from "prop-types";
-import DefaultTp from "./DefaultTP";
 
 
 class RangeTp extends React.Component {
@@ -68,6 +67,7 @@ class RangeTp extends React.Component {
     };
 
     onChange = (field, value) => {
+        //console.log("value", value, moment(value).format("x"), moment(value).format("hh:mm"));
         if(value && value._d.getHours()) {
             this.getNotAvailableMin(value._d.getHours());
             if(field === "start") {
@@ -90,7 +90,7 @@ class RangeTp extends React.Component {
 
         }
         this.setState({isReset:false});
-        this.props.onChange();
+        this.props.id ? this.props.onChange(value, field, this.props.id) : this.props.onChange(value, field);
     };
 
     componentDidMount() {

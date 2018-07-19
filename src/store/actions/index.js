@@ -1,15 +1,18 @@
 export {
     getDocPatients,
+    getPatientDoctors,
     getNotDocPatients,
     clearNotDocPatients,
     addPatient,
+    addDoctor,
     removePatient,
     getDateInterval,
     getDateIntervalWithoutMakingApp,
     setReception,
     selectPatient,
     unselectPatient,
-
+    getNotPatientDoctors,
+    clearNotPatientDoctors,
     getSelectedPatientInfo,
     
     sendMessage,

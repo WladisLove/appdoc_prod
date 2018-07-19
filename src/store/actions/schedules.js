@@ -5,6 +5,7 @@ import * as actionTypes from './actionTypes'
 
 
 export const addInterval = (interval, start, end) => {
+    console.log("ADD interVAL PARAMS FROM ACTIONS SHEDULE.js", interval, start, end);
     return (dispatch) => {
         let obj = {
             ...interval,

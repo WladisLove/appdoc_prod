@@ -22,9 +22,11 @@
   display: none !important;
 }
 .calendar-carousel-slide {
+  overflow: hidden;
+}
+.calendar-carousel-slide .carouselPosition {
   display: flex;
   justify-content: flex-start;
-  overflow: hidden;
   transition: 0.2s ease-out;
   position: relative;
 }

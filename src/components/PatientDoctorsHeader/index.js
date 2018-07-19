@@ -40,7 +40,7 @@ class PatientDoctorsHeader extends React.Component{
                     <div className="patient-doctors-actions">
                         <div className="flex-col">
                             <Button
-                                onClick={this.props.onAdd}
+                                onClick={this.props.addNewDoctorVisible}
                                 btnText='Добавить'
                                 size='default'
                                 type='yellow'

@@ -9,6 +9,7 @@ storiesOf('PatientCalendarCarousel', module)
         <div>
             <PatientCalendarCarousel
             	intervals={timeIntervals}
+                newVisitVisible = {(a)=>console.log("addNewDoctorVisible", a)}
              />
         </div>
     ))
