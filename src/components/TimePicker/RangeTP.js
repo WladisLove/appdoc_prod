@@ -89,8 +89,30 @@ class RangeTp extends React.Component {
             }
 
         }
+
+       if (field === 'end' && value) {
+            let start = this.state.startValue;
+            this.setState({
+                [field]: value,
+            });
+
+            if(!start){
+                const {rangeSet} = this.props;
+                const {defaultStartValue} = rangeSet;
+                start = defaultStartValue || value;
+            }
+            this.props.onChange([start, value]);
+        }
+        else {
+            this.setState({
+                [field]: value,
+                endValue: value,
+            });
+            this.props.onChange([value, value]);
+        }
         this.setState({isReset:false});
-        this.props.id ? this.props.onChange(value, field, this.props.id) : this.props.onChange(value, field);
+        //this.props.onChange([value, value], field, this.props.id);
+        //this.props.id ? this.props.onChange(value, field, this.props.id) : this.props.onChange(value, field);
     };
 
     componentDidMount() {
@@ -132,7 +154,7 @@ class RangeTp extends React.Component {
                                value={this.state.startValue ? this.state.startValue : null}
                                format={format}
                                minuteStep={minuteStep}
-                               onChange={( val) => this.onChange("start", val)}
+                               onChange={(val) => this.onChange("start", val)}
                                disabledHours={() => this.state.disabledHours}
                                disabledMinutes={() => this.disabledMinutes}/>
 
@@ -172,7 +194,6 @@ RangeTp.defaultProps = {
     availableArea: [],
     format: "HH:mm",
     minuteStep: 5,
-    onChange: () => {},
 };
 
 export default  RangeTp;
