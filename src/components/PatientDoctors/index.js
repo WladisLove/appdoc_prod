@@ -20,7 +20,6 @@ import PatientDoctorsItem from "../PatientDoctorsItem";
 class PatientDoctors extends React.Component {
 
     render() {
-        console.log(this.props.data, "DATA PROPS FROM PATIENTDOCTORS INDEX.JS");
         return (
             <div>
                 <PatientDoctorsHeader {...this.props}/>
