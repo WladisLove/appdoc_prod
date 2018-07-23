@@ -20,6 +20,7 @@ class PatientCalendarCarousel extends React.Component {
     setModalVisible(modalVisible) {
         this.setState({modalVisible});
     }
+
     dateClickHandler = (e) => {
         console.log(e.target.getAttribute("data-timestamp"), "VALUE");
         this.props.newVisitVisible(true)
@@ -77,12 +78,12 @@ class PatientCalendarCarousel extends React.Component {
                     :
                     timeIntervals[indexDay].map((item, indexTime) =>
                         <div className='calendar-carousel-time'
-                             onClick={()=>this.props.newVisitVisible(true)}
+                             onClick={() => this.props.newVisitVisible(true)}
                              key={indexTime + 1}
                              data-timestamp={item.timestamp}
                         >
                             {item.timeToDisplay}
-                         </div>
+                        </div>
                     )
                 }
             </div>
@@ -90,50 +91,57 @@ class PatientCalendarCarousel extends React.Component {
     };
 
     render() {
-        const {intervals} = this.props;
+        const intervals = this.props.intervals;
+        console.log(intervals, "intervals from CAROUSEL");
         console.log(this.props);
-        const rootClass = cn('calendar-carousel');
+        const rootClass = intervals.length ? cn('calendar-carousel') :  cn('calendar-carousel no-intervals');
         return (
             <div className={rootClass}>
-                <div className='calendar-carousel-slide'>
-                    <Button className='btn-prev'
-                            btnText=''
-                            size='icon'
-                            type='icon'
-                            icon='arrow_left'
-                            svg
-                            onClick={this.prevCarouselItem}
-                    />
-                    <Button className='btn-next'
-                            btnText=''
-                            size='icon'
-                            type='icon'
-                            icon='arrow_right'
-                            svg
-                            onClick={this.nextCarouselItem}
-                    />
-                    <div className="carouselPosition"
-                         style={{transform: `translateX(-${this.state.carouselStep * 33}%)`}}>
-                        {this.renderAvailableAppointments(intervals)}
-                    </div>
-                </div>
-                <div className="table-footer"
-                     key="btn"
-                >
-                    <Button size='link'
-                            type='link'
-                            title='Показать ещё'
-                            icon={this.state.isFull ? 'circle_arrow_up' : 'circle_arrow_down'}
-                            onClick={() => this.setState({
-                                rowCount: this.state.rowCount === 4 ? 0 : 4,
-                                isFull: !this.state.isFull
-                            })}/>
-                </div>
-                <NewVisitModalPage
-                    visible={this.state.modalVisible}
-                    onOk={() => this.setModalVisible(false)}
-                    onCancel={() => this.setModalVisible(false)}
-                />
+                {!intervals.length ? (<span className="no-schedule">Доктор ещё не определил расписание</span>)
+                    :
+                    (<div>
+                            <div className='calendar-carousel-slide'>
+
+                                <Button className='btn-prev'
+                                        btnText=''
+                                        size='icon'
+                                        type='icon'
+                                        icon='arrow_left'
+                                        svg
+                                        onClick={this.prevCarouselItem}
+                                />
+                                <Button className='btn-next'
+                                        btnText=''
+                                        size='icon'
+                                        type='icon'
+                                        icon='arrow_right'
+                                        svg
+                                        onClick={this.nextCarouselItem}
+                                />
+                                <div className="carouselPosition"
+                                     style={{transform: `translateX(-${this.state.carouselStep * 33}%)`}}>
+                                    {this.renderAvailableAppointments(intervals)}
+                                </div>
+                            </div>
+                            <div className="table-footer"
+                                 key="btn"
+                            >
+                                <Button size='link'
+                                        type='link'
+                                        title='Показать ещё'
+                                        icon={this.state.isFull ? 'circle_arrow_up' : 'circle_arrow_down'}
+                                        onClick={() => this.setState({
+                                            rowCount: this.state.rowCount === 4 ? 0 : 4,
+                                            isFull: !this.state.isFull
+                                        })}/>
+                            </div>
+                            <NewVisitModalPage
+                                visible={this.state.modalVisible}
+                                onOk={() => this.setModalVisible(false)}
+                                onCancel={() => this.setModalVisible(false)}
+                            />
+                        </div>
+                    )}
             </div>
         )
     }

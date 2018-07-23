@@ -15,10 +15,7 @@ storiesOf('PatientPageDoctorItem', module)
                 doctorCategory='Высшая категория, кандидат медицинских наук'
                 doctorExp='Стаж работы 17 лет '
                 doctorPrice='35'
-                doctorLanguages={[
-                    {language: 'Английский'},
-                    {language: 'Русский'},
-                ]}
+                doctorLanguages={['Английский','Русский']}
                 doctorChild={true}
             />
         </div>

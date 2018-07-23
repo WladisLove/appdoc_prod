@@ -46,7 +46,7 @@ class Patients extends React.Component{
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patient'+id);
-	}
+	};
     //
 	// componentDidMount(){
 	// 	this.props.onGetPatientDoctors();
