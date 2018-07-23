@@ -68,39 +68,24 @@ export function eventLevels(rowSegments, limit = Infinity) {
   return { levels, extra }
 }
 
-export function inRange(e, start, end, { startAccessor, endAccessor, date }, editor) {
+export function inRange(e, start, end, { startAccessor, endAccessor }, editor) {
   let eStart = dates.startOf(get(e, startAccessor,editor), 'day')
   let eEnd = get(e, endAccessor,editor)
 
-
-  let startsBeforeEnd = false;
-  let endsAfterStart = false;
+  let startsBeforeEnd;
+  let endsAfterStart;
 
     if (editor && eStart && eEnd) {
-          /*startsBeforeEnd = eStart.getMonth() === start.getMonth() ? 
-            (eStart.getDate() >= start.getDate() && eStart.getFullYear() === start.getFullYear())
-            : eStart.getMonth() >= start.getMonth() ?
-              (eStart.getDate() > 7 && eStart.getFullYear() >= start.getFullYear())
-              : false;*/
 
-          startsBeforeEnd = eStart.getMonth() === start.getMonth() ? 
-            (eStart.getDate() >= start.getDate() && eStart.getFullYear() === start.getFullYear())
-            : eStart.getMonth() === date.getMonth() ?
-              (eStart.getDate() < 7 && eStart.getFullYear() >= start.getFullYear())
-              : false;
-
-          /*endsAfterStart = eEnd.getMonth() === end.getMonth() ? 
-            (eEnd.getDate() <= end.getDate() && eEnd.getFullYear() === end.getFullYear())
-            : eEnd.getMonth() <= end.getMonth() ?
-              (eStart.getDate() > 7 && eEnd.getFullYear() <= end.getFullYear())
-              : false;*/
-
-          endsAfterStart = eEnd.getMonth() === end.getMonth() ? 
-            (eEnd.getDate() <= end.getDate() && eEnd.getFullYear() === end.getFullYear())
-            : eEnd.getMonth() === date.getMonth() ?
-              (eStart.getDate() > 7 && eEnd.getFullYear() <= end.getFullYear())
-              : false;
-      }
+        startsBeforeEnd =
+            eStart.getDate() >= start.getDate()
+            && eStart.getMonth() === start.getMonth()
+            && eStart.getFullYear() === start.getFullYear();
+        endsAfterStart =
+            eEnd.getDate() <= end.getDate()
+            && eEnd.getMonth() === end.getMonth()
+            && eEnd.getFullYear() === end.getFullYear();
+    }
     else{
         startsBeforeEnd = dates.lte(eStart, end, 'day')
         // when the event is zero duration we need to handle a bit differently
@@ -152,7 +137,6 @@ export function sortScheds(
     evtB,
     { startAccessor, endAccessor, allDayAccessor }
 ) {
-
     let startSort =
         +dates.startOf(get(evtA, startAccessor, true), 'day') -
         +dates.startOf(get(evtB, startAccessor, true), 'day')

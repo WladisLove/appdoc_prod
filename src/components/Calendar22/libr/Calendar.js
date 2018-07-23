@@ -183,7 +183,7 @@ class Calendar extends React.Component {
   }
 
   getView = () => {
-    const views = this.getViews();
+    const views = this.getViews()
     return views[this.props.view]
   }
 
@@ -290,7 +290,6 @@ class Calendar extends React.Component {
 
   handleViewChange = (view, date) => {
     if (view !== this.props.view && isValidView(view, this.props)) {
-      //console.log('handleViewChange',date)
       this.props.onView(view, date)
     }
   }
@@ -318,8 +317,6 @@ class Calendar extends React.Component {
       return
     }
     if (view) this.handleViewChange(view, date)
-    console.log(navigate.DATE, date)
-
     this.handleNavigate(navigate.DATE, date, true)
   }
 }

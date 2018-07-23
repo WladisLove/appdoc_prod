@@ -73,9 +73,6 @@
   width: 100%;
   bottom: 0;
 }
-.rbc-month-row {
-  cursor: pointer;
-}
 .rbc-month-row .month-row-segment {
   display: flex;
   font-size: 32px;
@@ -159,6 +156,53 @@
 }
 .rbc-month-row .month-row-segment-coming .icon-count {
   background-color: #0495ff;
+}
+.rbc-month-row .user-month-row-segment {
+  height: 85px;
+  margin: 10px 0 5px 0;
+  position: relative;
+  border: 0;
+}
+.rbc-month-row .user-month-row-segment .user-visit {
+  font-size: 13px;
+  background-color: #0495ff;
+  border: 0px;
+  border-radius: 5px;
+  height: 100%;
+  margin: 0 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+.rbc-month-row .user-month-row-segment .user-visit .separate-visit-div:not(:last-child) {
+  margin-bottom: 15px;
+}
+.rbc-month-row .user-month-row-segment .user-visit .separate-visit-div .icon {
+  color: white;
+  position: absolute;
+  right: 20px;
+}
+.rbc-month-row .user-month-row-segment .user-visit .vis-info {
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rbc-month-row .user-month-row-segment .user-visit .vis-info-btn {
+  text-align: center;
+}
+.rbc-month-row .user-month-row-segment .user-visit .vis-info-btn:hover {
+  cursor: pointer;
+}
+.rbc-month-row .user-month-row-segment .user-visit-gap {
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  right: 15px;
+  top: -30px;
+  background-color: #0495ff;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
 }
 .rbc-label.rbc-header-gutter.rbc-clock-icon {
   width: 10%;

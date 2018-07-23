@@ -14,7 +14,7 @@
 }
 .rbc-addons-dnd.rbc-addons-dnd-is-dragging .rbc-event {
   pointer-events: none;
-  opacity: .50;
+  opacity: 0.5;
 }
 .rbc-addons-dnd .rbc-addons-dnd-resize-anchor {
   width: 100%;

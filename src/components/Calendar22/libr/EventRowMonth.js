@@ -2,6 +2,7 @@ import React from 'react'
 import { eventLevels } from './utils/eventLevels'
 import cn from 'classnames'
 import Icon from '../../Icon'
+import PopoverApp from '../../Popover'
 import moment from 'moment'
 
 
@@ -9,6 +10,9 @@ class EventRowMonth extends React.Component {
     constructor(props){
         super(props);
         this.now = new Date();
+        this.state = {
+            activeDate: 0,
+        }
     }
 
     isSegmentInSlot = (seg, slot) => seg.left <= slot && seg.right >= slot;
@@ -20,7 +24,6 @@ class EventRowMonth extends React.Component {
         let current = 1,
             row = [],
             currentInSeg = 0;
-
         while (current <= slotCount) {
             let { event } =
             rowSegments.filter(seg => this.isSegmentInSlot(seg, current))[0] || {}
@@ -31,10 +34,12 @@ class EventRowMonth extends React.Component {
                 continue
             }
 
-            let gap =0;
+            let gap =0,
+                dayEvents = [];
             for (let i =0, len = segments.length; i < len; i++){
                 if(segments[i].left == current){
                     gap++;
+                    dayEvents.push(segments[i]);
                     continue;
                 }
                 if(segments[i].left > current){
@@ -44,41 +49,105 @@ class EventRowMonth extends React.Component {
             if (gap) {
                 row.push({
                     gap: gap,
+                    ev: dayEvents,
                     date: rowSegments[currentInSeg].event.start
                 })
             }
             currentInSeg++;
             current++
         }
-
         return row;
     };
+
+    renderOneVisit = (el, i, isShort, num = 0, toNull = false) => {
+        const key_val = {
+            'chat': 'chat1',
+            'voice': 'telephone', 
+            'video': "video-camera",
+        };
+        return (
+            <div key={"uDiv_"+i+"_"+num}
+                className={"separate-visit-div"}>
+                    <Icon svg type={key_val[el.ev[num].event.type]} size={16} />
+                    <div className="vis-info">
+                        {moment(el.ev[num].event.start).format("HH:mm")
+                            } - {
+                        moment(el.ev[num].event.end).format("HH:mm")} 
+                     </div>
+                    <div className="vis-info">{el.ev[num].event.doctorType} </div>
+                    <div className="vis-info">{el.ev[num].event.fio}</div>
+                    {el.gap > 1 && isShort &&
+                        (<div className="vis-info vis-info-btn"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                e.nativeEvent.stopImmediatePropagation();
+                                toNull ?
+                                    this.setState({activeDate: 0})
+                                    : this.setState({activeDate: el.date.getDate()})}
+                            }>
+                            &#x2550;
+                        </div>)
+                    }
+            </div>
+        )
+    }
+
+    renderAllVisits = (el, i) => {
+        let content = [];
+        for (let j =0; j < el.ev.length; j++){
+            j === el.ev.length - 1 ?
+            content.push(this.renderOneVisit(el, i, true, j, true))
+            : content.push(this.renderOneVisit(el, i, false, j)) ;
+        }
+        return content;
+    }
+
+    userDiv = (el, i) => {
+        return (
+            <div className="user-month-row-segment"
+                key={"lvl_"+i}
+                style={{width: `${100 / 7}%`}}>
+                {el.gap > 1 && <div className="user-visit-gap">{el.gap}</div>}
+                <PopoverApp events={el.ev}
+                      isUser={true}>
+                    <div className="user-visit" style={this.state.activeDate === el.date.getDate() ?
+                    {height: "auto"} : {}}>
+                        {
+                            this.state.activeDate === el.date.getDate() ?
+                                this.renderAllVisits(el, i) : this.renderOneVisit(el,i, true)
+                        }
+                    </div>
+                </PopoverApp>
+            </div>
+        )
+    }
+    docDiv = (el, i) => {
+
+        let cellClass = cn(
+            'month-row-segment',
+            {'month-row-segment-coming':
+            this.now.getDate() <= el.date.getDate() &&
+            this.now.getMonth() <= el.date.getMonth() &&
+            this.now.getYear() <= el.date.getYear()})
+
+            return (<div key={'_lvl_' + i}
+                 className={cellClass}
+                 style={{width: `${100 / 7}%`}}>
+                <div className="month-row-segment-content">
+                    <div className="icon-count">
+                        <Icon type="user" size={28}/>
+                    </div> {el.gap}
+                </div>
+            </div>)
+    }
     renderRow = (row) => {
-
         return row.map((el, i) => {
-            let cellClass;
-
-            let div = el ? (
-                    cellClass = cn(
-                        'month-row-segment',
-                        {'month-row-segment-coming':
-                        this.now.getDate() <= el.date.getDate() &&
-                        this.now.getMonth() <= el.date.getMonth() &&
-                        this.now.getYear() <= el.date.getYear()}),
-
-                        <div key={'_lvl_' + i}
-                             className={cellClass}
-                             style={{width: `${100 / 7}%`}}>
-                            <div className="month-row-segment-content">
-                                <div className="icon-count">
-                                    <Icon type="user" size={28}/>
-                                </div> {el.gap}
-                            </div>
-                        </div>
-                ) :
-                <div key={'_lvl_' + i}
-                     className="rbc-row-segment"
-                     style={{width: `${100/7}%`}}/>
+            let div = el ? 
+                this.props.isUser ? 
+                    this.userDiv(el, i) : this.docDiv(el, i)
+                    : <div key={'_lvl_' + i}
+                        className="rbc-row-segment"
+                        style={{width: `${100/7}%`}}/>
 
 
             return (div)
@@ -194,7 +263,8 @@ class EventRowMonth extends React.Component {
 
 
 
-        return <div className="month-row">
+        return <div className="month-row" 
+            style={this.props.isUser ? {zIndex: 8}:{}}>
             {editor
                 ? this.renderEditorRow(row)
                 : this.renderRow(row)}
