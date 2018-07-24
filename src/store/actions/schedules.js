@@ -90,7 +90,6 @@ export const getAllVisits = (start, end) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log('[getAllVisits]',res.data)
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
                     visits: res.data.result,

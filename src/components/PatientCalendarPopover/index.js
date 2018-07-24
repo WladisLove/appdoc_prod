@@ -14,19 +14,29 @@ const PatientCalendarPopover = (props) => {
     return (
     	<div className='popover-calendar'>
 			<div className='popover-calendar-title'>Приёмы</div>
-			{calendarItem.map((item, index)=> 
+			{calendarItem.map((item, index)=>
 				<div className='popover-calendar-item' key={index+1}>
 					<div className='popover-calendar-num'><span>{index+1}</span></div>
 					<div className='popover-calendar-block'>
-						<div onClick={() => props.onGoto(item.id)} className='popover-calendar-speciality go-to'>
-							{item.appointmentSpec}
+						<div className='popover-calendar-speciality'>
+							{item.event.doctorSpecialty}
 						</div>
-						<div onClick={() => props.onGotoName(item.appointmentName)} className='popover-calendar-name go-to'>
-							{item.appointmentName}
+                        {/*item.event.id есть для перехода*/}
+						<div onClick={() => props.onGotoName()} className='popover-calendar-name go-to'>
+							{item.event.doctorName}
 						</div>
 						<div className='popover-calendar-info'>
-							<div className='popover-calendar-date'>{item.appointmentDate}</div>
-							<div className='popover-calendar-type'><Icon type={item.appointmentType} size={17} svg title={item.appointmentTypeTitle} /></div>
+							<div className='popover-calendar-date'>
+                                {moment(item.event.start).format("DD MMMM HH:mm")} - {moment(item.event.end).format("HH:mm")}
+                            </div>
+							<div className='popover-calendar-type'>
+                                 <Icon
+                                     type={item.event.type === "video" ? "video-camera" : item.event.type === "voice" ?
+                                     "telephone" : "chat1"}
+                                     size={17}
+                                     svg
+                                     title={item.appointmentTypeTitle} />
+                            </div>
 						</div>
 						<div className='popover-calendar-text'>{item.appointmentText}</div>
 					</div>

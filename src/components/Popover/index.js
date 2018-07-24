@@ -28,8 +28,6 @@ class PopoverApp extends React.Component {
     };
 
     render() {
-        console.log(this.props.events)
-
         //console.log(...this.props.data)
         //console.log(this.props.data)
 
