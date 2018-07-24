@@ -37,7 +37,9 @@ class ContentForm extends React.Component {
                     {
                         ...this.props.form.getFieldsValue(),
                         comment: this.state.message,
-                        date: Math.floor((this.props.date).getTime() / 1000),
+                        date: this.props.date,
+                        id_doc: this.props.docId,
+                        type: this.props.type,
                         file: this.props.form.getFieldValue('file')
                             ? (this.props.form.getFieldValue('file').fileList)
                             : [],
@@ -86,7 +88,8 @@ class ContentForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {visible, date, time} = this.props;
+        //const {visible, date, time} = this.props;
+        const date = this.props.date*1000;
 
         let timeElement = this.props.isChoosebleTime
             ? <div className='modal-time'><FormItem>
@@ -100,7 +103,7 @@ class ContentForm extends React.Component {
             </FormItem></div>
             : <div className='modal-time'>
                 <Icon svg type='alarm' size={26}/>
-                <div className='modal-result'>{moment(date).format('HH:mm')}</div>
+                <div className='modal-result'>{moment(+date).format('HH:mm')}</div>
             </div>;
 
         return (
@@ -109,7 +112,7 @@ class ContentForm extends React.Component {
                 <div className='modal-row'>
                     <div className='modal-data'>
                         <Icon svg type='calendar' size={26}/>
-                        <div className='modal-result'>{moment(date).format('DD MMMM')}</div>
+                        <div className='modal-result'>{moment(+date).format('DD MMMM')}</div>
                     </div>
                     {timeElement}
                 </div>
@@ -118,7 +121,7 @@ class ContentForm extends React.Component {
                     <span className="modal-doctor-name">{this.props.doctorName}</span>
                 </div>
                 <FormItem>
-                    {getFieldDecorator('radio',{
+                    {getFieldDecorator('type',{
                         initialValue: 'chat',
                     })(
                         this.getIconsFromType(this.props.type)

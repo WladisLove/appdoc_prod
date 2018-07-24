@@ -22,6 +22,7 @@ class PatientDoctor extends React.Component{
     }
 
     render(){
+        console.log(this.props.data, "DOCTORS");
         const { data, onGoto } = this.props;
 
         return (

@@ -15,14 +15,7 @@ import './styles.css'
 class Treatment extends React.Component{
 
     componentDidMount(){
-        //console.log('here');
         this.props.onGetTreatments();
-        /*axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/2732')
-            .then(rez => {
-                console.log(rez);
-                this.setState({treatments: rez.data})
-            })
-            .catch(err => console.log(err))*/
     }
 
     gotoHandler = (id) => {

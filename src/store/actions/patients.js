@@ -64,6 +64,28 @@ export const setReception = (reception) => {
             });
     }
 }
+export const setReceptionByPatient = (reception) => {
+
+    return (dispatch, getState) => {
+        let obj = {
+            ...reception,
+            id_user: getState().auth.id
+        };
+
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
+            JSON.stringify(obj))
+            .then(res => {
+                dispatch({
+                    type: actionTypes.SET_RECEPTION_BY_PATIENT,
+                    isReceptionRecorded: res.data.process
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+}
+
 export const getDocPatients = () => {
     return (dispatch, getState) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/getPatientsByDoctorId/id/' + getState().auth.id)
@@ -80,14 +102,15 @@ export const getDocPatients = () => {
     }
 }
 
-export const getPatientDoctors = () => {
+export const getPatientDoctors = (count) => {
     return (dispatch, getState) => {
         dispatch({
             type: actionTypes.GET_PATIENT_DOCTORS_LOADING
         });
 
         let obj = {
-            id: getState().auth.id
+            id: getState().auth.id,
+            max: count ? count : 0
         };
 
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDoctorIdByPatients', JSON.stringify(obj))

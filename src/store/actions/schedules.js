@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as actionTypes from './actionTypes'
+import moment from "moment";
 
 
 
@@ -96,6 +97,49 @@ export const getAllVisits = (start, end) => {
                     intervals: res.data.interval.interval,
                     min: res.data.interval.min,
                     max: res.data.interval.max,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+};
+export const getAllPatientVisits = () => {
+
+    return (dispatch, getState) => {
+        let obj = {
+            id_user: getState().auth.id,
+        };
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
+                    JSON.stringify(obj))
+            .then(res => {
+                dispatch({
+                    type: actionTypes.GET_ALL_USER_VISITS,
+                    allUserVisits: res.data.result,
+
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+};
+
+export const getCountNearVisits = (count) => {
+
+    return (dispatch, getState) => {
+        let obj = {
+            id_user: getState().auth.id,
+            max: count,
+            datestart: moment().format('X')
+        };
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
+                    JSON.stringify(obj))
+            .then(res => {
+                console.log('[getCountNearVisits]',res.data);
+                dispatch({
+                    type: actionTypes.GET_COUNT_NEAR_VISITS,
+                    nearVisits: res.data.result,
                 })
             })
             .catch(err => {

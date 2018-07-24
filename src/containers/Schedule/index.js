@@ -59,6 +59,7 @@ class Schedule extends React.Component {
 
     componentDidMount() {
         this.setIntervalAndView(this.state.currentDate, 'week');
+        this.props.onGetAllUserVisits();
     }
 
     componentWillUnmount() {
@@ -211,8 +212,12 @@ class Schedule extends React.Component {
             });
 
         }
-
-        if (this.state.isEditorMode) {
+        if (this.props.isUser) {
+            calendar = (<Calendar receptionNum={23}
+                                  isUser = {true}
+                                  events = {this.props.allUserVisits}
+            />)
+        } else if (this.state.isEditorMode) {
             editorBtn = (<Button btnText='Вернуться к графику'
                                  onClick={() => this.changeToEditorMode(false)}
                                  type='yellow'
@@ -332,7 +337,7 @@ class Schedule extends React.Component {
 const mapStateToProps = state => {
     return {
         patients: state.patients.docPatients,
-
+        isUser: state.auth.mode === "user",
         visits: state.schedules.visits,
         intervals: state.schedules.visIntervals,
         min: state.schedules.min,
@@ -340,6 +345,7 @@ const mapStateToProps = state => {
         schedules: state.schedules.schedules,
         chosenData: state.schedules.chosenData,
         cancelData: state.schedules.cancelData,
+        allUserVisits: state.schedules.allUserVisits,
     };
 };
 
@@ -353,7 +359,7 @@ const mapDispatchToProps = dispatch => {
 
         onAddNewVisit: (obj, start, end) => dispatch(actions.addVisit(obj, start, end)),
         onGetAllVisits: (start, end) => dispatch(actions.getAllVisits(start, end)),
-
+        onGetAllUserVisits: () => dispatch(actions.getAllPatientVisits()),
         onSendMessage: (mess) => dispatch(actions.sendMessage(mess)),
         onCloseCancelModal: (obj) => dispatch(actions.cancelEventsRange(obj)),
 

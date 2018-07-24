@@ -9,6 +9,7 @@ export {
     getDateInterval,
     getDateIntervalWithoutMakingApp,
     setReception,
+    setReceptionByPatient,
     selectPatient,
     unselectPatient,
     getNotPatientDoctors,
@@ -34,10 +35,13 @@ export {
     addInterval,
     addVisit,
     getAllVisits,
+    getAllPatientVisits,
+    getCountNearVisits,
     getTodayVisits,
 } from './schedules';
 export {
     getActualTreatments,
+    getCompletedTreatments,
     getAllTreatments,
     seletVisit,
     selectTreatment,

@@ -22,8 +22,9 @@ class PatientCalendarCarousel extends React.Component {
     }
 
     dateClickHandler = (e) => {
-        console.log(e.target.getAttribute("data-timestamp"), "VALUE");
-        this.props.newVisitVisible(true)
+        let timestamp = e.target.getAttribute("data-timestamp");
+        let type = e.target.getAttribute("data-interval-type");
+        this.props.newVisitVisible(true, this.props.id, this.props.doctorName, timestamp, type)
     };
     nextCarouselItem = () => {
         if (this.state.carouselStep < this.props.intervals.length - 3) {
@@ -52,10 +53,11 @@ class PatientCalendarCarousel extends React.Component {
             if (intervals[i].intervalOb.length) {
                 headers.push(moment(this.props.intervals[i].date * 1000).format('ddd D MMMM'));
                 for (let j = 0; j < intervals[i].intervalOb.length; j++) {
-                    for (let t = +intervals[i].intervalOb[j].start; t < +intervals[i].intervalOb[j].end; t += 300) {
+                    for (let t = +intervals[i].intervalOb[j].start; t < +intervals[i].intervalOb[j].end; t += intervals[i].interval*60) {
                         time.push({
                             timeToDisplay: moment(+t * 1000).format('H:mm'),
-                            timestamp: +t
+                            timestamp: +t,
+                            type: intervals[i].type
                         });
                     }
                 }
@@ -71,6 +73,7 @@ class PatientCalendarCarousel extends React.Component {
                              onClick={(e) => this.dateClickHandler(e)}
                              key={indexTime + 1}
                              data-timestamp={item.timestamp}
+                             data-interval-type = {item.type}
                         >
                             {item.timeToDisplay}
                         </div>
@@ -78,9 +81,10 @@ class PatientCalendarCarousel extends React.Component {
                     :
                     timeIntervals[indexDay].map((item, indexTime) =>
                         <div className='calendar-carousel-time'
-                             onClick={() => this.props.newVisitVisible(true)}
+                             onClick={(e) => this.dateClickHandler(e)}
                              key={indexTime + 1}
-                             data-timestamp={item.timestamp}
+                             data-timestamp = {item.timestamp}
+                             data-interval-type = {item.type}
                         >
                             {item.timeToDisplay}
                         </div>

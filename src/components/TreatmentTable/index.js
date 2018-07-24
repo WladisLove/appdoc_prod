@@ -28,7 +28,8 @@ class TreatmentTable extends React.Component{
         const {data} = this.props;
         return (
             <div className='treatment-all'>
-                <Card title="Актуальные обращения" 
+                <Card title={this.props.isUser ? "Прошедшие приемы" : "Актуальные обращения" }
+
                         extra={<div className='go-to' onClick={this.props.redirect}>
                             <Icon svg size={16} type="order-form" /> <span>Все обращения</span>
                         </div>}>
@@ -38,7 +39,7 @@ class TreatmentTable extends React.Component{
                             contentClassName="content"
                     >
                     <div className="tableheader">
-                        <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Имя доктора" : "Имя пациента"}</div></div>
+                        <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Врач" : "Имя пациента"}</div></div>
                         <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
                         <div className="flex-col"><div className="tableheader-name">диагноз</div></div>
                         <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>

@@ -2,52 +2,60 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import PopoverBody from '../PopoverBody'
 
-import { Popover } from 'antd';
+import {Popover} from 'antd';
 
 import './style.css'
+import PatientCalendarPopover from "../PatientCalendarPopover";
 
 class PopoverApp extends React.Component {
 
-	state = {
-		visible: false,
-	};
+    state = {
+        visible: false,
+    };
 
-	handleVisibleChange = (visible) => {
-		this.setState({ visible });
-	};
+    handleVisibleChange = (visible) => {
+        this.setState({visible});
+    };
 
-	handleClose = () => {
+    handleClose = () => {
         this.props.onClose();
         this.setState({visible: false})
     };
 
-	handleEmail = () => {
+    handleEmail = () => {
         this.props.onEmail();
         this.setState({visible: false})
     };
 
-  render() {
+    render() {
+        console.log(this.props.events)
 
+        //console.log(...this.props.data)
+        //console.log(this.props.data)
 
-    //console.log(...this.props.data)
-    //console.log(this.props.data)
+        return (
 
-    return (
-      <Popover
-        content={<PopoverBody {...this.props.data}
-                              onClose={this.handleClose}
-                              onEmail={this.handleEmail}
-                              onGoto={this.props.onGoto}
-        />}
-        trigger="click"
-        visible={this.state.visible}
-        onVisibleChange={this.handleVisibleChange}
-        placement="rightTop"
-      >
-          {this.props.children}
-      </Popover>
-    );
-  }
+            <Popover
+                content={this.props.isUser ?
+                    <PatientCalendarPopover
+                        calendarItem={this.props.events}
+                    />
+                    :
+                    <PopoverBody
+                        {...this.props.data}
+                        onClose={this.handleClose}
+                        onEmail={this.handleEmail}
+                        onGoto={this.props.onGoto}
+                    />}
+                trigger="click"
+                visible={this.state.visible}
+                onVisibleChange={this.handleVisibleChange}
+                placement="rightTop"
+            >
+                {this.props.children}
+            </Popover>
+        );
+    }
 }
 
 
@@ -60,9 +68,12 @@ PopoverApp.propTypes = {
 
 PopoverApp.defaultProps = {
     data: {},
-    onClose: () => {},
-    onEmail: () => {},
-    onPhone: () => {},
+    onClose: () => {
+    },
+    onEmail: () => {
+    },
+    onPhone: () => {
+    },
 };
 
 export default PopoverApp

@@ -22,6 +22,7 @@ class PatientNearRecord extends React.Component{
     }
 
     render(){
+        console.log(this.props.data, "DATA FRO< PATIENTNEARRECORD")
         const { data, onGoto } = this.props;
 
         return (

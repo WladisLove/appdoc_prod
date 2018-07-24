@@ -15,7 +15,6 @@ class Patients extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			addNew_show: false,
             isModalNewVisitVisible: false,
 			id: null,
 			name: "",
@@ -28,52 +27,29 @@ class Patients extends React.Component{
         }
     }
 
-	addNewVisitVisible = (isModalNewVisitVisible, id, name) => {
-        this.setState({isModalNewVisitVisible, id, name});
+	addNewVisitVisible = (isModalNewVisitVisible, id, name, timestamp, type) => {
+        this.setState({isModalNewVisitVisible, newVisit: {id,name,timestamp,type}});
 	};
+
     addNewDoctorVisible = () => {
     	this.setState({isModalAddNewDoctorVisible: true})
 	};
-    onChangeDate = (date) => {
-        let beginDay = moment(date),
-            endDay = moment(date);
-
-        beginDay.startOf('date');
-        endDay.endOf('date');
-        this.props.onGetIntervalForDate(beginDay.format('X'), endDay.format('X'));
-    };
 
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patient'+id);
 	};
-    //
-	// componentDidMount(){
-	// 	this.props.onGetPatientDoctors();
-	// }
 
     componentWillMount() {
 		this.props.onGetPatientDoctors();
     }
 
-    showModalHandler = () => {
-		this.setState({addNew_show: true});
-	};
+    componentWillReceiveProps(props) {
 
-	getInterval = () => {
-		let intervals = [];
-
-		const arr = this.props.intervals;
-		for(let i = 0; arr && i < arr.length; i++){
-			for(let j = 0; j < arr[i].intervalOb.length; j++){
-				intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000, type: (arr[i].type)});
-			}
-		}
-		return intervals;
-	};
+    }
 
     render(){
-	let availableArea = this.getInterval();
+        console.log(this.props.isReceptionRecorded, "IS_RECEPTION_RECORDED");
         return this.props.isLoadingPatientDoctors ? (
 			<Spinner size="large"/>
 	):(
@@ -95,13 +71,17 @@ class Patients extends React.Component{
 
                 <NewVisitByPatientModal
                     visible={this.state.isModalNewVisitVisible}
-                    // userName='Петров-Иванов Александр Константинович'
-                    date={this.state.newVisit.time}
+                    date={+this.state.newVisit.timestamp}
                     isChoosebleTime={false}
-                    onSave = {(obj) => console.log(obj)}
-                    doctorName = {this.state.newVisit.doctorName}
+                    onSave = {(obj) => {
+                        this.props.onSaveReceptionByPatient(obj);
+                        this.props.onGetPatientDoctors();
+                        this.setState({isModalNewVisitVisible: false})
+                    }}
+                    doctorName = {this.state.newVisit.name}
                     type = {this.state.newVisit.type}
                     onCancel={() => this.setState({isModalNewVisitVisible: false})}
+                    docId={this.state.newVisit.id}
                 />
                 <AddNewDoctor
                     data={this.props.notPatientDoctors}
@@ -133,12 +113,9 @@ const mapDispatchToProps = dispatch => {
 		onGetPatientDoctors: () => dispatch(actions.getPatientDoctors()),
 		onGetNotPatientDoctors: (name) => dispatch(actions.getNotPatientDoctors(name)),
 		onClearNotPatientDoctors: () => dispatch(actions.clearNotPatientDoctors()),
-		addDoctor: (id) => dispatch(actions.addDoctor(id, "")), //нужно что то сделать со вторым параметром
+		addDoctor: (id) => dispatch(actions.addDoctor(id)),
 		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
-		onSendMessage: (message) => dispatch(actions.sendMessage(message)),
-		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
-		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
-        onSaveReception: (reception) => dispatch(actions.setReception(reception)),
+        onSaveReceptionByPatient: (reception) => dispatch(actions.setReceptionByPatient(reception)),
 	}
 };
 

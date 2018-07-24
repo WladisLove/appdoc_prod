@@ -45,6 +45,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isReceptionRecorded: action.isReceptionRecorded,
             }
+        case actionTypes.SET_RECEPTION_BY_PATIENT:
+            return {
+                ...state,
+                isReceptionRecorded: action.isReceptionRecorded,
+            }
 
         case actionTypes.SELECT_PATIENT:
             return {

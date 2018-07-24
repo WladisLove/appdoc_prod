@@ -22,7 +22,7 @@ class PatientDoctorItem extends React.Component{
     }
 
     render(){
-        const { doctorAvatar, doctorName, doctorSpecialty, doctorRate, doctorRank, doctorCategory, doctorExp} = this.props;
+        const { doctorAvatar, doctorName, doctorSpeciality, doctorRate, doctorRank, doctorCategory, doctorExp} = this.props;
         const rootClass = cn('doctor-item');
 
         return (
@@ -37,12 +37,12 @@ class PatientDoctorItem extends React.Component{
                 <div className='doctor-item-block'>
                     <div className='doctor-item-info'>
                         <div className='doctor-item-doctor__name'>{doctorName}</div>
-                        <div className='doctor-item-doctor__specialty'>{doctorSpecialty}</div>
+                        <div className='doctor-item-doctor__specialty'>{doctorSpeciality}</div>
                         <div className='doctor-item-doctor__rating'><Rate defaultValue={doctorRate} disabled/></div>
                     </div>
                     <div className='doctor-item-text'>
-                        <div>{doctorRank}. {doctorCategory}.</div>
-                        <div>Стаж работы {doctorExp}.</div>
+                        <div>{doctorRank} {doctorCategory}</div>
+                        <div>Стаж работы {doctorExp}</div>
                     </div>
                     <div className='doctor-item-btn'>
                         <Button
@@ -55,7 +55,7 @@ class PatientDoctorItem extends React.Component{
                     </div>
                 </div>
 
-                <NewVisitModalPage 
+                <NewVisitModalPage
                     visible={this.state.modalVisible}
                     onOk={() => this.setModalVisible(false)}
                     onCancel={() => this.setModalVisible(false)}
