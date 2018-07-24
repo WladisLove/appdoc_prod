@@ -92,6 +92,7 @@ class BigCalendar extends React.Component{
                         //schedules={this.changeSchedule()}
                         view={'month'}
                         onView={() => {}}
+                        isUser={true}
                         {...prop}/>
                     :
                     this.props.editor ?

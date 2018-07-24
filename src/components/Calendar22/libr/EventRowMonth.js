@@ -74,8 +74,12 @@ class EventRowMonth extends React.Component {
                             } - {
                         moment(el.ev[num].event.end).format("HH:mm")} 
                      </div>
-                    <div className="vis-info">{el.ev[num].event.doctorType} </div>
-                    <div className="vis-info">{el.ev[num].event.fio}</div>
+                    <div className="vis-info">
+                        {this.props.isUser ? el.ev[num].event.doctorSpecialty : el.ev[num].event.doctorType}
+                    </div>
+                    <div className="vis-info">
+                        {this.props.isUser ? el.ev[num].event.doctorName : el.ev[num].event.fio}
+                    </div>
                     {el.gap > 1 && isShort &&
                         (<div className="vis-info vis-info-btn"
                             onClick={(e) => {
@@ -83,6 +87,8 @@ class EventRowMonth extends React.Component {
                                 e.nativeEvent.stopImmediatePropagation();
                                 toNull ?
                                     this.setState({activeDate: 0})
+
+
                                     : this.setState({activeDate: el.date.getDate()})}
                             }>
                             &#x2550;

@@ -36,7 +36,7 @@ class Toolbar extends React.Component {
         <span className="rbc-toolbar-receptionCount">{receptionNum}</span>
 
           {
-              !editor &&
+              !editor && !this.props.isUser &&
               <span className="rbc-btn-group">{this.viewNamesGroup(messages)}</span>
           }
 

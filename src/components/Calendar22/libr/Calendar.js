@@ -250,6 +250,7 @@ class Calendar extends React.Component {
             messages={messages}
             receptionNum={receptionNum}
             editor={this.props.editor}
+            isUser = {this.props.isUser}
           />
         )}
         <View
