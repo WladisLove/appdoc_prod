@@ -30,7 +30,6 @@ class NotificationApp extends React.Component {
     };
     
     componentWillReceiveProps(nexProps){
-        console.log('[componentWillReceiveProps]', nexProps);
         this.setState({inverseCount: 0})
     }
 

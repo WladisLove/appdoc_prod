@@ -11,7 +11,6 @@ class PatientNearRecordItem extends React.Component{
     render(){
         const { doctorName, doctorSpecialty, dateDay, dateMonth, time } = this.props;
         const rootClass = cn('record-item');
-        console.log(this.props.start, this.props.end, "START END")
         return (
             <div className={rootClass}>
                 <div className='record-item-date'>

@@ -216,6 +216,8 @@ class Schedule extends React.Component {
             calendar = (<Calendar receptionNum={23}
                                   isUser = {true}
                                   events = {this.props.allUserVisits}
+                                  onNavigate={this.dateChangeHandler}
+                                  date={this.state.currentDate}
             />)
         } else if (this.state.isEditorMode) {
             editorBtn = (<Button btnText='Вернуться к графику'
@@ -271,7 +273,7 @@ class Schedule extends React.Component {
             <Hoc>
                 <Row style={{marginBottom: 25,}}>
                     <Col span={19} className='schedule-title'>
-                        График работы
+                        {this.props.isUser ? "График приёмов" : "График работы"}
                     </Col>
                     <Col span={5}
                          className='schedule-editBtn'>
@@ -283,7 +285,7 @@ class Schedule extends React.Component {
                         {calendar}
                     </Col>
                     <Col span={5} style={{textAlign: 'center'}}>
-                        <Button
+                        {!this.props.isUser && <Button
                             btnText='Отменить приемы'
                             className={'cancel_rec'}
                             onClick={() => this.setState({cancelModal: true})}
@@ -291,9 +293,11 @@ class Schedule extends React.Component {
                             type='link'
                             icon='circle_close'
                             svg
-                        />
+                        />}
                         <SmallCalendar date={this.state.currentDate}
-                                       onChange={this.dateChangeHandler}/>
+                                       onChange={this.dateChangeHandler}
+                                       isUser = {this.props.isUser}
+                                    />
                     </Col>
                 </Row>
                 <CancelVisitModal visible={this.state.cancelModal}

@@ -9,11 +9,12 @@ import './style.css'
 class SmallCalendar extends React.Component{
 
     render(){
-        const  {date} = this.props;
+        const  {date, isUser} = this.props;
         return ( <Calendar onChange={this.props.onChange}
                            value={date}
                            nextLabel={<Icon type="arrow_right" size={10} svg/>}
                            prevLabel={<Icon type="arrow_left" size={10} svg/>}
+                           maxDetail = {isUser ? "year" : "month"}
         />);
     }
 }

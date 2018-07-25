@@ -39,7 +39,6 @@ export const getCompletedTreatments = () => {
         let isUser = getState().auth.mode === "user" ? "/isuser/1" : "";
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/completed'+isUser)
             .then(res => {
-                console.log(res.data)
                 dispatch({
                     type: actionTypes.GET_COMPLETED_TREATMENTS,
                     treatments: res.data,

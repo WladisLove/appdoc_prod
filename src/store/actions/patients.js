@@ -90,7 +90,6 @@ export const getDocPatients = () => {
     return (dispatch, getState) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/getPatientsByDoctorId/id/' + getState().auth.id)
             .then(rez => {
-                //console.log('getDocPatients',rez)
                 dispatch({
                     type: actionTypes.GET_DOCTORS_PATIENTS,
                     patients: rez.data,
@@ -115,7 +114,6 @@ export const getPatientDoctors = (count) => {
 
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDoctorIdByPatients', JSON.stringify(obj))
             .then(rez => {
-                console.log('getPatientsDoctors', rez.data);
                 dispatch({
                     type: actionTypes.GET_PATIENT_DOCTORS,
                     patientDoctors: rez.data,
@@ -162,7 +160,6 @@ export const getNotDocPatients = (name) => {
         }
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
             .then(rez => {
-                //console.log('getNotDocPatients',rez.data)
                 dispatch({
                     type: actionTypes.GET_NOT_DOCTORS_PATIENTS,
                     patients: rez.data,
@@ -189,7 +186,6 @@ export const getNotPatientDoctors = (name) => {
         };
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getNoDoctorByPatientsId', JSON.stringify(obj))
             .then(rez => {
-                //console.log('getNotDocPatients',rez.data)
                 dispatch({
                     type: actionTypes.GET_NOT_PATIENT_DOCTORS,
                     notPatientDoctors: rez.data,
@@ -220,7 +216,6 @@ export const addPatient = (id, name, getInfo = false) => {
             doctorID: getState().auth.id,
             patientID: id,
         }
-        //console.log(JSON.stringify(obj))
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/putPatientsByDoctorId', JSON.stringify(obj))
             .then(rez => {
 

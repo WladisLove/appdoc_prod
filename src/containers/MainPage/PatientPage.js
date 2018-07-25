@@ -8,7 +8,6 @@ import PatientDoctor from "../../components/PatientDoctor";
 import TopPanelPatient from "../../components/TopPanelPatient";
 import TreatmentTable from "../../components/TreatmentTable";
 const PatientPage = props => {
-    {console.log(props)}
     return (
         <Hoc>
             <Row>

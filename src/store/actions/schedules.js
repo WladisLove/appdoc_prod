@@ -6,7 +6,6 @@ import moment from "moment";
 
 
 export const addInterval = (interval, start, end) => {
-    console.log("ADD interVAL PARAMS FROM ACTIONS SHEDULE.js", interval, start, end);
     return (dispatch) => {
         let obj = {
             ...interval,
@@ -135,7 +134,6 @@ export const getCountNearVisits = (count) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log('[getCountNearVisits]',res.data);
                 dispatch({
                     type: actionTypes.GET_COUNT_NEAR_VISITS,
                     nearVisits: res.data.result,
@@ -149,10 +147,8 @@ export const getCountNearVisits = (count) => {
 
 export const getTodayVisits = () => {
     return (dispatch, getState) => {
-        console.log(getState().auth.id)
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/todayZap/id_doc/'+getState().auth.id)
             .then(res => {
-                console.log('getTodayVisits',res.data.result)
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
                     visits: res.data.result,
