@@ -5,6 +5,8 @@ import Button from '../Button'
 
 import './style.css'
 import '../../icon/style.css'
+import {NavLink} from "react-router-dom";
+import {Form} from "antd";
 
 
 class RegistrationComplete extends React.Component{
@@ -15,18 +17,21 @@ class RegistrationComplete extends React.Component{
             <div className="registration-form">
                 <div className="registration-title">Спасибо!</div>
                 <div className="loginforget-body">
-                    Ваша заявка отправлена.<br />
+                    {this.props.isPatientReg ? "Регистрация завершена." : "Ваша заявка отправлена."} <br />
                     {text}
                 </div>
                 <div className="login-form-control">
-                    <Button
+                    <NavLink to={this.props.urlLogin}
+                             className="login-form-navlink">
+                        <Button
                             htmlType="submit"
                             btnText='Ок'
                             size='large'
                             type='gradient'/>
+                    </NavLink>
                 </div>
                 <div className="login-forget-body">Остались вопросы?</div>
-                <a href={phone} className="login-form-navlink">{phone}</a>
+                <a href={`tel:${phone}`} className="login-form-navlink">{phone}</a>
             </div>
         )
     }

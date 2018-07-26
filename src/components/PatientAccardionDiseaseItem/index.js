@@ -14,7 +14,6 @@ class PatientAccardionDiseaseItem extends React.Component{
         return (
             <div className={rootClass}>
                 <div className='disease-item'>
-                    <div className='disease-item-title'>{title}</div>
                     <div className='disease-item-list'>
                        {diseases.map((item, index)=> <div className='disease-item-li' key={index+1}>{item.disease} (c {item.diseaseDate})</div>)}
                     </div>

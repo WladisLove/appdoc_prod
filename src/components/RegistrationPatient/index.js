@@ -17,6 +17,7 @@ import '../../icon/style.css'
 import {previewFile} from "../../helpers/modifyFiles";
 import Checkbox from "../Checkbox";
 import {NavLink} from "react-router-dom";
+import RegistrationComplete from "../RegistrationComplete";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -43,7 +44,6 @@ class RegistrationPatientForm extends React.Component{
         super(props);
         this.state = {
             loading: false,
-            isRegInProgress: false,
             shouldAgreeTOU: false
         };
 
@@ -78,20 +78,20 @@ class RegistrationPatientForm extends React.Component{
                     this.setState({shouldAgreeTOU: true});
                     return;
                 }
-                let avatar = {name: values.avatar.file.name, thumbUrl: values.avatar.file.thumbUrl}
+                let avatar = values.avatar
+                    ? {name: values.avatar.file.name, thumbUrl: values.avatar.file.thumbUrl} : undefined;
                 let response = {
                     ...values,
-                    avatar: {...avatar},
+                    avatar: avatar,
                     date: moment(values.date).format("X")
                 };
 
-                console.log(response);
-               //this.props.onSubmit(values);
+               this.props.onFinish(response);
             }
         });
     };
     modifyFiles = (file) => {
-        if(!file.thumbUrl && !file.modify){
+        if (!file.thumbUrl && !file.modify) {
             file.modify = true;
             previewFile(file.originFileObj, function (previewDataUrl) {
                 file.thumbUrl = previewDataUrl;
@@ -113,6 +113,11 @@ class RegistrationPatientForm extends React.Component{
             </div>
         );
         const imageUrl = this.state.imageUrl;
+        if(this.props.isRegFinished) {
+            return (
+                <RegistrationComplete urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={true}/>
+            )
+        }
         return (
             <div className="registration-form">
                 <div className="registration-title">Регистрация</div>
@@ -129,10 +134,15 @@ class RegistrationPatientForm extends React.Component{
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('email', {
-                            rules: [{
-                                type: 'email', message: 'Неправильный формат e-mail адреса',
-                            },{ required: true,
-                                message: 'Введите ваш e-mail, пожалуйста' }],
+                            rules: [
+                                {
+                                    type: 'email',
+                                    message: 'Неправильный формат e-mail адреса',
+                                },
+                                {
+                                    required: true,
+                                    message: 'Введите ваш e-mail, пожалуйста'
+                                }],
                         })(
                             <Input addonBefore='* E-mail'
                                    className='step-form-item'/>
@@ -241,10 +251,11 @@ class RegistrationPatientForm extends React.Component{
                                 type='gradient'
                                 style={{margin:0}}/>
                     </div>
+                    {this.props.isUserExist && <Alert style={{marginTop:10}} message="E-mail уже зарегистрирован" type="error" >Выберете доступное время</Alert>}
                     <div style={{marginTop: "15px", textAlign: "center"}}>У вас уже есть аккаунт? <NavLink to={this.props.urlLogin}
                                                                                                            className="login-form-navlink">Войти</NavLink>
                     </div>
-                    {this.state.isRegInProgress &&
+                    {this.props.isRegInProgress &&
                     <div style={{marginTop: "15px"}}>
                         <Spinner size="large">
 

@@ -56,6 +56,7 @@ export {
 export {
     login,
     logout,
+    registerUser
 } from './auth'
 
 export {

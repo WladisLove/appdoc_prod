@@ -20,7 +20,6 @@ class PatientAccardionDisease extends React.Component{
                 <Accordion defaultActiveKey={['1']}>
                     <Panel header="Хронические болезни, аллергии" key="1">
                         <PatientAccardionDiseaseItem
-                            title="Хронические болезни"
                             diseases={[
                                 {disease: 'Хронический миокардит', diseaseDate: '01.01.1999'},
                                 {disease: 'Кардиомиопатия', diseaseDate: '01.01.1999'},

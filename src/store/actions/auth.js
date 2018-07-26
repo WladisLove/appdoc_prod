@@ -49,7 +49,29 @@ export const login = (userName, password, remember, history, isAuto) => {
                     })
     }
 }
-
+export const registerUser = (userInfo) => {
+    return (dispatch) => {
+        dispatch({
+            type: actionTypes.REG_PATIENT_START
+        });
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/creatUser',
+                JSON.stringify(userInfo))
+                    .then(res => {
+                        if(res.data.code===400) {
+                                dispatch({
+                                    type: actionTypes.REG_PATIENT_EXIST
+                                })
+                            } else  if(res.data.code === 200) {
+                                dispatch({
+                                    type: actionTypes.REG_PATIENT_SUCCESS
+                                })
+                            }
+                    })
+                    .catch(err => {
+                        console.log('error: ',err);
+                    })
+    }
+}
 
 export const logout = () => {
     return dispatch => {
@@ -74,6 +96,7 @@ const authStart = () => {
         type: actionTypes.AUTH_START
     };
 };
+
 
 const authSuccess = (id, usergroup) => {
     return {

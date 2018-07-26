@@ -36,60 +36,65 @@ class PersonalInfo extends React.Component{
         this.props.onSendNewInfoDoctor(profileDoctor);
         this.setState({visible:true}) ;
     };
-    render(){
+
+    render() {
         let doctor = compileToClientDoctor(this.props.profileDoctor);
-
+        let isUser = this.props.auth.mode === "user";
         return (
-
             <Hoc>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PatientAccardionContact
-                            onSubmit ={this.onSubmit}
-			            />
-            		</Col>
-            	</Row>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PatientAccardionDisease
-                            onSubmit ={this.onSubmit}
-			            />
-            		</Col>
-            	</Row>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PersonalContact
-                            profileDoctor={ doctor}
-                            onSubmit ={this.onSubmit}
-			            />
-            		</Col>
-            	</Row>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PersonalEducation
-                            profileDoctor={ doctor}
-                            onSubmit ={this.onSubmit}
-                        />
-            		</Col>
-            	</Row>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PersonalExperience
-                            profileDoctor={doctor}
-                            onSubmit ={this.onSubmit}
-                        />
-            		</Col>
-            	</Row>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PersonalInformation
-                            profileDoctor={doctor}
-                            onSubmit ={this.onSubmit}
-                        />
-            		</Col>
-            	</Row>
-                <WarningModal visible={this.state.visible} onClick={this.onVisible}
-                              message="Изменения всупят в силу после проверки администратором"/>
+                {isUser ? (
+                    <div className="patient-persoonal-items">
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PatientAccardionContact
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PatientAccardionDisease
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                    </div>) : (
+                    <div className="doctor-persoonal-items">
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PersonalContact
+                                    profileDoctor={doctor}
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PersonalEducation
+                                    profileDoctor={doctor}
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PersonalExperience
+                                    profileDoctor={doctor}
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PersonalInformation
+                                    profileDoctor={doctor}
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <WarningModal visible={this.state.visible} onClick={this.onVisible}
+                                      message="Изменения всупят в силу после проверки администратором"/>
+                    </div>)}
             </Hoc>
         )
     }
