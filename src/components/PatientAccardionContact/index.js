@@ -12,17 +12,20 @@ class PatientAccardionContact extends React.Component{
 
     render(){
         const { contactFio, contactPhone, contactEmail, contactAdress, contactPas, contactNewPas } = this.props;
-        const rootClass = cn('patient-contacts');
+        const rootClass = cn('patient-contacts-accardion');
         const Panel = Accordion.Panel;
         
         return (
             <div className={rootClass}>
                <Accordion defaultActiveKey={['1']}>
-                    <Panel header="Хронические болезни, аллергии" key="1"> 
-                        <PatientAccardionContactItem  
-                            title="Хронические болезни"
-                            disease="Хронический миокардит"
-                            diseaseDate="21.06.1999"
+                    <Panel header="Контакты" key="1">
+                        <PatientAccardionContactItem
+                            contactFio='Иванова Александра Константиновна'
+                            contactPhone='+ 375 29 234 74 55'
+                            contactEmail='ivanova234@mail.ru'
+                            contactAdress='г. Минск, ул. Строителей, д. 34, кв. 18'
+                            contactPas='test'
+                            contactNewPas=''
                         />
                     </Panel>
                 </Accordion>

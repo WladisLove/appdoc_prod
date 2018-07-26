@@ -32,7 +32,6 @@ ReactDOM.render(
                 <Root />
             </ConnectedRouter>
         </Provider>
-
 </LocaleProvider>
     </CookiesProvider>,
     rootElement);

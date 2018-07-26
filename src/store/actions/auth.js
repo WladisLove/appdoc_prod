@@ -50,6 +50,7 @@ export const login = (userName, password, remember, history, isAuto) => {
     }
 }
 
+
 export const logout = () => {
     return dispatch => {
         localStorage.removeItem('_appdoc-user');

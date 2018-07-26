@@ -6,10 +6,10 @@ import moment from "moment";
 
 
 export const addInterval = (interval, start, end) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         let obj = {
             ...interval,
-            id_doc: 2697,
+            id_doc: getState().auth.id,
             isEditable: 1,
         }
 
@@ -26,14 +26,14 @@ export const addInterval = (interval, start, end) => {
 
 export const getAllIntervals = (start, end) => {
     
-    let obj = {
-        id_doc: 2697,
-        datestart: start.getTime()/1000,
-        dateend: end.getTime()/1000,
-    }
 
-    return (dispatch) => {
-        
+
+    return (dispatch, getState) => {
+        let obj = {
+            id_doc: getState().auth.id,
+            datestart: start.getTime()/1000,
+            dateend: end.getTime()/1000,
+        };
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
@@ -57,11 +57,11 @@ export const clearIntervals = () => {
 }
 
 export const addVisit = (reception, start, end) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         let obj = {
             ...reception,
             
-            id_doc: 2697,
+            id_doc: getState().auth.id,
         }
         
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',

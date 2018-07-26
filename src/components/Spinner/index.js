@@ -13,7 +13,7 @@ class Spinner extends Spin{
     render() {
 
         return (
-            <div>
+            <div className="spinner-wrapper">
                 <Spin {...this.props}/>
             </div>
         )

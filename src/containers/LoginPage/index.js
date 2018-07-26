@@ -9,6 +9,7 @@ import Col from "../../components/Col/index.js";
 import Login from "../../components/Login/index.js";
 import LoginForget from "../../components/LoginForget/index.js";
 import Registration from "../../components/Registration/index.js";
+import RegistrationPatient from "../../components/RegistrationPatient/index.js";
 
 
 import * as actions from '../../store/actions'
@@ -74,13 +75,12 @@ class LoginPage extends React.Component {
                          xl={{span: 12, offset: 6}}>
                         <Route path="/login"
                                exact
-                               render={() => (
-                                   <Login urlForget={this.props.match.url + '/forget'}
-                                          urlRegistration='/registration'
-                                          errorCode={this.props.errorCode}
-                                          onSubmit={(obj) => this.props.onLogin(obj, this.props.history)}
-                                   />
-                               )}/>
+                               render={() => <Login urlForget={this.props.match.url + '/forget'}
+                                                    urlRegistration='/registration'
+                                                    errorCode={this.props.errorCode}
+                                                    onSubmit={(obj) => this.props.onLogin(obj, this.props.history)}
+                               />}
+                        />
                         <Route path="/login/forget"
                                exact
                                render={() => <LoginForget urlLogin={this.props.match.url}
@@ -96,6 +96,17 @@ class LoginPage extends React.Component {
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='to continue'
+                               />}
+                        />
+                        <Route path="/patient-registration"
+                               exact
+                               render={() => <RegistrationPatient onFinish={obj => this.replaceToAction(obj)}
+                                                                  langs={langs}
+                                                                  urlLogin = "/login"
+                                                                  payments={payments}
+                                                                  academicTitle={academicTitle}
+                                                                  academicDegree={academicDegree}
+                                                                  finalText='to continue'
                                />}
                         />
                     </Col>
@@ -117,7 +128,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
         //onGetAllReviews: () => dispatch(actions.getAllReviews()),
-        onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history))
+        onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
+        //onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo))
 		//onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 	}
 };

@@ -194,6 +194,10 @@ class Schedule extends React.Component {
         this.setState({warningModal: true});
     }
 
+    prepareDatesForSmallCalendar = (visits) => {
+        return visits ? visits.map(item => moment(item.start*1000).format("YYYY MM DD")) : null
+    };
+
     render() {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = this.state.receptionData.currentSched.intervalOb, timeSetReception = [];
@@ -297,6 +301,7 @@ class Schedule extends React.Component {
                         <SmallCalendar date={this.state.currentDate}
                                        onChange={this.dateChangeHandler}
                                        isUser = {this.props.isUser}
+                                       highlightedDates = {this.prepareDatesForSmallCalendar(this.props.allUserVisits)}
                                     />
                     </Col>
                 </Row>

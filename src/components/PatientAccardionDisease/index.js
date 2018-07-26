@@ -18,14 +18,13 @@ class PatientAccardionDisease extends React.Component{
         return (
             <div className={rootClass}>
                 <Accordion defaultActiveKey={['1']}>
-                    <Panel header="Контакты" key="1">
-                        <PatientAccardionDiseaseItem  
-                            contactFio='Иванова Александра Константиновна'
-                            contactPhone='+ 375 29 234 74 55'
-                            contactEmail='ivanova234@mail.ru'
-                            contactAdress='г. Минск, ул. Строителей, д. 34, кв. 18'
-                            contactPas='test'
-                            contactNewPas=''
+                    <Panel header="Хронические болезни, аллергии" key="1">
+                        <PatientAccardionDiseaseItem
+                            title="Хронические болезни"
+                            diseases={[
+                                {disease: 'Хронический миокардит', diseaseDate: '01.01.1999'},
+                                {disease: 'Кардиомиопатия', diseaseDate: '01.01.1999'},
+                            ]}
                         />
                     </Panel>
                 </Accordion>

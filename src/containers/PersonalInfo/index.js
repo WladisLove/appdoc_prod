@@ -12,6 +12,8 @@ import './styles.css'
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
 import{compileToClientDoctor, compileToServerDoctor} from './compilerDoc'
+import PatientAccardionContact from "../../components/PatientAccardionContact";
+import PatientAccardionDisease from "../../components/PatientAccardionDisease";
 
 class PersonalInfo extends React.Component{
     constructor(props){
@@ -40,6 +42,20 @@ class PersonalInfo extends React.Component{
         return (
 
             <Hoc>
+            	<Row>
+            		<Col xs={24} xxl={18}>
+            			<PatientAccardionContact
+                            onSubmit ={this.onSubmit}
+			            />
+            		</Col>
+            	</Row>
+            	<Row>
+            		<Col xs={24} xxl={18}>
+            			<PatientAccardionDisease
+                            onSubmit ={this.onSubmit}
+			            />
+            		</Col>
+            	</Row>
             	<Row>
             		<Col xs={24} xxl={18}>
             			<PersonalContact

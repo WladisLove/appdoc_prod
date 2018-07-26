@@ -13,6 +13,8 @@ class Root extends React.Component{
             
             <Route path="/login" component={LoginPage}/>
             <Route path="/registration" component={LoginPage}/>
+            <Route path="/patient-registration" component={LoginPage}/>
+
             {/*1 && <Redirect to='login'/>*/}
             <Route path="/" component={App} />
         </Switch>)
