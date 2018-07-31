@@ -60,6 +60,11 @@ export {
 } from './auth'
 
 export {
+    getInfoPatient,
+    sendNewInfoPatient
+} from './patientData'
+
+export {
     getDocTodayInfo,
     getDocShortInfo,
     setExIntervalInfo,

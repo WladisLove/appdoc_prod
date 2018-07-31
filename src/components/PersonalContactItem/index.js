@@ -71,7 +71,7 @@ class PersonalContactItemForm extends React.Component{
                                 pattern: /^[+]?[0-9()\- ]+$/
                             }],
                         })(
-                            <Input addonBefore="Телефона" />
+                            <Input addonBefore="Телефон" />
                         )}
                     </FormItem>
                     <FormItem className="personal-item">

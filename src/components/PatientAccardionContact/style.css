@@ -104,26 +104,10 @@
 }
 .patient-contacts-password {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 .patient-contacts-password .input-root {
-  max-width: 310px;
+  max-width: 290px;
   margin-bottom: 20px;
-}
-.patient-contacts-password .input-root:nth-child(1) {
-  width: 47.5%;
-}
-.patient-contacts-password .input-root:nth-child(2) {
-  width: 47.5%;
-  margin-left: auto;
-}
-.patient-contacts-password .input-root-focus {
-  max-width: 310px;
-  margin-bottom: 20px;
-}
-.patient-contacts-password .input-root-focus:nth-child(1) {
-  width: 47.5%;
-}
-.patient-contacts-password .input-root-focus:nth-child(2) {
-  margin-left: auto;
-  width: 47.5%;
 }

@@ -11,7 +11,7 @@ import '../../icon/style.css'
 class PatientAccardionContact extends React.Component{
 
     render(){
-        const { contactFio, contactPhone, contactEmail, contactAdress, contactPas, contactNewPas } = this.props;
+        const { fio, phone, email, address, avatar} = this.props.profile;
         const rootClass = cn('patient-contacts-accardion');
         const Panel = Accordion.Panel;
         
@@ -20,12 +20,11 @@ class PatientAccardionContact extends React.Component{
                <Accordion defaultActiveKey={['1']}>
                     <Panel header="Контакты" key="1">
                         <PatientAccardionContactItem
-                            contactFio='Иванова Александра Константиновна'
-                            contactPhone='+ 375 29 234 74 55'
-                            contactEmail='ivanova234@mail.ru'
-                            contactAdress='г. Минск, ул. Строителей, д. 34, кв. 18'
-                            contactPas='test'
-                            contactNewPas=''
+                            contactFio={fio}
+                            contactPhone={phone}
+                            contactEmail={email}
+                            contactAddress={address}
+                            onSubmit = {this.props.onSubmit}
                         />
                     </Panel>
                 </Accordion>

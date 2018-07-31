@@ -12,6 +12,7 @@ import './styles.css'
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
 import{compileToClientDoctor, compileToServerDoctor} from './compilerDoc'
+import{compileToClientPatient, compileToServerPatient} from './compilerPatient'
 import PatientAccardionContact from "../../components/PatientAccardionContact";
 import PatientAccardionDisease from "../../components/PatientAccardionDisease";
 
@@ -24,6 +25,7 @@ class PersonalInfo extends React.Component{
     }
 
     componentDidMount(){
+        this.props.auth.mode === "user" ? this.props.onGetInfoPatient(this.props.auth.id) :
         this.props.onGetInfoDoctor(this.props.auth.id);
     };
 
@@ -37,9 +39,15 @@ class PersonalInfo extends React.Component{
         this.setState({visible:true}) ;
     };
 
+    onSubmitPatient = (profilePatient) => {
+        profilePatient = compileToServerPatient(profilePatient, this.props.auth.id);
+        this.props.onSendNewInfoPatient(profilePatient);
+        this.setState({visible:true}) ;
+    };
+
     render() {
-        let doctor = compileToClientDoctor(this.props.profileDoctor);
         let isUser = this.props.auth.mode === "user";
+        let profile = isUser ? compileToClientPatient(this.props.profilePatient) : compileToClientDoctor(this.props.profileDoctor);
         return (
             <Hoc>
                 {isUser ? (
@@ -47,14 +55,15 @@ class PersonalInfo extends React.Component{
                         <Row>
                             <Col xs={24} xxl={18}>
                                 <PatientAccardionContact
-                                    onSubmit={this.onSubmit}
+                                    onSubmit={this.onSubmitPatient}
+                                    profile = {profile}
                                 />
                             </Col>
                         </Row>
                         <Row>
                             <Col xs={24} xxl={18}>
                                 <PatientAccardionDisease
-                                    onSubmit={this.onSubmit}
+                                    diseases = {profile.chronic}
                                 />
                             </Col>
                         </Row>
@@ -63,7 +72,7 @@ class PersonalInfo extends React.Component{
                         <Row>
                             <Col xs={24} xxl={18}>
                                 <PersonalContact
-                                    profileDoctor={doctor}
+                                    profileDoctor={profile}
                                     onSubmit={this.onSubmit}
                                 />
                             </Col>
@@ -71,7 +80,7 @@ class PersonalInfo extends React.Component{
                         <Row>
                             <Col xs={24} xxl={18}>
                                 <PersonalEducation
-                                    profileDoctor={doctor}
+                                    profileDoctor={profile}
                                     onSubmit={this.onSubmit}
                                 />
                             </Col>
@@ -79,7 +88,7 @@ class PersonalInfo extends React.Component{
                         <Row>
                             <Col xs={24} xxl={18}>
                                 <PersonalExperience
-                                    profileDoctor={doctor}
+                                    profileDoctor={profile}
                                     onSubmit={this.onSubmit}
                                 />
                             </Col>
@@ -87,7 +96,7 @@ class PersonalInfo extends React.Component{
                         <Row>
                             <Col xs={24} xxl={18}>
                                 <PersonalInformation
-                                    profileDoctor={doctor}
+                                    profileDoctor={profile}
                                     onSubmit={this.onSubmit}
                                 />
                             </Col>
@@ -103,6 +112,7 @@ class PersonalInfo extends React.Component{
 const mapStateToProps = state => {
     return {
         profileDoctor: state.profileDoctor,
+        profilePatient: state.profilePatient,
         auth: state.auth,
     }
 };
@@ -110,7 +120,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGetInfoDoctor: (id) => dispatch(actions.getInfoDoctor(id)),
-        onSendNewInfoDoctor: (info) => dispatch(actions.sendNewInfoDoctor(info))
+        onSendNewInfoDoctor: (info) => dispatch(actions.sendNewInfoDoctor(info)),
+        onGetInfoPatient: (id) => dispatch(actions.getInfoPatient(id)),
+        onSendNewInfoPatient: (info) => dispatch(actions.sendNewInfoPatient(info)),
+
     }
 };
 
