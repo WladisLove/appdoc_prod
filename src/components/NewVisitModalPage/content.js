@@ -19,7 +19,8 @@ class ContentForm extends React.Component {
             message: '',
             currentTime: moment(),
             isResetTime: false,
-            type: "chat"
+            type: "chat",
+            appointmentDuration: 5
         };
     };
 
@@ -61,6 +62,7 @@ class ContentForm extends React.Component {
             currentTime: paramDate,
             isResetTime: true
         });
+        this.getAppointmentDuration(date);
         this.props.onChangeDate(date);
     };
 
@@ -68,6 +70,15 @@ class ContentForm extends React.Component {
         return current && this.props.availableIntervals.every(
             (elem) => moment(elem.date * 1000).format("YYYY-MM-DD")
                 !== moment(current).format("YYYY-MM-DD"));
+    };
+
+    getAppointmentDuration = (day) => {
+        for (let i = 0; i < this.props.availableIntervals.length; i++) {
+            if ((this.props.availableIntervals[i].date * 1000) === parseInt(day.startOf('day').format('x'))) {
+                this.setState({appointmentDuration: parseInt(this.props.availableIntervals[i].interval)});
+                break;
+            }
+        }
     };
 
     getIconsFromType = (type) => {
@@ -138,7 +149,7 @@ class ContentForm extends React.Component {
                             rules: [{required: true, message: 'Введите время',}],
                         })(
                                 <TimePicker format="HH:mm"
-                                        minuteStep={5}
+                                        minuteStep={this.state.appointmentDuration}
                                         availableArea={this.props.availableArea}
                                         placeholder='Время приёма'
                                         isReset={this.state.isResetTime}
