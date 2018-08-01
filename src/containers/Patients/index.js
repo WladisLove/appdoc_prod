@@ -27,7 +27,9 @@ class Patients extends React.Component{
     }
 
     setModal1Visible = (modal1Visible, id, name)=> {
-        this.setState({modal1Visible, id, name, isReceptionRecorded: false});
+        this.setState({modal1Visible, id, name,
+			isReceptionRecorded: false});
+        if (modal1Visible) this.props.onGetAllDocIntervals();
     };
 
 
@@ -47,10 +49,10 @@ class Patients extends React.Component{
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patient'+id);
-	}
+	};
 
 	componentDidMount(){
-		this.props.onGetDocPatients();	
+		this.props.onGetDocPatients();
 	}
 
 	showModalHandler = () => {
@@ -91,7 +93,6 @@ class Patients extends React.Component{
 										onDelete = {(val) => this.props.removePatient(val)}
                                         setModal1Visible = {this.setModal1Visible}
                                         setModal2Visible = {this.setModal2Visible}
-
 										/>
             		</Col>
             	</Row>
@@ -117,6 +118,7 @@ class Patients extends React.Component{
                     userName={this.state.name}
                     availableArea={availableArea}
                     onChangeDate={this.onChangeDate}
+                    availableIntervals={this.props.availableIntervals}
                     id={this.state.id}
                     isReceptionRecorded = {this.props.isReceptionRecorded}
                     setModal1Visible = {this.setModal1Visible}
@@ -143,7 +145,8 @@ const mapStateToProps = state => {
 		docPatients: state.patients.docPatients,
 		notDocPatients: state.patients.notDocPatients,
 		intervals: state.patients.intervals,
-		isReceptionRecorded: state.patients.isReceptionRecorded
+		isReceptionRecorded: state.patients.isReceptionRecorded,
+		availableIntervals: state.profileDoctor.workIntervals
 	}
 };
 
@@ -158,6 +161,7 @@ const mapDispatchToProps = dispatch => {
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
         onSaveReception: (reception) => dispatch(actions.setReception(reception)),
+		onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id))
 	}
 };
 

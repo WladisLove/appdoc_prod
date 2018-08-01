@@ -18,6 +18,7 @@ class ContentForm extends React.Component {
             time: null,
             message: '',
             currentTime: moment(),
+            isResetTime: false,
             type: "chat"
         };
     };
@@ -38,7 +39,8 @@ class ContentForm extends React.Component {
 
         this.setState({
             currentTime: paramDate,
-            type: type
+            type: type,
+            isResetTime: false
         });
     };
 
@@ -57,8 +59,15 @@ class ContentForm extends React.Component {
         paramDate.second(0);
         this.setState({
             currentTime: paramDate,
+            isResetTime: true
         });
         this.props.onChangeDate(date);
+    };
+
+    isDayDisabled = (current) => {
+        return current && this.props.availableIntervals.every(
+            (elem) => moment(elem.date * 1000).format("YYYY-MM-DD")
+                !== moment(current).format("YYYY-MM-DD"));
     };
 
     getIconsFromType = (type) => {
@@ -80,7 +89,8 @@ class ContentForm extends React.Component {
     };
 
     componentWillReceiveProps(nextProps){
-        nextProps.visible === false ? (this.setState({message: ''}), this.props.form.resetFields()) : null;
+        nextProps.visible === false ? (this.setState({message: '', isResetTime: true}),
+            this.props.form.resetFields()) : null;
     }
 
     handleSubmit = (e) => {
@@ -117,7 +127,9 @@ class ContentForm extends React.Component {
                             rules: [{required: true, message: 'Введите дату',}],
                         })(
                             <DatePicker placeholder="Дата приёма"
-                                        onChange={this.onChangeDate} />
+                                        onChange={this.onChangeDate}
+                                        disabledDate={this.isDayDisabled}
+                            />
                         )}
                     </FormItem>
                     
@@ -129,6 +141,7 @@ class ContentForm extends React.Component {
                                         minuteStep={5}
                                         availableArea={this.props.availableArea}
                                         placeholder='Время приёма'
+                                        isReset={this.state.isResetTime}
                                         onChange={this.onChangeTime}/>
                         )}
                     </FormItem>

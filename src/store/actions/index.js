@@ -77,4 +77,5 @@ export {
     getInfoDoctor,
     getNotifications,
     readNotification,
+    getAllDocIntervals,
 } from './doctorData'
