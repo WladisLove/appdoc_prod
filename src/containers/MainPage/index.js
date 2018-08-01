@@ -16,7 +16,7 @@ class MainPage extends React.Component{
 
 	componentDidMount(){
 		if (this.props.mode === "user"){
-			this.props.onGetThreePatientDoctors(3);
+			this.props.onGetThreePatientDoctors(2);
 			this.props.onGetCompletedTreatments();
             this.props.onGetNearVisits(3);
 		}
@@ -63,7 +63,7 @@ class MainPage extends React.Component{
 				doctors = {this.props.patientDoctors}
 				completedTreatments = {this.props.completedTreatments}
 				nearVisits = {this.props.nearVisits}
-
+				{...this.props}
 
 			/>
 		) : (

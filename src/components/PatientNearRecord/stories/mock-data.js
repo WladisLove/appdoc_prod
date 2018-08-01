@@ -2,20 +2,17 @@ export const nearArr = [
 	{
         doctorName: "Тимошенко А.И.",
         doctorSpecialty: "Терапевт",
-        dateDay: "12",
-        dateMonth: "января",
-        time: "16:00 - 16:20",
+        start: 1526975400,
+        end: 1526979000
 	},{
         doctorName: "Тимошенко А.И.",
         doctorSpecialty: "Терапевт",
-        dateDay: "12",
-        dateMonth: "января",
-        time: "16:00 - 16:20",
+        start: 1526975400,
+        end: 1526979000
 	},{
         doctorName: "Тимошенко А.И.",
         doctorSpecialty: "Терапевт",
-        dateDay: "12",
-        dateMonth: "января",
-        time: "16:00 - 16:20",
+        start: 1526975400,
+        end: 1526979000
 	},
 ]

@@ -46,28 +46,40 @@ const PatientPage = props => {
                         style={{height: 485}}
                         data={props.nearVisits}
                         onGoto={() => console.log('click')}
+                        redirect={() => props.history.push('/calendar')}
                     />
                 </Col>
                 <Col xs={14} xxl={8} className='section'>
-                    <PatientAnalyzes data={[{
-                        comeDate: true,
-                        analyzesDate: "10 января",
-                        analyzesType: "blood",
-                        analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
-                    }, {
-                        analyzesDate: "10 января",
-                        analyzesType: "ultrasound",
-                        analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
-                    }, {
-                        analyzesDate: "10 января",
-                        analyzesType: "heart",
-                        analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
-                    }]}/>
+                    <PatientAnalyzes data={
+                        [{
+                            comeDate: true,
+                            analyzesDate: "10 января",
+                            analyzesType: "blood",
+                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                        }, {
+                            analyzesDate: "10 января",
+                            analyzesType: "ultrasound",
+                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                        }, {
+                            analyzesDate: "10 января",
+                            analyzesType: "heart",
+                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                        }, {
+                            analyzesDate: "10 января",
+                            analyzesType: "heart",
+                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                        }, {
+                            analyzesDate: "10 января",
+                            analyzesType: "heart",
+                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                        }]
+                    }/>
                 </Col>
                 <Col xs={24} xxl={10} className='section'>
                     <PatientDoctor
                         data = {props.doctors}
                         onGoto={() => console.log('click')}
+                        redirect={() => props.history.push('/doctors')}
                     />
                 </Col>
             </Row>
@@ -75,6 +87,7 @@ const PatientPage = props => {
                 <Col>
                     <TreatmentTable
                         isUser={props.isUser}
+                        redirect={() => props.history.push('/treatment')}
 
                         data={props.completedTreatments}
                         onGoto={(id) => console.log(id)}

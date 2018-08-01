@@ -8,6 +8,7 @@ import Reviews from '../containers/Reviews'
 import MyDoctors from '../containers/MyDoctors'
 
 import Chat from '../containers/Chat'
+import DoctorPage from "../containers/DoctorPage";
 
 export const docRoutes = [
     {
@@ -75,7 +76,7 @@ export const patientRoutes = [
     },
     {
         path: '/doctor-page',
-        component: PatientsPage,
+        component: DoctorPage,
         exact: true,
     },
     {

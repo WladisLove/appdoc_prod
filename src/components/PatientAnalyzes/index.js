@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import PatientAnalyzesItem from '../PatientAnalyzesItem'
 import Card from '../Card'
 import Icon from '../Icon'
+import ScrollArea from 'react-scrollbar'
 
 import './style.css'
 import '../../icon/style.css'
@@ -27,7 +28,15 @@ class PatientAnalyzes extends React.Component{
         return (
             <div className='analyzes-all'>
                 <Card style={{height: 500}} title="Напоминания">
+                    <ScrollArea
+                        speed={1}
+                        className="content-wrapper"
+                        contentClassName="content"
+                        horizontal={false}
+                        vertical = {true}
+                    >
                     {this.analyzesRender(this.props.data)}
+                    </ScrollArea>
                 </Card>
             </div>
         )

@@ -25,7 +25,7 @@ export const data2 = {
     id_user: "2664",
     id_doc: "2697",
     id_zap: "120635",
-    //fio: "Абрамова Анна Константиновна",
+    fio: "Абрамова Анна Константиновна",
     comment: "Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. ",
     date: '1521201672',
     dateCommentDoc: "1521169068",
@@ -35,20 +35,6 @@ export const data2 = {
     commentDoc: "lol",
 }
 
-export const data1_old = {
-    author: "Иванова А. К.",
-    avatar: "https://www.proza.ru/pics/2017/06/03/1990.jpg",
-    text: "Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. ",
-    date: date1,
-    treatmentDate: '13.10.2017',
-    rate: 4,
-    secondaryAllowed: true,
-};
-export const data2_old = {
-    text: "Далеко-далеко. Максимально далеко и еще чуть-чуть дальше за словесными горами в стране гласных и согласных живут рыбные тексты. ",
-    date: date1,
-    secondary: true,
-};
 
 export const data3 = {
     author: "Иванова А. К.",

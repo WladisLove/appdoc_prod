@@ -24,7 +24,19 @@ class PatientCalendarCarousel extends React.Component {
     dateClickHandler = (e) => {
         let timestamp = e.target.getAttribute("data-timestamp");
         let type = e.target.getAttribute("data-interval-type");
-        this.props.newVisitVisible(true, this.props.id, this.props.doctorName, timestamp, type)
+        this.props.newVisitVisible && this.props.newVisitVisible(true, this.props.id, this.props.doctorName, timestamp, type);
+        if(e.target.classList.contains("activeTime")) {
+            e.target.classList.remove("activeTime");
+            this.props.makeActive(null, "");
+
+
+        }
+        if(this.props.makeActive) {
+           this.props.makeActive(timestamp, type);
+            e.target.parentNode.parentNode.childNodes.forEach((item) => item.childNodes.forEach(item => item.classList.remove("activeTime")));
+            e.target.classList.toggle("activeTime");
+        }
+        // this.props.makeActive && this.props.makeActive(timestamp, type) && console.log("ALL IS WORKING") && e.target.classList.add("activeTime")
     };
     nextCarouselItem = () => {
         if (this.state.carouselStep < this.props.intervals.length - 3) {

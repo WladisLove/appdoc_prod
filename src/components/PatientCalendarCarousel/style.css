@@ -120,6 +120,10 @@
   color: #344051 !important;
   cursor: default;
 }
+.calendar-carousel-time.activeTime {
+  background: #204d8d;
+  color: white;
+}
 .calendar-carousel .table-footer {
   text-align: center;
 }

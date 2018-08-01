@@ -21,6 +21,7 @@ export {
 
 export {
     getAllReviews,
+    getAllReviewsByPatient,
     putCommentAnswer,
     
 } from './reviews';
