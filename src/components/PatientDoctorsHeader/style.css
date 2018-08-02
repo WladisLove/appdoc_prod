@@ -38,12 +38,14 @@
   font-family: "GothamPro";
 }
 .patient-doctors-header .legend .AppAfterAnalyses,
-.patient-doctors-header .legend .AppWithVideoAudio {
+.patient-doctors-header .legend .AppWithVideoAudio,
+.patient-doctors-header .legend .AppUnavailable {
   margin: 10px 20px ;
   display: inline-block;
 }
 .patient-doctors-header .legend .AppAfterAnalyses:before,
-.patient-doctors-header .legend .AppWithVideoAudio:before {
+.patient-doctors-header .legend .AppWithVideoAudio:before,
+.patient-doctors-header .legend .AppUnavailable:before {
   content: "";
   display: inline-block;
   width: 12px;
@@ -55,7 +57,10 @@
   background-color: #ffeeb5;
 }
 .patient-doctors-header .legend .AppWithVideoAudio:before {
-  background-color: #afafaf;
+  background-color: #edf4f9;
+}
+.patient-doctors-header .legend .AppUnavailable:before {
+  background-color: #f7f7f7;
 }
 .ant-input-search {
   width: 250px;

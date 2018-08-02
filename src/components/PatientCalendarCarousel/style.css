@@ -124,6 +124,18 @@
   background: #204d8d;
   color: white;
 }
+.calendar-carousel-time.unAvailableTime {
+  background-color: #f7f7f7;
+  color: #c6c1c8;
+  cursor: not-allowed;
+}
+.calendar-carousel-time.afterAnalyses {
+  background-color: #ffeeb5;
+}
+.calendar-carousel-time.afterAnalyses:hover {
+  background-color: #0495ff;
+  color: #fff;
+}
 .calendar-carousel .table-footer {
   text-align: center;
 }

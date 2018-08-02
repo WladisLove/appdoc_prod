@@ -70,7 +70,9 @@ class PatientCalendarCarousel extends React.Component {
                         time.push({
                             timeToDisplay: moment(+t * 1000).format('H:mm'),
                             timestamp: +t,
-                            type: intervals[i].type
+                            type: intervals[i].type,
+                            isActive: intervals[i].intervalOb[j].active,
+                            isAfterAnalyses: +intervals[i].interval === 5
                         });
                     }
                 }
@@ -82,8 +84,9 @@ class PatientCalendarCarousel extends React.Component {
                 <div className='calendar-carousel-day' key={indexDay + 1}>{item}</div>
                 {this.state.rowCount ?
                     timeIntervals[indexDay].slice(0, this.state.rowCount).map((item, indexTime) =>
-                        <div className='calendar-carousel-time'
-                             onClick={(e) => this.dateClickHandler(e)}
+                        <div className={!item.isActive ? 'calendar-carousel-time unAvailableTime'
+                            : item.isAfterAnalyses ? 'calendar-carousel-time afterAnalyses' :  'calendar-carousel-time' }
+                             onClick={item.isActive ? (e) => this.dateClickHandler(e) : null}
                              key={indexTime + 1}
                              data-timestamp={item.timestamp}
                              data-interval-type = {item.type}
@@ -93,8 +96,9 @@ class PatientCalendarCarousel extends React.Component {
                     )
                     :
                     timeIntervals[indexDay].map((item, indexTime) =>
-                        <div className='calendar-carousel-time'
-                             onClick={(e) => this.dateClickHandler(e)}
+                        <div className={!item.isActive ? 'calendar-carousel-time unAvailableTime'
+                            : item.isAfterAnalyses ? 'calendar-carousel-time afterAnalyses' :  'calendar-carousel-time' }
+                             onClick={item.isActive ? (e) => this.dateClickHandler(e) : null}
                              key={indexTime + 1}
                              data-timestamp = {item.timestamp}
                              data-interval-type = {item.type}
@@ -109,6 +113,7 @@ class PatientCalendarCarousel extends React.Component {
 
     render() {
         const intervals = this.props.intervals;
+        console.log(intervals, "INTERVALS FROM CAROUSEL");
         const rootClass = intervals.length ? cn('calendar-carousel') :  cn('calendar-carousel no-intervals');
         return (
             <div className={rootClass}>
