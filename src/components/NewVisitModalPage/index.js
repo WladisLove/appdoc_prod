@@ -22,10 +22,10 @@ NewVisitModalPage.propTypes = {
     visible: PropTypes.bool,
     date: PropTypes.instanceOf(Date),
     patients: PropTypes.array,
-    availableArea: PropTypes.array,
+    intervals: PropTypes.array,
     userName: PropTypes.string,
-
     availableIntervals: PropTypes.array,
+
     onSave: PropTypes.func,
     onCancel: PropTypes.func,
     onChangeDate: PropTypes.func,
@@ -35,10 +35,10 @@ NewVisitModalPage.defaultProps = {
     visible: false,
     date: null,
     patients: [],
-    availableArea: [],
+    intervals: [],
     userName: '',
-
     availableIntervals: [],
+
     onSave: () => {},
     onCancel: () => {},
     onChangeDate: () => {},

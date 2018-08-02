@@ -15,7 +15,7 @@ class PatientDoctorItem extends React.Component{
 
 
     render(){
-        const { doctorAvatar, doctorName, doctorSpeciality, doctorRate, doctorRank, doctorCategory, doctorExp} = this.props;
+        const { doctorAvatar, doctorName, doctorSpeciality, doctorRate, doctorRank, doctorCategory, doctorExp, doctorID} = this.props;
         const rootClass = cn('doctor-item');
 
         return (
@@ -39,7 +39,7 @@ class PatientDoctorItem extends React.Component{
                     </div>
                     <div className='doctor-item-btn'>
                         <Button
-                            onClick={() => this.props.checkModal1Visible(true, doctorName)}
+                            onClick={() => this.props.checkModal1Visible(true, doctorName, doctorID)}
                             btnText='записаться на прием'
                             size='small'
                             type='float'

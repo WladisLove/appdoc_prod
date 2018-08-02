@@ -18,19 +18,55 @@ import PatientDoctorsItem from "../PatientDoctorsItem";
 
 
 class PatientDoctors extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {data: props.data};
+    }
+
+    componentDidMount() {
+        this.sortDoctorsByName("down");
+    }
+
+    sortDoctorsByName = (direction) => {
+        let doctors = this.state.data;
+        doctors.sort(function(a, b) {
+            if (a.doctorName < b.doctorName) return -1;
+            if (a.doctorName > b.doctorName) return 1;
+            return 0;
+        });
+        if (direction && direction === "up") doctors.reverse();
+        this.setState({data: doctors});
+    };
+
+    searchDoctorsByName = (name) => {
+        if (name) {
+            let foundedDoctors = [];
+            for (let i = 0; i < this.props.data.length; i++){
+                if (this.props.data[i].doctorName.toLowerCase().indexOf(name.toLowerCase()) !== -1)
+                    foundedDoctors.push(this.props.data[i]);}
+            this.setState({data: foundedDoctors});
+        }
+        else this.setState({data: this.props.data});
+    };
 
     render() {
         return (
             <div>
-                <PatientDoctorsHeader {...this.props}/>
+                <PatientDoctorsHeader
+                    {...this.props}
+                    onSort={this.sortDoctorsByName}
+                    onSearch={this.searchDoctorsByName}
+                />
 
-                {this.props.data.map((item, index)=>
+                {this.state.data.length === 0 ?
+                    (<div className="no-doctors">Доктора не найдены</div>)
+                    : (this.state.data.map((item, index)=>
                     <PatientDoctorsItem
                         key = {index+1}
                         {...item}
                         doctorFavorite={true}
                         newVisitVisible = {this.props.newVisitVisible} />
-                )}
+                ))}
             </div>
         )
     }

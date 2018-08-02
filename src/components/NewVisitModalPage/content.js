@@ -27,7 +27,7 @@ class ContentForm extends React.Component {
     onChangeTime = (start) => {
         let paramDate = moment(+this.state.currentTime.format('x'));
         let type;
-        let area = this.props.availableArea;
+        let area = this.state.availableArea;
         paramDate.hour(start._d.getHours());
         paramDate.minute(start._d.getMinutes());
         paramDate.second(0);
@@ -63,7 +63,22 @@ class ContentForm extends React.Component {
             isResetTime: true
         });
         this.getAppointmentDuration(date);
-        this.props.onChangeDate(date);
+
+        let beginDay = moment(date).startOf('date').format('X'),
+            endDay = moment(date).endOf('date').format('X');
+        this.props.onChangeDate(beginDay, endDay);
+    };
+
+    getIntervals = (newIntervals) => {
+        let intervals = [];
+
+        const arr = newIntervals;
+        for(let i = 0; arr && i < arr.length; i++){
+            for(let j = 0; j < arr[i].intervalOb.length; j++){
+                intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000, type: (arr[i].type)});
+            }
+        }
+        return intervals;
     };
 
     isDayDisabled = (current) => {
@@ -102,6 +117,9 @@ class ContentForm extends React.Component {
     componentWillReceiveProps(nextProps){
         nextProps.visible === false ? (this.setState({message: '', isResetTime: true}),
             this.props.form.resetFields()) : null;
+
+        nextProps.intervals !== this.props.intervals ?
+            this.setState({availableArea: this.getIntervals(nextProps.intervals)}) : null;
     }
 
     handleSubmit = (e) => {
@@ -150,7 +168,7 @@ class ContentForm extends React.Component {
                         })(
                                 <TimePicker format="HH:mm"
                                         minuteStep={this.state.appointmentDuration}
-                                        availableArea={this.props.availableArea}
+                                        availableArea={this.state.availableArea}
                                         placeholder='Время приёма'
                                         isReset={this.state.isResetTime}
                                         onChange={this.onChangeTime}/>

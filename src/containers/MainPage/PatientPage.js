@@ -80,6 +80,9 @@ const PatientPage = props => {
                         data = {props.doctors}
                         onGoto={() => console.log('click')}
                         redirect={() => props.history.push('/doctors')}
+                        intervals={props.intervals}
+                        onGetAllDocIntervals={props.onGetAllDocIntervals}
+                        availableIntervals={props.availableIntervals}
                     />
                 </Col>
             </Row>

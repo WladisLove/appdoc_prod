@@ -13,9 +13,8 @@ class PatientDoctorsHeader extends React.Component{
         searchRes: this.props.data,
         filtered: false,
         sortByName: "down",
+        searchInputValue: "",
     };
-
-    
 
     componentWillReceiveProps(nextProps){
         this.setState({
@@ -24,14 +23,10 @@ class PatientDoctorsHeader extends React.Component{
     }
 
     onInputChange = (e) => {
-
-        e.target.value.length > 0 
-            ? (this.setState({
-                searchRes: search(e.target.value, this.props.data),
-            }))
-            : this.setState({
-                searchRes: this.props.data,
-            });
+        if (e.target.value !== ' ') {
+            this.setState({searchInputValue: e.target.value});
+            this.props.onSearch(e.target.value);
+        }
     };
 
     render(){
@@ -50,13 +45,17 @@ class PatientDoctorsHeader extends React.Component{
                             />
                         </div>
                         <div className="flex-col ico-btn">
-                            <button className="sortByName" onClick={()=>{this.setState({sortByName: this.state.sortByName==="down"?"up":"down"})}}>
+                            <button className="sortByName" onClick={()=>{
+                                this.props.onSort(this.state.sortByName==="down"?"up":"down");
+                                this.setState({sortByName: this.state.sortByName==="down"?"up":"down"});
+                            }}>
                                 <span> Сортировать по: <span style={{fontWeight: 700}}>ФИО </span><Icon type={this.state.sortByName} /></span>
                             </button>
                             <Input.Search
                                 placeholder="Поиск..."
                                 onChange={this.onInputChange}
-                                onSearch={e => this.props.onSearch(e)}
+                                onSearch={this.props.onSearch}
+                                value={this.state.searchInputValue}
                             />
                         </div>
                     </div>
@@ -73,6 +72,7 @@ class PatientDoctorsHeader extends React.Component{
 PatientDoctorsHeader.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
     onAdd: PropTypes.func,
+    onSort: PropTypes.func,
     onSearch: PropTypes.func,
     onGoto: PropTypes.func,
     onChangeDate:  PropTypes.func,
@@ -81,6 +81,7 @@ PatientDoctorsHeader.propTypes = {
 PatientDoctorsHeader.defaultProps = {
     data: [],
     onAdd: () => {},
+    onSort: () => {},
     onSearch: () => {},
     onGoto: () => {},
     onChangeDate: () => {},

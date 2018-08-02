@@ -17,18 +17,22 @@ class PatientDoctor extends React.Component{
         doctorName: '',
     }
 
-    checkModal1Visible = (value, name = '') => {
+    setModal1Visible = (value, name, ID)=> {
         this.setState({
             modal1Visible: value,
             doctorName: name,
-        })
-    }
+            doctorID: ID,
+            isReceptionRecorded: false
+        });
+        console.log(ID);
+        if (value) this.props.onGetAllDocIntervals(ID);
+    };
 
     doctorRender = (dataArr) => {
         let doctorArr = [];
 
         dataArr.map((item,index) => {
-            doctorArr.push(<PatientDoctorItem key={index} {...item} checkModal1Visible={this.checkModal1Visible}/>)
+            doctorArr.push(<PatientDoctorItem key={index} {...item} checkModal1Visible={this.setModal1Visible}/>)
         });
 
         return doctorArr;
@@ -47,11 +51,18 @@ class PatientDoctor extends React.Component{
                 </Card>
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
-                    onOk={() => this.checkModal1Visible(false)}
-                    onCancel={() => this.checkModal1Visible(false)}
+                    onSave={(a) => {
+                        console.log("onSave");
+                    }}
+                    isDateInvalid = {this.props.isReceptionRecorded}
+                    onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.doctorName}
-                    date={new Date(2018,1,4,8,10)}
-                    onSave = {(obj) => console.log(obj)}
+                    intervals={this.props.intervals}
+                    onChangeDate={this.props.onGetIntervalForDate}
+                    availableIntervals={this.props.availableIntervals}
+                    id={this.state.doctorID}
+                    isReceptionRecorded = {this.props.isReceptionRecorded}
+                    setModal1Visible = {this.setModal1Visible}
                 />
             </div>
         )
