@@ -113,7 +113,6 @@ class PatientCalendarCarousel extends React.Component {
 
     render() {
         const intervals = this.props.intervals;
-        console.log(intervals, "INTERVALS FROM CAROUSEL");
         const rootClass = intervals.length ? cn('calendar-carousel') :  cn('calendar-carousel no-intervals');
         return (
             <div className={rootClass}>
