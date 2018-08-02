@@ -13,6 +13,7 @@ import TextArea from "../TextArea";
 import Upload from "../Upload";
 import moment from "moment";
 import {Form} from "antd";
+import {previewFile} from "../../helpers/modifyFiles";
 
 
 const FormItem = Form.Item;
@@ -22,7 +23,8 @@ class DoctorPageNewVisitForm extends React.Component {
         super(props);
         this.state = {
             type: "video",
-            timeStamp: null
+            timeStamp: null,
+            shouldChooseTime: false
         }
     }
 
@@ -44,25 +46,45 @@ class DoctorPageNewVisitForm extends React.Component {
         return icons;
     };
     getTimeStampFromCarousel = (timeStamp, type) => {
+        if(timeStamp) {this.setState({shouldChooseTime: false})}
         this.setState({
             timeStamp,
-            type
+            type,
+
         })
     };
-    handleChange = val => {
-        this.setState({
-            comment : val
-        })
-    }
+
     handleSubmit = (e) => {
         e.preventDefault();
+        if(!this.state.timeStamp) {
+            this.setState({shouldChooseTime: true});
+            return
+        }
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log(values);
+                let obj = {
+                    type: values.type,
+                    timeStamp: this.state.timeStamp
+                }
+
+                values.comment ? obj.comment=values.comment : null;
+
+                if(values.file) {
+                    obj.file = values.file.fileList.map((item, index) => { return {name: item.name, thumbUrl: item.thumbUrl}})
+                }
+                this.props.onMakeNewAppointment(obj);
             } else { console.log(err, "ERROR")}
 
         });
     };
+    modifyFiles = (file) => {
+        if(!file.thumbUrl && !file.modify){
+            file.modify = true;
+            previewFile(file.originFileObj, function (previewDataUrl) {
+                file.thumbUrl = previewDataUrl;
+            });
+        }
+    }
     render() {
         const {getFieldDecorator} = this.props.form;
 
@@ -168,6 +190,7 @@ class DoctorPageNewVisitForm extends React.Component {
                                     ]
                                 }
                                 makeActive={this.getTimeStampFromCarousel}
+                                shouldChooseTime = {this.state.shouldChooseTime}
                             />
 
 
@@ -190,7 +213,6 @@ class DoctorPageNewVisitForm extends React.Component {
                                     initialValue: this.state.comment
                                 })(
                                     <TextArea label='Комментарий к приему'
-                                              onChange={this.handleChange}
                                               className="NewVisitModal-txtarea"/>
                                 )}
                             </FormItem>
@@ -203,7 +225,7 @@ class DoctorPageNewVisitForm extends React.Component {
                                 )}
                             </FormItem>
                             <Button size='default'
-                                    btnText={`Записаться на ${moment().format("D MMMM H:mm")}`}
+                                    btnText={`Записаться ${this.state.timeStamp ? `на ${moment(this.state.timeStamp*1000).format("D MMMM H:mm")}`:``}`}
                                     htmlType="submit"
                                     type='float'/>
                         </div>

@@ -37,7 +37,7 @@ class AddNewDoctor extends React.Component{
     handleChange = (e) => {
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
-        this.timer = setTimeout(this.triggerChange, 1000);
+        this.timer = setTimeout(this.triggerChange, 800);
     };
 
     triggerChange = () => {

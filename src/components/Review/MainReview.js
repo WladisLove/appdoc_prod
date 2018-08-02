@@ -74,7 +74,7 @@ class MainReview extends React.Component{
                     <div className="flex-row">
                         <div className="patient-text">{comment}</div>
                     </div>
-                    <Button
+                    {!this.props.isOnDoctorPage && <Button
                         btnText={treatment}
                         size='go'
                         iconSize={16}
@@ -82,9 +82,9 @@ class MainReview extends React.Component{
                         icon='circle_arrow_right'
                         svg
                         onClick={()=>this.props.onGotoChat(this.props.id_zap)}
-                    />
+                    />}
                 </div>
-                <div className="review-answerBtn">
+                    {!this.props.isOnDoctorPage && <div className="review-answerBtn">
                     {
                         isSecondAllowed && (commentDoc ?
                             <Button btnText={this.state.showComment ? 'Скрыть ответ' : 'Посмотреть ответ'}
@@ -102,7 +102,7 @@ class MainReview extends React.Component{
                                         type='blue'
                                         className='review-answerBtn-answer'/>))
                     }
-                </div>
+                </div>}
                 </div>
                 <div className="review-root-comment" style={{display: commentDisplay}}>
                     {commentDoc && <SecondaryReview date={+dateCommentDoc} text={commentDoc}/>}

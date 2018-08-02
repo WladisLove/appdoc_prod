@@ -44,9 +44,6 @@ class Patients extends React.Component{
 		this.props.onGetPatientDoctors();
     }
 
-    componentWillReceiveProps(props) {
-
-    }
 
     render(){
         console.log(this.props.isReceptionRecorded, "IS_RECEPTION_RECORDED");

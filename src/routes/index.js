@@ -75,7 +75,7 @@ export const patientRoutes = [
         exact: true,
     },
     {
-        path: '/doctor-page',
+        path: '/doctor:id',
         component: DoctorPage,
         exact: true,
     },

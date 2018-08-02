@@ -94,7 +94,8 @@ class ReviewsTree extends React.Component{
         let arr = [];
         dataArr.map((item, i) => {
             if (this.state.limit > i || !this.state.limitedShow){
-                arr.push(<Review {...item} 
+                arr.push(<Review {...item}
+                                isOnDoctorPage = {this.props.isOnDoctorPage}
                                 key={item.id} 
                                 onGoto={this.props.onGoto}
                                 onGotoChat={this.props.onGotoChat}
@@ -110,7 +111,7 @@ class ReviewsTree extends React.Component{
         const {data} = this.props;
 
         return (
-            <Card title="Все отзывы"
+            <Card title= {this.props.isOnDoctorPage? "Отзывы": "Все отзывы"}
                   className="reviewsTree"
                   extra={data.length}>
                 <Tabs onChange={this.tabChangeHadler}

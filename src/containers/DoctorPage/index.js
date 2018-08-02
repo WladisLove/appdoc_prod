@@ -11,11 +11,14 @@ import * as actions from '../../store/actions'
 import './styles.css';
 import PatientProfileDoctorItem from "../../components/PatientProfileDoctorItem";
 import DoctorPageNewVisit from "../../components/DoctorPageNewVisit";
+import ReviewsTree from "../../components/ReviewsTree";
 
 class PatientsPage extends React.Component{
 
-    componentDidMount(){
+    componentWillMount(){
+        console.log(this.props.match.params.id, "DOCTOR ID");
         this.props.getPatientInfo(this.props.match.params.id);
+        this.props.onGetAllReviews(2697)
 
     }
 
@@ -68,7 +71,8 @@ class PatientsPage extends React.Component{
                           />
                         </Col>
                         <Col xs={24} xxl={9} className='section'>
-                            <DoctorPageNewVisit />
+                            <DoctorPageNewVisit
+                            onMakeNewAppointment = {this.props.onMakeNewAppointment}/>
                         </Col>
                     </Row>
 
@@ -76,6 +80,17 @@ class PatientsPage extends React.Component{
                         <Col span={24}>
                             <HistoryReceptions data={treatments}
                                                onGotoChat={(id) => this.props.history.push('/chat')}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={24} className='reviews-section'>
+                            <ReviewsTree data={this.props.reviews}
+                                         limit={7}
+                                         onGoto={(val) => this.gotoHandler(val)}
+                                         isOnDoctorPage = {true}
+
+
+                            />
                         </Col>
                     </Row>
                 </div>
@@ -90,13 +105,17 @@ const mapStateToProps = state => {
     return {
         info: state.patients.selectedPatientInfo,
         id_user: state.patients.selectedId,
+        reviews: state.reviews.reviews,
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
-        addPatient: (id) => dispatch(actions.addPatient(id, '', true))
+        addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
+        onMakeNewAppointment: (obj) => console.log(obj, "DISPATCH IS WORKING"),
+        onGetAllReviews: (doc_id) => dispatch(actions.getAllReviews(doc_id)),
+
     }
 };
 
