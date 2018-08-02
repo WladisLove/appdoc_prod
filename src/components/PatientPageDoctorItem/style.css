@@ -30,6 +30,7 @@
   justify-content: space-between;
 }
 .page__doctor-item-favorites {
+  cursor: pointer;
   margin-left: auto;
 }
 .page__doctor-item-favorites .icon {

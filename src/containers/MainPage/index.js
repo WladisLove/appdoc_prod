@@ -63,6 +63,7 @@ class MainPage extends React.Component{
 				doctors = {this.props.patientDoctors}
 				completedTreatments = {this.props.completedTreatments}
 				nearVisits = {this.props.nearVisits}
+                nearVisitsLoaded={this.props.nearVisitsLoaded}
 				{...this.props}
 
 			/>
@@ -92,6 +93,7 @@ const mapStateToProps = state => {
 		docTodayInfo: state.doctor.todayInfo,
         patientDoctors: state.patients.patientDoctors,
 		nearVisits: state.schedules.nearVisits,
+		nearVisitsLoaded: state.schedules.nearVisitsLoaded
         intervals: state.patients.intervals,
         availableIntervals: state.profileDoctor.workIntervals,
     }

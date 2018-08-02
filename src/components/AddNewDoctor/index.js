@@ -44,6 +44,12 @@ class AddNewDoctor extends React.Component{
         this.props.onSearch(this.state.inputValue)
     };
 
+    handleKeyDown = (e) => {
+        if(e.keyCode===13) {
+         clearTimeout(this.timer);
+            this.props.onSearch(this.state.inputValue);
+        }
+    };
     render(){
         const {visible, onCancel} = this.props;
 
@@ -59,6 +65,7 @@ class AddNewDoctor extends React.Component{
                                     ref={inp => this.inp = inp}
                                     onSearch={value => this.props.onSearch(value)}
                                     onChange={this.handleChange}
+                                    onKeyDown={this.handleKeyDown}
                                     value={this.state.inputValue}  />
                     </div>
                     <div className='new-doctor-title'>Результаты поиска</div>

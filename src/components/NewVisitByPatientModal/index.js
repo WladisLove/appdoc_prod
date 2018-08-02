@@ -20,7 +20,7 @@ const NewVisitByPatientModal = (props) => {
 
 NewVisitByPatientModal.propTypes = {
     visible: PropTypes.bool,
-    date: PropTypes.instanceOf(Date),
+    date: PropTypes.number,
     patients: PropTypes.array,
     isChoosebleTime: PropTypes.bool,
     onSave: PropTypes.func,
