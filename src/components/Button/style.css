@@ -56,11 +56,11 @@
 }
 .btn-size-small {
   text-transform: uppercase;
-  letter-spacing: .025em;
+  letter-spacing: 0.025em;
   font-size: 0.75rem;
   font-family: GothamPro-Medium;
   min-width: 5.3125rem;
-  padding: .625rem .85rem;
+  padding: 0.625rem 0.85rem;
 }
 .btn-size-default {
   text-transform: uppercase;
@@ -68,7 +68,7 @@
   font-size: 11px;
   font-family: GothamPro-Medium;
   min-width: 8.875rem;
-  letter-spacing: .025em;
+  letter-spacing: 0.025em;
 }
 .btn-size-large {
   font-size: 1.25rem;

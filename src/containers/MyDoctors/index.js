@@ -46,7 +46,6 @@ class Patients extends React.Component{
 
 
     render(){
-        console.log(this.props.isReceptionRecorded, "IS_RECEPTION_RECORDED");
         return this.props.isLoadingPatientDoctors ? (
 			<Spinner size="large"/>
 	):(

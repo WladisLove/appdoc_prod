@@ -62,7 +62,8 @@ class PatientDoctorsHeader extends React.Component{
                     </div>
                     <div className="legend">
                         <span className="AppAfterAnalyses">Приёмы по результатам анализов</span>
-                        <span className="AppWithVideoAudio">Аудио и видео консультации</span>
+                        <span className="AppWithVideoAudio">Доступные приёмы</span>
+                        <span className="AppUnavailable">Недоступные приёмы</span>
                     </div>
                 </div>
         )
