@@ -24,7 +24,6 @@ class PatientDoctor extends React.Component{
             doctorID: ID,
             isReceptionRecorded: false
         });
-        console.log(ID);
         if (value) this.props.onGetAllDocIntervals(ID);
     };
 
