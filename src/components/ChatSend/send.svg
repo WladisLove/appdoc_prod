@@ -1,0 +1,15 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+    <defs>
+        <style>
+        .cls-1 {
+            fill: #0495ff;
+        }
+
+        .cls-2 {
+            fill: #fff;
+        }
+        </style>
+    </defs>
+    <circle class="cls-1" cx="20" cy="20" r="20" />
+    <path class="cls-2" d="M61.776,49.852L43.1,41.233a0.722,0.722,0,0,0-.859.2,0.714,0.714,0,0,0-.017.882L48.367,50.5l-6.141,8.188a0.718,0.718,0,0,0,.875,1.083l18.674-8.619A0.718,0.718,0,0,0,61.776,49.852Z" transform="translate(-31.138 -30.505)" />
+</svg>

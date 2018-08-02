@@ -1,0 +1,119 @@
+@import "../../styles/variables";
+
+.profileAvatar {
+    position: relative;
+    display: inline-flex;
+    border-radius: 100%;
+
+    &-indicator{
+        position: absolute;
+        border-radius: 100%;
+    }
+
+    .profileImg{
+        background-size: cover !important;
+        background-position: 50%;
+        border-radius: 100%;
+    }
+
+    &-size{
+
+        &-small{
+
+            .profileImg{
+                width: 46px;
+                height: 46px;
+                border: 1px solid #fff;
+
+                .profileAvatar-indicator{
+                    right: 2px;
+                    top: 2px;
+                    width: 8px;
+                    height: 8px;
+                    border: 1px solid #fff;
+                }
+            }
+            
+        }
+
+        &-medium{
+            margin-bottom: 20px;
+            
+            .profileImg{
+                width: 90px;
+                height: 90px;
+                border: 2px solid #fff;
+
+                .profileAvatar-indicator{
+                    right: 14px;
+                    top: 2px;
+                    width: 10px;
+                    height: 10px;
+                    border: 1px solid #fff;
+                }
+            }
+            
+        }
+
+        &-large{
+            margin-bottom: 20px;
+
+            .profileImg{
+                width: 132px;
+                height: 132px;
+                border: 3px solid #fff;
+
+                .profileAvatar-indicator{
+                    right: 22px;
+                    top: 2px;
+                    width: 14px;
+                    height: 14px;
+                    border: 2px solid #fff;
+                }
+            }
+            
+        }
+    }
+
+    &-status{
+
+        &-online{
+            border: 2px solid #04c956;
+
+            .profileAvatar-indicator{
+                background-color: #04c956;
+            }
+        }
+
+        &-offline{
+            border: 2px solid @grey;
+
+            .profileAvatar-indicator{
+                background-color: @grey;
+            }
+
+            &.profileAvatar-size-small{
+                border: none;
+               
+                .profileAvatar-indicator{
+                     background-color: #ef5350;
+                }
+            }
+        }
+    }
+
+    &-owner{
+
+        &-patient {
+            border: none;
+
+            .profileImg{
+                border: none;
+            }
+        }
+
+        &-doctor {
+            
+        }
+    }
+}

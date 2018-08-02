@@ -1,0 +1,322 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.registration-form {
+  max-width: 850px;
+  width: 100%;
+  padding: 75px 100px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  /* Параметры тени */
+  background-color: #ffffff;
+}
+.registration-form .personal-btn {
+  margin-bottom: 35px;
+}
+.registration-form .ant-form-item {
+  position: relative;
+  margin-bottom: 35px;
+}
+.registration-form .ant-form-item .has-error .input-root-focus {
+  border-bottom: #ff4242 1px solid;
+}
+.registration-form .ant-form-item .has-error .input-root {
+  border-bottom: #ff4242 1px solid;
+}
+.registration-form .ant-form-item .has-error .ant-input:focus {
+  box-shadow: none;
+}
+.registration-form .ant-form-item .has-error .ant-input-group-addon {
+  color: #777777;
+}
+.registration-form .ant-form-item .ant-form-explain {
+  position: absolute;
+  top: 45px;
+}
+.registration-form-item .ant-input-group-addon:first-child {
+  text-align: left;
+}
+.registration-form-navlink {
+  color: #0495ff;
+  font-size: 14px;
+  line-height: 1;
+}
+.registration-form-navlink:hover {
+  color: #0495ff;
+}
+.registration-form-control {
+  text-align: center;
+}
+.registration-form-control button {
+  margin-bottom: 50px;
+}
+.registration-title {
+  font-family: 'GothamPro-Bold';
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.88px;
+  color: #333;
+  margin-bottom: 60px;
+}
+.registration-posttitle {
+  font-family: 'GothamPro';
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+}
+.registration-notification {
+  font-family: 'GothamPro-Light';
+  font-size: 12px;
+  line-height: 1;
+  color: #333;
+  margin-bottom: 35px;
+}
+.registration-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+.registration-row .ant-form-item {
+  width: 47.5%;
+  margin-bottom: 0;
+}
+.registration-row .ant-form-item .radio-label {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e1e1e1;
+}
+.registration-row .ant-form-item .ant-radio-group {
+  margin-left: auto;
+}
+.registration-row .ant-form-item .datepicker-base {
+  display: flex;
+  width: 115px;
+  margin-left: auto;
+}
+.registration-row .ant-form-item .datepicker-base .ant-calendar-picker {
+  border-bottom: none;
+  width: 100%;
+  min-width: auto;
+  max-width: none;
+}
+.registration-row .ant-form-item .datepicker-base .ant-calendar-picker-input {
+  height: 40px;
+}
+.registration-avatar .upload {
+  padding: 20px;
+  border: 1px dashed #e1e1e1;
+}
+.registration-avatar .upload .ant-upload-list-item {
+  width: 48%;
+}
+.registration-avatar .upload .ant-upload-list-item-actions {
+  transform: translate(-145%, -50%);
+}
+.step-form {
+  width: 100%;
+  border: none;
+  background-color: #ffffff;
+}
+.step-form .ant-form-item {
+  position: relative;
+  margin-bottom: 35px;
+}
+.step-form .ant-form-item .has-error .input-root-focus {
+  border-bottom: #ff4242 1px solid;
+}
+.step-form .ant-form-item .has-error .input-root {
+  border-bottom: #ff4242 1px solid;
+}
+.step-form .ant-form-item .has-error .ant-input:focus {
+  box-shadow: none;
+}
+.step-form .ant-form-item .has-error .ant-input-group-addon {
+  color: #777777;
+}
+.step-form .ant-form-item .ant-form-explain {
+  position: absolute;
+  top: 45px;
+}
+.step-form-item .ant-input-group-addon:first-child {
+  text-align: left;
+}
+.step-form-navlink {
+  color: #0495ff;
+  font-size: 14px;
+  line-height: 1;
+}
+.step-form-navlink:hover {
+  color: #0495ff;
+}
+.step-form-control {
+  text-align: center;
+}
+.step-form-control button {
+  margin-bottom: 50px;
+}
+.step-title {
+  font-family: 'GothamPro-Bold';
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.88px;
+  color: #333;
+  margin-bottom: 60px;
+}
+.step-posttitle {
+  font-family: 'GothamPro';
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+}
+.step-notification {
+  font-family: 'GothamPro-Light';
+  font-size: 12px;
+  line-height: 1;
+  color: #333;
+  margin-bottom: 50px;
+}
+.step-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+.step-row .ant-form-item {
+  width: 47.5%;
+  margin-bottom: 0;
+}
+.step-row .ant-form-item .radio-label {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e1e1e1;
+}
+.step-row .ant-form-item .ant-radio-group {
+  margin-left: auto;
+}
+.step-row .ant-form-item .datepicker-base {
+  display: flex;
+  width: 115px;
+  margin-left: auto;
+}
+.step-row .ant-form-item .datepicker-base .ant-calendar-picker {
+  border-bottom: none;
+  width: 100%;
+  min-width: auto;
+  max-width: none;
+}
+.step-row .ant-form-item .datepicker-base .ant-calendar-picker-input {
+  height: 40px;
+}
+.step-avatar .upload {
+  padding: 20px;
+  border: 1px dashed #e1e1e1;
+}
+.step-avatar .upload .ant-upload-list-item {
+  width: 48%;
+}
+.step-avatar .upload .ant-upload-list-item-actions {
+  transform: translate(-145%, -50%);
+}
+.step-block {
+  position: relative;
+  margin-bottom: 45px;
+}
+.step-block-title {
+  color: #0495ff;
+  font-size: 14px;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  font-family: 'GothamPro-Medium';
+}
+.step-block-title-post {
+  font-size: 16px;
+  color: #333;
+  line-height: 1;
+  margin-bottom: 30px;
+  font-family: 'GothamPro-Medium';
+}
+.step-block .datepicker-base {
+  width: 100%;
+  display: block;
+}
+.step-block .datepicker-base-range {
+  display: flex;
+  justify-content: space-between;
+}
+.step-block .datepicker-base .ant-calendar-picker {
+  width: 100%;
+  max-width: 47.5%;
+}
+.step-block-item {
+  margin-bottom: 10px;
+  position: relative;
+}
+.step-block-item:first-child {
+  margin-top: 30px;
+  border-top: 1px dashed #dcdcdc;
+  padding-top: 30px;
+}
+.step-block-item .datepicker-base {
+  width: 100%;
+  display: block;
+}
+.step-block-item .datepicker-base-range {
+  display: flex;
+  justify-content: space-between;
+}
+.step-block-item .datepicker-base .ant-calendar-picker {
+  width: 100%;
+  max-width: 47.5%;
+}
+.step-block .step-row .datepicker-base {
+  width: 100%;
+  margin-left: 0;
+}
+.step-block .step-row .datepicker-base .ant-calendar-picker-input {
+  border-bottom: 1px solid #e1e1e1;
+}
+.step-block .radio-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.step-block .radio-label .ant-radio-group {
+  margin-left: 40px;
+}
+.step-block .radio-label .ant-radio-group .ant-radio-wrapper {
+  margin-left: 35px;
+}
+.check-row {
+  display: flex;
+  margin-bottom: 0;
+}
+.check-title {
+  max-width: 200px;
+  width: 100%;
+  color: #777;
+}
+.check-text {
+  font-size: 14px;
+  line-height: 34px;
+  color: #333;
+}
+.steps-action {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.steps-action .btn:first-child {
+  margin-right: 30px;
+}

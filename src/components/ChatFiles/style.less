@@ -1,0 +1,90 @@
+@import url("../../styles/variables");
+
+.chat{
+
+	&__files{
+		
+		&-date{
+			position: absolute;
+			top: -14px;
+			left: 30px;
+			color: #fff;
+			line-height: 1;
+			font-size: 12px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 16px;
+			padding: 8px 12px;
+		}
+
+		&-default{
+
+			.chat__files-date{
+				background-color: @blue;
+			}
+
+			.link{
+				color: #344051;
+
+				.icon{
+					color: #b7b7b7;
+				}
+			}
+		}
+
+		&-new{
+
+			.chat__files-date{
+				background-color: #00c853;
+			}
+		}
+
+		&-item{
+			background-color: #fff;
+			border-top: 1px solid #ebebeb;
+			position: relative;
+			padding: 30px 35px;
+
+			.link-conclusion{
+				background-color: #f5f6fa;
+				padding: 6px 12px;
+				align-items: center;
+				color: #344051;
+				margin: 20px 0;
+				display: inline-flex;
+
+				.icon{
+					color: #fdc401;
+				}
+
+				&:hover{
+					text-decoration: none;
+
+					span{
+						text-decoration: underline;
+
+						&.icon{
+							text-decoration: none;
+						}
+					}
+				}
+			}
+
+			.link{
+
+				&:hover{
+					text-decoration: none;
+
+					span{
+						text-decoration: underline;
+
+						&.icon{
+							text-decoration: none;
+						}
+					}
+				}
+			}
+		}
+	}
+}

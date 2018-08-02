@@ -1,0 +1,109 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.ant-popover-inner {
+  max-width: 345px;
+}
+.ant-popover-inner-content {
+  padding: 0;
+}
+.ant-popover-inner-content .default-popover {
+  padding: 30px 32px;
+}
+.ant-popover-inner-content .calendar-body {
+  padding: 23px;
+  background-color: #f6fbff;
+  max-width: 188px;
+}
+.ant-popover-inner-content .calendar-name {
+  color: #204d8d;
+  font-size: 14px;
+  line-height: 18px;
+  margin-bottom: 15px;
+  display: block;
+}
+.ant-popover-inner-content .calendar-date {
+  position: relative;
+  font-size: 12px;
+  line-height: 18px;
+  color: #344051;
+}
+.ant-popover-inner-content .calendar-date .iconwrapper {
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  top: 0;
+}
+.ant-popover-inner-content .calendar-date .iconwrapper .icon {
+  color: #285391;
+  margin-right: auto;
+}
+.ant-popover-inner-content .calendar-time {
+  font-size: 12px;
+  line-height: 18px;
+  color: #344051;
+  margin-bottom: 15px;
+}
+.ant-popover-inner-content .calendar-text {
+  font-size: 12px;
+  line-height: 18px;
+  color: #344051;
+  margin-bottom: 25px;
+}
+.ant-popover-inner-content .calendar-block {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.ant-popover-inner-content .calendar-block .btn .icon {
+  color: #285391;
+}
+.ant-popover-inner-content .calendar-block .btn:last-child .icon {
+  margin-right: auto;
+}
+.ant-popover-inner-content .calendar-block .btn:hover .icon {
+  color: #0495ff;
+}
+.ant-popover-inner-content .link {
+  margin-bottom: 1rem;
+}
+.ant-popover-inner-content .all-download {
+  position: absolute;
+  right: 25px;
+  bottom: 27px;
+}
+.ant-popover-inner-content .all-download span {
+  margin-right: 0;
+}
+.ant-popover-placement-rightTop > .ant-popover-content > .ant-popover-arrow {
+  display: none;
+}
+.popover-nun {
+  position: relative;
+}
+.popover-nun:after {
+  content: attr(num);
+  background-color: #fdc401;
+  border-radius: 100%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  color: #fff;
+  font-family: 'GothamPro-Medium';
+  font-size: 13px;
+  line-height: 1;
+  top: -18px;
+  left: 20px;
+}

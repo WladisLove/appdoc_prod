@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 
-import { Button, ChatSend, ChatMessage, ChatComments } from 'appdoc-component'
+
+import Button from "../../../components/Button";
+import ChatSend from "../../../components/ChatSend";
+import ChatMessage from "../../../components/ChatMessage";
+import ChatComments from "../../../components/ChatComments";
+
 
 import './style.css'
 

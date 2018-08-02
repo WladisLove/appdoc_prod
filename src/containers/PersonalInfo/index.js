@@ -1,11 +1,20 @@
 import React from 'react'
+import Row from "../../components/Row";
+import Col from "../../components/Col";
+import PersonalContact from "../../components/PersonalContact";
+import PersonalEducation from "../../components/PersonalEducation";
+import PersonalExperience from "../../components/PersonalExperience";
+import PersonalInformation from "../../components/PersonalInformation";
+import WarningModal from "../../components/WarningModal";
 
-import { Row, Col, PersonalContact, PersonalEducation, PersonalExperience, PersonalInformation,WarningModal } from 'appdoc-component'
 import Hoc from '../../hoc'
 import './styles.css'
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
 import{compileToClientDoctor, compileToServerDoctor} from './compilerDoc'
+import{compileToClientPatient, compileToServerPatient} from './compilerPatient'
+import PatientAccardionContact from "../../components/PatientAccardionContact";
+import PatientAccardionDisease from "../../components/PatientAccardionDisease";
 
 class PersonalInfo extends React.Component{
     constructor(props){
@@ -16,6 +25,7 @@ class PersonalInfo extends React.Component{
     }
 
     componentDidMount(){
+        this.props.auth.mode === "user" ? this.props.onGetInfoPatient(this.props.auth.id) :
         this.props.onGetInfoDoctor(this.props.auth.id);
     };
 
@@ -28,46 +38,72 @@ class PersonalInfo extends React.Component{
         this.props.onSendNewInfoDoctor(profileDoctor);
         this.setState({visible:true}) ;
     };
-    render(){
-        let doctor = compileToClientDoctor(this.props.profileDoctor);
 
+    onSubmitPatient = (profilePatient) => {
+        profilePatient = compileToServerPatient(profilePatient, this.props.auth.id);
+        this.props.onSendNewInfoPatient(profilePatient);
+        this.setState({visible:true}) ;
+    };
+
+    render() {
+        let isUser = this.props.auth.mode === "user";
+        let profile = isUser ? compileToClientPatient(this.props.profilePatient) : compileToClientDoctor(this.props.profileDoctor);
         return (
-
             <Hoc>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PersonalContact
-                            profileDoctor={ doctor}
-                            onSubmit ={this.onSubmit}
-			            />
-            		</Col>
-            	</Row>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PersonalEducation
-                            profileDoctor={ doctor}
-                            onSubmit ={this.onSubmit}
-                        />
-            		</Col>
-            	</Row>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PersonalExperience
-                            profileDoctor={doctor}
-                            onSubmit ={this.onSubmit}
-                        />
-            		</Col>
-            	</Row>
-            	<Row>
-            		<Col xs={24} xxl={18}>
-            			<PersonalInformation
-                            profileDoctor={doctor}
-                            onSubmit ={this.onSubmit}
-                        />
-            		</Col>
-            	</Row>
-                <WarningModal visible={this.state.visible} onClick={this.onVisible}
-                              message="Изменения всупят в силу после проверки администратором"/>
+                {isUser ? (
+                    <div className="patient-persoonal-items">
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PatientAccardionContact
+                                    onSubmit={this.onSubmitPatient}
+                                    profile = {profile}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PatientAccardionDisease
+                                    diseases = {profile.chronic}
+                                />
+                            </Col>
+                        </Row>
+                    </div>) : (
+                    <div className="doctor-persoonal-items">
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PersonalContact
+                                    profileDoctor={profile}
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PersonalEducation
+                                    profileDoctor={profile}
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PersonalExperience
+                                    profileDoctor={profile}
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={24} xxl={18}>
+                                <PersonalInformation
+                                    profileDoctor={profile}
+                                    onSubmit={this.onSubmit}
+                                />
+                            </Col>
+                        </Row>
+                        <WarningModal visible={this.state.visible} onClick={this.onVisible}
+                                      message="Изменения всупят в силу после проверки администратором"/>
+                    </div>)}
             </Hoc>
         )
     }
@@ -76,6 +112,7 @@ class PersonalInfo extends React.Component{
 const mapStateToProps = state => {
     return {
         profileDoctor: state.profileDoctor,
+        profilePatient: state.profilePatient,
         auth: state.auth,
     }
 };
@@ -83,7 +120,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGetInfoDoctor: (id) => dispatch(actions.getInfoDoctor(id)),
-        onSendNewInfoDoctor: (info) => dispatch(actions.sendNewInfoDoctor(info))
+        onSendNewInfoDoctor: (info) => dispatch(actions.sendNewInfoDoctor(info)),
+        onGetInfoPatient: (id) => dispatch(actions.getInfoPatient(id)),
+        onSendNewInfoPatient: (info) => dispatch(actions.sendNewInfoPatient(info)),
+
     }
 };
 

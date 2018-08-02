@@ -16,7 +16,9 @@ class MainPage extends React.Component{
 
 	componentDidMount(){
 		if (this.props.mode === "user"){
-
+			this.props.onGetThreePatientDoctors(2);
+			this.props.onGetCompletedTreatments();
+            this.props.onGetNearVisits(3);
 		}
 		else {
 			this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
@@ -56,7 +58,14 @@ class MainPage extends React.Component{
 
     render(){
         return (this.props.mode === "user") ? (
-			<PatientPage/>
+			<PatientPage
+				isUser = {this.props.mode === "user"}
+				doctors = {this.props.patientDoctors}
+				completedTreatments = {this.props.completedTreatments}
+				nearVisits = {this.props.nearVisits}
+				{...this.props}
+
+			/>
 		) : (
 			<DoctorPage 
 				showCancel = {() => {this.setState({cancelModal: true})}}
@@ -79,7 +88,10 @@ const mapStateToProps = state => {
 		visits: state.schedules.visits,
 		reviews: state.reviews.reviews,
 		actualTreatments: state.treatments.actualTreatments,
+		completedTreatments: state.treatments.completedTreatments,
 		docTodayInfo: state.doctor.todayInfo,
+        patientDoctors: state.patients.patientDoctors,
+		nearVisits: state.schedules.nearVisits,
     }
 };
 
@@ -92,8 +104,12 @@ const mapDispatchToProps = dispatch => {
 		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
 		onGetActualTreatments: () => dispatch(actions.getActualTreatments()),
+		onGetCompletedTreatments: () => dispatch(actions.getCompletedTreatments()),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
+		onGetNearVisits: (count) => dispatch(actions.getCountNearVisits(count)),
+		onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),
 		getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
+		onGetThreePatientDoctors: (count) => dispatch(actions.getPatientDoctors(count)),
     }
 };
 

@@ -40,6 +40,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 intervals: action.intervals,
             }
+        case actionTypes.SET_RECEPTION:
+            return {
+                ...state,
+                isReceptionRecorded: action.isReceptionRecorded,
+            }
+        case actionTypes.SET_RECEPTION_BY_PATIENT:
+            return {
+                ...state,
+                isReceptionRecorded: action.isReceptionRecorded,
+            }
 
         case actionTypes.SELECT_PATIENT:
             return {
@@ -51,6 +61,24 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 selectedId: 0,
             }
+        case actionTypes.GET_NOT_PATIENT_DOCTORS:
+            return {
+                ...state,
+                notPatientDoctors: action.notPatientDoctors,
+            }
+        case actionTypes.GET_PATIENT_DOCTORS:
+            return {
+                ...state,
+                patientDoctors: action.patientDoctors,
+                isLoadingPatientDoctors: false,
+
+            }
+        case actionTypes.GET_PATIENT_DOCTORS_LOADING:
+            return {
+                ...state,
+                isLoadingPatientDoctors: true,
+            }
+
         default: return state;
     }
 }

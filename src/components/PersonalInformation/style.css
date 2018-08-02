@@ -1,0 +1,25 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+a {
+  color: #204d8d;
+}
+a:hover {
+  color: #204d8d;
+  text-decoration: underline;
+}
+.personal-information-all .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+  border-radius: 4px 4px 0 0;
+}
+.personal-information-all .ant-collapse-content-active {
+  padding: 20px 0px;
+}

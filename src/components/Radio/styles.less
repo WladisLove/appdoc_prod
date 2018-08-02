@@ -1,0 +1,43 @@
+@import url("../../styles/variables");
+
+.ant-radio-button-wrapper {
+    display: inline-flex;
+    padding: 0;
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: #fff;
+    border: 1px solid transparent;
+
+    &:not(:last-child) {
+        margin-right: 34px;
+    }
+    &::before {
+        display: none !important;
+    }
+
+    &>span:nth-child(2) {
+        margin: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    &:first-child {
+        border-radius: 50%;
+        border: 1px solid transparent;
+    }
+    &:last-child {
+        border-radius: 50%;
+        border: 1px solid transparent;
+    }
+
+    &:hover {
+        border: 1px solid #465060;
+        color: #465060;
+    }
+}
+
+.ant-radio-button-wrapper-checked {
+    background-color: @blue;
+    color: #fff;
+}

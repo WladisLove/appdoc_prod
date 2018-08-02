@@ -1,0 +1,56 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.rateIndicator {
+  width: 100%;
+  height: 260px;
+  position: relative;
+}
+.rateIndicator-main {
+  width: 100%;
+  height: 240px;
+  border-radius: 0 115px;
+  position: absolute;
+  z-index: 9;
+  background-color: white;
+  box-shadow: 0 0 38px rgba(0, 0, 0, 0.09);
+  padding: 45px;
+  text-align: center;
+}
+.rateIndicator-main-title {
+  font-family: 'GothamPro-Medium';
+  font-size: 20px;
+  margin-bottom: 35px;
+}
+.rateIndicator-main .ratePanel {
+  font-family: 'GothamPro-Medium';
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+.rateIndicator-main .ratePanel .value {
+  margin-right: 40px;
+}
+.rateIndicator-main .ratePanel .times {
+  display: none;
+}
+.rateIndicator-main-reviewsNum .icon {
+  margin-right: 13px;
+}
+.rateIndicator-behind {
+  width: 100%;
+  height: 240px;
+  border-radius: 0 115px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #fbdd78;
+}

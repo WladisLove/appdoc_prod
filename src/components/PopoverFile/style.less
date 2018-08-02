@@ -1,0 +1,62 @@
+@import url("../../styles/variables");
+
+.popover{
+
+    &-btn{
+        display: inline-flex;
+        background-color: transparent;
+        position: relative;
+        
+        .btn-size-icon{
+            border: none;
+            position: relative;
+            background-color: transparent;
+            
+            .icon{
+                color: #344051;
+                border: none;
+                background-color: transparent;
+            }
+
+            &:hover{
+                border: none;
+                .icon{
+                    color: @blue;
+                    border: none;
+                }
+            }
+
+            &:focus{
+                background-color: transparent;
+                color: @blue;
+                border: none;
+                outline: 0;
+            }
+        }
+    }
+
+    &-num{
+        background-color: transparent;
+        border-radius: 100%;
+        width: 26px;
+        height: 26px;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-align: center;
+        align-items: center;
+        position: absolute;
+        color: #344051;
+        font-family: GothamPro-Medium;
+        font-size: 13px;
+        line-height: 1;
+        top: -18px;
+        left: 24px;
+
+        &.active{
+            background-color: #fdc401;
+            color: #fff;
+        }
+    }
+}

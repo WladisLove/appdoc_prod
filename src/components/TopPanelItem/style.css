@@ -1,0 +1,83 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.panelItem {
+  display: inline-block;
+  z-index: 2;
+  position: relative;
+}
+.panelItem.first-col .panelItem-header {
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+}
+.panelItem.first-col .panelItem-header .icon,
+.panelItem.first-col .panelItem-header .anticon {
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+@media (max-width: 1620px) {
+  .panelItem.first-col .panelItem-header .icon,
+  .panelItem.first-col .panelItem-header .anticon {
+    font-size: 24px !important;
+  }
+}
+.panelItem.first-col .panelItem-header .panel-title {
+  color: #fff;
+  width: 100%;
+  font-size: 28px;
+}
+@media (max-width: 1620px) {
+  .panelItem.first-col .panelItem-header .panel-title {
+    font-size: 22.5px;
+  }
+}
+.panelItem.first-col .panelItem-num {
+  color: #fff;
+  font-size: 1rem;
+  font-family: 'GothamPro';
+  text-align: left;
+}
+.panelItem-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.panelItem-header .icon,
+.panelItem-header .anticon {
+  margin-right: 1.25rem;
+  color: #fdc401;
+}
+.panelItem-header .panel-title {
+  font-size: 20px;
+  color: #344051;
+  white-space: nowrap;
+}
+@media (max-width: 1620px) {
+  .panelItem-header .panel-title {
+    font-size: 16px;
+  }
+}
+.panelItem-num {
+  color: #0495ff;
+  font-size: 50px;
+  font-family: 'GothamPro-Light';
+  text-align: right;
+  display: block;
+  width: 100%;
+  line-height: 1;
+}
+@media (max-width: 1620px) {
+  .panelItem-num {
+    font-size: 40px;
+  }
+}

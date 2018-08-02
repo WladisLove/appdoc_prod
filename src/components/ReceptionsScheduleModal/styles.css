@@ -1,0 +1,54 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.receptionsScheduleModal {
+  position: relative;
+  padding: 20px 25px 30px 25px;
+}
+.receptionsScheduleModal .datepicker-base-range {
+  margin-bottom: 25px;
+}
+.receptionsScheduleModal-tabs {
+  position: relative;
+  left: -10px;
+  margin-bottom: 0px;
+  width: calc(100% + 20px);
+}
+.receptionsScheduleModal-tabs-title {
+  color: #999999;
+  margin-bottom: 15px;
+}
+.receptionsScheduleModal-tabs .ant-tabs-bar {
+  margin-bottom: 25px;
+}
+.receptionsScheduleModal-tabs .ant-tabs-tabpane {
+  padding: 0 10px;
+}
+.receptionsScheduleModal-tabs .ant-tabs-tabpane .ant-checkbox-wrapper {
+  display: block;
+  margin-top: 1rem;
+}
+.receptionsScheduleModal-tabs .ant-tabs-tabpane .ant-radio-group {
+  margin-bottom: 0px;
+}
+.receptionsScheduleModal-tabs .ant-tabs-tabpane .ant-select {
+  margin-bottom: 0px;
+}
+.receptionsScheduleModal-timepickers {
+  margin-bottom: 20px;
+}
+.receptionsScheduleModal .timepicker-base {
+  margin-bottom: 5px;
+}
+.mb-1r {
+  margin-bottom: 2rem;
+}

@@ -1,0 +1,47 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.ant-select {
+  font-family: 'GothamPro';
+  color: #999;
+  display: block;
+}
+.ant-select-selection {
+  border: none;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 0;
+}
+.ant-select-selection__rendered {
+  margin-left: 0;
+}
+.ant-select-selection--multiple .ant-select-selection__choice {
+  background-color: #e8f5ff;
+  border: none;
+  align-items: center;
+  display: flex;
+}
+.ant-select-selection--multiple .ant-select-selection__choice__content {
+  color: #344051;
+  font-size: 12px;
+  font-family: 'GothamPro';
+  border-radius: 4px;
+  margin-right: 10px;
+}
+.ant-select-selection--multiple .ant-select-selection__choice__content__remove {
+  line-height: 1;
+}
+.ant-select-selection--multiple .ant-select-selection__rendered {
+  margin-left: 0;
+}
+.ant-select-selection--multiple .ant-select-selection__rendered .ant-select-selection__placeholder {
+  margin-left: 0;
+}

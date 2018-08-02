@@ -22,6 +22,17 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 schedules: action.intervals,
             }
+        case actionTypes.GET_COUNT_NEAR_VISITS:
+            return {
+                ...state,
+                nearVisits: action.nearVisits,
+            }
+        case actionTypes.GET_ALL_USER_VISITS:
+            return {
+                ...state,
+                allUserVisits: action.allUserVisits,
+            }
+
         case actionTypes.CLEAR_INTERVALS:
             return {
                 ...state,
@@ -58,7 +69,7 @@ const reducer = (state = initialState, action) => {
                     userName: action.event.fio,
                 }
             };
-        
+
         case actionTypes.CLOSE_CANCEL_MODAL:
             return{
                 ...state,

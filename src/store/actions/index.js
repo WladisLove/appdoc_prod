@@ -1,14 +1,19 @@
 export {
     getDocPatients,
+    getPatientDoctors,
     getNotDocPatients,
     clearNotDocPatients,
     addPatient,
+    addDoctor,
     removePatient,
     getDateInterval,
     getDateIntervalWithoutMakingApp,
+    setReception,
+    setReceptionByPatient,
     selectPatient,
     unselectPatient,
-
+    getNotPatientDoctors,
+    clearNotPatientDoctors,
     getSelectedPatientInfo,
     
     sendMessage,
@@ -16,6 +21,7 @@ export {
 
 export {
     getAllReviews,
+    getAllReviewsByPatient,
     putCommentAnswer,
     
 } from './reviews';
@@ -30,10 +36,13 @@ export {
     addInterval,
     addVisit,
     getAllVisits,
+    getAllPatientVisits,
+    getCountNearVisits,
     getTodayVisits,
 } from './schedules';
 export {
     getActualTreatments,
+    getCompletedTreatments,
     getAllTreatments,
     seletVisit,
     selectTreatment,
@@ -48,7 +57,13 @@ export {
 export {
     login,
     logout,
+    registerUser
 } from './auth'
+
+export {
+    getInfoPatient,
+    sendNewInfoPatient
+} from './patientData'
 
 export {
     getDocTodayInfo,

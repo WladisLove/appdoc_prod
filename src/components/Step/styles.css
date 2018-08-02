@@ -1,0 +1,93 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.steps-content {
+  margin-top: 40px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 6px;
+  background-color: #fafafa;
+  min-height: 200px;
+}
+.steps {
+  max-width: 650px;
+}
+.steps-rounds {
+  display: flex;
+}
+.steps-rounds .ant-steps-item {
+  width: 33.3%;
+  padding-bottom: 20px;
+  border-bottom: 5px solid #ebebeb;
+  margin-right: 0 !important;
+}
+.steps-rounds .ant-steps-item-process {
+  border-bottom: 5px solid #0495ff;
+}
+.steps-rounds .ant-steps-item-process .ant-steps-item-icon {
+  background-color: #0495ff;
+}
+.steps-rounds .ant-steps-item-process .ant-steps-item-title {
+  color: #0495ff;
+}
+.steps-rounds .ant-steps-item-finish {
+  border-bottom: 5px solid #0495ff;
+}
+.steps-rounds .ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #fdd13c;
+  color: #333;
+}
+.steps-rounds .ant-steps-item-finish .ant-steps-item-icon .ant-steps-icon {
+  color: #333;
+}
+.steps-rounds .ant-steps-item-finish .ant-steps-item-title {
+  color: #333;
+}
+.steps-rounds .ant-steps-item-wait .ant-steps-item-icon {
+  background-color: #ccc;
+}
+.steps-rounds .ant-steps-item-wait .ant-steps-item-title {
+  color: #ccc;
+}
+.steps-round {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.steps-round .ant-steps-item-icon {
+  width: 51px;
+  height: 51px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 27px;
+  border: none;
+}
+.steps-round .ant-steps-item-icon .ant-steps-icon {
+  line-height: 1;
+  color: #fff;
+  font-size: 24px;
+  font-family: 'GothamPro';
+}
+.steps-round .ant-steps-item-title {
+  font-size: 14px;
+  line-height: 24px;
+  font-family: 'GothamPro';
+  max-width: 120px;
+  white-space: normal;
+}
+.steps-round .ant-steps-item-title:after {
+  display: none;
+}
+.steps-content {
+  background-color: #fff;
+  border: none;
+}

@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import {  Row, Col, HistoryReceptionsTabs } from 'appdoc-component'
+import Row from "../../components/Row";
+import Col from "../../components/Col";
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 import Hoc from '../../hoc'
 
@@ -13,14 +15,7 @@ import './styles.css'
 class Treatment extends React.Component{
 
     componentDidMount(){
-        //console.log('here');
         this.props.onGetTreatments();
-        /*axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/2732')
-            .then(rez => {
-                console.log(rez);
-                this.setState({treatments: rez.data})
-            })
-            .catch(err => console.log(err))*/
     }
 
     gotoHandler = (id) => {
@@ -39,6 +34,7 @@ class Treatment extends React.Component{
                                                 this.props.onSelectTretment(id);
                                                 this.props.history.push('/chat');
                                             }}
+                                               isUser={this.props.mode === "user"}
                         />
             		</Col>
             	</Row>
@@ -49,7 +45,8 @@ class Treatment extends React.Component{
 
 const mapStateToProps = state => {
 	return {
-		treatments: state.treatments.treatments,
+        mode: state.auth.mode,
+        treatments: state.treatments.treatments,
 	}
 };
 

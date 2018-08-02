@@ -4,7 +4,8 @@ import * as actionTypes from './actionTypes';
 export const getAllTreatments = () => {
 
     return (dispatch, getState) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/')
+        let isUser = getState().auth.mode === "user" ? "/isuser/1" : "";
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+isUser)
             .then(res => {
                 console.log('[getAllTreatments]',res.data)
                 dispatch({
@@ -19,7 +20,6 @@ export const getAllTreatments = () => {
 }
 
 export const getActualTreatments = () => {
-
     return (dispatch, getState) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/topical')
             .then(res => {
@@ -33,6 +33,21 @@ export const getActualTreatments = () => {
                 console.log(err);
         })
     }    
+}
+export const getCompletedTreatments = () => {
+    return (dispatch, getState) => {
+        let isUser = getState().auth.mode === "user" ? "/isuser/1" : "";
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/completed'+isUser)
+            .then(res => {
+                dispatch({
+                    type: actionTypes.GET_COMPLETED_TREATMENTS,
+                    treatments: res.data,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+        })
+    }
 }
 
 export const completeReception = (obj) => {

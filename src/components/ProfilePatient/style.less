@@ -1,0 +1,108 @@
+@import url("../../styles/variables");
+
+*{
+	    box-sizing: border-box;
+}
+
+.profile{
+
+	&-patient{
+
+		.ant-card-body{
+			
+			& > div{
+				display: flex;
+				align-items: flex-start;
+				padding: 5px 10px;
+
+				.profileAvatar{
+					margin-right: 27px;
+				}
+			}
+
+			.flex-div{
+				display: flex;
+				align-items: flex-start;
+				padding: 25px 1.5rem;
+				min-width: 900px;
+
+				.profileAvatar{
+					margin-right: 27px;
+				}
+			}
+		}
+
+		.patient{
+
+			&-info{
+				padding-right: 30px;
+				border-right: 1px solid #ebebeb;
+				margin-right: 30px;
+				min-width: 465px;
+				min-height: 162.5px;
+				position: relative;
+
+				.btn-row{
+
+					.btn{
+
+						&:first-child{
+							margin-right: 26px;
+						}
+
+						&-add{
+							position: absolute;
+							top: 0;
+							right: 0;
+						}
+					}
+				}
+			}
+
+			&-name{
+				color: #344051;
+				font-size: 24px;
+				line-height: 32px;
+				letter-spacing: -0.6px;
+				margin-bottom: 12px;
+			}
+
+			&__last-active{
+				color: #616d7e;
+				font-size: 12px;
+				margin-bottom: 25px;
+				max-width: 425px;
+			}
+
+			&-info__more{
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: flex-start;
+				min-height: 162.5px;
+				min-width: 215px;
+			}
+
+			&-row{
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+
+				.title{
+					font-size: 14px;
+					line-height: 1;
+					color: #616d7e;
+					width: 60%;
+				}
+
+				.text{
+					font-size: 14px;
+					line-height: 1;
+					color: #344051;
+					font-family: @f-m;
+					width: 40%;
+				}
+			}
+		}
+	}
+}

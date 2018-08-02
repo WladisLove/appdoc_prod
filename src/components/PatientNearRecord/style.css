@@ -1,0 +1,23 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.record-all .ant-card-extra a {
+  font-size: 14px;
+  line-height: 18px;
+}
+.record-all .ant-card-extra a .icon {
+  margin-right: 10px;
+  font-weight: 300;
+}
+.record-all .ant-card-body > div {
+  padding: 30px 30px 0 30px;
+}

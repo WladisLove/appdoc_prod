@@ -1,0 +1,65 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.scrollarea .scrollbar-container.horizontal {
+  z-index: 99;
+}
+.ant-card-head {
+  background-color: #0495ff;
+  padding: 0 !important;
+}
+.ant-card-head-title {
+  color: #fff;
+  font-size: 1.25rem;
+  padding: 1rem 1.75rem;
+}
+.ant-card-extra {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.ant-card-extra a {
+  color: #fff;
+  padding: 1rem 1.75rem;
+  display: flex;
+  align-items: center;
+}
+.ant-card-extra a span + span {
+  margin-left: 7.5px;
+}
+.ant-card-extra a i + span {
+  margin-left: 7.5px;
+}
+.ant-card-extra a:hover {
+  text-decoration: none;
+}
+.ant-card-extra a:hover span {
+  text-decoration: none;
+}
+.ant-card-extra a:hover span + span {
+  text-decoration: underline;
+}
+.ant-card-extra a:hover i {
+  text-decoration: none;
+}
+.ant-card-extra a:hover i + span {
+  text-decoration: underline;
+}
+.ant-card-extra .sum {
+  padding: 1rem 1.75rem;
+  background-color: #204d8d;
+  color: #fff;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+}

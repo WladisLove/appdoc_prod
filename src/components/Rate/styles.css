@@ -1,0 +1,7 @@
+.ant-rate-star {
+  margin-right: 5px;
+}
+.ant-rate-disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}

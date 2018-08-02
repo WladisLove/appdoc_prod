@@ -1,0 +1,11 @@
+.ant-modal.warning .root {
+  padding: 30px;
+}
+.ant-modal.warning .root-btn {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+}
+.ant-modal.warning .root-btn button {
+  margin: auto;
+}

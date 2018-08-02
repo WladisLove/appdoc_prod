@@ -1,0 +1,64 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.patient-item:nth-child(even) {
+  background-color: #f0f9ff;
+}
+.patient-count {
+  border-radius: 20px;
+  background-color: #fff;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  padding: 0 13px;
+  color: #0495ff;
+  font-size: 12px;
+}
+.patient-all {
+  width: 100%;
+}
+.patient-all .tableheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22.5px 32.5px;
+  background-color: #fff;
+  border: none;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+.patient-all .tableheader .ico-btn {
+  display: flex;
+}
+.patient-all .ant-card-head-title {
+  flex: none;
+}
+.patient-all .ant-card-extra {
+  float: none;
+  margin-left: 0;
+}
+.patient-all .ant-card-body {
+  max-height: 685px;
+}
+.patient-all .ant-card-body .scrollarea-content {
+  min-width: 1100px;
+}
+.patient-all .ant-input-search {
+  width: 250px;
+}
+.patient-list {
+  height: 685px;
+}

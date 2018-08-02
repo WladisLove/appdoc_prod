@@ -1,0 +1,66 @@
+@import url("../../styles/variables");
+
+.login{
+	&-form{
+		max-width: 770px;
+		width: 100%;
+		padding: 75px 100px;
+		border-radius: 2px;
+		border: none;
+		box-shadow: 0 0 16px rgba(0,0,0,0.1); /* Параметры тени */
+		background-color: #ffffff;
+
+		.ant-form-item{
+			position: relative;
+			margin-bottom: 35px;
+
+			.ant-form-explain{
+				position: absolute;
+				top: 45px;
+			}
+		}
+
+		&-item{
+			.ant-input-group-addon:first-child{
+				text-align: left;
+			}
+		}
+
+		&-navlink{
+			color: @blue;
+			font-size: 14px;
+			line-height: 1;
+
+			&:hover{
+				color: @blue;
+				//text-decoration: none;
+			}
+		}
+
+		&-control{
+			text-align: center;
+
+			button{
+				margin-bottom: 50px;
+			}
+		}
+	}
+
+	&-title{
+		font-family: @f-b;
+		font-size: 44px;
+		line-height: 1;
+		letter-spacing: -0.88px;
+		color: #333;
+		margin-bottom: 40px;
+	}
+
+	&-notification{
+		font-family: @f-l;
+		font-size: 12px;
+		line-height: 1;
+		color: #333;
+		margin-bottom: 50px;
+	}
+}
+

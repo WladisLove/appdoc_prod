@@ -1,0 +1,170 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.notification-item {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #ebebeb;
+  padding: 20px 25px 20px 55px;
+  background-color: #fff;
+}
+.notification-new {
+  background-color: #fefbf3;
+}
+.notification-new .notification-title {
+  color: #fdc401;
+}
+.notification-new .notification-icon {
+  display: block;
+}
+.notification-new .notification-icon .icon {
+  color: #fdc401;
+}
+.notification-cancel {
+  background-color: #fefbf3;
+}
+.notification-cancel .notification-title {
+  color: #fdc401;
+}
+.notification-cancel .notification-icon {
+  display: block;
+}
+.notification-cancel .notification-icon .icon {
+  color: #fdc401;
+}
+.notification-research {
+  background-color: #fefbf3;
+}
+.notification-research .notification-title {
+  color: #00c853;
+}
+.notification-research .notification-icon {
+  display: block;
+}
+.notification-research .notification-icon .icon {
+  color: #00c853;
+}
+.notification-five {
+  background-color: #fefbf3;
+}
+.notification-five .notification-title {
+  color: #ef5350;
+}
+.notification-five .notification-icon {
+  display: block;
+}
+.notification-five .notification-icon .icon {
+  color: #ef5350;
+}
+.notification-tomorrow {
+  background-color: #fefbf3;
+}
+.notification-tomorrow .notification-title {
+  color: #fdc401;
+}
+.notification-tomorrow .notification-icon {
+  display: block;
+}
+.notification-tomorrow .notification-icon .icon {
+  color: #fdc401;
+}
+.notification-negative {
+  background-color: #fefbf3;
+}
+.notification-negative .notification-title {
+  color: #ef5350;
+}
+.notification-negative .notification-icon {
+  display: block;
+}
+.notification-negative .notification-icon .icon {
+  color: #ef5350;
+}
+.notification-call {
+  background-color: #fefbf3;
+}
+.notification-call .notification-title {
+  color: #ef5350;
+}
+.notification-call .notification-icon {
+  display: block;
+}
+.notification-call .notification-icon .icon {
+  color: #ef5350;
+}
+.notification-watch {
+  background-color: #fff;
+}
+.notification-watch .notification-title {
+  color: #344051;
+}
+.notification-watch .notification-icon {
+  display: none !important;
+}
+.notification-watch .notification-icon .icon {
+  color: #344051;
+}
+.notification-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.notification-icon {
+  position: absolute;
+  left: 20px;
+  top: 28px;
+  display: none;
+}
+.notification-title {
+  color: #344051;
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 1;
+  font-family: 'GothamPro-Bold';
+  margin-bottom: 12px;
+}
+.notification-time {
+  font-family: 'GothamPro';
+  font-size: 12px;
+  color: #344051;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.notification-info {
+  font-family: 'GothamPro';
+  font-size: 12px;
+  color: #344051;
+  line-height: 1;
+}
+.notification-links {
+  position: relative;
+}
+.notification-links .link {
+  color: #204d8d;
+}
+.notification-links .link span {
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+  max-width: 250px;
+  font-size: 12px;
+}
+.notification-links .btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.notification-links .btn .icon {
+  margin-right: 0;
+}

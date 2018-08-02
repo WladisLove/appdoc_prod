@@ -1,0 +1,28 @@
+@import url("../../styles/variables");
+
+.top-panel{
+	position: relative;
+	overflow: hidden;
+	padding: 2.25rem 0;
+	background-color: #fff;
+	display: flex;
+    justify-content: space-around;
+
+	&:before{
+	    content: '';
+	    background-color: #fdc401;
+	    width: 100vw;
+	    height: 100vw;
+	    border: none;
+	    border-radius: 100%;
+	    position: absolute;
+	    left: -65vw;
+	    top: -12vw;
+	}
+}
+
+.flexCol{
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}

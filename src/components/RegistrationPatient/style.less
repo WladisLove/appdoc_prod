@@ -1,0 +1,409 @@
+@import url("../../styles/variables");
+
+.registration {
+
+    &-form {
+        max-width: 850px;
+        width: 100%;
+        padding: 75px 100px;
+        border-radius: 2px;
+        border: none;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+        /* Параметры тени */
+        background-color: #ffffff;
+
+        .personal-btn{
+            margin-bottom: 35px;
+        }
+
+        .ant-form-item {
+            position: relative;
+            margin-bottom: 35px;
+
+            .has-error {
+                .input-root-focus {
+                    border-bottom: #ff4242 1px solid;
+                }
+                .input-root {
+                    border-bottom: #ff4242 1px solid;
+                }
+                .ant-input:focus {
+                    box-shadow: none;
+                }
+                .ant-input-group-addon {
+                    color: #777777;
+                }
+            }
+            .ant-form-explain {
+                position: absolute;
+                top: 45px;
+            }
+        }
+
+        &-item {
+            .ant-input-group-addon:first-child {
+                text-align: left;
+            }
+        }
+
+        &-navlink {
+            color: @blue;
+            font-size: 14px;
+            line-height: 1;
+
+            &:hover {
+                color: @blue; //text-decoration: none;
+            }
+        }
+
+        &-control {
+            text-align: center;
+
+            button {
+                margin-bottom: 50px;
+            }
+        }
+    }
+
+    &-title {
+        font-family: @f-b;
+        font-size: 44px;
+        line-height: 1;
+        letter-spacing: -0.88px;
+        color: #333;
+        margin-bottom: 60px;
+    }
+
+    &-posttitle {
+        font-family: @f-r;
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    &-notification {
+        font-family: @f-l;
+        font-size: 12px;
+        line-height: 1;
+        color: #333;
+        margin-bottom: 35px;
+    }
+
+    &-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 35px;
+
+        .ant-form-item {
+            width: 47.5%;
+            margin-bottom: 0;
+
+            .radio-label {
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #e1e1e1;
+            }
+
+            .ant-radio-group {
+                margin-left: auto;
+            }
+
+            &:first-child {}
+
+            &:last-child {}
+
+            .datepicker-base {
+                display: flex;
+                width: 115px;
+                margin-left: auto;
+
+                .ant-calendar-picker {
+                    border-bottom: none;
+                    width: 100%;
+                    min-width: auto;
+                    max-width: none;
+
+                    &-input {
+                        height: 40px;
+                    }
+                }
+            }
+        }
+    }
+
+    &-avatar {
+
+        .upload {
+            padding: 20px;
+            border: 1px dashed #e1e1e1;
+
+            .ant-upload-list-item {
+                width: 48%;
+
+                &-actions {
+                    transform: translate(-145%, -50%);
+                }
+            }
+        }
+    }
+}
+
+.step {
+
+    &-form {
+        width: 100%;
+        border: none;
+        background-color: #ffffff;
+
+        .ant-form-item {
+            position: relative;
+            margin-bottom: 35px;
+
+            .has-error {
+                .input-root-focus {
+                    border-bottom: #ff4242 1px solid;
+                }
+                .input-root {
+                    border-bottom: #ff4242 1px solid;
+                }
+                .ant-input:focus {
+                    box-shadow: none;
+                }
+                .ant-input-group-addon {
+                    color: #777777;
+                }
+            }
+            .ant-form-explain {
+                position: absolute;
+                top: 45px;
+            }
+        }
+
+        &-item {
+            .ant-input-group-addon:first-child {
+                text-align: left;
+            }
+        }
+
+        &-navlink {
+            color: @blue;
+            font-size: 14px;
+            line-height: 1;
+
+            &:hover {
+                color: @blue; //text-decoration: none;
+            }
+        }
+
+        &-control {
+            text-align: center;
+
+            button {
+                margin-bottom: 50px;
+            }
+        }
+    }
+
+    &-title {
+        font-family: @f-b;
+        font-size: 44px;
+        line-height: 1;
+        letter-spacing: -0.88px;
+        color: #333;
+        margin-bottom: 60px;
+    }
+
+    &-posttitle {
+        font-family: @f-r;
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    &-notification {
+        font-family: @f-l;
+        font-size: 12px;
+        line-height: 1;
+        color: #333;
+        margin-bottom: 50px;
+    }
+
+    &-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 35px;
+
+        .ant-form-item {
+            width: 47.5%;
+            margin-bottom: 0;
+
+            .radio-label {
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #e1e1e1;
+            }
+
+            .ant-radio-group {
+                margin-left: auto;
+            }
+
+            .datepicker-base {
+                display: flex;
+                width: 115px;
+                margin-left: auto;
+
+                .ant-calendar-picker {
+                    border-bottom: none;
+                    width: 100%;
+                    min-width: auto;
+                    max-width: none;
+
+                    &-input {
+                        height: 40px;
+                    }
+                }
+            }
+        }
+    }
+
+    &-avatar {
+
+        .upload {
+            padding: 20px;
+            border: 1px dashed #e1e1e1;
+
+            .ant-upload-list-item {
+                width: 48%;
+
+                &-actions {
+                    transform: translate(-145%, -50%);
+                }
+            }
+        }
+    }
+
+    &-block {
+        position: relative;
+        margin-bottom: 45px;
+
+        &-title {
+            color: @blue;
+            font-size: 14px;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            font-family: @f-m;
+
+            &-post {
+                font-size: 16px;
+                color: #333;
+                line-height: 1;
+                margin-bottom: 30px;
+                font-family: @f-m;
+            }
+        }
+
+        .datepicker-base {
+            width: 100%;
+            display: block;
+
+            &-range {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .ant-calendar-picker {
+                width: 100%;
+                max-width: 47.5%;
+            }
+        }
+
+        &-item {
+            margin-bottom: 10px;
+            position: relative;
+
+            &:first-child {
+                margin-top: 30px;
+                border-top: 1px dashed #dcdcdc;
+                padding-top: 30px;
+            }
+
+            .datepicker-base {
+                width: 100%;
+                display: block;
+
+                &-range {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .ant-calendar-picker {
+                    width: 100%;
+                    max-width: 47.5%;
+                }
+            }
+        }
+
+        .step-row {
+
+
+            .datepicker-base {
+                width: 100%;
+                margin-left: 0;
+
+                .ant-calendar-picker-input {
+                    border-bottom: 1px solid #e1e1e1;
+                }
+            }
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+
+            .ant-radio-group {
+                margin-left: 40px;
+
+                .ant-radio-wrapper {
+                    margin-left: 35px;
+                }
+            }
+        }
+    }
+}
+
+.check {
+
+    &-row {
+        display: flex;
+        margin-bottom: 0;
+    }
+
+    &-title {
+        max-width: 200px;
+        width: 100%;
+        color: #777;
+    }
+
+    &-text {
+        font-size: 14px;
+        line-height: 34px;
+        color: #333;
+    }
+}
+
+.steps-action {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+
+    .btn {
+
+        &:first-child {
+            margin-right: 30px;
+        }
+    }
+}

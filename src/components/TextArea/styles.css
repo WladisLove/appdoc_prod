@@ -1,0 +1,29 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.textarea-label {
+  margin-bottom: 15px;
+  color: #777777;
+}
+.textarea-field {
+  font-size: 14px;
+  resize: none;
+  height: 80px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 7px 20px;
+  color: #999;
+  border-color: #ebebeb;
+}
+.textarea-field:focus {
+  outline: 0;
+}

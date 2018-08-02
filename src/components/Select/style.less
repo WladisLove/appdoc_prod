@@ -1,0 +1,50 @@
+@import url('../../styles/variables');
+
+.ant{
+	
+	&-select{
+		font-family: @f-r;
+		color: #999;
+		display: block;
+
+		&-selection{
+			border: none;
+			border-bottom: 1px solid #ebebeb;
+			border-radius: 0;
+
+			&__rendered{
+				margin-left: 0;
+			}
+
+			&--multiple{
+
+				.ant-select-selection__choice{
+					background-color: #e8f5ff;
+					border: none;
+				    align-items: center;
+				    display: flex;
+
+					&__content{
+						color: #344051;
+						font-size: 12px;
+						font-family: @f-r;
+						border-radius: 4px;
+						margin-right: 10px;
+
+						&__remove{
+							line-height: 1;
+						}
+					}
+				}
+
+				.ant-select-selection__rendered{
+					margin-left: 0;
+
+					.ant-select-selection__placeholder{
+						margin-left: 0;
+					}
+				}
+			}
+		}
+	}
+}

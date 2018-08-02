@@ -1,0 +1,98 @@
+@import url("../../styles/variables");
+.patient-item{
+	display: flex;
+	align-items: center;
+	font-family: @f-r;
+	min-width: 1100px;
+	width: 100%;
+
+	.flex-col{
+		padding: 25px 0;
+		margin-right: 30px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		position: relative;
+
+		&:first-child{
+			padding-left: 3%;
+			width: 79px;
+		}
+
+		&:last-child{
+			padding-right: 3%;
+			margin-right: 0;
+		}
+
+		&:nth-child(1){
+		}
+
+		&:nth-child(2){
+			width: 100%;
+			max-width: 310px;
+		}
+
+		&:nth-child(3){
+			width: 100%;
+			max-width: 290px;
+		}
+
+		&:nth-child(4){
+
+		}
+
+		&:nth-child(5){
+
+		}
+
+		&:nth-child(6){
+
+		}
+	}
+
+	&-name{
+		font-size: 14px;
+		line-height: 18px;
+		width: 100%;
+	}
+
+	&-age{
+		font-size: 14px;
+		font-family: @f-r;
+		color: #888;
+		width: 100%;
+	}
+
+	&-title{
+		color: #344051;
+		font-size: 14px;
+		line-height: 18px;
+		width: 100%;
+	}
+
+	&-time{
+		color: #344051;
+		font-size: 14px;
+		line-height: 18px;
+		font-family: @f-m;
+		width: 100%;
+	}
+
+	.flex-col{
+
+		.btn{
+
+			.icon{
+				color: #344051;
+				margin-right: 0;
+			}
+
+			&:hover{
+
+				.icon{
+					color: @blue;
+				}
+			}
+		}
+	}
+}

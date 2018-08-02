@@ -5,8 +5,10 @@ import Patients from '../containers/Patients'
 import PatientsPage from '../containers/PatientsPage'
 import PersonalInfo from '../containers/PersonalInfo'
 import Reviews from '../containers/Reviews'
+import MyDoctors from '../containers/MyDoctors'
 
 import Chat from '../containers/Chat'
+import DoctorPage from "../containers/DoctorPage";
 
 export const docRoutes = [
     {
@@ -69,12 +71,12 @@ export const patientRoutes = [
     },
     {
         path: '/doctors',
-        component: Patients,
+        component: MyDoctors,
         exact: true,
     },
     {
-        path: '/doctor-page',
-        component: PatientsPage,
+        path: '/doctor:id',
+        component: DoctorPage,
         exact: true,
     },
     {

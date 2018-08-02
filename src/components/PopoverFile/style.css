@@ -1,0 +1,63 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.popover-btn {
+  display: inline-flex;
+  background-color: transparent;
+  position: relative;
+}
+.popover-btn .btn-size-icon {
+  border: none;
+  position: relative;
+  background-color: transparent;
+}
+.popover-btn .btn-size-icon .icon {
+  color: #344051;
+  border: none;
+  background-color: transparent;
+}
+.popover-btn .btn-size-icon:hover {
+  border: none;
+}
+.popover-btn .btn-size-icon:hover .icon {
+  color: #0495ff;
+  border: none;
+}
+.popover-btn .btn-size-icon:focus {
+  background-color: transparent;
+  color: #0495ff;
+  border: none;
+  outline: 0;
+}
+.popover-num {
+  background-color: transparent;
+  border-radius: 100%;
+  width: 26px;
+  height: 26px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: absolute;
+  color: #344051;
+  font-family: GothamPro-Medium;
+  font-size: 13px;
+  line-height: 1;
+  top: -18px;
+  left: 24px;
+}
+.popover-num.active {
+  background-color: #fdc401;
+  color: #fff;
+}

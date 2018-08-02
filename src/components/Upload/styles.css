@@ -1,0 +1,38 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.uploadContent-text {
+  color: #344051;
+  font-size: 12px;
+  margin-left: 10px;
+}
+.uploadContent .ant-input {
+  font-family: 'GothamPro';
+}
+.uploadContent .datepicker-base .ant-calendar-picker {
+  border-bottom-color: #e1e1e1;
+}
+.uploadContent .ant-upload-list-picture .ant-upload-list-item,
+.uploadContent .ant-upload-list-picture-card .ant-upload-list-item {
+  border: none;
+}
+.uploadContent .ant-upload-list-item-error,
+.uploadContent .ant-upload-list-item-error .anticon-paper-clip,
+.uploadContent .ant-upload-list-item-error .ant-upload-list-item-name {
+  color: #0495ff;
+}
+.uploadContent .ant-upload-list-item-error .anticon-cross {
+  color: #0495ff !important;
+}
+.ant-tooltip {
+  display: none;
+}

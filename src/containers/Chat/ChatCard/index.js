@@ -4,10 +4,13 @@ import kurentoUtils from 'kurento-utils'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import { Button, Radio,ChatFiles,
-	CompletionReceptionModal,
-	CompleteAppeal,
-	NewVisitModalPage, } from 'appdoc-component'
+
+import Button from '../../../components/Button'
+import Radio from "../../../components/Radio";
+import ChatFiles from '../../../components/ChatFiles'
+import CompletionReceptionModal from "../../../components/CompletionReceptionModal";
+import CompleteAppeal from '../../../components/CompleteAppeal'
+import NewVisitModalPage from "../../../components/NewVisitModalPage";
 
 
 import ChatTextContent from './ChatTextContent'

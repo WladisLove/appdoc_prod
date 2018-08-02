@@ -1,0 +1,53 @@
+@import "../../styles/variables";
+
+.receptionsScheduleModal {
+    position: relative;
+    padding: 20px 25px 30px 25px;
+
+    .datepicker-base-range {
+        margin-bottom: 25px;
+    }
+
+    &-tabs {
+        position: relative;
+        left: -10px;
+        margin-bottom: 0px;
+        width: calc(~"100% + 20px");
+
+        &-title {
+            color: @dark-grey-letter;
+            margin-bottom: 15px;
+        }
+
+        .ant-tabs-bar {
+            margin-bottom: 25px;
+        }
+
+        .ant-tabs-tabpane {
+            padding: 0 10px;
+
+            .ant-checkbox-wrapper {
+                display: block;
+                margin-top: 1rem;
+            }
+            .ant-radio-group {
+                margin-bottom: 0px;
+            }
+            .ant-select {
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    &-timepickers {
+        margin-bottom: 20px;
+    }
+
+    .timepicker-base {
+        margin-bottom: 5px;
+    }
+}
+
+.mb-1r{
+    margin-bottom: 2rem;
+}

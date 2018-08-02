@@ -1,0 +1,54 @@
+@import url("../../styles/variables");
+
+.notifications{
+
+	&-item{
+	    display: flex;
+    	flex-direction: column;
+    	padding: 25px 30px;
+
+    	&-title{
+    		position: relative;
+    		font-size: 14px;
+    		line-height: 1;
+    		color: @blue;
+    		margin-bottom: 25px;
+    	}
+
+    	&-checkbox{
+			display: flex;
+			flex-direction: column;
+
+			.ant-checkbox-wrapper + .ant-checkbox-wrapper{
+				margin-left: 0;
+			}
+
+			.ant-checkbox-wrapper{
+				margin-bottom: 15px;
+			}
+
+			.ant-checkbox-checked .ant-checkbox-inner{
+				background-color: @blue;
+				border-color: @blue;
+			}
+
+			.ant-checkbox{
+				
+				+ span{
+					color: #777;
+					font-size: 14px;
+				}
+
+				&.ant-checkbox-checked{
+					+span{
+						color: #344051;
+					}
+				}
+
+				&-input:focus+.ant-checkbox-inner{
+					border-color: @blue;
+				}
+			}
+    	}
+	}
+}

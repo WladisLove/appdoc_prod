@@ -1,7 +1,8 @@
 import React from 'react';
 import cn from 'classnames'
 
-import { ChatVideoPanel } from 'appdoc-component'
+import ChatVideoPanel from "../../../components/ChatVideoPanel";
+
 import ChatContent from './ChatContent'
 
 import './style.css'

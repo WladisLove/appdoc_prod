@@ -1,8 +1,9 @@
 import React  from 'react';
 import {docRoutes, patientRoutes, menuDoc, menuPatient} from '../../routes'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { SideNav, Header} from 'appdoc-component'
 import Hoc from '../../hoc'
+import SideNav from '../../components/SideNav'
+import Header from "../../components/Header";
 
 import {connect} from 'react-redux';
 
@@ -98,6 +99,7 @@ class App extends React.Component {
                         <Header data={this.props.notDocPatients}
                                 notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
+                                isUser={isUser}
                                 onAdd={(id, name) => {
                                     this.props.addPatient(id, name);
                                     this.props.getDocTodayInfo();

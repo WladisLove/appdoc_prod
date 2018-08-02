@@ -8,6 +8,7 @@ import treatmentsReducer from './reducers/treatment'
 import authReducer from './reducers/auth'
 import doctorReducer from './reducers/doctor'
 import infoDoctorReducer from './reducers/doctorData'
+import infoPatientReducer from './reducers/patientData'
 
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     doctor: doctorReducer,
     profileDoctor: infoDoctorReducer,
+    profilePatient: infoPatientReducer,
 });
 
 export default function configureStore() {
