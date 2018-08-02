@@ -15,7 +15,7 @@ class DefaultTp extends React.Component {
             disabledHours: [],
             disabledMinutes: [...Array(60).keys()],
             availableMinutes: [],
-            isReset:false
+            isReset: false
         };
     };
 
@@ -28,7 +28,7 @@ class DefaultTp extends React.Component {
             let notAvailableHours = [];
             for(let i = 0; i<availableArea.length; i++) {
                 const from = moment(availableArea[i].from).get("hour");
-                const to = moment(availableArea[i].to).get("hour");
+                const to = moment(+availableArea[i].to-1).get("hour");
                 let partOfAvailableHours = Array(to - from + 1).fill(0).map((e,i)=>from+i);
                 availableHours.push(...partOfAvailableHours)
             }
@@ -47,7 +47,7 @@ class DefaultTp extends React.Component {
     };
 
 
-    getNotAvailableMin = (hour) => { // получить массив из доступных часов
+    getNotAvailableMin = (hour) => {
         const area = this.props.availableArea;
         let errorMin = []; // ответ
         for(let i = 0; i < area.length; i++) {
@@ -64,26 +64,35 @@ class DefaultTp extends React.Component {
                 buf = buf.splice(afterM, 60);
                 errorMin = [...errorMin, ...buf];
             }
-
         }
         this.setState({
-            disabledMinutes: errorMin,
+            disabledMinutes: errorMin
         });
+
+        return errorMin;
+    };
+
+    getFirstAvailableMinutes = (notAvailableArr) => {
+        let curMin = 0;
+        for (curMin; curMin < 60; curMin += this.props.minuteStep)
+            if (!notAvailableArr.includes(curMin))
+                return curMin;
+        return curMin;
     };
 
     onChange = (value) => {
+        let notAvailableMin;
         if(value && value._d.getHours()) {
-                this.getNotAvailableMin(value._d.getHours());
-                this.setState({currentValue: moment(value, "hh:mm")})
-        }
-        if(value && value._d.getHours() && value._d.getMinutes() ) {
+            notAvailableMin = this.getNotAvailableMin(value._d.getHours());
+            if (!this.state.currentValue || this.state.currentValue._d.getHours() !== value._d.getHours())
+                value.startOf('hour').add(this.getFirstAvailableMinutes(notAvailableMin), 'm');
+            this.setState({currentValue: moment(value, "hh:mm")});
             this.props.onChange(value);
         }
 
         if(value === null) {
-            this.setState({currentValue: null})
+            this.setState({currentValue: null});
         }
-        this.setState({isReset:false})
     };
 
     componentDidMount() {
@@ -92,10 +101,12 @@ class DefaultTp extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.isReset !== this.props.isReset && nextProps.isReset === true){
+        if(nextProps.isReset !== this.props.isReset){
             this.setState({
-                isReset: true
-            })
+                isReset: nextProps.isReset
+            });
+            if (nextProps.isReset === true)
+                this.onChange(null);
         }
 
         if(nextProps.availableArea !== this.props.availableArea) {
@@ -104,7 +115,6 @@ class DefaultTp extends React.Component {
     }
 
     render() {
-
         const {format, placeholder, minuteStep} = this.props;
         return (
             <AntTimePicker
@@ -127,17 +137,20 @@ DefaultTp.propTypes = {
     placeholder: PropTypes.string, // отображается когда нет вермени
     availableArea: PropTypes.array, // доступный промежуток времени
     format: PropTypes.string, //"HH:mm:ss"
-    onChange: PropTypes.func,
-    minuteStep: PropTypes.number
+    minuteStep: PropTypes.number,
+    isReset: PropTypes.bool,
+
+    onChange: PropTypes.func
 };
 
 DefaultTp.defaultProps = {
     placeholder: " ",
-    value: null,
     availableArea: [],
     format: "HH:mm",
     minuteStep: 5,
-    onChange: () => {},
+    isReset: false,
+
+    onChange: () => {}
 };
 
 export default  DefaultTp;

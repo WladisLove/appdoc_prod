@@ -53,8 +53,8 @@ export const getNotifications = (id) => {
 }
 
 export const readNotification = (id) => {
-    return (dispatch) => {
-        console.log('read',id)
+    return (dispatch, getState) => {
+        console.log('read',id);
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/isreadMessInDB/id/' + id)
             .then(res => {
                 console.log('readNotification', res)
@@ -64,3 +64,22 @@ export const readNotification = (id) => {
         })
     }
 }
+
+export const getAllDocIntervals = (id) => {
+    return (dispatch, getState) => {
+        let user;
+        id ? user = id : user = getState().auth.id;
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/allDocInterval/id/' + user)
+            .then(res => {
+                console.log("allDocIntervals", res);
+
+                dispatch({
+                    type: actionTypes.GET_ALL_DOC_INTERVALS,
+                    intervalsDoctor: res.data.result,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};

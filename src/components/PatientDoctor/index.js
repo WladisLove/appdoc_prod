@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 import PatientDoctorItem from '../PatientDoctorItem'
+import NewVisitModalPage from '../NewVisitModalPage'
 import Card from '../Card'
 import Icon from '../Icon'
 
@@ -11,11 +12,27 @@ import '../../icon/style.css'
 
 class PatientDoctor extends React.Component{
 
+    state = {
+        modal1Visible: false,
+        doctorName: '',
+    }
+
+    setModal1Visible = (value, name, ID)=> {
+        this.setState({
+            modal1Visible: value,
+            doctorName: name,
+            doctorID: ID,
+            isReceptionRecorded: false
+        });
+        console.log(ID);
+        if (value) this.props.onGetAllDocIntervals(ID);
+    };
+
     doctorRender = (dataArr) => {
         let doctorArr = [];
 
         dataArr.map((item,index) => {
-            doctorArr.push(<PatientDoctorItem key={index} {...item}/>)
+            doctorArr.push(<PatientDoctorItem key={index} {...item} checkModal1Visible={this.setModal1Visible}/>)
         });
 
         return doctorArr;
@@ -30,8 +47,23 @@ class PatientDoctor extends React.Component{
                     <div onClick={this.props.redirect} className='go-to'>
                         <Icon svg type='people' size={18} /> Весь список
                     </div>}>
-                    {this.doctorRender(this.props.data)}
+                    {this.doctorRender(data)}
                 </Card>
+                <NewVisitModalPage
+                    visible={this.state.modal1Visible}
+                    onSave={(a) => {
+                        console.log("onSave");
+                    }}
+                    isDateInvalid = {this.props.isReceptionRecorded}
+                    onCancel={() => this.setModal1Visible(false)}
+                    userName={this.state.doctorName}
+                    intervals={this.props.intervals}
+                    onChangeDate={this.props.onGetIntervalForDate}
+                    availableIntervals={this.props.availableIntervals}
+                    id={this.state.doctorID}
+                    isReceptionRecorded = {this.props.isReceptionRecorded}
+                    setModal1Visible = {this.setModal1Visible}
+                />
             </div>
         )
     }

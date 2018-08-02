@@ -27,7 +27,9 @@ class Patients extends React.Component{
     }
 
     setModal1Visible = (modal1Visible, id, name)=> {
-        this.setState({modal1Visible, id, name, isReceptionRecorded: false});
+        this.setState({modal1Visible, id, name,
+			isReceptionRecorded: false});
+        if (modal1Visible) this.props.onGetAllDocIntervals();
     };
 
 
@@ -35,42 +37,20 @@ class Patients extends React.Component{
         this.setState({modal2Visible, id, name});
     };
 
-    onChangeDate = (date) => {
-        let beginDay = moment(date),
-            endDay = moment(date);
-
-        beginDay.startOf('date');
-        endDay.endOf('date');
-        this.props.onGetIntervalForDate(beginDay.format('X'), endDay.format('X'));
-    };
-
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patient'+id);
-	}
+	};
 
 	componentDidMount(){
-		this.props.onGetDocPatients();	
+		this.props.onGetDocPatients();
 	}
 
 	showModalHandler = () => {
 		this.setState({addNew_show: true});
 	};
 
-	getInterval = () => {
-		let intervals = [];
-
-		const arr = this.props.intervals;
-		for(let i = 0; arr && i < arr.length; i++){
-			for(let j = 0; j < arr[i].intervalOb.length; j++){
-				intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000, type: (arr[i].type)});
-			}
-		}
-		return intervals;
-	};
-
     render(){
-	let availableArea = this.getInterval();
         return (
         	<Hoc>
         		<Row>
@@ -84,14 +64,12 @@ class Patients extends React.Component{
 										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
-										onChangeDate={this.onChangeDate}
 										onGoto={(id) => this.gotoHandler(id)}
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => this.props.onSendMessage(val)}
 										onDelete = {(val) => this.props.removePatient(val)}
                                         setModal1Visible = {this.setModal1Visible}
                                         setModal2Visible = {this.setModal2Visible}
-
 										/>
             		</Col>
             	</Row>
@@ -115,8 +93,9 @@ class Patients extends React.Component{
 					isDateInvalid = {this.props.isReceptionRecorded}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.name}
-                    availableArea={availableArea}
-                    onChangeDate={this.onChangeDate}
+                    intervals={this.props.intervals}
+                    onChangeDate={this.props.onGetIntervalForDate}
+                    availableIntervals={this.props.availableIntervals}
                     id={this.state.id}
                     isReceptionRecorded = {this.props.isReceptionRecorded}
                     setModal1Visible = {this.setModal1Visible}
@@ -143,7 +122,8 @@ const mapStateToProps = state => {
 		docPatients: state.patients.docPatients,
 		notDocPatients: state.patients.notDocPatients,
 		intervals: state.patients.intervals,
-		isReceptionRecorded: state.patients.isReceptionRecorded
+		isReceptionRecorded: state.patients.isReceptionRecorded,
+		availableIntervals: state.profileDoctor.workIntervals
 	}
 };
 
@@ -158,6 +138,7 @@ const mapDispatchToProps = dispatch => {
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
         onSaveReception: (reception) => dispatch(actions.setReception(reception)),
+		onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id))
 	}
 };
 

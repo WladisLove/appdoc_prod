@@ -6,7 +6,6 @@ import './styles.css'
 import { PropTypes } from 'prop-types';
 
 const NewVisitModalPage = (props) => {
-
         const {visible, onCancel} = props;
         return (
             <Modal title='Запись на прием'
@@ -23,8 +22,9 @@ NewVisitModalPage.propTypes = {
     visible: PropTypes.bool,
     date: PropTypes.instanceOf(Date),
     patients: PropTypes.array,
-    availableArea: PropTypes.array,
+    intervals: PropTypes.array,
     userName: PropTypes.string,
+    availableIntervals: PropTypes.array,
 
     onSave: PropTypes.func,
     onCancel: PropTypes.func,
@@ -35,8 +35,10 @@ NewVisitModalPage.defaultProps = {
     visible: false,
     date: null,
     patients: [],
-    availableArea: [],
+    intervals: [],
     userName: '',
+    availableIntervals: [],
+
     onSave: () => {},
     onCancel: () => {},
     onChangeDate: () => {},

@@ -18,14 +18,16 @@ class ContentForm extends React.Component {
             time: null,
             message: '',
             currentTime: moment(),
-            type: "chat"
+            isResetTime: false,
+            type: "chat",
+            appointmentDuration: 5
         };
     };
 
     onChangeTime = (start) => {
         let paramDate = moment(+this.state.currentTime.format('x'));
         let type;
-        let area = this.props.availableArea;
+        let area = this.state.availableArea;
         paramDate.hour(start._d.getHours());
         paramDate.minute(start._d.getMinutes());
         paramDate.second(0);
@@ -38,7 +40,8 @@ class ContentForm extends React.Component {
 
         this.setState({
             currentTime: paramDate,
-            type: type
+            type: type,
+            isResetTime: false
         });
     };
 
@@ -57,8 +60,40 @@ class ContentForm extends React.Component {
         paramDate.second(0);
         this.setState({
             currentTime: paramDate,
+            isResetTime: true
         });
-        this.props.onChangeDate(date);
+        this.getAppointmentDuration(date);
+
+        let beginDay = moment(date).startOf('date').format('X'),
+            endDay = moment(date).endOf('date').format('X');
+        this.props.onChangeDate(beginDay, endDay);
+    };
+
+    getIntervals = (newIntervals) => {
+        let intervals = [];
+
+        const arr = newIntervals;
+        for(let i = 0; arr && i < arr.length; i++){
+            for(let j = 0; j < arr[i].intervalOb.length; j++){
+                intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000, type: (arr[i].type)});
+            }
+        }
+        return intervals;
+    };
+
+    isDayDisabled = (current) => {
+        return current && this.props.availableIntervals.every(
+            (elem) => moment(elem.date * 1000).format("YYYY-MM-DD")
+                !== moment(current).format("YYYY-MM-DD"));
+    };
+
+    getAppointmentDuration = (day) => {
+        for (let i = 0; i < this.props.availableIntervals.length; i++) {
+            if ((this.props.availableIntervals[i].date * 1000) === parseInt(day.startOf('day').format('x'))) {
+                this.setState({appointmentDuration: parseInt(this.props.availableIntervals[i].interval)});
+                break;
+            }
+        }
     };
 
     getIconsFromType = (type) => {
@@ -80,7 +115,11 @@ class ContentForm extends React.Component {
     };
 
     componentWillReceiveProps(nextProps){
-        nextProps.visible === false ? (this.setState({message: ''}), this.props.form.resetFields()) : null;
+        nextProps.visible === false ? (this.setState({message: '', isResetTime: true}),
+            this.props.form.resetFields()) : null;
+
+        nextProps.intervals !== this.props.intervals ?
+            this.setState({availableArea: this.getIntervals(nextProps.intervals)}) : null;
     }
 
     handleSubmit = (e) => {
@@ -117,7 +156,9 @@ class ContentForm extends React.Component {
                             rules: [{required: true, message: 'Введите дату',}],
                         })(
                             <DatePicker placeholder="Дата приёма"
-                                        onChange={this.onChangeDate} />
+                                        onChange={this.onChangeDate}
+                                        disabledDate={this.isDayDisabled}
+                            />
                         )}
                     </FormItem>
                     
@@ -126,9 +167,10 @@ class ContentForm extends React.Component {
                             rules: [{required: true, message: 'Введите время',}],
                         })(
                                 <TimePicker format="HH:mm"
-                                        minuteStep={5}
-                                        availableArea={this.props.availableArea}
+                                        minuteStep={this.state.appointmentDuration}
+                                        availableArea={this.state.availableArea}
                                         placeholder='Время приёма'
+                                        isReset={this.state.isResetTime}
                                         onChange={this.onChangeTime}/>
                         )}
                     </FormItem>

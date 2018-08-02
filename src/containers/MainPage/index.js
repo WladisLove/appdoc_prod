@@ -92,6 +92,8 @@ const mapStateToProps = state => {
 		docTodayInfo: state.doctor.todayInfo,
         patientDoctors: state.patients.patientDoctors,
 		nearVisits: state.schedules.nearVisits,
+        intervals: state.patients.intervals,
+        availableIntervals: state.profileDoctor.workIntervals,
     }
 };
 
@@ -110,6 +112,8 @@ const mapDispatchToProps = dispatch => {
 		onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),
 		getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
 		onGetThreePatientDoctors: (count) => dispatch(actions.getPatientDoctors(count)),
+        onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
+        onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
     }
 };
 

@@ -18,7 +18,7 @@ class TimePicker extends React.Component{
     transformDate = () => {
         let area = this.props.availableArea;
         for(let i = 0; i < area.length; i++){
-            area[i].from = moment(+area[i].from );
+            area[i].from = moment(+area[i].from);
             area[i].to = moment(+area[i].to);
         }
         //this.startValue = moment(+this.props.value * 1000);

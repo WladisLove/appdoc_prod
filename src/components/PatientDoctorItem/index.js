@@ -6,23 +6,16 @@ import moment from 'moment'
 import Button from '../Button'
 import Rate from '../Rate'
 import ProfileAvatar from '../ProfileAvatar'
-import NewVisitModalPage from '../NewVisitModalPage'
 
 import './style.css'
 import '../../icon/style.css'
+import * as actions from "../../store/actions";
 
 class PatientDoctorItem extends React.Component{
-    state = {
-        modal1Visible: false,
-        modal2Visible: false,
-    }
 
-    setModalVisible(modalVisible) {
-        this.setState({ modalVisible });
-    }
 
     render(){
-        const { doctorAvatar, doctorName, doctorSpeciality, doctorRate, doctorRank, doctorCategory, doctorExp} = this.props;
+        const { doctorAvatar, doctorName, doctorSpeciality, doctorRate, doctorRank, doctorCategory, doctorExp, doctorID} = this.props;
         const rootClass = cn('doctor-item');
 
         return (
@@ -46,7 +39,7 @@ class PatientDoctorItem extends React.Component{
                     </div>
                     <div className='doctor-item-btn'>
                         <Button
-                            onClick={() => this.setModalVisible(true)}
+                            onClick={() => this.props.checkModal1Visible(true, doctorName, doctorID)}
                             btnText='записаться на прием'
                             size='small'
                             type='float'
@@ -54,21 +47,14 @@ class PatientDoctorItem extends React.Component{
                         />
                     </div>
                 </div>
-
-                <NewVisitModalPage
-                    visible={this.state.modalVisible}
-                    onOk={() => this.setModalVisible(false)}
-                    onCancel={() => this.setModalVisible(false)}
-                    userName=''
-                    date={new Date(2018,1,4,8,10)}
-                    onSave = {(obj) => console.log(obj)}
-                />
             </div>
         )
     }
 }
 
+
 PatientDoctorItem.propTypes = {
+    doctorID: PropTypes.number,
     doctorAvatar: PropTypes.string,
     doctorName: PropTypes.string,
     doctorSpecialty: PropTypes.string,
@@ -80,6 +66,7 @@ PatientDoctorItem.propTypes = {
 };
 
 PatientDoctorItem.defaultProps = {
+    doctorID: 0,
     doctorAvatar: '',
     doctorName: '',
     doctorSpecialty: '',
