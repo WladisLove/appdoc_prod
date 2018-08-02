@@ -93,7 +93,7 @@ const mapStateToProps = state => {
 		docTodayInfo: state.doctor.todayInfo,
         patientDoctors: state.patients.patientDoctors,
 		nearVisits: state.schedules.nearVisits,
-		nearVisitsLoaded: state.schedules.nearVisitsLoaded
+		nearVisitsLoaded: state.schedules.nearVisitsLoaded,
         intervals: state.patients.intervals,
         availableIntervals: state.profileDoctor.workIntervals,
     }
