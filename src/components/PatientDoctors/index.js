@@ -26,7 +26,10 @@ class PatientDoctors extends React.Component {
     componentDidMount() {
         this.sortDoctorsByName("down");
     }
+    componentWillReceiveProps(props) {
+            this.setState({data:props.data})
 
+    }
     sortDoctorsByName = (direction) => {
         let doctors = this.state.data;
         doctors.sort(function(a, b) {
@@ -50,6 +53,7 @@ class PatientDoctors extends React.Component {
     };
 
     render() {
+        console.log(this.props.data, this.state.data, "PROPS AND DATA FROM PatientsDoctors");
         return (
             <div>
                 <PatientDoctorsHeader
