@@ -26,7 +26,10 @@ class PatientDoctors extends React.Component {
     componentDidMount() {
         this.sortDoctorsByName("down");
     }
+    componentWillReceiveProps(props) {
+            this.setState({data:props.data})
 
+    }
     sortDoctorsByName = (direction) => {
         let doctors = this.state.data;
         doctors.sort(function(a, b) {
@@ -65,6 +68,7 @@ class PatientDoctors extends React.Component {
                         key = {index+1}
                         {...item}
                         doctorFavorite={true}
+                        onDelete = {this.props.onDelete}
                         newVisitVisible = {this.props.newVisitVisible} />
                 ))}
             </div>

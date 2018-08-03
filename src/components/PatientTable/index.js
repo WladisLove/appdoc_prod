@@ -34,7 +34,7 @@ class PatientTable extends React.Component{
             : this.setState({
                 searchRes: this.props.data,
             });
-    }
+    };
 
     patinetRender = (dataArr) => {
         let patientArr = [];

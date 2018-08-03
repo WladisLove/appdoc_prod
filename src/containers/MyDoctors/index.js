@@ -15,9 +15,11 @@ class Patients extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
+            isLoadingPatientDoctors: true,
             isModalNewVisitVisible: false,
 			id: null,
 			name: "",
+			searchName: "",
 			isModalAddNewDoctorVisible: false,
 			newVisit: {
 				time: moment(),
@@ -44,9 +46,20 @@ class Patients extends React.Component{
 		this.props.onGetPatientDoctors();
     }
 
-
+    handleDoctorsSearch = (name) => {
+       this.props.onGetNotPatientDoctors(name);
+       this.setState({searchName: name})
+	};
+	addNewDoctor = (id) => {
+        this.props.addDoctor(id, this.state.searchName)
+	};
+	componentWillReceiveProps(props) {
+		if(!props.isLoadingPatientDoctors) {
+			this.setState({isLoadingPatientDoctors: false})
+		}
+	}
     render(){
-        return this.props.isLoadingPatientDoctors ? (
+        return this.state.isLoadingPatientDoctors ? (
 			<Spinner size="large"/>
 	):(
         	<Hoc>
@@ -61,6 +74,7 @@ class Patients extends React.Component{
 							data = {this.props.patientDoctors ? this.props.patientDoctors : []}
 							addNewDoctorVisible={this.addNewDoctorVisible}
 							newVisitVisible = {this.addNewVisitVisible}
+							onDelete = {this.props.removeDoctor}
 						/>
             		</Col>
             	</Row>
@@ -86,8 +100,8 @@ class Patients extends React.Component{
                         this.setState({isModalAddNewDoctorVisible: false});
                         this.props.onClearNotPatientDoctors();
                     }}
-					onSearch={(name)=>this.props.onGetNotPatientDoctors(name)}
-                    onAdd={(id)=>this.props.addDoctor(id)}
+					onSearch={this.handleDoctorsSearch}
+                    onAdd={(id)=>this.addNewDoctor(id)}
                 />
             </Hoc>
         )
@@ -109,8 +123,8 @@ const mapDispatchToProps = dispatch => {
 		onGetPatientDoctors: () => dispatch(actions.getPatientDoctors()),
 		onGetNotPatientDoctors: (name) => dispatch(actions.getNotPatientDoctors(name)),
 		onClearNotPatientDoctors: () => dispatch(actions.clearNotPatientDoctors()),
-		addDoctor: (id) => dispatch(actions.addDoctor(id)),
-		removePatient: (id_user, id_doctor) => dispatch(actions.removePatient(id_user, id_doctor)),
+		addDoctor: (id, name) => dispatch(actions.addDoctor(id, name)),
+		removeDoctor: (id_doctor) => dispatch(actions.removeDoctor(id_doctor)),
         onSaveReceptionByPatient: (reception) => dispatch(actions.setReceptionByPatient(reception)),
 	}
 };

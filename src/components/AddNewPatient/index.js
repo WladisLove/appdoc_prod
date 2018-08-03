@@ -19,8 +19,7 @@ class AddNewPatient extends React.Component{
 
     patientsRender = (dataArr) => {
         return dataArr.map((item, index) => {
-            console.log(item, "ITEM FROM ADD NEW PATIENT");
-            return (<AddNewPatientItem {...item} 
+            return (<AddNewPatientItem {...item}
                                         onAdd={this.props.onAdd} 
                                         key={item.id + ''+index}/>)
         });

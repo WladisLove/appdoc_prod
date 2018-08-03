@@ -47,6 +47,7 @@ const PatientPage = props => {
                         data={props.nearVisits}
                         onGoto={() => console.log('click')}
                         redirect={() => props.history.push('/calendar')}
+                        nearVisitsLoaded = {props.nearVisitsLoaded}
                     />
                 </Col>
                 <Col xs={14} xxl={8} className='section'>

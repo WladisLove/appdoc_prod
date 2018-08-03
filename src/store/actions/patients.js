@@ -75,6 +75,7 @@ export const setReceptionByPatient = (reception) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
+                dispatch(getPatientDoctors());
                 dispatch({
                     type: actionTypes.SET_RECEPTION_BY_PATIENT,
                     isReceptionRecorded: res.data.process
@@ -103,9 +104,6 @@ export const getDocPatients = () => {
 
 export const getPatientDoctors = (count) => {
     return (dispatch, getState) => {
-        dispatch({
-            type: actionTypes.GET_PATIENT_DOCTORS_LOADING
-        });
 
         let obj = {
             id: getState().auth.id,
@@ -232,7 +230,8 @@ export const addDoctor = (id, name) => {
     return (dispatch, getState) => {
         axios.post(`https://178.172.235.105/~api/json/catalog.doc2/addFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
             .then(() => {
-                dispatch(getNotPatientDoctors(name));
+                dispatch(getPatientDoctors());
+                name ? dispatch(getNotPatientDoctors(name)) : null;
                 //dispatch(getDocPatients());
             })
             .catch(err => {
@@ -247,6 +246,20 @@ export const removePatient = (id_user, id_doctor) => {
         axios.get('https://178.172.235.105/~api/json/catalog.doc2/removePatientFromDoctor/id/' + doc_id + '/patientId/' + id_user)
             .then(rez => {
                 dispatch(getDocPatients());
+                //dispatch(getNotDocPatients(''));
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const removeDoctor = (id_doctor) => {
+    return (dispatch, getState) => {
+        let id_user = getState().auth.id;
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/delFavoriteDoc/id_user/' + id_user+ '/id_doc/' + id_doctor)
+            .then(() => {
+                dispatch(getPatientDoctors());
                 //dispatch(getNotDocPatients(''));
             })
             .catch(err => {

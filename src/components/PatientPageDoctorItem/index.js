@@ -12,12 +12,14 @@ import './style.css'
 import '../../icon/style.css'
 
 class PatientPageDoctorItem extends React.Component{
-
+handleClick = () => {
+    this.props.onDelete(this.props.id)
+}
     render(){
-        const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp, doctorPrice, doctorLanguages, doctorChild } = this.props;
+        const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp, doctorPrice, doctorLanguages, doctorChild} = this.props;
         const rootClass = cn('page__doctor-item');
-
         return (
+
             <div className={rootClass}>
                 <div className='page__doctor-item-block'>
                     <div className='page__doctor-item-rate'>
@@ -28,7 +30,13 @@ class PatientPageDoctorItem extends React.Component{
                     </div>
                     <div className='page__doctor-item-favorites'>
                         {doctorFavorite && (
-                            <Icon type='heart_filled' size={20} svg />
+                            <Icon
+                                type='empty'
+                                size={20}
+                                svg
+                                onClick={this.handleClick}
+
+                            />
                         )}
                     </div>
                 </div>

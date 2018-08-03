@@ -26,6 +26,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 nearVisits: action.nearVisits,
+                nearVisitsLoaded: true
             }
         case actionTypes.GET_ALL_USER_VISITS:
             return {
