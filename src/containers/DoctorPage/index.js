@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Row from "../../components/Row";
 import Col from "../../components/Col";
 import HistoryReceptions from "../../components/HistoryReceptions";
+import moment from 'moment'
 
 import Hoc from '../../hoc'
 
@@ -12,17 +13,48 @@ import './styles.css';
 import PatientProfileDoctorItem from "../../components/PatientProfileDoctorItem";
 import DoctorPageNewVisit from "../../components/DoctorPageNewVisit";
 import ReviewsTree from "../../components/ReviewsTree";
+import PatientDoctorItem from "../../components/PatientDoctorItem";
 
 class PatientsPage extends React.Component{
 
     componentWillMount(){
-        console.log(this.props.match.params.id, "DOCTOR ID");
         this.props.getPatientInfo(this.props.match.params.id);
-        this.props.onGetAllReviews(2697)
-
+        this.props.onGetAllReviews(this.props.match.params.id);
+        this.props.onGetInfoDoctor(this.props.match.params.id);
     }
 
+    getDocAvgRate = () => {
+        if (!this.props.reviews) return 0;
+        let rateArr = this.props.reviews;
+        let sum = rateArr.reduce((acc, curVal) => {
+            return acc + parseInt(curVal.rating);
+        }, 0);
+        return sum / rateArr.length;
+    };
+
+    getDoctorExperienceArr = () => {
+        let experienceArr = [];
+
+        if (this.props.profileDoctor.educationsgroup1) {
+            this.props.profileDoctor.educationsgroup1.map((item) => {
+                experienceArr.push({
+                    experience: (item.education
+                        + ", специальность - " + item.speciality
+                        + ", " + moment(item.finishucationyear[1] * 1000)._d.getFullYear() + " г.")
+                });
+            });
+
+            this.props.profileDoctor.educationsgroup2.map((item) => {
+                experienceArr.push({experience: item.education});
+            });
+        }
+
+        return experienceArr;
+    };
+
     render(){
+        console.log(this.props.profileDoctor)
+        const { fio, academicdegree, academicstatus, category, experience, consultationPrice, language, isChildConsult} = this.props.profileDoctor;
         const {diseases = [], treatments = [], infoUser = {}} = this.props.info;
         const info = this.props.info.infoUser;
         if(false) {
@@ -44,30 +76,24 @@ class PatientsPage extends React.Component{
                     <Row>
                         <Col xs={24} xxl={15} className='section'>
                           <PatientProfileDoctorItem
-                              doctorRate={4}
-                              doctorReviews={15}
+                              doctorRate={this.getDocAvgRate()}
+                              doctorReviews={this.props.reviews.length}
                               doctorFavorite={true}
-                              doctorName='Петрова Александра Константиновна'
+                              doctorName={fio}
                               doctorSpeciality='терапевт'
-                              doctorCategory='Высшая категория, кандидат медицинских наук'
-                              doctorExp='Стаж работы 17 лет '
-                              doctorPrice='35'
+                              doctorCategory={academicdegree + '. ' + academicstatus + '. ' + category}
+                              doctorExp={experience}
+                              doctorPrice={consultationPrice}
                               doctorLanguages={[
-                                  {language: 'Английский'},
+                                  {language: language},
                                   {language: 'Русский'},
                               ]}
-                              doctorChild={true}
-
+                              doctorChild={isChildConsult}
                               doctorMaps={[
                                   {map: '«Доктор рядом» в Ховрино ул.Фестивальная, д.32'},
                                   {map: '«Доктор рядом» в Лосиноостровском ул. летчика Бабушкина, д.42'},
                               ]}
-                              doctorExperience={[
-                                  {experience: 'Рязанский медицинский институт имени академика И.П. Павлова, специальность - Лечебное дело, в 1993 году.'},
-                                  {experience: 'Рязанский медицинский институт имени академика И.П. Павлова, Интернатура, Психиатрия и психотерапия ФУВ, 1994 г.'},
-                                  {experience: 'Государственный научный центр социальной и судебной психиатрии им. В.П.Сербского, Москва, Социальная, судебная и общая психиатрия, 2003г.'},
-                                  {experience: 'Первый Московский государственный медицинский университет имени И.М.Сеченова, Психиатрия, 2008г. '},
-                              ]}
+                              doctorExperience={this.getDoctorExperienceArr()}
                           />
                         </Col>
                         <Col xs={24} xxl={9} className='section'>
@@ -106,6 +132,7 @@ const mapStateToProps = state => {
         info: state.patients.selectedPatientInfo,
         id_user: state.patients.selectedId,
         reviews: state.reviews.reviews,
+        profileDoctor: state.profileDoctor,
     }
 };
 
@@ -115,7 +142,7 @@ const mapDispatchToProps = dispatch => {
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onMakeNewAppointment: (obj) => console.log(obj, "DISPATCH IS WORKING"),
         onGetAllReviews: (doc_id) => dispatch(actions.getAllReviews(doc_id)),
-
+        onGetInfoDoctor: (doc_id) => dispatch(actions.getInfoDoctor(doc_id)),
     }
 };
 
