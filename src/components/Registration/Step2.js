@@ -17,6 +17,7 @@ import Upload from '../Upload'
 
 import './style.css'
 import '../../icon/style.css'
+import Input from "../Input";
 
 const FormItem = Form.Item;
 
@@ -26,6 +27,10 @@ class Step2_From extends React.Component{
         this.state = {
             educNum: 1,
             gradEducNum: 1,
+            workNum: 1,
+            isCategory: false,
+            isDegree : false,
+            isStatus: false
         }
     }
 
@@ -44,24 +49,47 @@ class Step2_From extends React.Component{
                     ...values,
                     ...this.state,
                 };
-
-                this.props.onSubmit(toSubmit);
-                this.props.onNext();
+                console.log(toSubmit, "SUBMIT VALUES FROM SECONT STEP")
+                // this.props.onSubmit(toSubmit);
+                // this.props.onNext();
             }
         });
     };
+    selectChangeHandler = (e, name) => {
+        console.log(e);
+        const validate = () => {
+            this.props.form.validateFields([
+                'academicdegreedoc',
+                'academicstatusdoc',
+                'categoryDoc'], { force: true })};
+        switch (name){
 
+            case "degree":
+                e === "noDegree" ? this.setState({isDegree: false}, validate) : this.setState({isDegree: true}, validate);
+                return;
+            case "status":
+                e === "noTitle" ? this.setState({isStatus: false}, validate) : this.setState({isStatus: true},validate);
+                return;
+            case "category":
+                e === "noCategory" ? this.setState({isCategory: false}, validate): this.setState({isCategory: true},validate);
+                return;
+
+            default: return;
+        }
+    }
     addFormElem = (Component,num,fieldDecorator) => {
         let i = 1,
             name = Component.getName,
             formArr = [<Component getFieldDecorator={fieldDecorator}
                                   normFile={this.normFile}
                                   key={name + 0}
+                                  form = {this.props.form}
                                   number={0}/>,];
         while (i < num){
             formArr.push(<Hr key={'hr_' + name + i}/>);
             formArr.push(<Component getFieldDecorator={fieldDecorator}
                                     normFile={this.normFile}
+                                    form = {this.props.form}
                                     key={name + i}
                                     number={i}/>);
             i++;
@@ -77,7 +105,7 @@ class Step2_From extends React.Component{
 
     render(){
         const {getFieldDecorator} = this.props.form;
-        const {academicDegree, academicTitle, langs, payments} = this.props;
+        const {academicDegree, academicTitle, category,  langs, payments} = this.props;
 
         return (
             <Form onSubmit={this.handleSubmit} className="step-form">
@@ -97,7 +125,7 @@ class Step2_From extends React.Component{
                         svg
                 />
 
-                <div className="step-block-title-post">Последипломное образование</div>
+                <div className="step-block-title">Последипломное образование</div>
                 {this.addFormElem(Step2_graduate_educ, this.state.gradEducNum, getFieldDecorator)}
                 <Button onClick={e => this.increaseStateNum(e, 'gradEducNum')}
                         className="personal-btn"
@@ -112,7 +140,10 @@ class Step2_From extends React.Component{
                 <Hr/>
                 <FormItem>
                     {getFieldDecorator('academicdegree')(
-                        <Select placeholder="Ученая степень">
+                        <Select placeholder="Ученая степень"
+                                onChange={(e)=>this.selectChangeHandler(e,"degree")}
+
+                        >
                             {academicDegree.map(elem => <Select.Option key={elem.value}
                                                               value={elem.value}>
                                 {elem.title}</Select.Option>)}
@@ -120,7 +151,12 @@ class Step2_From extends React.Component{
                     )}
                 </FormItem>
                 <FormItem>
-                    {getFieldDecorator('academicdegreedoc')(
+                    {getFieldDecorator('academicdegreedoc', {
+                        rules: [{
+                            required: this.state.isDegree,
+                            message: 'Загрузите подтверждающий документ'
+                        }],
+                    })(
                         <Upload 
                             text="Прикрепить документ, подтверждающий ученую степень"/>
                     )}
@@ -128,7 +164,10 @@ class Step2_From extends React.Component{
 
                 <FormItem>
                     {getFieldDecorator('academicstatus')(
-                        <Select placeholder="Ученое звание">
+                        <Select placeholder="Ученое звание"
+                                onChange={(e)=>this.selectChangeHandler(e,"status")}
+
+                        >
                             {academicTitle.map(elem => <Select.Option key={elem.value}
                                                               value={elem.value}>
                                 {elem.title}</Select.Option>)}
@@ -136,16 +175,60 @@ class Step2_From extends React.Component{
                     )}
                 </FormItem>
                 <FormItem>
-                    {getFieldDecorator('academicstatusdoc')(
+                    {getFieldDecorator('academicstatusdoc', {
+                        rules: [{
+                            required: this.state.isStatus,
+                            message: 'Загрузите подтверждающий документ'
+                        }],
+                    })(
                         <Upload text="Прикрепить документ, подтверждающий ученое звание"/>
                     )}
                 </FormItem>
 
 
                 <div className="step-block-title">Сведения о работе</div>
-                <Step2_work getFieldDecorator={getFieldDecorator}
-                            normFile={this.normFile}/>
+                {this.addFormElem(Step2_work, this.state.workNum, getFieldDecorator)}
+                <Button onClick={e => this.increaseStateNum(e, 'workNum')}
+                        className="personal-btn"
+                        btnText='Добавить'
+                        size='small'
+                        type='no-brd'
+                        icon='plus'
+                        iconSize={11}
+                        svg
+                />
 
+                <Hr/>
+
+                <FormItem>
+
+                    {getFieldDecorator('category', {
+                        rules: [{
+                            required: true,
+                            message: 'Введите категорию'
+                        }],
+                    })(
+                        <Select placeholder="* Категория"
+                                onChange={(e)=>this.selectChangeHandler(e,"category")}
+
+                        >
+                            {category.map(elem => <Select.Option key={elem.value}
+                                                                      value={elem.value}>
+                                {elem.title}</Select.Option>)}
+                        </Select>
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('categoryDoc', {
+                        rules: [{
+                            required: this.state.isCategory,
+                            message: 'Загрузите подтверждающий документ'
+                        }],
+                    })(
+                        <Upload
+                            text="Прикрепить документ, подтверждающий категорию"/>
+                    )}
+                </FormItem>
                 <div className="step-block-title">Дополнительная информация</div>
                 <Step2_additional getFieldDecorator={getFieldDecorator}
                                   langs={langs}

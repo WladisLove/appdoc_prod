@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
             title: 'Русский',
             value: 'russian',
         },{
-            title: 'Английсктй',
+            title: 'Английский',
             value: 'english',
         },{
             title: 'Немецкий',
@@ -43,6 +43,9 @@ class LoginPage extends React.Component {
         }];
         const payments = [50,75,100,125,150];
         const academicTitle = [{
+            title: 'Нет звания',
+            value: 'noTitle',
+        },{
             title: 'Кандидат медицинских наук',
             value: 'candidat_medicine_science',
         },{
@@ -50,13 +53,29 @@ class LoginPage extends React.Component {
             value: 'doctor_medicine_science',
         }];
         const academicDegree = [{
+            title: 'Нет степени',
+            value: 'noDegree',
+        },{
             title: 'Доцент',
             value: 'docent',
         },{
             title: 'Профессор',
             value: 'professor',
         }];
-
+        const category = [{
+            title: 'Без категории',
+            value: 'noCategory',
+        },{
+            title: 'Первая категория',
+            value: 'firstCategory',
+        },{
+            title: 'Вторая категория',
+            value: 'secondCategory',
+        },{
+            title: 'Высшая категория',
+            value: 'highestCategory',
+        }
+        ];
 
 
         return (
@@ -76,7 +95,8 @@ class LoginPage extends React.Component {
                         <Route path="/login"
                                exact
                                render={() => <Login urlForget={this.props.match.url + '/forget'}
-                                                    urlRegistration='/registration'
+                                                    urlRegistrationDoctor='/registration'
+                                                    urlRegistrationPatient='/patient-registration'
                                                     errorCode={this.props.errorCode}
                                                     onSubmit={(obj) => this.props.onLogin(obj, this.props.history)}
                                />}
@@ -93,6 +113,7 @@ class LoginPage extends React.Component {
                                render={() => <Registration onFinish={obj => this.replaceToAction(obj)}
                                                            langs={langs}
                                                            payments={payments}
+                                                           category = {category}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='to continue'

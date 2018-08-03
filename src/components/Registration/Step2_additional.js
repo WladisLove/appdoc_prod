@@ -27,14 +27,12 @@ class Step2_additional extends React.Component{
                     )}
                 </FormItem>
                 <div className='radio-label'>Консультация детей:
-                    <FormItem>
                         {getFieldDecorator('isChildConsult')(
                             <RadioGroup>
                                 <Radio value={true}>Да</Radio>
                                 <Radio value={false}>Нет</Radio>
                             </RadioGroup>
                         )}
-                    </FormItem>
                 </div>
 
 

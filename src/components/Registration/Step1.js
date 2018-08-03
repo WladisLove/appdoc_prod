@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
-import { Form } from 'antd';
+import { Form, Upload, Icon, message } from 'antd';
 import Input from '../Input'
 import Radio from '../RadioBox'
 import DatePicker from '../DatePicker'
@@ -10,22 +10,68 @@ import Button from '../Button'
 
 import './style.css'
 import '../../icon/style.css'
+import {previewFile} from "../../helpers/modifyFiles";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
-class Step1Form extends React.Component{
 
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+    const isJPG = file.type === 'image/jpeg';
+    if (!isJPG) {
+        message.error('Вы можете загрузить только JPG файл!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+        message.error('Фотография должна быть меньше чем 2Мб!');
+    }
+    return isJPG && isLt2M;
+}
+
+
+class Step1Form extends React.Component{
+    state = {
+        loading: false,
+    };
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            values.avatar ? values.avatar = {name: values.avatar.file.name, thumbUrl: values.avatar.file.thumbUrl} : null;
             if (!err) {
-                this.props.onSubmit(values);
-                this.props.onNext();
+                console.log(values);
+                // this.props.onSubmit(values);
+                // this.props.onNext();
             }
         });
     };
+    modifyFiles = (file) => {
+        if(!file.thumbUrl && !file.modify){
+            file.modify = true;
+            previewFile(file.originFileObj, function (previewDataUrl) {
+                file.thumbUrl = previewDataUrl;
+            });
+        }
+    };
+    handleChange = (info) => {
+        if (info.file.status === 'uploading') {
+            this.setState({ loading: true });
+            return;
+        }
+        if (info.file.status === 'done') {
 
+            getBase64(info.file.originFileObj, imageUrl => this.setState({
+                imageUrl,
+                loading: false,
+            }));
+        }
+        this.modifyFiles(info.file);
+    };
     render(){
         const { getFieldDecorator } = this.props.form;
         const {fio,
@@ -33,7 +79,13 @@ class Step1Form extends React.Component{
             phone,
             sex,
             datebirth} = this.props.form.getFieldsValue();
-
+        const uploadButton = (
+            <div>
+                <Icon type={this.state.loading ? 'loading' : 'plus'} />
+                <div className="ant-upload-text">Upload</div>
+            </div>
+        );
+        const imageUrl = this.state.imageUrl;
         return (
             <Form onSubmit={this.handleSubmit} className="step-form">
                 <div className="step-posttitle">Заполните основные контактные данные</div>
@@ -95,6 +147,26 @@ class Step1Form extends React.Component{
                         </div>
                     </FormItem>
                 </div>
+                <div className="step-row">
+                    <FormItem>
+                        <div>Загрузите фото</div>
+
+                            {getFieldDecorator('avatar')(
+                                <Upload
+                                    name="avatar"
+                                    listType="picture-card"
+                                    className="avatar-uploader"
+                                    showUploadList={false}
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    beforeUpload={beforeUpload}
+                                    onChange={this.handleChange}
+                                >
+                                    {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+                                </Upload>
+                            )}
+                    </FormItem>
+                </div>
+
                 <div className="steps-action">
                     <Button htmlType="submit"
                             disable={!(fio&&
