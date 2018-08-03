@@ -33,9 +33,6 @@ export const getDateIntervalWithoutMakingApp = (beginDay, endDay, id) => {
 
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkIntervalWithoutMakingApp', JSON.stringify(obj))
             .then(rez => {
-                console.log(obj.id_doc);
-                console.log(obj.datestart);
-                console.log(obj.dateend);
                 dispatch({
                     type: actionTypes.GET_DATE_INTERVAL_WITHOUT_MAKING_APP,
                     intervals: rez.data,
