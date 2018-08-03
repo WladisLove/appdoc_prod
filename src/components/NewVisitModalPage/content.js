@@ -66,7 +66,7 @@ class ContentForm extends React.Component {
 
         let beginDay = moment(date).startOf('date').format('X'),
             endDay = moment(date).endOf('date').format('X');
-        this.props.onChangeDate(beginDay, endDay);
+        this.props.onChangeDate(beginDay, endDay, this.props.id);
     };
 
     getIntervals = (newIntervals) => {

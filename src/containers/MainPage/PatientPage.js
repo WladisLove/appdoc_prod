@@ -83,6 +83,7 @@ const PatientPage = props => {
                         redirect={() => props.history.push('/doctors')}
                         intervals={props.intervals}
                         onGetAllDocIntervals={props.onGetAllDocIntervals}
+                        onGetIntervalForDate={props.onGetIntervalForDate}
                         availableIntervals={props.availableIntervals}
                     />
                 </Col>

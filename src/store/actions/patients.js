@@ -22,11 +22,11 @@ export const getDateInterval = (beginDay, endDay) => {
             })
     }
 }
-export const getDateIntervalWithoutMakingApp = (beginDay, endDay) => {
+export const getDateIntervalWithoutMakingApp = (beginDay, endDay, id) => {
     return (dispatch, getState) => {
         let obj =
             {
-                id_doc: getState().auth.id,
+                id_doc: id ? id : getState().auth.id,
                 datestart: beginDay,
                 dateend: endDay
             };
