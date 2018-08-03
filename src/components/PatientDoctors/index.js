@@ -53,7 +53,6 @@ class PatientDoctors extends React.Component {
     };
 
     render() {
-        console.log(this.props.data, this.state.data, "PROPS AND DATA FROM PatientsDoctors");
         return (
             <div>
                 <PatientDoctorsHeader
