@@ -26,13 +26,11 @@ class ReviewsTree extends React.Component{
 
     sortToday = (dataArr = this.props.data) => {
         let curDate = (new Date()).getDate();
-        let revArr = [];
 
-
-        dataArr.map((item) => {
-            if (curDate === new Date(+item.date * 1000).getDate())
-                revArr.push(item);
+        let revArr = dataArr.filter((item) => {
+            return curDate === new Date(+item.date * 1000).getDate();
         });
+
         return revArr;
     };
 
