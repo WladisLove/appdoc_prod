@@ -33,13 +33,13 @@ class LoginPage extends React.Component {
 
         const langs = [{
             title: 'Русский',
-            value: 'russian',
+            value: 'Русский',
         },{
             title: 'Английский',
-            value: 'english',
+            value: 'Английский',
         },{
             title: 'Немецкий',
-            value: 'german',
+            value: 'Немецкий',
         }];
         const payments = [50,75,100,125,150];
         const academicTitle = [{

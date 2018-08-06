@@ -198,7 +198,7 @@ class DateContentRow extends React.Component {
     return (
       <div className={className} 
         style={this.props.isUser ? 
-          {overflow: "visible", zIndex: 15-this.props.weekIdx}:{cursor: "pointer"}
+          {overflow: "visible", zIndex: 8}:{cursor: "pointer"}
         }>
         <BackgroundCells
           date={date}

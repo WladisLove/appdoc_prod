@@ -10,69 +10,46 @@ import Button from '../Button'
 
 import './style.css'
 import '../../icon/style.css'
-import {previewFile} from "../../helpers/modifyFiles";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
 
-function getBase64(img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-}
-
-function beforeUpload(file) {
-    const isJPG = file.type === 'image/jpeg';
-    if (!isJPG) {
-        message.error('Вы можете загрузить только JPG файл!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-        message.error('Фотография должна быть меньше чем 2Мб!');
-    }
-    return isJPG && isLt2M;
-}
-
-
 class Step1Form extends React.Component{
     state = {
-        loading: false,
+        fileList: [],
+        avatarUrl: ""
     };
+
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            values.avatar ? values.avatar = {name: values.avatar.file.name, thumbUrl: values.avatar.file.thumbUrl} : null;
+            console.log(values);
+            let fields = {
+                ...values,
+                avatarUrl: this.state.avatarUrl
+            };
+
             if (!err) {
-                console.log(values);
-                // this.props.onSubmit(values);
-                // this.props.onNext();
+                this.props.onSubmit(fields);
+                this.props.onNext();
             }
         });
     };
-    modifyFiles = (file) => {
-        if(!file.thumbUrl && !file.modify){
-            file.modify = true;
-            previewFile(file.originFileObj, function (previewDataUrl) {
-                file.thumbUrl = previewDataUrl;
-            });
-        }
-    };
-    handleChange = (info) => {
-        if (info.file.status === 'uploading') {
-            this.setState({ loading: true });
-            return;
-        }
-        if (info.file.status === 'done') {
 
-            getBase64(info.file.originFileObj, imageUrl => this.setState({
-                imageUrl,
-                loading: false,
-            }));
-        }
-        this.modifyFiles(info.file);
+    handleChange = (info) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => this.setState({
+            avatarUrl: reader.result,
+            fileList: [info.file]
+        }));
+        reader.readAsDataURL(info.file);
+
     };
+
     render(){
+        console.log(this.state, this.props, "STATE AND PROPS");
         const { getFieldDecorator } = this.props.form;
         const {fio,
             email,
@@ -85,7 +62,7 @@ class Step1Form extends React.Component{
                 <div className="ant-upload-text">Upload</div>
             </div>
         );
-        const imageUrl = this.state.imageUrl;
+        const avatarUrl = this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl ? this.props.data.avatarUrl : "";
         return (
             <Form onSubmit={this.handleSubmit} className="step-form">
                 <div className="step-posttitle">Заполните основные контактные данные</div>
@@ -157,11 +134,11 @@ class Step1Form extends React.Component{
                                     listType="picture-card"
                                     className="avatar-uploader"
                                     showUploadList={false}
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    beforeUpload={beforeUpload}
+                                    beforeUpload = {()=>false}
                                     onChange={this.handleChange}
+                                    fileList = {this.props.data.avatar ? [this.props.data.avatar.file] : []}
                                 >
-                                    {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+                                    {avatarUrl ? <img src={avatarUrl} alt="avatar" className="avatar-image"/> : uploadButton}
                                 </Upload>
                             )}
                     </FormItem>

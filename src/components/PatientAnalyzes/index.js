@@ -34,6 +34,7 @@ class PatientAnalyzes extends React.Component{
                         contentClassName="content"
                         horizontal={false}
                         vertical = {true}
+                        style = {{zIndex: 7}}
                     >
                     {this.analyzesRender(this.props.data)}
                     </ScrollArea>

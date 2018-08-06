@@ -33,6 +33,7 @@ class PatientAnalyzesPopover extends React.Component {
                             className="analyzes-popover-overlay"
                             contentClassName="content"
                             horizontal={false}
+                            style={{zIndex:8}}
                     >
                     {this.panelRender(this.props.data)}
                 </ScrollArea>

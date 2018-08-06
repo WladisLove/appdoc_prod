@@ -68,8 +68,11 @@ class TopPanelPatientItem extends React.Component{
                             <Popover 
                                 content={
                                     <TopPanelPatientPopover title={text} 
-                                    onClose={this.handleClose}
+                                                            onClose={this.handleClose}
+
+
                                 />}
+                                style = {{zIndex: "9!important"}}
                                 visible={this.state.visible}
                                 onVisibleChange={this.handleVisibleChange}
                                 trigger="click"

@@ -60,6 +60,10 @@
 .registration-form-control button {
   margin-bottom: 50px;
 }
+.registration-form .avatar-uploader .avatar-image {
+  max-width: 300px;
+  max-height: 300px;
+}
 .registration-title {
   font-family: 'GothamPro-Bold';
   font-size: 44px;
@@ -112,16 +116,6 @@
 }
 .registration-row .ant-form-item .datepicker-base .ant-calendar-picker-input {
   height: 40px;
-}
-.registration-avatar .upload {
-  padding: 20px;
-  border: 1px dashed #e1e1e1;
-}
-.registration-avatar .upload .ant-upload-list-item {
-  width: 48%;
-}
-.registration-avatar .upload .ant-upload-list-item-actions {
-  transform: translate(-145%, -50%);
 }
 .step-form {
   width: 100%;
@@ -217,16 +211,6 @@
 }
 .step-row .ant-form-item .datepicker-base .ant-calendar-picker-input {
   height: 40px;
-}
-.step-avatar .upload {
-  padding: 20px;
-  border: 1px dashed #e1e1e1;
-}
-.step-avatar .upload .ant-upload-list-item {
-  width: 48%;
-}
-.step-avatar .upload .ant-upload-list-item-actions {
-  transform: translate(-145%, -50%);
 }
 .step-block {
   position: relative;

@@ -17,6 +17,10 @@ const FormItem = Form.Item;
 
 class Step2_work extends React.Component {
 
+    static get getName() {
+        return 'work'
+    }
+
     render() {
         const {getFieldDecorator , number} = this.props;
         const {langs, payments} = this.props;

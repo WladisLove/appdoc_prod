@@ -50,8 +50,8 @@ class Step2_From extends React.Component{
                     ...this.state,
                 };
                 console.log(toSubmit, "SUBMIT VALUES FROM SECONT STEP")
-                // this.props.onSubmit(toSubmit);
-                // this.props.onNext();
+                this.props.onSubmit(toSubmit);
+                this.props.onNext();
             }
         });
     };

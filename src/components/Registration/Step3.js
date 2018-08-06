@@ -9,6 +9,7 @@ import Button from '../Button'
 
 import './style.css'
 import '../../icon/style.css'
+import Hr from "../Hr";
 
 class Step3 extends React.Component{
     constructor(props){
@@ -47,6 +48,26 @@ class Step3 extends React.Component{
                     {this.renderItem(`Учебное заведение${numPreffics}`,'educationsgroup1-education-'+i)}
                     {this.renderItem(`Специальность${numPreffics}`,'educationsgroup1-speciality-'+i)}
                     {this.renderItem('Год окончания','educationsgroup1-finishucationyear-'+i)}
+                    <Hr/>
+                </Hoc>)
+            }
+            else {
+                return elArr;
+            }
+            i++
+        }
+    };
+renderWorkInfo = (data) => {
+        let i = 0,
+            elArr = [];
+        while (true){
+            if(data['worknow-'+i]){
+                let numPreffics = i > 0 ? ' '+(i+1) : '';
+                elArr.push(<Hoc key={'workInfo'+i}>
+                    {this.renderItem(`Место работы${numPreffics}`,'worknow-'+i)}
+                    {this.renderItem(`Адрес${numPreffics}`,'address-'+i)}
+                    {this.renderItem('Должность','post-'+i)}
+                    <Hr/>
                 </Hoc>)
             }
             else {
@@ -83,7 +104,7 @@ class Step3 extends React.Component{
                     </div>}
                     {educPeriod &&
                     <div className='check-row'>
-                        <div className='check-title'>Год окончания:</div>
+                        <div className='check-title'>Период обучения:</div>
                         <div className='check-text'>
                             {
                                 moment(educPeriod[0]).format('DD.MM.YYYY')
@@ -92,6 +113,7 @@ class Step3 extends React.Component{
                             }
                         </div>
                     </div>}
+                    <Hr/>
                 </Hoc>)
             }
             else {
@@ -196,6 +218,7 @@ class Step3 extends React.Component{
 
     render(){
         const {data} = this.props;
+        console.log(data);
 
         return (
             <div className="step-form">
@@ -212,15 +235,13 @@ class Step3 extends React.Component{
                     </div>
                 </div>
                 {this.renderTimeItem('Дата рождения','datebirth')}
-
+                <Hr/>
                 {this.renderEducInfo(data)}
 
                 {this.renderGraduateEducInfo(data)}
+                {this.renderWorkInfo(data)}
 
-                {this.renderItem('Место работы','worknow')}
-                {this.renderItem('Должность','post')}
-                {this.renderTimeItem('Дата начала работы','workdate')}
-                {this.renderItem('Категория','catigory')}
+                {this.renderItem('Категория','category')}
 
                 {this.renderAdditionalInfo(data)}
 

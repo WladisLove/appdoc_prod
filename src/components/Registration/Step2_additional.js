@@ -27,7 +27,9 @@ class Step2_additional extends React.Component{
                     )}
                 </FormItem>
                 <div className='radio-label'>Консультация детей:
-                        {getFieldDecorator('isChildConsult')(
+                        {getFieldDecorator('isChildConsult', {
+                            initialValue: false
+                        })(
                             <RadioGroup>
                                 <Radio value={true}>Да</Radio>
                                 <Radio value={false}>Нет</Radio>
@@ -46,7 +48,9 @@ class Step2_additional extends React.Component{
                     )}
                 </FormItem>
                 <div className='radio-label'>Готовы проводить консультации бесплатно?
-                    {getFieldDecorator('isFreeConsult')(
+                    {getFieldDecorator('isFreeConsult', {
+                        initialValue: false
+                    })(
                         <RadioGroup>
                             <Radio value={true}>Да</Radio>
                             <Radio value={false}>Нет</Radio>
