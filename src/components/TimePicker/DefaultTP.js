@@ -6,7 +6,6 @@ import TimePicker from "./index";
 import PropTypes from "prop-types";
 
 
-
 class DefaultTp extends React.Component {
     constructor(props) {
         super(props);
@@ -22,18 +21,18 @@ class DefaultTp extends React.Component {
 
     //Array(n).fill(0).map((e,i)=>m+i)
 
-    getNotAvailableHours = (availableArea) => { // получить массив из не доступных часов
-        if(availableArea.length) {
+    getNotAvailableHours = (availableArea) => {
+        if (availableArea.length) {
             let availableHours = [];
             let notAvailableHours = [];
-            for(let i = 0; i<availableArea.length; i++) {
+            for (let i = 0; i < availableArea.length; i++) {
                 const from = moment(availableArea[i].from).get("hour");
-                const to = moment(+availableArea[i].to-1).get("hour");
-                let partOfAvailableHours = Array(to - from + 1).fill(0).map((e,i)=>from+i);
+                const to = moment(+availableArea[i].to - 1).get("hour");
+                let partOfAvailableHours = Array(to - from + 1).fill(0).map((e, i) => from + i);
                 availableHours.push(...partOfAvailableHours)
             }
-            for (let i=0; i<24; i++) {
-                if(availableHours.indexOf(i) === -1) {
+            for (let i = 0; i < 24; i++) {
+                if (availableHours.indexOf(i) === -1) {
                     notAvailableHours.push(i);
                 }
             }
@@ -49,22 +48,25 @@ class DefaultTp extends React.Component {
 
     getNotAvailableMin = (hour) => {
         const area = this.props.availableArea;
-        let errorMin = []; // ответ
-        for(let i = 0; i < area.length; i++) {
+        let errorMin = [];
+        let afterM = null;
+        let afterH = null;
 
+        for (let i = 0; i < area.length; i++) {
             let beforeH = parseInt(area[i].from.format('HH'));
             let beforeM = parseInt(area[i].from.format('mm'));
             if (hour === beforeH) {
-                errorMin = [...Array.from(Array(beforeM).keys())];
+                errorMin.push(...Array.from(Array(beforeM).keys())
+                    .splice(afterM, beforeM - afterM));
             }
-            let afterH = parseInt(area[i].to.format('HH'));
-            let afterM = parseInt(area[i].to.format('mm'));
-            if (hour === afterH) {
-                let buf = [...Array.from(Array(60).keys())];
-                buf = buf.splice(afterM, 60);
-                errorMin = [...errorMin, ...buf];
-            }
+            afterH = parseInt(area[i].to.format('HH'));
+            if (afterH === hour)
+                afterM = parseInt(area[i].to.format('mm'));
         }
+        if (afterH === hour)
+            errorMin.push(...Array.from(Array(60).keys())
+                .splice(afterM, 60 - afterM));
+
         this.setState({
             disabledMinutes: errorMin
         });
@@ -82,7 +84,7 @@ class DefaultTp extends React.Component {
 
     onChange = (value) => {
         let notAvailableMin;
-        if(value && value._d.getHours()) {
+        if (value && value._d.getHours()) {
             notAvailableMin = this.getNotAvailableMin(value._d.getHours());
             if (!this.state.currentValue || this.state.currentValue._d.getHours() !== value._d.getHours())
                 value.startOf('hour').add(this.getFirstAvailableMinutes(notAvailableMin), 'm');
@@ -90,18 +92,18 @@ class DefaultTp extends React.Component {
             this.props.onChange(value);
         }
 
-        if(value === null) {
+        if (value === null) {
             this.setState({currentValue: null});
         }
     };
 
     componentDidMount() {
         this.getNotAvailableHours(this.props.availableArea);
-        this.setState({isReset:this.props.isReset})
+        this.setState({isReset: this.props.isReset})
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.isReset !== this.props.isReset){
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isReset !== this.props.isReset) {
             this.setState({
                 isReset: nextProps.isReset
             });
@@ -109,7 +111,7 @@ class DefaultTp extends React.Component {
                 this.onChange(null);
         }
 
-        if(nextProps.availableArea !== this.props.availableArea) {
+        if (nextProps.availableArea !== this.props.availableArea) {
             this.getNotAvailableHours(nextProps.availableArea);
         }
     }
@@ -118,12 +120,12 @@ class DefaultTp extends React.Component {
         const {format, placeholder, minuteStep} = this.props;
         return (
             <AntTimePicker
-                disabledHours={()=>this.state.disabledHours}
-                disabledMinutes={()=>this.state.disabledMinutes}
+                disabledHours={() => this.state.disabledHours}
+                disabledMinutes={() => this.state.disabledMinutes}
                 format={format}
                 placeholder={placeholder}
                 minuteStep={minuteStep}
-                value={this.state.currentValue&&!this.state.isReset ? this.state.currentValue : null}
+                value={this.state.currentValue && !this.state.isReset ? this.state.currentValue : null}
                 onChange={(val) => {
                     this.onChange(val)
                 }}
@@ -150,7 +152,8 @@ DefaultTp.defaultProps = {
     minuteStep: 5,
     isReset: false,
 
-    onChange: () => {}
+    onChange: () => {
+    }
 };
 
-export default  DefaultTp;
+export default DefaultTp;
