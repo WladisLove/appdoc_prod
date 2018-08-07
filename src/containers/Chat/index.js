@@ -25,34 +25,34 @@ class Chat extends React.Component{
     }
 
     gotoHandler = (id) => {
-        console.log('patient id',id)
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patient'+id);
 	}
 
     render(){
-        console.log('visitInfo',this.props.visitInfo)
-        console.log('treatInfo',this.props.treatInfo)
         let  id_user, name, avatar, status, chat, visitId, contactLevel, comment, id_treatment;
         
+        const isUser = (this.props.user_mode === "user");
 
         this.props.fromTR_VIS === 1 ? (
             {id_user,name_user: name, avatar, status, chat} = this.props.treatInfo
         ) : (
             {id_user,name, id: visitId, contactLevel,comment, chat, avatar, status, id_treatment} = this.props.visitInfo
         )
+        console.log(this.props.visits)
         return (
             <Hoc>
                 <Row>
-                    <Col xs={24} xxl={7} className='section'>
-                        <ChatDialogs  data={this.props.visits}
-                                    onGotoChat = {id => this.props.onSelectReception(id)}
-                                    onGoto = {(id) => this.gotoHandler(id)}
-                        />
-                    </Col>
+                    {
+                        !isUser && <Col xs={24} xxl={7} className='section'>
+                            <ChatDialogs  data={this.props.visits}
+                                        onGotoChat = {id => this.props.onSelectReception(id)}
+                                        onGoto = {(id) => this.gotoHandler(id)}/>
+                        </Col>
+                    }
                     <Col xs={24} xxl={17} className='section'>
                         {
-                            this.props.user_mode === "user" ? (
+                            isUser ? (
                                 <ChatCard 
                                     wsURL={'wss://178.172.235.105:8443/one2one'}
                                     mode={"video"}
