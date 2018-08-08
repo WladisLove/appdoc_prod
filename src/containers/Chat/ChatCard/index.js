@@ -64,7 +64,6 @@ class ChatCard extends React.Component {
         this.ws = new WebSocket(props.wsURL);
         this.ws.onmessage = (message) => {
 			var parsedMessage = JSON.parse(message.data);
-			console.info('Received message: ' + message.data);
 		
 			switch (parsedMessage.id) {
 			case 'registerResponse':
@@ -74,7 +73,6 @@ class ChatCard extends React.Component {
 				this.setState({receptionStarts: true});
 				break;
 			case 'closeReception':
-				console.log('closeReception')
 				this.setState({receptionStarts: false});
 				break;
 			case 'callResponse':
@@ -87,7 +85,6 @@ class ChatCard extends React.Component {
 				this.startCommunication(parsedMessage);
 				break;
 			case 'stopCommunication':
-				console.info("Communication ended by remote peer");
 				this.stop(true);
 				break;
 			case 'chat':
@@ -148,19 +145,20 @@ class ChatCard extends React.Component {
 	componentWillMount(){
 
 		// TOFIX
-		this.props.user_mode === "user" ? 
+		/*this.props.user_mode === "user" ? 
 			this.register(''+this.props.callerID, ''+2697, this.props.user_mode) 
-			: this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
-		//this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
+			: this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);*/
+		this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
 	}
 
 	componentWillReceiveProps(nextProps){
-		//console.log(this.props.receptionId, nextProps.receptionId)
-		''+this.props.receptionId != ''+nextProps.receptionId 
+		// ---- TO FIX (chack)
+		(''+this.props.receptionId != ''+nextProps.receptionId) && nextProps.user_mode === "doc"
 			? (
 				this.register(''+nextProps.callerID, ''+nextProps.user_id, nextProps.user_mode),
 				this.setState({receptionStarts: false})
 			) : null;
+		//---------
 		''+this.state.mode != ''+nextProps.mode
 			&& this.setState({mode: nextProps.mode})
 	}
@@ -230,10 +228,12 @@ class ChatCard extends React.Component {
 	
 		this.setCallState(PROCESSING_CALL);
 		if (window.confirm('User ' + message.from
-		+ ' is calling you. Do you accept the call?')) {
+		+ ' is calling you for '+message.receptionId+' visit. Do you accept the call?')) {
 			this.setState({receptionStarts: true, isCalling: true, to: message.from})
 	
-			
+			!this.props.receptionId && this.props.onSelectReception(message.receptionId, () => alert("Hello"));
+
+
 			var options = this.state.mode === 'video' ? 
 				{
 					localVideo : videoInput,
@@ -273,7 +273,6 @@ class ChatCard extends React.Component {
 								callResponse : 'accept',
 								sdpOffer : offerSdp,
 								mode: that.state.mode,
-								receptionId: that.props.receptionId,
 							});
 						});
 					});
@@ -323,8 +322,8 @@ class ChatCard extends React.Component {
 												
 		this.sendMessage({
 			id : 'startReception',
-			from : this.state.from,
-			to: this.state.to,
+			name : this.state.from,
+			other_name: this.state.to,
 		});
 		this.setState({
 			receptionStarts: true,
@@ -400,7 +399,8 @@ class ChatCard extends React.Component {
 				that.sendMessage({
                     id : 'call',
                     from,
-                    to,
+					to,
+					receptionId: that.props.receptionId,
                     sdpOffer : offerSdp
                 });
             });
@@ -462,9 +462,6 @@ class ChatCard extends React.Component {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
 	
 		let content;
-
-		console.log('-----------------')
-		console.log(this.props)
 		
 		const chatProps= {
 			ws: this.ws,
@@ -478,6 +475,7 @@ class ChatCard extends React.Component {
 			fromTR_VIS: this.props.fromTR_VIS,
 			user_mode: this.props.user_mode,
 			uploadFile: this.props.uploadFile,
+			receptionId: this.props.receptionId,
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>videoOutput=video,
