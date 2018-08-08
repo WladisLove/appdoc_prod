@@ -23,7 +23,8 @@ class ContentForm extends React.Component {
             isReset: !!props.isReset,
             isOffTime: false,
             timeSetCall:[],
-            timeSetReception: []
+            timeSetReception: [],
+            type: this.props.type,
         }
     }
 
@@ -34,10 +35,12 @@ class ContentForm extends React.Component {
     };
 
     changeFieldsVal = (props = this.props) => {
-        const {dateSet, timeSetCall, timeSetReception} = props;
+        const {dateSet, type, selOptions, timeSetCall, timeSetReception} = props;
         let {defaultStartValue, defaultEndValue} = dateSet;
-            props.form.setFieldsValue({
+        props.form.setFieldsValue({
             ['day']: [defaultStartValue, defaultEndValue],
+            ['type']: type,
+            ['intervalTime']: selOptions[0] || 5
         });
 
         this.initializeTP(timeSetReception, 'reception', props);
@@ -69,7 +72,7 @@ class ContentForm extends React.Component {
         this.changeFieldsVal();
         this.setState({
             timeSetCall: this.props.timeSetCall,
-            timeSetReception: this.props.timeSetReception
+            timeSetReception: this.props.timeSetReception,
         })
     }
     componentWillReceiveProps(nextProps) {
@@ -84,6 +87,8 @@ class ContentForm extends React.Component {
         if (nextProps.visible === true && this.props.visible === false) {
 
             this.setState({
+                timeSetCall: nextProps.timeSetCall,
+                timeSetReception: nextProps.timeSetReception,
                 tpNum: {
                     'call': nextProps.timeSetCall.length || 1,
                     'reception': nextProps.timeSetReception.length || 1,
@@ -155,7 +160,7 @@ class ContentForm extends React.Component {
         }
 
         function pushTimeToArr(array, time){
-            (time[0] && time[1]) ? 
+            (time[0] && time[1]) ?
                 array.push({
                     start: (time[0]).unix(),
                     end: (time[1]).unix(),
@@ -240,7 +245,7 @@ class ContentForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {dateSet, selOptions} = this.props;
+        const {dateSet, selOptions, type} = this.props;
         return (
             <Form onSubmit={this.handleSubmit}
                   className="receptionsScheduleModal">
@@ -265,7 +270,7 @@ class ContentForm extends React.Component {
                             )}
                             <FormItem>
                                 {getFieldDecorator('type', {
-                                    initialValue: this.props.type
+                                    initialValue: type
                                 })(
                                     <Radio icons={['chat1','telephone', "video-camera"]}/>
                                 )}

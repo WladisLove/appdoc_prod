@@ -15,7 +15,7 @@
   padding: 20px 25px 30px 25px;
 }
 .receptionsScheduleModal .datepicker-base-range {
-  margin-bottom: 25px;
+  margin-bottom: 0px;
 }
 .receptionsScheduleModal-tabs {
   position: relative;
@@ -42,6 +42,9 @@
 }
 .receptionsScheduleModal-tabs .ant-tabs-tabpane .ant-select {
   margin-bottom: 0px;
+}
+.receptionsScheduleModal-tabs .ant-tabs-tabpane .btn {
+  margin-bottom: 20px;
 }
 .receptionsScheduleModal-timepickers {
   margin-bottom: 20px;

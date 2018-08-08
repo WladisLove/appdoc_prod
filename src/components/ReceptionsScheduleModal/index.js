@@ -44,6 +44,7 @@ ReceptionsScheduleModal.propTypes = {
     onSave: PropTypes.func,
     onCancel: PropTypes.func,
     selOptions: PropTypes.array,
+    type: PropTypes.string,
 };
 
 ReceptionsScheduleModal.defaultProps = {
@@ -56,6 +57,7 @@ ReceptionsScheduleModal.defaultProps = {
     onSave: () => {},
     onCancel: () => {},
     selOptions: [],
+    type: "voice"
 };
 
 export default ReceptionsScheduleModal;
