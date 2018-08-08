@@ -105,7 +105,7 @@ class Patients extends React.Component{
                      visible={this.state.modal2Visible}
                      onSend={(a) => {
                          this.setModal2Visible(false);
-                         this.props.onNewMessage(a)
+                         this.props.onSendMessage(a);
                      }}
                      onCancel={() => this.setModal2Visible(false)}
                      userName={this.state.name}
