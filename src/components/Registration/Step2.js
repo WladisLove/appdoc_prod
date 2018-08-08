@@ -259,9 +259,9 @@ const Step2 = Form.create({
     mapPropsToFields(props) {
         let fields ={};
         for (let key in props.data){
-            if (key !== 'current'){
+            if (key !== 'current' && props.data[key]){
                 if(key.indexOf("ucationyears") + 1) {
-                    console.log(props.data[key][0], props.data[key][1], "НОЛЬ И ОДИН");
+                   console.log(props.data[key][0], props.data[key][1], "НОЛЬ И ОДИН");
 
                     fields[key] = Form.createFormField({
                         value: {defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
