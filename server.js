@@ -312,7 +312,7 @@ wss.on('connection', function(ws) {
             break;
 
         case 'call':
-            call(sessionId, message.to, message.from, message.sdpOffer);
+            call(sessionId, message.to, message.from, message.sdpOffer, message.receptionId);
             break;
 
         case 'incomingCallResponse':
@@ -513,7 +513,7 @@ function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws, mode,
     }
 }
 
-function call(callerId, to, from, sdpOffer) {
+function call(callerId, to, from, sdpOffer, receptionId) {
     clearCandidatesQueue(callerId);
     
 
@@ -526,7 +526,8 @@ function call(callerId, to, from, sdpOffer) {
         caller.peer = to;
         var message = {
             id: 'incomingCall',
-            from: from
+            from: from,
+            receptionId: receptionId,
         };
         try{
             return callee.sendMessage(message);
@@ -574,6 +575,7 @@ function register(id, name, other_name, ws, mode, callback) {
         return onError("User " + name + " is already registered");
     }
 
+    console.log("register", name)
     userRegistry.register(new UserSession(id, name, ws));
 
     mode === 'doc' 

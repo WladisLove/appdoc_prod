@@ -22,8 +22,6 @@ class ChatContent extends React.Component {
     render() {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.props.isActive});
 
-        console.log('CHAT ', this.props.data)
-
         return (
 
             <div className={dialogsClass}>
