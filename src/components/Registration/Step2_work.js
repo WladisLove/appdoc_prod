@@ -17,27 +17,43 @@ const FormItem = Form.Item;
 
 class Step2_work extends React.Component {
 
+    static get getName() {
+        return 'work'
+    }
+
     render() {
-        const {getFieldDecorator} = this.props;
+        const {getFieldDecorator , number} = this.props;
         const {langs, payments} = this.props;
 
         return (
             <div className="step-block">
+                    <FormItem>
+                        {getFieldDecorator('work-worknow-'+number, {
+                            rules: [{
+                                required: true,
+                                message: 'Введите текущее место работы'
+                            }],
+                        })(
+                            <Input addonBefore='* Текущее место работы'
+                                   className='step-form-item'/>
+                        )}
+                    </FormItem>
                 <FormItem>
-                    {getFieldDecorator('worknow', {
+                    {getFieldDecorator('work-adress-'+number, {
                         rules: [{
                             required: true,
-                            message: 'Введите текущее место работы'
+                            message: 'Введите адрес места работы'
                         }],
                     })(
-                        <Input addonBefore='* Текущее место работы'
+                        <Input addonBefore='* Адрес места работы'
                                className='step-form-item'/>
                     )}
                 </FormItem>
 
+
                 <div className="step-row">
                     <FormItem>
-                        {getFieldDecorator('post', {
+                        {getFieldDecorator('work-post-'+number, {
                             rules: [{
                                 required: true,
                                 message: 'Введите текущую должность'
@@ -48,46 +64,23 @@ class Step2_work extends React.Component {
                         )}
                     </FormItem>
                     <FormItem>
-                        {getFieldDecorator('workdate', {
+                        {getFieldDecorator('work-copycontract-'+number, {
                             rules: [{
-                                required: true,
-                                message: 'Введите дату начала работы'
+                                required: false,  //change to true
+                                message: 'Загрузите подтверждающий документ'
                             }],
                         })(
-                            <DatePicker placeholder='* Дата начала работы'/>
+                            <Upload
+                                text="Прикрепить копию контракта"/>
                         )}
                     </FormItem>
-                </div>
-                <FormItem>
-                    {getFieldDecorator('copycontract')(
-                        <Upload 
-                            text="Прикрепить копию контракта"/>
-                    )}
-                </FormItem>
 
-                <Hr/>
-
-                <div className="step-block-item">
-                    <FormItem>
-                        {getFieldDecorator('catigory', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите категорию'
-                            }],
-                        })(
-                            <Input addonBefore='* Категория'
-                                   className='step-form-item'/>
-                        )}
-                    </FormItem>
                 </div>
-                <FormItem>
-                    {getFieldDecorator('photos',{
-                        valuePropName: 'fileList',
-                        getValueFromEvent: this.props.normFile,
-                    })(
-                        <UploadBig />
-                    )}
-                </FormItem>
+
+
+
+
+
             </div>
         )
     }

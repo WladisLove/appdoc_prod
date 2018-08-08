@@ -59,7 +59,12 @@ class Step2_educ extends React.Component {
                         )}
                     </FormItem>
                     <FormItem>
-                        {getFieldDecorator('educationsgroup1-diplomphoto-' + number)(
+                        {getFieldDecorator('educationsgroup1-diplomphoto-' + number, {
+                            rules: [{
+                                required: false, //change to true
+                                message: 'Загрузите подтверждающий документ'
+                            }],
+                        })(
                             <Upload
                                 text="Прикрепить диплом, свидетельство"/>
                         )}

@@ -23,40 +23,22 @@ class LoginPage extends React.Component {
         console.log('Close & go back')
     };
 
-    replaceToAction = (rez) => {
-        axios.post('https://178.172.235.105/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
-            .then(res => console.log('response: ',res))
-            .catch(err => console.log('error: ',err))
-    };
+
 
     render(){
 
-        const langs = [{
-            title: 'Русский',
-            value: 'russian',
-        },{
-            title: 'Английсктй',
-            value: 'english',
-        },{
-            title: 'Немецкий',
-            value: 'german',
-        }];
+        const langs = ["Русский", "Английский", "Немецкий"];
         const payments = [50,75,100,125,150];
-        const academicTitle = [{
-            title: 'Кандидат медицинских наук',
-            value: 'candidat_medicine_science',
-        },{
-            title: 'Доктор медицинских наук',
-            value: 'doctor_medicine_science',
-        }];
-        const academicDegree = [{
-            title: 'Доцент',
-            value: 'docent',
-        },{
-            title: 'Профессор',
-            value: 'professor',
-        }];
-
+        const academicTitle = ['Нет звания',
+            'Кандидат медицинских наук',
+            'Доктор медицинских наук'];
+        const academicDegree = ['Нет степени',
+            'Доцент',
+            'Профессор'];
+        const category = ['Без категории',
+            'Первая категория',
+            'Вторая категория',
+            'Высшая категория'];
 
 
         return (
@@ -76,7 +58,8 @@ class LoginPage extends React.Component {
                         <Route path="/login"
                                exact
                                render={() => <Login urlForget={this.props.match.url + '/forget'}
-                                                    urlRegistration='/registration'
+                                                    urlRegistrationDoctor='/registration'
+                                                    urlRegistrationPatient='/patient-registration'
                                                     errorCode={this.props.errorCode}
                                                     onSubmit={(obj) => this.props.onLogin(obj, this.props.history)}
                                />}
@@ -90,9 +73,10 @@ class LoginPage extends React.Component {
                         />
                         <Route path="/registration"
                                exact
-                               render={() => <Registration onFinish={obj => this.replaceToAction(obj)}
+                               render={() => <Registration onFinish={docInfo => this.props.onRegisterDoctor(docInfo)}
                                                            langs={langs}
                                                            payments={payments}
+                                                           category = {category}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='to continue'
@@ -123,7 +107,6 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-        //reviews: state.reviews.reviews,
         errorCode: state.auth.errorCode,
         isRegInProgress: state.auth.isRegInProgress,
         isRegistrationFinished: state.auth.isRegistrationFinished,
@@ -133,10 +116,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-        //onGetAllReviews: () => dispatch(actions.getAllReviews()),
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
-        onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo))
-		//onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
+        onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
+        onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo))
 	}
 };
 

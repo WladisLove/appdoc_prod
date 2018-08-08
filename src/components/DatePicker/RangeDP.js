@@ -55,9 +55,14 @@ class RangeDP extends React.Component{
     };
 
     componentWillReceiveProps (nextProps){
+        console.log(nextProps, "NEXTPROPS RANGE DP")
+        if(Array.isArray(nextProps.value)) {
+            console.log("we received an array:", nextProps.value)
+        }
         if(this.props.shouldUpdate
             /*|| !this.state.startValue !== !nextProps.rangeSet.defaultStartValue
-            || !this.state.endValue !== !nextProps.rangeSet.defaultEndValue*/){     //trouble in Registration
+            || !this.state.endValue !== !nextProps.rangeSet.defaultEndValue*/){//trouble in Registration
+            console.log(nextProps.rangeSet, "NEW PROPS FROM DATEPICKER")
             const {defaultStartValue,defaultEndValue} = nextProps.rangeSet;
             this.setState({
                 startValue: defaultStartValue,
@@ -70,8 +75,8 @@ class RangeDP extends React.Component{
 
     render() {
         const {format, rangeSet, delimiter} = this.props;
-        const {placeholderStart,placeholderEnd} = rangeSet;
-        const { startValue, endValue,defaultEnd, endChosen } = this.state;
+        const {placeholderStart, placeholderEnd} = rangeSet;
+        const { startValue, endValue, defaultEnd, endChosen } = this.state;
 
         const classRPend = cn({'datepicker-base-range-chosen': endChosen});
 

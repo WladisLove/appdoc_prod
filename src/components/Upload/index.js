@@ -18,6 +18,7 @@ class Upload extends React.Component{
                        fileList = {this.props.value ? this.props.value.fileList : []}
                        listType={this.props.listType}
                        onChange={this.props.onChange}
+                       beforeUpload={() => false}
                        {...this.props}
             >
                 <Button btnText={text}

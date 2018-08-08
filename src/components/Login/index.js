@@ -25,7 +25,7 @@ class LoginForm extends React.Component{
     };
 
     render(){
-        const {errorCode, urlForget, urlRegistration} = this.props;
+        const {errorCode, urlForget, urlRegistrationDoctor, urlRegistrationPatient} = this.props;
 
         const { getFieldDecorator } = this.props.form;
         const {userName, password} = this.props.form.getFieldsValue();
@@ -91,8 +91,14 @@ class LoginForm extends React.Component{
                             btnText='Войти'
                             size='large'
                             type='gradient'/>
-                    <div>У вас еще нет аккаунта? <NavLink to={urlRegistration}
-                                                          className="login-form-navlink">Зарегистрироваться</NavLink>
+                    <div>У вас еще нет аккаунта? <br/>
+                        <NavLink to={urlRegistrationDoctor}
+                                 className="login-form-navlink">
+                            Зарегистрироваться как доктор</NavLink><br/>
+
+                        <NavLink to={urlRegistrationPatient}
+                                 className="login-form-navlink">
+                            Зарегистрироваться как пациент</NavLink>
                     </div>
                 </div>
             </Form>

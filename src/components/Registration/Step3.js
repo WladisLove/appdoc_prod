@@ -9,6 +9,7 @@ import Button from '../Button'
 
 import './style.css'
 import '../../icon/style.css'
+import Hr from "../Hr";
 
 class Step3 extends React.Component{
     constructor(props){
@@ -41,12 +42,13 @@ class Step3 extends React.Component{
         let i = 0,
             elArr = [];
         while (true){
+            console.log("FFFF");
             if(data['educationsgroup1-education-'+i]){
-                let numPreffics = i > 0 ? ' '+(i+1) : '';
                 elArr.push(<Hoc key={'educInfo'+i}>
-                    {this.renderItem(`Учебное заведение${numPreffics}`,'educationsgroup1-education-'+i)}
-                    {this.renderItem(`Специальность${numPreffics}`,'educationsgroup1-speciality-'+i)}
+                    {this.renderItem(`Учебное заведение`,'educationsgroup1-education-'+i)}
+                    {this.renderItem(`Специальность`,'educationsgroup1-speciality-'+i)}
                     {this.renderItem('Год окончания','educationsgroup1-finishucationyear-'+i)}
+                    <Hr/>
                 </Hoc>)
             }
             else {
@@ -55,35 +57,54 @@ class Step3 extends React.Component{
             i++
         }
     };
+    renderWorkInfo = (data) => {
+            let i = 0,
+                elArr = [];
+            while (true){
+                console.log("TTTTT");
+                if(data['work-worknow-'+i]){
+                    elArr.push(<Hoc key={'workInfo'+i}>
+                        {this.renderItem(`Место работы`,'work-worknow-'+i)}
+                        {this.renderItem(`Адрес`,'work-adress-'+i)}
+                        {this.renderItem('Должность','work-post-'+i)}
+                        <Hr/>
+                    </Hoc>)
+                }
+                else {
+                    return elArr;
+                }
+                i++
+            }
+        };
 
     renderGraduateEducInfo = (data) => {
         let i = 0,
             elArr = [];
         while (true){
+            let datepicker = data['educationsgroup2-ucationyears-'+i];
             if(data['educationsgroup2-education-'+i]
                 || data['educationsgroup2-ciklname-'+i]
-                || data['educationsgroup2-ucationyears-'+i]){
+                || ( datepicker && datepicker [0] && datepicker[1])){
 
-                let numPreffics = i > 0 ? ' '+(i+1) : '',
-                    institution = data['educationsgroup2-education-'+i],
+                let institution = data['educationsgroup2-education-'+i],
                     educCycle = data['educationsgroup2-ciklname-'+i],
                     educPeriod = data['educationsgroup2-ucationyears-'+i];
                 elArr.push(<Hoc key={'graduateEducInfo'+i}>
                     {institution &&
                     <div className='check-row'>
                         <div className='check-title'>
-                            Учебное заведение{numPreffics}:</div>
+                            Учебное заведение:</div>
                         <div className='check-text'>{institution}</div>
                     </div>}
                     {educCycle &&
                     <div className='check-row'>
                         <div className='check-title'>
-                            Цикл обучения{numPreffics}:</div>
+                            Цикл обучения:</div>
                         <div className='check-text'>{educCycle}</div>
                     </div>}
                     {educPeriod &&
                     <div className='check-row'>
-                        <div className='check-title'>Год окончания:</div>
+                        <div className='check-title'>Период обучения:</div>
                         <div className='check-text'>
                             {
                                 moment(educPeriod[0]).format('DD.MM.YYYY')
@@ -92,6 +113,7 @@ class Step3 extends React.Component{
                             }
                         </div>
                     </div>}
+                    <Hr/>
                 </Hoc>)
             }
             else {
@@ -111,7 +133,7 @@ class Step3 extends React.Component{
             <div className='check-row'>
                 <div className='check-title'>Знание языков:</div>
                 <div className='check-text'>{langs.map(el => {
-                    return (<span key={el}>{el} </span>)
+                    return (<div key={el}>{el} </div>)
                 })}</div>
             </div>}
             {isChildConsult &&
@@ -128,70 +150,15 @@ class Step3 extends React.Component{
         </Hoc>)
     };
 
-    fillNewField = (res, name) => {
-        const data = this.props.data;
-        const info = name.split('-');
-        let array = [];
-        if (res[info[0]])
-            array = [...res[info[0]]];
-
-        array[+info[2]] = (info[1] === 'ucationyears' && data[name])
-            ? {
-                ...array[+info[2]],
-                [info[1]]: [
-                    data[name][0] instanceof moment ? (data[name][0]).unix() : data[name][0],
-                    data[name][1] instanceof moment ? (data[name][1]).unix() : data[name][1],
-                ],
+    finishHandler = () => {
+        let data = this.props.data;
+        for(let key in data) {
+            if(!data[key]) {
+                delete data[key]
             }
-            : {
-                ...array[+info[2]],
-                [info[1]]: info[1].indexOf('photo')+1 
-                                ? data[name] 
-                                    ? data[name].fileList
-                                    : []
-                                : data[name],
-            };
-        return {
-            ...res,
-            [info[0]]: array,
-        }
-    };
 
-    onFinishHandler = () => {
-        const data = this.props.data;
-        let result = {};
-        for (let key in data){
-            result = (key.indexOf('educationsgroup')+1)
-                ? this.fillNewField(result,key)
-                : (key.indexOf('doc')+1 || key.indexOf('photos')+1 || key.indexOf('contract')+1) 
-                    ? data[key] 
-                        ? {
-                            ...result,
-                            [key]: data[key].fileList,
-                        }
-                        : {
-                            ...result,
-                            [key]: [],
-                        } 
-                    : (key === 'workdate' || key === 'datebirth')
-                        ? {
-                            ...result,
-                            [key]: (data[key] instanceof moment) ? (data[key]).unix() : data[key],
-                        }
-                        : {
-                            ...result,
-                            [key]: data[key],
-                        };
         }
-
-        /*for (let key in data){
-            (key.indexOf('doc')+1 || key.indexOf('photo')+1 || key.indexOf('contract')+1) 
-                ? data[key] = data[key] 
-                                ? data[key].fileList 
-                                : [] 
-                : null;
-        }*/
-        this.props.onFinish(result)
+        this.props.onFinish(data);
     };
 
     render(){
@@ -212,15 +179,15 @@ class Step3 extends React.Component{
                     </div>
                 </div>
                 {this.renderTimeItem('Дата рождения','datebirth')}
-
+                <Hr/>
                 {this.renderEducInfo(data)}
 
                 {this.renderGraduateEducInfo(data)}
+                {this.renderWorkInfo(data)}
 
-                {this.renderItem('Место работы','worknow')}
-                {this.renderItem('Должность','post')}
-                {this.renderTimeItem('Дата начала работы','workdate')}
-                {this.renderItem('Категория','catigory')}
+                {this.renderItem('Категория','category')}
+                {data.academicdegree && this.renderItem('Ученая степень','academicdegree')}
+                {data.academicstatus && this.renderItem('Ученое звание','academicstatus')}
 
                 {this.renderAdditionalInfo(data)}
 
@@ -237,7 +204,7 @@ class Step3 extends React.Component{
                     />
                     <Button btnText='Завершить'
                             disable={!this.state.checked}
-                            onClick={this.onFinishHandler}
+                            onClick={this.finishHandler}
                             size='large'
                             type='gradient'
                     />

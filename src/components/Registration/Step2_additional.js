@@ -18,23 +18,23 @@ class Step2_additional extends React.Component{
         return (
             <div className="step-block">
                 <FormItem>
-                    {getFieldDecorator('langs')(
+                    {getFieldDecorator('language')(
                         <Select mode="multiple" placeholder="Какими языками владеете">
-                            {langs.map((elem,i) => <Select.Option key={elem.value+''+i}
-                                                              value={elem.value}>
-                                {elem.title}</Select.Option>)}
+                            {langs.map((elem,i) => <Select.Option key={elem+''+i}
+                                                              value={elem}>
+                                {elem}</Select.Option>)}
                         </Select>
                     )}
                 </FormItem>
                 <div className='radio-label'>Консультация детей:
-                    <FormItem>
-                        {getFieldDecorator('isChildConsult')(
+                        {getFieldDecorator('isChildConsult', {
+                            initialValue: false
+                        })(
                             <RadioGroup>
                                 <Radio value={true}>Да</Radio>
                                 <Radio value={false}>Нет</Radio>
                             </RadioGroup>
                         )}
-                    </FormItem>
                 </div>
 
 
@@ -48,7 +48,9 @@ class Step2_additional extends React.Component{
                     )}
                 </FormItem>
                 <div className='radio-label'>Готовы проводить консультации бесплатно?
-                    {getFieldDecorator('isFreeConsult')(
+                    {getFieldDecorator('isFreeConsult', {
+                        initialValue: false
+                    })(
                         <RadioGroup>
                             <Radio value={true}>Да</Radio>
                             <Radio value={false}>Нет</Radio>

@@ -70,7 +70,7 @@ class DefaultTp extends React.Component {
         this.setState({
             disabledMinutes: errorMin
         });
-
+        console.log(errorMin);
         return errorMin;
     };
 

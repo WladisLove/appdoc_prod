@@ -18,26 +18,32 @@ class RegistrationForm extends React.Component{
         this.state = {
             current: 0,
         };
-        this.steps = [{
+        this.steps = [
+            {
             title: 'Контактная информация',
             content:
                 (state) => <Step1 data={state}
                                   onSubmit={(data) => this.setState({...data})}
                                   onNext={this.next}/>,
-        },{
+        },
+            {
             title: 'Образование, опыт работы',
             content: (state) => <Step2 data={state}
                                        onSubmit={(data) => this.setState({...data})}
                                        onPrev = {this.prev}
                                        onNext={this.next}
+                                       category ={this.props.category}
                                        academicDegree={this.props.academicDegree}
                                        academicTitle = {this.props.academicTitle}
                                        langs = {this.props.langs}
                                        payments = {this.props.payments}
             /> ,
-        }, {
+        },
+            {
             title: 'Проверка данных',
-            content: (state) => <Step3 data={state}
+            content: (state) => <Step3
+                                       data = {state}
+
                                        onPrev = {this.prev}
                                        onNext = {this.next}
                                        finalText={this.props.finalText}

@@ -58,6 +58,7 @@ export {
 export {
     login,
     logout,
+    registerDoctor,
     registerUser
 } from './auth'
 

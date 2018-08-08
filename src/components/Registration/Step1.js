@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
-import { Form } from 'antd';
+import { Form, Upload, Icon, message } from 'antd';
 import Input from '../Input'
 import Radio from '../RadioBox'
 import DatePicker from '../DatePicker'
@@ -14,16 +14,38 @@ import '../../icon/style.css'
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
+
 class Step1Form extends React.Component{
+    state = {
+        fileList: [],
+        avatarUrl: ""
+    };
+
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            console.log(values);
             if (!err) {
-                this.props.onSubmit(values);
+                let fields = {
+                    ...values,
+                    avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
+                };
+                values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl: null : null;
+                this.props.onSubmit(fields);
                 this.props.onNext();
             }
         });
+    };
+
+    handleChange = (info) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => this.setState({
+            avatarUrl: reader.result,
+            fileList: [info.file]
+        }));
+        reader.readAsDataURL(info.file);
+
     };
 
     render(){
@@ -33,7 +55,13 @@ class Step1Form extends React.Component{
             phone,
             sex,
             datebirth} = this.props.form.getFieldsValue();
-
+        const uploadButton = (
+            <div>
+                <Icon type={this.state.loading ? 'loading' : 'plus'} />
+                <div className="ant-upload-text">Upload</div>
+            </div>
+        );
+        const avatarUrl = this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl ? this.props.data.avatarUrl : "";
         return (
             <Form onSubmit={this.handleSubmit} className="step-form">
                 <div className="step-posttitle">Заполните основные контактные данные</div>
@@ -95,6 +123,26 @@ class Step1Form extends React.Component{
                         </div>
                     </FormItem>
                 </div>
+                <div className="step-row">
+                    <FormItem>
+                        <div>Загрузите фото</div>
+
+                            {getFieldDecorator('avatar')(
+                                <Upload
+                                    name="avatar"
+                                    listType="picture-card"
+                                    className="avatar-uploader"
+                                    showUploadList={false}
+                                    beforeUpload = {()=>false}
+                                    onChange={this.handleChange}
+                                    fileList = {this.props.data.avatar ? [this.props.data.avatar.file] : []}
+                                >
+                                    {avatarUrl ? <img src={avatarUrl} alt="avatar" className="avatar-image"/> : uploadButton}
+                                </Upload>
+                            )}
+                    </FormItem>
+                </div>
+
                 <div className="steps-action">
                     <Button htmlType="submit"
                             disable={!(fio&&
