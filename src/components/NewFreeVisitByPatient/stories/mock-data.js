@@ -9,7 +9,7 @@ export const timeIntervals = [
         ],
         "date": "1532293200",
         "type": "video",
-        "interval": "5"
+        "interval": "10"
     },
     {
         "intervalOb": [
@@ -50,7 +50,7 @@ export const timeIntervals = [
         ],
         "date": "1532984400",
         "type": "voice",
-        "interval": "5"
+        "interval": "10"
     },
     {
         "intervalOb": [
@@ -67,7 +67,7 @@ export const timeIntervals = [
         ],
         "date": "1533589200",
         "type": "video",
-        "interval": "5"
+        "interval": "10"
     },
     {
         "intervalOb": [
@@ -99,7 +99,7 @@ export const timeIntervals = [
         ],
         "date": "1533675600",
         "type": "video",
-        "interval": "5"
+        "interval": "10"
     },
     {
         "intervalOb": [
@@ -121,7 +121,7 @@ export const timeIntervals = [
         ],
         "date": "1533762000",
         "type": "voice",
-        "interval": "5"
+        "interval": "10"
     },
     {
         "intervalOb": [
@@ -133,13 +133,13 @@ export const timeIntervals = [
         ],
         "date": "1533848400",
         "type": "chat",
-        "interval": "5"
+        "interval": "10"
     },
     {
         "intervalOb": [],
         "date": "1534194000",
         "type": "voice",
-        "interval": "5"
+        "interval": "10"
     },
     {
         "intervalOb": [
@@ -169,6 +169,6 @@ export const timeIntervals = [
         "intervalOb": [],
         "date": "1534539600",
         "type": "voice",
-        "interval": "5"
+        "interval": "10"
     }
 ];

@@ -70,6 +70,7 @@ const loadStories = () => {
     require('../src/components/PersonalExperience/stories');
     require('../src/components/PersonalInformationItem/stories');
     require('../src/components/PersonalInformation/stories');
+    require('../src/components/NewFreeVisitByPatient/stories');
     require('../src/components/RadioBox/stories');
     require('../src/components/Login/stories');
     require('../src/components/Step/stories');
