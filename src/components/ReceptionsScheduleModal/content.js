@@ -160,7 +160,7 @@ class ContentForm extends React.Component {
         }
 
         function pushTimeToArr(array, time){
-            (time[0] && time[1]) ?
+            (time && time[0] && time[1]) ?
                 array.push({
                     start: (time[0]).unix(),
                     end: (time[1]).unix(),
