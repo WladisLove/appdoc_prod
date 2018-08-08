@@ -36,8 +36,7 @@ class PatientNearRecord extends React.Component{
         return (
             <div className='record-all'>
                 <Card title="Ближайшие записи" style={{height: 500}} extra={<div onClick={this.props.redirect} className='go-to' ><Icon svg type='calendar' size={18} /> Все</div>}>
-                    {this.state.isLoading && <Spinner/>}
-                {this.nearRender(this.props.data)}
+                    {this.state.isLoading ? <Spinner/> : this.nearRender(this.props.data)}
                 </Card>
             </div>
         )

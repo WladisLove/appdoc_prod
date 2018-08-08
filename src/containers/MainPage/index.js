@@ -16,9 +16,9 @@ class MainPage extends React.Component{
 
 	componentDidMount(){
 		if (this.props.mode === "user"){
-			this.props.onGetThreePatientDoctors(2);
+			this.props.onGetPatientDoctors(2);
 			this.props.onGetCompletedTreatments();
-            this.props.onGetNearVisits(3);
+            this.props.onGetNearVisits(4);
 		}
 		else {
 			this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
@@ -113,7 +113,7 @@ const mapDispatchToProps = dispatch => {
 		onGetNearVisits: (count) => dispatch(actions.getCountNearVisits(count)),
 		onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),
 		getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
-		onGetThreePatientDoctors: (count) => dispatch(actions.getPatientDoctors(count)),
+		onGetPatientDoctors: (count) => dispatch(actions.getPatientDoctors(count)),
         onGetIntervalForDate: (beginDay, endDay, id) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay, id)),
         onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
     }

@@ -46,12 +46,11 @@ class Step2_From extends React.Component{
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log(values, "VALUES FROM STEP2");
                 let toSubmit = {
                     ...values,
                     ...this.state,
                 };
-
+                console.log(toSubmit, "VALUES FROM STEP2");
                 this.props.onSubmit(toSubmit);
                 this.props.onNext();
             }
@@ -103,6 +102,10 @@ class Step2_From extends React.Component{
         this.setState(prev =>
             ({[type]: prev[type] +1}))
     };
+
+    componentWillReceiveProps(nextProps) {
+        console.log("NEW PROPS FROM STEP2", nextProps)
+    }
 
     render(){
         const {getFieldDecorator} = this.props.form;
@@ -257,9 +260,17 @@ const Step2 = Form.create({
         let fields ={};
         for (let key in props.data){
             if (key !== 'current'){
-                fields[key] = Form.createFormField({
-                    value: props.data[key],
-                })
+                if(key.indexOf("ucationyears") + 1) {
+                    console.log(props.data[key][0], props.data[key][1], "НОЛЬ И ОДИН");
+
+                    fields[key] = Form.createFormField({
+                        value: {defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
+                    })
+                } else {
+                    fields[key] = Form.createFormField({
+                        value: props.data[key],
+                    })
+                }
             }
         }
         return fields;
