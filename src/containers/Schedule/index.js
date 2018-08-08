@@ -201,6 +201,7 @@ class Schedule extends React.Component {
     render() {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = this.state.receptionData.currentSched.intervalOb, timeSetReception = [];
+        let {intervalTime, type} = this.state.receptionData.currentSched;
         if ('intervalOb' in currentSched || 'intervalEx' in currentSched) {
             timeSetCall = currentSched.intervalOb.map(item => {
                 return {
@@ -329,6 +330,8 @@ class Schedule extends React.Component {
                                              defaultStartValue: moment(dates[0]),
                                              defaultEndValue: moment(dates[dates.length - 1]),
                                          }}
+                                         intervalTime={+intervalTime}
+                                         type={type}
                                          selOptions={timePeriod}
                                          timeSetCall={timeSetCall}
                                          timeSetReception={timeSetReception}
