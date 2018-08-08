@@ -1,12 +1,12 @@
 import axios from 'axios'
 import * as actionTypes from './actionTypes';
 
-export const getAllReviews = (id) => {
+export const getAllReviews = (numberOfRequest = 0, maxReviews = 3, id) => {
 
     return (dispatch, getState) => {
         const user_id = id ? id : getState().auth.id;
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getCommentToDoc',
-                    JSON.stringify({id_doc: user_id}))
+                    JSON.stringify({id_doc: user_id, max: maxReviews, old: numberOfRequest * maxReviews}))
             .then(res => {
                 dispatch({
                     type: actionTypes.GET_ALL_REVIEWS,

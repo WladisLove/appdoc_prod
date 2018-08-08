@@ -6,6 +6,7 @@ import Card from '../Card'
 import Tabs from '../Tabs'
 import DatePicker from '../DatePicker'
 import Button from '../Button'
+import Spinner from '../Spinner'
 
 import './style.css'
 const TabPane = Tabs.TabPane;
@@ -16,52 +17,63 @@ class ReviewsTree extends React.Component{
         this.state = {
             displayDP: false,
             range: [],
-            limit: this.props.limit,
-            limitedShow: true,
-            todayRevs: this.sortToday(props.data),
+            data: [],
+            todayRevs: [],
             periodRevs: [],
+            numberOfRequest: 0,
+            loadingData: true,
+            isShowMoreBtnEnabled: true
         };
     }
-    // отзывы должны быть размещены в соответствии с: чем меньше id, тем раньше он был опубликован
 
-    sortToday = (dataArr = this.props.data) => {
+    sortToday = () => {
         let curDate = (new Date()).getDate();
 
-        let revArr = dataArr.filter((item) => {
+        return this.state.data.filter((item) => {
             return curDate === new Date(+item.date * 1000).getDate();
         });
-
-        return revArr;
     };
 
-    sortPeriod =(period = this.state.range) => {
+    sortPeriod = (period = this.state.range) => {
         const [start, end] = period;
-        let revArr = [];
 
-        this.props.data.map((item) => {
+        return this.state.data.filter((item) => {
             let date = new Date(+item.date * 1000);
-            if (date > start && date < end)
-                revArr.push(item);
+            return date > start && date < end;
         });
-        return revArr;
+    };
+
+    loadMoreData = () => {
+        if (!this.state.loadingData) {
+            this.props.onShowMore(this.state.numberOfRequest);
+            this.setState({loadingData: true});
+        }
+        else return null;
     };
 
     componentWillUpdate(nextProps){
         if (nextProps.data !== this.props.data){
-            //console.log('!!! New data receive');
-            this.setState(prev => ({
-                todayRevs: this.sortToday(nextProps.data),
-                range: [],
-                periodRevs: [],
-                limitedShow: true,
-            }));
+            let newData = this.state.data;
+            newData.push(...nextProps.data);
+
+            let todayRevs = this.sortToday();
+            let periodRevs = this.sortPeriod();
+
+            this.setState({
+                todayRevs: todayRevs,
+                periodRevs: periodRevs,
+                numberOfRequest: this.state.numberOfRequest + 1,
+                loadingData: false,
+                data: newData
+            });
+
+            if (nextProps.data.length < this.props.limit)
+                this.setState({isShowMoreBtnEnabled: false});
         }
     }
 
-    tabChangeHadler = (tab) => {
-        this.setState(prev => ({limitedShow: true}));
-        tab === 'period' ?
-            this.setState({displayDP: true}) : this.setState({displayDP: false});
+    tabChangeHandler = (tab) => {
+        tab === 'period' ? this.setState({displayDP: true}) : this.setState({displayDP: false});
     };
 
     dpHandler = (range) => {
@@ -71,44 +83,53 @@ class ReviewsTree extends React.Component{
         }));
     };
 
-    renderShowMoreBtn = (revArr) => {
-        if (this.state.limit < revArr.length && this.state.limitedShow){
+    renderShowMoreBtn = () => {
+        if (this.state.isShowMoreBtnEnabled){
             return (
                 <div style={{textAlign: 'center',}} key="btn">
                     <Button btnText='Показать еще'
                             size='link'
                             type='link'
                             icon='circle_arrow_down'
-                            onClick={() => this.setState(prev => ({limitedShow:false}))}/>
-                </div>)
+                            onClick={this.loadMoreData}/>
+                </div>);
         }
+    };
+
+    renderSpinner = () => {
+        return (<div style={{textAlign: 'center',}} key="btn">
+            <Spinner/>
+        </div>);
     };
 
     renderRevs = (dataArr) => {
         let arr = [];
-        dataArr.map((item, i) => {
-            if (this.state.limit > i || !this.state.limitedShow){
+        dataArr.map((item) => {
                 arr.push(<Review {...item}
                                 isOnDoctorPage = {this.props.isOnDoctorPage}
-                                key={item.id} 
+                                key={item.id}
                                 onGoto={this.props.onGoto}
                                 onGotoChat={this.props.onGotoChat}
                                 onSend={this.props.onSend}/>)
-            }
         });
-        arr.push(this.renderShowMoreBtn(dataArr));
+
+        if (this.state.loadingData)
+            arr.push(this.renderSpinner());
+        else if (this.state.isShowMoreBtnEnabled)
+            arr.push(this.renderShowMoreBtn());
+
         return arr;
     };
 
 
     render(){
-        const {data} = this.props;
+        const data = this.state.data;
 
         return (
-            <Card title= {this.props.isOnDoctorPage? "Отзывы": "Все отзывы"}
+            <Card title={this.props.isOnDoctorPage ? "Отзывы": "Все отзывы"}
                   className="reviewsTree"
                   extra={data.length}>
-                <Tabs onChange={this.tabChangeHadler}
+                <Tabs onChange={this.tabChangeHandler}
                       tabBarExtraContent={this.state.displayDP && <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
                     <TabPane tab="Все" key="all">
                         {this.renderRevs(data)}
@@ -128,13 +149,15 @@ class ReviewsTree extends React.Component{
 ReviewsTree.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
     limit: PropTypes.number,
-    onSend: PropTypes.func,
+    isOnDoctorPage: PropTypes.bool,
+    onSend: PropTypes.func
 };
 
 ReviewsTree.defaultProps = {
     data: [],
-    limit: 5,
-    onSend: () => {},
+    limit: 3,
+    isOnDoctorPage: true,
+    onSend: () => {}
 };
 
 export default ReviewsTree
