@@ -21,11 +21,10 @@ class Reviews extends React.Component{
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patient'+id);
-	}
+	};
 
     render(){
-		 const reviews = this.props.isDoctor ? this.props.reviews : this.props.reviewsByPatient;
-		console.log(reviews)
+		const reviews = this.props.isDoctor ? this.props.reviews : this.props.reviewsByPatient;
 
         return (
 
@@ -38,15 +37,15 @@ class Reviews extends React.Component{
             	<Row>
             		<Col xs={24} xxl={16} className='section'>
 							<ReviewsTree data={reviews} 
-										limit={7} 
+										limit={3}
 										onSend = {obj => this.props.onSendAnswer(obj)}
 										onGoto={(val) => this.gotoHandler(val)}
 										onGotoChat={(id) => this.props.history.push('/chat')}
-
+										onShowMore = {(numberOfRequest) => this.props.onGetAllReviews(numberOfRequest)}
 							/>
 					</Col>
 					{this.props.isDoctor && <Col xs={24} xxl={8} className='section'>
-						<RateIndicator rateValue={this.props.ratingAll} reviewsNum={reviews.length}/>
+						<RateIndicator rateValue={+(this.props.shortDocInfo.rateValue)} reviewsNum={this.props.shortDocInfo.timesRated}/>
 					</Col>}
             	</Row>
             </Hoc>
@@ -59,16 +58,18 @@ const mapStateToProps = state => {
 		reviews: state.reviews.reviews,
 		ratingAll: state.reviews.ratingAll,
 		isDoctor: state.auth.mode !== "user",
-		reviewsByPatient: state.reviews.reviewsByPatient
+		reviewsByPatient: state.reviews.reviewsByPatient,
+        shortDocInfo: state.doctor.shortInfo
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onGetAllReviews: () => dispatch(actions.getAllReviews()),
+		onGetAllReviews: (numberOfRequest) => dispatch(actions.getAllReviews(numberOfRequest)),
 		onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
-        onGetAllReviewsByPatient: (pagination) => dispatch(actions.getAllReviewsByPatient(pagination))
+        onGetAllReviewsByPatient: (pagination) => dispatch(actions.getAllReviewsByPatient(pagination)),
+        getDocShortInfo: () => dispatch(actions.getDocShortInfo())
 	}
 };
 
