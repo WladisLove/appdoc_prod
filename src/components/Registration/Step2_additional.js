@@ -20,9 +20,9 @@ class Step2_additional extends React.Component{
                 <FormItem>
                     {getFieldDecorator('langs')(
                         <Select mode="multiple" placeholder="Какими языками владеете">
-                            {langs.map((elem,i) => <Select.Option key={elem.value+''+i}
-                                                              value={elem.value}>
-                                {elem.title}</Select.Option>)}
+                            {langs.map((elem,i) => <Select.Option key={elem+''+i}
+                                                              value={elem}>
+                                {elem}</Select.Option>)}
                         </Select>
                     )}
                 </FormItem>

@@ -23,59 +23,22 @@ class LoginPage extends React.Component {
         console.log('Close & go back')
     };
 
-    replaceToAction = (rez) => {
-        axios.post('https://178.172.235.105/~api/json/fusers.doc/createUserDoc',JSON.stringify(rez))
-            .then(res => console.log('response: ',res))
-            .catch(err => console.log('error: ',err))
-    };
+
 
     render(){
 
-        const langs = [{
-            title: 'Русский',
-            value: 'Русский',
-        },{
-            title: 'Английский',
-            value: 'Английский',
-        },{
-            title: 'Немецкий',
-            value: 'Немецкий',
-        }];
+        const langs = ["Русский", "Английский", "Немецкий"];
         const payments = [50,75,100,125,150];
-        const academicTitle = [{
-            title: 'Нет звания',
-            value: 'noTitle',
-        },{
-            title: 'Кандидат медицинских наук',
-            value: 'candidat_medicine_science',
-        },{
-            title: 'Доктор медицинских наук',
-            value: 'doctor_medicine_science',
-        }];
-        const academicDegree = [{
-            title: 'Нет степени',
-            value: 'noDegree',
-        },{
-            title: 'Доцент',
-            value: 'docent',
-        },{
-            title: 'Профессор',
-            value: 'professor',
-        }];
-        const category = [{
-            title: 'Без категории',
-            value: 'noCategory',
-        },{
-            title: 'Первая категория',
-            value: 'firstCategory',
-        },{
-            title: 'Вторая категория',
-            value: 'secondCategory',
-        },{
-            title: 'Высшая категория',
-            value: 'highestCategory',
-        }
-        ];
+        const academicTitle = ['Нет звания',
+            'Кандидат медицинских наук',
+            'Доктор медицинских наук'];
+        const academicDegree = ['Нет степени',
+            'Доцент',
+            'Профессор'];
+        const category = ['Без категории',
+            'Первая категория',
+            'Вторая категория',
+            'Высшая категория'];
 
 
         return (
@@ -110,7 +73,7 @@ class LoginPage extends React.Component {
                         />
                         <Route path="/registration"
                                exact
-                               render={() => <Registration onFinish={obj => this.replaceToAction(obj)}
+                               render={() => <Registration onFinish={docInfo => this.props.onRegisterDoctor(docInfo)}
                                                            langs={langs}
                                                            payments={payments}
                                                            category = {category}
@@ -144,7 +107,6 @@ class LoginPage extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-        //reviews: state.reviews.reviews,
         errorCode: state.auth.errorCode,
         isRegInProgress: state.auth.isRegInProgress,
         isRegistrationFinished: state.auth.isRegistrationFinished,
@@ -154,10 +116,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-        //onGetAllReviews: () => dispatch(actions.getAllReviews()),
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
-        onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo))
-		//onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
+        onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
+        onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo))
 	}
 };
 

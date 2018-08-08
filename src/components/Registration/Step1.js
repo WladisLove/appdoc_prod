@@ -26,12 +26,12 @@ class Step1Form extends React.Component{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             console.log(values);
-            let fields = {
-                ...values,
-                avatarUrl: this.state.avatarUrl
-            };
-
             if (!err) {
+                let fields = {
+                    ...values,
+                    avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
+                };
+                values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl: null : null;
                 this.props.onSubmit(fields);
                 this.props.onNext();
             }
@@ -49,7 +49,6 @@ class Step1Form extends React.Component{
     };
 
     render(){
-        console.log(this.state, this.props, "STATE AND PROPS");
         const { getFieldDecorator } = this.props.form;
         const {fio,
             email,

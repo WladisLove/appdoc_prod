@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as actionTypes from './actionTypes';
+import moment from "moment";
 
 
 export const autoLogin = (history) => {
@@ -49,6 +50,81 @@ export const login = (userName, password, remember, history, isAuto) => {
                     })
     }
 }
+
+export const registerDoctor = (data) => {
+    console.log(data, "DATA FROM auth.js");
+    return (dispatch) => {
+
+        const fillNewField = (res, name) => {
+            const info = name.split('-');
+            let array = [];
+            if (res[info[0]])
+                array = [...res[info[0]]];
+
+            array[+info[2]] = (info[1] === 'ucationyears' && data[name])
+                ? {
+                    ...array[+info[2]],
+                    [info[1]]: [
+                        moment(data[name][0]).format("X"),
+                        moment(data[name][1]).format("X"),
+                    ],
+                }
+                : {
+                    ...array[+info[2]],
+                    [info[1]]: (info[1].indexOf('photo')+1 || info[1].indexOf('copycontract')+1)
+                        ? data[name]
+                            ? data[name].fileList
+                            : []
+                        : data[name],
+                };
+            return {
+                ...res,
+                [info[0]]: array,
+            }
+        };
+
+
+        let result = {};
+        for (let key in data){
+            result = (key.indexOf('educationsgroup')+1 || key.indexOf('work')+1)
+                ? fillNewField(result,key)
+                : (key.indexOf('doc')+1 || key.indexOf('photos')+1 || key.indexOf('copycontract')+1 || key.indexOf('avatar')+1 )
+                    ? data[key]
+                        ? {
+                            ...result,
+                            [key]: data[key].fileList,
+                        }
+                        : {
+                            ...result,
+                            [key]: [],
+                        }
+                    : (key === 'workdate' || key === 'datebirth')
+                        ? {
+                            ...result,
+                            [key]: moment(data[key]).format("X"),
+                        }
+                        : {
+                            ...result,
+                            [key]: data[key],
+                        };
+        }
+
+        console.log(data, "AFTER", result);
+
+
+
+
+//
+        axios.post('https://178.172.235.105/~api/json/fusers.doc/createUserDoc',
+            JSON.stringify(result))
+            .then(res => {
+                console.log(res, "RES FROM DOCTOR REGISTRATION")
+            })
+            .catch(err => {
+                console.log('error: ',err);
+            })
+    }
+};
 export const registerUser = (userInfo) => {
     return (dispatch) => {
         dispatch({
@@ -72,6 +148,8 @@ export const registerUser = (userInfo) => {
                     })
     }
 }
+
+
 
 export const logout = () => {
     return dispatch => {

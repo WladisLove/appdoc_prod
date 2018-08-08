@@ -61,7 +61,7 @@ class Step2_educ extends React.Component {
                     <FormItem>
                         {getFieldDecorator('educationsgroup1-diplomphoto-' + number, {
                             rules: [{
-                                required: true,
+                                required: false, //change to true
                                 message: 'Загрузите подтверждающий документ'
                             }],
                         })(

@@ -27,7 +27,7 @@ class Step2_From extends React.Component{
         this.state = {
             educNum: 1,
             gradEducNum: 1,
-            workNum: 1,
+            placesNum: 1,
             isCategory: false,
             isDegree : false,
             isStatus: false
@@ -43,40 +43,41 @@ class Step2_From extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
+
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                console.log(values, "VALUES FROM STEP2");
                 let toSubmit = {
                     ...values,
                     ...this.state,
                 };
-                console.log(toSubmit, "SUBMIT VALUES FROM SECONT STEP")
+
                 this.props.onSubmit(toSubmit);
                 this.props.onNext();
             }
         });
     };
     selectChangeHandler = (e, name) => {
-        console.log(e);
         const validate = () => {
             this.props.form.validateFields([
                 'academicdegreedoc',
                 'academicstatusdoc',
-                'categoryDoc'], { force: true })};
+                'categorydoc'], { force: true })};
         switch (name){
 
             case "degree":
-                e === "noDegree" ? this.setState({isDegree: false}, validate) : this.setState({isDegree: true}, validate);
+                e === "Нет степени" ? this.setState({isDegree: false}, validate) : this.setState({isDegree: true}, validate);
                 return;
             case "status":
-                e === "noTitle" ? this.setState({isStatus: false}, validate) : this.setState({isStatus: true},validate);
+                e === "Нет звания" ? this.setState({isStatus: false}, validate) : this.setState({isStatus: true},validate);
                 return;
             case "category":
-                e === "noCategory" ? this.setState({isCategory: false}, validate): this.setState({isCategory: true},validate);
+                e === "Нет категории" ? this.setState({isCategory: false}, validate): this.setState({isCategory: true},validate);
                 return;
 
             default: return;
         }
-    }
+    };
     addFormElem = (Component,num,fieldDecorator) => {
         let i = 1,
             name = Component.getName,
@@ -144,9 +145,9 @@ class Step2_From extends React.Component{
                                 onChange={(e)=>this.selectChangeHandler(e,"degree")}
 
                         >
-                            {academicDegree.map(elem => <Select.Option key={elem.value}
-                                                              value={elem.value}>
-                                {elem.title}</Select.Option>)}
+                            {academicDegree.map(elem => <Select.Option key={elem}
+                                                              value={elem}>
+                                {elem}</Select.Option>)}
                         </Select>
                     )}
                 </FormItem>
@@ -168,9 +169,9 @@ class Step2_From extends React.Component{
                                 onChange={(e)=>this.selectChangeHandler(e,"status")}
 
                         >
-                            {academicTitle.map(elem => <Select.Option key={elem.value}
-                                                              value={elem.value}>
-                                {elem.title}</Select.Option>)}
+                            {academicTitle.map(elem => <Select.Option key={elem}
+                                                              value={elem}>
+                                {elem}</Select.Option>)}
                         </Select>
                     )}
                 </FormItem>
@@ -187,8 +188,8 @@ class Step2_From extends React.Component{
 
 
                 <div className="step-block-title">Сведения о работе</div>
-                {this.addFormElem(Step2_work, this.state.workNum, getFieldDecorator)}
-                <Button onClick={e => this.increaseStateNum(e, 'workNum')}
+                {this.addFormElem(Step2_work, this.state.placesNum, getFieldDecorator)}
+                <Button onClick={e => this.increaseStateNum(e, 'placesNum')}
                         className="personal-btn"
                         btnText='Добавить'
                         size='small'
@@ -204,7 +205,7 @@ class Step2_From extends React.Component{
 
                     {getFieldDecorator('category', {
                         rules: [{
-                            required: true,
+                            required: false,  //change to true
                             message: 'Введите категорию'
                         }],
                     })(
@@ -212,14 +213,14 @@ class Step2_From extends React.Component{
                                 onChange={(e)=>this.selectChangeHandler(e,"category")}
 
                         >
-                            {category.map(elem => <Select.Option key={elem.value}
-                                                                      value={elem.value}>
-                                {elem.title}</Select.Option>)}
+                            {category.map(elem => <Select.Option key={elem}
+                                                                      value={elem}>
+                                {elem}</Select.Option>)}
                         </Select>
                     )}
                 </FormItem>
                 <FormItem>
-                    {getFieldDecorator('categoryDoc', {
+                    {getFieldDecorator('categorydoc', {
                         rules: [{
                             required: this.state.isCategory,
                             message: 'Загрузите подтверждающий документ'
@@ -268,18 +269,9 @@ const Step2 = Form.create({
 Step2.propTypes = {
     urlForget: PropTypes.string,
     urlRegistration: PropTypes.string,
-    academicDegree: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string,
-        value: PropTypes.string,
-    })),
-    academicTitle: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string,
-        value: PropTypes.string,
-    })),
-    langs: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string,
-        value: PropTypes.string,
-    })),
+    academicDegree: PropTypes.array,
+    academicTitle: PropTypes.array,
+    langs: PropTypes.array,
     payments: PropTypes.array,
     onSubmit: PropTypes.func,
 };

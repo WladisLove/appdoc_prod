@@ -24,6 +24,7 @@ class Step2_graduate_educ extends React.Component{
     }
     handleChange = (e, name) => {
         const validate = () => {
+            console.log("VALIDATION")
             this.props.form.validateFields([
                 'educationsgroup2-education-'+this.props.number,
                 'educationsgroup2-ciklname-'+this.props.number,
@@ -32,16 +33,16 @@ class Step2_graduate_educ extends React.Component{
         switch (name){
 
             case "eduName":
-                e.target.value ? this.setState({isName: true}, validate) : this.setState({isName: false}, validate);
+                e.target.value ? !this.state.isName ? this.setState({isName: true}, validate) : null : this.setState({isName: false}, validate);
                 return;
             case "eduCycle":
-                e.target.value ? this.setState({isCycle: true},validate) : this.setState({isCycle: false},validate);
+                e.target.value ? !this.state.isCycle ? this.setState({isCycle: true},validate) : null : this.setState({isCycle: false}, validate);
                 return;
             case "eduDate":
-                (e[0] && e[1]) ? this.setState({isDate: true},validate): this.setState({isDate: false},validate);
+                (e[0] && e[1]) ? !this.state.isDate ? this.setState({isDate: true},validate) : null : this.setState({isDate: false},validate);
                 return;
             case "eduFile":
-                e.fileList.length ? this.setState({isFile: true},validate): this.setState({isFile: false},validate);
+                e.fileList.length ? !this.state.isFile? this.setState({isFile: true},validate): null : this.setState({isFile: false},validate);
                 return;
 
             default: return;

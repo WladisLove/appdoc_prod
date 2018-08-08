@@ -28,7 +28,7 @@ class Step2_work extends React.Component {
         return (
             <div className="step-block">
                     <FormItem>
-                        {getFieldDecorator('worknow-'+number, {
+                        {getFieldDecorator('work-worknow-'+number, {
                             rules: [{
                                 required: true,
                                 message: 'Введите текущее место работы'
@@ -39,7 +39,7 @@ class Step2_work extends React.Component {
                         )}
                     </FormItem>
                 <FormItem>
-                    {getFieldDecorator('address-'+number, {
+                    {getFieldDecorator('work-adress-'+number, {
                         rules: [{
                             required: true,
                             message: 'Введите адрес места работы'
@@ -53,7 +53,7 @@ class Step2_work extends React.Component {
 
                 <div className="step-row">
                     <FormItem>
-                        {getFieldDecorator('post-'+number, {
+                        {getFieldDecorator('work-post-'+number, {
                             rules: [{
                                 required: true,
                                 message: 'Введите текущую должность'
@@ -64,7 +64,12 @@ class Step2_work extends React.Component {
                         )}
                     </FormItem>
                     <FormItem>
-                        {getFieldDecorator('copycontract-'+number)(
+                        {getFieldDecorator('work-copycontract-'+number, {
+                            rules: [{
+                                required: false,  //change to true
+                                message: 'Загрузите подтверждающий документ'
+                            }],
+                        })(
                             <Upload
                                 text="Прикрепить копию контракта"/>
                         )}
