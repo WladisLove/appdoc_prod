@@ -330,7 +330,7 @@ class Schedule extends React.Component {
                                              defaultStartValue: moment(dates[0]),
                                              defaultEndValue: moment(dates[dates.length - 1]),
                                          }}
-                                         intervalTime={+intervalTime}
+                                         intervalTime={+intervalTime || timePeriod[0]}
                                          type={type}
                                          selOptions={timePeriod}
                                          timeSetCall={timeSetCall}
