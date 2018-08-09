@@ -52,6 +52,9 @@ export {
     completeReception,
     closeTreatment,
     uploadChatFile,
+    changeReceptionStatus,
+    getReceptionDuration,
+    
 } from './treatment'
 
 

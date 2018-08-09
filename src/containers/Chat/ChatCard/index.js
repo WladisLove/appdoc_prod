@@ -328,6 +328,7 @@ class ChatCard extends React.Component {
 		this.setState({
 			receptionStarts: true,
 		});
+		this.props.changeReceptionStatus(this.props.receptionId, "begin")
 	}
 
 	stop = (message) => {
@@ -424,6 +425,7 @@ class ChatCard extends React.Component {
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере*/
+		this.stop();
 		let new_obj = {
 			...obj,
 			id: this.props.receptionId,
@@ -431,10 +433,11 @@ class ChatCard extends React.Component {
 		}
 		this.sendMessage({
 			id : 'closeReception',
-			from : this.state.from,
-			to: this.state.to,
+			name : this.state.from,
+			other_name: this.state.to,
 		})
 		this.props.completeReception(new_obj);
+		this.props.changeReceptionStatus(this.props.receptionId, "finish");
 
 		this.setState({reception_vis: false,treatment_vis: true});
 		this.props.extr ?
@@ -598,6 +601,7 @@ ChatCard.propTypes = {
     isActive: PropTypes.bool,
 	mode: PropTypes.oneOf(['chat', 'voice', "video"]),
 	isEnded: PropTypes.bool,
+	changeReceptionStatus: PropTypes.func,
 
     videoContent: PropTypes.node,
 };
@@ -610,7 +614,7 @@ ChatCard.defaultProps = {
     isActive: false,
 	mode: 'chat',
 	chat: [],
-	
+	changeReceptionStatus: () => {},
 };
 
 export default ChatCard
