@@ -10,21 +10,30 @@ import Hoc from "../Hoc"
 
 import './style.css'
 import '../../icon/style.css'
+import NewFreeVisitByPatient from "../NewFreeVisitByPatient";
 
 
-const Header = (props) => {
-
+class Header extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            isNewFreeVisit: false
+        };
+    }
     
-        const {notifications, isUser, onEmergCall, onAddVisit} = props;
-
+    handleClick = () => {
+      this.setState({isNewFreeVisit: true})
+    };
+render() {
+    const {notifications, isUser, onEmergCall, onAddVisit} = this.props;
         return (
             <div className={'header'}>
                 <div className='header-search'>
                     <AutoComplete
-                        onAdd = {props.onAdd}
-                        onGoto = {props.onGoto}
-                        findName= {props.findName}
-                        data={props.data}
+                        onAdd = {this.props.onAdd}
+                        onGoto = {this.props.onGoto}
+                        findName= {this.props.findName}
+                        data={this.props.data}
                     />
                 </div>
                 <div className='header-call'>
@@ -36,24 +45,30 @@ const Header = (props) => {
                                 type='emergensy'
                                 icon='emergency-call'/>
                             <Button btnText='ЗАПИСАТЬСЯ НА ПРИЕМ'
-                                onClick={onAddVisit}
+                                onClick={this.handleClick}
                                 size='small'
                                 type='float'
                                 icon='form'/>
+                            <NewFreeVisitByPatient
+                                visible = {this.state.isNewFreeVisit}
+                                docTypes = {["Аллерголог", "Хирург", "Терапевт", "Окулист"]}
+                                onCancel = {() => this.setState({isNewFreeVisit: false})}
+
+                            />
                         </Hoc> 
                         : <SwitchPanel 
                             icon='emergency-call'
                             title="Экстренные вызовы"
-                            onChange={props.onChange}
-                            checked={props.checked}
-                            disabled={props.disabled}/>
+                            onChange={this.props.onChange}
+                            checked={this.props.checked}
+                            disabled={this.props.disabled}/>
                     }
                 </div>
                 <div className='header-notification'>
                     <NotificationApp  
                         data={notifications} 
-                        getNotifications={props.getNotifications}
-                        getId={props.getNotifId}>
+                        getNotifications={this.props.getNotifications}
+                        getId={this.props.getNotifId}>
                          <Icon 
                             svg 
                             type='notification' 
@@ -71,11 +86,12 @@ const Header = (props) => {
                         iconSize={20}
                         svg
                         title='Выход'
-                        onClick={props.logout}
+                        onClick={this.props.logout}
                     />
                 </div>
             </div>
         )
+    }
 }
 
 Header.propTypes = {

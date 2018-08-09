@@ -92,15 +92,7 @@ class ContentForm extends React.Component {
                     {timeElement}
                 </div>
 
-                <FormItem>
-                    {getFieldDecorator('id_user',{
-                        rules: [{required: true, message: ' ',}],
-                    })(
-                        <Select placeholder="ФИО">
-                            {this.renderOptions()}
-                        </Select>
-                    )}
-                </FormItem>
+
 
                 
                 <TextArea label='Комментарий к приему' 

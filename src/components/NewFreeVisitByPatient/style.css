@@ -1,0 +1,52 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.patient-page-new-free-visit {
+  padding: 0 !important;
+}
+.patient-page-new-free-visit .chose-doc-type {
+  display: inline-block;
+  align-self: center;
+  margin-bottom: 10px;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content .calendar-carousel {
+  align-self: center;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content .calendar-carousel .calendar-carousel-slide .btn-prev {
+  left: -20px !important;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content .calendar-carousel .calendar-carousel-slide .btn-next {
+  right: -20px !important;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content .typeOfVisit {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 0;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content .typeOfVisit > span {
+  display: inline-block;
+  margin-right: 40px;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content > button {
+  width: 80%;
+  margin-top: 30px;
+  align-self: center;
+}
+.ant-form-item {
+  margin-bottom: 0!important;
+}
