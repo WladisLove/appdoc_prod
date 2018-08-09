@@ -105,11 +105,11 @@ class NewFreeVisitByPatientForm extends React.Component {
                    onCancel={onCancel}
             >
             <Form onSubmit={this.handleSubmit}
-                  className="DoctorPageNewVisit">
-                <div className='doctor-page-new-visit'>
+                  className="NewFreeVisitByPatient">
+                <div className='patient-page-new-free-visit'>
                     <Card>
                         <div className="new-visit-content">
-                            <span>Выберете категорию врача</span>
+                            <span className="chose-doc-type">Выберете категорию врача</span>
                             <FormItem>
                                 {getFieldDecorator('docType',{
                                     rules: [{
@@ -124,7 +124,7 @@ class NewFreeVisitByPatientForm extends React.Component {
                             </FormItem>
                             <FormItem>
                                 <div className="typeOfVisit">
-                                    <span> Выберите тип связи </span>
+                                    <div className="chose-visit-type"> Выберите тип связи </div>
                                     {getFieldDecorator('type', {
                                         initialValue: 'chat'
                                     })(
