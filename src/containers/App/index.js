@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 
 import * as actions from '../../store/actions'
 import './styles.css';
+import './icon/style.css';
 import ab from '../../autobahn.js'
 
 const renderRoutes = ({ path, component, exact }) => (
