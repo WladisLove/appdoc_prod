@@ -49,7 +49,7 @@ class Chat extends React.Component{
                         {
                              isUser ? (
                                 <ChatCard 
-                                    wsURL={'wss://localhost:8443/one2one'}
+                                    wsURL={'wss://178.172.235.105:8443/one2one'}
                                     mode={"video"}
                                     //mode={contactLevel}
                                     receptionId={visitId}
@@ -72,7 +72,7 @@ class Chat extends React.Component{
                                     fromTR_VIS = {2}/>
                             ) : (
                                 <ChatCard 
-                                    wsURL={'wss://localhost:8443/one2one'}
+                                    wsURL={'wss://178.172.235.105:8443/one2one'}
                                     mode={contactLevel}
                                     receptionId={visitId}
 
