@@ -80,9 +80,10 @@ class NewFreeVisitByPatientForm extends React.Component {
         });
     };
     modifyFiles = (file) => {
+        console.log(file);
         if(!file.thumbUrl && !file.modify){
             file.modify = true;
-            previewFile(file.originFileObj, function (previewDataUrl) {
+            previewFile(file, function (previewDataUrl) {
                 file.thumbUrl = previewDataUrl;
             });
         }
