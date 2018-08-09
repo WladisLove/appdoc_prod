@@ -88,6 +88,7 @@ class Chat extends React.Component{
                                     chat={chat}
                                     comment={comment}
 
+                                    changeReceptionStatus={this.props.changeReceptionStatus}
                                     onSelectReception={this.props.onSelectReception}
                                     completeReception = {this.props.completeReception}
                                     closeTreatm = {this.props.closeTreatment}
@@ -125,6 +126,8 @@ const mapDispatchToProps = dispatch => {
         onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
         clearSelectionsTRandVIS: () => dispatch(actions.clearSelections()),
         uploadFile: (file) => dispatch(actions.uploadChatFile(file)),
+        changeReceptionStatus: (id, key) => dispatch(actions.changeReceptionStatus(id,key)),
+        getReceptionDuration: (id) => dispatch(actions.getReceptionDuration(id)),
 	}
 };
 

@@ -134,3 +134,31 @@ export const clearSelections = () => {
         type: actionTypes.CLEAR_VISIT_AND_TREAT,
     })
 }
+
+
+export const changeReceptionStatus = (id,key) => {
+
+    return (dispatch) => {
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/addMakingAppTime/id/'+id+'/key/'+key)
+            .then(res => {
+                key === "finish" && dispatch(getReceptionDuration(id));
+            })
+            .catch(err => {
+                console.log(err);
+        })
+    }    
+}
+
+export const getReceptionDuration = (id) => {
+
+    return (dispatch) => {
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getMakingAppTimeCost/id/'+id)
+            .then(res => {
+                const {second, cost} = res.data.result;
+                alert('Reception Duration: '+second+'s\nTotal Price: '+cost+"BYN")
+            })
+            .catch(err => {
+                console.log(err);
+        })
+    }    
+}

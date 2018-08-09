@@ -82,8 +82,6 @@ class ChatVideoContent extends React.Component {
         const {isActive,isActiveChat, onVideoCallBegin, onVideoCallStop} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
 		const filesClass = cn('chat-card-files', {'chat-card-files-active': isActiveChat});
-
-		console.log('receptionStarts', this.props.receptionStarts)
 		
 			let videoContent = /*this.props.isEnded ?
 			this.renderPlayer() :*/ this.renderCallArea()
