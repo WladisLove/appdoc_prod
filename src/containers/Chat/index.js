@@ -1,8 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import Row from '../../components/Row'
-import Col from '../../components/Col'
-import ChatDialogs from "../../components/ChatDialogs";
+import {Row, Col, ChatDialogs} from 'appdoc-component'
 import Hoc from '../../hoc'
 
 import ChatCard from './ChatCard'

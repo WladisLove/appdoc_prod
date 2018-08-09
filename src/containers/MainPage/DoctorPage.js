@@ -1,12 +1,5 @@
 import React from 'react'
-import Row from "../../components/Row";
-import Col from "../../components/Col";
-import TopPanel from "../../components/TopPanel";
-import Reviews from "../../components/Reviews";
-import TreatmentTable from "../../components/TreatmentTable";
-import NewVisitModal from "../../components/NewVisitModal";
-import TableNoHead from "../../components/TableNoHead";
-import CancelVisitModal from "../../components/CancelVisitModal";
+import {Row, Col,TopPanel,Reviews,TreatmentTable,NewVisitModal,TableNoHead, CancelVisitModal} from "appdoc-component"
 
 import Hoc from '../../hoc'
 

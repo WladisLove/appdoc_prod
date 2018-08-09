@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-import ChatVideoPanel from "../../../components/ChatVideoPanel";
+import {ChatVideoPanel} from "appdoc-component";
 
 import ChatContent from './ChatContent'
 

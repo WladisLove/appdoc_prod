@@ -2,15 +2,12 @@ import React  from 'react';
 import {docRoutes, patientRoutes, menuDoc, menuPatient} from '../../routes'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Hoc from '../../hoc'
-import SideNav from '../../components/SideNav'
-import Header from "../../components/Header";
+import { SideNav, Header} from 'appdoc-component'
 
 import {connect} from 'react-redux';
 
 import * as actions from '../../store/actions'
 import './styles.css';
-import 'antd/dist/antd.css';
-import '../styles/fonts.css';
 import ab from '../../autobahn.js'
 
 const renderRoutes = ({ path, component, exact }) => (

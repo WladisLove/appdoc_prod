@@ -1,10 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import Row from "../../components/Row";
-import Col from "../../components/Col";
-import ReviewsTree from "../../components/ReviewsTree";
-import RateIndicator from "../../components/RateIndicator";
+import {Row, Col, ReviewsTree, RateIndicator} from "appdoc-component";
 import Hoc from '../../hoc'
 
 import * as actions from '../../store/actions'

@@ -1,17 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import Row from "../../components/Row";
-import Col from "../../components/Col";
-import HistoryReceptions from "../../components/HistoryReceptions";
+import {Row, Col, HistoryReceptions, ReviewsTree, PatientProfileDoctorItem, DoctorPageNewVisit} from "appdoc-component";
 
 import Hoc from '../../hoc'
 
 import * as actions from '../../store/actions'
 
 import './styles.css';
-import PatientProfileDoctorItem from "../../components/PatientProfileDoctorItem";
-import DoctorPageNewVisit from "../../components/DoctorPageNewVisit";
-import ReviewsTree from "../../components/ReviewsTree";
 
 class PatientsPage extends React.Component{
 

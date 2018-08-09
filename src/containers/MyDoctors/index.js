@@ -1,15 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import moment from 'moment'
-import Row from "../../components/Row";
-import Col from "../../components/Col";
+import {Row,Col,PatientDoctors,AddNewDoctor,NewVisitByPatientModal,Spinner} from "appdoc-component"
 import Hoc from '../../hoc'
 import * as actions from '../../store/actions'
 import './styles.css';
-import PatientDoctors from "../../components/PatientDoctors";
-import AddNewDoctor from "../../components/AddNewDoctor";
-import NewVisitByPatientModal from "../../components/NewVisitByPatientModal";
-import Spinner from "../../components/Spinner";
+
 
 class Patients extends React.Component{
 	constructor(props){

@@ -1,12 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import moment from 'moment'
-import Row from "../../components/Row";
-import Col from "../../components/Col";
-import PatientTable from "../../components/PatientTable";
-import AddNewPatient from "../../components/AddNewPatient";
-import NewMessageModal from "../../components/NewMessageModal";
-import NewVisitModalPage from "../../components/NewVisitModalPage";
+import {Row, Col, PatientTable,AddNewPatient,NewMessageModal,NewVisitModalPage} from "appdoc-component"
 
 import Hoc from '../../hoc'
 

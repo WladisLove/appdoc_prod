@@ -1,13 +1,7 @@
 import React from 'react'
 import Hoc from '../../hoc'
-import Row from "../../components/Row";
-import Col from "../../components/Col";
-import PatientNearRecord from "../../components/PatientNearRecord";
-import PatientAnalyzes from "../../components/PatientAnalyzes";
-import PatientDoctor from "../../components/PatientDoctor";
-import TopPanelPatient from "../../components/TopPanelPatient";
-import TreatmentTable from "../../components/TreatmentTable";
-import NewFreeVisitByPatient from "../../components/NewFreeVisitByPatient";
+import {Row, Col,PatientNearRecord,PatientAnalyzes, PatientDoctor, TopPanelPatient,TreatmentTable, NewFreeVisitByPatient} from "appdoc-component"
+
 const PatientPage = props => {
     return (
         <Hoc>

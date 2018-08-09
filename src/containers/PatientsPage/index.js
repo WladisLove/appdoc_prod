@@ -1,10 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import Row from "../../components/Row";
-import Col from "../../components/Col";
-import ProfilePatient from "../../components/ProfilePatient";
-import DiseasesTable from "../../components/DiseasesTable";
-import HistoryReceptions from "../../components/HistoryReceptions";
+import {Row,Col, ProfilePatient, DiseasesTable, HistoryReceptions} from "appdoc-component"
 
 import Hoc from '../../hoc'
 
