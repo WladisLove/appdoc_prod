@@ -10,9 +10,6 @@
   font-size: 1.25rem;
   color: #eee;
 }
-.ant-popover {
-  z-index: 9;
-}
 .ant-popover-inner {
   max-width: 345px;
 }

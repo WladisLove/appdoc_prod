@@ -39,7 +39,7 @@ class PatientAnalyzesPopover extends React.Component {
                 </ScrollArea>
                 <div className='analyzes-popover-close'>
                     <Button
-                        
+                        onClick={this.props.onClose}
                         size='small'
                         type='no-brd'
                         icon='close'
