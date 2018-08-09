@@ -1,0 +1,45 @@
+@import url("../../styles/variables");
+
+.patient-page-new-free-visit{
+	padding: 0 !important;
+	.chose-doc-type {
+		display: inline-block;
+		align-self: center;
+		margin-bottom: 10px;
+	}
+	.ant-card-body {
+
+		.new-visit-content {
+			padding: 20px 30px;
+			display: flex;
+			flex-direction: column;
+			.calendar-carousel {
+
+				align-self: center;
+				.calendar-carousel-slide {
+					.btn-prev { left: -20px!important; }
+					.btn-next { right: -20px!important; }
+				}
+			}
+			.typeOfVisit {
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				margin: 30px 0;
+				>span {
+					display: inline-block;
+					margin-right: 40px;
+				}
+			}
+			>button {
+				width: 80%;
+				margin-top: 30px;
+				align-self: center;
+			}
+		}
+
+	}
+}
+.ant-form-item {
+	margin-bottom: 0!important;
+}

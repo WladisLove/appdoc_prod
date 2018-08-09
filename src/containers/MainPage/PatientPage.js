@@ -7,6 +7,7 @@ import PatientAnalyzes from "../../components/PatientAnalyzes";
 import PatientDoctor from "../../components/PatientDoctor";
 import TopPanelPatient from "../../components/TopPanelPatient";
 import TreatmentTable from "../../components/TreatmentTable";
+import NewFreeVisitByPatient from "../../components/NewFreeVisitByPatient";
 const PatientPage = props => {
     return (
         <Hoc>
@@ -85,6 +86,7 @@ const PatientPage = props => {
                         onGetAllDocIntervals={props.onGetAllDocIntervals}
                         onGetIntervalForDate={props.onGetIntervalForDate}
                         availableIntervals={props.availableIntervals}
+
                     />
                 </Col>
             </Row>
@@ -99,6 +101,7 @@ const PatientPage = props => {
                         onGotoChat={(id) => console.log(id)}/>
                 </Col>
             </Row>
+
         </Hoc>
     )
 }

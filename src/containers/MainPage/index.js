@@ -12,6 +12,7 @@ class MainPage extends React.Component{
 	state = {
 		cancelModal: false,
 		addModal: false,
+        isNewFreeVisitVisible: false
 	}
 
 	componentDidMount(){
@@ -46,7 +47,10 @@ class MainPage extends React.Component{
             addModal: false,
         })
 	};
-	
+
+	onNewFreeVisit = () => {
+	    this.setState({isNewFreeVisitVisible: true})
+}
 	/*shouldComponentUpdate(nextProps, nextState){
 		return this.props.visits.length !== nextProps.visits.length
 			|| this.props.docTodayInfo.receptionsToday !== nextProps.docTodayInfo.receptionsToday
@@ -65,6 +69,9 @@ class MainPage extends React.Component{
 				nearVisits = {this.props.nearVisits}
                 nearVisitsLoaded={this.props.nearVisitsLoaded}
 				{...this.props}
+                isNewFreeVisitVisible = {this.state.isNewFreeVisitVisible}
+                onCancel = {()=>this.setState({isNewFreeVisitVisible: false })}
+                onFreeVisit = {this.onNewFreeVisit}
 
 			/>
 		) : (
