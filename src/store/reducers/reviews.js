@@ -12,6 +12,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 reviews: action.reviews,
                 ratingAll: action.ratingAll,
+                commentCount: action.commentCount
             };
         case actionTypes.GET_ALL_REVIEWS_BY_PATIENT:
             return {

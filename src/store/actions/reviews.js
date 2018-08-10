@@ -12,6 +12,7 @@ export const getAllReviews = (numberOfRequest = 0, maxReviews = 3, id) => {
                     type: actionTypes.GET_ALL_REVIEWS,
                     reviews: res.data.result ? res.data.result : [],
                     ratingAll: res.data.ratingAll,
+                    commentCount: res.data.commentCount
                 });
             })
             .catch(err => {

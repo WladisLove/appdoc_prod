@@ -45,7 +45,7 @@ class Reviews extends React.Component{
 							/>
 					</Col>
 					{this.props.isDoctor && <Col xs={24} xxl={8} className='section'>
-						<RateIndicator rateValue={+(this.props.shortDocInfo.rateValue)} reviewsNum={this.props.shortDocInfo.timesRated}/>
+						<RateIndicator rateValue={this.props.ratingAll} reviewsNum={this.props.commentCount}/>
 					</Col>}
             	</Row>
             </Hoc>
@@ -57,9 +57,9 @@ const mapStateToProps = state => {
 	return {
 		reviews: state.reviews.reviews,
 		ratingAll: state.reviews.ratingAll,
+		commentCount: state.reviews.commentCount,
 		isDoctor: state.auth.mode !== "user",
 		reviewsByPatient: state.reviews.reviewsByPatient,
-        shortDocInfo: state.doctor.shortInfo
 	}
 };
 
@@ -69,7 +69,6 @@ const mapDispatchToProps = dispatch => {
 		onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onGetAllReviewsByPatient: (pagination) => dispatch(actions.getAllReviewsByPatient(pagination)),
-        getDocShortInfo: () => dispatch(actions.getDocShortInfo())
 	}
 };
 
