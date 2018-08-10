@@ -19,7 +19,7 @@ class MainPage extends React.Component{
 		if (this.props.mode === "user"){
 			this.props.onGetPatientDoctors(2);
 			this.props.onGetCompletedTreatments();
-            this.props.onGetNearVisits(4);
+            this.props.onGetNearVisits(3);
 		}
 		else {
 			this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
