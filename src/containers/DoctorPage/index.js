@@ -22,6 +22,19 @@ class PatientsPage extends React.Component{
         this.props.onGetInfoDoctor(this.props.match.params.id);
     }
 
+    getDoctorSpecialityStr = () => {
+        let specialityStr = "";
+
+        if (this.props.profileDoctor.works) {
+            this.props.profileDoctor.educationsgroup1.forEach((item, i, arr) => {
+                specialityStr += item.speciality;
+                if (i < arr.length - 1) specialityStr += ", ";
+            });
+        }
+
+        return specialityStr;
+    };
+
     getDoctorLanguagesArr = () => {
         let languagesArr = [], languagesObjArr = [];
 
@@ -98,7 +111,7 @@ class PatientsPage extends React.Component{
                               doctorReviews={this.props.commentCount}
                               doctorFavorite={true}
                               doctorName={fio}
-                              doctorSpeciality='терапевт'
+                              doctorSpeciality={this.getDoctorSpecialityStr()}
                               doctorCategory={academicdegree + '. ' + academicstatus + '. ' + category + '.'}
                               doctorExp={experience}
                               doctorPrice={consultationPrice}
