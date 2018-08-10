@@ -156,7 +156,7 @@ ReviewsTree.propTypes = {
 ReviewsTree.defaultProps = {
     data: [],
     limit: 3,
-    isOnDoctorPage: true,
+    isOnDoctorPage: false,
     onSend: () => {}
 };
 
