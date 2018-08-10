@@ -6,4 +6,4 @@ export const patientsArr = [{
     name: 'Родионов С.М.'
 },];
 
-export const timePeriod = [5,10,15,20,25,30];
+export const timePeriod = [5,10,15,20,25,30,60,90,120];

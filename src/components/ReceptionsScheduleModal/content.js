@@ -8,6 +8,7 @@ import Select from '../Select'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
 import moment from "moment/moment";
+import WarningModal from "../WarningModal";
 
 const FormItem = Form.Item;
 
@@ -23,7 +24,8 @@ class ContentForm extends React.Component {
             isReset: !!props.isReset,
             isOffTime: false,
             timeSetCall:[],
-            timeSetReception: []
+            timeSetReception: [],
+            wrongInterval: false
         }
     }
 
@@ -34,10 +36,12 @@ class ContentForm extends React.Component {
     };
 
     changeFieldsVal = (props = this.props) => {
-        const {dateSet, timeSetCall, timeSetReception} = props;
+        const {dateSet, intervalTime, type, timeSetCall, timeSetReception} = props;
         let {defaultStartValue, defaultEndValue} = dateSet;
-            props.form.setFieldsValue({
+        props.form.setFieldsValue({
             ['day']: [defaultStartValue, defaultEndValue],
+            ['type']: type,
+            ['intervalTime']: intervalTime
         });
 
         this.initializeTP(timeSetReception, 'reception', props);
@@ -69,7 +73,7 @@ class ContentForm extends React.Component {
         this.changeFieldsVal();
         this.setState({
             timeSetCall: this.props.timeSetCall,
-            timeSetReception: this.props.timeSetReception
+            timeSetReception: this.props.timeSetReception,
         })
     }
     componentWillReceiveProps(nextProps) {
@@ -84,6 +88,9 @@ class ContentForm extends React.Component {
         if (nextProps.visible === true && this.props.visible === false) {
 
             this.setState({
+                timeSetCall: nextProps.timeSetCall,
+                timeSetReception: nextProps.timeSetReception,
+                wrongInterval: false,
                 tpNum: {
                     'call': nextProps.timeSetCall.length || 1,
                     'reception': nextProps.timeSetReception.length || 1,
@@ -145,35 +152,50 @@ class ContentForm extends React.Component {
         let time = [],
             emergencyTime = [];
 
-        for (let key in rest){
-            if(key.indexOf('callTp') + 1 ){
+        for (let key in rest) {
+            if (key.indexOf('callTp') + 1) {
                 pushTimeToArr(time, rest[key]);
             }
-            if(key.indexOf('receptionTp') + 1 ){
+            if (key.indexOf('receptionTp') + 1) {
                 pushTimeToArr(emergencyTime, rest[key]);
             }
         }
 
-        function pushTimeToArr(array, time){
-            (time[0] && time[1]) ? 
+        function pushTimeToArr(array, time) {
+            (time && time[0] && time[1]) ?
                 array.push({
                     start: (time[0]).unix(),
                     end: (time[1]).unix(),
                 }) : null;
         }
 
+        let wrongIntervalDetected = false;
 
-        let obj = {
-            datestart: (day[0]).unix(),
-            dateend: (day[1]).unix(),
-            isDayOff: this.state.isReset,
-            intervalTime, 
-            type,
-            intervalOb: time,
-            intervalEx: emergencyTime,
-        };
+        if (time.length) {
+            for (let i = 0; i < time.length; i++)
+                if (!(time[i].end - time[i].start) || (time[i].end - time[i].start) / 60 % intervalTime) {
+                    wrongIntervalDetected = true;
+                    break;
+                }
+        }
 
-        this.props.onSave(obj);
+
+        if (wrongIntervalDetected) {
+            this.setState({wrongInterval: true});
+        }
+        else {
+            let obj = {
+                datestart: (day[0]).unix(),
+                dateend: (day[1]).unix(),
+                isDayOff: this.state.isReset,
+                intervalTime,
+                type,
+                intervalOb: time,
+                intervalEx: emergencyTime,
+            };
+
+            this.props.onSave(obj);
+        }
     };
 
     addTp = (tab, e) => {
@@ -240,7 +262,7 @@ class ContentForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {dateSet, selOptions} = this.props;
+        const {dateSet, selOptions, intervalTime, type} = this.props;
         return (
             <Form onSubmit={this.handleSubmit}
                   className="receptionsScheduleModal">
@@ -265,14 +287,14 @@ class ContentForm extends React.Component {
                             )}
                             <FormItem>
                                 {getFieldDecorator('type', {
-                                    initialValue: this.props.type
+                                    initialValue: type
                                 })(
                                     <Radio icons={['chat1','telephone', "video-camera"]}/>
                                 )}
                             </FormItem>
                             <FormItem>
                                 {getFieldDecorator('intervalTime', {
-                                    initialValue: selOptions[0] || 5
+                                    initialValue: intervalTime
                                 })(
                                     <Select  placeholder="Длительность приема">
                                         {this.renderOptions(selOptions)}
@@ -309,6 +331,9 @@ class ContentForm extends React.Component {
                 <FormItem>
                         <Checkbox checked={this.state.isReset} onClick={this.handleCheckboxClick}>Выходной</Checkbox>
                 </FormItem>
+                <WarningModal visible={this.state.wrongInterval}
+                              onClick={() => this.setState({wrongInterval: false})}
+                              message='Выбранная длительность приема не подходит к установленному промежутку времени.'/>
                 <Button
                         htmlType="submit"
                         btnText='Сохранить'
