@@ -15,7 +15,7 @@ class AutoComplete extends React.Component{
         this.state ={
             isVisible: false,
             tmp: 0,
-
+            inputValue: "",
             inputFocus: false,
             itemFocus: false,
             
@@ -30,18 +30,9 @@ class AutoComplete extends React.Component{
         });
     };
 
-    /*searchHandler = (e) => {
-
-        e.target.value.length > 0 
-            ? (this.setState({
-                isVisible: true, 
-                searchRes: search(e.target.value, this.props.data),
-            }))
-            : this.setState({
-                isVisible: false,   
-                searchRes: [],
-            });
-    }*/
+    componentWillMount() {
+        this.timer = null;
+    }
 
     onClickHandler = (id, flag) => {
         let user;
@@ -81,7 +72,34 @@ class AutoComplete extends React.Component{
         console.log(nextProps.data.length)
         return this.props.data.length !== nextProps.data.length
     }*/
+    changeHandleSearch = (e) => {
+        this.setState({inputValue: e.target.value});
+        clearTimeout(this.timer);
+        e.target.value.length > 2 ?  this.timer = setTimeout(this.triggerChange, 800) : null;
 
+            // e.target.value.length === 0 && this.setState({
+            //     isVisible: false,
+            // })
+
+    };
+    triggerChange = () => {
+        this.props.findName(this.state.inputValue);
+        this.setState({
+            isVisible: true,
+            searchRes: this.props.data,
+        });
+    };
+
+    handleKeyDown = (e) => {
+        if(e.keyCode===13) {
+            clearTimeout(this.timer);
+            this.props.findName(this.state.inputValue);
+            this.setState({
+                isVisible: true,
+                searchRes: this.props.data,
+            });
+        }
+    };
     componentWillReceiveProps(nextProps){
         this.props.data.length !== nextProps.data.length && this.setState({searchRes: nextProps.data})
     }
@@ -100,21 +118,9 @@ class AutoComplete extends React.Component{
                 <div className='auto__complete-search'>
                     <Input 
                         placeholder='Поиск'
-                        onChange={(e) => {
-                            e.target.value.length === 0 && this.setState({
-                                isVisible: false,   
-                            })
-                        }}
+                        onChange={this.changeHandleSearch}
                         ref = {inp => {this.input = inp}}
-                        onKeyPress={event => {
-                            if (event.key === 'Enter') {
-                                this.setState({
-                                    isVisible: true, 
-                                    searchRes: this.props.data,
-                                });
-                                this.props.findName(this.input.inp.input.value)
-                            }
-                          }}
+                        onKeyPress={this.handleKeyDown}
                     />
                 </div>
                 <div className={resultClass}>

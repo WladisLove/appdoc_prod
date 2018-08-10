@@ -13,6 +13,9 @@
 .patient-page-new-free-visit {
   padding: 0 !important;
 }
+.patient-page-new-free-visit .ant-form-item {
+  margin-bottom: 0!important;
+}
 .patient-page-new-free-visit .chose-doc-type {
   display: inline-block;
   align-self: center;
@@ -46,7 +49,4 @@
   width: 80%;
   margin-top: 30px;
   align-self: center;
-}
-.ant-form-item {
-  margin-bottom: 0!important;
 }
