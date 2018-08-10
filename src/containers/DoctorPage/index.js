@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Row from "../../components/Row";
 import Col from "../../components/Col";
 import HistoryReceptions from "../../components/HistoryReceptions";
-import moment from 'moment'
+import moment from "moment"
 
 import Hoc from '../../hoc'
 
@@ -13,20 +13,19 @@ import './styles.css';
 import PatientProfileDoctorItem from "../../components/PatientProfileDoctorItem";
 import DoctorPageNewVisit from "../../components/DoctorPageNewVisit";
 import ReviewsTree from "../../components/ReviewsTree";
-import PatientDoctorItem from "../../components/PatientDoctorItem";
 
 class PatientsPage extends React.Component{
 
     componentWillMount(){
         this.props.getPatientInfo(this.props.match.params.id);
-        this.props.onGetAllReviews(this.props.match.params.id);
+        this.props.onGetAllReviews(0, this.props.match.params.id);
         this.props.onGetInfoDoctor(this.props.match.params.id);
     }
 
     getDoctorLanguagesArr = () => {
         let languagesArr = [], languagesObjArr = [];
 
-        if (typeof this.props.profileDoctor.language == "string") {
+        if (typeof this.props.profileDoctor.language === "string") {
             languagesArr = this.props.profileDoctor.language.split(' ');
         }
 
@@ -127,7 +126,7 @@ class PatientsPage extends React.Component{
                                          limit={7}
                                          onGoto={(val) => this.gotoHandler(val)}
                                          isOnDoctorPage = {true}
-
+                                         onShowMore = {(numberOfRequest) => this.props.onGetAllReviews(numberOfRequest, this.props.match.params.id)}
 
                             />
                         </Col>
@@ -156,7 +155,7 @@ const mapDispatchToProps = dispatch => {
         getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onMakeNewAppointment: (obj) => console.log(obj, "DISPATCH IS WORKING"),
-        onGetAllReviews: (doc_id) => dispatch(actions.getAllReviews(0, 7, doc_id)),
+        onGetAllReviews: (numberOfRequest, doc_id) => dispatch(actions.getAllReviews(numberOfRequest, 7, doc_id)),
         onGetInfoDoctor: (doc_id) => dispatch(actions.getInfoDoctor(doc_id)),
     }
 };
