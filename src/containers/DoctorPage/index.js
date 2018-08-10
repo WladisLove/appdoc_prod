@@ -23,13 +23,30 @@ class PatientsPage extends React.Component{
         this.props.onGetInfoDoctor(this.props.match.params.id);
     }
 
-    getDocAvgRate = () => {
-        if (!this.props.reviews) return 0;
-        let rateArr = this.props.reviews;
-        let sum = rateArr.reduce((acc, curVal) => {
-            return acc + parseInt(curVal.rating);
-        }, 0);
-        return sum / rateArr.length;
+    getDoctorLanguagesArr = () => {
+        let languagesArr = [], languagesObjArr = [];
+
+        if (typeof this.props.profileDoctor.language == "string") {
+            languagesArr = this.props.profileDoctor.language.split(' ');
+        }
+
+        languagesObjArr = languagesArr.map((item) => {
+            return {language: item};
+        });
+
+        return languagesObjArr;
+    };
+
+    getDoctorMapsArr = () => {
+        let mapsArr = [];
+
+        if (this.props.profileDoctor.works) {
+            mapsArr = this.props.profileDoctor.works.map((item) => {
+                return {map: (item.worknow + " - " + item.adress)};
+            });
+        }
+
+        return mapsArr;
     };
 
     getDoctorExperienceArr = () => {
@@ -40,12 +57,15 @@ class PatientsPage extends React.Component{
                 experienceArr.push({
                     experience: (item.education
                         + ", специальность - " + item.speciality
-                        + ", " + moment(item.finishucationyear[1] * 1000)._d.getFullYear() + " г.")
+                        + ", " + item.finishucationyear + " г.")
                 });
             });
 
             this.props.profileDoctor.educationsgroup2.map((item) => {
-                experienceArr.push({experience: item.education});
+                experienceArr.push({
+                    experience: (item.education
+                        + ", специальность - " + item.ciklname
+                        + ", " + moment(item.ucationyears[1] * 1000)._d.getFullYear() + " г.")});
             });
         }
 
@@ -53,8 +73,7 @@ class PatientsPage extends React.Component{
     };
 
     render(){
-        console.log(this.props.profileDoctor)
-        const { fio, academicdegree, academicstatus, category, experience, consultationPrice, language, isChildConsult} = this.props.profileDoctor;
+        const { fio, academicdegree, academicstatus, category, experience, consultationPrice, isChildConsult} = this.props.profileDoctor;
         const {diseases = [], treatments = [], infoUser = {}} = this.props.info;
         const info = this.props.info.infoUser;
         if(false) {
@@ -76,23 +95,17 @@ class PatientsPage extends React.Component{
                     <Row>
                         <Col xs={24} xxl={15} className='section'>
                           <PatientProfileDoctorItem
-                              doctorRate={this.getDocAvgRate()}
-                              doctorReviews={this.props.reviews.length}
+                              doctorRate={this.props.ratingAll}
+                              doctorReviews={this.props.commentCount}
                               doctorFavorite={true}
                               doctorName={fio}
                               doctorSpeciality='терапевт'
-                              doctorCategory={academicdegree + '. ' + academicstatus + '. ' + category}
+                              doctorCategory={academicdegree + '. ' + academicstatus + '. ' + category + '.'}
                               doctorExp={experience}
                               doctorPrice={consultationPrice}
-                              doctorLanguages={[
-                                  {language: language},
-                                  {language: 'Русский'},
-                              ]}
+                              doctorLanguages={this.getDoctorLanguagesArr()}
                               doctorChild={isChildConsult}
-                              doctorMaps={[
-                                  {map: '«Доктор рядом» в Ховрино ул.Фестивальная, д.32'},
-                                  {map: '«Доктор рядом» в Лосиноостровском ул. летчика Бабушкина, д.42'},
-                              ]}
+                              doctorMaps={this.getDoctorMapsArr()}
                               doctorExperience={this.getDoctorExperienceArr()}
                           />
                         </Col>
@@ -132,6 +145,8 @@ const mapStateToProps = state => {
         info: state.patients.selectedPatientInfo,
         id_user: state.patients.selectedId,
         reviews: state.reviews.reviews,
+        ratingAll: state.reviews.ratingAll,
+        commentCount: state.reviews.commentCount,
         profileDoctor: state.profileDoctor,
     }
 };
@@ -141,7 +156,7 @@ const mapDispatchToProps = dispatch => {
         getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onMakeNewAppointment: (obj) => console.log(obj, "DISPATCH IS WORKING"),
-        onGetAllReviews: (doc_id) => dispatch(actions.getAllReviews(doc_id)),
+        onGetAllReviews: (doc_id) => dispatch(actions.getAllReviews(0, 7, doc_id)),
         onGetInfoDoctor: (doc_id) => dispatch(actions.getInfoDoctor(doc_id)),
     }
 };
