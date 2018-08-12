@@ -98,7 +98,7 @@ class App extends React.Component {
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
-                        <Header data={this.props.notDocPatients}
+                        <Header data={this.props.usersHeaderSearch}
                                 notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
                                 isUser={isUser}
@@ -107,7 +107,7 @@ class App extends React.Component {
                                     this.props.getDocTodayInfo();
                                 }}
                                 findName={(name) => {
-                                    this.props.onGetNotDocPatients(name)
+                                    this.props.onGetSearchUsers(name)
                                 }}
                                 getNotifId = {id => this.props.readNotification(id)}
                                 getNotifications={() =>  this.props.getNotifications(this.props.id)}
@@ -151,7 +151,7 @@ const mapStateToProps = state =>{
         id: state.auth.id,
         mode: state.auth.mode,
         shortDocInfo: state.doctor.shortInfo,
-        notDocPatients: state.patients.notDocPatients,
+        usersHeaderSearch: state.patients.usersHeaderSearch,
         isIn: state.doctor.isEx,
         isUserSet: state.doctor.isUserSetEx,
     }
@@ -162,7 +162,7 @@ const mapDispatchToProps = dispatch => {
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
         onLogout: () => dispatch(actions.logout()),
         getDocShortInfo: () => dispatch(actions.getDocShortInfo()),
-        onGetNotDocPatients: (name) => dispatch(actions.getNotDocPatients(name)),
+        onGetSearchUsers: (name) => dispatch(actions.searchUsers(name)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
         getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),

@@ -168,6 +168,26 @@ export const getNotDocPatients = (name) => {
             })
     }
 }
+export const searchUsers = (name) => {
+    return (dispatch, getState) => {
+        let obj = {
+            id: getState().auth.id,
+            filter: getState().auth.mode === "user" ? "doc" : "user",
+            name,
+        };
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDoctorOrPatientsListShortById', JSON.stringify(obj))
+            .then(rez => {
+              console.log(rez, "usersHeaderSearch");
+              dispatch({
+                    type: actionTypes.GET_RESULTS_HEADER_SEARCH,
+                    usersHeaderSearch: rez.data,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
 export const getNotPatientDoctors = (name) => {
     if (name === "" || name === " ") {
         return (dispatch) => {

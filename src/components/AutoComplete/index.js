@@ -136,7 +136,7 @@ class AutoComplete extends React.Component{
                     >
                         {(this.state.searchRes).length ? 
                             this.patientsRender(this.state.searchRes)
-                            : <div className='entry-list'>Пациентов нет</div>
+                            : <div className='entry-list'>{this.props.isUser ? "Докторов нет" : "Пациентов нет"}</div>
                         }
                     </ScrollArea>
                 </div>

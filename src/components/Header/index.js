@@ -34,6 +34,7 @@ render() {
                         onGoto = {this.props.onGoto}
                         findName= {this.props.findName}
                         data={this.props.data}
+                        isUser = {isUser}
                     />
                 </div>
                 <div className='header-call'>

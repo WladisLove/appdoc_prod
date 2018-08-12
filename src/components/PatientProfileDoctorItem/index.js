@@ -15,7 +15,7 @@ import '../../icon/style.css'
 class PatientProfileDoctorItem extends React.Component{
 
     render(){
-        const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp, doctorPrice, doctorLanguages, doctorChild } = this.props;
+        const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorPrice, doctorLanguages, doctorChild } = this.props;
         const rootClass = cn('profile__doctor-item');
 
         return (
@@ -47,7 +47,6 @@ class PatientProfileDoctorItem extends React.Component{
                             <div className='profile__doctor-item-name'>{doctorName}</div>
                             <div className='profile__doctor-item-speciality'>{doctorSpeciality}</div>
                             <div className='profile__doctor-item-category'>{doctorCategory}</div>
-                            <div className='profile__doctor-item-exp'>Стаж работы {doctorExp} лет</div>
                         </div>
                         <div className='profile__doctor-item-block'>
                             <div className='profile__doctor-item-price'>
