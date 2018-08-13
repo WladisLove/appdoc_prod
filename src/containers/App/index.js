@@ -65,14 +65,13 @@ class App extends React.Component {
     }
 
     gotoHandler = (id) => {
-		this.props.onSelectPatient(id);
-		this.props.history.push('/patient'+id);
-    }
+        this.props.auth.mode !== "user" ? this.props.history.push('/patient'+id) : this.props.history.push('/doctor'+id)
+    };
 
     logoClick = () => {
         (this.props.history.location.pathname !== "/") && this.props.history.push('/');
     }
-    
+
     render() {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
@@ -98,23 +97,29 @@ class App extends React.Component {
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
-                        <Header data={this.props.notDocPatients}
+                        <Header data={this.props.usersHeaderSearch}
                                 notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
                                 isUser={isUser}
                                 onAdd={(id, name) => {
-                                    this.props.addPatient(id, name);
-                                    this.props.getDocTodayInfo();
+                                    this.props.onAddUser(id, name);
+                                }}
+                                onDelete={(id, name) => {
+                                    this.props.onDeleteUser(id, name);
                                 }}
                                 findName={(name) => {
-                                    this.props.onGetNotDocPatients(name)
+                                    this.props.onGetSearchUsers(name)
                                 }}
                                 getNotifId = {id => this.props.readNotification(id)}
                                 getNotifications={() =>  this.props.getNotifications(this.props.id)}
                                 onChange={(flag) => this.props.switchExInterval(flag)}
                                 checked={this.props.isIn}
                                 disabled={this.props.isIn && !this.props.isUserSet}
-                                logout={this.props.onLogout}/>
+                                logout={this.props.onLogout}
+                                onEmergencySubmit = {(obj) => console.log(obj, "EMERGENCY SUBMIT")}
+                                onFreeVisitSubmit = {(obj) => console.log(obj, "FREE VISIT SUBMIT")}
+
+                        />
                     </div>
                     <div className="main-content">
                         <Switch>
@@ -151,7 +156,7 @@ const mapStateToProps = state =>{
         id: state.auth.id,
         mode: state.auth.mode,
         shortDocInfo: state.doctor.shortInfo,
-        notDocPatients: state.patients.notDocPatients,
+        usersHeaderSearch: state.patients.usersHeaderSearch,
         isIn: state.doctor.isEx,
         isUserSet: state.doctor.isUserSetEx,
     }
@@ -162,9 +167,10 @@ const mapDispatchToProps = dispatch => {
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
         onLogout: () => dispatch(actions.logout()),
         getDocShortInfo: () => dispatch(actions.getDocShortInfo()),
-        onGetNotDocPatients: (name) => dispatch(actions.getNotDocPatients(name)),
+        onGetSearchUsers: (name) => dispatch(actions.searchUsers(name)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
-        addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
+        onAddUser: (id, name) => dispatch(actions.addOrDeleteUserFromSearch(id, name, "add")),
+        onDeleteUser: (id, name) => dispatch(actions.addOrDeleteUserFromSearch(id, name, "delete")),
         getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
         getNotifications: (id) => dispatch(actions.getNotifications(id)),
         readNotification: (id) => dispatch(actions.readNotification(id)),

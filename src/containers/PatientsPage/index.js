@@ -68,7 +68,6 @@ class PatientsPage extends React.Component{
 const mapStateToProps = state => {
     return {
         info: state.patients.selectedPatientInfo,
-        id_user: state.patients.selectedId,
     }
 };
 

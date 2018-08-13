@@ -123,12 +123,13 @@ class ReviewsTree extends React.Component{
 
 
     render(){
+        console.log(this.props, "PROPS FROM REVIEWS");
         const data = this.state.data;
 
         return (
             <Card title={this.props.isOnDoctorPage ? "Отзывы": "Все отзывы"}
                   className="reviewsTree"
-                  extra={data.length}>
+                  extra={data.length ? data.length : null}>
                 <Tabs onChange={this.tabChangeHandler}
                       tabBarExtraContent={this.state.displayDP && <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
                     <TabPane tab="Все" key="all">

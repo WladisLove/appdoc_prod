@@ -17,9 +17,15 @@ import ReviewsTree from "../../components/ReviewsTree";
 class PatientsPage extends React.Component{
 
     componentWillMount(){
-        this.props.getPatientInfo(this.props.match.params.id);
         this.props.onGetAllReviews(0, this.props.match.params.id);
         this.props.onGetInfoDoctor(this.props.match.params.id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.match.params.id !== this.props.match.params.id) {
+            this.props.onGetAllReviews(0, nextProps.match.params.id);
+            this.props.onGetInfoDoctor(nextProps.match.params.id);
+        }
     }
 
     getDoctorSpecialityStr = () => {
@@ -165,7 +171,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onMakeNewAppointment: (obj) => console.log(obj, "DISPATCH IS WORKING"),
         onGetAllReviews: (numberOfRequest, doc_id) => dispatch(actions.getAllReviews(numberOfRequest, 7, doc_id)),
