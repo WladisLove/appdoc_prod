@@ -13,7 +13,7 @@ class TopPanelPatient extends React.Component{
         let panelArr = [];
 
         dataArr.map((item, index) => {
-            panelArr.push(<TopPanelPatientItem {...item} key={'top-panel-'+index}/>)
+            panelArr.push(<TopPanelPatientItem {...item} key={'top-panel-'+index} onSave={this.props.onSave}/>)
         });
 
         return panelArr;
