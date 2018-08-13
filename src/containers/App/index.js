@@ -65,9 +65,8 @@ class App extends React.Component {
     }
 
     gotoHandler = (id) => {
-		this.props.onSelectPatient(id);
-		this.props.history.push('/patient'+id);
-    }
+        this.props.auth.mode !== "user" ? this.props.history.push('/patient'+id) : this.props.history.push('/doctor'+id)
+    };
 
     logoClick = () => {
         (this.props.history.location.pathname !== "/") && this.props.history.push('/');
@@ -103,8 +102,10 @@ class App extends React.Component {
                                 onGoto={this.gotoHandler}
                                 isUser={isUser}
                                 onAdd={(id, name) => {
-                                    this.props.addPatient(id, name);
-                                    this.props.getDocTodayInfo();
+                                    this.props.onAddUser(id, name);
+                                }}
+                                onDelete={(id, name) => {
+                                    this.props.onDeleteUser(id, name);
                                 }}
                                 findName={(name) => {
                                     this.props.onGetSearchUsers(name)
@@ -168,7 +169,8 @@ const mapDispatchToProps = dispatch => {
         getDocShortInfo: () => dispatch(actions.getDocShortInfo()),
         onGetSearchUsers: (name) => dispatch(actions.searchUsers(name)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
-        addPatient: (id, name) => dispatch(actions.addPatient(id, name)),
+        onAddUser: (id, name) => dispatch(actions.addOrDeleteUserFromSearch(id, name, "add")),
+        onDeleteUser: (id, name) => dispatch(actions.addOrDeleteUserFromSearch(id, name, "delete")),
         getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
         getNotifications: (id) => dispatch(actions.getNotifications(id)),
         readNotification: (id) => dispatch(actions.readNotification(id)),

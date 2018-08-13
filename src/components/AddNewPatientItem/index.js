@@ -11,14 +11,16 @@ import '../../icon/style.css'
 
 class AddNewPatientItem extends React.Component{
 
-    onAddHandler = (e) => {
+    onAddHandler = (e, flag) => {
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
-        this.props.onAdd(this.props.id);
+
+        flag==="add" ? this.props.onAdd(this.props.id) :  this.props.onDelete(this.props.id);
     }
 
     render(){
-        const { name, age, avatar, online, isSearchItem} = this.props;
+        const { name, age, avatar, online, isSearchItem, usertype, academicdegree,
+            academicstatus, category, specialitys, favorite} = this.props;
         const rootClass = cn('new-patient-item');
 
         return (
@@ -28,20 +30,37 @@ class AddNewPatientItem extends React.Component{
                 </div>
                 <div className='new-patient-info'>
                     <div className='new-patient-name'>{name}</div>
-                    <div className='new-patient-age'>{age} лет</div>
+                    <div className='new-patient-age'>{
+                        usertype === "doc" ? (
+                            (specialitys ? specialitys.join(". ")+ ". " : "") +
+                            (academicdegree ? academicdegree+ ". " : "") +
+                            (academicstatus ? academicstatus+ ". " : "") +
+                            (category ? category + ". " : "")
+                        ) : age + " лет"} </div>
                 </div>
                 {
                     !isSearchItem && <div className='new-patient-btn'>
-                        <Button
-                            btnText=''
-                            onClick={(e) => this.onAddHandler(e)}
-                            size='file'
-                            type='file'
-                            icon='add-button'
-                            svg
-                        />
+                        {!favorite ?
+                            <Button
+                                btnText=''
+                                onClick={(e) => this.onAddHandler(e, "add")}
+                                size='file'
+                                type='file'
+                                icon='add-button'
+                                svg
+                            /> :
+                            <Button
+                                btnText=''
+                                onClick={(e) => this.onAddHandler(e, "delete")}
+                                size='file'
+                                type='file'
+                                icon='empty'
+                                svg
+                            />
+                        }
                     </div>
                 }
+
             </div>
         )
     }
@@ -55,6 +74,7 @@ AddNewPatientItem.propTypes = {
     online: PropTypes.bool,
     isSearchItem: PropTypes.bool,
     onAdd: PropTypes.func,
+    usertype: PropTypes.string
 };
 
 AddNewPatientItem.defaultProps = {

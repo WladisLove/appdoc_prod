@@ -246,6 +246,66 @@ export const addPatient = (id, name, getInfo = false) => {
             })
     }
 }
+export const addOrDeleteUserFromSearch = (id, name, flag) => {
+    return (dispatch, getState) => {
+        if (getState().auth.mode === "user") {
+            flag === "add" ?
+                axios.post(`https://178.172.235.105/~api/json/catalog.doc2/addFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
+                    .then(() => {
+                        name ? dispatch(searchUsers(name)) : null;
+                        dispatch(getPatientDoctors());
+
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+                :
+                axios.get(`https://178.172.235.105/~api/json/catalog.doc2/delFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
+                    .then(() => {
+                        name ? dispatch(searchUsers(name)) : null;
+                        dispatch(getPatientDoctors());
+
+
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+
+
+        } else {
+            if(flag === "add") {
+                let obj = {
+                    doctorID: getState().auth.id,
+                    patientID: id,
+                };
+                axios.post('https://178.172.235.105/~api/json/catalog.doc2/putPatientsByDoctorId', JSON.stringify(obj))
+                    .then(rez => {
+                        name ? dispatch(searchUsers(name)) : null;
+                        dispatch(getDocPatients())
+
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            } else {
+                axios.get('https://178.172.235.105/~api/json/catalog.doc2/removePatientFromDoctor/id/' + getState().auth.id + '/patientId/' + id)
+                    .then(rez => {
+                        name ? dispatch(searchUsers(name)) : null;
+                        dispatch(getDocPatients())
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
+
+
+        }
+
+
+    }
+};
+
+
 export const addDoctor = (id, name) => {
     return (dispatch, getState) => {
         axios.post(`https://178.172.235.105/~api/json/catalog.doc2/addFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)

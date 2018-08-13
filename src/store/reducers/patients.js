@@ -3,7 +3,6 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     docPatients: [],
     notDocPatients: [],
-    selectedId: 0,
     selectedPatientInfo:{},
     availableAreaTime: [],
 };
@@ -54,17 +53,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isReceptionRecorded: action.isReceptionRecorded,
-            }
-
-        case actionTypes.SELECT_PATIENT:
-            return {
-                ...state,
-                selectedId: action.id,
-            }
-        case actionTypes.UNSELECT_PATIENT:
-            return {
-                ...state,
-                selectedId: 0,
             }
         case actionTypes.GET_NOT_PATIENT_DOCTORS:
             return {

@@ -36,6 +36,7 @@ render() {
                 <div className='header-search'>
                     <AutoComplete
                         onAdd = {this.props.onAdd}
+                        onDelete = {this.props.onDelete}
                         onGoto = {this.props.onGoto}
                         findName= {this.props.findName}
                         data={this.props.data}

@@ -14,7 +14,6 @@ class AutoComplete extends React.Component{
         super(props);
         this.state ={
             isVisible: false,
-            tmp: 0,
             inputValue: "",
             inputFocus: false,
             itemFocus: false,
@@ -37,19 +36,21 @@ class AutoComplete extends React.Component{
     onClickHandler = (id, flag) => {
         let user;
         flag === 'goto' ? (
-            this.state.searchRes.some((el, i) => {
-                (el.id === id) ? user = el : null;
-                return el.id === id;
-            }),
-            this.input.inp.input.value = user.name,
-            this.input.setFocus(true),
-            this.props.onGoto(id),
-            this.setState({isVisible: false})
-        )
-        : (
-            this.props.onAdd(id, this.input.inp.input.value),
-            this.setState({tmp: this.state.tmp +1})
-        );
+                this.state.searchRes.some((el, i) => {
+                    (el.id === id) ? user = el : null;
+                    return el.id === id;
+                }),
+                    this.input.inp.input.value = user.name,
+                    this.input.setFocus(true),
+                    this.props.onGoto(id),
+                    this.setState({isVisible: false})
+            )
+            : flag === 'add' ? (
+                this.props.onAdd(id, this.input.inp.input.value)
+            )
+            : (
+                this.props.onDelete(id, this.input.inp.input.value)
+            );
     }
 
    
@@ -60,6 +61,7 @@ class AutoComplete extends React.Component{
         dataArr.map((item, index) => {
             patientsArr.push(<AddNewPatientItem {...item} 
                                                 onAdd = {(id) => {this.onClickHandler(id, 'add')}}
+                                                onDelete = {(id) => {this.onClickHandler(id, 'delete')}}
                                                 onGoto = {(id) => {this.onClickHandler(id, 'goto')}}
                                                 key={item.id + ''+index}/>)
         });
@@ -103,7 +105,7 @@ class AutoComplete extends React.Component{
         }
     };
     componentWillReceiveProps(nextProps){
-        this.props.data.length !== nextProps.data.length && this.setState({searchRes: nextProps.data})
+        nextProps.data.length && this.setState({searchRes: nextProps.data})
     }
 
     render() {

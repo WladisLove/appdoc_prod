@@ -84,7 +84,7 @@ class MainReview extends React.Component{
                         onClick={()=>this.props.onGotoChat(this.props.id_zap)}
                     />}
                 </div>
-                    {!this.props.isOnDoctorPage && <div className="review-answerBtn">
+                     <div className="review-answerBtn">
                     {
                         isSecondAllowed && (commentDoc ?
                             <Button btnText={this.state.showComment ? 'Скрыть ответ' : 'Посмотреть ответ'}
@@ -95,14 +95,14 @@ class MainReview extends React.Component{
                                     onClick={this.showComment}
                             />
                             :
-                            (!commentDoc && !this.state.showAnswerArea &&
+                            (!this.props.isOnDoctorPage && !commentDoc && !this.state.showAnswerArea &&
                                 <Button onClick={this.showAnswArea}
                                         btnText='Ответить'
                                         size='mini'
                                         type='blue'
                                         className='review-answerBtn-answer'/>))
                     }
-                </div>}
+                </div>
                 </div>
                 <div className="review-root-comment" style={{display: commentDisplay}}>
                     {commentDoc && <SecondaryReview date={+dateCommentDoc} text={commentDoc}/>}

@@ -17,7 +17,7 @@ export {
     clearNotPatientDoctors,
     getSelectedPatientInfo,
     searchUsers,
-
+    addOrDeleteUserFromSearch,
     sendMessage,
 } from './patients';
 
