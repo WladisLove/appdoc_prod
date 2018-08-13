@@ -92,12 +92,14 @@ class AutoComplete extends React.Component{
 
     handleKeyDown = (e) => {
         if(e.keyCode===13) {
+            if( e.target.value.length > 2 ) {
             clearTimeout(this.timer);
             this.props.findName(this.state.inputValue);
             this.setState({
                 isVisible: true,
                 searchRes: this.props.data,
             });
+            }
         }
     };
     componentWillReceiveProps(nextProps){
@@ -120,13 +122,13 @@ class AutoComplete extends React.Component{
                         placeholder='Поиск'
                         onChange={this.changeHandleSearch}
                         ref = {inp => {this.input = inp}}
-                        onKeyPress={this.handleKeyDown}
+                        onKeyDown={this.handleKeyDown}
                     />
                 </div>
                 <div className={resultClass}>
                     <div className='auto__complete-title'>
-                        Результаты поиска 
-                        <span className='auto__complete-count'>{this.state.searchRes.length}</span>
+                        Результаты поиска
+                        {this.state.searchRes.length ? <span className='auto__complete-count'>{this.state.searchRes.length}</span> : null }
                     </div>
                     <ScrollArea
                             speed={1}

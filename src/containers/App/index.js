@@ -72,7 +72,7 @@ class App extends React.Component {
     logoClick = () => {
         (this.props.history.location.pathname !== "/") && this.props.history.push('/');
     }
-    
+
     render() {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
@@ -114,7 +114,11 @@ class App extends React.Component {
                                 onChange={(flag) => this.props.switchExInterval(flag)}
                                 checked={this.props.isIn}
                                 disabled={this.props.isIn && !this.props.isUserSet}
-                                logout={this.props.onLogout}/>
+                                logout={this.props.onLogout}
+                                onEmergencySubmit = {(obj) => console.log(obj, "EMERGENCY SUBMIT")}
+                                onFreeVisitSubmit = {(obj) => console.log(obj, "FREE VISIT SUBMIT")}
+
+                        />
                     </div>
                     <div className="main-content">
                         <Switch>

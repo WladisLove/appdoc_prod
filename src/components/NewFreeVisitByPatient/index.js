@@ -54,7 +54,10 @@ class NewFreeVisitByPatientForm extends React.Component {
 
         })
     };
-
+    componentWillReceiveProps(nextProps){
+        nextProps.visible === false ? (this.setState({type: 'video',  timeStamp: null, shouldChooseTime: false}),
+            this.props.form.resetFields()) : null;
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         if(!this.state.timeStamp) {
@@ -123,6 +126,12 @@ class NewFreeVisitByPatientForm extends React.Component {
                                     </Select>
                                 )}
                             </FormItem>
+
+                            <PatientCalendarCarousel
+                                intervals = {timeIntervals}
+                                makeActive={this.getTimeStampFromCarousel}
+                                shouldChooseTime = {this.state.shouldChooseTime}
+                            />
                             <FormItem>
                                 <div className="typeOfVisit">
                                     <div className="chose-visit-type"> Выберите тип связи </div>
@@ -135,15 +144,6 @@ class NewFreeVisitByPatientForm extends React.Component {
                                 </div>
 
                             </FormItem>
-                            <PatientCalendarCarousel
-                                intervals = {timeIntervals}
-                                makeActive={this.getTimeStampFromCarousel}
-                                shouldChooseTime = {this.state.shouldChooseTime}
-                            />
-
-
-
-
 
                             <FormItem>
                                 {getFieldDecorator('comment', {

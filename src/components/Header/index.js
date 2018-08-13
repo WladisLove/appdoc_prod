@@ -11,21 +11,26 @@ import Hoc from "../Hoc"
 import './style.css'
 import '../../icon/style.css'
 import NewFreeVisitByPatient from "../NewFreeVisitByPatient";
+import NewVisitTypeModal from "../NewVisitTypeModal";
+import NewEmergencyVisit from "../NewEmergencyVisit";
 
 
 class Header extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isNewFreeVisit: false
+            isNewFreeVisit: false,
+            chooseTypeVisitVisible: false,
+            emergencyVisit: false
         };
     }
     
     handleClick = () => {
-      this.setState({isNewFreeVisit: true})
+      this.setState({chooseTypeVisitVisible: true})
     };
+
 render() {
-    const {notifications, isUser, onEmergCall, onAddVisit} = this.props;
+    const {notifications, isUser} = this.props;
         return (
             <div className={'header'}>
                 <div className='header-search'>
@@ -40,20 +45,37 @@ render() {
                     {isUser ? 
                         <Hoc>
                             <Button btnText='ЭКСТРЕННЫЙ ВЫЗОВ'
-                                onClick={onEmergCall}
                                 size='small'
                                 type='emergensy'
-                                icon='emergency-call'/>
+                                icon='emergency-call'
+                                onClick = {() => this.setState({emergencyVisit: true})}/>
                             <Button btnText='ЗАПИСАТЬСЯ НА ПРИЕМ'
                                 onClick={this.handleClick}
                                 size='small'
                                 type='float'
                                 icon='form'/>
+                            <NewVisitTypeModal
+                                visible = {this.state.chooseTypeVisitVisible}
+                                onCancel = {() => this.setState({chooseTypeVisitVisible: false})}
+                                onFree = {
+                                    () => {this.setState({
+                                        chooseTypeVisitVisible: false,
+                                        isNewFreeVisit: true
+                                    })}
+
+                                }
+                            />
                             <NewFreeVisitByPatient
                                 visible = {this.state.isNewFreeVisit}
                                 docTypes = {["Аллерголог", "Хирург", "Терапевт", "Окулист"]}
                                 onCancel = {() => this.setState({isNewFreeVisit: false})}
+                                onSubmit = {this.props.onFreeVisitSubmit}
 
+                            />
+                            <NewEmergencyVisit
+                                visible = {this.state.emergencyVisit}
+                                onCancel = {() => this.setState({emergencyVisit: false})}
+                                onSubmit = {this.props.onEmergencySubmit}
                             />
                         </Hoc> 
                         : <SwitchPanel 

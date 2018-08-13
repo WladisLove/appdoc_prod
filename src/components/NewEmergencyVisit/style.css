@@ -1,0 +1,21 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.newEmergencyVisit .ant-card-bordered {
+  border: none;
+}
+.newEmergencyVisit .ant-card-head {
+  background-color: #ef5350;
+}
+.newEmergencyVisit .new-emergency-visit-content {
+  padding: 30px;
+}

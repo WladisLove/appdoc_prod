@@ -1,0 +1,31 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.new-visit-type {
+  height: 150px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 20px;
+}
+.new-visit-type span {
+  font-size: 12px;
+  text-align: center;
+}
+.new-visit-type .new-visit-type-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.ant-modal-close-x {
+  color: #d8d9da;
+}

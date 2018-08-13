@@ -13,13 +13,14 @@
 .patient-page-new-free-visit {
   padding: 0 !important;
 }
-.patient-page-new-free-visit .ant-form-item {
-  margin-bottom: 0!important;
-}
 .patient-page-new-free-visit .chose-doc-type {
   display: inline-block;
   align-self: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+.patient-page-new-free-visit .ant-form-explain {
+  position: static;
+  top: 0;
 }
 .patient-page-new-free-visit .ant-card-body .new-visit-content {
   padding: 20px 30px;

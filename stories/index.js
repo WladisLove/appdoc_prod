@@ -57,11 +57,13 @@ const loadStories = () => {
     require('../src/components/Accordion/stories');
     require('../src/components/Radio/stories');
     require('../src/components/WarningModal/stories');
+    require('../src/components/NewVisitTypeModal/stories');
     require('../src/components/SideNav/stories');
     require('../src/components/HistoryReceptionsItem/stories');
     require('../src/components/HistoryReceptions/stories');
     require('../src/components/ReviewsTree/stories');
     require('../src/components/PersonalContactItem/stories');
+    require('../src/components/NewEmergencyVisit/stories');
     require('../src/components/PersonalContact/stories');
     require('../src/components/RateIndicator/stories');
     require('../src/components/PersonalEducationItem/stories');
