@@ -1,3 +1,6 @@
+import axios from "axios";
+import * as actionTypes from "./actionTypes";
+
 export {
     getDocPatients,
     getPatientDoctors,
@@ -68,7 +71,9 @@ export {
 
 export {
     getInfoPatient,
-    sendNewInfoPatient
+    sendNewInfoPatient,
+    sendUserPoleValue,
+    getUserInfoShort
 } from './patientData'
 
 export {

@@ -19,26 +19,28 @@ const PatientPage = props => {
                                 first: true,
                             }, {
                                 className: "",
-                                num: "35",
+                                num: props.userInfoShort.PatientAge || '—',
                                 text: "возраст",
                             }, {
                                 className: "",
-                                num: "67",
+                                num: props.userInfoShort.PatientWeight || '—',
                                 text: "вес",
                             }, {
                                 className: "",
-                                num: "168",
+                                num: props.userInfoShort.PatientHeight || '—',
                                 text: "рост",
                             }, {
                                 className: "",
-                                num: "115/70",
+                                num: props.userInfoShort.PatientPressure || '—',
                                 text: "давление",
                             }, {
                                 className: "",
-                                num: "90",
+                                num: props.userInfoShort.PatientPulse || '—',
                                 text: "пульс",
                             },
-                        ]}/>
+                        ]}
+                        onSave={props.onSendUserPoleValue}
+                    />
                 </Col>
             </Row>
             <Row>

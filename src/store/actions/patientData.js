@@ -41,3 +41,43 @@ export const getInfoPatient = (id) => {
             })
     }
 };
+
+export const sendUserPoleValue = (pole, value, id) => {
+    return (dispatch, getState) => {
+        let user;
+        id ? user = id : user = getState().auth.id;
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/reUserPole/id/' + user
+            + '/pole/' + pole + '/value/' + value)
+            .then(res => {
+                console.log("reUserPole", res);
+
+                dispatch({
+                    type: actionTypes.SEND_USER_POLE_VALUE,
+                    pole: pole.charAt(0).toUpperCase() + pole.slice(1),
+                    value: res.data.result
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
+
+export const getUserInfoShort = (id) => {
+    return (dispatch, getState) => {
+        let user;
+        id ? user = id : user = getState().auth.id;
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/userInfoShort/id/' + user)
+            .then(res => {
+                console.log("userInfoShort", res);
+
+                dispatch({
+                    type: actionTypes.GET_USER_INFO_SHORT,
+                    userInfoShort: res.data.result,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};

@@ -15,6 +15,11 @@ class TopPanelPatientItem extends React.Component{
 
     state = {
         visible: false,
+        inputValue: ""
+    };
+
+    updateInputValue = (evt) => {
+        this.setState({inputValue: evt.target.value})
     };
 
     handleVisibleChange = (visible) => {
@@ -24,6 +29,23 @@ class TopPanelPatientItem extends React.Component{
     handleClose = () => {
         this.props.onClose();
         this.setState({visible: false})
+    };
+
+    handleValueSave = (title, value) => {
+        let pole;
+        switch(title) {
+            case "возраст": { pole = "age"; break; }
+            case "вес": { pole = "weight"; break; }
+            case "рост": { pole = "height"; break; }
+            case "давление": { pole = "pressure"; break; }
+            case "пульс": { pole = "pulse"; break; }
+        }
+
+        this.props.onSave(pole, value);
+        this.setState({
+            visible: false,
+            inputValue: ""
+        });
     };
 
     render(){
@@ -69,8 +91,9 @@ class TopPanelPatientItem extends React.Component{
                                 content={
                                     <TopPanelPatientPopover title={text} 
                                                             onClose={this.handleClose}
-
-
+                                                            onSave={this.handleValueSave}
+                                                            onChange={this.updateInputValue}
+                                                            inputValue={this.state.inputValue}
                                 />}
                                 style = {{zIndex: "9!important"}}
                                 visible={this.state.visible}
@@ -99,9 +122,13 @@ class TopPanelPatientItem extends React.Component{
 TopPanelPatientItem.propTypes ={
     first: PropTypes.bool,
     text: PropTypes.string,
-    num: PropTypes.string,
+    num: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
     title: PropTypes.string,
     onClose: PropTypes.func,
+    onSave: PropTypes.func,
     data: PropTypes.object,
 }
 
@@ -110,6 +137,7 @@ TopPanelPatientItem.defaultProps = {
     num: '',
     title: '',
     onClose: () => {},
+    onSave: () => {},
     data: {},
     first: false,
 }

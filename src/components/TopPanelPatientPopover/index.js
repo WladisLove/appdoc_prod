@@ -25,10 +25,11 @@ const TopPanelPatientPopover = (props) => {
             <div className='panel-popover-date'>{ date.toLocaleString("ru", options)}</div>
             <div className='panel-popover-title'>Введите свой актуальный {title}</div>
             <div className='panel-popover-input'>
-                <Input placeholder={'Введите ' + title}/>
+                <Input placeholder={'Введите ' + title} value={props.inputValue} onChange={evt => props.onChange(evt)}/>
             </div>
             <div className='panel-popover-btn'>
                 <Button
+                    onClick={(title, value) => props.onSave(props.title, props.inputValue)}
                     btnText='ОК'
                     size='default'
                     type='float'

@@ -8,10 +8,18 @@ let  profilePatient = {
     "sex": "",
     "active" :'1',
     "avatar" : null,
-    "chronic" : [],
+    "chronic" : []
 };
 
-const initialState = profilePatient;
+let userInfoShort = {
+    "PatientAge": 0,
+    "PatientWeight": "",
+    "PatientHeight": "",
+    "PatientPressure": "",
+    "PatientPulse": ""
+};
+
+const initialState = {...profilePatient, ...userInfoShort};
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
@@ -23,6 +31,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.profilePatient
+            };
+
+        case actionTypes.SEND_USER_POLE_VALUE:
+            return {
+                ...state,
+                ["Patient" + action.pole]: action.value
+            };
+
+        case actionTypes.GET_USER_INFO_SHORT:
+            return {
+                ...state,
+                ...action.userInfoShort
             };
 
         default: return state;
