@@ -21,6 +21,7 @@ const PatientPage = props => {
                                 className: "",
                                 num: props.userInfoShort.PatientAge || '—',
                                 text: "возраст",
+                                notChangeable: true,
                             }, {
                                 className: "",
                                 num: props.userInfoShort.PatientWeight || '—',

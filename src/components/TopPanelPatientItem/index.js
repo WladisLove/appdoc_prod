@@ -50,7 +50,7 @@ class TopPanelPatientItem extends React.Component{
 
     render(){
 
-        const { num, text, first} = this.props;
+        const { num, text, first, notChangeable} = this.props;
         let date = new Date();
 
         let options = {
@@ -87,7 +87,7 @@ class TopPanelPatientItem extends React.Component{
                         <div className='panel-patient-item'>
                             <div className='panel-patient-num'>{num}</div>
                             <div className='panel-patient-text'>{text}</div>
-                            <Popover 
+                            {!notChangeable && <Popover
                                 content={
                                     <TopPanelPatientPopover title={text} 
                                                             onClose={this.handleClose}
@@ -109,7 +109,7 @@ class TopPanelPatientItem extends React.Component{
                                         svg
                                     /> 
                                 </div>
-                            </Popover> 
+                            </Popover> }
                         </div>
                     }
                 </div>
