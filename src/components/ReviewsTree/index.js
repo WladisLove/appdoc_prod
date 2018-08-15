@@ -7,6 +7,7 @@ import Tabs from '../Tabs'
 import DatePicker from '../DatePicker'
 import Button from '../Button'
 import Spinner from '../Spinner'
+import moment from 'moment'
 
 import './style.css'
 const TabPane = Tabs.TabPane;
@@ -15,89 +16,92 @@ class ReviewsTree extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            tab: "allTab",
+            loadingReviewsFor: "allTab",
             displayDP: false,
             range: [],
-            data: [],
-            todayRevs: [],
-            periodRevs: [],
-            numberOfRequest: 0,
-            loadingData: true,
-            isShowMoreBtnEnabled: true
+            allTab: {
+                reviews: [],
+                numberOfRequest: 0,
+                isShowMoreBtnEnabled: true,
+            },
+            todayTab: {
+                reviews: [],
+                numberOfRequest: 0,
+                isShowMoreBtnEnabled: true,
+            },
+            periodTab: {
+                reviews: [],
+                numberOfRequest: 0,
+                isShowMoreBtnEnabled: false,
+            }
         };
-    }
-
-    sortToday = () => {
-        let curDate = (new Date()).getDate();
-
-        return this.state.data.filter((item) => {
-            return curDate === new Date(+item.date * 1000).getDate();
-        });
     };
 
-    sortPeriod = (period = this.state.range) => {
-        const [start, end] = period;
+    loadMoreData = (tab) => {
+        if (!this.state.loadingReviewsFor) {
+            this.setState({loadingReviewsFor: tab});
 
-        return this.state.data.filter((item) => {
-            let date = new Date(+item.date * 1000);
-            return date > start && date < end;
-        });
-    };
-
-    loadMoreData = () => {
-        if (!this.state.loadingData) {
-            this.props.onShowMore(this.state.numberOfRequest);
-            this.setState({loadingData: true});
+            if (tab === "allTab")
+                this.props.onShowMore(this.state[tab].numberOfRequest, this.props.limit);
+            else if (tab === "todayTab") {
+                let todayStart = moment(+new Date()).startOf('day').format('X');
+                let todayEnd = moment(+new Date()).endOf('day').format('X');
+                this.props.onShowMore(this.state[tab].numberOfRequest, this.props.limit, todayStart, todayEnd);
+            }
+            else if (tab === "periodTab" && this.state.range.length) {
+                let [start, end] = this.state.range;
+                this.props.onShowMore(this.state[tab].numberOfRequest, this.props.limit, start / 1000, end / 1000);
+            }
+            else this.setState({loadingReviewsFor: ""});
         }
-        else return null;
     };
 
     componentWillUpdate(nextProps){
-        if (nextProps.data !== this.props.data){
-            let newData = this.state.data;
-            newData.push(...nextProps.data);
-
-            let todayRevs = this.sortToday();
-            let periodRevs = this.sortPeriod();
-
-            this.setState({
-                todayRevs: todayRevs,
-                periodRevs: periodRevs,
-                numberOfRequest: this.state.numberOfRequest + 1,
-                loadingData: false,
-                data: newData
-            });
-
-            if (nextProps.data.length < this.props.limit)
-                this.setState({isShowMoreBtnEnabled: false});
-        }
-    }
+        const loadingTab = this.state.loadingReviewsFor;
+            if (loadingTab && nextProps.data !== this.props.data) {
+                this.setState({
+                    [loadingTab]: {
+                        reviews: [...this.state[loadingTab].reviews, ...nextProps.data],
+                        numberOfRequest: this.state[loadingTab].numberOfRequest + 1,
+                        isShowMoreBtnEnabled: nextProps.data.length >= this.props.limit
+                    },
+                    loadingReviewsFor: ""
+                });
+            }
+    };
 
     tabChangeHandler = (tab) => {
-        tab === 'period' ? this.setState({displayDP: true}) : this.setState({displayDP: false});
+        this.setState({tab: tab});
+        this.setState({displayDP: tab === "periodTab"});
+        if (!this.state[tab].numberOfRequest)
+            this.loadMoreData(tab);
     };
 
     dpHandler = (range) => {
-        this.setState(prev => ({
-            periodRevs: this.sortPeriod(range),
-            range
-        }));
+        this.setState({
+            periodTab: {
+                reviews: [],
+                numberOfRequest: 0,
+                isShowMoreBtnEnabled: false
+            },
+            range: range,
+        }, () => this.loadMoreData("periodTab"));
     };
 
-    renderShowMoreBtn = () => {
-        if (this.state.isShowMoreBtnEnabled){
-            return (
-                <div style={{textAlign: 'center',}} key="btn">
-                    <Button btnText='Показать еще'
-                            size='link'
-                            type='link'
-                            icon='circle_arrow_down'
-                            onClick={this.loadMoreData}/>
-                </div>);
-        }
+    renderShowMoreBtn = (refreshBtn) => {
+        return (
+            <div style={{textAlign: 'center'}} key="btn">
+                <Button btnText={refreshBtn ? 'Нет отзывов. Нажмите чтобы обновить' : 'Показать еще'}
+                        size='link'
+                        type='link'
+                        icon={refreshBtn ? 'circle_close' : 'circle_arrow_down'}
+                        onClick={() => this.loadMoreData(this.state.tab)}/>
+            </div>);
     };
 
     renderSpinner = () => {
-        return (<div style={{textAlign: 'center',}} key="btn">
+        return (<div style={{textAlign: 'center'}} key="spinner">
             <Spinner/>
         </div>);
     };
@@ -113,34 +117,34 @@ class ReviewsTree extends React.Component{
                                 onSend={this.props.onSend}/>)
         });
 
-        if (this.state.loadingData)
+        if (this.state.loadingReviewsFor)
             arr.push(this.renderSpinner());
-        else if (this.state.isShowMoreBtnEnabled)
-            arr.push(this.renderShowMoreBtn());
+        else if (this.state[this.state.tab].isShowMoreBtnEnabled)
+            arr.push(this.renderShowMoreBtn(false));
+        else if (!this.state[this.state.tab].reviews.length)
+            arr.push(this.renderShowMoreBtn(true));
 
         return arr;
     };
 
 
-    render(){
-        console.log(this.props, "PROPS FROM REVIEWS");
-        const data = this.state.data;
-
+    render() {
         return (
-            <Card title={this.props.isOnDoctorPage ? "Отзывы": "Все отзывы"}
+            <Card title={this.props.isOnDoctorPage ? "Отзывы" : "Все отзывы"}
                   className="reviewsTree"
-                  extra={data.length ? data.length : null}>
+                  extra={this.props.numberOfReviews}>
                 <Tabs onChange={this.tabChangeHandler}
-                      tabBarExtraContent={this.state.displayDP && <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
-                    <TabPane tab="Все" key="all">
-                        {this.renderRevs(data)}
-                        </TabPane>
-                    <TabPane tab="За сегодня" key="today">
-                        {this.renderRevs(this.state.todayRevs)}
-                        </TabPane>
-                    <TabPane tab="За период" key="period">
-                        {this.renderRevs(this.state.periodRevs)}
-                        </TabPane>
+                      tabBarExtraContent={this.state.displayDP &&
+                      <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
+                    <TabPane tab="Все" key="allTab">
+                        {this.renderRevs(this.state.allTab.reviews)}
+                    </TabPane>
+                    <TabPane tab="За сегодня" key="todayTab">
+                        {this.renderRevs(this.state.todayTab.reviews)}
+                    </TabPane>
+                    <TabPane tab="За период" key="periodTab">
+                        {this.renderRevs(this.state.periodTab.reviews)}
+                    </TabPane>
                 </Tabs>
             </Card>
         )
@@ -150,15 +154,19 @@ class ReviewsTree extends React.Component{
 ReviewsTree.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
     limit: PropTypes.number,
+    numberOfReviews: PropTypes.number,
+    onShowMore: PropTypes.func,
+    onSend: PropTypes.func,
     isOnDoctorPage: PropTypes.bool,
-    onSend: PropTypes.func
 };
 
 ReviewsTree.defaultProps = {
     data: [],
     limit: 3,
-    isOnDoctorPage: false,
-    onSend: () => {}
+    numberOfReviews: 0,
+    onShowMore: () => {},
+    onSend: () => {},
+    isOnDoctorPage: false
 };
 
 export default ReviewsTree
