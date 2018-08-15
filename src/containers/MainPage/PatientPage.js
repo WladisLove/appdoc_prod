@@ -34,6 +34,7 @@ const PatientPage = props => {
                                 className: "",
                                 num: props.userInfoShort.PatientPressure || '—',
                                 text: "давление",
+                                doubleValueInput: true,
                             }, {
                                 className: "",
                                 num: props.userInfoShort.PatientPulse || '—',
