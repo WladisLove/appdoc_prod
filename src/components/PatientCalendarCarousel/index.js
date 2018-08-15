@@ -88,19 +88,23 @@ class PatientCalendarCarousel extends React.Component {
             for (let i = 0; i < intervals.length; i++) {
                 let time = [];
                 if (intervals[i].intervalOb.length) {
-                    headers.push(moment(this.props.intervals[i].date * 1000).format('ddd D MMMM'));
                     for (let j = 0; j < intervals[i].intervalOb.length; j++) {
                         for (let t = +intervals[i].intervalOb[j].start; t < +intervals[i].intervalOb[j].end; t += intervals[i].interval * 60) {
-                            time.push({
-                                timeToDisplay: moment(+t * 1000).format('H:mm'),
-                                timestamp: +t,
-                                type: intervals[i].type,
-                                isActive: intervals[i].intervalOb[j].active,
-                                isAfterAnalyses: +intervals[i].interval === 5
-                            });
+                            if(+t >= +moment().format("X")+1800) {
+                                time.push({
+                                    timeToDisplay: moment(+t * 1000).format('H:mm'),
+                                    timestamp: +t,
+                                    type: intervals[i].type,
+                                    isActive: intervals[i].intervalOb[j].active,
+                                    isAfterAnalyses: +intervals[i].interval === 5
+                                });
+                            }
                         }
                     }
-                    timeIntervals.push(time);
+                    if(time.length) {
+                        headers.push(moment(this.props.intervals[i].date * 1000).format('ddd D MMMM'));
+                        timeIntervals.push(time);
+                    }
                 }
             }
         }
