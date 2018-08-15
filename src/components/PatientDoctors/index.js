@@ -1,19 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import cn from 'classnames'
-import moment from 'moment'
-
-import Button from '../Button'
-import Icon from '../Icon'
-import RatePanel from '../RatePanel'
-import ProfileAvatar from '../ProfileAvatar'
 
 import './style.css'
 import '../../icon/style.css'
-import PatientCalendarCarousel from "../PatientCalendarCarousel";
-import PatientPageDoctorItem from "../PatientPageDoctorItem";
 import PatientDoctorsHeader from "../PatientDoctorsHeader";
 import PatientDoctorsItem from "../PatientDoctorsItem";
+import {search} from '../../helpers/searching'
 
 
 
@@ -43,11 +35,7 @@ class PatientDoctors extends React.Component {
 
     searchDoctorsByName = (name) => {
         if (name) {
-            let foundedDoctors = [];
-            for (let i = 0; i < this.props.data.length; i++){
-                if (this.props.data[i].doctorName.toLowerCase().indexOf(name.toLowerCase()) !== -1)
-                    foundedDoctors.push(this.props.data[i]);}
-            this.setState({data: foundedDoctors});
+            this.setState({data: search(name, this.props.data)});
         }
         else this.setState({data: this.props.data});
     };

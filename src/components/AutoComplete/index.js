@@ -40,8 +40,7 @@ class AutoComplete extends React.Component{
                     (el.id === id) ? user = el : null;
                     return el.id === id;
                 }),
-                    this.input.inp.input.value = user.name,
-                    this.input.setFocus(true),
+                    this.input.inp.input.value = "",
                     this.props.onGoto(id),
                     this.setState({isVisible: false})
             )
@@ -69,19 +68,11 @@ class AutoComplete extends React.Component{
         return patientsArr;
     };
 
-    /*shouldComponentUpdate(nextProps){
-        console.log(this.props.data.length)
-        console.log(nextProps.data.length)
-        return this.props.data.length !== nextProps.data.length
-    }*/
     changeHandleSearch = (e) => {
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
         e.target.value.length > 2 ?  this.timer = setTimeout(this.triggerChange, 800) : null;
 
-            // e.target.value.length === 0 && this.setState({
-            //     isVisible: false,
-            // })
 
     };
     triggerChange = () => {

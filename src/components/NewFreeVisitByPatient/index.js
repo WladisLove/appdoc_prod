@@ -24,7 +24,10 @@ class NewFreeVisitByPatientForm extends React.Component {
         this.state = {
             type: "video",
             timeStamp: null,
-            shouldChooseTime: false
+            shouldChooseTime: false,
+            isCarouselVisible: false,
+            isTypeVisible: false,
+            docs: []
         }
     }
 
@@ -46,16 +49,21 @@ class NewFreeVisitByPatientForm extends React.Component {
         return icons;
     };
 
-    getTimeStampFromCarousel = (timeStamp, type) => {
-        if(timeStamp) {this.setState({shouldChooseTime: false})}
+    getTimeStampFromCarousel = (timeStamp, type, docs) => {
+        if(timeStamp) {this.setState({shouldChooseTime: false, isTypeVisible: true})}
         this.setState({
             timeStamp,
             type,
-
+            docs: docs ? docs.split(" ") : null
         })
     };
     componentWillReceiveProps(nextProps){
-        nextProps.visible === false ? (this.setState({type: 'video',  timeStamp: null, shouldChooseTime: false}),
+        nextProps.visible === true && this.props.visible===false ? (this.setState({
+            type: 'video',  timeStamp: null,
+            shouldChooseTime: false,
+            isCarouselVisible: false,
+            isTypeVisible: false
+        }),
             this.props.form.resetFields()) : null;
     }
     handleSubmit = (e) => {
@@ -68,22 +76,28 @@ class NewFreeVisitByPatientForm extends React.Component {
             if (!err) {
                 let obj = {
                     type: values.type,
-                    timeStamp: this.state.timeStamp,
-                    docType: values.docType
+                    date: this.state.timeStamp,
+                    free: "1"
+                };
+
+                if(this.state.docs.length) {
+
+                    let rand = Math.floor(Math.random() * this.state.docs.length);
+                    obj.id_doc = this.state.docs[rand];
                 }
 
                 values.comment ? obj.comment=values.comment : null;
 
                 if(values.file) {
-                    obj.file = values.file.fileList.map((item, index) => { return {name: item.name, thumbUrl: item.thumbUrl}})
+                    obj.file = values.file.fileList.map((item, index) => { return {name: item.name, thumbUrl: item.originFileObj.thumbUrl}})
                 }
-                console.log(obj, "makeNewAppointment")
+                this.props.onMakeFreeVisit(obj);
+                this.props.onCancel();
             } else { console.log(err, "ERROR")}
 
         });
     };
     modifyFiles = (file) => {
-        console.log(file);
         if(!file.thumbUrl && !file.modify){
             file.modify = true;
             previewFile(file, function (previewDataUrl) {
@@ -91,7 +105,15 @@ class NewFreeVisitByPatientForm extends React.Component {
             });
         }
     };
-
+    refactorIntervals = (intervals) => {
+        if(typeof intervals === "object" && intervals !==null) {
+            let array = [];
+            for(let key in intervals) {
+                array.push({[key]: intervals[key]})
+            };
+            return array;
+        }
+    }
     renderOptions = () => {
         return this.props.docTypes.map((docType, i) => {
             return (
@@ -100,16 +122,22 @@ class NewFreeVisitByPatientForm extends React.Component {
                     {docType}</Select.Option>)
         })
     };
+    handleSelectChange = (speciality) => {
+        this.props.getFreeVisitIntervals(speciality);
+        !this.state.isCarouselVisible && this.setState({isCarouselVisible: true})
+    };
+    onCancel = () => {
+
+        this.props.onCancel();
+    };
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {visible, onCancel} = this.props;
+        const {visible} = this.props;
 
         return (
             <Modal visible={visible}
-                   onCancel={onCancel}
+                   onCancel={this.onCancel}
             >
-            <Form onSubmit={this.handleSubmit}
-                  className="NewFreeVisitByPatient">
                 <div className='patient-page-new-free-visit'>
                     <Card>
                         <div className="new-visit-content">
@@ -121,18 +149,22 @@ class NewFreeVisitByPatientForm extends React.Component {
                                         message: 'Выберете тип доктора'
                                     }]
                                 })(
-                                    <Select placeholder="Категория врача">
+                                    <Select placeholder="Категория врача"
+                                            onChange={this.handleSelectChange}
+
+                                    >
                                         {this.renderOptions()}
                                     </Select>
                                 )}
                             </FormItem>
 
-                            <PatientCalendarCarousel
-                                intervals = {timeIntervals}
+                            {this.state.isCarouselVisible && <PatientCalendarCarousel
+                                intervals = {this.refactorIntervals(this.props.freeVisitsIntervals)}
                                 makeActive={this.getTimeStampFromCarousel}
                                 shouldChooseTime = {this.state.shouldChooseTime}
-                            />
-                            <FormItem>
+                                isOnFreeAppointments = {true}
+                            />}
+                            {this.state.isTypeVisible && <FormItem>
                                 <div className="typeOfVisit">
                                     <div className="chose-visit-type"> Выберите тип связи </div>
                                     {getFieldDecorator('type', {
@@ -143,7 +175,7 @@ class NewFreeVisitByPatientForm extends React.Component {
                                     )}
                                 </div>
 
-                            </FormItem>
+                            </FormItem>}
 
                             <FormItem>
                                 {getFieldDecorator('comment', {
@@ -164,11 +196,13 @@ class NewFreeVisitByPatientForm extends React.Component {
                             <Button size='default'
                                     btnText={`Записаться ${this.state.timeStamp ? `на ${moment(this.state.timeStamp*1000).format("D MMMM H:mm")}`:``}`}
                                     htmlType="submit"
-                                    type='float'/>
+                                    type='float'
+                                    onClick={this.handleSubmit}
+
+                            />
                         </div>
                     </Card>
                 </div>
-            </Form>
             </Modal>
         )
     }

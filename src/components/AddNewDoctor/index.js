@@ -37,7 +37,8 @@ class AddNewDoctor extends React.Component{
     handleChange = (e) => {
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
-        this.timer = setTimeout(this.triggerChange, 800);
+        e.target.value.length > 2 ?  this.timer = setTimeout(this.triggerChange, 800) : null;
+
     };
 
     triggerChange = () => {
@@ -45,10 +46,13 @@ class AddNewDoctor extends React.Component{
     };
 
     handleKeyDown = (e) => {
-        if(e.keyCode===13) {
-         clearTimeout(this.timer);
-            this.props.onSearch(this.state.inputValue);
+        if(e.keyCode===13 && e.target.value.length > 2) {
+        clearTimeout(this.timer);
+        this.props.onSearch(this.state.inputValue);
         }
+    };
+    handleSearch = (e) => {
+        if (this.state.inputValue.length > 2) this.props.onSearch(this.state.inputValue);
     };
     render(){
         const {visible, onCancel} = this.props;
@@ -63,7 +67,7 @@ class AddNewDoctor extends React.Component{
                     <div className='new-doctor-search'>
                         <Input.Search placeholder="Введите ФИО доктора"
                                     ref={inp => this.inp = inp}
-                                    onSearch={value => this.props.onSearch(value)}
+                                    onSearch={this.handleSearch}
                                     onChange={this.handleChange}
                                     onKeyDown={this.handleKeyDown}
                                     value={this.state.inputValue}  />

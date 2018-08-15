@@ -48,6 +48,23 @@ export const getAllIntervals = (start, end) => {
             });
     }
 }
+export const getFreeVisitsBySpec = (spec) => {
+    return (dispatch, getState) => {
+
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getFreeDoc',
+                    JSON.stringify({speciality: spec}))
+            .then(res => {
+                console.log('[ALL FREE INTERVALS]',res.data.result)
+                dispatch({
+                    type: actionTypes.GET_INTERVALS_FOR_FREE_VISITS,
+                    intervals: res.data.result,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+}
 
 export const clearIntervals = () => {
 

@@ -118,6 +118,9 @@ class App extends React.Component {
                                 logout={this.props.onLogout}
                                 onEmergencySubmit = {(obj) => console.log(obj, "EMERGENCY SUBMIT")}
                                 onFreeVisitSubmit = {(obj) => console.log(obj, "FREE VISIT SUBMIT")}
+                                getFreeVisitIntervals = {(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
+                                freeVisitsIntervals = {this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
+                                onMakeFreeVisit = {this.props.onMakeFreeVisit}
 
                         />
                     </div>
@@ -159,6 +162,7 @@ const mapStateToProps = state =>{
         usersHeaderSearch: state.patients.usersHeaderSearch,
         isIn: state.doctor.isEx,
         isUserSet: state.doctor.isUserSetEx,
+        freeVisitsIntervals: state.schedules.freeVisitsIntervals
     }
 }
 
@@ -175,7 +179,9 @@ const mapDispatchToProps = dispatch => {
         getNotifications: (id) => dispatch(actions.getNotifications(id)),
         readNotification: (id) => dispatch(actions.readNotification(id)),
         setExInfo: ({isIn, isUserSet}) => dispatch(actions.setExIntervalInfo(isIn, isUserSet)),
-        switchExInterval: (flag) => dispatch(actions.switchExInterval(flag))
+        switchExInterval: (flag) => dispatch(actions.switchExInterval(flag)),
+        onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
+        onMakeFreeVisit: (info)=> {dispatch(actions.setReceptionByPatient(info))}
 	}
 };
 

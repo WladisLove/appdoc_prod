@@ -44,6 +44,7 @@ export {
     getAllPatientVisits,
     getCountNearVisits,
     getTodayVisits,
+    getFreeVisitsBySpec,
 } from './schedules';
 export {
     getActualTreatments,
