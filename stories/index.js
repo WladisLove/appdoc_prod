@@ -135,6 +135,12 @@ const loadStories = () => {
     require('../src/components/Header/stories');
     require('../src/components/AutoComplete/stories');
     require('../src/components/Spinner/stories');
+    require('../src/components/PopoverRemedy/stories');
+    require('../src/components/PopoverRemedyAccardion/stories');
+    require('../src/components/PopoverRemedyItem/stories');
+    require('../src/components/CompletionAdmission/stories');
+    require('../src/components/PopoverRemedyButton/stories');
+    require('../src/components/MapsModal/stories');
 };
 
 configure(loadStories, module);
