@@ -69,9 +69,12 @@ render() {
                             />
                             <NewFreeVisitByPatient
                                 visible = {this.state.isNewFreeVisit}
-                                docTypes = {["Аллерголог", "Хирург", "Терапевт", "Окулист"]}
+                                docTypes = {["HIRURG","Аллерголог", "Хирург", "Терапевт", "Окулист"]}
                                 onCancel = {() => this.setState({isNewFreeVisit: false})}
-                                onSubmit = {this.props.onFreeVisitSubmit}
+                                onSubmit = {this.props.onMakeFreeVisit}
+                                getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
+                                freeVisitsIntervals = {this.props.freeVisitsIntervals}
+                                onMakeFreeVisit = {this.props.onMakeFreeVisit}
 
                             />
                             <NewEmergencyVisit

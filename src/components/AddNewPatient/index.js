@@ -27,10 +27,33 @@ class AddNewPatient extends React.Component{
     };
 
     componentWillReceiveProps(nextProps){
-        (nextProps.visible === false && this.inp) ? this.inp.input.input.value = '' : null;
+        nextProps.visible === false ? this.state.inputValue = '' : null;
     }
 
+    componentWillMount() {
+        this.timer = null;
+    }
 
+    handleChange = (e) => {
+        this.setState({inputValue: e.target.value});
+        clearTimeout(this.timer);
+        e.target.value.length > 2 ?  this.timer = setTimeout(this.triggerChange, 800) : null;
+
+    };
+
+    triggerChange = () => {
+        this.props.onSearch(this.state.inputValue)
+    };
+
+    handleKeyDown = (e) => {
+        if(e.keyCode===13 && e.target.value.length > 2) {
+            clearTimeout(this.timer);
+            this.props.onSearch(this.state.inputValue);
+        }
+    };
+    handleSearch = (e) => {
+        if (this.state.inputValue.length > 2) this.props.onSearch(this.state.inputValue);
+    };
     render(){
         this.inp && console.log(this.inp.input.input.value)
 
@@ -46,7 +69,10 @@ class AddNewPatient extends React.Component{
                     <div className='new-patient-search'>
                         <Input.Search placeholder="Введите ФИО пациента" 
                                     ref={inp => this.inp = inp}
-                                    onSearch={value => this.props.onSearch(value)}/>
+                                      onSearch={this.handleSearch}
+                                      onChange={this.handleChange}
+                                      onKeyDown={this.handleKeyDown}
+                                      value={this.state.inputValue} />
                     </div>
                     <div className='new-patient-title'>Результаты поиска</div>
                     <ScrollArea

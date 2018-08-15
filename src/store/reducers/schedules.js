@@ -33,6 +33,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 allUserVisits: action.allUserVisits,
             }
+        case actionTypes.GET_INTERVALS_FOR_FREE_VISITS:
+            return {
+                ...state,
+                freeVisitsIntervals: action.intervals,
+            }
 
         case actionTypes.CLEAR_INTERVALS:
             return {
