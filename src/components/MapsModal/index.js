@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-import { Modal as AntModal } from 'antd';
 import Icon from '../Icon'
+import Modal from '../Modal'
 import './styles.css'
 
-class Modal extends React.Component{
+class MapsModal extends React.Component{
 
     render(){
         const {visible, title, warning, width} = this.props;
         
         return (
-            <AntModal visible={visible}
+            <Modal visible={visible}
                       title={title}
                       width={width}
                       footer={null}
@@ -21,12 +21,12 @@ class Modal extends React.Component{
             >
                 {warning && <Icon type="caution" svg size={24}/>}
                 {this.props.children}
-            </AntModal>
+            </Modal>
         )
     }
 }
 
-Modal.propTypes = {
+MapsModal.propTypes = {
     visible: PropTypes.bool,
     title: PropTypes.string,
     width: PropTypes.number,
@@ -34,12 +34,12 @@ Modal.propTypes = {
     onCancel: PropTypes.func,
 };
 
-Modal.defaultProps = {
+MapsModal.defaultProps = {
     visible: false,
     title: '',
-    width: 395,
+    width: 400,
     warning: false,
     onCancel: () => {},
 };
 
-export default Modal
+export default MapsModal
