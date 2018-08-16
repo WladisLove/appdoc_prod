@@ -15,11 +15,24 @@ class TopPanelPatientItem extends React.Component{
 
     state = {
         visible: false,
-        inputValue: ""
+        inputValue: "",
+        inputValue2: ""
     };
 
-    updateInputValue = (evt) => {
-        this.setState({inputValue: evt.target.value})
+    checkInputValidity = (value) => {
+        return value.match(/^-?\d*\.?\d*$/)
+            && value < 1000
+            && (value.indexOf('.') === -1 || value.indexOf('.') >= value.length - 2);
+    };
+
+    updateInputValue = (evt, fieldNumber) => {
+        let value = evt.target.value;
+        let currentField = "inputValue" + (fieldNumber ? fieldNumber : "");
+
+        value = value.replace(/,/g, '.');
+        value === '.' || value === '0' ? value = "" : null;
+        console.log(value.indexOf('.'));
+        this.setState({[currentField]: this.checkInputValidity(value) ? value : this.state[currentField]});
     };
 
     handleVisibleChange = (visible) => {
@@ -34,23 +47,28 @@ class TopPanelPatientItem extends React.Component{
     handleValueSave = (title, value) => {
         let pole;
         switch(title) {
-            case "возраст": { pole = "age"; break; }
             case "вес": { pole = "weight"; break; }
             case "рост": { pole = "height"; break; }
             case "давление": { pole = "pressure"; break; }
             case "пульс": { pole = "pulse"; break; }
         }
 
-        this.props.onSave(pole, value);
+        value.indexOf('.') === value.length - 1 ? value = value.slice(0, value.indexOf('.')) : null;
+
+        if (!this.props.doubleValueInput || (this.state.inputValue && this.state.inputValue2))
+            this.props.onSave(pole, value);
+        else this.props.onSave(pole, "");
+
         this.setState({
             visible: false,
-            inputValue: ""
+            inputValue: "",
+            inputValue2: ""
         });
     };
 
     render(){
 
-        const { num, text, first, notChangeable} = this.props;
+        const { num, text, first, notChangeable, doubleValueInput} = this.props;
         let date = new Date();
 
         let options = {
@@ -94,6 +112,8 @@ class TopPanelPatientItem extends React.Component{
                                                             onSave={this.handleValueSave}
                                                             onChange={this.updateInputValue}
                                                             inputValue={this.state.inputValue}
+                                                            doubleValueInput={doubleValueInput}
+                                                            inputValue2={this.state.inputValue2}
                                 />}
                                 style = {{zIndex: "9!important"}}
                                 visible={this.state.visible}
@@ -130,6 +150,7 @@ TopPanelPatientItem.propTypes ={
     onClose: PropTypes.func,
     onSave: PropTypes.func,
     data: PropTypes.object,
+    doubleValueInput: PropTypes.bool
 }
 
 TopPanelPatientItem.defaultProps = {
@@ -140,6 +161,7 @@ TopPanelPatientItem.defaultProps = {
     onSave: () => {},
     data: {},
     first: false,
+    doubleValueInput: false
 }
 
 export default TopPanelPatientItem

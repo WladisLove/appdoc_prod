@@ -20,16 +20,34 @@ const TopPanelPatientPopover = (props) => {
       timezone: 'UTC'
     };
 
+    let saveFunc = () => {
+        return props.onSave(props.title, props.inputValue
+            + (props.doubleValueInput && props.inputValue2 ? "/" + props.inputValue2 : ""));
+    };
+
     return (
         <div className='panel-popover'>  
             <div className='panel-popover-date'>{ date.toLocaleString("ru", options)}</div>
-            <div className='panel-popover-title'>Введите свой актуальный {title}</div>
+            <div className='panel-popover-title'>{ !props.doubleValueInput ? "Введите свой актуальный " + title : "Введите свое актуальное " + title }</div>
             <div className='panel-popover-input'>
-                <Input placeholder={'Введите ' + title} value={props.inputValue} onChange={evt => props.onChange(evt)}/>
+                <Input type="text"
+                       placeholder={!props.doubleValueInput ? 'Введите ' + title : ""}
+                       value={props.inputValue}
+                       onChange={evt => props.onChange(evt)}
+                       onPressEnter={saveFunc}
+                       autoFocus
+                />
+                {props.doubleValueInput && <span className='panel-popover-input-delimiter'>/</span>}
+                {props.doubleValueInput && <Input type="text"
+                                                  placeholder={""}
+                                                  value={props.inputValue2}
+                                                  onChange={evt => props.onChange(evt, 2)}
+                                                  onPressEnter={saveFunc}
+                />}
             </div>
             <div className='panel-popover-btn'>
                 <Button
-                    onClick={(title, value) => props.onSave(props.title, props.inputValue)}
+                    onClick={saveFunc}
                     btnText='ОК'
                     size='default'
                     type='float'
