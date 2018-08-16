@@ -41,7 +41,7 @@ class PatientDoctorItem extends React.Component{
                     <div className='doctor-item-btn'>
                         <Button
                             onClick={() => this.props.checkModal1Visible(true, doctorName, id)}
-                            btnText={intervals.length ? 'записаться на прием' : 'нет времени'}
+                            btnText={intervals.length ? 'записаться на прием' : 'отсутствует свободное время'}
                             size='small'
                             type='float'
                             icon='form'
