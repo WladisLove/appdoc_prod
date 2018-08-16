@@ -45,6 +45,7 @@ class Reviews extends React.Component{
                                      onSend={obj => this.props.onSendAnswer(obj)}
                                      onGoto={(val) => this.gotoHandler(val)}
                                      onGotoChat={(id) => this.props.history.push('/chat')}
+									 isDoctor={this.props.isDoctor}
                         />
                     </Col>
                     {this.props.isDoctor && <Col xs={24} xxl={8} className='section'>
