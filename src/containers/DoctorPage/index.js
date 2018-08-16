@@ -17,13 +17,13 @@ import ReviewsTree from "../../components/ReviewsTree";
 class PatientsPage extends React.Component{
 
     componentWillMount(){
-        this.props.onGetAllReviews(0, this.props.match.params.id);
+        this.props.onGetAllReviews(0, 7, null, null, this.props.match.params.id);
         this.props.onGetInfoDoctor(this.props.match.params.id);
     }
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.match.params.id !== this.props.match.params.id) {
-            this.props.onGetAllReviews(0, nextProps.match.params.id);
+            this.props.onGetAllReviews(0, 7, null, null, nextProps.match.params.id);
             this.props.onGetInfoDoctor(nextProps.match.params.id);
         }
     }
@@ -94,6 +94,7 @@ class PatientsPage extends React.Component{
         const { fio, academicdegree, academicstatus, category, experience, consultationPrice, isChildConsult} = this.props.profileDoctor;
         const {diseases = [], treatments = [], infoUser = {}} = this.props.info;
         const info = this.props.info.infoUser;
+        const reviewsLoadCount = 7;
         if(false) {
             return(
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>
@@ -142,11 +143,12 @@ class PatientsPage extends React.Component{
                     <Row>
                         <Col span={24} className='reviews-section'>
                             <ReviewsTree data={this.props.reviews}
-                                         limit={7}
+                                         limit={reviewsLoadCount}
                                          onGoto={(val) => this.gotoHandler(val)}
                                          isOnDoctorPage = {true}
-                                         onShowMore = {(numberOfRequest) => this.props.onGetAllReviews(numberOfRequest, this.props.match.params.id)}
-
+                                         numberOfReviews={this.props.commentCount}
+                                         onShowMore = {(numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
+                                             this.props.onGetAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd, this.props.match.params.id)}
                             />
                         </Col>
                     </Row>
@@ -173,7 +175,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onMakeNewAppointment: (obj) => console.log(obj, "DISPATCH IS WORKING"),
-        onGetAllReviews: (numberOfRequest, doc_id) => dispatch(actions.getAllReviews(numberOfRequest, 7, doc_id)),
+        onGetAllReviews: (numberOfRequest, reviewsLoadCount, dateStart, dateEnd, doc_id) =>
+            dispatch(actions.getAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd, doc_id)),
         onGetInfoDoctor: (doc_id) => dispatch(actions.getInfoDoctor(doc_id)),
     }
 };

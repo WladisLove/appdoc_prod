@@ -30,7 +30,7 @@ Review.propTypes = {
     comment: PropTypes.string,
     date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
     dateCommentDoc: PropTypes.string,
-    makingAppDate: PropTypes.string,
+    makingAppDate: PropTypes.number,
     rating: PropTypes.string,
     commentDoc: PropTypes.string,
 
@@ -50,7 +50,7 @@ Review.defaultProps = {
 
     fio: '',
     comment: '',
-    makingAppDate: '',
+    makingAppDate: 0,
     rating: "0",
     commentDoc: "",
 
