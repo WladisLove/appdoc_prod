@@ -353,6 +353,7 @@ class ChatCard extends React.Component {
 	}
 
 	sendMessage = (message) => {
+		console.log("[sendMessage]", message);
 		this.ws.send(JSON.stringify(message));
 	}
 
@@ -455,6 +456,25 @@ class ChatCard extends React.Component {
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
 	
+	uploadOnlyFile = (id_zap,id_user, callback) => {
+		console.log('[uploadOnlyFile]')
+		return (file, isConclusion) => {
+			isConclusion ? 
+				this.props.uploadConclusion(id_zap,file, callback)
+				: this.props.uploadFile(id_zap,id_user, file,callback);
+		}
+	}
+
+	fileUploadCallback = (serverResponse) => {
+		console.log('[fileUploadCallback]', serverResponse)
+		this.sendMessage({
+			id: 'chat',
+			from: this.state.from,
+			to: this.state.to,
+			date: Math.ceil(Date.now()/1000),
+			...serverResponse,
+		});
+	}
 
     render() {
 		const {patientName, user_id, online: onl} = this.props;
@@ -477,7 +497,7 @@ class ChatCard extends React.Component {
 			receptionStarts: this.state.receptionStarts,
 			fromTR_VIS: this.props.fromTR_VIS,
 			user_mode: this.props.user_mode,
-			uploadFile: this.props.uploadFile,
+			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.state.from, this.fileUploadCallback),
 			receptionId: this.props.receptionId,
 		};
 		const chatAdditionalProps = {
@@ -602,6 +622,7 @@ ChatCard.propTypes = {
 	mode: PropTypes.oneOf(['chat', 'voice', "video"]),
 	isEnded: PropTypes.bool,
 	changeReceptionStatus: PropTypes.func,
+	uploadFile: PropTypes.func,
 
     videoContent: PropTypes.node,
 };
@@ -615,6 +636,7 @@ ChatCard.defaultProps = {
 	mode: 'chat',
 	chat: [],
 	changeReceptionStatus: () => {},
+	uploadFile: () => {},
 };
 
 export default ChatCard

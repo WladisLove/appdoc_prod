@@ -6,7 +6,8 @@ import cn from 'classnames'
 
 import Button from "../../../components/Button";
 import ChatSend from "../../../components/ChatSend";
-import ChatMessage from "../../../components/ChatMessage";
+//import ChatMessage from "../../../components/ChatMessage";
+import {ChatMessage} from 'appdoc-component';
 import ChatComments from "../../../components/ChatComments";
 
 
@@ -61,7 +62,7 @@ class ChatContent extends React.Component {
                         disable={!this.props.receptionStarts}
                         isUser={this.props.user_mode === "user"}
                         closeVisit={this.props.onEnd}
-                        uploadFiles = {(file) => this.props.uploadFile(file)}
+                        uploadFiles = {this.props.uploadFile}
                         send={message => this.props.onSend(message)}/>
                 </div>)
                 }

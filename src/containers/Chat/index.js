@@ -69,6 +69,7 @@ class Chat extends React.Component{
                                     onSelectReception={this.props.onSelectReception}
                                     completeReception = {this.props.completeReception}
                                     closeTreatm = {this.props.closeTreatment}
+                                    uploadFile={this.props.uploadFile}
                                     fromTR_VIS = {2}/>
                             ) : (
                                 <ChatCard 
@@ -93,6 +94,7 @@ class Chat extends React.Component{
                                     completeReception = {this.props.completeReception}
                                     closeTreatm = {this.props.closeTreatment}
                                     uploadFile={this.props.uploadFile}
+                                    uploadConclusion={this.props.uploadConclusion}
                                     fromTR_VIS = {this.props.fromTR_VIS}/>
                             )
                         }
@@ -125,7 +127,8 @@ const mapDispatchToProps = dispatch => {
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
         onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
         clearSelectionsTRandVIS: () => dispatch(actions.clearSelections()),
-        uploadFile: (file) => dispatch(actions.uploadChatFile(file)),
+        uploadFile: (id_zap,id_user, file,callback) => dispatch(actions.uploadChatFile(id_zap,id_user, file,callback)),
+        uploadConclusion: (id_zap,file,callback) => dispatch(actions.uploadConclusion(id_zap,file,callback)),
         changeReceptionStatus: (id, key) => dispatch(actions.changeReceptionStatus(id,key)),
         getReceptionDuration: (id) => dispatch(actions.getReceptionDuration(id)),
 	}

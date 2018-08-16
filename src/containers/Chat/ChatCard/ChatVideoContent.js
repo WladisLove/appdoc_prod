@@ -68,6 +68,7 @@ class ChatVideoContent extends React.Component {
 									this.props.onCall();
 								}} 
 								onChat = {this.props.onChat}
+								uploadFiles={this.props.uploadFile}
 								sec= {s}
 								min={m}
 								hour={h}
@@ -92,13 +93,14 @@ class ChatVideoContent extends React.Component {
 				{videoContent}
 				<div className={filesClass}>
 					 <ChatContent 
-					 {...this.props}
-					 onSend={mes => this.props.sendMessage({
-						 id: 'chat',
-						 from: this.props.from,
-						 to: this.props.to,
-						 ...mes,
-					 })}
+						{...this.props}
+						onSend={mes => this.props.sendMessage({
+							id: 'chat',
+							from: this.props.from,
+							to: this.props.to,
+							...mes,
+						})}
+						uploadFile={this.props.uploadFile}
 						 data={this.props.chatStory}
 					/>
                 </div>

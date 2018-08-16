@@ -56,6 +56,7 @@ export {
     completeReception,
     closeTreatment,
     uploadChatFile,
+    uploadConclusion,
     changeReceptionStatus,
     getReceptionDuration,
     

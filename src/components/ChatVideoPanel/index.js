@@ -28,14 +28,6 @@ class ChatVideoPanel extends React.Component{
                     <div className="message__panel-btns">
                         <Button
                             btnText=''
-                            size='small'
-                            type='no-brd'
-                            icon='clip'
-                            iconSize={20}
-                            title='Отключить микрофон'
-                        />
-                        <Button
-                            btnText=''
                             className='btn-endcall'
                             size='small'
                             type='no-brd'
@@ -46,14 +38,6 @@ class ChatVideoPanel extends React.Component{
                         />
                     </div>
                     <div className="message__panel-full">
-                        <Button
-                            btnText=''
-                            size='small'
-                            type='no-brd'
-                            icon='plus'
-                            iconSize={16}
-                            onClick={this.props.onPlus}
-                        />
                         <Button
                             btnText=''
                             size='small'
@@ -104,7 +88,7 @@ ChatVideoPanel.propTypes = {
     isCalling: PropTypes.bool,
     onStop: PropTypes.func,
     onCall: PropTypes.func,
-    onPlus: PropTypes.func,
+    uploadFiles: PropTypes.func,
     onChat: PropTypes.func,
 };
 
@@ -115,7 +99,7 @@ ChatVideoPanel.defaultProps = {
     isCalling: false,
     onStop: () => {},
     onCall: () => {},
-    onPlus: () => {},
+    uploadFiles: () => {},
     onChat: () => {},
 };
 
