@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.0.2",
-    "appdoc-component": "^1.1.117",
+    "appdoc-component": "^1.1.119",
     "axios": "^0.17.1",
     "classnames": "^2.2.5",
     "express": "^4.16.2",

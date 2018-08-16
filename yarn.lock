@@ -435,9 +435,9 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-appdoc-component@^1.1.117:
-  version "1.1.117"
-  resolved "https://registry.yarnpkg.com/appdoc-component/-/appdoc-component-1.1.117.tgz#a8e743b1cf7502d85e0e2e0c83a9ec59e9c2646e"
+appdoc-component@^1.1.119:
+  version "1.1.119"
+  resolved "https://registry.yarnpkg.com/appdoc-component/-/appdoc-component-1.1.119.tgz#9e4b6b1306792439fd96e78a6814f0a449e04e5c"
   dependencies:
     antd "^3.0.2"
     babel-plugin-transform-class-properties "^6.24.1"
