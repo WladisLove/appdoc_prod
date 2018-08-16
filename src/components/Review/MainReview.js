@@ -106,7 +106,7 @@ class MainReview extends React.Component{
                 </div>
                 </div>
                 <div className="review-root-comment" style={{display: commentDisplay}}>
-                    {commentDoc && <SecondaryReview date={+dateCommentDoc} text={commentDoc}/>}
+                    {commentDoc && <SecondaryReview dateCommentDoc={+dateCommentDoc} text={commentDoc}/>}
                 </div>
                 <div className="review-root-answerArea" style={{display: answAreaDisplay}}>
                     { !commentDoc && <AnswerArea onSend={message => this.answAreaHandler(message)}/>}
