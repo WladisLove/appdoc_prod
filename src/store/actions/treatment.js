@@ -94,10 +94,7 @@ export const selectTreatment = (treatId) => {
 }
 
 export const uploadChatFile = (id_zap,id_user,file, callback) => {
-
-    console.log('[uploadChatFile]', file, id_zap,id_user);
     return (dispatch) => {
-        //console.log(file.thumbUrl.substr(0,50));
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveFilesChat',
             JSON.stringify({
                 id_zap,
@@ -105,18 +102,8 @@ export const uploadChatFile = (id_zap,id_user,file, callback) => {
                 file: [file]
             }))
             .then(res => {
-                //console.log(JSON.stringify([file]))
-                console.log(res);
-                /*console.log(res.data.result[0]);
-                console.log('callback instanceof Function', callback instanceof Function);
-                console.log(callback)*/
                 const {result} = res.data;
-
                 (callback instanceof Function) && result &&  callback(result[0]);
-                /*dispatch({
-                    type: actionTypes.SELECT_TREATMENT,
-                    treatInfo: res.data.result,
-                });*/
             })
             .catch(err => {
                 console.log(err);
@@ -125,8 +112,6 @@ export const uploadChatFile = (id_zap,id_user,file, callback) => {
 }
 
 export const uploadConclusion = (id_zap,file, callback) => {
-
-    console.log('[uploadConclusion]', file, id_zap);
     return (dispatch) => {
         //console.log(file.thumbUrl.substr(0,50));
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveFilesZak',
@@ -135,7 +120,6 @@ export const uploadConclusion = (id_zap,file, callback) => {
                 file,
             }))
             .then(res => {
-                console.log(res);
                 const {result} = res.data;
                 (callback instanceof Function) &&  callback(result);
             })
@@ -143,6 +127,24 @@ export const uploadConclusion = (id_zap,file, callback) => {
                 console.log(err);
         })
     }    
+}
+
+export const getAllFilesTreatment = (treatId) => {
+    console.log('[getAllFilesTreatment] treatId: ',treatId)
+    return (dispatch) => {
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/allFilesTreatment',
+        JSON.stringify({id: treatId}))
+            .then(res => {
+                console.log('[getAllFilesTreatment]',res)
+                dispatch({
+                    type: actionTypes.GET_TREATMENT_FILES,
+                    files: res.data,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 }
 
 export const seletVisit = (visId) => {

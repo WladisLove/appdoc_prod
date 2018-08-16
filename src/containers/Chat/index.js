@@ -35,6 +35,23 @@ class Chat extends React.Component{
         )  
         const isUser = this.props.user_mode === "user";   
 
+        const chatProps = {
+            wsURL: 'wss://178.172.235.105:8443/one2one',
+            receptionId: visitId,
+            callerID: this.props.id,
+            user_mode: this.props.user_mode,
+            user_id: +id_user,
+            patientName: isUser ? name_doc : name,
+            id_treatment,
+            online: status,
+            chat,
+            comment,
+            uploadFile: this.props.uploadFile,
+
+            getAllFilesTreatment: this.props.getAllFilesTreatment,
+            treatmFiles: this.props.treatmFiles,
+        }
+
         return (
             <Hoc>
                 <Row>
@@ -48,52 +65,22 @@ class Chat extends React.Component{
                     <Col xs={24} xxl={17} className='section'>
                         {
                              isUser ? (
-                                <ChatCard 
-                                    wsURL={'wss://178.172.235.105:8443/one2one'}
+                                <ChatCard {...chatProps}
                                     mode={"video"}
                                     //mode={contactLevel}
-                                    receptionId={visitId}
-
                                     //isEnded = {true}
-
-                                    callerID = {this.props.id}
-                                    user_mode = {this.props.user_mode}
-
-                                    user_id = {+id_user}
-                                    patientName = {name_doc}
-                                    id_treatment = {id_treatment}
-                                    online={status}
-                                    chat={chat}
-                                    comment={comment}
-
-                                    onSelectReception={this.props.onSelectReception}
+                                    onSelectReception= {this.props.onSelectReception}
                                     completeReception = {this.props.completeReception}
                                     closeTreatm = {this.props.closeTreatment}
-                                    uploadFile={this.props.uploadFile}
                                     fromTR_VIS = {2}/>
                             ) : (
-                                <ChatCard 
-                                    wsURL={'wss://178.172.235.105:8443/one2one'}
+                                <ChatCard {...chatProps}
                                     mode={contactLevel}
-                                    receptionId={visitId}
-
                                     //isEnded = {true}
-
-                                    callerID = {this.props.id}
-                                    user_mode = {this.props.user_mode}
-
-                                    user_id = {+id_user}
-                                    patientName = {name}
-                                    id_treatment = {id_treatment}
-                                    online={status}
-                                    chat={chat}
-                                    comment={comment}
-
+                                    onSelectReception= {this.props.onSelectReception}
                                     changeReceptionStatus={this.props.changeReceptionStatus}
-                                    onSelectReception={this.props.onSelectReception}
                                     completeReception = {this.props.completeReception}
                                     closeTreatm = {this.props.closeTreatment}
-                                    uploadFile={this.props.uploadFile}
                                     uploadConclusion={this.props.uploadConclusion}
                                     fromTR_VIS = {this.props.fromTR_VIS}/>
                             )
@@ -114,6 +101,7 @@ const mapStateToProps = state =>{
         visits: state.schedules.visits,
         visitInfo: state.treatments.visitInfo,
         treatInfo: state.treatments.treatInfo,
+        treatmFiles: state.treatments.treatmFiles,
         fromTR_VIS: state.treatments.from,
     }
 }
@@ -129,6 +117,7 @@ const mapDispatchToProps = dispatch => {
         clearSelectionsTRandVIS: () => dispatch(actions.clearSelections()),
         uploadFile: (id_zap,id_user, file,callback) => dispatch(actions.uploadChatFile(id_zap,id_user, file,callback)),
         uploadConclusion: (id_zap,file,callback) => dispatch(actions.uploadConclusion(id_zap,file,callback)),
+        getAllFilesTreatment: (treatmId) => dispatch(actions.getAllFilesTreatment(treatmId)),
         changeReceptionStatus: (id, key) => dispatch(actions.changeReceptionStatus(id,key)),
         getReceptionDuration: (id) => dispatch(actions.getReceptionDuration(id)),
 	}

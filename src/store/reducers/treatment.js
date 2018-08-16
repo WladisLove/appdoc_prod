@@ -9,6 +9,7 @@ const initialState = {
     visitInfo: {},
     treatInfo: {},
     from: 0,
+    treatmFiles: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +36,7 @@ const reducer = (state = initialState, action) => {
                 visitInfo: action.visitInfo,
                 treatInfo: {},
                 from: FR_VISIT,
+                treatmFiles: [],
             }
         case actionTypes.SELECT_TREATMENT:
             return {
@@ -49,6 +51,12 @@ const reducer = (state = initialState, action) => {
                 from: 0,
                 treatInfo: {},
                 visitInfo: {},
+                treatmFiles: [],
+            }
+        case actionTypes.GET_TREATMENT_FILES: 
+            return {
+                ...state,
+                treatmFiles: action.files,
             }
         default: return state;
     }

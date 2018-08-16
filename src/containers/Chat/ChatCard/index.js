@@ -7,7 +7,8 @@ import cn from 'classnames'
 
 import Button from '../../../components/Button'
 import Radio from "../../../components/Radio";
-import ChatFiles from '../../../components/ChatFiles'
+//import ChatFiles from '../../../components/ChatFiles'
+import {ChatFiles} from 'appdoc-component'
 import CompletionReceptionModal from "../../../components/CompletionReceptionModal";
 import CompleteAppeal from '../../../components/CompleteAppeal'
 import NewVisitModalPage from "../../../components/NewVisitModalPage";
@@ -108,14 +109,11 @@ class ChatCard extends React.Component {
 		}
     }
 
-    filesRender = (dataArr) => {
-        let filesArr = [];
-
-        dataArr.map((item, index) => {
-            filesArr.push(<ChatFiles {...item} key={item.id + '' + index}/>)
+    filesRender = () => {
+		const files = this.props.treatmFiles;
+        return files.map((item, index) => {
+            return (<ChatFiles {...item} key={item.date}/>)
         });
-
-        return filesArr;
     };
 
     timer = () => {
@@ -290,25 +288,9 @@ class ChatCard extends React.Component {
 	}
 
 	register = (id1, id2, user_mode) => {
-
-		/*console.log('[REGISTER]')
-		let a = window.prompt();
-		console.log(typeof a)
-		let name = a ? a : ''+this.props.callerID;
-		let mode = window.confirm('Are you doctor?') 
-			? 'doc' : 'user';*/
-		this.setState({from: id1});
+		this.setState({from: id1, to: id2});
 		this.setRegisterState(REGISTERING);
-	
-		/*const answer = window.prompt('Enter ID to call');
-        if (answer == '') {
-            window.alert("You must specify the peer name");
-            return;
-        }*/
-		this.setState({to: id2});
 
-		//console.log('[after register]', name, answer)
-		
 		this.ws.onopen = () => this.sendMessage({
 			id : 'register',
 			name : id1,
@@ -457,11 +439,11 @@ class ChatCard extends React.Component {
 	}
 	
 	uploadOnlyFile = (id_zap,id_user, callback) => {
-		console.log('[uploadOnlyFile]')
 		return (file, isConclusion) => {
 			isConclusion ? 
 				this.props.uploadConclusion(id_zap,file, callback)
 				: this.props.uploadFile(id_zap,id_user, file,callback);
+			this.state.isActive && this.props.getAllFilesTreatment(this.props.id_treatment);
 		}
 	}
 
@@ -474,6 +456,11 @@ class ChatCard extends React.Component {
 			date: Math.ceil(Date.now()/1000),
 			...serverResponse,
 		});
+	}
+
+	toggleFilesArea = () => {
+		(!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
+		this.setState(prev => ({isActive: !prev.isActive}));
 	}
 
     render() {
@@ -544,7 +531,7 @@ class ChatCard extends React.Component {
                             svg
                             title='Открыть прикреплённые файлы'
                             style={{width: 30}}
-                            onClick={() => this.setState(prev => ({isActive: !prev.isActive}))}
+                            onClick={this.toggleFilesArea}
                         />
                         <div className='chat-card-namePatient'>{patientName}</div>
                         <div className={statusClass}>{online}</div>
@@ -577,12 +564,12 @@ class ChatCard extends React.Component {
                                 type='no-brd'
                                 icon='arrow_up'
                                 title='Закрыть'
-                                onClick={() => this.setState(prev => ({isActive: !prev.isActive}))}
+                                onClick={this.toggleFilesArea}
                             />
                         </div>
                         {
                             this.state.isActive && <div className='chat-card-files__items'>
-                                {this.filesRender(this.props.data)}
+                                {this.filesRender()}
                             </div>
                         }
                     </div>
@@ -613,7 +600,7 @@ class ChatCard extends React.Component {
 }
 
 ChatCard.propTypes = {
-	data: PropTypes.arrayOf(PropTypes.object),
+	treatmFiles: PropTypes.arrayOf(PropTypes.object),
 	chat: PropTypes.array,
 	patientName: PropTypes.string,
 	user_id: PropTypes.number,
@@ -621,22 +608,26 @@ ChatCard.propTypes = {
     isActive: PropTypes.bool,
 	mode: PropTypes.oneOf(['chat', 'voice', "video"]),
 	isEnded: PropTypes.bool,
+	treatmFiles: PropTypes.array,
 	changeReceptionStatus: PropTypes.func,
 	uploadFile: PropTypes.func,
+	getAllFilesTreatment: PropTypes.func,
 
     videoContent: PropTypes.node,
 };
 
 ChatCard.defaultProps = {
-    data: [],
+    treatmFiles: [],
 	patientName: '',
 	user_id: 0,
     online: 0,
     isActive: false,
 	mode: 'chat',
 	chat: [],
+	treatmFiles: [],
 	changeReceptionStatus: () => {},
 	uploadFile: () => {},
+	getAllFilesTreatment: () => {},
 };
 
 export default ChatCard
