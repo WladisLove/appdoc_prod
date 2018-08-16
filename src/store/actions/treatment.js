@@ -84,7 +84,10 @@ export const selectTreatment = (treatId) => {
             .then(res => {
                 dispatch({
                     type: actionTypes.SELECT_TREATMENT,
-                    treatInfo: res.data.result,
+                    treatInfo: {
+                        ...res.data.result,
+                        id_treatment: treatId,
+                    },
                 });
             })
             .catch(err => {

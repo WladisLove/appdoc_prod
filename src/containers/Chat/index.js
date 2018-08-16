@@ -24,12 +24,12 @@ class Chat extends React.Component{
     }
 
     render(){
-        //console.log('visitInfo',this.props.visitInfo)
-        //console.log('treatInfo',this.props.treatInfo)
+        console.log('visitInfo',this.props.visitInfo)
+        console.log('treatInfo',this.props.treatInfo)
         let  id_user, name, name_doc, avatar, status, chat, visitId, contactLevel, comment, id_treatment;
 
         this.props.fromTR_VIS === 1 ? (
-            {id_user,name_user: name, avatar, status, chat} = this.props.treatInfo
+            {id_user,name_user: name, avatar, status, chat, id_treatment} = this.props.treatInfo
         ) : (
             {id_user,name, name_doc, id: visitId, contactLevel,comment, chat, avatar, status, id_treatment} = this.props.visitInfo
         )  
