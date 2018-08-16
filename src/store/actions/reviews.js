@@ -31,17 +31,23 @@ export const getAllReviews = (numberOfRequest = 0, maxReviews = 3, dateStart, da
 }
 
 
-export const getAllReviewsByPatient = (pagination) => {
+export const getAllReviewsByPatient = (numberOfRequest = 0, maxReviews = 3, dateStart, dateEnd, id) => {
     return (dispatch, getState) => {
-        let obj = {id: getState().auth.id};
-        pagination ? obj.max = pagination : null;
+        const user_id = id ? id : getState().auth.id;
+        const datestart = dateStart ? dateStart : 0;
+        const dateend = dateEnd ? dateEnd : (+new Date());
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/allCommentByUserId',
-                    JSON.stringify(obj))
+            JSON.stringify({
+                id: user_id,
+                max: maxReviews,
+                old: numberOfRequest * maxReviews,
+                datestart: datestart,
+                dateend: dateend
+            }))
             .then(res => {
-                console.log(res, "REWIEWS BY PATIENT");
                 dispatch({
                     type: actionTypes.GET_ALL_REVIEWS_BY_PATIENT,
-                    reviewsByPatient: res.data.result,
+                    reviewsByPatient: res.data.result ? res.data.result : [],
                 });
             })
             .catch(err => {
