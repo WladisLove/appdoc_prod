@@ -132,7 +132,7 @@ class ReviewsTree extends React.Component{
         return (
             <Card title={this.props.isOnDoctorPage ? "Отзывы" : "Все отзывы"}
                   className="reviewsTree"
-                  extra={this.props.numberOfReviews}>
+                  extra={this.props.numberOfReviews ? this.props.numberOfReviews : null}>
                 <Tabs onChange={this.tabChangeHandler}
                       tabBarExtraContent={this.state.displayDP &&
                       <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
