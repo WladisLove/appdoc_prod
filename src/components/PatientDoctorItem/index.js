@@ -15,7 +15,8 @@ class PatientDoctorItem extends React.Component{
 
 
     render(){
-        const { doctorAvatar, doctorName, doctorSpeciality, doctorRate, doctorRank, doctorCategory, doctorExp, id} = this.props;
+        const { doctorAvatar, doctorName, doctorSpeciality, doctorRate, doctorRank, doctorCategory, doctorExp,
+            id, intervals} = this.props;
         const rootClass = cn('doctor-item');
 
         return (
@@ -40,10 +41,11 @@ class PatientDoctorItem extends React.Component{
                     <div className='doctor-item-btn'>
                         <Button
                             onClick={() => this.props.checkModal1Visible(true, doctorName, id)}
-                            btnText='записаться на прием'
+                            btnText={intervals.length ? 'записаться на прием' : 'нет времени'}
                             size='small'
                             type='float'
                             icon='form'
+                            disable={!intervals.length}
                         />
                     </div>
                 </div>
@@ -62,7 +64,7 @@ PatientDoctorItem.propTypes = {
     doctorRank: PropTypes.string,
     doctorCategory: PropTypes.string,
     doctorExp: PropTypes.string,
-
+    intervals: PropTypes.array
 };
 
 PatientDoctorItem.defaultProps = {
@@ -74,7 +76,7 @@ PatientDoctorItem.defaultProps = {
     doctorRank: '',
     doctorCategory: '',
     doctorExp: '',
-
+    intervals: []
 };
 
 export default PatientDoctorItem
