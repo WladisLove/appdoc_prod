@@ -130,12 +130,10 @@ export const uploadConclusion = (id_zap,file, callback) => {
 }
 
 export const getAllFilesTreatment = (treatId) => {
-    console.log('[getAllFilesTreatment] treatId: ',treatId)
     return (dispatch) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/allFilesTreatment',
         JSON.stringify({id: treatId}))
             .then(res => {
-                console.log('[getAllFilesTreatment]',res)
                 dispatch({
                     type: actionTypes.GET_TREATMENT_FILES,
                     files: res.data,
