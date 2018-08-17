@@ -62,7 +62,7 @@ class ChatAudioContent extends React.Component {
     
     
     render() {
-        const {isActive,isActiveChat, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
+        const {isActive,isActiveChat} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
 		const filesClass = cn('chat-card-files', {'chat-card-files-active': isActiveChat});
 

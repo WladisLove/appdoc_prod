@@ -16,6 +16,7 @@ const ChatTextContent = props => {
 						 to: props.to,
 						 ...mes,
 					 })}
+				chatMode="chat"
 				uploadFile={props.uploadFile}
 				data={props.chatStory}  
 		    />
