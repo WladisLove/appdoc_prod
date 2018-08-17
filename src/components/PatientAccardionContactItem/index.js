@@ -20,13 +20,24 @@ class PatientAccardionContactItemForm extends React.Component{
         }
     }
 
-    handleSubmit = (e) => {
+    handleSubmitInfo = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log(values);
                 // let newProfile = this.onSave(values);
                 this.props.onSubmit(values);
+            } else {
+                console.log(err);
+            }
+        });
+    };
+
+    handleSubmitPassword = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.onSubmitPassword(values.oldPassField, values.newPassField);
             } else {
                 console.log(err);
             }
@@ -59,7 +70,7 @@ class PatientAccardionContactItemForm extends React.Component{
         const rootClass = cn('patient-contacts');
         
         return (
-            <Form className={rootClass} onSubmit={this.handleSubmit} >
+            <Form className={rootClass} >
                     <div className='patient-contacts-title'>контактные данные</div>
                     <div className='patient-contacts-block'>
                         <div className='patient-contacts-avatar'>
@@ -138,6 +149,15 @@ class PatientAccardionContactItemForm extends React.Component{
                         </div>
                     </div>
 
+                    <Button
+                        className="patient-contacts-saveBtn"
+                        onClick={this.handleSubmitInfo}
+                        btnText='Сохранить изменения'
+                        size='default'
+                        type='float'
+                    />
+
+
                     <div className='patient-contacts-title'>изменить пароль</div>
                     <div className='patient-contacts-block'>
                         <div className='patient-contacts-password'>
@@ -178,6 +198,7 @@ class PatientAccardionContactItemForm extends React.Component{
 
                     <Button
                         btnText='Сохранить изменения'
+                        onClick={this.handleSubmitPassword}
                         size='default'
                         type='float'
                     />

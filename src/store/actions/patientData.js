@@ -19,7 +19,28 @@ export const sendNewInfoPatient = (data) => {
     }
 };
 
+export const sendNewPasswordPatient = (oldPass, newPass, id) => {
+    console.log(oldPass + " " + newPass, "PASSWORD PATIENT EDITING");
+    return (dispatch, getState) => {
+        const id_patient = id ? id : getState().auth.id;
 
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/rePassDoc',
+            JSON.stringify({
+                id: id_patient,
+                oldpass: oldPass,
+                newpass: newPass
+            }))
+            .then(res => {
+                console.log("result of editing" , res);
+                dispatch({
+                    type: actionTypes.SEND_NEW_PASSWORD_PATIENT,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
 
 export const getInfoPatient = (id) => {
     const idstr = String(id);

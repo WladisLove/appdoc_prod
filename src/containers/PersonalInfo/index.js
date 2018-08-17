@@ -45,6 +45,10 @@ class PersonalInfo extends React.Component{
         this.setState({visible:true}) ;
     };
 
+    onSubmitPasswordPatient = (oldPass, newPass) => {
+        this.props.onSendNewPasswordPatient(oldPass, newPass, this.props.auth.id);
+    };
+
     render() {
         let isUser = this.props.auth.mode === "user";
         let profile = isUser ? compileToClientPatient(this.props.profilePatient) : compileToClientDoctor(this.props.profileDoctor);
@@ -56,6 +60,7 @@ class PersonalInfo extends React.Component{
                             <Col xs={24} xxl={18}>
                                 <PatientAccardionContact
                                     onSubmit={this.onSubmitPatient}
+                                    onSubmitPassword={this.onSubmitPasswordPatient}
                                     profile = {profile}
                                 />
                             </Col>
@@ -123,7 +128,7 @@ const mapDispatchToProps = dispatch => {
         onSendNewInfoDoctor: (info) => dispatch(actions.sendNewInfoDoctor(info)),
         onGetInfoPatient: (id) => dispatch(actions.getInfoPatient(id)),
         onSendNewInfoPatient: (info) => dispatch(actions.sendNewInfoPatient(info)),
-
+        onSendNewPasswordPatient: (oldPass, newPass, id) => dispatch(actions.sendNewPasswordPatient(oldPass, newPass, id))
     }
 };
 

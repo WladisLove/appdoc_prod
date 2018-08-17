@@ -18,7 +18,6 @@
   position: relative;
   width: 100%;
   display: flex;
-  margin-bottom: 40px;
 }
 .patient-contacts-title {
   position: relative;
@@ -111,4 +110,7 @@
 .patient-contacts-password .input-form-item {
   max-width: 290px;
   margin-bottom: 20px;
+}
+.patient-contacts-saveBtn {
+  margin-bottom: 30px;
 }

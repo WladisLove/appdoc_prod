@@ -25,6 +25,7 @@ class PatientAccardionContact extends React.Component{
                             contactEmail={email}
                             contactAddress={address}
                             onSubmit = {this.props.onSubmit}
+                            onSubmitPassword = {this.props.onSubmitPassword}
                         />
                     </Panel>
                 </Accordion>

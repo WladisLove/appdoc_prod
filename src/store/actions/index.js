@@ -75,6 +75,7 @@ export {
 export {
     getInfoPatient,
     sendNewInfoPatient,
+    sendNewPasswordPatient,
     sendUserPoleValue,
     getUserInfoShort
 } from './patientData'
