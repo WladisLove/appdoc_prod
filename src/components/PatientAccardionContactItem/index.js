@@ -7,6 +7,7 @@ import { Form } from 'antd'
 import ProfileAvatar from '../ProfileAvatar'
 import Button from '../Button'
 import Input from '../Input'
+import Icon from '../Icon'
 
 import './style.css'
 import '../../icon/style.css'
@@ -81,13 +82,13 @@ class PatientAccardionContactItemForm extends React.Component{
                                 online={true}
                             />
                             <div className='patient-contacts-controls'>
-                                <Button
-                                    btnText=''
-                                    size='icon'
-                                    type='icon'
-                                    icon='retweet'
-                                    iconSize={16}
-                                />
+                                <div className="file-upload">
+                                    <label className="file-upload-label">
+                                        <Icon type='retweet' size={16}/>
+                                    </label>
+                                    <input className="file-upload-input" type="file" name="photo-upload"
+                                           onChange={() => console.log("onFileUpload")}/>
+                                </div>
                                 <Button
                                     btnText=''
                                     size='icon'
