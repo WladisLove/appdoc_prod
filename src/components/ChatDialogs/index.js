@@ -37,16 +37,12 @@ class ChatDialogs extends React.Component{
     };
 
     dialogRender = (dataArr) => {
-        let dialogArr = [];
-
-        dataArr.map((item, index) => {
-            dialogArr.push(<ChatDialog {...item} 
+        return dataArr.map((item, index) => {
+            return (<ChatDialog {...item} 
                 onGotoChat={this.props.onGotoChat}
                 onGoto={this.props.onGoto}
-                key={item.id + ''+index}/>)
+                key={item.id}/>)
         });
-
-        return dialogArr;
     };
 
     render(){

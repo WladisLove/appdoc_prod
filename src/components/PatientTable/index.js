@@ -37,22 +37,17 @@ class PatientTable extends React.Component{
     };
 
     patinetRender = (dataArr) => {
-        let patientArr = [];
-
-        dataArr.map((item,index) => {
-            patientArr.push(<PatientTableItem key={index} 
-                                            onGoto={this.props.onGoto}
-                                            onDelete={this.props.onDelete} 
-                                            onNewVisit={this.props.onNewVisit}
-                                            onNewMessage={this.props.onNewMessage}
-                                            setModal1Visible={this.props.setModal1Visible}
-                                            setModal2Visible={this.props.setModal2Visible}
-                                            onChangeDate={this.props.onChangeDate}
-
-                                            {...item}/>)
+        return dataArr.map((item,index) => {
+            return (<PatientTableItem key={item.id} 
+                                onGoto={this.props.onGoto}
+                                onDelete={this.props.onDelete} 
+                                onNewVisit={this.props.onNewVisit}
+                                onNewMessage={this.props.onNewMessage}
+                                setModal1Visible={this.props.setModal1Visible}
+                                setModal2Visible={this.props.setModal2Visible}
+                                onChangeDate={this.props.onChangeDate}
+                                {...item}/>)
         });
-
-        return patientArr;
     }
 
     render(){

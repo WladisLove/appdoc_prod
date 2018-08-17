@@ -15,6 +15,23 @@ export const autoLogin = (history) => {
     }
 }
 
+export const setOnlineStatus = (id,isOnline) => {
+    return dispatch => {
+        const newObj = {
+            id,
+            status: isOnline ? 1 : 0,
+        }
+        axios.post('https://178.172.235.105/~api/json/fusers.doc/userOnOff',
+            JSON.stringify(newObj))
+            .then(res => {
+                //console.log('[setOnlineStatus] results',res)
+            })
+            .catch(err => {
+                console.log('error: ',err);
+            })
+    }
+}
+
 export const login = (userName, password, remember, history, isAuto) => {
 
     return (dispatch) => {
@@ -28,6 +45,7 @@ export const login = (userName, password, remember, history, isAuto) => {
                         !res.data.error 
                             ? (
                                 dispatch(authSuccess(res.data.id, res.data.usergroup)),
+                                dispatch(setOnlineStatus(res.data.id, true)),
                                 sessionStorage.setItem('_appdoc-id', res.data.id),
                                 sessionStorage.setItem('_appdoc-mode', res.data.usergroup),
                                 rememberMe(remember, userName, password),
@@ -152,11 +170,12 @@ export const registerUser = (userInfo) => {
 
 
 export const logout = () => {
-    return dispatch => {
+    return (dispatch, getState) => {
         localStorage.removeItem('_appdoc-user');
         localStorage.removeItem('_appdoc-pass');
         sessionStorage.removeItem('_appdoc-id');
         sessionStorage.removeItem('_appdoc-mode');
+        dispatch(setOnlineStatus(getState().auth.id, false));
         dispatch(authSuccess(0, ''));
     }
 
