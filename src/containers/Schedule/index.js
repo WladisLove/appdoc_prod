@@ -66,6 +66,17 @@ class Schedule extends React.Component {
         this.props.clearReceptions();
     }
 
+    getCountOfReceptionsAtCurMonth = () => {
+        let date = this.state.currentDate;
+        let visits = this.props.allUserVisits;
+        let count = 0;
+
+        if (date && visits)
+            visits.forEach((item) => {moment(+item.start * 1000)._d.getMonth() === date.getMonth() ? ++count : null});
+
+        return count;
+    };
+
     dateChangeHandler = (date, view, action, isOnDay) => {
         const {start, end} = this.state.isEditorMode
             ? findTimeInterval(date, 'month')
@@ -218,7 +229,7 @@ class Schedule extends React.Component {
 
         }
         if (this.props.isUser) {
-            calendar = (<Calendar receptionNum={23}
+            calendar = (<Calendar receptionNum={this.getCountOfReceptionsAtCurMonth()}
                                   isUser = {true}
                                   events = {this.props.allUserVisits}
                                   onNavigate={this.dateChangeHandler}
@@ -229,7 +240,7 @@ class Schedule extends React.Component {
                                  onClick={() => this.changeToEditorMode(false)}
                                  type='yellow'
                                  icon='arrow2_left'/>);
-            calendar = (<Calendar receptionNum={23}
+            calendar = (<Calendar receptionNum={this.getCountOfReceptionsAtCurMonth()}
                                   selectable
                                   editor
                                   onMonthSelect={(date, schedule) => {

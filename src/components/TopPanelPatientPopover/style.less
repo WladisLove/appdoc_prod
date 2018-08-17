@@ -27,7 +27,21 @@
 		}
 
 		&-input{
+			display: flex;
+			flex-direction: row;
 			margin-bottom: 25px;
+
+			.input-root {
+				width: 100%;
+			}
+
+			.input-root-focus{
+				.input-root;
+			}
+
+			&-delimiter{
+				padding: 4px 10px 0 10px;
+			}
 		}
 
 		&-btn{

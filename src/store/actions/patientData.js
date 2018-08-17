@@ -44,10 +44,10 @@ export const getInfoPatient = (id) => {
 
 export const sendUserPoleValue = (pole, value, id) => {
     return (dispatch, getState) => {
-        let user;
-        id ? user = id : user = getState().auth.id;
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/reUserPole/id/' + user
-            + '/pole/' + pole + '/value/' + value)
+        const obj = {pole, id: id ? id : getState().auth.id, value};
+        console.log(obj, "OBJ");
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/reUserPole',
+            JSON.stringify(obj))
             .then(res => {
                 console.log("reUserPole", res);
 
@@ -67,7 +67,7 @@ export const getUserInfoShort = (id) => {
     return (dispatch, getState) => {
         let user;
         id ? user = id : user = getState().auth.id;
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/userInfoShort/id/' + user)
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/userInfoShort/id/' + user)
             .then(res => {
                 console.log("userInfoShort", res);
 

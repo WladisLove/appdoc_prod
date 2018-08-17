@@ -28,7 +28,7 @@ export function dateToString(timestamp) {
             .fromNow()
     }
 
-    if (dist < (day-1) && now.getDate() === tmp.getDate()) {
+    if (dist < (day-1) && now.getDate() === moment(tmp)._d.getDate()) {
         return moment(tmp)
             .format('HH:mm');
     }

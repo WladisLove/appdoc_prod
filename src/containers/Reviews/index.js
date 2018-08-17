@@ -23,8 +23,9 @@ class Reviews extends React.Component{
 		this.props.history.push('/patient'+id);
 	};
 
-    render(){
-		const reviews = this.props.isDoctor ? this.props.reviews : this.props.reviewsByPatient;
+    render() {
+        const reviews = this.props.isDoctor ? this.props.reviews : this.props.reviewsByPatient;
+        const reviewsLoadCount = 3;
 
         return (
 
@@ -34,20 +35,22 @@ class Reviews extends React.Component{
                         <h1 className='page-title'>{this.props.isDoctor ? "Отзывы пациентов" : "Мои отзывы"}</h1>
                     </Col>
                 </Row>
-            	<Row>
-            		<Col xs={24} xxl={16} className='section'>
-							<ReviewsTree data={reviews} 
-										limit={3}
-										onSend = {obj => this.props.onSendAnswer(obj)}
-										onGoto={(val) => this.gotoHandler(val)}
-										onGotoChat={(id) => this.props.history.push('/chat')}
-										onShowMore = {(numberOfRequest) => this.props.onGetAllReviews(numberOfRequest)}
-							/>
-					</Col>
-					{this.props.isDoctor && <Col xs={24} xxl={8} className='section'>
-						<RateIndicator rateValue={this.props.ratingAll} reviewsNum={this.props.commentCount}/>
-					</Col>}
-            	</Row>
+                <Row>
+                    <Col xs={24} xxl={16} className='section'>
+                        <ReviewsTree data={reviews}
+                                     limit={reviewsLoadCount}
+                                     numberOfReviews={this.props.commentCount}
+                                     onShowMore={(numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
+                                         this.props.onGetAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd)}
+                                     onSend={obj => this.props.onSendAnswer(obj)}
+                                     onGoto={(val) => this.gotoHandler(val)}
+                                     onGotoChat={(id) => this.props.history.push('/chat')}
+                        />
+                    </Col>
+                    {this.props.isDoctor && <Col xs={24} xxl={8} className='section'>
+                        <RateIndicator rateValue={this.props.ratingAll} reviewsNum={this.props.commentCount}/>
+                    </Col>}
+                </Row>
             </Hoc>
         )
     }
@@ -65,10 +68,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onGetAllReviews: (numberOfRequest) => dispatch(actions.getAllReviews(numberOfRequest)),
+		onGetAllReviews: (numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
+			dispatch(actions.getAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd)),
 		onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
-        onGetAllReviewsByPatient: (pagination) => dispatch(actions.getAllReviewsByPatient(pagination)),
+        onGetAllReviewsByPatient: (pagination) => dispatch(actions.getAllReviewsByPatient(pagination))
 	}
 };
 

@@ -7,11 +7,9 @@ import './styles.css'
 
 class Modal extends React.Component{
 
-
     render(){
         const {visible, title, warning, width} = this.props;
         
-
         return (
             <AntModal visible={visible}
                       title={title}

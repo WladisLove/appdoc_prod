@@ -11,7 +11,7 @@ export let search = (value, dataArr) => {
 }
 
 function search1word(elem, str){
-    let fioArr = elem.name.toLowerCase().split(' ');
+    let fioArr = elem.name ? elem.name.toLowerCase().split(' ') : elem.doctorName.toLowerCase().split(' ');
     for (let i =0, len = fioArr.length; i < len; i++){
         if(fioArr[i].indexOf(str) === 0){
             return true;

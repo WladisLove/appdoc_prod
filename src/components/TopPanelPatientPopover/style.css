@@ -33,7 +33,18 @@
   margin-bottom: 20px;
 }
 .panel-popover-input {
+  display: flex;
+  flex-direction: row;
   margin-bottom: 25px;
+}
+.panel-popover-input .input-root {
+  width: 100%;
+}
+.panel-popover-input .input-root-focus {
+  width: 100%;
+}
+.panel-popover-input-delimiter {
+  padding: 4px 10px 0 10px;
 }
 .panel-popover-btn {
   display: flex;

@@ -164,11 +164,5 @@ export const timeIntervals = [
         "date": "1534366800",
         "type": "video",
         "interval": "20"
-    },
-    {
-        "intervalOb": [],
-        "date": "1534539600",
-        "type": "voice",
-        "interval": "10"
     }
 ];
