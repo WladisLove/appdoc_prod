@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import moment from "moment"
 import ScrollArea from 'react-scrollbar'
 
 import DownloadLink from '../DownloadLink'
@@ -8,60 +9,46 @@ import DownloadLink from '../DownloadLink'
 import './style.css'
 import '../../icon/style.css'
 
-class ChatFiles extends React.Component{
-    render(){
-        const {date, attachment, status} = this.props;
+const ChatFiles = (props) => {
+        const {date, data, attachment, status} = props;
         const rootClass = cn('chat__files-item', `chat__files-${status}`);
 
         return (
             <div className={rootClass}>
                 <div className='chat__files-date'>
-                    {date}
+                    {moment(date*1000).format('DD.MM.YYYY')}
                 </div>
                 <div className='chat__files-attachment'>
                     {attachment}
-                    <DownloadLink
-                        btnText="Прикрепленный файл с длинным предлинным названием.doc"
-                        size="default" 
-                        type="link"
-                        download
-                        svg
-                        icon="file"
-                        iconSize={11}
-                    />
-                    <DownloadLink
-                        btnText="Прикрепленный файл с длинным предлинным названием.doc"
-                        size="default" 
-                        type="link"
-                        download
-                        svg
-                        icon="file"
-                        iconSize={11}
-                    />
-
-                    <DownloadLink conclusion='link-conclusion'
-                        btnText="Заключение 141423.doc"
-                        size="default" 
-                        type="link"
-                        download
-                        svg
-                        icon="result2"
-                        iconSize={31}
-                    />
+                    {
+                        data.map(el => {
+                            const isConcl = el.conclusion;
+                            return (<DownloadLink
+                                {...el}
+                                key={el.href}
+                                conclusion = {isConcl ? "link-conclusion" : ''}
+                                size="default" 
+                                type="link"
+                                download
+                                svg
+                                icon={isConcl ? 'result2' :"file"}
+                                iconSize={isConcl ? 31 : 11}
+                            />)
+                        })
+                    }
                 </div>
             </div>
         )
-    }
 }
 
-ChatFiles.propTypes = {
-    date: PropTypes.string,
+ChatFiles.propTypes = { 
+    data: PropTypes.array,
     attachment: PropTypes.string,
     status: PropTypes.oneOf(['default', 'new']),
 };
 
 ChatFiles.defaultProps = {
-    date: '',
+    data: [],
     attachment: '',
     status: 'default'
 };

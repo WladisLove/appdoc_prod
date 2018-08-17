@@ -8,7 +8,7 @@ import cn from 'classnames'
 import Button from '../../../components/Button'
 import Radio from "../../../components/Radio";
 //import ChatFiles from '../../../components/ChatFiles'
-import {ChatFiles} from 'appdoc-component'
+import ChatFiles from '../../../components/ChatFiles'
 import CompletionReceptionModal from "../../../components/CompletionReceptionModal";
 import CompleteAppeal from '../../../components/CompleteAppeal'
 import NewVisitModalPage from "../../../components/NewVisitModalPage";
