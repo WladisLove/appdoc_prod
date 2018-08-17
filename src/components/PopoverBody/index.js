@@ -9,7 +9,7 @@ import './style.css'
 
 const PopoverBody = (props) => {
 
-	  const {id, fio, comment, start, end, onEmail, onGoto} = props;
+	  const {id, id_user, fio, comment, start, end, onEmail, onGoto} = props;
 	  const icons = ['chat1', 'telephone', "video-camera"];
 	  const key_val = {
 		'chat' : 'chat1',
@@ -19,7 +19,7 @@ const PopoverBody = (props) => {
 
     return (
       <div className='calendar-body'>
-			<div onClick={() => onGoto(id)} className='go-to calendar-name'>{fio}</div>
+			<div onClick={() => onGoto(id_user)} className='go-to calendar-name'>{fio}</div>
 			<div className='calendar-date'>
 				{moment(start).format('DD MMMM')}
 				<div className = 'iconwrapper'>
