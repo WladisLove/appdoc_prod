@@ -29,9 +29,9 @@ class ChatDialog extends React.Component{
     }
 
     render(){
-        const { fio, comment, size, avatar, type, id, id_user,
-            online, status} = this.props;
+        const { fio, comment, size, avatar, type, id, id_user,online, status_user, status} = this.props;
         const rootClass = cn('dialog-item',  `dialog-status-${this.state.status}`);
+        const isOnline = status_user === undefined ? !!online : !!status_user;
 
         const key_val = {
             'chat': 'chat1',
@@ -51,7 +51,7 @@ class ChatDialog extends React.Component{
                     this.props.onGotoChat(id);
                 }}>
                 <div className="flex-col" > 
-                    <ProfileAvatar owner="patient" online={online} img={avatar} size={size}/>
+                    <ProfileAvatar owner="patient" online={isOnline} img={avatar} size={size}/>
                 </div>
                 <div className="flex-col">
                     <div className="dialog-item-name">

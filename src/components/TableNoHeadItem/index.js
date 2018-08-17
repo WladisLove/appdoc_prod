@@ -33,7 +33,9 @@ class TableNoHeadItem extends React.Component{
             start,
             type,
             img,
+            avatar,
             online,
+            status_user,
             onGoto,
         } = this.props;
         const key_val = {
@@ -41,10 +43,12 @@ class TableNoHeadItem extends React.Component{
             'voice': 'telephone', 
             'video': "video-camera",
         }
+        const isOnline = status_user === undefined ? !!online : !!status_user;
+        const photo = avatar ? avatar : img;
 
         return (
             <div className='schedule'>
-                <ProfileAvatar owner="patient" online={online} img={img} size={'small'}/>
+                <ProfileAvatar owner="patient" online={isOnline} img={photo} size={'small'}/>
                 <div className="flex-col">
                     <div className="patient-name">
                         <div onClick={() => onGoto(id_user)} className='go-to'>{fio}</div>

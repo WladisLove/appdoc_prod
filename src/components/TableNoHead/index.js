@@ -12,18 +12,14 @@ import '../../icon/style.css'
 class TableNoHead extends React.Component{
 
     scheduleRender = (dataArr) => {
-        let scheduleArr = [];
-
-        dataArr.map((item,index) => {
-            scheduleArr.push(<TableNoHeadItem {...item} 
+        return dataArr.map((item,index) => {
+            return (<TableNoHeadItem {...item} 
                                     key={'nogead-item'+index}
                                     onBegin={this.props.onBegin}
                                     onCancel={this.props.onCancel}
                                     onGoto={this.props.onGoto}
             />)
         });
-
-        return scheduleArr;
     };
 
     render(){
@@ -33,13 +29,8 @@ class TableNoHead extends React.Component{
         return (
             <div className={rootClass}>
                 <Card title="График работы на сегодня" extra={<div className="sum">Приемы: {data.length}</div>}>
-                    <ScrollArea
-                            speed={0.5}
-                            className="scroll"
-                            smoothScrolling={true}
-                            contentClassName="content"
-
-                    >
+                    <div className="scroll">
+                    {/**/}
                         <div className="tableheader">
                             <div className="flex-col">
                                 <Button
@@ -75,10 +66,15 @@ class TableNoHead extends React.Component{
                                 />
                             </div>
                         </div>
-                        {data.length ? 
-                            this.scheduleRender(data) 
-                            : <div className='entry-list'>Приемов нет</div>}
-                    </ScrollArea>
+                        <ScrollArea
+                            speed={0.8}
+                            className="scroll"
+                            smoothScrolling={true}>
+                            {data.length ? 
+                                this.scheduleRender(data) 
+                                : <div className='entry-list'>Приемов нет</div>}
+                        </ScrollArea>
+                    </div>
                   </Card>
             </div>
         )

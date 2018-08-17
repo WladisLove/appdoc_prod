@@ -41,6 +41,7 @@ class MainReview extends React.Component{
             date, 
             dateCommentDoc, 
             online, 
+            status_user,
             comment, 
             rating, 
             makingAppDate, 
@@ -52,13 +53,14 @@ class MainReview extends React.Component{
 
         const commentDisplay = this.state.showComment ? 'block' : 'none';
         const answAreaDisplay = this.state.showAnswerArea ? 'block' : 'none';
+        const isOnline = status_user === undefined ? !!online : !!status_user;
 
         return (
             <div className='review-root'>
                 <div className='review'>
                 <ProfileAvatar owner="patient" 
                                 img={avatar} 
-                                online={online} 
+                                online={isOnline} 
                                 size='small'/>
                 <div className="patient-info">
                     <div className="flex-row">
