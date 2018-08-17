@@ -51,7 +51,7 @@ class PopoverFile extends React.Component {
                 content={
                     <div className='popover-file-body'>
                         <div className='popover-file-block'>
-                            {this.renderLinks(this.props.data)}
+                            {this.renderLinks(this.props.data ? this.props.data: null)}
                         </div>
                         <Button
                             size='file'
@@ -75,6 +75,7 @@ class PopoverFile extends React.Component {
                             icon='file-download'
                             svg
                             iconSize={32}
+                            title="Скачать все файлы"
                     />
                     <div className={popoverNumCl}>
                         {this.state.num ? ('+' + this.state.num) : this.props.data.length}
