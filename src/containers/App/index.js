@@ -35,19 +35,25 @@ class App extends React.Component {
     componentDidMount() {
         if(this.props.id){
             let that = this;
-            /*let conn = new ab.Session('ws://178.172.235.105:8080',
+            let conn = new ab.Session('wss://178.172.235.105/wss2/',
                 function() {
-                    that.props.getNotifications(that.props.id)
+                    that.props.getNotifications(that.props.id);
+                    
+
                     conn.subscribe(""+that.props.id, function(topic, data) {
+                        //console.log('subscribe_main',topic,data)
                         that.props.setExInfo(data.exInterval)
                         that.setState({notifications: JSON.parse(data.arr)})
                     });
+                    /*conn.subscribe('status_2663', function(topic, data){
+                        console.log(topic, data)
+                    });*/
                 },
                 function() {
                     console.warn('WebSocket connection closed');
                 },
                 {'skipSubprotocolCheck': true}
-            );*/
+            );            
         }
         
     }
