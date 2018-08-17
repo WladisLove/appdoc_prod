@@ -72,14 +72,11 @@ class AutoComplete extends React.Component{
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
         e.target.value.length > 2 ?  this.timer = setTimeout(this.triggerChange, 800) : null;
-
-
     };
     triggerChange = () => {
         this.props.findName(this.state.inputValue);
         this.setState({
-            isVisible: true,
-            searchRes: this.props.data,
+            isVisible: true
         });
     };
 
@@ -96,7 +93,8 @@ class AutoComplete extends React.Component{
         }
     };
     componentWillReceiveProps(nextProps){
-        nextProps.data.length && this.setState({searchRes: nextProps.data})
+        console.log(nextProps, "NEXT PROPS FROM AUTO COMPLETE");
+        this.setState({searchRes: nextProps.data});
     }
 
     render() {
