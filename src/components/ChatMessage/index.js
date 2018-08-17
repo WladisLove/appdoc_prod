@@ -5,6 +5,7 @@ import moment from 'moment'
 import ProfileAvatar from '../ProfileAvatar'
 import Hoc from "../Hoc"
 import Icon from "../Icon"
+import DownloadLink from "../DownloadLink"
 
 import './style.css'
 import '../../icon/style.css'
@@ -79,7 +80,16 @@ const ChatMessage = props => {
                                     }
                                     <div className={`${rootClass}-box`}>
                                         <div className={`${rootClass}-attached`}>
-                                            {text}
+                                            {text ? 
+                                                text : <DownloadLink
+                                                            btnText={props.name}
+                                                            href={props.link}
+                                                            size="default"
+                                                            type="link"
+                                                            download
+                                                            svg
+                                                            icon="file"
+                                                            iconSize={16}/> }
                                         </div>
                                     </div>
                                 </div>
@@ -90,11 +100,11 @@ const ChatMessage = props => {
             <Hoc>
                 {
                     isDate ? 
-                    ( <div className='message-today'>{moment(date*1000).format("D MMMM YYYY")}</div>) 
-                    : isVisEnd ? 
-                    (<div className='message-visit-end'>Прием завершен</div>)
-                    : (
-                    content
+                        ( <div className='message-today'>{moment(date*1000).format("D MMMM YYYY")}</div>) 
+                        : isVisEnd ? 
+                            (<div className='message-visit-end'>Прием завершен</div>)
+                            : (
+                            content
                 )
                 }
             
@@ -106,6 +116,8 @@ const ChatMessage = props => {
 ChatMessage.propTypes = {
     img: PropTypes.string,
     text: PropTypes.string,
+    link: PropTypes.string,
+    name: PropTypes.string,
     isMy: PropTypes.bool,
     date: PropTypes.number,
     isDate: PropTypes.bool,
@@ -118,6 +130,8 @@ ChatMessage.propTypes = {
 ChatMessage.defaultProps = {
     img: '',
     text: '',
+    link: '',
+    name: '',
     isMy: false,
     size: 'small',
     date: 0,

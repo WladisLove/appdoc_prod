@@ -24,66 +24,20 @@ class ChatSend extends React.Component{
 
     modifyFiles = (file, isConclusion) => {
         let that = this;
-        //fileList.map(file => {
-            this.setState({isGenerated: false})
+        this.setState({isGenerated: false})
             previewFile(file.originFileObj, function (previewDataUrl) {
                 file.thumbUrl = previewDataUrl;
-                /*that.setState((prev) => {
-                    return {
-                        ...prev,
-                        isGenerated: fileList.length == prev.generatedList.length + 1,
-                        generatedList:[...prev.generatedList, file],
-                    }
-                });*/
+                
                 that.setState({
                     isGenerated: true,
-                    fileInfo: {
-                        fileSend: file,
-                        isConclusion: isConclusion,
-                    },
                 });
-                /*if (fileList.length == that.state.generatedList.length + 1){
-                    that.pushFiles([...that.state.generatedList, file], isConclusion);
-                }*/
+                that.props.uploadFiles(file, isConclusion)
             });
-        //})
-    }
-    
-    uploadFiles = (e, isConclusion) => {
-        this.setState({isGenerated: false}) 
-        isConclusion
-                ? this.setState(state => {return {
-                    conclusionList:[...state.conclusionList, e.file], 
-                }})
-                : this.setState(state => {return {
-                    fileList:[...state.fileList, e.file]
-                }})
-
-        /*if(!e.event){
-            isConclusion
-                ? this.setState(state => {return {
-                    conclusionList:[...state.conclusionList, e.file], 
-                }})
-                : this.setState(state => {return {
-                    fileList:[...state.fileList, e.file]
-                }})
-        }*/
-        
     }
 
     pushFiles = (e, isConclusion) => {
-        
-            this.modifyFiles(e.file, isConclusion);
-            /*if(this.state.isGenerated){
-                isConclusion ? 
-                (
-                    this.props.uploadConclusion(_file)
-                    //this.setState({conclusionList: []})
-                ) : (
-                    this.props.uploadFiles(_file)
-                    //this.setState({fileList: []})
-                );
-            }*/
+        console.log(e)
+        this.modifyFiles(e.file, isConclusion);
     }
 
     sendHandler = () => {        
@@ -103,19 +57,7 @@ class ChatSend extends React.Component{
         const { TextArea } = Input;
         const {message, attachment, disable} = this.props;
         const rootClass = cn('message__send');
-
-                if(this.state.isGenerated && this.state.fileInfo){
-                    this.state.fileInfo.isConclusion ? 
-                    (
-                        this.props.uploadConclusion(this.state.fileInfo.fileSend)
-                        //this.setState({conclusionList: []})
-                    ) : (
-                        this.props.uploadFiles(this.state.fileInfo.fileSend)
-                        //this.setState({fileInfo: null})
-                    );
-                    //this.setState({fileInfo: null})
-                }
-
+        
         return (
             <div className={rootClass}>
                 <div className='message__send-smileys'>

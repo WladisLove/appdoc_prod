@@ -15,8 +15,10 @@ const ChatTextContent = props => {
 						 from: props.from,
 						 to: props.to,
 						 ...mes,
-                     })}
-					 data={props.chatStory}  
+					 })}
+				chatMode="chat"
+				uploadFile={props.uploadFile}
+				data={props.chatStory}  
 		    />
         )
 
@@ -24,10 +26,12 @@ const ChatTextContent = props => {
 
 ChatTextContent.propTypes = {
 	sendMessage: PropTypes.func,
+	uploadFile: PropTypes.func,
 };
 
 ChatTextContent.defaultProps = {
 	sendMessage: () => {},
+	uploadFile: () => {},
 };
 
 export default ChatTextContent

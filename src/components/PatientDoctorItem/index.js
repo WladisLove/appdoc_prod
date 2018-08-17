@@ -9,7 +9,6 @@ import ProfileAvatar from '../ProfileAvatar'
 
 import './style.css'
 import '../../icon/style.css'
-import * as actions from "../../store/actions";
 
 class PatientDoctorItem extends React.Component{
 

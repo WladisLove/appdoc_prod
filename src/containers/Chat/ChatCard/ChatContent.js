@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-
-
+import ScrollArea from "react-scrollbar"
 import Button from "../../../components/Button";
 import ChatSend from "../../../components/ChatSend";
 import ChatMessage from "../../../components/ChatMessage";
 import ChatComments from "../../../components/ChatComments";
-
 
 import './style.css'
 
@@ -16,24 +14,33 @@ class ChatContent extends React.Component {
 
     shouldComponentUpdate(nextProps){
         return this.props.data.length !== nextProps.data.length 
-                || this.props.receptionStarts !== nextProps.receptionStarts;
+                || this.props.receptionStarts !== nextProps.receptionStarts
+                || this.props.fromTR_VIS !== nextProps.fromTR_VIS;
     }
 
     render() {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.props.isActive});
 
+        let scrlClname = this.props.chatMode == "chat" ? "text_mode" : this.props.fromTR_VIS === 1 ? "" : "media_mode"
+        scrlClname = scrlClname + " chat-card-message__overlay";
+        
         return (
 
             <div className={dialogsClass}>
                 <div className='chat-card-message__area'>
                     <div className='chat-card-message__comments'>
-                     <ChatComments {...this.props.comment}/>  
+                        <ChatComments {...this.props.comment}/>  
                      </div>
 
-                    <div className='chat-card-message__box'>
-                        <div className='chat-card-message__overlay'>
+                    <ScrollArea speed={1}
+                                contentClassName="content"
+                                horizontal={false}
+                                //className="chat-card-message__box"
+                                className="chat-card-message__overlay">
+                        {/*<div className='chat-card-message__overlay'>*/}
                         {
-                                this.props.data.map((e, i) => {
+                            this.props.data.map((e, i) => {
+                                    
                                     return ( <ChatMessage
                                         img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
                                         {...e}
@@ -51,8 +58,8 @@ class ChatContent extends React.Component {
                                     onClick={this.props.onBegin}
                                 />}
                             </div>
-                        </div>
-                    </div>
+                        {/*</div>*/}
+                    </ScrollArea>
                 </div>
                 {
                     this.props.fromTR_VIS === 2 &&
@@ -61,7 +68,7 @@ class ChatContent extends React.Component {
                         disable={!this.props.receptionStarts}
                         isUser={this.props.user_mode === "user"}
                         closeVisit={this.props.onEnd}
-                        uploadFiles = {(file) => this.props.uploadFile(file)}
+                        uploadFiles = {this.props.uploadFile}
                         send={message => this.props.onSend(message)}/>
                 </div>)
                 }

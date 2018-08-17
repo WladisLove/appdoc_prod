@@ -3,22 +3,43 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import ChatFiles from '../';
 
+const arr = [{
+    date: Date.now() / 1000,
+    data: [{
+        href: "#",
+        btnText: "файл.txt"
+    },{
+        href: "#",
+        btnText: "файл2.txt"
+    },{
+        href: "#",
+        btnText: "заключение.txt",
+        conclusion: true
+    }]
+},{
+    date: Date.now() / 1000,
+    data: [{
+        href: "#",
+        btnText: "файл11.txt"
+    },{
+        href: "#",
+        btnText: "файл12.txt"
+    },{
+        href: "#",
+        btnText: "заключение11.txt",
+        conclusion: true
+    }]
+}]
+
 storiesOf('ChatFiles', module)
     .add('default', () => (
         <div>
-            <ChatFiles
-            	status='new'
-            	date='20.11.2017' 
-            />
-            <ChatFiles
-            	status='new'
-            	date='20.11.2017' 
-            />
-            <ChatFiles
-            	date='20.11.2017' 
-            />
-            <ChatFiles 
-            	date='20.11.2017' 
-            />
+            {arr.map(el => {
+                return (<ChatFiles
+                    status='new'
+                    {...el}
+                />)
+            })}
+
         </div>
     ))

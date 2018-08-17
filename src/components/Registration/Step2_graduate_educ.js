@@ -6,7 +6,6 @@ import { Form } from 'antd';
 import Upload from '../Upload'
 import Input from '../Input'
 import DatePicker from '../DatePicker'
-import * as actionTypes from "../../store/actions/actionTypes";
 
 const FormItem = Form.Item;
 

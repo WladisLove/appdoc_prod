@@ -50,6 +50,7 @@ class ChatAudioContent extends React.Component {
 									this.props.onCall();
 								}} 
 								onChat = {this.props.onChat}
+								uploadFiles={this.props.uploadFile}
 								sec= {s}
 								min={m}
 								hour={h}
@@ -61,12 +62,10 @@ class ChatAudioContent extends React.Component {
     
     
     render() {
-        const {isActive,isActiveChat, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
+        const {isActive,isActiveChat} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
 		const filesClass = cn('chat-card-files', {'chat-card-files-active': isActiveChat});
 
-		
-		console.log(this.props.isCalling);
 		let audioContent = this.renderCallArea()
 
         return (
@@ -75,13 +74,14 @@ class ChatAudioContent extends React.Component {
 				{audioContent}
 				<div className={filesClass}>
 					 <ChatContent 
-					 {...this.props}
-					 onSend={mes => this.props.sendMessage({
-						 id: 'chat',
-						 from: this.props.from,
-						 to: this.props.to,
-						 ...mes,
-					 })}
+						{...this.props}
+						onSend={mes => this.props.sendMessage({
+							id: 'chat',
+							from: this.props.from,
+							to: this.props.to,
+							...mes,
+						})}
+						uploadFile={this.props.uploadFile}
 						 data={this.props.chatStory}
 					/>
                 </div>
