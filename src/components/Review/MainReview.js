@@ -47,6 +47,7 @@ class MainReview extends React.Component{
             makingAppDate, 
             commentDoc, 
             isSecondAllowed,
+            isDoctor,
             onTreatmentClick} = this.props;
         let treatment = `Обращение от ${(moment.unix(+makingAppDate)).format('DD.MM.YYYY')}`;
         let time = dateToString(new Date(+date));
@@ -97,7 +98,7 @@ class MainReview extends React.Component{
                                     onClick={this.showComment}
                             />
                             :
-                            (!this.props.isOnDoctorPage && !commentDoc && !this.state.showAnswerArea &&
+                            (isDoctor && !this.props.isOnDoctorPage && !commentDoc && !this.state.showAnswerArea &&
                                 <Button onClick={this.showAnswArea}
                                         btnText='Ответить'
                                         size='mini'
@@ -107,7 +108,7 @@ class MainReview extends React.Component{
                 </div>
                 </div>
                 <div className="review-root-comment" style={{display: commentDisplay}}>
-                    {commentDoc && <SecondaryReview date={+dateCommentDoc} text={commentDoc}/>}
+                    {commentDoc && <SecondaryReview dateCommentDoc={+dateCommentDoc} text={commentDoc}/>}
                 </div>
                 <div className="review-root-answerArea" style={{display: answAreaDisplay}}>
                     { !commentDoc && <AnswerArea onSend={message => this.answAreaHandler(message)}/>}

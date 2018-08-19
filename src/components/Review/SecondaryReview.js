@@ -12,7 +12,7 @@ const SecondaryReview = (props) => {
             </div>
             <div className="reviewSec-body">
                 <div className="reviewSec-body-time">
-                    {moment(props.dateCommentDoc).format('HH:mm DD.MM.YYYY')}
+                    {moment(props.dateCommentDoc * 1000).format('HH:mm DD.MM.YYYY')}
                 </div>
                 <div>
                     {props.text}
