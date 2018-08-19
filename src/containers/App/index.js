@@ -12,6 +12,7 @@ import './styles.css';
 import 'antd/dist/antd.css';
 import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
+import Icon from "../../components/Icon";
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -107,6 +108,16 @@ class App extends React.Component {
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
+                      <button onClick={this.toggle}
+                              className="sidenav-root-btn">
+                        {
+                          this.state.collapsed ? (
+                            <Icon type="right-arrow-forward_small" size={12} svg/>
+                          ) : (
+                            <Icon type="left-arrow-forward_small" size={12} svg/>
+                          )
+                        }
+                      </button>
                         <Header data={this.props.usersHeaderSearch}
                                 notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}

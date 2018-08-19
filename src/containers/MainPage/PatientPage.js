@@ -90,7 +90,7 @@ const PatientPage = props => {
                         onGetAllDocIntervals={props.onGetAllDocIntervals}
                         onGetIntervalForDate={props.onGetIntervalForDate}
                         availableIntervals={props.availableIntervals}
-
+                        isUser={true}
                     />
                 </Col>
             </Row>

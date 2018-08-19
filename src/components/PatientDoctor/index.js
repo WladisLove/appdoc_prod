@@ -53,6 +53,7 @@ class PatientDoctor extends React.Component{
                     onSave={(a) => {
                         console.log("onSave");
                     }}
+                    isUser={this.props.isUser}
                     isDateInvalid = {this.props.isReceptionRecorded}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.doctorName}

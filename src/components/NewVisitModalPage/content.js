@@ -8,6 +8,8 @@ import Input from '../Input'
 import Icon from '../Icon'
 import DatePicker from '../DatePicker'
 import TimePicker from '../TimePicker'
+import {previewFile} from "../../helpers/modifyFiles";
+import Upload from "../Upload";
 
 const FormItem = Form.Item;
 
@@ -132,15 +134,29 @@ class ContentForm extends React.Component {
                     comment: this.state.message,
                     date: +paramDate.format('X'), //формат для сервера
                     type: values.radio ,
-                    file: []
                 };
-                this.props.onSave(response);
-                this.props.setModal1Visible(this.props.isReceptionRecorded)
+                if(values.file) {
+                    response.file = values.file.fileList.map((item,index)=>{
+                        return item.originFileObj
+                    })
+                }
+
+                console.log(response, "FORM VALUES")
+                // this.props.onSave(response);
+                // this.props.setModal1Visible(this.props.isReceptionRecorded)
             } else { console.log(err, "ERROR")}
 
           });
     };
-
+      modifyFiles = (file) => {
+          console.log(file, "FILE FROM MODIFY");
+        if(!file.thumbUrl && !file.modify){
+          file.modify = true;
+          previewFile(file, function (previewDataUrl) {
+            file.thumbUrl = previewDataUrl;
+          });
+        }
+      };
     render() {
         const {getFieldDecorator} = this.props.form;
         const {visible, date, time, userName, defaultDate} = this.props;
@@ -182,6 +198,14 @@ class ContentForm extends React.Component {
                           value={this.state.message}
                           onChange={message => this.setState({message})}
                           className="NewVisitModal-txtarea"/>
+              {this.props.isUser && <FormItem>
+                {getFieldDecorator('file')(
+                  <Upload className="newMessageModal-upload"
+                          onChange={({file}) => this.modifyFiles(file)}
+                          listType = 'text'
+                          text="Прикрепить результаты исследований"/>
+                )}
+                </FormItem>}
 
                 <FormItem>
                     {getFieldDecorator('radio',{

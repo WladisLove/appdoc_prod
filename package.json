@@ -4,7 +4,7 @@
   "private": true,
   "engines": {
     "npm": "6.4.0",
-    "node": "8.11.3"
+    "node": "8.9.4"
   },
   "dependencies": {
     "antd": "^3.0.2",

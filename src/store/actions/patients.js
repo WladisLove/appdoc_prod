@@ -102,7 +102,7 @@ export const getDocPatients = () => {
     }
 }
 
-export const getPatientDoctors = (count) => {
+export const getPatientDoctors = (count, both) => {
     return (dispatch, getState) => {
 
         let obj = {
@@ -112,6 +112,24 @@ export const getPatientDoctors = (count) => {
 
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDoctorIdByPatients', JSON.stringify(obj))
             .then(rez => {
+                count ?
+                dispatch({
+                    type: actionTypes.GET_PATIENT_DOCTORS_SHORT,
+                    patientDoctors: rez.data,
+                })
+                  :
+                dispatch({
+                type: actionTypes.GET_PATIENT_DOCTORS,
+                patientDoctors: rez.data,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        count && both ?
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDoctorIdByPatients',
+                    JSON.stringify({id:getState().auth.id}))
+            .then(rez => {
                 dispatch({
                     type: actionTypes.GET_PATIENT_DOCTORS,
                     patientDoctors: rez.data,
@@ -119,7 +137,7 @@ export const getPatientDoctors = (count) => {
             })
             .catch(err => {
                 console.log(err);
-            })
+            }) : null
     }
 };
 

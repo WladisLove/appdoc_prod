@@ -99,11 +99,11 @@ const mapStateToProps = state => {
 		actualTreatments: state.treatments.actualTreatments,
 		completedTreatments: state.treatments.completedTreatments,
 		docTodayInfo: state.doctor.todayInfo,
-        patientDoctors: state.patients.patientDoctors,
+		patientDoctors: state.patients.patientDoctorsShort,
 		nearVisits: state.schedules.nearVisits,
 		nearVisitsLoaded: state.schedules.nearVisitsLoaded,
-        intervals: state.patients.intervals,
-        availableIntervals: state.profileDoctor.workIntervals,
+		intervals: state.patients.intervals,
+		availableIntervals: state.profileDoctor.workIntervals,
 		userInfoShort: state.profilePatient
     }
 };
@@ -123,10 +123,10 @@ const mapDispatchToProps = dispatch => {
 		onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),
 		getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
 		onGetPatientDoctors: (count) => dispatch(actions.getPatientDoctors(count)),
-        onGetIntervalForDate: (beginDay, endDay, id) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay, id)),
-        onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
+		onGetIntervalForDate: (beginDay, endDay, id) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay, id)),
+		onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
 		onSendUserPoleValue: (pole, value) => dispatch(actions.sendUserPoleValue(pole, value)),
-        onGetUserInfoShort: () => dispatch(actions.getUserInfoShort())
+		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort())
     }
 };
 
