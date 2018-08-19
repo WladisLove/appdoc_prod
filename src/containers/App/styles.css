@@ -67,7 +67,6 @@
   top: 0;
   background-color: #fff;
   width: calc(100% - 340px);
-  
   height: 100px;
   padding: 24px 45px 24px 35px;
   border-bottom: 1px solid #e8e8e8;
@@ -97,3 +96,4 @@
   font-size: 12px;
   letter-spacing: 0.12px;
 }
+/*# sourceMappingURL=styles.css.map */
