@@ -12,7 +12,7 @@ import '../../icon/style.css'
 
 const ChatMessage = props => {
     const {
-        text, size, date, online, img, isMy, isDate, isVisEnd, type, callTime, name
+        text, size, date, online, img, isMy, isDate, isVisEnd, type, callTime, name, isConclusion: isConcl
     } = props;
     const rootClass = isMy ? 'message__out' : 'message__in';
 
@@ -84,12 +84,13 @@ const ChatMessage = props => {
                                                 text : <DownloadLink
                                                             btnText={props.name}
                                                             href={props.link}
+                                                            conclusion = {isConcl ? "link-conclusion" : ''}
                                                             size="default"
                                                             type="link"
                                                             download
                                                             svg
-                                                            icon="file"
-                                                            iconSize={16}/> }
+                                                            icon={isConcl ? 'result2' :"file"}
+                                                            iconSize={isConcl ? 28 : 16}/> }
                                         </div>
                                     </div>
                                 </div>
