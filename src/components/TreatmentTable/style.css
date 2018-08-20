@@ -23,7 +23,7 @@
   width: 100%;
 }
 .treatment-all .scrollarea-content.content {
-  width: 100%;
+  min-width: 100%;
 }
 .treatment-all .tableheader {
   display: flex;

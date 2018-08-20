@@ -56,7 +56,6 @@ export const setReception = (reception) => {
             .then(res => {
                 dispatch({
                     type: actionTypes.SET_RECEPTION,
-                    isReceptionRecorded: res.data.process
                 })
             })
             .catch(err => {

@@ -72,7 +72,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 patientDoctorsShort: action.patientDoctors,
                 isLoadingPatientDoctorsShort: false,
-
             }
 
         case actionTypes.GET_PATIENT_DOCTORS_LOADING:

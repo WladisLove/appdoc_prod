@@ -74,7 +74,6 @@ export const clearIntervals = () => {
 }
 
 export const addVisit = (reception, start, end) => {
-    console.log(reception, "RECEPTION FROM ADD VISIT");
     return (dispatch, getState) => {
         let obj = {
             ...reception,
@@ -97,10 +96,8 @@ export const addVisit = (reception, start, end) => {
                 console.log('[addVisit]',res);
                 dispatch({
                     type: actionTypes.SET_RECEPTION,
-                    isReceptionRecorded: res.data.process
                 });
                 start && dispatch(getAllVisits(start,end))
-                //dispatch()
             })
             .catch(err => {
                 console.log(err);

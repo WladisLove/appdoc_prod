@@ -38,11 +38,12 @@ class TreatmentTable extends React.Component{
                         </div>}>
                     {data.length ?
                     <ScrollArea
-                            speed={1}
-                            className="scroll"
-                            contentClassName="content"
+                        speed={1}
+                        className=""
+                        contentClassName="content"
+                        horizontal={true}
                     >
-                    <div className="tableheader">
+                        <div className="tableheader">
                         <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Врач" : "Имя пациента"}</div></div>
                         <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
                         <div className="flex-col"><div className="tableheader-name">Диагноз</div></div>
@@ -51,9 +52,9 @@ class TreatmentTable extends React.Component{
                         <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
                         <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
                         <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
-                    </div>
-                        {this.treatmentRender(data)}
-                    </ScrollArea>
+                        </div>
+                    {this.treatmentRender(data)}
+                        </ScrollArea>
                         : <div className='entry-list'>{this.props.isUser ? "Приёмов нет" : "Обращений нет"}</div>}
                   </Card>
             </div>

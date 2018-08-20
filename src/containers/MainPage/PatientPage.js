@@ -92,8 +92,6 @@ const PatientPage = props => {
                         availableIntervals={props.availableIntervals}
                         isUser={true}
                         onAddVisit = {props.onAddVisit}
-                        isReceptionRecorded = {props.isReceptionRecorded}
-                        isRecordInProcess = {props.isRecordInProcess}
                     />
                 </Col>
             </Row>

@@ -36,20 +36,10 @@ class PatientDoctor extends React.Component{
         return doctorArr;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.isReceptionRecorded === true
-            && this.state.modal1Visible === true
-            && this.state.canCloseNewVisitModal === true)
-        {
-            this.setState({
-                modal1Visible: false,
-                canCloseNewVisitModal: false
-            })
-        }
-    }
+
     onSave = (obj) => {
-        this.setState({canCloseNewVisitModal: true});
         this.props.onAddVisit(obj);
+        this.setState({modal1Visible:false})
     };
     render(){
         const { data, onGoto } = this.props;
@@ -72,9 +62,7 @@ class PatientDoctor extends React.Component{
                     onChangeDate={this.props.onGetIntervalForDate}
                     availableIntervals={this.props.availableIntervals}
                     id={this.state.doctorID}
-                    isReceptionRecorded = {this.props.isReceptionRecorded}
                     setModal1Visible = {this.setModal1Visible}
-                    isRecordInProcess = {this.props.isRecordInProcess}
                 />
             </div>
         )

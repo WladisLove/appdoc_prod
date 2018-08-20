@@ -162,17 +162,12 @@ class ContentForm extends React.Component {
                         return item.originFileObj
                     })
                 }
-
-                console.log(response, "FORM VALUES");
-                this.setState({isRecordInProcess: true});
                 this.props.onSave(response);
-                // this.props.setModal1Visible(this.props.isReceptionRecorded)
             } else { console.log(err, "ERROR")}
 
           });
     };
       modifyFiles = (file) => {
-          console.log(file, "FILE FROM MODIFY");
         if(!file.thumbUrl && !file.modify){
           file.modify = true;
           previewFile(file, function (previewDataUrl) {
@@ -242,9 +237,7 @@ class ContentForm extends React.Component {
                         btnText='Сохранить'
                         htmlType="submit"
                         type='float'/>
-                {this.state.isRecordInProcess && <Spinner style={{marginLeft: 20}} isInline={true} size="small"/>}
-                {this.state.isReceptionRecorded === false &&
-                <Alert style={{marginTop:10}} message="Выберете другое время" type="error" >Выберете другое время</Alert> }
+
             </Form>
         )
     }

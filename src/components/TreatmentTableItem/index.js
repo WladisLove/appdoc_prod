@@ -19,10 +19,22 @@ class TreatmentTableItem extends React.Component{
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
       }
-
+    refactorFiles = (file) => {
+        if(file.length>1) {
+            let files = [];
+            file.forEach((item) => {
+                item.data.forEach(item => {
+                    files.push(item)
+                })
+            });
+            return files
+        } else {
+            return file
+        }
+    };
     render(){
-        const {type, id, id_user, files, user_name,doc_name, size, time, date, diagnostic, comments, price, conclusion,
-            isUser,rating, title, review, content, onGoto,startDate, endDate, onGotoChat} = this.props;
+        const {type, id, id_user, file, user_name,doc_name, date, begin, finish, diagnostic, comment, price, conclusion,
+            isUser, patientWasnt, rate, complaint, onGoto, onGotoChat} = this.props;
         const rootClass = cn('treatment');
         const key_val = {
             'chat': 'chat1',
@@ -49,46 +61,51 @@ class TreatmentTableItem extends React.Component{
                     <div className="patient-date">
                         {moment(date*1000).format('DD.MM.YYYY')}</div>
                     <div className="patient-time">
-                    {moment(startDate*1000).format('HH:mm')} - {moment(endDate*1000).format('HH:mm')}
+                        {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
+                        {finish ? `-${moment(finish).format('HH:mm')}`: null}
                     </div>
                     <div className="patient-icon">
                         <Icon svg type={key_val[type]} size={16}/>
                     </div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-diagnostic">{diagnostic}</div>
+                    <div className="patient-diagnostic">{diagnostic ? diagnostic : <span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-comment">{comments}</div>
+                    <div className="patient-comment">{complaint ? complaint:<span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-price">{price}</div>
+                    <div className="patient-price">{price ? price : <span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
                     <div className="patient-conclusion">
-                    {/*conclusion*/}
-                    {
-                        conclusion ? (
-                            <a href={conclusion.link} download onClick={this.handleClick}>
-                                {conclusion.Name}
-                            </a>
-                        ) : <span>&mdash;</span>
-                    }  
+                        {
+                            conclusion ? (
+                                <a href={conclusion.href} download target="_blank" onClick={this.handleClick}>
+                                    {conclusion.btnText}
+                                </a>
+                            ) : (moment().format("X") > moment(+date*1000).format("X")) ? patientWasnt ?
+                                <span>Приём пропущен</span> : <span>Ожидайте заключения</span> : <span>&mdash;</span>
+                        }
                     </div>
                 </div>
                 <div className="flex-col">
-                {
-                    rating ? (
-                        <Hoc>
-                            <Rate defaultValue={rating} disabled/>
-                            <div className="patient-review">{review}</div>
-                        </Hoc>
-                    ) : <span>&mdash;</span>
-                }
+                    {
+                        rate ? (
+                            <Hoc>
+                                <Rate defaultValue={rate} disabled/>
+                                <div className="patient-review">{comment}</div>
+                            </Hoc>
+                        ) : conclusion ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
+                                                  onClick={this.handleClick}
+                                                  size='small'
+                                                  type='float'
+                                                  icon='form'/> : <span>&mdash;</span>
+                    }
                 </div>
                 <div className="flex-col"
-                    onClick={this.handleClick}>
-                    <PopoverFile data={files}></PopoverFile>
+                     onClick={this.handleClick}>
+                    <PopoverFile data={this.refactorFiles(file)}></PopoverFile>
                 </div>
             </div>
         )

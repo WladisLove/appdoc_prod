@@ -75,10 +75,6 @@ class MainPage extends React.Component{
                 onCancel = {()=>this.setState({isNewFreeVisitVisible: false })}
                 onFreeVisit = {this.onNewFreeVisit}
                 onAddVisit = {this.props.onAddNewVisit}
-                isReceptionRecorded = {this.props.isReceptionRecorded}
-                isRecordInProcess = {this.props.isRecordInProcess}
-
-
             />
 		) : (
 			<DoctorPage 
@@ -110,8 +106,6 @@ const mapStateToProps = state => {
 		intervals: state.patients.intervals,
 		availableIntervals: state.profileDoctor.workIntervals,
 		userInfoShort: state.profilePatient,
-		isReceptionRecorded: state.patients.isReceptionRecorded,
-        isRecordInProcess: state.patients.isRecordInProcess
     }
 };
 
