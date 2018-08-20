@@ -18,7 +18,7 @@ class PatientAccardionContactItemForm extends React.Component{
         super(props);
         this.state ={
             passwordsRequired: false,
-            newAvatar: ""
+            newAvatarUrl: ""
         }
     }
 
@@ -57,15 +57,18 @@ class PatientAccardionContactItemForm extends React.Component{
         }
     };
 
-    handleChangeImage = (info) => {
-        console.log(info);
-        /*const reader = new FileReader();
-        reader.addEventListener('load', () => this.setState({
-            avatarUrl: reader.result,
-            fileList: [info.file]
-        }));
-        reader.readAsDataURL(info.file);
-        */
+    handleChangeAvatar = (isReset) => {
+        const file = document.querySelector('.file-upload-input').files[0];
+        if (file && file.type.indexOf("image/") !== -1) {
+            const reader = new FileReader();
+            console.log("AVATARFILE", file);
+            reader.addEventListener('load', () => this.setState({
+                newAvatarUrl: (isReset === true ? "https://178.172.235.105/media/img/zaglushka.svg" : reader.result)
+            }));
+            reader.readAsDataURL(file);
+        }
+
+        if (isReset === true) document.querySelector('.file-upload-input').value = "";
     };
 
     compareToFirstPassword = (rule, value, callback) => {
@@ -88,7 +91,7 @@ class PatientAccardionContactItemForm extends React.Component{
                     <div className='patient-contacts-block'>
                         <div className='patient-contacts-avatar'>
                             <ProfileAvatar
-                                img={contactAvatar ? contactAvatar : this.state.newAvatar}
+                                img={this.state.newAvatarUrl ? this.state.newAvatarUrl : contactAvatar}
                                 owner='patient'
                                 size="large"
                                 online={true}
@@ -99,7 +102,7 @@ class PatientAccardionContactItemForm extends React.Component{
                                         <Icon type='retweet' size={16}/>
                                     </label>
                                     <input className="file-upload-input" type="file" name="photo-upload"
-                                           onChange={this.handleChangeImage}/>
+                                           onChange={this.handleChangeAvatar}/>
                                 </div>
                                 <Button
                                     btnText=''
@@ -107,6 +110,7 @@ class PatientAccardionContactItemForm extends React.Component{
                                     type='icon'
                                     icon='close'
                                     iconSize={13}
+                                    onClick={() => this.handleChangeAvatar(true)}
                                 />
                             </div>
 
