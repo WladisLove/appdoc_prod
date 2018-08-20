@@ -18,6 +18,7 @@ class PatientAccardionContactItemForm extends React.Component{
         super(props);
         this.state ={
             passwordsRequired: false,
+            newAvatar: ""
         }
     }
 
@@ -56,6 +57,17 @@ class PatientAccardionContactItemForm extends React.Component{
         }
     };
 
+    handleChangeImage = (info) => {
+        console.log(info);
+        /*const reader = new FileReader();
+        reader.addEventListener('load', () => this.setState({
+            avatarUrl: reader.result,
+            fileList: [info.file]
+        }));
+        reader.readAsDataURL(info.file);
+        */
+    };
+
     compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('newPassField')) {
@@ -67,7 +79,7 @@ class PatientAccardionContactItemForm extends React.Component{
 
     render(){
         const { getFieldDecorator } = this.props.form;
-        const { contactFio, contactPhone, contactEmail, contactAddress} = this.props;
+        const { contactFio, contactPhone, contactEmail, contactAddress, contactAvatar} = this.props;
         const rootClass = cn('patient-contacts');
         
         return (
@@ -76,7 +88,7 @@ class PatientAccardionContactItemForm extends React.Component{
                     <div className='patient-contacts-block'>
                         <div className='patient-contacts-avatar'>
                             <ProfileAvatar
-                                img='https://boltai.com/wp-content/uploads/2017/07/3_main_new.1494599956.jpg'
+                                img={contactAvatar ? contactAvatar : this.state.newAvatar}
                                 owner='patient'
                                 size="large"
                                 online={true}
@@ -87,7 +99,7 @@ class PatientAccardionContactItemForm extends React.Component{
                                         <Icon type='retweet' size={16}/>
                                     </label>
                                     <input className="file-upload-input" type="file" name="photo-upload"
-                                           onChange={() => console.log("onFileUpload")}/>
+                                           onChange={this.handleChangeImage}/>
                                 </div>
                                 <Button
                                     btnText=''
@@ -213,6 +225,7 @@ PatientAccardionContactItemForm.propTypes = {
     contactPhone: PropTypes.string,
     contactEmail: PropTypes.string,
     contactAdress: PropTypes.string,
+    contactAvatar: PropTypes.string
 };
 
 PatientAccardionContactItemForm.defaultProps = {
@@ -220,6 +233,7 @@ PatientAccardionContactItemForm.defaultProps = {
     contactPhone: '',
     contactEmail: '',
     contactAdress: '',
+    contactAvatar: ''
 };
 
 const PatientAccardionContactItem  = Form.create()(PatientAccardionContactItemForm);
