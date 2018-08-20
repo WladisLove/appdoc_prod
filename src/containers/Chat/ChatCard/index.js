@@ -65,6 +65,7 @@ class ChatCard extends React.Component {
         this.ws = new WebSocket(props.wsURL);
         this.ws.onmessage = (message) => {
 			var parsedMessage = JSON.parse(message.data);
+			console.log("receive new mes", parsedMessage);
 		
 			switch (parsedMessage.id) {
 			case 'registerResponse':
@@ -89,7 +90,7 @@ class ChatCard extends React.Component {
 				this.stop(true);
 				break;
 			case 'chat':
-				console.log('[chat]', parsedMessage);
+				console.log('[CHAT]', [...this.state.chatStory, parsedMessage]);
 				this.setState({chatStory: [...this.state.chatStory, parsedMessage]})
 				break;
 			case 'chatHistory':
@@ -200,8 +201,24 @@ class ChatCard extends React.Component {
 			var errorMessage = message.message ? message.message
 					: 'Unknown reason for call rejection.';
 			console.log(errorMessage);
+			this.sendMessage({
+				id : 'chat',
+				type: "notBegin",
+				name: this.props.patientName,
+				from : this.state.from,
+				to: this.state.to,
+				date: Math.ceil(Date.now()/1000),
+			});
 			this.stop(true);
 		} else {
+			this.sendMessage({
+				id : 'chat',
+				type: "begin",
+				name: this.props.patientName,
+				from : this.state.from,
+				to: this.state.to,
+				date: Math.ceil(Date.now()/1000),
+			});
 			this.setCallState(IN_CALL);
 			webRtcPeer.processAnswer(message.sdpAnswer);
 		}
@@ -229,7 +246,7 @@ class ChatCard extends React.Component {
 		+ ' is calling you for '+message.receptionId+' visit. Do you accept the call?')) {
 			this.setState({receptionStarts: true, isCalling: true, to: message.from})
 	
-			!this.props.receptionId && this.props.onSelectReception(message.receptionId, () => alert("Hello"));
+			!this.props.receptionId && this.props.onSelectReception(message.receptionId);
 
 
 			var options = this.state.mode === 'video' ? 
@@ -307,12 +324,21 @@ class ChatCard extends React.Component {
 			name : this.state.from,
 			other_name: this.state.to,
 		});
-		this.setState({
-			receptionStarts: true,
+		this.sendMessage({
+			id : 'chat',
+			from : this.state.from,
+			to: this.state.to,
+			date: Math.ceil(Date.now()/1000),
+			isDate: true,
 		});
+		this.setState({receptionStarts: true,});
 		this.props.changeReceptionStatus(this.props.receptionId, "begin")
 	}
 
+	checkTimeFormat = (number) => {
+        return (''+number).length < 2 ? '0'+number : number;
+	}
+	
 	stop = (message) => {
 		this.setState({isCalling: false});
 		clearInterval(this.timerInterval);
@@ -348,6 +374,7 @@ class ChatCard extends React.Component {
 	
 	call = () => {
 		!this.state.receptionStarts && this.setState({receptionStarts: true});
+		//!this.state.receptionStarts && this.startReception();
 		this.setState({isCalling: true});
 		this.setCallState(PROCESSING_CALL);
     
@@ -393,10 +420,30 @@ class ChatCard extends React.Component {
     }
 
 	onCall = () => {	
-		!this.state.receptionStarts && this.startReception();
+		//!this.state.receptionStarts && this.startReception();
 		this.call();
 	}
+
+	messAboutStop = () => {
+		const {s,m,h} = this.state.timer;
+		console.log(s,m,h, s || m || h)
+		if(s || m || h){
+			const callTime = h 
+				? this.checkTimeFormat(h) +':'+ this.checkTimeFormat(m) +':'+ this.checkTimeFormat(s)
+				: this.checkTimeFormat(m) +':'+ this.checkTimeFormat(s);
+			this.sendMessage({
+				id: 'chat',
+				from: this.state.from,
+				to: this.state.to,
+				date: Math.ceil(Date.now()/1000),
+				type: "stop",
+				callTime,
+			});
+		}
+	}
+
 	onStop = () => {
+		this.messAboutStop();
 		this.stop();
 	}
 
@@ -408,6 +455,7 @@ class ChatCard extends React.Component {
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере*/
+		this.messAboutStop();
 		this.stop();
 		let new_obj = {
 			...obj,
@@ -418,7 +466,14 @@ class ChatCard extends React.Component {
 			id : 'closeReception',
 			name : this.state.from,
 			other_name: this.state.to,
-		})
+		});
+		this.sendMessage({
+			id : 'chat',
+			from : this.state.from,
+			to: this.state.to,
+			date: Math.ceil(Date.now()/1000),
+			isVisEnd: true,
+		});
 		this.props.completeReception(new_obj);
 		this.props.changeReceptionStatus(this.props.receptionId, "finish");
 
