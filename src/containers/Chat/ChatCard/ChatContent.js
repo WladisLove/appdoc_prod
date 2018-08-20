@@ -21,7 +21,7 @@ class ChatContent extends React.Component {
 
 
     scrollToBottom = () => {
-        this.scrollRef.scrollIntoView({ behavior: "smooth" });
+        this.scrollRef.scrollIntoView({ behavior: "smooth" , block: "end"});
       }
       /*componentDidMount() {
           console.log('componentDidMount')
