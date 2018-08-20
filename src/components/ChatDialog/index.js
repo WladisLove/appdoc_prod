@@ -55,11 +55,7 @@ class ChatDialog extends React.Component{
                 </div>
                 <div className="flex-col">
                     <div className="dialog-item-name">
-                        <div className='go-to' 
-                            onClick={(e) => {
-                                this.handleClick(e);
-                                this.props.onGoto(id_user);
-                            }}>{fio}</div>
+                        <div className='go-to'>{fio}</div>
                     </div>
                     <div className="dialog-item-consultation">{comment}</div>
                 </div>
@@ -95,7 +91,6 @@ ChatDialog.propTypes = {
     fio: PropTypes.string,
     status: PropTypes.oneOf(['extra', 'default', 'soon']),
     type: PropTypes.string,
-    onGoto: PropTypes.func,
     onGotoChat: PropTypes.func,
 };
 
@@ -106,7 +101,6 @@ ChatDialog.defaultProps = {
     size: 'small',
     status: 'default',
     type: 'chat',
-    onGoto: () => {},
     onGotoChat: () => {},
 };
 
