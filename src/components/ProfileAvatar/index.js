@@ -28,7 +28,7 @@ class ProfileAvatar extends React.Component{
 ProfileAvatar.propTypes = {
     img: PropTypes.string,
     size: PropTypes.oneOf(['small', 'medium', 'large']),
-    online: PropTypes.bool,
+    online: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     owner: PropTypes.oneOf(['patient','doctor']).isRequired,
 };
 

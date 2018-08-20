@@ -90,7 +90,7 @@ class ChatDialog extends React.Component{
 }
 
 ChatDialog.propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     avatar: PropTypes.string,
     fio: PropTypes.string,
     status: PropTypes.oneOf(['extra', 'default', 'soon']),

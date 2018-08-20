@@ -43,7 +43,7 @@ class Chat extends React.Component{
             user_id: +id_user,
             patientName: isUser ? name_doc : name,
             id_treatment,
-            online: status,
+            online: +status,
             avatar,
             chat,
             comment,
