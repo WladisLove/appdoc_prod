@@ -74,18 +74,31 @@ export const clearIntervals = () => {
 }
 
 export const addVisit = (reception, start, end) => {
+    console.log(reception, "RECEPTION FROM ADD VISIT");
     return (dispatch, getState) => {
         let obj = {
             ...reception,
             
             id_doc: getState().auth.id,
+        };
+
+        if(getState().auth.mode === "doc") {
+            obj.id_doc = getState().auth.id;
+            obj.id_user = reception.id || reception.id_user;
+        } else {
+            obj.id_user = getState().auth.id;
+            obj.id_doc = reception.id || reception.id_user;
         }
-        
+        console.log(obj, "DATA TO SEND FROM SCHEDULES");
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log(JSON.stringify(obj))
-                console.log('[addVisit]',res)
+                console.log(JSON.stringify(obj));
+                console.log('[addVisit]',res);
+                dispatch({
+                    type: actionTypes.SET_RECEPTION,
+                    isReceptionRecorded: res.data.process
+                });
                 start && dispatch(getAllVisits(start,end))
                 //dispatch()
             })

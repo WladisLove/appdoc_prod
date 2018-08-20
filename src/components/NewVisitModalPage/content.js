@@ -10,6 +10,7 @@ import DatePicker from '../DatePicker'
 import TimePicker from '../TimePicker'
 import {previewFile} from "../../helpers/modifyFiles";
 import Upload from "../Upload";
+import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 
@@ -22,7 +23,9 @@ class ContentForm extends React.Component {
             currentTime: moment(),
             isResetTime: false,
             type: "chat",
-            appointmentDuration: 5
+            appointmentDuration: 5,
+            isRecordInProcess: false,
+            isReceptionRecorded: true
         };
     };
 
@@ -77,7 +80,13 @@ class ContentForm extends React.Component {
         const arr = newIntervals;
         for(let i = 0; arr && i < arr.length; i++){
             for(let j = 0; j < arr[i].intervalOb.length; j++){
-                intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000, type: (arr[i].type)});
+                if(+arr[i].intervalOb[j].start < +moment().format("X")+1800) {
+                    if(+arr[i].intervalOb[j].end >  +moment().format("X")+1800) {
+                        intervals.push({from: (+moment().format("X")+1800)*1000, to: (+arr[i].intervalOb[j].end) * 1000, type: (arr[i].type)});
+                    }
+                } else {
+                    intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000, type: (arr[i].type)});
+                }
             }
         }
         return intervals;
@@ -117,11 +126,24 @@ class ContentForm extends React.Component {
     };
 
     componentWillReceiveProps(nextProps){
-        nextProps.visible === false ? (this.setState({message: '', isResetTime: true}),
+        nextProps.visible === false ? (this.setState({
+            message: '',
+            isResetTime: true,
+            isRecordInProcess: false,
+            isReceptionRecorded: true
+
+        }),
             this.props.form.resetFields()) : null;
 
         nextProps.intervals !== this.props.intervals ?
             this.setState({availableArea: this.getIntervals(nextProps.intervals)}) : null;
+
+        if(nextProps.isRecordInProcess === false) {
+            this.setState({isRecordInProcess: false})
+        }
+        if(nextProps.isReceptionRecorded === false) {
+            this.setState({isReceptionRecorded: false})
+        }
     }
 
     handleSubmit = (e) => {
@@ -141,8 +163,9 @@ class ContentForm extends React.Component {
                     })
                 }
 
-                console.log(response, "FORM VALUES")
-                // this.props.onSave(response);
+                console.log(response, "FORM VALUES");
+                this.setState({isRecordInProcess: true});
+                this.props.onSave(response);
                 // this.props.setModal1Visible(this.props.isReceptionRecorded)
             } else { console.log(err, "ERROR")}
 
@@ -219,8 +242,9 @@ class ContentForm extends React.Component {
                         btnText='Сохранить'
                         htmlType="submit"
                         type='float'/>
-                {this.props.isDateInvalid===false &&
-                <Alert style={{marginTop:10}} message="Выберете доступное время" type="error" >Выберете доступное время</Alert> }
+                {this.state.isRecordInProcess && <Spinner style={{marginLeft: 20}} isInline={true} size="small"/>}
+                {this.state.isReceptionRecorded === false &&
+                <Alert style={{marginTop:10}} message="Выберете другое время" type="error" >Выберете другое время</Alert> }
             </Form>
         )
     }

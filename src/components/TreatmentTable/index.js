@@ -18,7 +18,10 @@ class TreatmentTable extends React.Component{
                                     onGotoChat = {this.props.onGotoChat}
                                     onGoto={this.props.onGoto} 
                                     data={this.props.data} 
-                                    key={item.id + ''+index}/>)
+                                    key={item.id + ''+index}
+                                    isUser = {this.props.isUser}
+
+            />)
         });
 
         return treatmentArr;
@@ -33,6 +36,7 @@ class TreatmentTable extends React.Component{
                         extra={<div className='go-to' onClick={this.props.redirect}>
                             <Icon svg size={16} type="order-form" /> <span>Все обращения</span>
                         </div>}>
+                    {data.length ?
                     <ScrollArea
                             speed={1}
                             className="scroll"
@@ -41,18 +45,16 @@ class TreatmentTable extends React.Component{
                     <div className="tableheader">
                         <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Врач" : "Имя пациента"}</div></div>
                         <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
-                        <div className="flex-col"><div className="tableheader-name">диагноз</div></div>
+                        <div className="flex-col"><div className="tableheader-name">Диагноз</div></div>
                         <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
-                        <div className="flex-col"><div className="tableheader-name">стоимость</div></div>
-                        <div className="flex-col"><div className="tableheader-name">заключение</div></div>
-                        <div className="flex-col"><div className="tableheader-name">отзыв</div></div>
-                        <div className="flex-col"><div className="tableheader-name"></div></div>
+                        <div className="flex-col"><div className="tableheader-name">Стоимость</div></div>
+                        <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
+                        <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
+                        <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
                     </div>
-                    
-                        {data.length ? 
-                            this.treatmentRender(data) 
-                            : <div className='entry-list'>Обращений нет</div>}
+                        {this.treatmentRender(data)}
                     </ScrollArea>
+                        : <div className='entry-list'>{this.props.isUser ? "Приёмов нет" : "Обращений нет"}</div>}
                   </Card>
             </div>
         )

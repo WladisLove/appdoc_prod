@@ -11,21 +11,24 @@ class Spinner extends Spin{
 
 
     render() {
-
+        const cls = this.props.isInline ? "inline-spinner" :"spinner-wrapper";
         return (
-            <div className="spinner-wrapper">
-                <Spin {...this.props}/>
+            <div className={cls}>
+                <Spin size={this.props.size}
+                      style={this.props.style}
+
+                />
             </div>
         )
     }
 }
 
-// Input.propTypes = {
-//     className: PropTypes.string,
-// };
-//
-// Input.defaultProps = {
-//     className: '',
-// };
+Spinner.propTypes = {
+    isInline: PropTypes.bool,
+};
+
+Spinner.defaultProps = {
+    isInline: false,
+};
 
 export default Spinner;

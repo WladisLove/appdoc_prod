@@ -22,7 +22,6 @@ class PatientDoctor extends React.Component{
             modal1Visible: value,
             doctorName: name,
             doctorID: ID,
-            isReceptionRecorded: false
         });
         if (value) this.props.onGetAllDocIntervals(ID);
     };
@@ -37,6 +36,21 @@ class PatientDoctor extends React.Component{
         return doctorArr;
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.isReceptionRecorded === true
+            && this.state.modal1Visible === true
+            && this.state.canCloseNewVisitModal === true)
+        {
+            this.setState({
+                modal1Visible: false,
+                canCloseNewVisitModal: false
+            })
+        }
+    }
+    onSave = (obj) => {
+        this.setState({canCloseNewVisitModal: true});
+        this.props.onAddVisit(obj);
+    };
     render(){
         const { data, onGoto } = this.props;
 
@@ -50,11 +64,8 @@ class PatientDoctor extends React.Component{
                 </Card>
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
-                    onSave={(a) => {
-                        console.log("onSave");
-                    }}
+                    onSave={this.onSave}
                     isUser={this.props.isUser}
-                    isDateInvalid = {this.props.isReceptionRecorded}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.doctorName}
                     intervals={this.props.intervals}
@@ -63,6 +74,7 @@ class PatientDoctor extends React.Component{
                     id={this.state.doctorID}
                     isReceptionRecorded = {this.props.isReceptionRecorded}
                     setModal1Visible = {this.setModal1Visible}
+                    isRecordInProcess = {this.props.isRecordInProcess}
                 />
             </div>
         )

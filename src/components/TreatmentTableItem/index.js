@@ -21,14 +21,15 @@ class TreatmentTableItem extends React.Component{
       }
 
     render(){
-        const {type, id, id_user, files, name, size, time, date, diagnostic, comments, price, conclusion, rating, title, review, content, onGoto,startDate, endDate, onGotoChat} = this.props;
+        const {type, id, id_user, files, user_name,doc_name, size, time, date, diagnostic, comments, price, conclusion,
+            isUser,rating, title, review, content, onGoto,startDate, endDate, onGotoChat} = this.props;
         const rootClass = cn('treatment');
         const key_val = {
             'chat': 'chat1',
             'voice': 'telephone', 
             'video': "video-camera",
         }
-
+        const name = isUser? doc_name: user_name;
         return (
             <div className={rootClass} 
                     onClick={(e) => {
@@ -39,14 +40,14 @@ class TreatmentTableItem extends React.Component{
                 <div className="flex-col">
                     <div className="patient-name">
                         <div onClick={(e) => {
-                            onGoto(id_user)
+                            onGoto(id_user);
                             this.handleClick(e);
                         }} className='go-to'>{name}</div>
                     </div>
                 </div>
                 <div className="flex-col">
                     <div className="patient-date">
-                        {moment(startDate*1000).format('DD.MM.YYYY')}</div>
+                        {moment(date*1000).format('DD.MM.YYYY')}</div>
                     <div className="patient-time">
                     {moment(startDate*1000).format('HH:mm')} - {moment(endDate*1000).format('HH:mm')}
                     </div>

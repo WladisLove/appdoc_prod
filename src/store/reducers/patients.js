@@ -48,6 +48,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isReceptionRecorded: action.isReceptionRecorded,
+                isRecordInProcess: false
             }
         case actionTypes.SET_RECEPTION_BY_PATIENT:
             return {

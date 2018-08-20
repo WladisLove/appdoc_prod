@@ -12,13 +12,14 @@ class MainPage extends React.Component{
 	state = {
 		cancelModal: false,
 		addModal: false,
-        isNewFreeVisitVisible: false
+        isNewFreeVisitVisible: false,
+
 	}
 
 	componentDidMount(){
 		if (this.props.mode === "user"){
 			this.props.onGetPatientDoctors(2);
-			this.props.onGetCompletedTreatments();
+			this.props.onGetCompletedApp();
             this.props.onGetNearVisits(3);
             this.props.onGetUserInfoShort();
 		}
@@ -66,15 +67,19 @@ class MainPage extends React.Component{
 			<PatientPage
 				isUser = {this.props.mode === "user"}
 				doctors = {this.props.patientDoctors}
-				completedTreatments = {this.props.completedTreatments}
+				completedApps = {this.props.completedApps}
 				nearVisits = {this.props.nearVisits}
                 nearVisitsLoaded={this.props.nearVisitsLoaded}
 				{...this.props}
                 isNewFreeVisitVisible = {this.state.isNewFreeVisitVisible}
                 onCancel = {()=>this.setState({isNewFreeVisitVisible: false })}
                 onFreeVisit = {this.onNewFreeVisit}
+                onAddVisit = {this.props.onAddNewVisit}
+                isReceptionRecorded = {this.props.isReceptionRecorded}
+                isRecordInProcess = {this.props.isRecordInProcess}
 
-			/>
+
+            />
 		) : (
 			<DoctorPage 
 				showCancel = {() => {this.setState({cancelModal: true})}}
@@ -97,14 +102,16 @@ const mapStateToProps = state => {
 		visits: state.schedules.visits,
 		reviews: state.reviews.reviews,
 		actualTreatments: state.treatments.actualTreatments,
-		completedTreatments: state.treatments.completedTreatments,
+		completedApps: state.treatments.completedApps,
 		docTodayInfo: state.doctor.todayInfo,
 		patientDoctors: state.patients.patientDoctorsShort,
 		nearVisits: state.schedules.nearVisits,
 		nearVisitsLoaded: state.schedules.nearVisitsLoaded,
 		intervals: state.patients.intervals,
 		availableIntervals: state.profileDoctor.workIntervals,
-		userInfoShort: state.profilePatient
+		userInfoShort: state.profilePatient,
+		isReceptionRecorded: state.patients.isReceptionRecorded,
+        isRecordInProcess: state.patients.isRecordInProcess
     }
 };
 
@@ -117,7 +124,7 @@ const mapDispatchToProps = dispatch => {
 		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
 		onGetActualTreatments: () => dispatch(actions.getActualTreatments()),
-		onGetCompletedTreatments: () => dispatch(actions.getCompletedTreatments()),
+        onGetCompletedApp: () => dispatch(actions.getCompletedApps()),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetNearVisits: (count) => dispatch(actions.getCountNearVisits(count)),
 		onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),

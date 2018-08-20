@@ -29,6 +29,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 completedTreatments: action.treatments,
             }
+        case actionTypes.GET_COMPLETED_APPS:
+            return {
+                ...state,
+                completedApps: action.completedApps,
+            }
 
         case actionTypes.SELECT_VISIT:
             return {
