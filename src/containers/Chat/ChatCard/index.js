@@ -91,7 +91,14 @@ class ChatCard extends React.Component {
 				break;
 			case 'chat':
 				console.log('[CHAT]', [...this.state.chatStory, parsedMessage]);
-				this.setState({chatStory: [...this.state.chatStory, parsedMessage]})
+				/*const chatStory = parsedMessage.from == this.state.from 
+					? [...this.state.chatStory, {...parsedMessage}]
+					: [...this.state.chatStory, {
+						...parsedMessage, 
+						img: this.props.avatar,
+						online: this.props.online,
+					}]*/
+				this.setState({chatStory: [...this.state.chatStory, {...parsedMessage}]})
 				break;
 			case 'chatHistory':
 				(parsedMessage.chat.length > 0)
@@ -532,6 +539,8 @@ class ChatCard extends React.Component {
 			ws: this.ws,
 			from: this.state.from,
 			to: this.state.to,
+			avatar: this.props.avatar,
+			online: this.props.online,
 			chatStory: [...this.props.chat, ...this.state.chatStory],
 			sendMessage: this.sendMessage,
 			onEnd: this.beforeCloseReseption,

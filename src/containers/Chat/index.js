@@ -44,6 +44,7 @@ class Chat extends React.Component{
             patientName: isUser ? name_doc : name,
             id_treatment,
             online: status,
+            avatar,
             chat,
             comment,
             uploadFile: this.props.uploadFile,

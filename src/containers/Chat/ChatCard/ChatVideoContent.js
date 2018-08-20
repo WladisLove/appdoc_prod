@@ -47,7 +47,7 @@ class ChatVideoContent extends React.Component {
 		return (<Hoc>
 			<div className='chat-card-message__area'>
 				<video className='chat-card-video__box' 
-						poster='http://bipbap.ru/wp-content/uploads/2017/04/72fqw2qq3kxh.jpg'
+						poster={this.props.avatar}
 						autoPlay
 						ref={video => this.props.setVideoOut(video)}
 						></video>
