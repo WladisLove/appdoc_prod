@@ -32,22 +32,32 @@ class App extends React.Component {
         }); 
     };
 
+    componentWillUnmount(){
+        this.props.setOnlineStatus(this.props.id, false)
+    }
+
     componentDidMount() {
         if(this.props.id){
             let that = this;
-            let conn = new ab.Session('wss://178.172.235.105:8080',
+            let conn = new ab.Session('wss://178.172.235.105/wss2/',
                 function() {
-                    that.props.getNotifications(that.props.id)
+                    that.props.getNotifications(that.props.id);
+                    
+
                     conn.subscribe(""+that.props.id, function(topic, data) {
+                        //console.log('subscribe_main',topic,data)
                         that.props.setExInfo(data.exInterval)
                         that.setState({notifications: JSON.parse(data.arr)})
                     });
+                    /*conn.subscribe('status_2663', function(topic, data){
+                        console.log(topic, data)
+                    });*/
                 },
                 function() {
                     console.warn('WebSocket connection closed');
                 },
                 {'skipSubprotocolCheck': true}
-            );
+            );            
         }
         
     }
@@ -181,7 +191,8 @@ const mapDispatchToProps = dispatch => {
         setExInfo: ({isIn, isUserSet}) => dispatch(actions.setExIntervalInfo(isIn, isUserSet)),
         switchExInterval: (flag) => dispatch(actions.switchExInterval(flag)),
         onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
-        onMakeFreeVisit: (info)=> {dispatch(actions.setReceptionByPatient(info))}
+        onMakeFreeVisit: (info)=> {dispatch(actions.setReceptionByPatient(info))},
+        setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
 	}
 };
 

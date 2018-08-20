@@ -110,6 +110,7 @@ class ReviewsTree extends React.Component{
         let arr = [];
         dataArr.map((item) => {
                 arr.push(<Review {...item}
+                                isDoctor = {this.props.isDoctor}
                                 isOnDoctorPage = {this.props.isOnDoctorPage}
                                 key={item.id}
                                 onGoto={this.props.onGoto}
@@ -158,6 +159,7 @@ ReviewsTree.propTypes = {
     onShowMore: PropTypes.func,
     onSend: PropTypes.func,
     isOnDoctorPage: PropTypes.bool,
+    isDoctor: PropTypes.bool
 };
 
 ReviewsTree.defaultProps = {
@@ -166,7 +168,8 @@ ReviewsTree.defaultProps = {
     numberOfReviews: 0,
     onShowMore: () => {},
     onSend: () => {},
-    isOnDoctorPage: false
+    isOnDoctorPage: false,
+    isDoctor: false
 };
 
 export default ReviewsTree

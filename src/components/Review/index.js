@@ -6,10 +6,9 @@ import MainReview from './MainReview'
 import './style.css'
 import '../../icon/style.css'
 
-class Review extends React.Component{
+const Review = props => {
 
-    render(){
-        const {fio} = this.props;
+        const {fio} = props;
         let authorFIO = fio.split(' ');
         let author = authorFIO[0] + " ";
 
@@ -17,8 +16,8 @@ class Review extends React.Component{
             author = author + authorFIO[i].slice(0,1) + ". " 
         }
 
-        return <MainReview {...this.props} author={author}/>;
-    }
+        return <MainReview {...props} author={author}/>;
+
 } 
 
 Review.propTypes = {

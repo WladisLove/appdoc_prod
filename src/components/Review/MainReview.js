@@ -41,24 +41,27 @@ class MainReview extends React.Component{
             date, 
             dateCommentDoc, 
             online, 
+            status_user,
             comment, 
             rating, 
             makingAppDate, 
             commentDoc, 
             isSecondAllowed,
+            isDoctor,
             onTreatmentClick} = this.props;
         let treatment = `Обращение от ${(moment.unix(+makingAppDate)).format('DD.MM.YYYY')}`;
         let time = dateToString(new Date(+date));
 
         const commentDisplay = this.state.showComment ? 'block' : 'none';
         const answAreaDisplay = this.state.showAnswerArea ? 'block' : 'none';
+        const isOnline = status_user === undefined ? !!online : !!status_user;
 
         return (
             <div className='review-root'>
                 <div className='review'>
                 <ProfileAvatar owner="patient" 
                                 img={avatar} 
-                                online={online} 
+                                online={isOnline} 
                                 size='small'/>
                 <div className="patient-info">
                     <div className="flex-row">
@@ -95,7 +98,7 @@ class MainReview extends React.Component{
                                     onClick={this.showComment}
                             />
                             :
-                            (!this.props.isOnDoctorPage && !commentDoc && !this.state.showAnswerArea &&
+                            (isDoctor && !this.props.isOnDoctorPage && !commentDoc && !this.state.showAnswerArea &&
                                 <Button onClick={this.showAnswArea}
                                         btnText='Ответить'
                                         size='mini'
@@ -105,7 +108,7 @@ class MainReview extends React.Component{
                 </div>
                 </div>
                 <div className="review-root-comment" style={{display: commentDisplay}}>
-                    {commentDoc && <SecondaryReview date={+dateCommentDoc} text={commentDoc}/>}
+                    {commentDoc && <SecondaryReview dateCommentDoc={+dateCommentDoc} text={commentDoc}/>}
                 </div>
                 <div className="review-root-answerArea" style={{display: answAreaDisplay}}>
                     { !commentDoc && <AnswerArea onSend={message => this.answAreaHandler(message)}/>}

@@ -209,6 +209,11 @@ class Schedule extends React.Component {
         return visits ? visits.map(item => moment(item.start*1000).format("YYYY MM DD")) : null
     };
 
+    gotoHandler = (id) => {
+		this.props.onSelectPatient(id);
+		this.props.history.push('/patient'+id);
+	}
+
     render() {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = this.state.receptionData.currentSched.intervalOb, timeSetReception = [];
@@ -274,6 +279,7 @@ class Schedule extends React.Component {
                                   date={this.state.currentDate}
                                   onNavigate={this.dateChangeHandler}
                                   gotoEditor={() => this.changeToEditorMode(true)}
+                                  onGotoPatient={this.gotoHandler}
                                   step={5}
                                   events={this.props.visits}
                                   intervals={this.props.intervals}
@@ -386,6 +392,7 @@ const mapDispatchToProps = dispatch => {
         onSendMessage: (mess) => dispatch(actions.sendMessage(mess)),
         onCloseCancelModal: (obj) => dispatch(actions.cancelEventsRange(obj)),
 
+        onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onSelectEvent: (event) => dispatch(actions.selectEvent(event)),
         onEventDelete: () => dispatch(actions.deleteEvent()),
     }

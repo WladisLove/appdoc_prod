@@ -255,13 +255,14 @@ ab.Session.prototype.prefix = function (prefix, uri) {
 ab.Session.prototype.subscribe = function (topicuri, callback) {
 
     var self = this;
+    //console.log('subscribe',topicuri, callback)
 
     // subscribe by sending WAMP message when topic not already subscribed
     //
     var rtopicuri = self._prefixes.resolve(topicuri, true);
     if (!(rtopicuri in self._subscriptions)) {
 
-        
+        //console.log('in sending')
         var msg = [ab._MESSAGE_TYPEID_SUBSCRIBE, topicuri];
         self._send(msg);
 

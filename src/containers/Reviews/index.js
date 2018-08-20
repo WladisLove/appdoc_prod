@@ -40,11 +40,12 @@ class Reviews extends React.Component{
                         <ReviewsTree data={reviews}
                                      limit={reviewsLoadCount}
                                      numberOfReviews={this.props.commentCount}
-                                     onShowMore={(numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
-                                         this.props.onGetAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd)}
+                                     onShowMore={this.props.isDoctor ?
+										 this.props.onGetAllReviews : this.props.onGetAllReviewsByPatient}
                                      onSend={obj => this.props.onSendAnswer(obj)}
                                      onGoto={(val) => this.gotoHandler(val)}
                                      onGotoChat={(id) => this.props.history.push('/chat')}
+									 isDoctor={this.props.isDoctor}
                         />
                     </Col>
                     {this.props.isDoctor && <Col xs={24} xxl={8} className='section'>
@@ -72,7 +73,8 @@ const mapDispatchToProps = dispatch => {
 			dispatch(actions.getAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd)),
 		onSendAnswer: (answer) => dispatch(actions.putCommentAnswer(answer)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
-        onGetAllReviewsByPatient: (pagination) => dispatch(actions.getAllReviewsByPatient(pagination))
+        onGetAllReviewsByPatient: (numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
+            dispatch(actions.getAllReviewsByPatient(numberOfRequest, reviewsLoadCount, dateStart, dateEnd)),
 	}
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import cn from 'classnames'
 import moment from 'moment'
 
 import Button from '../Button'
@@ -13,12 +12,13 @@ import '../../icon/style.css'
 
 class PatientTableItem extends React.Component{
     render(){
-        const { id, name, age, size, time, date, online, avatar, onGoto, dateend, datestart} = this.props;
-        const rootClass = cn('patient-item');
+        const { id, name, age, size, time, date, status_user, online, avatar, onGoto, dateend, datestart} = this.props;
+        const isOnline = status_user === undefined ? !!online : !!status_user;
+
 
         return (
-            <div className={rootClass}>
-                <div className="flex-col"><ProfileAvatar owner="patient" online={online} img={avatar} size={size}/></div>
+            <div className='patient-item'>
+                <div className="flex-col"><ProfileAvatar owner="patient" online={isOnline} img={avatar} size={size}/></div>
                 <div className="flex-col">
                     <div className="patient-item-name">
                         <div onClick={() => onGoto(id)} className='go-to'>{name}</div>
