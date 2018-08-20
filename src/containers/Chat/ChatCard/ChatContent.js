@@ -15,13 +15,28 @@ class ChatContent extends React.Component {
     shouldComponentUpdate(nextProps){
         return this.props.data.length !== nextProps.data.length 
                 || this.props.receptionStarts !== nextProps.receptionStarts
-                || this.props.fromTR_VIS !== nextProps.fromTR_VIS;
+                || this.props.fromTR_VIS !== nextProps.fromTR_VIS
+                || (this.props.isActiveChat !== nextProps.isActiveChat && this.props.isActiveChat === false);
     }
+
+
+    scrollToBottom = () => {
+        this.scrollRef.scrollIntoView({ behavior: "smooth" , block: "end"});
+      }
+      /*componentDidMount() {
+          console.log('componentDidMount')
+        this.scrollToBottom();
+      }*/
+      
+      componentDidUpdate() {
+        this.scrollToBottom();
+      }
+
 
     render() {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.props.isActive});
 
-        let scrlClname = this.props.chatMode == "chat" ? "text_mode" : this.props.fromTR_VIS === 1 ? "" : "media_mode"
+        let scrlClname = this.props.chatMode == "chat" ? "text_mode" : this.props.fromTR_VIS === 1 ? "" : "media_mode";
         scrlClname = scrlClname + " chat-card-message__overlay";
         
         return (
@@ -36,29 +51,34 @@ class ChatContent extends React.Component {
                                 contentClassName="content"
                                 horizontal={false}
                                 //className="chat-card-message__box"
-                                className="chat-card-message__overlay">
+                                className={scrlClname}>
                         {/*<div className='chat-card-message__overlay'>*/}
+                    
                         {
                             this.props.data.map((e, i) => {
-                                    
+                                    const messProps = e.from === this.props.from
+                                        ? {isMy:true,}
+                                        : {img: this.props.avatar,
+                                            online: this.props.online,}
                                     return ( <ChatMessage
-                                        img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
                                         {...e}
-                                        isMy={e.from === this.props.from}
-                                        key={e.date + '' + i}
+                                        {...messProps}
+                                        //isMy={e.from === this.props.from}
+                                        key={e.date}
                                     />)
                                 })
                             }
-                            <div className='btn-start'>
-                                {this.props.fromTR_VIS === 2 && !this.props.receptionStarts && this.props.user_mode !== "user"
-                                && <Button
+                            {this.props.fromTR_VIS === 2 && !this.props.receptionStarts && this.props.user_mode !== "user"
+                                && <div className='btn-start'>
+                                 <Button
                                     btnText='Начать приём'
                                     size='small'
                                     type='yellow'
                                     onClick={this.props.onBegin}
-                                />}
-                            </div>
-                        {/*</div>*/}
+                                />
+                            </div> }
+                            <div ref={(ref) => { this.scrollRef = ref }}></div>
+                
                     </ScrollArea>
                 </div>
                 {
@@ -77,6 +97,8 @@ class ChatContent extends React.Component {
         )
     }
 }
+
+
 
 ChatContent.propTypes = {
     onSend: PropTypes.func,

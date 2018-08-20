@@ -144,7 +144,7 @@ export const uploadConclusion = (id_zap,file, callback) => {
             }))
             .then(res => {
                 const {result} = res.data;
-                (callback instanceof Function) &&  callback(result);
+                (callback instanceof Function) &&  callback({...result, isConclusion: true});
             })
             .catch(err => {
                 console.log(err);

@@ -29,11 +29,6 @@ class HistoryReceptionsTabs extends React.Component {
         };
     }
 
-    // отзывы должны быть размещены в соответствии с: чем меньше id, тем раньше он был опубликован
-    /*shouldComponentUpdate(nextProps){
-        return nextProps.data.length !== this.props.data.length
-    }*/
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.length !== this.props.data.length) {
             this.setState(prev => ({
@@ -72,7 +67,6 @@ class HistoryReceptionsTabs extends React.Component {
     sortPeriod = (period = this.state.range) => {
         const [start, end] = period,
             currentTab = this.state.currentTab;
-        let revArr = [];
         
 
         let itemsToSort = currentTab === 'all'
@@ -80,14 +74,12 @@ class HistoryReceptionsTabs extends React.Component {
             : this.state[`${currentTab}Receptions`];
 
             if (start && end){
-                const starttmp = start.unix(),
-                    endtmp = end.unix();
-                itemsToSort.map((item) => {
+                const starttmp = start.unix(), endtmp = end.unix();
+                    
+                return itemsToSort.filter((item) => {
                     if (item.startDate > starttmp && item.endDate < endtmp)
-                        revArr.push(item);
+                        return item;
                 });
-
-                return revArr;
             }
             else {
                 return itemsToSort;
