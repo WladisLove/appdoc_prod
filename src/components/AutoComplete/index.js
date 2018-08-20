@@ -32,7 +32,6 @@ class AutoComplete extends React.Component{
     componentWillMount() {
         this.timer = null;
     }
-
     onClickHandler = (id, flag) => {
         let user;
         flag === 'goto' ? (

@@ -23,7 +23,7 @@
   width: 100%;
 }
 .treatment-all .scrollarea-content.content {
-  width: 100%;
+  min-width: 100%;
 }
 .treatment-all .tableheader {
   display: flex;
@@ -85,6 +85,11 @@
   max-width: 100px;
   padding-right: 25px;
   margin-right: 0;
+}
+.treatment-all .entry-list {
+  color: #6e6e6e;
+  align-items: center!important;
+  margin: 20px 0;
 }
 .treatment-all .ant-card-body {
   max-height: 715px;

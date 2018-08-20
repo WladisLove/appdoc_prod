@@ -35,16 +35,7 @@ const SideNav = props => {
         return (
             <div className={rootClass}>
                 <div className="logo" onClick={props.onLogoClick}><span className="logo-img"></span></div>
-                <button onClick={onClick}
-                        className="sidenav-root-btn">
-                    {
-                        isShort ? (
-                                <Icon type="right-arrow-forward_small" size={12} svg/>
-                            ) : (
-                                <Icon type="left-arrow-forward_small" size={12} svg/>
-                            )
-                    }
-                </button>
+
                 <div className='overwlow-a-y'>
                     <DoctorProfileCard {...props}
                                         online={true}

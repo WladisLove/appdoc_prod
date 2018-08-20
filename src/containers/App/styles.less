@@ -41,7 +41,7 @@
         min-height: 880px;
         display: flex;
         transition: 0.2s linear;
-        z-index: 11;
+        z-index: 10;
         background-color: #fff;
 
         .sidenav-root {
@@ -81,7 +81,19 @@
         padding: 24px 45px 24px 35px;
         border-bottom: 1px solid #e8e8e8;
         align-items: center;
-        z-index: 10;
+        z-index: 30;
+        .sidenav-root-btn {
+            position: absolute;
+            left: -11px;
+            top: 89px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            outline-width: 0;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+        }
     }
 
     &-content {

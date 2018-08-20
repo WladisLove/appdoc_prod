@@ -17,6 +17,7 @@
 .header-search {
   width: 100%;
   max-width: 300px;
+  z-index: 12;
 }
 .header-search .ant-input-search {
   display: flex;

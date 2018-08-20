@@ -50,6 +50,7 @@ export {
     getActualTreatments,
     getCompletedTreatments,
     getAllTreatments,
+    getCompletedApps,
     seletVisit,
     selectTreatment,
     clearSelections,
@@ -94,3 +95,8 @@ export {
     readNotification,
     getAllDocIntervals,
 } from './doctorData'
+
+export {
+    loadingStart,
+    loadingEnd
+} from './loading'

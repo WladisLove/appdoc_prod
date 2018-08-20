@@ -15,6 +15,7 @@ export const treatmentArr = [
         conclusionDownloadLink: '#',
         review: "Lorem ipsum dolor sit amet, consectetuer...",
         rating: 3,
+        file: []
     }, {
         id: 3,
         id_user: 2223,
@@ -29,6 +30,7 @@ export const treatmentArr = [
         conclusion: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
         conclusionDownloadName: "Заключение 252525.pdf",
         review: "Lorem ipsum dolor sit amet, consectetuer...",
+        file: []
     },
 ];
 /*    {

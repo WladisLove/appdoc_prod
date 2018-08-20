@@ -71,8 +71,7 @@ class ContentForm extends React.Component {
     modifyFiles = (file) => {
         if(!file.thumbUrl && !file.modify){
             file.modify = true;
-            let that = this;
-            previewFile(file.originFileObj, function (previewDataUrl) {
+            previewFile(file, function (previewDataUrl) {
                 file.thumbUrl = previewDataUrl;
             });
         }

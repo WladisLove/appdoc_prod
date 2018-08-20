@@ -186,19 +186,6 @@
 .sidenav-root-menu-short .sidenav-root-menu-item > .anticon {
   margin: auto;
 }
-.sidenav-root-btn {
-  position: absolute;
-  right: -11px;
-  top: 89px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  outline-width: 0;
-  border: 0;
-  padding: 0;
-  z-index: 100;
-  cursor: pointer;
-}
 .site-link {
   margin: 40px 0 0 60px;
 }

@@ -90,7 +90,8 @@ const PatientPage = props => {
                         onGetAllDocIntervals={props.onGetAllDocIntervals}
                         onGetIntervalForDate={props.onGetIntervalForDate}
                         availableIntervals={props.availableIntervals}
-
+                        isUser={true}
+                        onAddVisit = {props.onAddVisit}
                     />
                 </Col>
             </Row>
@@ -100,7 +101,7 @@ const PatientPage = props => {
                         isUser={props.isUser}
                         redirect={() => props.history.push('/treatment')}
 
-                        data={props.completedTreatments}
+                        data={props.completedApps}
                         onGoto={(id) => console.log(id)}
                         onGotoChat={(id) => console.log(id)}/>
                 </Col>

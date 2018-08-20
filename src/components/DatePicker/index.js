@@ -10,9 +10,6 @@ import './styles.css'
 const dateFormat = 'DD.MM.YYYY';
 
 class DatePicker extends React.Component {
-    componentWillReceiveProps(nextProps) {
-        console.log("NEW PROPS FROM DATEPICKER", nextProps)
-    }
 
     render() {
         const {range, small} = this.props;

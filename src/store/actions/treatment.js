@@ -48,6 +48,26 @@ export const getCompletedTreatments = () => {
                 console.log(err);
         })
     }
+};
+
+export const getCompletedApps = () => {
+    return (dispatch, getState) => {
+
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/allMAcompleteMyIdUser',
+            JSON.stringify({
+                id: getState().auth.id
+            }))
+            .then(res => {
+                console.log("COMPLETED APPS", res);
+                dispatch({
+                    type: actionTypes.GET_COMPLETED_APPS,
+                    completedApps: res.data,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 }
 
 export const completeReception = (obj) => {
