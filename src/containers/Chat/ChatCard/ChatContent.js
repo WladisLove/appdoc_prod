@@ -40,12 +40,15 @@ class ChatContent extends React.Component {
                         {/*<div className='chat-card-message__overlay'>*/}
                         {
                             this.props.data.map((e, i) => {
-                                    
+                                    const messProps = e.from === this.props.from
+                                        ? {isMy:true,}
+                                        : {img: this.props.avatar,
+                                            online: this.props.online,}
                                     return ( <ChatMessage
-                                        img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
                                         {...e}
-                                        isMy={e.from === this.props.from}
-                                        key={e.date + '' + i}
+                                        {...messProps}
+                                        //isMy={e.from === this.props.from}
+                                        key={e.date}
                                     />)
                                 })
                             }

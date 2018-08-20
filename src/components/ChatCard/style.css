@@ -211,6 +211,8 @@
 .chat-card-video__box {
   position: relative;
   width: 100%;
+  min-width: 600px;
+  height: 80%;
   display: block;
 }
 .chat-card-video__mini {
