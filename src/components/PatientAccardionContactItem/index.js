@@ -7,9 +7,11 @@ import { Form } from 'antd'
 import ProfileAvatar from '../ProfileAvatar'
 import Button from '../Button'
 import Input from '../Input'
+import Icon from '../Icon'
 
 import './style.css'
 import '../../icon/style.css'
+import {deleteAvatar} from "../../store/actions";
 const FormItem = Form.Item;
 
 class PatientAccardionContactItemForm extends React.Component{
@@ -17,16 +19,30 @@ class PatientAccardionContactItemForm extends React.Component{
         super(props);
         this.state ={
             passwordsRequired: false,
+            avatar: {}
         }
     }
 
-    handleSubmit = (e) => {
+    handleSubmitInfo = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                if(this.state.avatar) {
+                    values.avatar = {...this.state.avatar}
+                }
                 console.log(values);
-                // let newProfile = this.onSave(values);
                 this.props.onSubmit(values);
+            } else {
+                console.log(err);
+            }
+        });
+    };
+
+    handleSubmitPassword = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.onSubmitPassword(values.oldPassField, values.newPassField);
             } else {
                 console.log(err);
             }
@@ -44,6 +60,27 @@ class PatientAccardionContactItemForm extends React.Component{
         }
     };
 
+    handleChangeAvatar = (event, isReset) => {
+        if (isReset === true) {
+            this.props.onDeleteAvatar();
+            this.setState({
+                avatar: ""
+            });
+            event.target.files = [];
+        }
+        else {
+            let file = event.target.files[0];
+            if (file && file.type.indexOf("image/") !== -1) {
+                const reader = new FileReader();
+                console.log("AVATARFILE", file);
+                reader.addEventListener('load', () => this.setState({
+                    avatar: ({thumbUrl: reader.result, name: file.name})
+                }));
+                reader.readAsDataURL(file);
+            }
+        }
+    };
+
     compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('newPassField')) {
@@ -55,34 +92,35 @@ class PatientAccardionContactItemForm extends React.Component{
 
     render(){
         const { getFieldDecorator } = this.props.form;
-        const { contactFio, contactPhone, contactEmail, contactAddress} = this.props;
+        const { contactFio, contactPhone, contactEmail, contactAddress, contactAvatar} = this.props;
         const rootClass = cn('patient-contacts');
         
         return (
-            <Form className={rootClass} onSubmit={this.handleSubmit} >
+            <Form className={rootClass} >
                     <div className='patient-contacts-title'>контактные данные</div>
                     <div className='patient-contacts-block'>
                         <div className='patient-contacts-avatar'>
                             <ProfileAvatar
-                                img='https://boltai.com/wp-content/uploads/2017/07/3_main_new.1494599956.jpg'
+                                img={this.state.avatar.thumbUrl ? this.state.avatar.thumbUrl : contactAvatar}
                                 owner='patient'
                                 size="large"
                                 online={true}
                             />
                             <div className='patient-contacts-controls'>
-                                <Button
-                                    btnText=''
-                                    size='icon'
-                                    type='icon'
-                                    icon='retweet'
-                                    iconSize={16}
-                                />
+                                <div className="file-upload">
+                                    <label className="file-upload-label">
+                                        <Icon type='retweet' size={16}/>
+                                    </label>
+                                    <input className="file-upload-input" type="file" name="photo-upload"
+                                           onChange={this.handleChangeAvatar}/>
+                                </div>
                                 <Button
                                     btnText=''
                                     size='icon'
                                     type='icon'
                                     icon='close'
                                     iconSize={13}
+                                    onClick={(event) => this.handleChangeAvatar(event, true)}
                                 />
                             </div>
 
@@ -138,6 +176,15 @@ class PatientAccardionContactItemForm extends React.Component{
                         </div>
                     </div>
 
+                    <Button
+                        className="patient-contacts-saveBtn"
+                        onClick={this.handleSubmitInfo}
+                        btnText='Сохранить изменения'
+                        size='default'
+                        type='float'
+                    />
+
+
                     <div className='patient-contacts-title'>изменить пароль</div>
                     <div className='patient-contacts-block'>
                         <div className='patient-contacts-password'>
@@ -178,6 +225,7 @@ class PatientAccardionContactItemForm extends React.Component{
 
                     <Button
                         btnText='Сохранить изменения'
+                        onClick={this.handleSubmitPassword}
                         size='default'
                         type='float'
                     />
@@ -191,6 +239,7 @@ PatientAccardionContactItemForm.propTypes = {
     contactPhone: PropTypes.string,
     contactEmail: PropTypes.string,
     contactAdress: PropTypes.string,
+    contactAvatar: PropTypes.string
 };
 
 PatientAccardionContactItemForm.defaultProps = {
@@ -198,6 +247,7 @@ PatientAccardionContactItemForm.defaultProps = {
     contactPhone: '',
     contactEmail: '',
     contactAdress: '',
+    contactAvatar: ''
 };
 
 const PatientAccardionContactItem  = Form.create()(PatientAccardionContactItemForm);

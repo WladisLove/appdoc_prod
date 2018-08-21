@@ -24,7 +24,10 @@ class PatientAccardionContact extends React.Component{
                             contactPhone={phone}
                             contactEmail={email}
                             contactAddress={address}
-                            onSubmit = {this.props.onSubmit}
+                            contactAvatar={avatar}
+                            onSubmit={this.props.onSubmit}
+                            onSubmitPassword={this.props.onSubmitPassword}
+                            onDeleteAvatar={this.props.onDeleteAvatar}
                         />
                     </Panel>
                 </Accordion>

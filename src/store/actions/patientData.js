@@ -4,7 +4,6 @@ import * as actionTypes from './actionTypes';
 export const sendNewInfoPatient = (data) => {
     console.log(data, "DATA PATIENT EDITING");
     return (dispatch) => {
-
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveEditUser',
             JSON.stringify(data))
             .then(res => {
@@ -19,7 +18,28 @@ export const sendNewInfoPatient = (data) => {
     }
 };
 
+export const sendNewPasswordPatient = (oldPass, newPass, id) => {
+    console.log(oldPass + " " + newPass, "PASSWORD PATIENT EDITING");
+    return (dispatch, getState) => {
+        const id_patient = id ? id : getState().auth.id;
 
+        axios.post('https://178.172.235.105/~api/json/catalog.doc2/rePassDoc',
+            JSON.stringify({
+                id: id_patient,
+                oldpass: oldPass,
+                newpass: newPass
+            }))
+            .then(res => {
+                console.log("result of editing" , res);
+                dispatch({
+                    type: actionTypes.SEND_NEW_PASSWORD_PATIENT,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
 
 export const getInfoPatient = (id) => {
     const idstr = String(id);
@@ -56,6 +76,20 @@ export const sendUserPoleValue = (pole, value, id) => {
                     pole: pole.charAt(0).toUpperCase() + pole.slice(1),
                     value: res.data.result
                 })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
+
+export const deleteAvatar = (id) => {
+    return (dispatch, getState) => {
+        const user_id = (id ? id : getState().auth.id);
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/deleteAvatar/id/' + user_id)
+            .then(res => {
+                console.log("deleteAvatar", res);
+                dispatch(getInfoPatient(user_id));
             })
             .catch(err => {
                 console.log(err);

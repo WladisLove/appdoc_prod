@@ -23,12 +23,9 @@ export const compileToServerPatient = (patient, id) => {
         "name": patient.fioField,
         "phone": patient.phoneField,
         "id": id,
+        "avatar": patient.avatar
         };
 
-    if(patient.oldPassField && patient.newPassField) {
-        obj.password = patient.newPassField;
-        obj.oldpassword  = patient.oldPassField;
-    }
     console.log(obj);
     return obj;
 };
