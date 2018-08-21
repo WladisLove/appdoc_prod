@@ -10,6 +10,9 @@
   font-size: 1.25rem;
   color: #eee;
 }
+.reviewsTree-underTreeElement {
+  text-align: center;
+}
 .reviewsTree .ant-card-head {
   display: flex;
 }
