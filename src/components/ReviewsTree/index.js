@@ -100,6 +100,19 @@ class ReviewsTree extends React.Component{
             </div>);
     };
 
+    renderSuggestionToSelectDate = () => {g
+        return (
+            <div className="reviewsTree-underTreeElement" key="suggestion">
+                <p>Выберите дату.</p>
+            </div>);
+    };
+
+    renderSpinner = () => {
+        return (<div className="reviewsTree-underTreeElement" key="spinner">
+            <Spinner/>
+        </div>);
+    };
+
     renderRevs = (dataArr) => {
         let arr = [];
         dataArr.map((item) => {

@@ -20,7 +20,8 @@ class Treatment extends React.Component{
 
     gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
-		this.props.history.push('/patient'+id);
+		let link = this.props.mode==="user"?"doctor":"patient";
+		this.props.history.push(link+id);
 	}
 
     render(){
@@ -34,7 +35,7 @@ class Treatment extends React.Component{
                                                 this.props.onSelectTretment(id);
                                                 this.props.history.push('/chat');
                                             }}
-                                               isUser={this.props.mode === "user"}
+                                            isUser={this.props.mode === "user"}
                         />
             		</Col>
             	</Row>

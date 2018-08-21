@@ -30,6 +30,7 @@ class HistoryReceptionsItem extends React.Component{
        }
     };
     render(){
+        console.log(this.props, "THIS PROPS FROM HIST REC ITEM");
         const {
             id_treatment,
             id_user,
@@ -44,6 +45,7 @@ class HistoryReceptionsItem extends React.Component{
             file,
             date,
             complaint,
+            extr,
             begin,
             finish,
             comment,
@@ -68,9 +70,9 @@ class HistoryReceptionsItem extends React.Component{
         const key_val = {
             'chat': 'chat1',
             'voice': 'telephone', 
-            'video': "video-camera",
+            'video': "video-camera"
         }
-
+        const goto = isUser?id_doc:id_user;
         return (
             <div className={rootClass} 
                 onClick={(e) => {
@@ -80,19 +82,20 @@ class HistoryReceptionsItem extends React.Component{
                 <div className="flex-col"><div className="patient-name">
                     <div className='go-to' 
                         onClick={(e) => {                            
-                            onGoto(id_user);
+                            onGoto(goto);
                             this.handleClick(e);
                         }}>{isUser ? doc_name : user_name}</div></div>
                 </div>
                 <div className="flex-col">
+                    {extr && <div className="patient-status receptions-status-extra"></div>}
                     <div className={statusClass}></div>
-                    {/*добавить ещё иконку если экстренный*/}
                     <div className="patient-date">{moment(date*1000).format('DD.MM.YYYY')}</div>
                     <div className="patient-time">
                         {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
                         {finish ? `-${moment(finish).format('HH:mm')}`: null}
                     </div>
-                    <div className="patient-icon"><Icon svg type={key_val[type]} size={16} /></div>
+                    <div className="patient-icon"><Icon svg type={extr?"emergency-call":key_val[type]} size={16}
+                    style={extr?{color:"red"}:null}/></div>
                     {/*добавить ещё иконку если экстренный*/}
                 </div>
                 <div className="flex-col">
