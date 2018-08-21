@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 import moment from "moment";
 
@@ -21,7 +21,7 @@ export const setOnlineStatus = (id,isOnline) => {
             id,
             status: isOnline ? 1 : 0,
         }
-        axios.post('https://178.172.235.105/~api/json/fusers.doc/userOnOff',
+        axios.post('/fusers.doc/userOnOff',
             JSON.stringify(newObj))
             .then(res => {
                 //console.log('[setOnlineStatus] results',res)
@@ -36,7 +36,7 @@ export const login = (userName, password, remember, history, isAuto) => {
 
     return (dispatch) => {
         dispatch(authStart());
-        axios.post('https://178.172.235.105/~api/json/fusers.doc/loginDoc',
+        axios.post('/fusers.doc/loginDoc',
                 JSON.stringify({
                     login: userName,
                     password: password,
@@ -133,7 +133,7 @@ export const registerDoctor = (data) => {
 
 
 //
-        axios.post('https://178.172.235.105/~api/json/fusers.doc/createUserDoc',
+        axios.post('/fusers.doc/createUserDoc',
             JSON.stringify(result))
             .then(res => {
                 console.log(res, "RES FROM DOCTOR REGISTRATION")
@@ -148,7 +148,7 @@ export const registerUser = (userInfo) => {
         dispatch({
             type: actionTypes.REG_PATIENT_START
         });
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/creatUser',
+        axios.post('/catalog.doc2/creatUser',
                 JSON.stringify(userInfo))
                     .then(res => {
                         if(res.data.code===400) {

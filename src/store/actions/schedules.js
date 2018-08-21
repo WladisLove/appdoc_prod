@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axiosSettings'
 import * as actionTypes from './actionTypes'
 import moment from "moment";
 
@@ -13,7 +13,7 @@ export const addInterval = (interval, start, end) => {
             isEditable: 1,
         }
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/dateWorkInterval',
+        axios.post('/catalog.doc2/dateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
                 start && dispatch(getAllIntervals(start,end))
@@ -34,7 +34,7 @@ export const getAllIntervals = (start, end) => {
             datestart: start.getTime()/1000,
             dateend: end.getTime()/1000,
         };
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval',
+        axios.post('/catalog.doc2/getDateWorkInterval',
                     JSON.stringify(obj))
             .then(res => {
                 console.log('[getAllIntervals]',res.data.result)
@@ -51,7 +51,7 @@ export const getAllIntervals = (start, end) => {
 export const getFreeVisitsBySpec = (spec) => {
     return (dispatch, getState) => {
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getFreeDoc',
+        axios.post('/catalog.doc2/getFreeDoc',
                     JSON.stringify({speciality: spec}))
             .then(res => {
                 console.log('[ALL FREE INTERVALS]',res.data.result)
@@ -89,7 +89,7 @@ export const addVisit = (reception, start, end) => {
             obj.id_doc = reception.id || reception.id_user;
         }
         console.log(obj, "DATA TO SEND FROM SCHEDULES");
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
+        axios.post('/catalog.doc2/makingApp',
                     JSON.stringify(obj))
             .then(res => {
                 console.log(JSON.stringify(obj));
@@ -113,7 +113,7 @@ export const getAllVisits = (start, end) => {
             datestart: start.getTime()/1000,
             dateend: end.getTime()/1000,
         }
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
+        axios.post('/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
                 dispatch({
@@ -135,7 +135,7 @@ export const getAllPatientVisits = () => {
         let obj = {
             id_user: getState().auth.id,
         };
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
+        axios.post('/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
                 dispatch({
@@ -158,7 +158,7 @@ export const getCountNearVisits = (count) => {
             max: count,
             datestart: moment().format('X')
         };
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getApp',
+        axios.post('/catalog.doc2/getApp',
                     JSON.stringify(obj))
             .then(res => {
                 dispatch({
@@ -174,7 +174,7 @@ export const getCountNearVisits = (count) => {
 
 export const getTodayVisits = () => {
     return (dispatch, getState) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/todayZap/id_doc/'+getState().auth.id)
+        axios.get('/catalog.doc2/todayZap/id_doc/'+getState().auth.id)
             .then(res => {
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
@@ -191,7 +191,7 @@ export const deleteEvent = () => {
 
     return (dispatch, getState) => {
         
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/delApp',
+        axios.post('/catalog.doc2/delApp',
                     JSON.stringify({
                         id: getState().schedules.chosenData.id,
                     }))
@@ -213,7 +213,7 @@ export const cancelEventsRange = (obj) => {
     }
     
     return (dispatch) => {
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/delAppDateInterval',
+        axios.post('/catalog.doc2/delAppDateInterval',
                 JSON.stringify(response))
         .then(res => {
             dispatch({

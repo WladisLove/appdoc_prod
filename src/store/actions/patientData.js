@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 
 export const sendNewInfoPatient = (data) => {
     console.log(data, "DATA PATIENT EDITING");
     return (dispatch) => {
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveEditUser',
+        axios.post('/catalog.doc2/saveEditUser',
             JSON.stringify(data))
             .then(res => {
                 console.log("result of editing" , res);
@@ -23,7 +23,7 @@ export const sendNewPasswordPatient = (oldPass, newPass, id) => {
     return (dispatch, getState) => {
         const id_patient = id ? id : getState().auth.id;
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/rePassDoc',
+        axios.post('/catalog.doc2/rePassDoc',
             JSON.stringify({
                 id: id_patient,
                 oldpass: oldPass,
@@ -45,7 +45,7 @@ export const getInfoPatient = (id) => {
     const idstr = String(id);
     let obj = {"id_user":idstr}; //задать самому id доктора
     return (dispatch) => {
-        axios.post('https://178.172.235.105/~api/json/fusers.doc/patientInfoiId',
+        axios.post('/fusers.doc/patientInfoiId',
             JSON.stringify(obj))
             .then(res => {
                 console.log("resss", res);
@@ -66,7 +66,7 @@ export const sendUserPoleValue = (pole, value, id) => {
     return (dispatch, getState) => {
         const obj = {pole, id: id ? id : getState().auth.id, value};
         console.log(obj, "OBJ");
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/reUserPole',
+        axios.post('/catalog.doc2/reUserPole',
             JSON.stringify(obj))
             .then(res => {
                 console.log("reUserPole", res);
@@ -86,7 +86,7 @@ export const sendUserPoleValue = (pole, value, id) => {
 export const deleteAvatar = (id) => {
     return (dispatch, getState) => {
         const user_id = (id ? id : getState().auth.id);
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/deleteAvatar/id/' + user_id)
+        axios.get('/catalog.doc2/deleteAvatar/id/' + user_id)
             .then(res => {
                 console.log("deleteAvatar", res);
                 dispatch(getInfoPatient(user_id));
@@ -101,7 +101,7 @@ export const getUserInfoShort = (id) => {
     return (dispatch, getState) => {
         let user;
         id ? user = id : user = getState().auth.id;
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/userInfoShort/id/' + user)
+        axios.get('/catalog.doc2/userInfoShort/id/' + user)
             .then(res => {
                 console.log("userInfoShort", res);
 

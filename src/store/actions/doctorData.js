@@ -1,11 +1,11 @@
-import axios from 'axios'
+import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 
 export const sendNewInfoDoctor = (data) => {
 
     return (dispatch) => {
 
-         axios.post('https://178.172.235.105/~api/json/fusers.doc/updateUserDoc',
+         axios.post('/fusers.doc/updateUserDoc',
                     JSON.stringify(data))
             .then(res => {
                 dispatch({
@@ -23,7 +23,7 @@ export const getInfoDoctor = (id) => {
     let ids = {"id":idstr}; //задать самому id доктора
     return (dispatch) => {
 
-        axios.post('https://178.172.235.105/~api/json/fusers.doc/infoDoc',
+        axios.post('/fusers.doc/infoDoc',
          JSON.stringify(ids))
             .then(res => {
                 console.log("resss", res);
@@ -42,7 +42,7 @@ export const getInfoDoctor = (id) => {
 
 export const getNotifications = (id) => {
     return (dispatch) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/connect/id/' + id)
+        axios.get('/catalog.doc2/connect/id/' + id)
             .then(res => {
                 console.log('getNotifications', res)
             })
@@ -55,7 +55,7 @@ export const getNotifications = (id) => {
 export const readNotification = (id) => {
     return (dispatch, getState) => {
         console.log('read',id);
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/isreadMessInDB/id/' + id)
+        axios.get('/catalog.doc2/isreadMessInDB/id/' + id)
             .then(res => {
                 console.log('readNotification', res)
             })
@@ -69,7 +69,7 @@ export const getAllDocIntervals = (id) => {
     return (dispatch, getState) => {
         let user;
         id ? user = id : user = getState().auth.id;
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/allDocInterval/id/' + user)
+        axios.post('/catalog.doc2/allDocInterval/id/' + user)
             .then(res => {
                 console.log("allDocIntervals", res);
 
