@@ -28,7 +28,7 @@ class NewEmergencyVisitForm extends React.Component {
                 if (!values.comment) {
                     this.setState({shouldWriteComment: true})
                 } else {
-                    let obj = {comment: values.comment};
+                    let obj = {comment: values.comment, id_doc: 1};
 
 
                     if (values.file) {
@@ -37,6 +37,8 @@ class NewEmergencyVisitForm extends React.Component {
                             return {name: item.name, thumbUrl: item.originFileObj.thumbUrl}
                         })
                     }
+
+                    console.log(obj, "EMERGENCY VISIT OBJECT");
                     this.props.onSubmit(obj);
                 }
 
@@ -73,7 +75,9 @@ class NewEmergencyVisitForm extends React.Component {
                     <Card title = "Заявка на экстренный вызов">
                         <div className="new-emergency-visit-content">
                             <FormItem>
-                                {getFieldDecorator('comment')(
+                                {getFieldDecorator('comment',{
+                                    rules: [{required: true, message: 'Опишите жалобу',}],
+                                })(
                                     <TextArea label='Жалоба, причина обращения'
                                               className="newEmergencyVisit-txtarea"
                                               onChange = { (val) => {val && this.setState({shouldWriteComment:false})}}

@@ -20,17 +20,17 @@ class TreatmentTableItem extends React.Component{
         e.nativeEvent.stopImmediatePropagation();
       }
     refactorFiles = (file) => {
-        if(file.length>1) {
-            let files = [];
-            file.forEach((item) => {
-                item.data.forEach(item => {
-                    files.push(item)
-                })
-            });
-            return files
-        } else {
-            return file
-        }
+        // if(file.length>1) {
+        //     let files = [];
+        //     file.forEach((item) => {
+        //         item.data.forEach(item => {
+        //             files.push(item)
+        //         })
+        //     });
+        //     return files
+        // } else {
+        //     return file
+        // }
     };
     render(){
         const {type, id, id_user, file, user_name,doc_name, date, begin, finish, diagnostic, comment, price, conclusion,

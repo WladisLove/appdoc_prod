@@ -59,7 +59,7 @@
   background-color: #fff;
   border: none;
   position: sticky;
-  z-index: 5;
+  z-index: 99;
   top: 0;
   min-width: 1450px;
 }
