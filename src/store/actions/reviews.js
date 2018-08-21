@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 
 export const getAllReviews = (numberOfRequest = 0, maxReviews = 3, dateStart, dateEnd, id) => {
@@ -7,7 +7,7 @@ export const getAllReviews = (numberOfRequest = 0, maxReviews = 3, dateStart, da
         const user_id = id ? id : getState().auth.id;
         const datestart = dateStart ? dateStart : 0;
         const dateend = dateEnd ? dateEnd : (+new Date());
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getCommentToDoc',
+        axios.post('/catalog.doc2/getCommentToDoc',
                     JSON.stringify({
                         id_doc: user_id,
                         max: maxReviews,
@@ -36,7 +36,7 @@ export const getAllReviewsByPatient = (numberOfRequest = 0, maxReviews = 3, date
         const user_id = id ? id : getState().auth.id;
         const datestart = dateStart ? dateStart : 0;
         const dateend = dateEnd ? dateEnd : (+new Date());
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/allCommentByUserId',
+        axios.post('/catalog.doc2/allCommentByUserId',
             JSON.stringify({
                 id: user_id,
                 max: maxReviews,
@@ -63,7 +63,7 @@ export const putCommentAnswer = (answer) => {
     return (dispatch) => {
         dispatch({type: actionTypes.PUT_COMMENT_ANSWER})
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/putAnsCommentToDoc',
+        axios.post('/catalog.doc2/putAnsCommentToDoc',
                     JSON.stringify(answer))
             .then(res => {
                 dispatch(getAllReviews());

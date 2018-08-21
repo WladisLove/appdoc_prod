@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 
 export const getDateInterval = (beginDay, endDay) => {
@@ -10,7 +10,7 @@ export const getDateInterval = (beginDay, endDay) => {
                 dateend: endDay
             };
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkInterval', JSON.stringify(obj))
+        axios.post('/catalog.doc2/getDateWorkInterval', JSON.stringify(obj))
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_DATE_INTERVAL,
@@ -31,7 +31,7 @@ export const getDateIntervalWithoutMakingApp = (beginDay, endDay, id) => {
                 dateend: endDay
             };
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDateWorkIntervalWithoutMakingApp', JSON.stringify(obj))
+        axios.post('/catalog.doc2/getDateWorkIntervalWithoutMakingApp', JSON.stringify(obj))
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_DATE_INTERVAL_WITHOUT_MAKING_APP,
@@ -51,7 +51,7 @@ export const setReception = (reception) => {
             id_doc: getState().auth.id
         };
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
+        axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
                 dispatch({
@@ -71,7 +71,7 @@ export const setReceptionByPatient = (reception) => {
             id_user: getState().auth.id
         };
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
+        axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
                 console.log("FREE VUSIT RES", res)
@@ -88,7 +88,7 @@ export const setReceptionByPatient = (reception) => {
 
 export const getDocPatients = () => {
     return (dispatch, getState) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getPatientsByDoctorId/id/' + getState().auth.id)
+        axios.get('/catalog.doc2/getPatientsByDoctorId/id/' + getState().auth.id)
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_DOCTORS_PATIENTS,
@@ -109,7 +109,7 @@ export const getPatientDoctors = (count, both) => {
             max: count ? count : 0
         };
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDoctorIdByPatients', JSON.stringify(obj))
+        axios.post('/catalog.doc2/getDoctorIdByPatients', JSON.stringify(obj))
             .then(rez => {
                 count ?
                 dispatch({
@@ -126,7 +126,7 @@ export const getPatientDoctors = (count, both) => {
                 console.log(err);
             });
         count && both ?
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDoctorIdByPatients',
+        axios.post('/catalog.doc2/getDoctorIdByPatients',
                     JSON.stringify({id:getState().auth.id}))
             .then(rez => {
                 dispatch({
@@ -144,7 +144,7 @@ export const getSelectedPatientInfo = (id) => {
     return (dispatch, getState) => {
         let user_id = id ? id : getState().patients.selectedId;
 
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getInfoByUserId/id_user/' + user_id + '/id_doc/' + getState().auth.id)
+        axios.get('/catalog.doc2/getInfoByUserId/id_user/' + user_id + '/id_doc/' + getState().auth.id)
             .then(rez => {
                 if (rez.data.code === 501) {
                     dispatch({
@@ -173,7 +173,7 @@ export const getNotDocPatients = (name) => {
             id: getState().auth.id,
             name,
         }
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
+        axios.post('/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_NOT_DOCTORS_PATIENTS,
@@ -192,7 +192,7 @@ export const searchUsers = (name) => {
             filter: getState().auth.mode === "user" ? "doc" : "user",
             name,
         };
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getDoctorOrPatientsListShortById', JSON.stringify(obj))
+        axios.post('/catalog.doc2/getDoctorOrPatientsListShortById', JSON.stringify(obj))
             .then(rez => {
               console.log(rez, "usersHeaderSearch");
               dispatch({
@@ -219,7 +219,7 @@ export const getNotPatientDoctors = (name) => {
             id: getState().auth.id,
             name,
         };
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/getNoDoctorByPatientsId', JSON.stringify(obj))
+        axios.post('/catalog.doc2/getNoDoctorByPatientsId', JSON.stringify(obj))
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_NOT_PATIENT_DOCTORS,
@@ -251,7 +251,7 @@ export const addPatient = (id, name, getInfo = false) => {
             doctorID: getState().auth.id,
             patientID: id,
         }
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/putPatientsByDoctorId', JSON.stringify(obj))
+        axios.post('/catalog.doc2/putPatientsByDoctorId', JSON.stringify(obj))
             .then(rez => {
 
                 dispatch(getNotDocPatients(name));
@@ -267,7 +267,7 @@ export const addOrDeleteUserFromSearch = (id, name, flag) => {
     return (dispatch, getState) => {
         if (getState().auth.mode === "user") {
             flag === "add" ?
-                axios.post(`https://178.172.235.105/~api/json/catalog.doc2/addFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
+                axios.post(`/catalog.doc2/addFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
                     .then(() => {
                         name ? dispatch(searchUsers(name)) : null;
                         dispatch(getPatientDoctors());
@@ -277,7 +277,7 @@ export const addOrDeleteUserFromSearch = (id, name, flag) => {
                         console.log(err);
                     })
                 :
-                axios.get(`https://178.172.235.105/~api/json/catalog.doc2/delFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
+                axios.get(`/catalog.doc2/delFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
                     .then(() => {
                         name ? dispatch(searchUsers(name)) : null;
                         dispatch(getPatientDoctors());
@@ -295,7 +295,7 @@ export const addOrDeleteUserFromSearch = (id, name, flag) => {
                     doctorID: getState().auth.id,
                     patientID: id,
                 };
-                axios.post('https://178.172.235.105/~api/json/catalog.doc2/putPatientsByDoctorId', JSON.stringify(obj))
+                axios.post('/catalog.doc2/putPatientsByDoctorId', JSON.stringify(obj))
                     .then(rez => {
                         name ? dispatch(searchUsers(name)) : null;
                         dispatch(getDocPatients())
@@ -305,7 +305,7 @@ export const addOrDeleteUserFromSearch = (id, name, flag) => {
                         console.log(err);
                     })
             } else {
-                axios.get('https://178.172.235.105/~api/json/catalog.doc2/removePatientFromDoctor/id/' + getState().auth.id + '/patientId/' + id)
+                axios.get('/catalog.doc2/removePatientFromDoctor/id/' + getState().auth.id + '/patientId/' + id)
                     .then(rez => {
                         name ? dispatch(searchUsers(name)) : null;
                         dispatch(getDocPatients())
@@ -325,7 +325,7 @@ export const addOrDeleteUserFromSearch = (id, name, flag) => {
 
 export const addDoctor = (id, name) => {
     return (dispatch, getState) => {
-        axios.post(`https://178.172.235.105/~api/json/catalog.doc2/addFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
+        axios.post(`/catalog.doc2/addFavoriteDoc/id_user/${getState().auth.id}/id_doc/${id}`)
             .then(() => {
                 dispatch(getPatientDoctors());
                 name ? dispatch(getNotPatientDoctors(name)) : null;
@@ -340,7 +340,7 @@ export const addDoctor = (id, name) => {
 export const removePatient = (id_user, id_doctor) => {
     return (dispatch, getState) => {
         let doc_id = id_doctor ? id_doctor : getState().auth.id;
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/removePatientFromDoctor/id/' + doc_id + '/patientId/' + id_user)
+        axios.get('/catalog.doc2/removePatientFromDoctor/id/' + doc_id + '/patientId/' + id_user)
             .then(rez => {
                 dispatch(getDocPatients());
                 //dispatch(getNotDocPatients(''));
@@ -354,7 +354,7 @@ export const removePatient = (id_user, id_doctor) => {
 export const removeDoctor = (id_doctor) => {
     return (dispatch, getState) => {
         let id_user = getState().auth.id;
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/delFavoriteDoc/id_user/' + id_user+ '/id_doc/' + id_doctor)
+        axios.get('/catalog.doc2/delFavoriteDoc/id_user/' + id_user+ '/id_doc/' + id_doctor)
             .then(() => {
                 dispatch(getPatientDoctors());
                 //dispatch(getNotDocPatients(''));
@@ -390,7 +390,7 @@ export const sendMessage = (message) => {
             from: getState().auth.id,
         }
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/putMessage', JSON.stringify(obj))
+        axios.post('/catalog.doc2/putMessage', JSON.stringify(obj))
             .then(rez => {
                 console.log(rez)
             })

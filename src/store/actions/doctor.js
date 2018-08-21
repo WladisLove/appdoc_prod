@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 
 export const getDocTodayInfo = () => {
     return (dispatch, getState) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/todayActualZap/id_doc/'+getState().auth.id)
+        axios.get('/catalog.doc2/todayActualZap/id_doc/'+getState().auth.id)
             .then(res => {
                 dispatch({
                     type: actionTypes.GET_DOCTOR_TODAY_INFO,
@@ -18,7 +18,7 @@ export const getDocTodayInfo = () => {
 
 export const getDocShortInfo = () => {
     return (dispatch, getState) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/dopInfoDocBiId/id_doc/'+getState().auth.id)
+        axios.get('/catalog.doc2/dopInfoDocBiId/id_doc/'+getState().auth.id)
             .then(res => {
                 dispatch({
                     type: actionTypes.GET_DOCTOR_SHORT_INFO,
@@ -44,7 +44,7 @@ export const setExIntervalInfo = (isIn, isUserSet) => {
 export const switchExInterval = (isIn) => {
     return (dispatch, getState) => {
         let tmp = isIn ? '1' : '0';
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/isIn/id/'+getState().auth.id +'/isin/' + tmp + '/isUserSet/1')
+        axios.get('/catalog.doc2/isIn/id/'+getState().auth.id +'/isin/' + tmp + '/isUserSet/1')
             .then(res => {
                 dispatch({
                     type: actionTypes.SWITCH_EX_INTERVAL,

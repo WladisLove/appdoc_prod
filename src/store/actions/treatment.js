@@ -1,11 +1,11 @@
-import axios from 'axios'
+import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 
 export const getAllTreatments = () => {
 
     return (dispatch, getState) => {
         let isUser = getState().auth.mode === "user" ? "/isuser/1" : "";
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+isUser)
+        axios.get('/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+isUser)
             .then(res => {
                 console.log('[getAllTreatments]',res.data)
                 dispatch({
@@ -21,7 +21,7 @@ export const getAllTreatments = () => {
 
 export const getActualTreatments = () => {
     return (dispatch, getState) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/topical')
+        axios.get('/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/topical')
             .then(res => {
                 console.log(res.data)
                 dispatch({
@@ -37,7 +37,7 @@ export const getActualTreatments = () => {
 export const getCompletedTreatments = () => {
     return (dispatch, getState) => {
         let isUser = getState().auth.mode === "user" ? "/isuser/1" : "";
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/completed'+isUser)
+        axios.get('/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/completed'+isUser)
             .then(res => {
                 dispatch({
                     type: actionTypes.GET_COMPLETED_TREATMENTS,
@@ -53,7 +53,7 @@ export const getCompletedTreatments = () => {
 export const getCompletedApps = () => {
     return (dispatch, getState) => {
 
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/allMAcompleteMyIdUser',
+        axios.post('/catalog.doc2/allMAcompleteMyIdUser',
             JSON.stringify({
                 id: getState().auth.id
             }))
@@ -72,7 +72,7 @@ export const getCompletedApps = () => {
 
 export const completeReception = (obj) => {
     return dispatch => {
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/toFinishReception', 
+        axios.post('/catalog.doc2/toFinishReception', 
             JSON.stringify(obj))
             .then(res => {
                 console.log('[completeReception]',JSON.stringify(obj))
@@ -87,7 +87,7 @@ export const completeReception = (obj) => {
 export const closeTreatment = (id) => {
     return dispatch => {
         console.log('closeTreatment', id)
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/changeStatus/id/'+id+'/status/completed')
+        axios.get('/catalog.doc2/changeStatus/id/'+id+'/status/completed')
             .then(res => {
                 console.log(res.data)
             })
@@ -100,7 +100,7 @@ export const closeTreatment = (id) => {
 export const selectTreatment = (treatId) => {
 
     return (dispatch) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatmentBiId/id/'+treatId)
+        axios.get('/catalog.doc2/getTreatmentBiId/id/'+treatId)
             .then(res => {
                 dispatch({
                     type: actionTypes.SELECT_TREATMENT,
@@ -118,7 +118,7 @@ export const selectTreatment = (treatId) => {
 
 export const uploadChatFile = (id_zap,id_user,file, callback) => {
     return (dispatch) => {
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveFilesChat',
+        axios.post('/catalog.doc2/saveFilesChat',
             JSON.stringify({
                 id_zap,
                 id_user,
@@ -137,7 +137,7 @@ export const uploadChatFile = (id_zap,id_user,file, callback) => {
 export const uploadConclusion = (id_zap,file, callback) => {
     return (dispatch) => {
         //console.log(file.thumbUrl.substr(0,50));
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveFilesZak',
+        axios.post('/catalog.doc2/saveFilesZak',
             JSON.stringify({
                 id_zap,
                 file,
@@ -154,7 +154,7 @@ export const uploadConclusion = (id_zap,file, callback) => {
 
 export const getAllFilesTreatment = (treatId) => {
     return (dispatch) => {
-        axios.post('https://178.172.235.105/~api/json/catalog.doc2/allFilesTreatment',
+        axios.post('/catalog.doc2/allFilesTreatment',
         JSON.stringify({id: treatId}))
             .then(res => {
                 dispatch({
@@ -170,7 +170,7 @@ export const getAllFilesTreatment = (treatId) => {
 
 export const seletVisit = (visId) => {
     return (dispatch) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getInfoByMakingAppId/id/'+visId)
+        axios.get('/catalog.doc2/getInfoByMakingAppId/id/'+visId)
             .then(res => {
                 console.log('[seletVisit]',res.data)
                 dispatch({
@@ -194,7 +194,7 @@ export const clearSelections = () => {
 export const changeReceptionStatus = (id,key) => {
 
     return (dispatch) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/addMakingAppTime/id/'+id+'/key/'+key)
+        axios.get('/catalog.doc2/addMakingAppTime/id/'+id+'/key/'+key)
             .then(res => {
                 key === "finish" && dispatch(getReceptionDuration(id));
             })
@@ -207,7 +207,7 @@ export const changeReceptionStatus = (id,key) => {
 export const getReceptionDuration = (id) => {
 
     return (dispatch) => {
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getMakingAppTimeCost/id/'+id)
+        axios.get('/catalog.doc2/getMakingAppTimeCost/id/'+id)
             .then(res => {
                 const {second, cost} = res.data.result;
                 alert('Reception Duration: '+second+'s\nTotal Price: '+cost+"BYN")
