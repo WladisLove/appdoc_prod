@@ -11,6 +11,7 @@ import Icon from '../Icon'
 
 import './style.css'
 import '../../icon/style.css'
+import {deleteAvatar} from "../../store/actions";
 const FormItem = Form.Item;
 
 class PatientAccardionContactItemForm extends React.Component{
@@ -18,7 +19,7 @@ class PatientAccardionContactItemForm extends React.Component{
         super(props);
         this.state ={
             passwordsRequired: false,
-            newAvatarUrl: ""
+            avatar: {}
         }
     }
 
@@ -26,8 +27,10 @@ class PatientAccardionContactItemForm extends React.Component{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                if(this.state.avatar) {
+                    values.avatar = {...this.state.avatar}
+                }
                 console.log(values);
-                // let newProfile = this.onSave(values);
                 this.props.onSubmit(values);
             } else {
                 console.log(err);
@@ -57,18 +60,25 @@ class PatientAccardionContactItemForm extends React.Component{
         }
     };
 
-    handleChangeAvatar = (isReset) => {
-        const file = document.querySelector('.file-upload-input').files[0];
-        if (file && file.type.indexOf("image/") !== -1) {
-            const reader = new FileReader();
-            console.log("AVATARFILE", file);
-            reader.addEventListener('load', () => this.setState({
-                newAvatarUrl: (isReset === true ? "https://178.172.235.105/media/img/zaglushka.svg" : reader.result)
-            }));
-            reader.readAsDataURL(file);
+    handleChangeAvatar = (event, isReset) => {
+        if (isReset === true) {
+            this.props.onDeleteAvatar();
+            this.setState({
+                avatar: ""
+            });
+            event.target.files = [];
         }
-
-        if (isReset === true) document.querySelector('.file-upload-input').value = "";
+        else {
+            let file = event.target.files[0];
+            if (file && file.type.indexOf("image/") !== -1) {
+                const reader = new FileReader();
+                console.log("AVATARFILE", file);
+                reader.addEventListener('load', () => this.setState({
+                    avatar: ({thumbUrl: reader.result, name: file.name})
+                }));
+                reader.readAsDataURL(file);
+            }
+        }
     };
 
     compareToFirstPassword = (rule, value, callback) => {
@@ -91,7 +101,7 @@ class PatientAccardionContactItemForm extends React.Component{
                     <div className='patient-contacts-block'>
                         <div className='patient-contacts-avatar'>
                             <ProfileAvatar
-                                img={this.state.newAvatarUrl ? this.state.newAvatarUrl : contactAvatar}
+                                img={this.state.avatar.thumbUrl ? this.state.avatar.thumbUrl : contactAvatar}
                                 owner='patient'
                                 size="large"
                                 online={true}
@@ -110,7 +120,7 @@ class PatientAccardionContactItemForm extends React.Component{
                                     type='icon'
                                     icon='close'
                                     iconSize={13}
-                                    onClick={() => this.handleChangeAvatar(true)}
+                                    onClick={(event) => this.handleChangeAvatar(event, true)}
                                 />
                             </div>
 

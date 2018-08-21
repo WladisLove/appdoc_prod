@@ -61,6 +61,7 @@ class PersonalInfo extends React.Component{
                                 <PatientAccardionContact
                                     onSubmit={this.onSubmitPatient}
                                     onSubmitPassword={this.onSubmitPasswordPatient}
+                                    onDeleteAvatar={this.props.onDeleteAvatar}
                                     profile = {profile}
                                 />
                             </Col>
@@ -128,7 +129,8 @@ const mapDispatchToProps = dispatch => {
         onSendNewInfoDoctor: (info) => dispatch(actions.sendNewInfoDoctor(info)),
         onGetInfoPatient: (id) => dispatch(actions.getInfoPatient(id)),
         onSendNewInfoPatient: (info) => dispatch(actions.sendNewInfoPatient(info)),
-        onSendNewPasswordPatient: (oldPass, newPass, id) => dispatch(actions.sendNewPasswordPatient(oldPass, newPass, id))
+        onSendNewPasswordPatient: (oldPass, newPass, id) => dispatch(actions.sendNewPasswordPatient(oldPass, newPass, id)),
+        onDeleteAvatar: (id) => dispatch(actions.deleteAvatar(id))
     }
 };
 
