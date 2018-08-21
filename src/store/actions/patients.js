@@ -74,10 +74,10 @@ export const setReceptionByPatient = (reception) => {
         axios.post('https://178.172.235.105/~api/json/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
+                console.log("FREE VUSIT RES", res)
                 dispatch(getPatientDoctors());
                 dispatch({
                     type: actionTypes.SET_RECEPTION_BY_PATIENT,
-                    isReceptionRecorded: res.data.process
                 })
             })
             .catch(err => {

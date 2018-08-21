@@ -19,3 +19,7 @@
 .newEmergencyVisit .new-emergency-visit-content {
   padding: 30px;
 }
+.newEmergencyVisit .ant-form-explain {
+  position: relative;
+  top: 0;
+}

@@ -71,7 +71,7 @@ render() {
                                 visible = {this.state.isNewFreeVisit}
                                 docTypes = {["HIRURG","Аллерголог", "Хирург", "Терапевт", "Окулист"]}
                                 onCancel = {() => this.setState({isNewFreeVisit: false})}
-                                onSubmit = {this.props.onMakeFreeVisit}
+                                onSubmit = {this.props.onMakeVisit}
                                 getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
                                 freeVisitsIntervals = {this.props.freeVisitsIntervals}
                                 onMakeFreeVisit = {this.props.onMakeFreeVisit}
@@ -80,7 +80,7 @@ render() {
                             <NewEmergencyVisit
                                 visible = {this.state.emergencyVisit}
                                 onCancel = {() => this.setState({emergencyVisit: false})}
-                                onSubmit = {this.props.onEmergencySubmit}
+                                onSubmit = {this.props.onMakeVisit}
                             />
                         </Hoc> 
                         : <SwitchPanel 
