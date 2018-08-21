@@ -19,26 +19,28 @@ class HistoryReceptionsTabs extends React.Component {
         super(props);
         this.state = {
             range: [],
-            limit: this.props.limit,
-            limitedShow: true,
             periodReceptions: [],
+            topicalReceptions: [],
+            completedReceptions: [],
+            upcomingReceptions: [],
             currentTab: 'all'
         };
     }
 
+
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.length !== this.props.data.length) {
-            this.setState(prev => ({
+            this.setState(({
                 range: [],
                 periodReceptions: [],
-                limitedShow: true,
             }));
+            this.sortHistoryReceptions(nextProps.data);
         }
     }
 
     tabChangeHadler = (currentTab) => {
-        this.setState(prev => ({
-            limitedShow: true,
+        this.setState(({
             range: [],
             periodReceptions: [],
             currentTab,
@@ -63,7 +65,6 @@ class HistoryReceptionsTabs extends React.Component {
     sortPeriod = (period = this.state.range) => {
         const [start, end] = period,
             currentTab = this.state.currentTab;
-        
 
         let itemsToSort = currentTab === 'all'
             ? this.props.data
@@ -71,11 +72,12 @@ class HistoryReceptionsTabs extends React.Component {
 
             if (start && end){
                 const starttmp = start.unix(), endtmp = end.unix();
-                    
+
                 return itemsToSort.filter((item) => {
-                    if (item.startDate > starttmp && item.endDate < endtmp)
+                    if (item.date > starttmp && item.date < endtmp)
                         return item;
                 });
+
             }
             else {
                 return itemsToSort;
@@ -88,36 +90,32 @@ class HistoryReceptionsTabs extends React.Component {
             moment(range[0]).hour(0).minute(0).second(0).millisecond(0),
             moment(range[1]).hour(0).minute(0).second(0).millisecond(0)
         ] : [];
-        this.setState(prev => ({
+        this.setState(({
             periodReceptions: this.sortPeriod(_range),
             range: _range,
         }));
     };
 
-    historyRender = (dataArr, filter) => {
-        if(filter) {
-            dataArr = dataArr.filter((item) => {
-                if(item.status === filter) return item
-            })
-        }
-
+    historyRender = (dataArr) => {
         let historyArr = [];
         const arr = (this.state.periodReceptions.length || this.state.range.length)
             ? this.state.periodReceptions : dataArr;
         arr.map((item, i) => {
             if (this.state.limit > i || !this.state.limitedShow) {
-                historyArr.push(<HistoryReceptionsItem {...item}
-                                    onGotoChat = {this.props.onGotoChat}
-                                    onGoto={this.props.onGoto} 
-                                    key={'histRecept' + i}
-                                    isUser={this.props.isUser}
-                />)
+                if(item.doc_name) {
+                    historyArr.push(<HistoryReceptionsItem {...item}
+                                        onGotoChat = {this.props.onGotoChat}
+                                        onGoto={this.props.onGoto}
+                                        key={'histRecept' + i}
+                                        isUser = {this.props.isUser}
+
+                    />)
+                }
             }
         });
         historyArr.push(this.renderShowMoreBtn(arr));
         return historyArr;
     };
-
     sortHistoryReceptions =(data = this.props.data) => {
         let topicalArr = [],
             completedArr = [],
@@ -144,6 +142,7 @@ class HistoryReceptionsTabs extends React.Component {
             upcomingReceptions: upcomingArr,
         })
     };
+
     tabHeaderRender = () => {
         return (
             <Hoc>
@@ -190,6 +189,11 @@ class HistoryReceptionsTabs extends React.Component {
             </Hoc>
         )
     };
+
+    searchChange = () => {
+        this.setState({currentTab:"all"})
+    };
+
     componentWillMount(){
         this.sortHistoryReceptions();
     }
@@ -201,12 +205,18 @@ class HistoryReceptionsTabs extends React.Component {
                 <Card title="История обращений">
                     <Tabs onChange={this.tabChangeHadler}
                           defaultActiveKey='all'
+                          activeKey={this.state.currentTab}
                           tabBarExtraContent={
                               <div className='extra-panel'>
                                   <DatePicker small
                                               onChange={this.dpHandler}
                                               defaultValue={this.state.range}/>
-                                  <Input.Search placeholder="Поиск..."/></div>}>
+                                  <Input.Search
+                                      placeholder="Поиск..."
+                                      onChange = {this.searchChange}
+
+                                  />
+                              </div>}>
                         <TabPane tab="Все" key="all">
                             <ScrollArea
                                 speed={1}

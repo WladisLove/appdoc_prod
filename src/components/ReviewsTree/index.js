@@ -100,7 +100,7 @@ class ReviewsTree extends React.Component{
             </div>);
     };
 
-    renderSuggestionToSelectDate = () => {
+    renderSuggestionToSelectDate = () => {g
         return (
             <div className="reviewsTree-underTreeElement" key="suggestion">
                 <p>Выберите дату.</p>
