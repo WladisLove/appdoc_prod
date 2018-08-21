@@ -24,7 +24,7 @@ class MainPage extends React.Component{
             this.props.onGetUserInfoShort();
 		}
 		else {
-			this.props.reviews && !this.props.reviews.length && this.props.onGetAllReviews();
+			this.props.reviews && this.props.onGetAllReviews();
 			this.props.onGetActualTreatments();
 			let now = new Date();
 			this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
