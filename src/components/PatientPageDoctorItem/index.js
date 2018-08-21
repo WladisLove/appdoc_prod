@@ -16,7 +16,8 @@ handleClick = () => {
     this.props.onDelete(this.props.id)
 }
     render(){
-        const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp, doctorPrice, doctorLanguages, doctorChild} = this.props;
+        const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp,
+            doctorPrice, doctorLanguages, doctorChild, doctorAvatar} = this.props;
         const rootClass = cn('page__doctor-item');
         return (
 
@@ -43,7 +44,7 @@ handleClick = () => {
                 <div className='page__doctor-item-block'>
                     <div className='page__doctor-item-avatar'>
                         <ProfileAvatar 
-                          img='https://images.fastcompany.net/image/upload/w_1280,f_auto,q_auto,fl_lossy/fc/3036143-poster-p-1-5-strategies-for-big-picture-thinking.png'
+                          img={doctorAvatar}
                           owner='doctor'
                           size="large"
                           online={true}
