@@ -48,43 +48,6 @@
   justify-content: flex-start;
   top: 66px;
 }
-.receptions-all .tableheader.menu-header .flex-col:first-child {
-  padding-left: 3%;
-}
-.receptions-all .tableheader.menu-header .flex-col:last-child {
-  padding-right: 3%;
-  margin-right: 0;
-}
-.receptions-all .tableheader.menu-header .flex-col:nth-child(1) {
-  max-width: 120px;
-  width: 100%;
-}
-.receptions-all .tableheader.menu-header .flex-col:nth-child(2) {
-  max-width: 160px;
-  width: 100%;
-}
-.receptions-all .tableheader.menu-header .flex-col:nth-child(3) {
-  max-width: 200px;
-  width: 100%;
-}
-.receptions-all .tableheader.menu-header .flex-col:nth-child(4) {
-  max-width: 100px;
-  width: 100%;
-}
-.receptions-all .tableheader.menu-header .flex-col:nth-child(5) {
-  max-width: 205px;
-  width: 100%;
-}
-.receptions-all .tableheader.menu-header .flex-col:nth-child(6) {
-  max-width: 200px;
-  width: 100%;
-}
-.receptions-all .tableheader.menu-header .flex-col:nth-child(7) {
-  width: 100%;
-  max-width: 100px;
-  padding-right: 3%;
-  margin-right: 0;
-}
 .receptions-all .tableheader .ico-btn {
   display: flex;
 }

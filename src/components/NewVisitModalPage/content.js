@@ -149,6 +149,7 @@ class ContentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
+            console.log(values.file, "VALUES FILE")
             if (!err) {    
                 let paramDate = this.state.currentTime;
                 let response = {
@@ -159,9 +160,10 @@ class ContentForm extends React.Component {
                 };
                 if(values.file) {
                     response.file = values.file.fileList.map((item,index)=>{
-                        return item.originFileObj
+                        return {name: item.name, thumbUrl: item.originFileObj.thumbUrl}
                     })
                 }
+                console.log(response, "RESPONSE")
                 this.props.onSave(response);
             } else { console.log(err, "ERROR")}
 

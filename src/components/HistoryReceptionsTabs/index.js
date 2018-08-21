@@ -118,7 +118,32 @@ class HistoryReceptionsTabs extends React.Component {
         return historyArr;
     };
 
-
+    sortHistoryReceptions =(data = this.props.data) => {
+        let topicalArr = [],
+            completedArr = [],
+            upcomingArr =[];
+        const now = Date.now() /1000;
+        data.map((item) => {
+            switch (item.status){
+                case 'topical':
+                    topicalArr.push(item);
+                    break;
+                case 'completed':
+                    completedArr.push(item);
+                    break;
+                case 'new':
+                    upcomingArr.push(item);
+                    break;
+                default:
+                    break;
+            }
+        });
+        this.setState({
+            topicalReceptions: topicalArr,
+            completedReceptions: completedArr,
+            upcomingReceptions: upcomingArr,
+        })
+    };
     tabHeaderRender = () => {
         return (
             <Hoc>
@@ -165,7 +190,9 @@ class HistoryReceptionsTabs extends React.Component {
             </Hoc>
         )
     };
-
+    componentWillMount(){
+        this.sortHistoryReceptions();
+    }
 
     render() {
 
@@ -199,7 +226,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 horizontal={true} 
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.props.data, "completed")}
+                                {this.historyRender(this.state.completedReceptions)}
                             </ScrollArea>
                         </TabPane>
                         <TabPane tab="Актуальные" key="topical">
@@ -210,7 +237,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 horizontal={true} 
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.props.data, "topical")}
+                                {this.historyRender(this.state.topicalReceptions)}
                             </ScrollArea>
                         </TabPane>
                         <TabPane tab="Предстоящие" key="upcoming">
@@ -221,7 +248,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 horizontal={true} 
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.props.data, "new")}
+                                {this.historyRender(this.state.upcomingReceptions)}
                             </ScrollArea>
                         </TabPane>
                     </Tabs>
