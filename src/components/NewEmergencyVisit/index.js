@@ -28,7 +28,7 @@ class NewEmergencyVisitForm extends React.Component {
                 if (!values.comment) {
                     this.setState({shouldWriteComment: true})
                 } else {
-                    let obj = {comment: values.comment, id_doc: 0};
+                    let obj = {comment: values.comment, id_doc: 1};
 
 
                     if (values.file) {
