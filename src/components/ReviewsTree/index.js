@@ -91,7 +91,7 @@ class ReviewsTree extends React.Component{
 
     renderShowMoreBtn = (refreshBtn) => {
         return (
-            <div style={{textAlign: 'center'}} key="btn">
+            <div className="reviewsTree-underTreeElement" key="btn">
                 <Button btnText={refreshBtn ? 'Нет отзывов. Нажмите чтобы обновить' : 'Показать еще'}
                         size='link'
                         type='link'
@@ -100,8 +100,15 @@ class ReviewsTree extends React.Component{
             </div>);
     };
 
+    renderSuggestionToSelectDate = () => {
+        return (
+            <div className="reviewsTree-underTreeElement" key="suggestion">
+                <p>Выберите дату.</p>
+            </div>);
+    };
+
     renderSpinner = () => {
-        return (<div style={{textAlign: 'center'}} key="spinner">
+        return (<div className="reviewsTree-underTreeElement" key="spinner">
             <Spinner/>
         </div>);
     };
@@ -122,6 +129,8 @@ class ReviewsTree extends React.Component{
             arr.push(this.renderSpinner());
         else if (this.state[this.state.tab].isShowMoreBtnEnabled)
             arr.push(this.renderShowMoreBtn(false));
+        else if (this.state.tab === "periodTab" && !this.state.range.length)
+            arr.push(this.renderSuggestionToSelectDate());
         else if (!this.state[this.state.tab].reviews.length)
             arr.push(this.renderShowMoreBtn(true));
 
