@@ -42,6 +42,9 @@
   display: flex;
   align-items: center;
 }
+.auto__complete-title-spinner {
+  padding-left: 20px;
+}
 .auto__complete-count {
   background-color: #0495ff;
   border-radius: 20px;

@@ -5,8 +5,7 @@ import cn from 'classnames'
 import ScrollArea from 'react-scrollbar'
 import AddNewPatientItem from '../AddNewPatientItem'
 import Input from '../Input'
-import Icon from '../Icon'
-import {search} from '../../helpers/searching'
+import Spinner from '../Spinner'
 import './style.css'
 
 class AutoComplete extends React.Component{
@@ -15,23 +14,23 @@ class AutoComplete extends React.Component{
         this.state ={
             isVisible: false,
             inputValue: "",
-            inputFocus: false,
-            itemFocus: false,
+            loading: false,
             
             searchRes: this.props.data,
-        }
-        this.input;
+        };
     }
 
     focusHandler = (e) => {
         this.setState({
             isVisible: false,
+            searchRes: []
         });
     };
 
     componentWillMount() {
         this.timer = null;
     }
+
     onClickHandler = (id, flag) => {
         let user;
         flag === 'goto' ? (
@@ -49,9 +48,7 @@ class AutoComplete extends React.Component{
             : (
                 this.props.onDelete(id, this.input.inp.input.value)
             );
-    }
-
-   
+    };
 
     patientsRender = (dataArr) => {
         let patientsArr = [];
@@ -70,11 +67,13 @@ class AutoComplete extends React.Component{
     changeHandleSearch = (e) => {
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
-        e.target.value.length > 2 ?  this.timer = setTimeout(this.triggerChange, 800) : null;
+        e.target.value.length > 2 ? this.timer = setTimeout(this.triggerChange, 800) : null;
     };
+
     triggerChange = () => {
         this.props.findName(this.state.inputValue);
         this.setState({
+            loading: true,
             isVisible: true
         });
     };
@@ -82,23 +81,23 @@ class AutoComplete extends React.Component{
     handleKeyDown = (e) => {
         if(e.keyCode===13) {
             if( e.target.value.length > 2 ) {
-            clearTimeout(this.timer);
-            this.props.findName(this.state.inputValue);
-            this.setState({
-                isVisible: true,
-                searchRes: this.props.data,
-            });
+                clearTimeout(this.timer);
+                this.setState({isVisible: true});
+                this.triggerChange();
             }
         }
     };
+
     componentWillReceiveProps(nextProps){
         console.log(nextProps, "NEXT PROPS FROM AUTO COMPLETE");
-        this.setState({searchRes: nextProps.data});
+        this.setState({
+            searchRes: nextProps.data,
+            loading: false
+        });
     }
 
     render() {
-        
-        const { data, collapsed} = this.props;
+        console.log(this.state);
         const rootClass = cn('auto__complete');
         const resultClass = (this.state.isVisible)? 'auto__complete-result auto__complete-result-focus' : 'auto__complete-result';
         const overlayClass = (this.state.isVisible)? 'auto__complete-overlay auto__complete-overlay-focus' : 'auto__complete-overlay';
@@ -106,7 +105,7 @@ class AutoComplete extends React.Component{
 
         return (
             <div className={rootClass}>
-                <div className={overlayClass} onClick={() => this.focusHandler(false)}></div>
+                <div className={overlayClass} onClick={() => this.focusHandler(false)}/>
                 <div className='auto__complete-search'>
                     <Input 
                         placeholder='Поиск'
@@ -119,6 +118,7 @@ class AutoComplete extends React.Component{
                     <div className='auto__complete-title'>
                         Результаты поиска
                         {this.state.searchRes.length ? <span className='auto__complete-count'>{this.state.searchRes.length}</span> : null }
+                        {this.state.loading ? <div className='auto__complete-title-spinner'><Spinner/></div> : null}
                     </div>
                     <ScrollArea
                             speed={1}
@@ -139,10 +139,12 @@ class AutoComplete extends React.Component{
 
 AutoComplete.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
+    findName: PropTypes.func
 };
 
 AutoComplete.defaultProps = {
     data: [],
+    findName: () => {}
 };
 
 export default AutoComplete
