@@ -42,17 +42,15 @@ class PatientsPage extends React.Component{
     };
 
     getDoctorLanguagesArr = () => {
-        let languagesArr = [], languagesObjArr = [];
+        let languagesArr = [];
 
         if (typeof this.props.profileDoctor.language === "string") {
             languagesArr = this.props.profileDoctor.language.split(' ');
         }
 
-        languagesObjArr = languagesArr.map((item) => {
+        return languagesArr.map((item) => {
             return {language: item};
         });
-
-        return languagesObjArr;
     };
 
     getDoctorMapsArr = () => {
@@ -142,12 +140,13 @@ class PatientsPage extends React.Component{
                     </Row>
                     <Row>
                         <Col span={24} className='reviews-section'>
-                            <ReviewsTree data={this.props.reviews}
+                            <ReviewsTree key={this.props.match.params.id}
+                                         data={this.props.reviews}
                                          limit={reviewsLoadCount}
                                          onGoto={(val) => this.gotoHandler(val)}
-                                         isOnDoctorPage = {true}
+                                         isOnDoctorPage={true}
                                          numberOfReviews={this.props.commentCount}
-                                         onShowMore = {(numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
+                                         onShowMore={(numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
                                              this.props.onGetAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd, this.props.match.params.id)}
                             />
                         </Col>
