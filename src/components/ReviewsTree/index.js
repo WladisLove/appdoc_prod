@@ -100,19 +100,6 @@ class ReviewsTree extends React.Component{
             </div>);
     };
 
-    renderSuggestionToSelectDate = () => {
-        return (
-            <div className="reviewsTree-underTreeElement" key="suggestion">
-                <p>Выберите дату.</p>
-            </div>);
-    };
-
-    renderSpinner = () => {
-        return (<div className="reviewsTree-underTreeElement" key="spinner">
-            <Spinner/>
-        </div>);
-    };
-
     renderRevs = (dataArr) => {
         let arr = [];
         dataArr.map((item) => {
@@ -125,12 +112,17 @@ class ReviewsTree extends React.Component{
                                 onSend={this.props.onSend}/>)
         });
 
-        if (this.state.loadingReviewsFor)
-            arr.push(this.renderSpinner());
+        if(this.state.loadingReviewsFor)
+            arr.push(<div className="reviewsTree-underTreeElement" key="spinner">
+                <Spinner/>
+            </div>);
         else if (this.state[this.state.tab].isShowMoreBtnEnabled)
             arr.push(this.renderShowMoreBtn(false));
         else if (this.state.tab === "periodTab" && !this.state.range.length)
-            arr.push(this.renderSuggestionToSelectDate());
+            arr.push(
+                <div className="reviewsTree-underTreeElement" key="suggestion">
+                    <p>Выберите дату.</p>
+                </div>);
         else if (!this.state[this.state.tab].reviews.length)
             arr.push(this.renderShowMoreBtn(true));
 
@@ -142,7 +134,7 @@ class ReviewsTree extends React.Component{
         return (
             <Card title={this.props.isOnDoctorPage ? "Отзывы" : "Все отзывы"}
                   className="reviewsTree"
-                  extra={this.props.numberOfReviews ? this.props.numberOfReviews : null}>
+                  extra={this.props.isOnDoctorPage || !this.props.numberOfReviews ? null : this.props.numberOfReviews}>
                 <Tabs onChange={this.tabChangeHandler}
                       tabBarExtraContent={this.state.displayDP &&
                       <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>

@@ -19,6 +19,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 reviewsByPatient: action.reviewsByPatient,
+                ratingAll: 0,
+                commentCount: 0
             };
 
         default: return state;
