@@ -56,7 +56,6 @@ export {
     seletVisit,
     selectTreatment,
     clearSelections,
-
     completeReception,
     closeTreatment,
     uploadChatFile,

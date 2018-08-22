@@ -100,19 +100,6 @@ class ReviewsTree extends React.Component{
             </div>);
     };
 
-    renderSuggestionToSelectDate = () => {
-        return (
-            <div className="reviewsTree-underTreeElement" key="suggestion">
-                <p>Выберите дату.</p>
-            </div>);
-    };
-
-    renderSpinner = () => {
-        return (<div className="reviewsTree-underTreeElement" key="spinner">
-            <Spinner/>
-        </div>);
-    };
-
     renderRevs = (dataArr) => {
         let arr = [];
         dataArr.map((item) => {
@@ -147,7 +134,7 @@ class ReviewsTree extends React.Component{
         return (
             <Card title={this.props.isOnDoctorPage ? "Отзывы" : "Все отзывы"}
                   className="reviewsTree"
-                  extra={this.props.isOnDoctorPage || !this.props.numberOfReviews ? null : this.props.numberOfReviews}>
+                  extra={!this.props.numberOfReviews ? null : this.props.numberOfReviews}>
                 <Tabs onChange={this.tabChangeHandler}
                       tabBarExtraContent={this.state.displayDP &&
                       <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
