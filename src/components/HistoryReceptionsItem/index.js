@@ -30,7 +30,6 @@ class HistoryReceptionsItem extends React.Component{
        }
     };
     render(){
-        console.log(this.props, "THIS PROPS FROM HIST REC ITEM");
         const {
             id_treatment,
             id_user,
