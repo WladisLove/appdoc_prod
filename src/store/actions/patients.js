@@ -1,5 +1,6 @@
 import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
+import moment from "moment";
 
 export const getDateInterval = (beginDay, endDay) => {
     return (dispatch, getState) => {
@@ -54,8 +55,11 @@ export const setReception = (reception) => {
         axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
+                console.log("[setReception]", res);
                 dispatch({
                     type: actionTypes.SET_RECEPTION,
+                    isReceptionRecorded: res.data.code === 200,
+                    receptionRecordedID: res.data.code === 200 ? res.data.id : moment().format('x')
                 })
             })
             .catch(err => {

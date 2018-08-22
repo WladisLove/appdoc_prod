@@ -13,6 +13,7 @@ import Hoc from '../../hoc'
 import * as actions from '../../store/actions'
 
 import './styles.css';
+import {message} from "antd";
 
 class Patients extends React.Component{
 	constructor(props){
@@ -22,7 +23,9 @@ class Patients extends React.Component{
             modal1Visible: false,
             modal2Visible: false,
 			id: null,
-			name: ""
+			name: "",
+            isRecordInProcess: false,
+            submitSuccess: true
         }
     }
 
@@ -49,6 +52,22 @@ class Patients extends React.Component{
 	showModalHandler = () => {
 		this.setState({addNew_show: true});
 	};
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.isRecordInProcess)
+            if (nextProps.isReceptionRecorded && nextProps.receptionRecordedID !== this.props.receptionRecordedID) {
+                message.success("Запись прошла успешно");
+                this.setState({modal1Visible: false, isRecordInProcess: false});
+            }
+            else {
+                this.setState({isRecordInProcess: false, submitSuccess: false});
+            }
+    };
+
+    onSave = (obj) => {
+        this.props.onSaveReception(obj);
+        this.setState({isRecordInProcess: true, submitSuccess: true});
+    };
 
     render(){
         return (
@@ -87,18 +106,16 @@ class Patients extends React.Component{
 
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
-                    onSave={(a) => {
-                        this.props.onSaveReception(a)
-                    }}
-					isDateInvalid = {this.props.isReceptionRecorded}
+                    onSave={this.onSave}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.name}
                     intervals={this.props.intervals}
                     onChangeDate={this.props.onGetIntervalForDate}
                     availableIntervals={this.props.availableIntervals}
                     id={this.state.id}
-                    isReceptionRecorded = {this.props.isReceptionRecorded}
-                    setModal1Visible = {this.setModal1Visible}
+                    isReceptionRecorded={this.props.isReceptionRecorded}
+                    receptionRecordedID={this.props.receptionRecordedID}
+                    setModal1Visible={this.setModal1Visible}
                 />
 
                 <NewMessageModal
@@ -123,7 +140,8 @@ const mapStateToProps = state => {
 		notDocPatients: state.patients.notDocPatients,
 		intervals: state.patients.intervals,
 		isReceptionRecorded: state.patients.isReceptionRecorded,
-		availableIntervals: state.profileDoctor.workIntervals
+		availableIntervals: state.profileDoctor.workIntervals,
+        receptionRecordedID: state.patients.receptionRecordedID
 	}
 };
 
