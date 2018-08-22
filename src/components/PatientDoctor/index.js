@@ -23,8 +23,8 @@ class PatientDoctor extends React.Component{
     setModal1Visible = (value, name, ID)=> {
         this.setState({
             modal1Visible: value,
-            doctorName: name,
-            doctorID: ID,
+            doctorName: (value) ? name : this.state.doctorName,
+            doctorID: (value) ? ID : this.state.doctorID,
         });
         if (value) this.props.onGetAllDocIntervals(ID);
     };
@@ -69,15 +69,12 @@ class PatientDoctor extends React.Component{
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
                     onSave={this.onSave}
-                    isUser={this.props.isUser}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.doctorName}
                     intervals={this.props.intervals}
                     onChangeDate={this.props.onGetIntervalForDate}
                     availableIntervals={this.props.availableIntervals}
                     id={this.state.doctorID}
-                    setModal1Visible={this.setModal1Visible}
-                    isReceptionRecorded={this.props.isReceptionRecorded}
                     submitSuccess={this.state.submitSuccess}
                 />
             </div>

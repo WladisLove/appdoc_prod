@@ -129,10 +129,9 @@ class ContentForm extends React.Component {
     };
 
     componentWillReceiveProps(nextProps){
-        nextProps.visible === false ? (this.setState({
+        (nextProps.visible && !this.props.visible) ? (this.setState({
             message: '',
             isResetTime: true
-
         }),
             this.props.form.resetFields()) : null;
 

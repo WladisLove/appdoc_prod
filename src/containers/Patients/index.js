@@ -30,8 +30,11 @@ class Patients extends React.Component{
     }
 
     setModal1Visible = (modal1Visible, id, name)=> {
-        this.setState({modal1Visible, id, name,
-			isReceptionRecorded: false});
+        this.setState({
+            modal1Visible: modal1Visible,
+            name: (modal1Visible) ? name : this.state.name,
+            id: (modal1Visible) ? id : this.state.id,
+        });
         if (modal1Visible) this.props.onGetAllDocIntervals();
     };
 
@@ -113,9 +116,7 @@ class Patients extends React.Component{
                     onChangeDate={this.props.onGetIntervalForDate}
                     availableIntervals={this.props.availableIntervals}
                     id={this.state.id}
-                    isReceptionRecorded={this.props.isReceptionRecorded}
-                    receptionRecordedID={this.props.receptionRecordedID}
-                    setModal1Visible={this.setModal1Visible}
+                    submitSuccess={this.state.submitSuccess}
                 />
 
                 <NewMessageModal

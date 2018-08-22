@@ -20,7 +20,6 @@ const NewVisitModalPage = (props) => {
 
 NewVisitModalPage.propTypes = {
     visible: PropTypes.bool,
-    date: PropTypes.instanceOf(Date),
     patients: PropTypes.array,
     intervals: PropTypes.array,
     userName: PropTypes.string,
@@ -34,7 +33,6 @@ NewVisitModalPage.propTypes = {
 
 NewVisitModalPage.defaultProps = {
     visible: false,
-    date: null,
     patients: [],
     intervals: [],
     userName: '',
