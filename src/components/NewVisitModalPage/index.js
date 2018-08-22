@@ -25,6 +25,7 @@ NewVisitModalPage.propTypes = {
     intervals: PropTypes.array,
     userName: PropTypes.string,
     availableIntervals: PropTypes.array,
+    submitSuccess: PropTypes.bool,
 
     onSave: PropTypes.func,
     onCancel: PropTypes.func,
@@ -38,6 +39,7 @@ NewVisitModalPage.defaultProps = {
     intervals: [],
     userName: '',
     availableIntervals: [],
+    submitSuccess: true,
 
     onSave: () => {},
     onCancel: () => {},

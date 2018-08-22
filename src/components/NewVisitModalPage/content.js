@@ -10,6 +10,7 @@ import DatePicker from '../DatePicker'
 import TimePicker from '../TimePicker'
 import {previewFile} from "../../helpers/modifyFiles";
 import Upload from "../Upload";
+import {message} from 'antd';
 import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
@@ -24,8 +25,9 @@ class ContentForm extends React.Component {
             isResetTime: false,
             type: "chat",
             appointmentDuration: 5,
-            isRecordInProcess: false,
-            isReceptionRecorded: true
+            currentDate: moment(+new Date()),
+            showSubmitError: false,
+            loading: false
         };
     };
 
@@ -46,14 +48,13 @@ class ContentForm extends React.Component {
         this.setState({
             currentTime: paramDate,
             type: type,
-            isResetTime: false
+            isResetTime: false,
+            showSubmitError: false
         });
     };
 
-    onChangeDate = (date) => {
-        if(date == null) {
-            return
-        }
+    onChangeDate = (dateParam) => {
+        let date = (dateParam ? dateParam : this.state.currentDate);
 
         let paramDate = moment(+this.state.currentTime.format('x'));
         const bufHours = paramDate._d.getHours();
@@ -65,7 +66,9 @@ class ContentForm extends React.Component {
         paramDate.second(0);
         this.setState({
             currentTime: paramDate,
-            isResetTime: true
+            isResetTime: true,
+            showSubmitError: false,
+            currentDate: date
         });
         this.getAppointmentDuration(date);
 
@@ -128,9 +131,7 @@ class ContentForm extends React.Component {
     componentWillReceiveProps(nextProps){
         nextProps.visible === false ? (this.setState({
             message: '',
-            isResetTime: true,
-            isRecordInProcess: false,
-            isReceptionRecorded: true
+            isResetTime: true
 
         }),
             this.props.form.resetFields()) : null;
@@ -138,43 +139,50 @@ class ContentForm extends React.Component {
         nextProps.intervals !== this.props.intervals ?
             this.setState({availableArea: this.getIntervals(nextProps.intervals)}) : null;
 
-        if(nextProps.isRecordInProcess === false) {
-            this.setState({isRecordInProcess: false})
-        }
-        if(nextProps.isReceptionRecorded === false) {
-            this.setState({isReceptionRecorded: false})
+        if (nextProps.submitSuccess)
+            this.setState({loading: false});
+
+        if (!nextProps.submitSuccess && nextProps.submitSuccess !== this.props.submitSuccess) {
+            this.onChangeDate();
+            this.setState({showSubmitError: true});
         }
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {    
-                let paramDate = this.state.currentTime;
-                let response = {
-                    id_user: this.props.id,
-                    comment: this.state.message,
-                    date: +paramDate.format('X'), //формат для сервера
-                    type: values.radio ,
-                };
-                if(values.file) {
-                    response.file = values.file.fileList.map((item,index)=>{
-                        return item.originFileObj
-                    })
+        if (!this.state.loading) {
+            this.props.form.validateFieldsAndScroll((err, values) => {
+                if (!err) {
+                    let paramDate = this.state.currentTime;
+                    let response = {
+                        id_user: this.props.id,
+                        comment: this.state.message,
+                        date: +paramDate.format('X'), //формат для сервера
+                        type: values.radio,
+                    };
+                    if (values.file) {
+                        response.file = values.file.fileList.map((item, index) => {
+                            return item.originFileObj
+                        })
+                    }
+                    this.props.onSave(response);
+                    this.setState({loading: true});
+                } else {
+                    console.log(err, "ERROR")
                 }
-                this.props.onSave(response);
-            } else { console.log(err, "ERROR")}
-
-          });
+            });
+        }
     };
-      modifyFiles = (file) => {
+
+    modifyFiles = (file) => {
         if(!file.thumbUrl && !file.modify){
           file.modify = true;
           previewFile(file, function (previewDataUrl) {
             file.thumbUrl = previewDataUrl;
           });
         }
-      };
+    };
+
     render() {
         const {getFieldDecorator} = this.props.form;
         const {visible, date, time, userName, defaultDate} = this.props;
@@ -237,6 +245,8 @@ class ContentForm extends React.Component {
                         btnText='Сохранить'
                         htmlType="submit"
                         type='float'/>
+
+                {this.state.showSubmitError && <div>Время уже занято. Пожалуйста, повторите попытку.</div>}
 
             </Form>
         )
