@@ -64,7 +64,7 @@ class DoctorPageNewVisitForm extends React.Component {
             if (!err) {
                 let obj = {
                     type: values.type,
-                    timeStamp: this.state.timeStamp
+                    date: this.state.timeStamp
                 }
 
                 values.comment ? obj.comment=values.comment : null;
@@ -72,6 +72,9 @@ class DoctorPageNewVisitForm extends React.Component {
                 if(values.file) {
                     obj.file = values.file.fileList.map((item, index) => { return {name: item.name, thumbUrl: item.thumbUrl}})
                 }
+
+                this.props.form.resetFields();
+                this.setState({timeStamp: 0});
                 this.props.onMakeNewAppointment(obj);
             } else { console.log(err, "ERROR")}
 
@@ -80,14 +83,14 @@ class DoctorPageNewVisitForm extends React.Component {
     modifyFiles = (file) => {
         if(!file.thumbUrl && !file.modify){
             file.modify = true;
-            previewFile(file.originFileObj, function (previewDataUrl) {
+            previewFile(file, function (previewDataUrl) {
                 file.thumbUrl = previewDataUrl;
             });
         }
     }
     render() {
         const {getFieldDecorator} = this.props.form;
-
+        const intervals = this.props.docIntervalsWithAppsAll;
         return (
             <Form onSubmit={this.handleSubmit}
                   className="DoctorPageNewVisit">
@@ -99,96 +102,7 @@ class DoctorPageNewVisitForm extends React.Component {
                                 <span className="AppWithVideoAudio">Аудио и видео консультации</span>
                             </div>
                             <PatientCalendarCarousel
-                                intervals={
-                                    [
-                                        {
-                                            "intervalOb": [
-                                                {
-                                                    "start": 1527914040,
-                                                    "end": 1527923940
-                                                },
-                                                {
-                                                    "start": 1527925440,
-                                                    "end": 1527925800
-                                                },
-                                                {
-                                                    "start": 1527927300,
-                                                    "end": 1527930900
-                                                },
-                                                {
-                                                    "start": 1527933900,
-                                                    "end": 1527934200
-                                                },
-                                                {
-                                                    "start": 1527935700,
-                                                    "end": "1527936240"
-                                                }
-                                            ],
-                                            "date": "1527886800",
-                                            "type": "voice"
-                                        },
-                                        {
-                                            "intervalOb": [
-                                                {
-                                                    "start": "1528970400",
-                                                    "end": 1528973100
-                                                },
-                                                {
-                                                    "start": 1528973700,
-                                                    "end": 1528975200
-                                                },
-                                                {
-                                                    "start": 1528975800,
-                                                    "end": 1528976100
-                                                },
-                                                {
-                                                    "start": 1528976700,
-                                                    "end": "1528977600"
-                                                }
-                                            ],
-                                            "date": "1528923600",
-                                            "type": "voice"
-                                        },
-                                        {
-                                            "intervalOb": [
-                                                {
-                                                    "start": 1529582700,
-                                                    "end": 1529592600
-                                                },
-                                                {
-                                                    "start": 1529592900,
-                                                    "end": "1529593500"
-                                                }
-                                            ],
-                                            "date": "1529528400",
-                                            "type": "chat"
-                                        },
-                                        {
-                                            "intervalOb": [
-                                                {
-                                                    "start": "1530130200",
-                                                    "end": 1530130800
-                                                },
-                                                {
-                                                    "start": 1530131100,
-                                                    "end": "1530131400"
-                                                }
-                                            ],
-                                            "date": "1530046800",
-                                            "type": "chat"
-                                        },
-                                        {
-                                            "intervalOb": [
-                                                {
-                                                    "start": "1530036300",
-                                                    "end": "1530043500"
-                                                }
-                                            ],
-                                            "date": "1530046800",
-                                            "type": "chat"
-                                        }
-                                    ]
-                                }
+                                intervals={intervals}
                                 makeActive={this.getTimeStampFromCarousel}
                                 shouldChooseTime = {this.state.shouldChooseTime}
                             />
