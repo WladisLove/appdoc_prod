@@ -13,7 +13,12 @@ import './styles.css'
 
 
 class Treatment extends React.Component{
+    state = {
+        cancelModal: false,
+        addModal: false,
+        isNewFreeVisitVisible: false,
 
+    };
     componentDidMount(){
         this.props.onGetTreatments();
     }
@@ -22,20 +27,27 @@ class Treatment extends React.Component{
 		this.props.onSelectPatient(id);
 		let link = this.props.mode==="user"?"doctor":"patient";
 		this.props.history.push(link+id);
-	}
+	};
+
+    loadMoreTreatments = (requestNum, status, date) => {
+        console.log(requestNum, status, date)
+    };
+
 
     render(){
         return (
             <Hoc>
             	<Row>
             		<Col span={24} className='section'>
-                        <HistoryReceptionsTabs data={this.props.treatments}
-                                            onGoto={this.gotoHandler}
-                                            onGotoChat = {(id) => {
-                                                this.props.onSelectTretment(id);
-                                                this.props.history.push('/chat');
-                                            }}
-                                            isUser={this.props.mode === "user"}
+                        <HistoryReceptionsTabs
+                            data={this.props.treatments}
+                            onGoto={this.gotoHandler}
+                            isUser={this.props.mode === "user"}
+                            loadMoreTreatments = {this.loadMoreTreatments}
+                            onGotoChat = {(id) => {
+                                this.props.onSelectTretment(id);
+                                this.props.history.push('/chat');
+                            }}
                         />
             		</Col>
             	</Row>
