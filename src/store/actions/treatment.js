@@ -19,6 +19,26 @@ export const getAllTreatments = () => {
         })
     }    
 }
+export const getPaginationTreatments = (max, old, status, date, id) => {
+
+    return (dispatch, getState) => {
+        let id_user = getState().auth.mode === "user" ? getState().auth.id : "";
+        let id_doc = getState().auth.mode === "user" ? "" : getState().auth.id;
+        let request
+
+        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatments/id_user/'+id_user+'/id_doc/' + id_doc)
+            .then(res => {
+                console.log('[getAllTreatments]',res);
+                dispatch({
+                    type: actionTypes.GET_ALL_TREATMENTS,
+                    treatments: res.data.result,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
 
 export const getActualTreatments = () => {
     return (dispatch, getState) => {
