@@ -131,7 +131,9 @@ class ContentForm extends React.Component {
     componentWillReceiveProps(nextProps){
         (nextProps.visible && !this.props.visible) ? (this.setState({
             message: '',
-            isResetTime: true
+            isResetTime: true,
+            showSubmitError: false,
+            loading: false
         }),
             this.props.form.resetFields()) : null;
 
@@ -240,12 +242,14 @@ class ContentForm extends React.Component {
                     )}
                 </FormItem>
 
+                <div className='NewVisitModal-submit'>
                 <Button size='default'
                         btnText='Сохранить'
                         htmlType="submit"
                         type='float'/>
 
-                {this.state.showSubmitError && <div>Время уже занято. Пожалуйста, повторите попытку.</div>}
+                {this.state.showSubmitError && <div className='NewVisitModal-submit-error'>Это время уже занято</div>}
+                </div>
 
             </Form>
         )
