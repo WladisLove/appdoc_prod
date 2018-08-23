@@ -28,6 +28,7 @@ class MainPage extends React.Component{
 			let now = new Date();
 			this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
 											new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
+            this.props.onGetActualTreatments({status: "topical"});
 			this.props.getDocTodayInfo();
 		}
 		
@@ -36,7 +37,9 @@ class MainPage extends React.Component{
 	onAddVisit = () => {
 		this.props.onGetDocPatients();
 		this.setState({addModal: true});
-		let now = new Date();
+
+
+        let now = new Date();
 		this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
 										new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
 		this.props.getDocTodayInfo();
@@ -77,7 +80,6 @@ class MainPage extends React.Component{
             />
 		) : (
 			<DoctorPage
-				getActualTreatments ={this.props.onGetActualTreatments}
 				showCancel = {() => {this.setState({cancelModal: true})}}
 				onAdd = {this.onAddVisit}
 				addModal = {this.state.addModal}
