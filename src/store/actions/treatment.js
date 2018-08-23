@@ -17,21 +17,21 @@ export const getAllTreatments = () => {
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
 }
-export const getPaginationTreatments = (max, old, status, date, id) => {
+export const getPaginationTreatments = (filters) => {
 
     return (dispatch, getState) => {
-        let id_user = getState().auth.mode === "user" ? getState().auth.id : "";
-        let id_doc = getState().auth.mode === "user" ? "" : getState().auth.id;
-        let request
-
-        axios.get('https://178.172.235.105/~api/json/catalog.doc2/getTreatments/id_user/'+id_user+'/id_doc/' + id_doc)
+        let obj = {...filters};
+        getState().auth.mode === "user" ? obj.id_user = getState().auth.id : obj.id_doc = getState().auth.id;
+        console.log(obj, "OB TO REQUEST getPaginationTreatments");
+        axios.post('/catalog.doc2/getTreatmentsNew', JSON.stringify(obj))
             .then(res => {
-                console.log('[getAllTreatments]',res);
+                console.log("GET TREAMENTS NEW",res);
                 dispatch({
-                    type: actionTypes.GET_ALL_TREATMENTS,
+                    type: actionTypes.GET_TREATMENTS,
                     treatments: res.data.result,
+                    treatmentsCount: res.data.count
                 });
             })
             .catch(err => {

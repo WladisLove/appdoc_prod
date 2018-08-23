@@ -18,7 +18,6 @@ class Treatment extends React.Component{
         addModal: false,
         isNewFreeVisitVisible: false,
 
-    };
     componentDidMount(){
         this.props.onGetTreatments();
     }
@@ -29,9 +28,6 @@ class Treatment extends React.Component{
 		this.props.history.push(link+id);
 	};
 
-    loadMoreTreatments = (requestNum, status, date) => {
-        console.log(requestNum, status, date)
-    };
 
 
     render(){
@@ -40,14 +36,15 @@ class Treatment extends React.Component{
             	<Row>
             		<Col span={24} className='section'>
                         <HistoryReceptionsTabs
+                            getTreatments = {this.props.onGetTreatments}
                             data={this.props.treatments}
                             onGoto={this.gotoHandler}
                             isUser={this.props.mode === "user"}
-                            loadMoreTreatments = {this.loadMoreTreatments}
                             onGotoChat = {(id) => {
                                 this.props.onSelectTretment(id);
                                 this.props.history.push('/chat');
                             }}
+                            treatmentsCount ={this.props.treatmentsCount}
                         />
             		</Col>
             	</Row>
@@ -60,12 +57,13 @@ const mapStateToProps = state => {
 	return {
         mode: state.auth.mode,
         treatments: state.treatments.treatments,
+        treatmentsCount: state.treatments.treatmentsCount
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-        onGetTreatments: () => dispatch(actions.getAllTreatments()),
+        onGetTreatments: (obj) => dispatch(actions.getPaginationTreatments(obj)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
 	}

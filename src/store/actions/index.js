@@ -21,6 +21,7 @@ export {
     getSelectedPatientInfo,
     searchUsers,
     addOrDeleteUserFromSearch,
+    setReceptionByPatientAsAw,
     sendMessage,
 } from './patients';
 
@@ -55,7 +56,6 @@ export {
     seletVisit,
     selectTreatment,
     clearSelections,
-
     completeReception,
     closeTreatment,
     uploadChatFile,
@@ -97,6 +97,7 @@ export {
     getNotifications,
     readNotification,
     getAllDocIntervals,
+    getDateWorkIntervalWithoutMakingAppAll
 } from './doctorData'
 
 export {

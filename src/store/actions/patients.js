@@ -1,5 +1,6 @@
 import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
+import {getDateWorkIntervalWithoutMakingAppAll} from "./doctorData";
 
 export const getDateInterval = (beginDay, endDay) => {
     return (dispatch, getState) => {
@@ -64,25 +65,43 @@ export const setReception = (reception) => {
     }
 }
 export const setReceptionByPatient = (reception) => {
-
+    console.log(reception, "SET RECEPTION BY PATIENT");
     return (dispatch, getState) => {
         let obj = {
             ...reception,
             id_user: getState().auth.id
         };
-
         axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
-                console.log("FREE VUSIT RES", res)
                 dispatch(getPatientDoctors());
-                dispatch({
-                    type: actionTypes.SET_RECEPTION_BY_PATIENT,
-                })
+                dispatch(getDateWorkIntervalWithoutMakingAppAll(reception.id_doc));
             })
             .catch(err => {
                 console.log(err);
             });
+    }
+}
+
+export const setReceptionByPatientAsAw = (reception) => {
+    return async function (dispatch, getState) {
+        try {
+            let obj = {
+                ...reception,
+                id_user: getState().auth.id
+            };
+            axios.post('/catalog.doc2/makingApp',
+                JSON.stringify(obj))
+                .then((res) => {
+                    console.log(res);
+                    dispatch(getPatientDoctors());
+                    dispatch(getDateWorkIntervalWithoutMakingAppAll(reception.id_doc));
+                })
+        } catch(err) {
+                console.log(err);
+            } finally {
+            console.log("ASYNC FUNCTION IS FINALLY ")
+        }
     }
 }
 
