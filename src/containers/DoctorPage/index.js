@@ -25,14 +25,12 @@ class PatientsPage extends React.Component{
     }
 
     componentWillMount(){
-        this.props.onGetAllReviews(0, 7, null, null, this.props.match.params.id);
         this.props.onGetInfoDoctor(this.props.match.params.id);
         this.props.onGetDocSchedule(this.props.match.params.id);
     }
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.match.params.id !== this.props.match.params.id) {
-            this.props.onGetAllReviews(0, 7, null, null, nextProps.match.params.id);
             this.props.onGetInfoDoctor(nextProps.match.params.id);
             this.props.onGetDocSchedule(nextProps.match.params.id);
         }
@@ -173,7 +171,7 @@ class PatientsPage extends React.Component{
                                          onGoto={(val) => this.gotoHandler(val)}
                                          isOnDoctorPage={true}
                                          numberOfReviews={this.props.commentCount}
-                                         onShowMore={(numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
+                                         onLoad={(numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
                                              this.props.onGetAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd, this.props.match.params.id)}
                             />
                         </Col>

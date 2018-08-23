@@ -17,7 +17,7 @@ class ReviewsTree extends React.Component{
         super(props);
         this.state = {
             tab: "allTab",
-            loadingReviewsFor: "allTab",
+            loadingReviewsFor: "",
             displayDP: false,
             range: [],
             allTab: {
@@ -42,33 +42,38 @@ class ReviewsTree extends React.Component{
         if (!this.state.loadingReviewsFor) {
             this.setState({loadingReviewsFor: tab});
 
-            if (tab === "allTab")
-                this.props.onShowMore(this.state[tab].numberOfRequest, this.props.limit);
+            if (tab === "allTab"){
+                this.props.onLoad(this.state[tab].numberOfRequest, this.props.limit);}
             else if (tab === "todayTab") {
                 let todayStart = moment(+new Date()).startOf('day').format('X');
                 let todayEnd = moment(+new Date()).endOf('day').format('X');
-                this.props.onShowMore(this.state[tab].numberOfRequest, this.props.limit, todayStart, todayEnd);
+                this.props.onLoad(this.state[tab].numberOfRequest, this.props.limit, todayStart, todayEnd);
             }
             else if (tab === "periodTab" && this.state.range.length) {
                 let [start, end] = this.state.range;
-                this.props.onShowMore(this.state[tab].numberOfRequest, this.props.limit, start / 1000, end / 1000);
+                this.props.onLoad(this.state[tab].numberOfRequest, this.props.limit, start / 1000, end / 1000);
             }
             else this.setState({loadingReviewsFor: ""});
         }
     };
 
-    componentWillUpdate(nextProps){
+    componentDidMount() {
+        const initialTab = this.state.tab;
+        this.loadMoreData(initialTab);
+    }
+
+    componentWillUpdate(nextProps) {
         const loadingTab = this.state.loadingReviewsFor;
-            if (loadingTab && nextProps.data !== this.props.data) {
-                this.setState({
-                    [loadingTab]: {
-                        reviews: [...this.state[loadingTab].reviews, ...nextProps.data],
-                        numberOfRequest: this.state[loadingTab].numberOfRequest + 1,
-                        isShowMoreBtnEnabled: nextProps.data.length >= this.props.limit
-                    },
-                    loadingReviewsFor: ""
-                });
-            }
+        if (loadingTab && nextProps.data !== this.props.data) {
+            this.setState({
+                [loadingTab]: {
+                    reviews: [...this.state[loadingTab].reviews, ...nextProps.data],
+                    numberOfRequest: this.state[loadingTab].numberOfRequest + 1,
+                    isShowMoreBtnEnabled: nextProps.data.length >= this.props.limit
+                },
+                loadingReviewsFor: ""
+            });
+        }
     };
 
     tabChangeHandler = (tab) => {
@@ -154,10 +159,10 @@ class ReviewsTree extends React.Component{
 }
 
 ReviewsTree.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object),
+    data: PropTypes.array,
     limit: PropTypes.number,
     numberOfReviews: PropTypes.number,
-    onShowMore: PropTypes.func,
+    onLoad: PropTypes.func,
     onSend: PropTypes.func,
     isOnDoctorPage: PropTypes.bool,
     isDoctor: PropTypes.bool
@@ -167,7 +172,7 @@ ReviewsTree.defaultProps = {
     data: [],
     limit: 3,
     numberOfReviews: 0,
-    onShowMore: () => {},
+    onLoad: () => {},
     onSend: () => {},
     isOnDoctorPage: false,
     isDoctor: false
