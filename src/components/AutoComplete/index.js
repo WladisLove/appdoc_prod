@@ -89,7 +89,6 @@ class AutoComplete extends React.Component{
     };
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps, "NEXT PROPS FROM AUTO COMPLETE");
         this.setState({
             searchRes: nextProps.data,
             loading: false
@@ -97,7 +96,6 @@ class AutoComplete extends React.Component{
     }
 
     render() {
-        console.log(this.state);
         const rootClass = cn('auto__complete');
         const resultClass = (this.state.isVisible)? 'auto__complete-result auto__complete-result-focus' : 'auto__complete-result';
         const overlayClass = (this.state.isVisible)? 'auto__complete-overlay auto__complete-overlay-focus' : 'auto__complete-overlay';

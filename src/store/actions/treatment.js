@@ -4,19 +4,40 @@ import * as actionTypes from './actionTypes';
 export const getAllTreatments = () => {
 
     return (dispatch, getState) => {
-        let isUser = getState().auth.mode === "user" ? "/isuser/1" : "";
-        axios.get('/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+isUser)
+        let id_user = getState().auth.mode === "user" ? getState().auth.id : "";
+        let id_doc = getState().auth.mode === "user" ? "" : getState().auth.id;
+        axios.get('/catalog.doc2/getTreatments/id_user/'+id_user+'/id_doc/' + id_doc)
             .then(res => {
-                console.log('[getAllTreatments]',res.data)
+                console.log('[getAllTreatments]',res);
                 dispatch({
                     type: actionTypes.GET_ALL_TREATMENTS,
-                    treatments: res.data,
+                    treatments: res.data.result,
                 });
             })
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
+}
+export const getPaginationTreatments = (filters) => {
+
+    return (dispatch, getState) => {
+        let obj = {...filters};
+        getState().auth.mode === "user" ? obj.id_user = getState().auth.id : obj.id_doc = getState().auth.id;
+        console.log(obj, "OB TO REQUEST getPaginationTreatments");
+        axios.post('/catalog.doc2/getTreatmentsNew', JSON.stringify(obj))
+            .then(res => {
+                console.log("GET TREAMENTS NEW",res);
+                dispatch({
+                    type: actionTypes.GET_TREATMENTS,
+                    treatments: res.data.result,
+                    treatmentsCount: res.data.count
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 }
 
 export const getActualTreatments = () => {
@@ -72,7 +93,7 @@ export const getCompletedApps = () => {
 
 export const completeReception = (obj) => {
     return dispatch => {
-        axios.post('/catalog.doc2/toFinishReception', 
+        axios.post('/catalog.doc2/toFinishReception',
             JSON.stringify(obj))
             .then(res => {
                 console.log('[completeReception]',JSON.stringify(obj))

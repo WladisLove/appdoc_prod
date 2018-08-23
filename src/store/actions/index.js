@@ -51,11 +51,11 @@ export {
     getActualTreatments,
     getCompletedTreatments,
     getAllTreatments,
+    getPaginationTreatments,
     getCompletedApps,
     seletVisit,
     selectTreatment,
     clearSelections,
-
     completeReception,
     closeTreatment,
     uploadChatFile,

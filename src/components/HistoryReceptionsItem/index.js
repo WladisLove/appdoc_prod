@@ -10,6 +10,7 @@ import Hoc from '../Hoc'
 
 import './style.css'
 import '../../icon/style.css'
+import Button from "../Button";
 
 class HistoryReceptionsItem extends React.Component{
 
@@ -17,92 +18,122 @@ class HistoryReceptionsItem extends React.Component{
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
       }
-
+    refactorFiles = (file) => {
+       if(file) {
+           let files = [];
+           file.forEach((item) => {
+                item.data.forEach(item => {
+                    files.push(item)
+                })
+           });
+           return files
+       }
+    };
     render(){
         const {
-            id,
+            id_treatment,
             id_user,
             type,
+            id_doc,
+            user_name,
+            doc_name,
+            status,
+            conclusion,
+            price,
+            diagnostic,
+            file,
+            date,
+            complaint,
+            extr,
+            begin,
+            finish,
+            comment,
+            rate,
             size,
             name,
             time,
             startDate,
             endDate,
-            status,
-            diagnostic,
             comments,
-            price,
-            conclusion,
             review,
             content,
             onGoto,
             rating,
             onGotoChat,
+            isUser,
         } = this.props;
+
         const rootClass = cn('receptions',`${status}`);
         const statusClass = cn('patient-status', 'receptions-status',`${status}`);
 
         const key_val = {
             'chat': 'chat1',
             'voice': 'telephone', 
-            'video': "video-camera",
+            'video': "video-camera"
         }
-
-
+        const goto = isUser?id_doc:id_user;
         return (
             <div className={rootClass} 
                 onClick={(e) => {
-                    onGotoChat(id)
+                    onGotoChat(id_treatment);
                     this.handleClick(e);
                 }}>
                 <div className="flex-col"><div className="patient-name">
                     <div className='go-to' 
                         onClick={(e) => {                            
-                            onGoto(id_user);
+                            onGoto(goto);
                             this.handleClick(e);
-                        }}>{name}</div></div>
+                        }}>{isUser ? doc_name : user_name}</div></div>
                 </div>
                 <div className="flex-col">
+                    {extr && <div className="patient-status receptions-status-extra"></div>}
                     <div className={statusClass}></div>
-                    <div className="patient-date">{moment(startDate*1000).format('DD.MM.YYYY')}</div>
+                    <div className="patient-date">{moment(date*1000).format('DD.MM.YYYY')}</div>
                     <div className="patient-time">
-                        {moment(startDate*1000).format('HH:mm')} - {moment(endDate*1000).format('HH:mm')}
+                        {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
+                        {finish ? `-${moment(finish).format('HH:mm')}`: null}
                     </div>
-                    <div className="patient-icon"><Icon svg type={key_val[type]} size={16} /></div>
+                    <div className="patient-icon"><Icon svg type={extr?"emergency-call":key_val[type]} size={16}
+                    style={extr?{color:"red"}:null}/></div>
+                    {/*добавить ещё иконку если экстренный*/}
                 </div>
                 <div className="flex-col">
-                    <div className="patient-diagnostic">{diagnostic}</div>
+                    <div className="patient-diagnostic">{diagnostic ? diagnostic:<span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-comment">{comments}</div>
+                    <div className="patient-comment">{complaint ? complaint:<span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-price">{price}</div>
+                    <div className="patient-price">{price ? price : <span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
                     <div className="patient-conclusion">
                     {
                         conclusion ? (
-                            <a href={conclusion.link} download onClick={this.handleClick}>
-                                {conclusion.Name}
+                            <a href={conclusion.href} download target="_blank" onClick={this.handleClick}>
+                                {conclusion.btnText}
                             </a>
-                        ) : <span>&mdash;</span>
+                        ) : (moment().format("X") > moment(+date*1000).format("X")) ? <span>Ожидайте заключения</span>:<span>&mdash;</span>
                     }  
                     </div>
                 </div>
                 <div className="flex-col">
                 {
-                    rating ? (
+                    rate ? (
                         <Hoc>
-                            <Rate defaultValue={rating} disabled/>
-                            <div className="patient-review">{review}</div>
+                            <Rate defaultValue={rate} disabled/>
+                            <div className="patient-review">{comment}</div>
                         </Hoc>
-                    ) : <span>&mdash;</span>
+                    ) : conclusion ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
+                                              onClick={console.log("click")}
+                                              size='small'
+                                              type='float'
+                                              icon='form'/> : <span>&mdash;</span>
                 }
                 </div>
                 <div className="flex-col"
                     onClick={this.handleClick}>
-                    <PopoverFile data={this.props.data}></PopoverFile>
+                    <PopoverFile data={this.refactorFiles(file)}></PopoverFile>
                 </div>
             </div>
         )
@@ -111,18 +142,13 @@ class HistoryReceptionsItem extends React.Component{
 
 HistoryReceptionsItem.propTypes = {
     id: PropTypes.number,
-    id_user: PropTypes.number,
+    id_user: PropTypes.string,
     status: PropTypes.oneOf(['new', 'topical', 'completed', 'extra']),
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
     diagnostic: PropTypes.string,
     name: PropTypes.string,
     comments: PropTypes.string,
     price: PropTypes.string,
-    conclusion: PropTypes.oneOfType([
-        PropTypes.shape({
-            Name: PropTypes.string,
-            link: PropTypes.string,
-    })]),
     review: PropTypes.string,
     date: PropTypes.string,
     time: PropTypes.string,
@@ -138,7 +164,6 @@ HistoryReceptionsItem.defaultProps = {
     diagnostic: '-',
     comment: '-',
     price: '-',
-    conclusion: null,
     rating: null,
     review: '-',
     date: '-',

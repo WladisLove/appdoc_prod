@@ -19,6 +19,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 treatments: action.treatments,
             }
+        case actionTypes.GET_TREATMENTS:
+            return {
+                ...state,
+                treatments: action.treatments,
+                treatmentsCount: action.treatmentsCount
+            }
         case actionTypes.GET_ACTUAL_TREATMENTS:
             return {
                 ...state,

@@ -20,7 +20,7 @@ class DownloadLink extends React.Component {
     };
 
     render() {
-
+        console.log(this.props)
         const {
             type,
             size,
@@ -45,6 +45,7 @@ class DownloadLink extends React.Component {
                onClick={this.clickHandler}
                {...(disable ? {disabled: true} : {})}
                download={download}
+               target="_blank"
             >
                 {icon && (
                     <Icon svg={svg} type={icon} size={iconSize}/>
