@@ -43,7 +43,14 @@ class PatientsPage extends React.Component{
                             <ProfilePatient
                                 {...infoUser}
                                 onAdd={(id) => this.props.addPatient(id)}
-                                id={this.props.match.params.id}
+                                id={+this.props.match.params.id}
+                                intervals={this.props.intervals}
+                                onGetIntervalForDate={this.props.onGetIntervalForDate}
+                                availableIntervals={this.props.availableIntervals}
+                                isReceptionRecorded={this.props.isReceptionRecorded}
+                                receptionRecordedID={this.props.receptionRecordedID}
+                                onSaveReception={this.props.onSaveReception}
+                                onGetAllDocIntervals={this.props.onGetAllDocIntervals}
                             />
                         </Col>
                         <Col xs={24} xxl={8} className='section'>
@@ -68,13 +75,20 @@ class PatientsPage extends React.Component{
 const mapStateToProps = state => {
     return {
         info: state.patients.selectedPatientInfo,
+        intervals: state.patients.intervals,
+        availableIntervals: state.profileDoctor.workIntervals,
+        isReceptionRecorded: state.patients.isReceptionRecorded,
+        receptionRecordedID: state.patients.receptionRecordedID
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
-        addPatient: (id) => dispatch(actions.addPatient(id, '', true))
+        addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
+        onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
+        onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
+        onSaveReception: (reception) => dispatch(actions.setReception(reception))
     }
 };
 
