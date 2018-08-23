@@ -10,7 +10,7 @@ import '../../icon/style.css'
 
 class TreatmentTable extends React.Component{
     componentWillMount() {
-        this.props.getActualTreatments({old:0, max: 20, status: "topical"})
+        this.props.getActualTreatments({status: "topical"})
     }
 
     treatmentRender = (dataArr) => {
