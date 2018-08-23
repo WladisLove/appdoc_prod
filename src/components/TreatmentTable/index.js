@@ -9,9 +9,6 @@ import './style.css'
 import '../../icon/style.css'
 
 class TreatmentTable extends React.Component{
-    componentWillMount() {
-        this.props.getActualTreatments({status: "topical"})
-    }
 
     treatmentRender = (dataArr) => {
         let treatmentArr = [];

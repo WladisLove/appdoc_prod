@@ -43,7 +43,8 @@ class TreatmentTableItem extends React.Component{
             'voice': 'telephone', 
             'video': "video-camera",
         }
-        const name = isUser? doc_name: user_name;
+        const name = isUser ? doc_name: user_name;
+        const conclusionMessage = isUser ? "Ожидайте заключение": "Необходимо заключение";
         return (
             <div className={rootClass} 
                     onClick={(e) => {
@@ -87,7 +88,7 @@ class TreatmentTableItem extends React.Component{
                                     {conclusion.btnText}
                                 </a>
                             ) : (moment().format("X") > moment(+date*1000).format("X")) ? patientWasnt ?
-                                <span>Приём пропущен</span> : <span>Ожидайте заключения</span> : <span>&mdash;</span>
+                                <span>Приём пропущен</span> : <span>{conclusionMessage}</span> : <span>&mdash;</span>
                         }
                     </div>
                 </div>
