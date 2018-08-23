@@ -61,7 +61,6 @@
   position: sticky;
   z-index: 99;
   top: 0;
-  min-width: 1450px;
 }
 .receptions-all .tableheader-name {
   color: #777777;

@@ -40,6 +40,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 completedApps: action.completedApps,
             }
+        case actionTypes.APPS_BETWEEN_DOC_USER:
+            return {
+                ...state,
+                appsBetween: action.appsBetween,
+            }
 
         case actionTypes.SELECT_VISIT:
             return {

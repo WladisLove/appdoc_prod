@@ -161,8 +161,11 @@ class PatientsPage extends React.Component{
 
                     <Row>
                         <Col span={24}>
-                            <HistoryReceptions data={[]}
-                                               onGotoChat={(id) => this.props.history.push('/chat')}/>
+                            <HistoryReceptions data={this.props.appsBetween}
+                                               getApps = {this.props.onGetAppointments}
+                                               onGotoChat={(id) => this.props.history.push('/chat')}
+                                               id_doc={this.props.match.params.id}
+                        />
                         </Col>
                     </Row>
                     <Row>
@@ -188,6 +191,7 @@ class PatientsPage extends React.Component{
 
 const mapStateToProps = state => {
     return {
+        appsBetween: state.treatments.appsBetween,
         reviews: state.reviews.reviews,
         ratingAll: state.reviews.ratingAll,
         commentCount: state.reviews.commentCount,
@@ -204,7 +208,8 @@ const mapDispatchToProps = dispatch => {
         onGetAllReviews: (numberOfRequest, reviewsLoadCount, dateStart, dateEnd, doc_id) =>
             dispatch(actions.getAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd, doc_id)),
         onGetInfoDoctor: (doc_id) => dispatch(actions.getInfoDoctor(doc_id)),
-        onGetDocSchedule: (doc_id) => dispatch(actions.getDateWorkIntervalWithoutMakingAppAll(doc_id))
+        onGetDocSchedule: (doc_id) => dispatch(actions.getDateWorkIntervalWithoutMakingAppAll(doc_id)),
+        onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj))
     }
 };
 

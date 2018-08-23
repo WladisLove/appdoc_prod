@@ -52,6 +52,7 @@ export {
     getCompletedTreatments,
     getAllTreatments,
     getPaginationTreatments,
+    getAppsBetweenDocAndUser,
     getCompletedApps,
     seletVisit,
     selectTreatment,

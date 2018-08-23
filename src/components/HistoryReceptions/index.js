@@ -8,6 +8,8 @@ import Button from '../Button'
 
 import './style.css'
 import '../../icon/style.css'
+import Col from "../Col";
+import ScrollArea from "react-scrollbar";
 
 class HistoryReceptions extends React.Component{
     constructor(props){
@@ -49,10 +51,20 @@ class HistoryReceptions extends React.Component{
         }
     };
 
+    componentWillMount() {
+        this.props.getApps({id_doc: this.props.id_doc})
+    }
+
     render(){
         return (
             <div className='receptions-all'>
                 <Card title="История обращений">
+                    <ScrollArea
+                        speed={1}
+                        className=""
+                        contentClassName="content"
+                        horizontal={true}
+                    >
                     <div className="tableheader">
                         <div className="flex-col"><div className="receptions-status new">Новые</div></div>
                         <div className="flex-col"><div className="receptions-status topical">Актуальные</div></div>
@@ -69,7 +81,7 @@ class HistoryReceptions extends React.Component{
                         <div className="flex-col"><div className="tableheader-name"></div></div>
                     </div>
                     {this.historyRender(this.props.data)}
-                    
+                    </ScrollArea>
                   </Card>
             </div>
         )
