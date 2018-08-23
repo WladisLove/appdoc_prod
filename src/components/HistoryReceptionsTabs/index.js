@@ -21,8 +21,8 @@ class HistoryReceptionsTabs extends React.Component {
         this.state = {
             tab: 'all',
             date: {},
-            name: '',
-            max: 1,
+            filt_name: '',
+            max: 3,
             old: 0,
             count: 0,
             loadedCount: 0,
@@ -38,12 +38,43 @@ class HistoryReceptionsTabs extends React.Component {
 
 
     tabChangeHadler = (currentTab) => {
-      this.setState({tab:currentTab, data:[]})
+        let status;
+        switch (currentTab) {
+            case 'all': {
+                status="";
+                break;
+            }
+            case 'completed': {
+                status="completed";
+                break;
+            }
+            case 'topical': {
+                status="topical";
+                break;
+            }
+            case 'upcoming': {
+                status="new";
+                break;
+            }
+            default : {
+                status = "";
+            }
+
+        }
+      this.setState({
+          data:[],
+          count: 0,
+          old: 0,
+          loadedCount: 0,
+          loading: true,
+          status: status
+      }, () => {this.getTreatments()})
     };
 
 
     componentWillMount() {
         this.getTreatments();
+        this.timer = null;
     }
 
 
@@ -197,13 +228,34 @@ class HistoryReceptionsTabs extends React.Component {
         )
     };
 
-    searchChange = () => {
 
+    changeHandleSearch = (e) => {
+        this.setState({filt_name: e.target.value});
+        clearTimeout(this.timer);
+        this.timer = setTimeout(this.triggerChange, 800);
     };
 
+    triggerChange = () => {
+        this.setState({
+            old:0,
+            count: 0,
+            loadedCount: 0,
+            data: [],
+            loading: true,
+        }, () => {
+            this.getTreatments()
+        })
+    };
+
+    handleKeyDown = (e) => {
+        if(e.keyCode===13) {
+                clearTimeout(this.timer);
+                this.triggerChange();
+        }
+    };
 
     render() {
-      console.log(this.props.data, "PROPS DAA FROM HRT", this.state.data)
+      console.log(this.props.data, "PROPS DAA FROM HRT", this.state);
         return (
             <div className='receptions-all'>
                 <Card title="История обращений">
@@ -217,7 +269,7 @@ class HistoryReceptionsTabs extends React.Component {
                                   />
                                   <Input.Search
                                       placeholder="Поиск..."
-                                      onChange = {this.searchChange}
+                                      onChange = {this.changeHandleSearch}
 
                                   />
                               </div>}>
@@ -240,7 +292,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 horizontal={true}
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.props.data)}
+                                {this.historyRender(this.state.data)}
                             </ScrollArea>
                         </TabPane>
                         <TabPane tab="Актуальные" key="topical">
@@ -251,7 +303,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 horizontal={true}
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.props.data)}
+                                {this.historyRender(this.state.data)}
                             </ScrollArea>
                         </TabPane>
                         <TabPane tab="Предстоящие" key="upcoming">
@@ -262,7 +314,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 horizontal={true}
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.props.data)}
+                                {this.historyRender(this.state.data)}
                             </ScrollArea>
                         </TabPane>
                     </Tabs>

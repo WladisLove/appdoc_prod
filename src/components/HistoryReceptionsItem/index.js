@@ -142,18 +142,13 @@ class HistoryReceptionsItem extends React.Component{
 
 HistoryReceptionsItem.propTypes = {
     id: PropTypes.number,
-    id_user: PropTypes.number,
+    id_user: PropTypes.string,
     status: PropTypes.oneOf(['new', 'topical', 'completed', 'extra']),
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
     diagnostic: PropTypes.string,
     name: PropTypes.string,
     comments: PropTypes.string,
     price: PropTypes.string,
-    conclusion: PropTypes.oneOfType([
-        PropTypes.shape({
-            Name: PropTypes.string,
-            link: PropTypes.string,
-    })]),
     review: PropTypes.string,
     date: PropTypes.string,
     time: PropTypes.string,
@@ -169,7 +164,6 @@ HistoryReceptionsItem.defaultProps = {
     diagnostic: '-',
     comment: '-',
     price: '-',
-    conclusion: null,
     rating: null,
     review: '-',
     date: '-',

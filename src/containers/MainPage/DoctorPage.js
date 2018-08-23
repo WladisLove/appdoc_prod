@@ -50,8 +50,8 @@ const DoctorPage = props => {
 					</Row>
 					<Row>
 						<Col span={24} className='section'>
-							<TreatmentTable data={[]}
-
+							<TreatmentTable data={props.actualTreatments}
+                                            getActualTreatments = {props.getActualTreatments}
 											onGoto={(id) => gotoHandler(id)}
 											onGotoChat = {(id) => {
                                                 props.onSelectTretment(id);

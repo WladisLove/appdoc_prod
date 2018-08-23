@@ -17,7 +17,7 @@ class Treatment extends React.Component{
         cancelModal: false,
         addModal: false,
         isNewFreeVisitVisible: false,
-
+    };
     componentDidMount(){
         this.props.onGetTreatments();
     }
