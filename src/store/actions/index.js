@@ -21,7 +21,6 @@ export {
     getSelectedPatientInfo,
     searchUsers,
     addOrDeleteUserFromSearch,
-    setReceptionByPatientAsAw,
     sendMessage,
 } from './patients';
 
@@ -52,6 +51,7 @@ export {
     getCompletedTreatments,
     getAllTreatments,
     getPaginationTreatments,
+    getAppsBetweenDocAndUser,
     getCompletedApps,
     seletVisit,
     selectTreatment,

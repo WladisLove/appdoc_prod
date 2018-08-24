@@ -25,10 +25,10 @@
   margin-right: 30px;
 }
 .reception .flex-col:first-child {
-  padding-left: 3%;
+  padding-left: 25px;
 }
 .reception .flex-col:last-child {
-  padding-right: 3%;
+  padding-right: 25px;
   margin-right: 0;
 }
 .reception .flex-col:nth-child(1) {

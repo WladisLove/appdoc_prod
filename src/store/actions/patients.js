@@ -83,27 +83,6 @@ export const setReceptionByPatient = (reception) => {
     }
 }
 
-export const setReceptionByPatientAsAw = (reception) => {
-    return async function (dispatch, getState) {
-        try {
-            let obj = {
-                ...reception,
-                id_user: getState().auth.id
-            };
-            axios.post('/catalog.doc2/makingApp',
-                JSON.stringify(obj))
-                .then((res) => {
-                    console.log(res);
-                    dispatch(getPatientDoctors());
-                    dispatch(getDateWorkIntervalWithoutMakingAppAll(reception.id_doc));
-                })
-        } catch(err) {
-                console.log(err);
-            } finally {
-            console.log("ASYNC FUNCTION IS FINALLY ")
-        }
-    }
-}
 
 export const getDocPatients = () => {
     return (dispatch, getState) => {

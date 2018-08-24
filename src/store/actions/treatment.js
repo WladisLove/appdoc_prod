@@ -91,6 +91,29 @@ export const getCompletedApps = () => {
     }
 }
 
+export const getAppsBetweenDocAndUser = (obj) => {
+    console.log(obj, "OBJ TO SEND BETWEEN")
+    return (dispatch, getState) => {
+        obj.id_user ? obj.id_doc = getState().auth.id : obj.id_user = getState().auth.id;
+        axios.post('/catalog.doc2/allMAbyIdUserAndIdDoc',
+            JSON.stringify({
+                ...obj,
+
+            }))
+            .then(res => {
+                console.log(res, "RES FROM BETWEEN")
+                dispatch({
+                    type: actionTypes.APPS_BETWEEN_DOC_USER,
+                    appsBetween: res.data.result,
+                    appsBetweenCount: res.data.count
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
+
 export const completeReception = (obj) => {
     return dispatch => {
         axios.post('/catalog.doc2/toFinishReception',

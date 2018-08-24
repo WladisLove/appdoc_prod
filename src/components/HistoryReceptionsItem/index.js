@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import moment from 'moment'
 
+import Button from "../Button";
 import Rate from '../Rate'
 import Icon from '../Icon'
 import PopoverFile from '../PopoverFile'
@@ -10,7 +11,6 @@ import Hoc from '../Hoc'
 
 import './style.css'
 import '../../icon/style.css'
-import Button from "../Button";
 
 class HistoryReceptionsItem extends React.Component{
 
@@ -19,7 +19,7 @@ class HistoryReceptionsItem extends React.Component{
         e.nativeEvent.stopImmediatePropagation();
       }
     refactorFiles = (file) => {
-       if(file) {
+       if(file.length > 1) {
            let files = [];
            file.forEach((item) => {
                 item.data.forEach(item => {
@@ -27,9 +27,10 @@ class HistoryReceptionsItem extends React.Component{
                 })
            });
            return files
-       }
+       } else return file
     };
     render(){
+        console.log('RENDER TREATMENTS')
         const {
             id_treatment,
             id_user,
@@ -51,6 +52,7 @@ class HistoryReceptionsItem extends React.Component{
             rate,
             size,
             name,
+            personalPage,
             time,
             startDate,
             endDate,
@@ -71,6 +73,7 @@ class HistoryReceptionsItem extends React.Component{
             'voice': 'telephone', 
             'video': "video-camera"
         }
+        const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение"
         const goto = isUser?id_doc:id_user;
         return (
             <div className={rootClass} 
@@ -78,7 +81,7 @@ class HistoryReceptionsItem extends React.Component{
                     onGotoChat(id_treatment);
                     this.handleClick(e);
                 }}>
-                <div className="flex-col"><div className="patient-name">
+               <div className="flex-col"><div className="patient-name">
                     <div className='go-to' 
                         onClick={(e) => {                            
                             onGoto(goto);
@@ -95,7 +98,6 @@ class HistoryReceptionsItem extends React.Component{
                     </div>
                     <div className="patient-icon"><Icon svg type={extr?"emergency-call":key_val[type]} size={16}
                     style={extr?{color:"red"}:null}/></div>
-                    {/*добавить ещё иконку если экстренный*/}
                 </div>
                 <div className="flex-col">
                     <div className="patient-diagnostic">{diagnostic ? diagnostic:<span>&mdash;</span>}</div>
@@ -113,7 +115,7 @@ class HistoryReceptionsItem extends React.Component{
                             <a href={conclusion.href} download target="_blank" onClick={this.handleClick}>
                                 {conclusion.btnText}
                             </a>
-                        ) : (moment().format("X") > moment(+date*1000).format("X")) ? <span>Ожидайте заключения</span>:<span>&mdash;</span>
+                        ) : (moment().format("X") > moment(+date*1000).format("X")) ? <span>{conclusionMessage}</span>:<span>&mdash;</span>
                     }  
                     </div>
                 </div>
