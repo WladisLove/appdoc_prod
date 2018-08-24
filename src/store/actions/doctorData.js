@@ -27,7 +27,6 @@ export const getInfoDoctor = (id) => {
         axios.post('/fusers.doc/infoDoc',
          JSON.stringify(ids))
             .then(res => {
-                console.log("resss", res);
                 res.data.result.id= ids.id;
 
                 dispatch({
@@ -72,8 +71,6 @@ export const getAllDocIntervals = (id) => {
         id ? user = id : user = getState().auth.id;
         axios.post('/catalog.doc2/allDocInterval/id/' + user)
             .then(res => {
-                console.log("allDocIntervals", res);
-
                 dispatch({
                     type: actionTypes.GET_ALL_DOC_INTERVALS,
                     intervalsDoctor: res.data.result,
@@ -85,14 +82,12 @@ export const getAllDocIntervals = (id) => {
     }
 };
 export const getDateWorkIntervalWithoutMakingAppAll = (id_doc) => {
-    console.log(id_doc, "getDateWorkIntervalWithoutMakingAppAll FSAFHJASFKGHFSA");
     return (dispatch) => {
         axios.post('/catalog.doc2/getDateWorkIntervalWithoutMakingAppAll', JSON.stringify({
             id_doc: id_doc,
             datestart: +moment().format("X")+1800
         }))
             .then(res => {
-                console.log("getDateWorkIntervalWithoutMakingAppAll", res);
                 dispatch({
                     type: actionTypes.DOC_INTERVALS_WITH_APPS_ALL,
                     intervals: res.data,

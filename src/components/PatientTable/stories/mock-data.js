@@ -86,7 +86,7 @@ export const patientArr = [
     },
     {
         age:48,
-        avatar:"http://178.172.235.105/media/img/zaglushka.jpg",
+        avatar:"https://appdoc.by/media/img/zaglushka.jpg",
         dateend:0,
         datestart:0,
         id:2663,
@@ -95,7 +95,7 @@ export const patientArr = [
     },
     {
         age:48,
-        avatar:"http://178.172.235.105/media/img/zaglushka.jpg",
+        avatar:"https://appdoc.by/media/img/zaglushka.jpg",
         dateend:1523566800,
         datestart:1523566800,
         id:2664,
@@ -104,7 +104,7 @@ export const patientArr = [
     },
     {
         age:48,
-        avatar:"http://178.172.235.105/media/img/zaglushka.jpg",
+        avatar:"https://appdoc.by/media/img/zaglushka.jpg",
         dateend:0,
         datestart:0,
         id:2665,
@@ -113,7 +113,7 @@ export const patientArr = [
     },
     {
         age:18,
-        avatar:"http://178.172.235.105/media/img/zaglushka.jpg",
+        avatar:"https://appdoc.by/media/img/zaglushka.jpg",
         dateend:0,
         datestart:0,
         id:2666,
@@ -122,7 +122,7 @@ export const patientArr = [
     },
     {
         age:48,
-        avatar:"http://178.172.235.105/media/img/zaglushka.jpg",
+        avatar:"https://appdoc.by/media/img/zaglushka.jpg",
         dateend:1523004812,
         datestart:1523004802,
         id:2675,
@@ -131,7 +131,7 @@ export const patientArr = [
     },
     {
         age:48,
-        avatar:"http://178.172.235.105/media/img/zaglushka.jpg",
+        avatar:"https://appdoc.by/media/img/zaglushka.jpg",
         dateend:1523004812,
         datestart:1523004802,
         id:2673,

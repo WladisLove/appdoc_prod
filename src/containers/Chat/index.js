@@ -36,7 +36,7 @@ class Chat extends React.Component{
         const isUser = this.props.user_mode === "user";   
 
         const chatProps = {
-            wsURL: 'wss://178.172.235.105:8443/one2one',
+            wsURL: 'wss://appdoc.by:8443/one2one',
             receptionId: visitId,
             callerID: this.props.id,
             user_mode: this.props.user_mode,
