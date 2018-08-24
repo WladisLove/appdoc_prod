@@ -25,7 +25,8 @@ class HistoryReceptions extends React.Component{
             data: [],
             loading: true,
             noData: true,
-            reviewStatus: 0
+            reviewStatus: 0,
+            visible: false
         };
     }
 
@@ -119,8 +120,9 @@ class HistoryReceptions extends React.Component{
     };
 
     afterCloseReviews = () => {
+        if(this.state.reviewStatus===200) {
             message.success("Отзыв отправлен", 2)
-
+        }
     };
     render(){
         return (
@@ -150,7 +152,7 @@ class HistoryReceptions extends React.Component{
                     visible={this.state.visible}
                     onSubmit ={this.props.onSubmit}
                     info = {this.state.dataForReview}
-                    afterClose ={message.success("Отзыв ен", 2)}
+                    afterClose ={this.afterCloseReviews}
                     onCancel={(status)=>this.setState({visible:false, reviewStatus: status})}
                 />
             </div>
