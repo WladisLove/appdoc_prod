@@ -18,9 +18,6 @@ class DefaultTp extends React.Component {
         };
     };
 
-
-    //Array(n).fill(0).map((e,i)=>m+i)
-
     getNotAvailableHours = (availableArea) => {
         if (availableArea.length) {
             let availableHours = [];
@@ -46,26 +43,48 @@ class DefaultTp extends React.Component {
     };
 
 
-    getNotAvailableMin = (hour) => {
-        const area = this.props.availableArea;
+    getNotAvailableMin = (hour, availableArea) => {
+        const area = availableArea ? availableArea : this.props.availableArea;
         let errorMin = [];
-        let afterM = null;
-        let afterH = null;
+        let beginH, endH, beginM, endM;
+        let firstFoundedBegin, firstFoundedEnd;
+        let lastFoundedBegin, lastFoundedEnd;
+        let outsideInterval = false;
 
         for (let i = 0; i < area.length; i++) {
-            let beforeH = parseInt(area[i].from.format('HH'));
-            let beforeM = parseInt(area[i].from.format('mm'));
-            if (hour === beforeH) {
-                errorMin.push(...Array.from(Array(beforeM).keys())
-                    .splice(afterM, beforeM - afterM));
+            beginH = parseInt(area[i].from.format('HH'));
+            if (hour === beginH) {
+                beginM = parseInt(area[i].from.format('mm'));
+                lastFoundedBegin = beginM;
+                if (!firstFoundedBegin) firstFoundedBegin = beginM;
+
+                if (hour === endH) {
+                    errorMin.push(...Array.from(Array(beginM).keys())
+                        .splice(endM, beginM - endM));
+                }
             }
-            afterH = parseInt(area[i].to.format('HH'));
-            if (afterH === hour)
-                afterM = parseInt(area[i].to.format('mm'));
+
+            endH = parseInt(area[i].to.format('HH'));
+            if (hour === endH) {
+                endM = parseInt(area[i].to.format('mm'));
+                lastFoundedEnd = endM;
+                if (!firstFoundedEnd) firstFoundedEnd = endM;
+            }
+
+            if (beginH < hour && endH > hour) {
+                outsideInterval = true;
+                break;
+            }
         }
-        if (afterH === hour)
-            errorMin.push(...Array.from(Array(60).keys())
-                .splice(afterM, 60 - afterM));
+
+        if (!outsideInterval) {
+            if (firstFoundedBegin === undefined && firstFoundedEnd === undefined)
+                errorMin.push(...Array.from(Array(60).keys()));
+            if (firstFoundedBegin && (!firstFoundedEnd || firstFoundedBegin < firstFoundedEnd))
+                errorMin.push(...Array.from(Array(firstFoundedBegin).keys()));
+            if (lastFoundedEnd && (!firstFoundedBegin || lastFoundedEnd > lastFoundedBegin))
+                errorMin.push(...Array.from(Array(60).keys()).splice(lastFoundedEnd, 60 - lastFoundedEnd));
+        }
 
         this.setState({
             disabledMinutes: errorMin
@@ -83,7 +102,7 @@ class DefaultTp extends React.Component {
 
     onChange = (value) => {
         let notAvailableMin;
-        if (value && value._d.getHours()) {
+        if (value) {
             notAvailableMin = this.getNotAvailableMin(value._d.getHours());
             if (!this.state.currentValue || this.state.currentValue._d.getHours() !== value._d.getHours())
                 value.startOf('hour').add(this.getFirstAvailableMinutes(notAvailableMin), 'm');
@@ -98,6 +117,7 @@ class DefaultTp extends React.Component {
 
     componentDidMount() {
         this.getNotAvailableHours(this.props.availableArea);
+        this.getNotAvailableMin(new Date().getHours(), this.props.availableArea);
         this.setState({isReset: this.props.isReset})
     }
 
@@ -112,6 +132,7 @@ class DefaultTp extends React.Component {
 
         if (nextProps.availableArea !== this.props.availableArea) {
             this.getNotAvailableHours(nextProps.availableArea);
+            this.getNotAvailableMin(new Date().getHours(), nextProps.availableArea);
         }
     }
 
