@@ -30,8 +30,6 @@ class HistoryReceptionsItems extends React.Component{
         } else return file
     };
     render(){
-        {{console.log("RENDER")}}
-
         const {
             id_treatment,
             id_user,
@@ -125,8 +123,8 @@ class HistoryReceptionsItems extends React.Component{
 }
 
 HistoryReceptionsItems.propTypes = {
-    id: PropTypes.number,
-    status: PropTypes.oneOf(['new', 'topical', 'completed', 'extra']),
+    id: PropTypes.string,
+    status: PropTypes.string,
     type: PropTypes.string.isRequired,
     diagnostic: PropTypes.string,
     comments: PropTypes.string,

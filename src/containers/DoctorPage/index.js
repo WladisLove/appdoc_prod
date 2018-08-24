@@ -163,10 +163,12 @@ class PatientsPage extends React.Component{
                     <Row>
                         <Col span={24}>
                             <HistoryReceptions data={this.props.appsBetween}
+                                               appsBetweenCount = {this.props.appsBetweenCount}
                                                getApps = {this.props.onGetAppointments}
                                                onGotoChat={(id) => this.props.history.push('/chat')}
                                                id_doc={this.props.match.params.id}
                                                personalPage = {true}
+                                               isUser = {this.props.mode === "user"}
                         />
                         </Col>
                     </Row>
@@ -195,11 +197,13 @@ class PatientsPage extends React.Component{
 const mapStateToProps = state => {
     return {
         appsBetween: state.treatments.appsBetween,
+        appsBetweenCount: state.treatments.appsBetweenCount,
         reviews: state.reviews.reviews,
         ratingAll: state.reviews.ratingAll,
         commentCount: state.reviews.commentCount,
         profileDoctor: state.profileDoctor,
-        docIntervalsWithAppsAll: state.profileDoctor.docIntervalsWithAppsAll
+        docIntervalsWithAppsAll: state.profileDoctor.docIntervalsWithAppsAll,
+        mode: state.auth.mode,
     }
 };
 

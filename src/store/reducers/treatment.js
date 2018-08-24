@@ -44,6 +44,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 appsBetween: action.appsBetween,
+                appsBetweenCount: action.appsBetweenCount
             }
 
         case actionTypes.SELECT_VISIT:
