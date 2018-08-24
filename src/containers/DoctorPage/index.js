@@ -97,23 +97,24 @@ class PatientsPage extends React.Component{
 
         return experienceArr;
     };
+    onMakeNewApp = (obj) => {
+        obj.id_doc = this.props.match.params.id;
+        this.props.onMakeNewAppointment(obj).then(
+            console.log("APPOINTMENT COMPLYAT")
+        );
+    };
+
     // onMakeNewApp = (obj) => {
     //     obj.id_doc = this.props.match.params.id;
-    //     this.props.onMakeNewAppointment(obj).then(
-    //         console.log("APPOINTMENT COMPLYAT")
+    //     this.props.setReceptionByPatientPromise(obj).then(result => {
+    //             console.log("APPOINTMENT COMPLYAT", result)
+    //
+    //     }
+    //
     //     );
     // };
 
-    async onMakeNewApp(obj) {
-        obj.id_doc=this.props.match.params.id;
-        try {
-            await this.props.setReceptionByPatientAsAw(obj);
-        } catch(err) {
-            console.error(err);
-        } finally {
-            console.log("APPOINTMENT WAS MADE");
-        }
-    }
+
     render(){
         const { fio, academicdegree, academicstatus, category, experience, consultationPrice, isChildConsult, avatar} = this.props.profileDoctor;
         const reviewsLoadCount = 7;
@@ -165,6 +166,7 @@ class PatientsPage extends React.Component{
                                                getApps = {this.props.onGetAppointments}
                                                onGotoChat={(id) => this.props.history.push('/chat')}
                                                id_doc={this.props.match.params.id}
+                                               personalPage = {true}
                         />
                         </Col>
                     </Row>
@@ -176,6 +178,7 @@ class PatientsPage extends React.Component{
                                          onGoto={(val) => this.gotoHandler(val)}
                                          isOnDoctorPage={true}
                                          numberOfReviews={this.props.commentCount}
+
                                          onShowMore={(numberOfRequest, reviewsLoadCount, dateStart, dateEnd) =>
                                              this.props.onGetAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd, this.props.match.params.id)}
                             />
@@ -204,12 +207,11 @@ const mapDispatchToProps = dispatch => {
     return {
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onMakeNewAppointment: (obj) => dispatch(actions.setReceptionByPatient(obj)),
-        setReceptionByPatientAsAw: (obj) => dispatch(actions.setReceptionByPatientAsAw(obj)),
         onGetAllReviews: (numberOfRequest, reviewsLoadCount, dateStart, dateEnd, doc_id) =>
             dispatch(actions.getAllReviews(numberOfRequest, reviewsLoadCount, dateStart, dateEnd, doc_id)),
         onGetInfoDoctor: (doc_id) => dispatch(actions.getInfoDoctor(doc_id)),
         onGetDocSchedule: (doc_id) => dispatch(actions.getDateWorkIntervalWithoutMakingAppAll(doc_id)),
-        onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj))
+        onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
     }
 };
 

@@ -103,7 +103,8 @@ export const getAppsBetweenDocAndUser = (obj) => {
                 console.log("APPS BETWEEN DOC AND USER", res);
                 dispatch({
                     type: actionTypes.APPS_BETWEEN_DOC_USER,
-                    appsBetween: res.data,
+                    appsBetween: res.data.result,
+                    appsBetweenCount: res.data.count
                 });
             })
             .catch(err => {

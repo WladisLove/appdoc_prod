@@ -21,7 +21,6 @@ export {
     getSelectedPatientInfo,
     searchUsers,
     addOrDeleteUserFromSearch,
-    setReceptionByPatientAsAw,
     sendMessage,
 } from './patients';
 

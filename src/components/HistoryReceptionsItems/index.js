@@ -10,6 +10,7 @@ import PopoverFile from '../PopoverFile'
 
 import './style.css'
 import '../../icon/style.css'
+import Hoc from "../Hoc";
 
 class HistoryReceptionsItems extends React.Component{
 
@@ -17,77 +18,106 @@ class HistoryReceptionsItems extends React.Component{
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
       }
-
+    refactorFiles = (file) => {
+        if(file.length > 1) {
+            let files = [];
+            file.forEach((item) => {
+                item.data.forEach(item => {
+                    files.push(item)
+                })
+            });
+            return files
+        } else return file
+    };
     render(){
-        //const {type, size, time, date, status, diagnostic, comments, price, conclusion, conclusionDownload, review, content} = this.props;
+        {{console.log("RENDER")}}
+
         const {
-            id,
+            id_treatment,
             id_user,
             type,
-            size,
-            name,
-            time,
-            startDate,
-            endDate,
+            id_doc,
+            user_name,
+            doc_name,
             status,
-            diagnostic,
-            comments,
-            price,
             conclusion,
-            conclusionDownloadName,
-            conclusionDownloadLink,
-            review,
-            content,
-            onGoto,
-            rating,
+            price,
+            diagnostic,
+            file,
+            date,
+            complaint,
+            extr,
+            begin,
+            finish,
+            comment,
+            rate,
             onGotoChat,
+            isUser,
         } = this.props;
-        const rootClass = cn('reception',`${status}`);
-        const statusClass = cn('patient-status', 'reception-status',`${status}`);
+
 
         const key_val = {
             'chat': 'chat1',
             'voice': 'telephone', 
             'video': "video-camera",
         }
+        const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение"
 
         return (
-            <div className={rootClass}
+            <div className={"reception"}
                     onClick={(e) => {
-                        onGotoChat(id)
+                        onGotoChat(id_treatment)
                         this.handleClick(e);
                     }}
             >
                 <div className="flex-col">
-                    <div className={statusClass}></div>
-                    <div className="patient-date">{moment(startDate*1000).format('DD.MM.YYYY')}</div>
+                    {extr && <div className="patient-status receptions-status-extra"></div>}
+                    <div className={"1"}></div>
+                    <div className="patient-date">{moment(date*1000).format('DD.MM.YYYY')}</div>
                     <div className="patient-time">
-                    {moment(startDate*1000).format('HH:mm')} - {moment(endDate*1000).format('HH:mm')}
+                        {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
+                        {finish ? `-${moment(finish).format('HH:mm')}`: null}
                     </div>
-                    <div className="patient-icon"><Icon svg type={key_val[type]} size={16} /></div>
+                    <div className="patient-icon"><Icon svg type={extr?"emergency-call":key_val[type]} size={16}
+                                                        style={extr?{color:"red"}:null}/></div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-diagnostic">{diagnostic}</div>
+                    <div className="patient-diagnostic">{diagnostic ? diagnostic:<span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-comment">{comments}</div>
+                    <div className="patient-comment">{complaint ? complaint:<span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-price">{price}</div>
+                    <div className="patient-price">{price ? price : <span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-conclusion">{conclusion}</div>
-                    <a href={conclusionDownloadLink} download onClick={this.handleClick}>
-                        {conclusionDownloadName}
-                    </a>
+                    <div className="patient-conclusion">
+                        {
+                            conclusion ? (
+                                <a href={conclusion.href} download target="_blank" onClick={this.handleClick}>
+                                    {conclusion.btnText}
+                                </a>
+                            ) : (moment().format("X") > moment(+date*1000).format("X")) ? <span>{conclusionMessage}</span>:<span>&mdash;</span>
+                        }
+                    </div>
                 </div>
                 <div className="flex-col">
-                    <Rate defaultValue={rating} disabled/>
-                    <div className="patient-review">{review}</div>
+                    {
+                        rate ? (
+                            <Hoc>
+                                <Rate defaultValue={rate} disabled/>
+                                <div className="patient-review">{comment}</div>
+                            </Hoc>
+                        ) : conclusion ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
+                                                  onClick={console.log("click")}
+                                                  size='small'
+                                                  type='float'
+                                                  icon='form'/> : <span>&mdash;</span>
+                    }
                 </div>
                 <div className="flex-col"
-                        onClick = {this.handleClick}>
-                    <PopoverFile placement="bottomRight" content={content} trigger="click"/>                         
+                     onClick={this.handleClick}>
+                    <PopoverFile data={this.refactorFiles(file)}></PopoverFile>
                 </div>
             </div>
         )
