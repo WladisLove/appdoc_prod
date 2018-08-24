@@ -12,7 +12,7 @@ const sendHandler = (file) => {
         id_user: 54321,
         file: [file],
     }
-    axios.post('https://178.172.235.105/~api/json/catalog.doc2/saveFilesChat',
+    axios.post('https://appdoc.by/~api/json/catalog.doc2/saveFilesChat',
             JSON.stringify(obj))
             .then(res => {
                 console.log(JSON.stringify(obj))

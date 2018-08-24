@@ -7,7 +7,7 @@ let obj = {
     
         id: 126012,
         fio: "тестовый пациент",
-        avatar: "https://178.172.235.105/media/img/zaglushka.jpg",
+        avatar: "https://appdoc.by/media/img/zaglushka.jpg",
         start: "1525690510",
         end: 1525433630,
         id_doc: "2697",

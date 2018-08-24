@@ -2,7 +2,7 @@ export const dialogArr = [
     {
         id: 126012,
         fio: "тестовый пациент",
-        avatar: "https://178.172.235.105/media/img/zaglushka.jpg",
+        avatar: "https://appdoc.by/media/img/zaglushka.jpg",
         start: "1525692821",
         end: 1523598900,
         id_doc: "2697",
@@ -15,7 +15,7 @@ export const dialogArr = [
     },{
         id: 126012,
         fio: "тестовый пациент2",
-        avatar: "https://178.172.235.105/media/img/zaglushka.jpg",
+        avatar: "https://appdoc.by/media/img/zaglushka.jpg",
         start: "1525692821",
         end: 1523598900,
         id_doc: "2697",
@@ -28,7 +28,7 @@ export const dialogArr = [
     },{
         id: 126012,
         fio: "тестовый пациент3",
-        avatar: "https://178.172.235.105/media/img/zaglushka.jpg",
+        avatar: "https://appdoc.by/media/img/zaglushka.jpg",
         start: "1525692821",
         end: 1523598900,
         id_doc: "2697",
@@ -41,7 +41,7 @@ export const dialogArr = [
     },{
         id: 126012,
         fio: "тестовый пациент4",
-        avatar: "https://178.172.235.105/media/img/zaglushka.jpg",
+        avatar: "https://appdoc.by/media/img/zaglushka.jpg",
         start: "1525692721",
         end: 1523598900,
         id_doc: "2697",

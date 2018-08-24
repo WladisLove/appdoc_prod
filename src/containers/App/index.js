@@ -40,7 +40,7 @@ class App extends React.Component {
     componentDidMount() {
         if(this.props.id){
             let that = this;
-            let conn = new ab.Session('wss://178.172.235.105/wss2/',
+            let conn = new ab.Session('wss://appdoc.by/wss2/',
                 function() {
                     that.props.getNotifications(that.props.id);
                     

@@ -8,14 +8,14 @@ storiesOf('ChatMessage', module)
         <div>
             <ChatMessage 
                 img="https://www.proza.ru/pics/2017/06/03/1990.jpg" 
-                link="https://178.172.235.105/media/chat/126355/2697/1534340580/0/rotația-soarelui.jpg"
+                link="https://appdoc.by/media/chat/126355/2697/1534340580/0/rotația-soarelui.jpg"
                 name="rotația-soarelui.jpg"
                 date={Date.now()}
                 isMy
             />
             <ChatMessage 
                 img="https://www.proza.ru/pics/2017/06/03/1990.jpg" 
-                link="https://178.172.235.105/media/chat/126355/2697/1534340580/0/rotația-soarelui.jpg"
+                link="https://appdoc.by/media/chat/126355/2697/1534340580/0/rotația-soarelui.jpg"
                 name="rotația-soarelui.jpg"
                 date={Date.now()}
                 isConclusion = {true}
@@ -23,7 +23,7 @@ storiesOf('ChatMessage', module)
             />
             <ChatMessage 
                 img="https://www.proza.ru/pics/2017/06/03/1990.jpg" 
-                link="https://178.172.235.105/media/chat/126355/2749/1534333560/0/test.txt"
+                link="https://appdoc.by/media/chat/126355/2749/1534333560/0/test.txt"
                 name="test.txt"
                 date={Date.now()}
             />
