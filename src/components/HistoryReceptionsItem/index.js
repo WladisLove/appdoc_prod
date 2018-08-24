@@ -126,7 +126,7 @@ class HistoryReceptionsItem extends React.Component{
                             <Rate defaultValue={rate} disabled/>
                             <div className="patient-review">{comment}</div>
                         </Hoc>
-                    ) : conclusion ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
+                    ) : conclusion && isUser ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
                                               onClick={console.log("click")}
                                               size='small'
                                               type='float'

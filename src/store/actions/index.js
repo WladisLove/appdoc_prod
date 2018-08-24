@@ -16,6 +16,7 @@ export {
     setReceptionByPatient,
     selectPatient,
     unselectPatient,
+    makeReview,
     getNotPatientDoctors,
     clearNotPatientDoctors,
     getSelectedPatientInfo,

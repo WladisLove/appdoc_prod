@@ -102,15 +102,7 @@ class PatientsPage extends React.Component{
         );
     };
 
-    // onMakeNewApp = (obj) => {
-    //     obj.id_doc = this.props.match.params.id;
-    //     this.props.setReceptionByPatientPromise(obj).then(result => {
-    //             console.log("APPOINTMENT COMPLYAT", result)
-    //
-    //     }
-    //
-    //     );
-    // };
+
 
 
     render(){
@@ -167,6 +159,7 @@ class PatientsPage extends React.Component{
                                                id_doc={this.props.match.params.id}
                                                personalPage = {true}
                                                isUser = {this.props.mode === "user"}
+                                               onSubmit={this.props.makeReview}
                         />
                         </Col>
                     </Row>
@@ -216,6 +209,7 @@ const mapDispatchToProps = dispatch => {
         onGetInfoDoctor: (doc_id) => dispatch(actions.getInfoDoctor(doc_id)),
         onGetDocSchedule: (doc_id) => dispatch(actions.getDateWorkIntervalWithoutMakingAppAll(doc_id)),
         onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
+        makeReview: (obj) => dispatch(actions.makeReview(obj))
     }
 };
 

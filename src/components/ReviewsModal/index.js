@@ -13,6 +13,8 @@ const ReviewsModal = (props) => {
         <Modal title='Отзыв на прием'
                visible={visible}
                onCancel={props.onCancel}
+               afterClose={props.afterClose}
+
         >
             <Content {...props}/>
         </Modal>

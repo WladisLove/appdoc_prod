@@ -99,6 +99,18 @@ export const getDocPatients = () => {
     }
 }
 
+export const makeReview = (obj) => {
+    console.log("REVIEW DELIVERED TO REDUX :)", obj);
+    return (dispatch, getState) => {
+        obj.id_user = getState().auth.id;
+        return axios.post('/catalog.doc2/putCommentToDoc',JSON.stringify(obj))
+            .then((res) => res)
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
+
 export const getPatientDoctors = (count, both) => {
     return (dispatch, getState) => {
 

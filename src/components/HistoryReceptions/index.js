@@ -5,12 +5,14 @@ import { NavLink } from 'react-router-dom'
 import Card from '../Card'
 import Button from '../Button'
 
+import {message} from "antd"
 import './style.css'
 import '../../icon/style.css'
 import Col from "../Col";
 import ScrollArea from "react-scrollbar";
 import HistoryReceptionsItems from "../HistoryReceptionsItems";
 import Spinner from "../Spinner";
+import ReviewsModal from "../ReviewsModal";
 
 class HistoryReceptions extends React.Component{
     constructor(props){
@@ -22,7 +24,8 @@ class HistoryReceptions extends React.Component{
             loadedCount: 0,
             data: [],
             loading: true,
-            noData: true
+            noData: true,
+            reviewStatus: 0
         };
     }
 
@@ -46,6 +49,7 @@ class HistoryReceptions extends React.Component{
                                                     onGotoChat = {this.props.onGotoChat}
                                                     isUser = {this.props.isUser}
                                                     key = {index}
+                                                    setModalRewiewsVisible={this.setModalRewiewsVisible}
                                                     />)
         });
         if(this.state.count > this.state.loadedCount && !this.state.loading) {
@@ -70,7 +74,10 @@ class HistoryReceptions extends React.Component{
         return historyArr;
 
     };
+    setModalRewiewsVisible = (obj) => {
+        this.setState({dataForReview: obj, visible: true, reviewStatus: 0})
 
+    };
 
     loadMore = () => {
         this.setState({old: this.state.old+this.state.max, loading: true}, ()=> {
@@ -111,16 +118,41 @@ class HistoryReceptions extends React.Component{
         this.props.getApps(obj)
     };
 
+    afterCloseReviews = () => {
+            message.success("Отзыв отправлен", 2)
 
+    };
     render(){
         return (
             <div className='receptions-all'>
                 <Card title="История обращений">
                     <ScrollArea
                     horizontal = {true}>
+                        <div className="tableheader">
+                            <div className="flex-col"><div className="receptions-status new">Новые</div></div>
+                            <div className="flex-col"><div className="receptions-status topical">Актуальные</div></div>
+                            <div className="flex-col"><div className="receptions-status completed">Завершенные</div></div>
+                            <div className="flex-col"><div className="receptions-status extra">Экстренные</div></div>
+                        </div>
+                        <div className="tableheader menu-header">
+                            <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
+                            <div className="flex-col"><div className="tableheader-name">диагноз</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
+                            <div className="flex-col"><div className="tableheader-name">стоимость</div></div>
+                            <div className="flex-col"><div className="tableheader-name">заключение</div></div>
+                            <div className="flex-col"><div className="tableheader-name">отзыв</div></div>
+                            <div className="flex-col"><div className="tableheader-name"></div></div>
+                        </div>
                     {this.historyRender(this.state.data)}
                     </ScrollArea>
                   </Card>
+                <ReviewsModal
+                    visible={this.state.visible}
+                    onSubmit ={this.props.onSubmit}
+                    info = {this.state.dataForReview}
+                    afterClose ={message.success("Отзыв ен", 2)}
+                    onCancel={(status)=>this.setState({visible:false, reviewStatus: status})}
+                />
             </div>
         )
     }
