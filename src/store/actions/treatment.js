@@ -212,7 +212,7 @@ export const getAllFilesTreatment = (treatId) => {
     }
 }
 
-export const seletVisit = (visId) => {
+export const seletVisit = (visId, callback) => {
     return (dispatch) => {
         axios.get('/catalog.doc2/getInfoByMakingAppId/id/'+visId)
             .then(res => {
@@ -220,7 +220,10 @@ export const seletVisit = (visId) => {
                 dispatch({
                     type: actionTypes.SELECT_VISIT,
                     visitInfo: res.data,
-                })
+                    callback: callback,
+                });
+                
+                //(callback instanceof Function) && callback();
             })
             .catch(err => {
                 console.log(err);
@@ -260,4 +263,11 @@ export const getReceptionDuration = (id) => {
                 console.log(err);
         })
     }    
+}
+
+export const clearCallback = () => {
+    console.log('clearCallback')
+    return ({
+        type: actionTypes.CLEAR_CALLBACK,
+    });
 }

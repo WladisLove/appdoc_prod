@@ -6,6 +6,7 @@ import SideNav from '../../components/SideNav'
 import Header from "../../components/Header";
 
 import {connect} from 'react-redux';
+import {createSocket, closeSocket,register} from './chatWs'
 
 import * as actions from '../../store/actions'
 import './styles.css';
@@ -17,6 +18,7 @@ import Icon from "../../components/Icon";
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
 );
+
 
 class App extends React.Component {
     constructor(props){
@@ -34,31 +36,65 @@ class App extends React.Component {
     };
 
     componentWillUnmount(){
+        closeSocket();
         this.props.setOnlineStatus(this.props.id, false)
+    }
+
+    runNotificationsWS = () => {
+        let that = this;
+        let conn = new ab.Session('wss://appdoc.by/wss2/',
+            function() {
+                that.props.getNotifications(that.props.id);
+                
+                conn.subscribe(""+that.props.id, function(topic, data) {
+                    that.props.setExInfo(data.exInterval)
+                    that.setState({notifications: JSON.parse(data.arr)})
+                });
+            },
+            function() {
+                console.warn('WebSocket connection closed');
+            },
+            {'skipSubprotocolCheck': true}
+        );
+    }
+
+    runChatWS = () => {
+        const {chatProps, setChatFromId, setChatToId, setReceptionStatus, setIsCallingStatus, 
+            setChatStory, onSelectReception, setNewTimer} = this.props;
+        //'wss://appdoc.by:8443/one2one'
+        //'wss://localhost:8443/one2one'
+        createSocket(
+            'wss://appdoc.by:8443/one2one',
+            chatProps,
+            {
+                setChatFromId,
+                setChatToId,
+                setReceptionStatus,
+                setIsCallingStatus,
+                setChatStory,
+                onSelectReception,
+                setNewTimer,
+
+                get_from: () => this.props.from,
+            get_to: () => this.props.to,
+            get_receptionStarts: () => this.props.receptionStarts,
+            get_isCalling: () => this.props.isCalling,
+            get_user_mode: () => this.props.mode,
+            get_chatStory: () => this.props.chatStory,
+
+            get_visitInfo: () => this.props.visitInfo,
+            get_timer: () => this.props.timer,
+
+            get_history: () => this.props.history,
+            }
+        );
+        register(''+this.props.id, ''/*+this.props.user_id*/, this.props.auth.mode);
     }
 
     componentDidMount() {
         if(this.props.id){
-            let that = this;
-            let conn = new ab.Session('wss://appdoc.by/wss2/',
-                function() {
-                    that.props.getNotifications(that.props.id);
-                    
-
-                    conn.subscribe(""+that.props.id, function(topic, data) {
-                        //console.log('subscribe_main',topic,data)
-                        that.props.setExInfo(data.exInterval)
-                        that.setState({notifications: JSON.parse(data.arr)})
-                    });
-                    /*conn.subscribe('status_2663', function(topic, data){
-                        console.log(topic, data)
-                    });*/
-                },
-                function() {
-                    console.warn('WebSocket connection closed');
-                },
-                {'skipSubprotocolCheck': true}
-            );            
+            this.runNotificationsWS();
+            this.runChatWS();            
         }
         
     }
@@ -182,7 +218,17 @@ const mapStateToProps = state =>{
         usersHeaderSearch: state.patients.usersHeaderSearch,
         isIn: state.doctor.isEx,
         isUserSet: state.doctor.isUserSetEx,
-        freeVisitsIntervals: state.schedules.freeVisitsIntervals
+        freeVisitsIntervals: state.schedules.freeVisitsIntervals,
+
+        
+            from: state.chatWS.from,
+            to: state.chatWS.to,
+            receptionStarts: state.chatWS.receptionStarts,
+            isCalling: state.chatWS.isCalling,
+            chatStory: state.chatWS.chatStory,
+            visitInfo: state.treatments.visitInfo,
+            timer: state.chatWS.timer,
+        
     }
 }
 
@@ -203,6 +249,14 @@ const mapDispatchToProps = dispatch => {
         onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
         onMakeVisit: (info)=> {dispatch(actions.setReceptionByPatient(info))},
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
+        
+        setChatFromId: (id) => dispatch(actions.setChatFromId(id)),
+        setChatToId: (id) => dispatch(actions.setChatToId(id)),
+        setIsCallingStatus: (isCalling) => dispatch(actions.setIsCallingStatus(isCalling)),
+        setReceptionStatus: (isStart) => dispatch(actions.setReceptionStatus(isStart)),
+        setChatStory: (chat) => dispatch(actions.setChatStory(chat)),
+        onSelectReception: (id, callback) => dispatch(actions.seletVisit(id, callback)),
+        setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
 	}
 };
 

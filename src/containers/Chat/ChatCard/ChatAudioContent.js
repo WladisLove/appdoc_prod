@@ -15,16 +15,7 @@ import Hoc from '../../../hoc'
 class ChatAudioContent extends React.Component {
 	constructor(props){
 		super(props);
-
-		this.state = {
-			from: 0,
-			to: 0,
-			isActive: this.props.isActive,
-		}
-
 		this.timerInterval;
-
-		this.ws = props.ws;
 	}
 
 	renderCallArea = () => {

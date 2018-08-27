@@ -9,6 +9,7 @@ const initialState = {
     visitInfo: {},
     treatInfo: {},
     from: 0,
+    callback: null,
     treatmFiles: [],
 };
 
@@ -51,6 +52,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 visitInfo: action.visitInfo,
+                callback: action.callback,
                 treatInfo: {},
                 from: FR_VISIT,
                 treatmFiles: [],
@@ -74,6 +76,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 treatmFiles: action.files,
+            }
+        case actionTypes.CLEAR_CALLBACK:
+            return {
+                ...state,
+                callback: null,
             }
         default: return state;
     }

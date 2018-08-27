@@ -9,6 +9,7 @@ import authReducer from './reducers/auth'
 import doctorReducer from './reducers/doctor'
 import infoDoctorReducer from './reducers/doctorData'
 import infoPatientReducer from './reducers/patientData'
+import chatWSReducer from './reducers/chatWS'
 
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     doctor: doctorReducer,
     profileDoctor: infoDoctorReducer,
     profilePatient: infoPatientReducer,
+    chatWS: chatWSReducer,
 });
 
 export default function configureStore() {
