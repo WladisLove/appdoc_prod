@@ -63,7 +63,7 @@ export {
     getAllFilesTreatment,
     changeReceptionStatus,
     getReceptionDuration,
-    
+    clearCallback,
 } from './treatment'
 
 
@@ -104,3 +104,13 @@ export {
     loadingStart,
     loadingEnd
 } from './loading'
+
+export {
+    setReceptionStatus,
+    setChatFromId,
+    setChatToId,
+    setIsCallingStatus,
+    setChatStory,
+    setNewTimer,
+    
+} from './chatWS'

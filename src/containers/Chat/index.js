@@ -24,21 +24,29 @@ class Chat extends React.Component{
     }
 
     render(){
-        console.log('visitInfo',this.props.visitInfo)
-        console.log('treatInfo',this.props.treatInfo)
-        let  id_user, name, name_doc, avatar, status, chat, visitId, contactLevel, comment, id_treatment;
+        //console.log('visitInfo',this.props.visitInfo)
+        //console.log('treatInfo',this.props.treatInfo)
+        let  id_user, id_doc, name, name_doc, avatar, status, chat, visitId, contactLevel, comment, id_treatment;
 
         this.props.fromTR_VIS === 1 ? (
             {id_user,name_user: name, avatar, status, chat, id_treatment} = this.props.treatInfo
         ) : (
-            {id_user,name, name_doc, id: visitId, contactLevel,comment, chat, avatar, status, id_treatment} = this.props.visitInfo
+            {id_user,id_doc,name, name_doc, id: visitId, contactLevel,comment, chat, avatar, status, id_treatment} = this.props.visitInfo
         )  
-        const isUser = this.props.user_mode === "user";   
+        const isUser = this.props.user_mode === "user";
 
         const chatProps = {
-            wsURL: 'wss://appdoc.by:8443/one2one',
+            //wsURL: 'wss://appdoc.by:8443/one2one',
+            wsURL: 'wss://localhost:8443/one2one',
+            callback: this.props.callback,
+            clearCallback: this.props.clearCallback,
+            timer: this.props.timer,
+            chatStory: this.props.chatStory,
+            receptionStarts: this.props.receptionStarts,
+            isCalling: this.props.isCalling,
             receptionId: visitId,
             callerID: this.props.id,
+            calledID: isUser ? id_doc : id_user,
             user_mode: this.props.user_mode,
             user_id: +id_user,
             patientName: isUser ? name_doc : name,
@@ -48,6 +56,8 @@ class Chat extends React.Component{
             chat,
             comment,
             uploadFile: this.props.uploadFile,
+            setReceptionStatus: this.props.setReceptionStatus,
+            setChatToId: this.props.setChatToId,
 
             getAllFilesTreatment: this.props.getAllFilesTreatment,
             treatmFiles: this.props.treatmFiles,
@@ -67,8 +77,8 @@ class Chat extends React.Component{
                         {
                              isUser ? (
                                 <ChatCard {...chatProps}
-                                    mode={"video"}
-                                    //mode={contactLevel}
+                                    //mode={"video"}
+                                    mode={contactLevel}
                                     //isEnded = {true}
                                     onSelectReception= {this.props.onSelectReception}
                                     completeReception = {this.props.completeReception}
@@ -104,6 +114,13 @@ const mapStateToProps = state =>{
         treatInfo: state.treatments.treatInfo,
         treatmFiles: state.treatments.treatmFiles,
         fromTR_VIS: state.treatments.from,
+
+        callback: state.treatments.callback,
+
+        chatStory: state.chatWS.chatStory,
+        receptionStarts: state.chatWS.receptionStarts,
+        isCalling: state.chatWS.isCalling,
+        timer: state.chatWS.timer,
     }
 }
 
@@ -121,6 +138,10 @@ const mapDispatchToProps = dispatch => {
         getAllFilesTreatment: (treatmId) => dispatch(actions.getAllFilesTreatment(treatmId)),
         changeReceptionStatus: (id, key) => dispatch(actions.changeReceptionStatus(id,key)),
         getReceptionDuration: (id) => dispatch(actions.getReceptionDuration(id)),
+
+        setReceptionStatus: (isStart) => dispatch(actions.setReceptionStatus(isStart)),
+        setChatToId: (id) => dispatch(actions.setChatToId(id)),
+        clearCallback: () => dispatch(actions.clearCallback()),
 	}
 };
 
