@@ -25,12 +25,12 @@ class Step2_From extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            educNum: 1,
-            gradEducNum: 1,
-            placesNum: 1,
-            isCategory: false,
-            isDegree : false,
-            isStatus: false
+            educNum: this.props.data.educNum || 1,
+            gradEducNum: this.props.data.gradEducNum || 1,
+            placesNum: this.props.data.placesNum || 1,
+            isCategory: this.props.data.isCategory || false,
+            isDegree : this.props.data.isDegree || false,
+            isStatus: this.props.data.isStatus || false
         }
     }
 
@@ -56,6 +56,20 @@ class Step2_From extends React.Component{
             }
         });
     };
+
+    handleGoBack = (e) => {
+        e.preventDefault();
+
+        this.props.form.validateFields((err, values) => {
+            let fields = {
+                ...values,
+                ...this.state,
+            };
+            this.props.onSubmit(fields);
+            this.props.onPrev();
+        });
+    };
+
     selectChangeHandler = (e, name) => {
         const validate = () => {
             this.props.form.validateFields([
@@ -77,6 +91,7 @@ class Step2_From extends React.Component{
             default: return;
         }
     };
+
     addFormElem = (Component,num,fieldDecorator) => {
         let i = 1,
             name = Component.getName,
@@ -208,7 +223,7 @@ class Step2_From extends React.Component{
 
                     {getFieldDecorator('category', {
                         rules: [{
-                            required: false,  //change to true
+                            required: true,
                             message: 'Введите категорию'
                         }],
                     })(
@@ -239,7 +254,7 @@ class Step2_From extends React.Component{
                                   payments={payments}/>
 
                 <div className="steps-action">
-                    <Button onClick={this.props.onPrev}
+                    <Button onClick={this.handleGoBack}
                             btnText='Назад'
                             size='large'
                             type='float'
@@ -264,7 +279,8 @@ const Step2 = Form.create({
                    console.log(props.data[key][0], props.data[key][1], "НОЛЬ И ОДИН");
 
                     fields[key] = Form.createFormField({
-                        value: {defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
+                        value: {placeholderStart: "Начало обучения", placeholderEnd: "Окончание обучения",
+                            defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
                     })
                 } else {
                     fields[key] = Form.createFormField({
@@ -285,6 +301,8 @@ Step2.propTypes = {
     langs: PropTypes.array,
     payments: PropTypes.array,
     onSubmit: PropTypes.func,
+    onNext: PropTypes.func,
+    onPrev: PropTypes.func
 };
 
 Step2.defaultProps = {
@@ -295,6 +313,8 @@ Step2.defaultProps = {
     langs: [],
     payments: [],
     onSubmit: () => {},
+    onNext: () => {},
+    onPrev: () => {}
 };
 
 export default Step2
