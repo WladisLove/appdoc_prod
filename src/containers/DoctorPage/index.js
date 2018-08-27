@@ -97,9 +97,7 @@ class PatientsPage extends React.Component{
     };
     onMakeNewApp = (obj) => {
         obj.id_doc = this.props.match.params.id;
-        this.props.onMakeNewAppointment(obj).then(
-            console.log("APPOINTMENT COMPLYAT")
-        );
+        this.props.onMakeNewAppointment(obj);
     };
 
 

@@ -92,13 +92,14 @@ class HistoryReceptions extends React.Component{
 
 
     componentWillReceiveProps(newProps) {
+        console.log(newProps, "NEW PROPS")
         if(newProps.data.length && this.state.loading && newProps.data !== this.props.data) {
             this.setState({
                 data: [...this.state.data, ...newProps.data],
                 loading:false,
                 loadedCount:this.state.loadedCount+newProps.data.length,
                 noData: false})
-        } else if(!newProps.data.lenght) {
+        } else if(!newProps.data.lenght && this.state.loading && newProps.data !== this.props.data) {
             this.setState({noData:true})
         }
 
@@ -113,18 +114,25 @@ class HistoryReceptions extends React.Component{
         }
     }
 
-    getApps = () => {
-        let obj ={...this.state};
+    getApps = (params) => {
+        let obj ={
+            ...this.state,
+            ...params
+
+        };
+
         this.props.id_doc ? obj.id_doc=this.props.id_doc: this.props.id_user ? obj.id_user=this.props.id_user : null;
         this.props.getApps(obj)
     };
 
     afterCloseReviews = () => {
         if(this.state.reviewStatus===200) {
+            this.getApps({max: this.state.loadedCount, old: 0});
             message.success("Отзыв отправлен", 2)
         }
     };
     render(){
+        console.log(this.state, "state from HR")
         return (
             <div className='receptions-all'>
                 <Card title="История обращений">

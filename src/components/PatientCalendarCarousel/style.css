@@ -121,8 +121,8 @@
   cursor: default;
 }
 .calendar-carousel-time.activeTime {
-  background: #204d8d;
-  color: white;
+  background-color: #204d8d !important;
+  color: white!important;
 }
 .calendar-carousel-time.unAvailableTime {
   background-color: #f7f7f7;
