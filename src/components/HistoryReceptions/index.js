@@ -31,7 +31,7 @@ class HistoryReceptions extends React.Component{
     }
 
     historyRender = (dataArr) => {
-        if(!dataArr.length && this.state.loading &&this.state.noData) {
+        if(!dataArr.length && this.state.loading && this.state.noData) {
             return <div className="table-footer"
                         key="btn">
                 <Button btnText={'Нет обращений. Нажмите чтобы обновить.' }
@@ -109,7 +109,7 @@ class HistoryReceptions extends React.Component{
 
         if(newProps.id_doc !== this.props.id_doc) {
             console.log("New id");
-            this.setState({loading: true, data: [], count: 0, loadedCount: 0}, () => newProps.getApps({max: 3, old: 0, id_doc: newProps.id_doc}))
+            this.setState({loading: true, data: [], count: 0, loadedCount: 0, old: 0}, () => newProps.getApps({max: 3, old: 0, id_doc: newProps.id_doc}))
 
         }
     }
@@ -127,7 +127,7 @@ class HistoryReceptions extends React.Component{
 
     afterCloseReviews = () => {
         if(this.state.reviewStatus===200) {
-            this.getApps({max: this.state.loadedCount, old: 0});
+            this.setState({loading: true, data: [], count: 0, loadedCount: 0, old: 0}, () => this.getApps({max: this.state.loadedCount, old: 0}));
             message.success("Отзыв отправлен", 2)
         }
     };
