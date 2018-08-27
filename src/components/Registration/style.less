@@ -35,8 +35,13 @@
                 }
             }
             .ant-form-explain {
-                position: absolute;
-                top: 45px;
+                position: static;
+            }
+            &&.avatar-doctor-uploader {
+                .ant-form-explain {
+                    position: absolute;
+                    top: 45px;
+                }
             }
         }
 
@@ -156,7 +161,7 @@
                 .input-root-focus {
                     border-bottom: #ff4242 1px solid;
                 }
-                .input-root {
+                .input-root, div.radio-label {
                     border-bottom: #ff4242 1px solid;
                 }
                 .ant-input:focus {
@@ -169,6 +174,12 @@
             .ant-form-explain {
                 position: absolute;
                 top: 45px;
+            }
+
+        }
+        .ant-form-item.avatar-doctor-uploader {
+            .ant-form-explain {
+                position: static;
             }
         }
 
@@ -224,7 +235,7 @@
     &-row {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: 35px;
 
         .ant-form-item {

@@ -32,7 +32,7 @@ class LoginPage extends React.Component {
     render(){
 
         const langs = ["Русский", "Английский", "Немецкий"];
-        const payments = [50,75,100,125,150];
+        const payments = [10,20,30,40,50,75,100,200];
         const academicTitle = ['Нет звания',
             'Кандидат медицинских наук',
             'Доктор медицинских наук'];
@@ -43,7 +43,7 @@ class LoginPage extends React.Component {
             'Первая категория',
             'Вторая категория',
             'Высшая категория'];
-
+        const specs = ['Хирург', "Терапевт","Кардиолог","Офтальмолог", "Психиатр", "Стоматолог", "Невролог"];
 
         return (
             <Hoc>
@@ -81,6 +81,7 @@ class LoginPage extends React.Component {
                                                            langs={langs}
                                                            payments={payments}
                                                            category = {category}
+                                                           specs = {specs}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='Все верно'

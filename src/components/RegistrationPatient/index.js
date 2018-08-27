@@ -129,9 +129,9 @@ class RegistrationPatientForm extends React.Component{
             )
         }
         return (
-            <div className="registration-form">
+            <div className="registration-patient-form">
                 <div className="registration-title">Регистрация</div>
-                <Form onSubmit={this.handleSubmit} className="step-form">
+                <Form onSubmit={this.handleSubmit} className="step-patient-form">
                     <div className="step-notification">* Поля, обязательные для заполнения</div>
                     <FormItem>
                         {getFieldDecorator('name', {

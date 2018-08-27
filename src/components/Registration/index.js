@@ -42,6 +42,7 @@ class RegistrationForm extends React.Component{
                                        academicTitle = {this.props.academicTitle}
                                        langs = {this.props.langs}
                                        payments = {this.props.payments}
+                                       specs = {this.props.specs}
             /> ,
         },
             {
@@ -68,7 +69,7 @@ class RegistrationForm extends React.Component{
 
 
     render(){
-        console.log(this.props);
+
         if(this.props.isRegFinished) {
             return (
                 <RegistrationComplete urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={false}/>
@@ -83,10 +84,6 @@ class RegistrationForm extends React.Component{
                        onNext = {this.next}
                        onPrev={this.prev}
                 />
-                {this.props.isRegInProgress &&
-                <div style={{marginTop: "15px"}}>
-                    <Spinner size="large"/>
-                </div>}
             </div>
         )
     }

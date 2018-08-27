@@ -10,7 +10,7 @@
   font-size: 1.25rem;
   color: #eee;
 }
-.registration-form {
+.registration-patient-form {
   max-width: 850px;
   width: 100%;
   padding: 75px 100px;
@@ -20,47 +20,47 @@
   /* Параметры тени */
   background-color: #ffffff;
 }
-.registration-form .personal-btn {
+.registration-patient-form .personal-btn {
   margin-bottom: 35px;
 }
-.registration-form .ant-form-item {
+.registration-patient-form .ant-form-item {
   position: relative;
   margin-bottom: 35px;
 }
-.registration-form .ant-form-item .has-error .input-root-focus {
+.registration-patient-form .ant-form-item .has-error .input-root-focus {
   border-bottom: #ff4242 1px solid;
 }
-.registration-form .ant-form-item .has-error .input-root {
+.registration-patient-form .ant-form-item .has-error .input-root {
   border-bottom: #ff4242 1px solid;
 }
-.registration-form .ant-form-item .has-error .ant-input:focus {
+.registration-patient-form .ant-form-item .has-error .ant-input:focus {
   box-shadow: none;
 }
-.registration-form .ant-form-item .has-error .ant-input-group-addon {
+.registration-patient-form .ant-form-item .has-error .ant-input-group-addon {
   color: #777777;
 }
-.registration-form .ant-form-item .ant-form-explain {
+.registration-patient-form .ant-form-item .ant-form-explain {
   position: absolute;
   top: 45px;
 }
-.registration-form-item .ant-input-group-addon:first-child {
+.registration-patient-form-item .ant-input-group-addon:first-child {
   text-align: left;
 }
-.registration-form-navlink {
+.registration-patient-form-navlink {
   color: #0495ff;
   font-size: 14px;
   line-height: 1;
 }
-.registration-form-navlink:hover {
+.registration-patient-form-navlink:hover {
   color: #0495ff;
 }
-.registration-form-control {
+.registration-patient-form-control {
   text-align: center;
 }
-.registration-form-control button {
+.registration-patient-form-control button {
   margin-bottom: 50px;
 }
-.registration-title {
+.registration-patient-title {
   font-family: 'GothamPro-Bold';
   font-size: 44px;
   line-height: 1;
@@ -68,104 +68,104 @@
   color: #333;
   margin-bottom: 60px;
 }
-.registration-posttitle {
+.registration-patient-posttitle {
   font-family: 'GothamPro';
   font-size: 20px;
   color: #333;
   margin-bottom: 15px;
 }
-.registration-notification {
+.registration-patient-notification {
   font-family: 'GothamPro-Light';
   font-size: 12px;
   line-height: 1;
   color: #333;
   margin-bottom: 35px;
 }
-.registration-row {
+.registration-patient-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 35px;
 }
-.registration-row .ant-form-item {
+.registration-patient-row .ant-form-item {
   width: 47.5%;
   margin-bottom: 0;
 }
-.registration-row .ant-form-item .radio-label {
+.registration-patient-row .ant-form-item .radio-label {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #e1e1e1;
 }
-.registration-row .ant-form-item .ant-radio-group {
+.registration-patient-row .ant-form-item .ant-radio-group {
   margin-left: auto;
 }
-.registration-row .ant-form-item .datepicker-base {
+.registration-patient-row .ant-form-item .datepicker-base {
   display: flex;
   width: 115px;
   margin-left: auto;
 }
-.registration-row .ant-form-item .datepicker-base .ant-calendar-picker {
+.registration-patient-row .ant-form-item .datepicker-base .ant-calendar-picker {
   border-bottom: none;
   width: 100%;
   min-width: auto;
   max-width: none;
 }
-.registration-row .ant-form-item .datepicker-base .ant-calendar-picker-input {
+.registration-patient-row .ant-form-item .datepicker-base .ant-calendar-picker-input {
   height: 40px;
 }
-.registration-avatar .upload {
+.registration-patient-avatar .upload {
   padding: 20px;
   border: 1px dashed #e1e1e1;
 }
-.registration-avatar .upload .ant-upload-list-item {
+.registration-patient-avatar .upload .ant-upload-list-item {
   width: 48%;
 }
-.registration-avatar .upload .ant-upload-list-item-actions {
+.registration-patient-avatar .upload .ant-upload-list-item-actions {
   transform: translate(-145%, -50%);
 }
-.step-form {
+.step-patient-form {
   width: 100%;
   border: none;
   background-color: #ffffff;
 }
-.step-form .ant-form-item {
+.step-patient-form .ant-form-item {
   position: relative;
   margin-bottom: 35px;
 }
-.step-form .ant-form-item .has-error .input-root-focus {
+.step-patient-form .ant-form-item .has-error .input-root-focus {
   border-bottom: #ff4242 1px solid;
 }
-.step-form .ant-form-item .has-error .input-root {
+.step-patient-form .ant-form-item .has-error .input-root {
   border-bottom: #ff4242 1px solid;
 }
-.step-form .ant-form-item .has-error .ant-input:focus {
+.step-patient-form .ant-form-item .has-error .ant-input:focus {
   box-shadow: none;
 }
-.step-form .ant-form-item .has-error .ant-input-group-addon {
+.step-patient-form .ant-form-item .has-error .ant-input-group-addon {
   color: #777777;
 }
-.step-form .ant-form-item .ant-form-explain {
+.step-patient-form .ant-form-item .ant-form-explain {
   position: absolute;
   top: 45px;
 }
-.step-form-item .ant-input-group-addon:first-child {
+.step-patient-form-item .ant-input-group-addon:first-child {
   text-align: left;
 }
-.step-form-navlink {
+.step-patient-form-navlink {
   color: #0495ff;
   font-size: 14px;
   line-height: 1;
 }
-.step-form-navlink:hover {
+.step-patient-form-navlink:hover {
   color: #0495ff;
 }
-.step-form-control {
+.step-patient-form-control {
   text-align: center;
 }
-.step-form-control button {
+.step-patient-form-control button {
   margin-bottom: 50px;
 }
-.step-title {
+.step-patient-title {
   font-family: 'GothamPro-Bold';
   font-size: 44px;
   line-height: 1;
@@ -173,66 +173,66 @@
   color: #333;
   margin-bottom: 60px;
 }
-.step-posttitle {
+.step-patient-posttitle {
   font-family: 'GothamPro';
   font-size: 20px;
   color: #333;
   margin-bottom: 15px;
 }
-.step-notification {
+.step-patient-notification {
   font-family: 'GothamPro-Light';
   font-size: 12px;
   line-height: 1;
   color: #333;
   margin-bottom: 50px;
 }
-.step-row {
+.step-patient-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 35px;
 }
-.step-row .ant-form-item {
+.step-patient-row .ant-form-item {
   width: 47.5%;
   margin-bottom: 0;
 }
-.step-row .ant-form-item .radio-label {
+.step-patient-row .ant-form-item .radio-label {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #e1e1e1;
 }
-.step-row .ant-form-item .ant-radio-group {
+.step-patient-row .ant-form-item .ant-radio-group {
   margin-left: auto;
 }
-.step-row .ant-form-item .datepicker-base {
+.step-patient-row .ant-form-item .datepicker-base {
   display: flex;
   width: 115px;
   margin-left: auto;
 }
-.step-row .ant-form-item .datepicker-base .ant-calendar-picker {
+.step-patient-row .ant-form-item .datepicker-base .ant-calendar-picker {
   border-bottom: none;
   width: 100%;
   min-width: auto;
   max-width: none;
 }
-.step-row .ant-form-item .datepicker-base .ant-calendar-picker-input {
+.step-patient-row .ant-form-item .datepicker-base .ant-calendar-picker-input {
   height: 40px;
 }
-.step-avatar .upload {
+.step-patient-avatar .upload {
   padding: 20px;
   border: 1px dashed #e1e1e1;
 }
-.step-avatar .upload .ant-upload-list-item {
+.step-patient-avatar .upload .ant-upload-list-item {
   width: 48%;
 }
-.step-avatar .upload .ant-upload-list-item-actions {
+.step-patient-avatar .upload .ant-upload-list-item-actions {
   transform: translate(-145%, -50%);
 }
-.step-block {
+.step-patient-block {
   position: relative;
   margin-bottom: 45px;
 }
-.step-block-title {
+.step-patient-block-title {
   color: #0495ff;
   font-size: 14px;
   line-height: 1;
@@ -240,62 +240,62 @@
   margin-bottom: 40px;
   font-family: 'GothamPro-Medium';
 }
-.step-block-title-post {
+.step-patient-block-title-post {
   font-size: 16px;
   color: #333;
   line-height: 1;
   margin-bottom: 30px;
   font-family: 'GothamPro-Medium';
 }
-.step-block .datepicker-base {
+.step-patient-block .datepicker-base {
   width: 100%;
   display: block;
 }
-.step-block .datepicker-base-range {
+.step-patient-block .datepicker-base-range {
   display: flex;
   justify-content: space-between;
 }
-.step-block .datepicker-base .ant-calendar-picker {
+.step-patient-block .datepicker-base .ant-calendar-picker {
   width: 100%;
   max-width: 47.5%;
 }
-.step-block-item {
+.step-patient-block-item {
   margin-bottom: 10px;
   position: relative;
 }
-.step-block-item:first-child {
+.step-patient-block-item:first-child {
   margin-top: 30px;
   border-top: 1px dashed #dcdcdc;
   padding-top: 30px;
 }
-.step-block-item .datepicker-base {
+.step-patient-block-item .datepicker-base {
   width: 100%;
   display: block;
 }
-.step-block-item .datepicker-base-range {
+.step-patient-block-item .datepicker-base-range {
   display: flex;
   justify-content: space-between;
 }
-.step-block-item .datepicker-base .ant-calendar-picker {
+.step-patient-block-item .datepicker-base .ant-calendar-picker {
   width: 100%;
   max-width: 47.5%;
 }
-.step-block .step-row .datepicker-base {
+.step-patient-block .step-row .datepicker-base {
   width: 100%;
   margin-left: 0;
 }
-.step-block .step-row .datepicker-base .ant-calendar-picker-input {
+.step-patient-block .step-row .datepicker-base .ant-calendar-picker-input {
   border-bottom: 1px solid #e1e1e1;
 }
-.step-block .radio-label {
+.step-patient-block .radio-label {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
 }
-.step-block .radio-label .ant-radio-group {
+.step-patient-block .radio-label .ant-radio-group {
   margin-left: 40px;
 }
-.step-block .radio-label .ant-radio-group .ant-radio-wrapper {
+.step-patient-block .radio-label .ant-radio-group .ant-radio-wrapper {
   margin-left: 35px;
 }
 .check-row {

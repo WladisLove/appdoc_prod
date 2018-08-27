@@ -98,6 +98,7 @@ class Step2_From extends React.Component{
             formArr = [<Component getFieldDecorator={fieldDecorator}
                                   normFile={this.normFile}
                                   key={name + 0}
+                                  specs = {this.props.specs}
                                   form = {this.props.form}
                                   number={0}/>,];
         while (i < num){
@@ -105,6 +106,7 @@ class Step2_From extends React.Component{
             formArr.push(<Component getFieldDecorator={fieldDecorator}
                                     normFile={this.normFile}
                                     form = {this.props.form}
+                                    specs = {this.props.specs}
                                     key={name + i}
                                     number={i}/>);
             i++;

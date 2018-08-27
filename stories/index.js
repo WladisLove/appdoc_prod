@@ -20,6 +20,8 @@ const loadStories = () => {
     require('../src/components/Button/stories');
     require('../src/components/Checkbox/stories');
     require('../src/components/Input/stories');
+    require('../src/components/InputNew/stories');
+    require('../src/components/SelectNew/stories');
     require('../src/components/Select/stories');
     require('../src/components/Switch/stories');
     require('../src/components/SwitchPanel/stories');

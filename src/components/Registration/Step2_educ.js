@@ -6,6 +6,8 @@ import {Form} from 'antd';
 import Input from '../Input'
 import Upload from '../Upload'
 import Hoc from '../Hoc'
+import InputNew from "../InputNew";
+import SelectNew from "../SelectNew";
 
 const FormItem = Form.Item;
 
@@ -30,8 +32,7 @@ class Step2_educ extends React.Component {
                             message: 'Введите учебное заведение'
                         }],
                     })(
-                        <Input addonBefore='* Учебное заведение'
-                               className='step-form-item'/>
+                        <InputNew width ="100%" bubbleplaceholder="* Учебное заведение" className="step-form-item"/>
                     )}
                 </FormItem>
                 <FormItem>
@@ -41,8 +42,11 @@ class Step2_educ extends React.Component {
                             message: 'Введите специальность'
                         }],
                     })(
-                        <Input addonBefore='* Специальность'
-                               className='step-form-item'/>
+                        <SelectNew width ="100%" bubbleplaceholder="* Специальность" className="step-form-item"
+                                   data={['Хирург', "Терапевт","Кардиолог",
+                                       "Офтальмолог", "Психиатр", "Стоматолог",
+                                       "Невролог"]}
+                        />
                     )}
                 </FormItem>
                 <div className="step-row">
@@ -51,17 +55,19 @@ class Step2_educ extends React.Component {
                             rules: [{
                                 required: true,
                                 message: 'Введите год окончания',
-                                pattern: /^[ ]*[0-9]{4}[ ]*$/
+
+                            },{
+                                pattern: /^[ ]*[0-9]{4}[ ]*$/,
+                                message: "Неправильной формат года"
                             }],
                         })(
-                            <Input addonBefore='* Год окончания'
-                                   className='step-form-item'/>
+                            <InputNew width ="100%" bubbleplaceholder="* Год окончания" className="step-form-item"/>
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('educationsgroup1-diplomphoto-' + number, {
                             rules: [{
-                                required: false, //change to true
+                                required: true,
                                 message: 'Загрузите подтверждающий документ'
                             }],
                         })(

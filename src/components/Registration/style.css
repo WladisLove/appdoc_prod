@@ -40,6 +40,9 @@
   color: #777777;
 }
 .registration-form .ant-form-item .ant-form-explain {
+  position: static;
+}
+.registration-form .ant-form-item.registration-form .ant-form-item.avatar-doctor-uploader .ant-form-explain {
   position: absolute;
   top: 45px;
 }
@@ -129,7 +132,8 @@
 .step-form .ant-form-item .has-error .input-root-focus {
   border-bottom: #ff4242 1px solid;
 }
-.step-form .ant-form-item .has-error .input-root {
+.step-form .ant-form-item .has-error .input-root,
+.step-form .ant-form-item .has-error div.radio-label {
   border-bottom: #ff4242 1px solid;
 }
 .step-form .ant-form-item .has-error .ant-input:focus {
@@ -141,6 +145,9 @@
 .step-form .ant-form-item .ant-form-explain {
   position: absolute;
   top: 45px;
+}
+.step-form .ant-form-item.avatar-doctor-uploader .ant-form-explain {
+  position: static;
 }
 .step-form-item .ant-input-group-addon:first-child {
   text-align: left;
@@ -183,7 +190,7 @@
 .step-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 35px;
 }
 .step-row .ant-form-item {
