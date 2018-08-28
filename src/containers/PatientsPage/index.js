@@ -16,7 +16,6 @@ class PatientsPage extends React.Component{
 
     componentDidMount(){
         this.props.getPatientInfo(this.props.match.params.id);
-
     }
 
     render(){
@@ -53,8 +52,14 @@ class PatientsPage extends React.Component{
 
                     <Row>
                         <Col span={24}>
-                            <HistoryReceptions data={treatments}
-                                               onGotoChat={(id) => this.props.history.push('/chat')}/>
+                            <HistoryReceptions data={this.props.appsBetween}
+                                               appsBetweenCount = {this.props.appsBetweenCount}
+                                               onGotoChat={(id) => this.props.history.push('/chat')}
+                                               getApps={this.props.onGetAppointments}
+                                               id_user={this.props.match.params.id}
+                                               personalPage = {true}
+                                               isUser = {this.props.mode === "user"}
+                            />
                         </Col>
                     </Row>
                 </div>
@@ -68,13 +73,16 @@ class PatientsPage extends React.Component{
 const mapStateToProps = state => {
     return {
         info: state.patients.selectedPatientInfo,
+        appsBetween: state.treatments.appsBetween,
+        appsBetweenCount: state.treatments.appsBetweenCount
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
-        addPatient: (id) => dispatch(actions.addPatient(id, '', true))
+        addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
+        onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
     }
 };
 
