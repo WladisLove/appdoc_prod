@@ -28,6 +28,23 @@ const reducer = (state = initialState, action) => {
                 id: action.id,
                 mode: action.usergroup,
             };
+        case actionTypes.REG_DOCTOR_START:
+            return {
+                ...state,
+                isRegInProgress: true
+            };
+        case actionTypes.REG_DOCTOR_EXIST:
+            return {
+                ...state,
+                isRegInProgress: false,
+                isUserExist: true
+            };
+        case actionTypes.REG_DOCTOR_SUCCESS:
+            return {
+                ...state,
+                isRegInProgress: false,
+                isRegistrationFinished: true
+            };
         case actionTypes.REG_PATIENT_START:
             return {
                 ...state,
