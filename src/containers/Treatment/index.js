@@ -45,6 +45,7 @@ class Treatment extends React.Component{
                                 this.props.history.push('/chat');
                             }}
                             treatmentsCount ={this.props.treatmentsCount}
+                            onSubmit={this.props.makeReview}
                         />
             		</Col>
             	</Row>
@@ -66,6 +67,7 @@ const mapDispatchToProps = dispatch => {
         onGetTreatments: (obj) => dispatch(actions.getPaginationTreatments(obj)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
+        makeReview: (obj) => dispatch(actions.makeReview(obj))
 	}
 };
 

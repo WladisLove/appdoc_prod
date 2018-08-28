@@ -29,15 +29,16 @@ class HistoryReceptionsItems extends React.Component{
             return files
         } else return file
     };
+    openModal = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const obj = {id_doc: this.props.id_doc, id_zap: this.props.id}
+        this.props.setModalRewiewsVisible(obj);
+    }
     render(){
         const {
             id_treatment,
-            id_user,
             type,
-            id_doc,
-            user_name,
-            doc_name,
-            status,
             conclusion,
             price,
             diagnostic,
@@ -106,8 +107,8 @@ class HistoryReceptionsItems extends React.Component{
                                 <Rate defaultValue={rate} disabled/>
                                 <div className="patient-review">{comment}</div>
                             </Hoc>
-                        ) : conclusion ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
-                                                  onClick={console.log("click")}
+                        ) : conclusion && isUser ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
+                                                  onClick={this.openModal}
                                                   size='small'
                                                   type='float'
                                                   icon='form'/> : <span>&mdash;</span>

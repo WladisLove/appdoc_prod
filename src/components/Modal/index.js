@@ -18,6 +18,7 @@ class Modal extends React.Component{
                       className = {warning ? 'warning' : ''}
                       closable = {!warning}
                       onCancel={this.props.onCancel}
+                      afterClose={this.props.afterClose}
             >
                 {warning && <Icon type="caution" svg size={24}/>}
                 {this.props.children}
