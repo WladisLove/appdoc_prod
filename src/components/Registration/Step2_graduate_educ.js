@@ -77,12 +77,14 @@ class Step2_graduate_educ extends React.Component{
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('educationsgroup2-ucationyears-'+number, {
+                        valuePropName: 'rangeSet',
+                        initialValue: {placeholderStart: "Начало обучения", placeholderEnd: "Окончание обучения"},
                             rules: [{
                                 required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
                                 message: 'Введите период обучения'
                             }],
                         })(
-                        <DatePicker range placeholderStart="Начало обучения" placeholderEnd="Окончание обучения"
+                        <DatePicker range
                         onChange={(e)=>this.handleChange(e, "eduDate")}/>
                     )}
                 </FormItem>
