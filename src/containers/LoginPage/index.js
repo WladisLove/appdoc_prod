@@ -23,10 +23,15 @@ class LoginPage extends React.Component {
         console.log('Close & go back')
     };
 
-
+    componentWillReceiveProps(nextProps) {
+        if (this.props.location.pathname !== nextProps.location.pathname
+            && nextProps.location.pathname === "/login")
+            this.props.onResetRegisterStatus();
+    }
 
     render(){
 
+        console.log(this.props);
         const langs = ["Русский", "Английский", "Немецкий"];
         const payments = [50,75,100,125,150];
         const academicTitle = ['Нет звания',
@@ -97,7 +102,7 @@ class LoginPage extends React.Component {
                                                                   finalText='to continue'
                                                                   isUserExist={this.props.isUserExist}
                                                                   isRegFinished={this.props.isRegistrationFinished}
-                                                                  isRegInProgress = {this.props.isRegInProgress}
+                                                                  isRegInProgress={this.props.isRegInProgress}
                                />}
                         />
                     </Col>
@@ -122,7 +127,8 @@ const mapDispatchToProps = dispatch => {
 	return {
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
         onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
-        onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo))
+        onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo)),
+        onResetRegisterStatus: () => dispatch(actions.resetRegisterStatus())
 	}
 };
 
