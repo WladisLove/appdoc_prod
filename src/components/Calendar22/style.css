@@ -123,6 +123,12 @@
   background-color: white;
   z-index: 2;
 }
+.rbc-month-row .month-row-segment-schedule .schedule-isDayOff-item {
+  display: table-cell;
+  font-size: 14px;
+  color: #344051;
+  text-align: center;
+}
 .rbc-month-row .month-row-segment-schedule .schedule-time {
   display: table-row;
 }

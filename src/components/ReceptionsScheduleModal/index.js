@@ -46,6 +46,7 @@ ReceptionsScheduleModal.propTypes = {
     selOptions: PropTypes.array,
     intervalTime: PropTypes.number,
     type: PropTypes.string,
+    isDayOff: PropTypes.bool
 };
 
 ReceptionsScheduleModal.defaultProps = {
@@ -59,7 +60,8 @@ ReceptionsScheduleModal.defaultProps = {
     onCancel: () => {},
     selOptions: [],
     intervalTime: 5,
-    type: "voice"
+    type: "chat",
+    isDayOff: false
 };
 
 export default ReceptionsScheduleModal;

@@ -217,7 +217,7 @@ class Schedule extends React.Component {
     render() {
         const {dates, currentSched} = this.state.receptionData;
         let editorBtn, calendar, timeSetCall = this.state.receptionData.currentSched.intervalOb, timeSetReception = [];
-        let {intervalTime, type} = this.state.receptionData.currentSched;
+        let {intervalTime, type, isDayOff} = this.state.receptionData.currentSched;
         if ('intervalOb' in currentSched || 'intervalEx' in currentSched) {
             timeSetCall = currentSched.intervalOb.map(item => {
                 return {
@@ -354,6 +354,7 @@ class Schedule extends React.Component {
                                          timeSetReception={timeSetReception}
                                          onCancel={this.closeReceptionSchedule}
                                          onSave={(info) => this.onSaveReceptionSchedule(info)}
+                                         isDayOff={!!(+isDayOff)}
                 />
                 <WarningModal visible={this.state.warningModal}
                               onClick={() => this.setState({warningModal: false})}

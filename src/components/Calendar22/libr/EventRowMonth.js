@@ -218,22 +218,23 @@ class EventRowMonth extends React.Component {
 
             <div className="month-row-segment-schedule">
 
-            {sched.intervalOb.length !== 0
-            && <div className="schedule-time">
-                <div className="schedule-time-item empty"></div>
-                <div className="schedule-time-item">
-                    {sched.intervalOb.map((time, i) => (<div key={'time'+i}>
-                                        {
-                                            moment(time.start).format('HH:mm')
-                                        } - {
-                                            moment(time.end).format('HH:mm')
-                                        }
-                                </div>))
+                {sched.isDayOff === "1" ? <div className="schedule-isDayOff-item">Выходной</div> :
+                    sched.intervalOb.length !== 0
+                    && <div className="schedule-time">
+                        <div className="schedule-time-item empty"></div>
+                        <div className="schedule-time-item">
+                            {sched.intervalOb.map((time, i) => (<div key={'time' + i}>
+                                {
+                                    moment(time.start).format('HH:mm')
+                                } - {
+                                moment(time.end).format('HH:mm')
+                            }
+                            </div>))
 
-                    }
+                            }
+                        </div>
                     </div>
-                </div>
-            }
+                }
 
 
             {sched.intervalEx.length !== 0

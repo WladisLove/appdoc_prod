@@ -21,11 +21,13 @@ class ContentForm extends React.Component {
                 'call': props.timeSetCall.length || 1,
             },
             shouldDPUpdate: false,
-            isReset: !!props.isReset,
+            isTimeReset: false,
             isOffTime: false,
             timeSetCall:[],
             timeSetReception: [],
-            wrongInterval: false
+            isDayOff: false,
+            wrongInterval: false,
+            emptyTimePickers: false
         }
     }
 
@@ -36,12 +38,13 @@ class ContentForm extends React.Component {
     };
 
     changeFieldsVal = (props = this.props) => {
-        const {dateSet, intervalTime, type, timeSetCall, timeSetReception} = props;
+        const {dateSet, intervalTime, type, timeSetCall, timeSetReception, isDayOff} = props;
         let {defaultStartValue, defaultEndValue} = dateSet;
         props.form.setFieldsValue({
             ['day']: [defaultStartValue, defaultEndValue],
             ['type']: type,
-            ['intervalTime']: intervalTime
+            ['intervalTime']: intervalTime,
+            ['isDayOff']: isDayOff
         });
 
         this.initializeTP(timeSetReception, 'reception', props);
@@ -65,19 +68,17 @@ class ContentForm extends React.Component {
                 [flag + 'Tp0']: [null, null],
             });
         }
-
     };
-
 
     componentDidMount() {
         this.changeFieldsVal();
         this.setState({
             timeSetCall: this.props.timeSetCall,
-            timeSetReception: this.props.timeSetReception,
+            timeSetReception: this.props.timeSetReception
         })
     }
-    componentWillReceiveProps(nextProps) {
 
+    componentWillReceiveProps(nextProps) {
         const dateSet_pr = this.props.dateSet,
             dateSet_cur = nextProps.dateSet;
         if(!(this.compareDates(dateSet_pr.defaultEndValue,dateSet_cur.defaultEndValue))
@@ -85,72 +86,63 @@ class ContentForm extends React.Component {
             this.setState({shouldDPUpdate:true})
         }
 
-        if (nextProps.visible === true && this.props.visible === false) {
-
+        if (this.props.visible === false && nextProps.visible === true) {
             this.setState({
                 timeSetCall: nextProps.timeSetCall,
                 timeSetReception: nextProps.timeSetReception,
-                wrongInterval: false,
                 tpNum: {
                     'call': nextProps.timeSetCall.length || 1,
                     'reception': nextProps.timeSetReception.length || 1,
-                }
+                },
+                isDayOff: nextProps.isDayOff,
+                wrongInterval: false,
+                emptyTimePickers: false,
+                isTimeReset: true
             });
             this.changeFieldsVal(nextProps);
         }
 
-        if(nextProps.visible === false && this.props.visible === true){
-
-            this.props.form.setFieldsValue({
-                ['day']: [null, null],
-            });
-            this.initializeTP([], 'reception');
-            this.initializeTP([], 'call');
-            this.setState({
-                isReset: true,
-                'call': 1,
-                'reception': 1,
-            });
-        }
+        if (this.props.visible === true && nextProps.visible === false)
+            this.setState({shouldDPUpdate: false})
     }
 
-    componentDidUpdate(prevProps) {
-        const dateSet_pr = prevProps.dateSet,
-            dateSet_cur = this.props.dateSet;
+    componentDidUpdate() {
         if(this.state.shouldDPUpdate)
             this.setState({shouldDPUpdate:false});
-
-        if (prevProps.timeSetReception.length !== this.props.timeSetReception.length
-            || prevProps.timeSetCall.length !== this.props.timeSetCall.length
-            ||!(this.compareDates(dateSet_pr.defaultEndValue, dateSet_cur.defaultEndValue))
-            || !(this.compareDates(dateSet_pr.defaultStartValue, dateSet_cur.defaultStartValue))
-        ) {
-            this.changeFieldsVal()
-        }
-
-
-        if(this.props.visible === false && prevProps.visible === true){
-            this.setState({isReset: false})
-        }
     }
 
     handleCheckboxClick = () => {
-        this.setState({
-            isReset: !this.state.isReset,
+        let resetedTimeFields;
+        if (!this.state.isDayOff) resetedTimeFields = {
             timeSetCall: [],
             timeSetReception: [],
             tpNum: {
                 'reception': 1,
                 'call': 1,
-            }});
+            }
+        };
+        this.setState({
+            isDayOff: !this.state.isDayOff,
+            isTimeReset: true,
+            ...resetedTimeFields
+        });
     };
 
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const {day, intervalTime, type, ...rest} = this.props.form.getFieldsValue();
+        const {day, intervalTime, type, isDayOff, ...rest} = this.props.form.getFieldsValue();
         let time = [],
-            emergencyTime = [];
+            emergencyTime = [],
+            wrongIntervalDetected = false;
+
+        function pushTimeToArr(array, time) {
+            (time && time[0] && time[1]) ?
+                array.push({
+                    start: (time[0]).unix(),
+                    end: (time[1]).unix(),
+                }) : null;
+        }
 
         for (let key in rest) {
             if (key.indexOf('callTp') + 1) {
@@ -161,16 +153,6 @@ class ContentForm extends React.Component {
             }
         }
 
-        function pushTimeToArr(array, time) {
-            (time && time[0] && time[1]) ?
-                array.push({
-                    start: (time[0]).unix(),
-                    end: (time[1]).unix(),
-                }) : null;
-        }
-
-        let wrongIntervalDetected = false;
-
         if (time.length) {
             for (let i = 0; i < time.length; i++)
                 if (!(time[i].end - time[i].start) || (time[i].end - time[i].start) / 60 % intervalTime) {
@@ -179,15 +161,15 @@ class ContentForm extends React.Component {
                 }
         }
 
-
-        if (wrongIntervalDetected) {
+        if (!time.length && !emergencyTime.length && !this.state.isDayOff)
+            this.setState({emptyTimePickers: true});
+        else if (wrongIntervalDetected && !this.state.isDayOff)
             this.setState({wrongInterval: true});
-        }
         else {
             let obj = {
                 datestart: (day[0]).unix(),
                 dateend: (day[1]).unix(),
-                isDayOff: this.state.isReset,
+                isDayOff: isDayOff,
                 intervalTime,
                 type,
                 intervalOb: time,
@@ -206,7 +188,7 @@ class ContentForm extends React.Component {
             tpNum[tab] = n + 1;
             this.setState(
                 {tpNum,
-                 isReset: false})
+                    isDayOff: false})
         }
     };
 
@@ -220,13 +202,19 @@ class ContentForm extends React.Component {
                         <TimePicker
                                     id = {`${tab}Tp${i}`}
                                     range
-                                    isReset={this.state.isReset}
+                                    isReset={this.state.isTimeReset}
                                     rangeSet={timeSet[i]}
                                     delimiter='&mdash;'
                                     availableArea={[{
                                         from : 1528318800000,
                                         to   : 1528318800000-1
                                     }]}
+                                    onChange={() => this.setState({
+                                        isDayOff: false,
+                                        wrongInterval: false,
+                                        emptyTimePickers: false,
+                                        isTimeReset: false
+                                    })}
                         />
                     )}
                 </FormItem>)
@@ -262,7 +250,7 @@ class ContentForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {dateSet, selOptions, intervalTime, type} = this.props;
+        const {dateSet, selOptions, intervalTime, type, isDayOff} = this.props;
         return (
             <Form onSubmit={this.handleSubmit}
                   className="receptionsScheduleModal">
@@ -329,17 +317,22 @@ class ContentForm extends React.Component {
                     </Tabs.TabPane>
                 </Tabs>
                 <FormItem>
-                        <Checkbox checked={this.state.isReset} onClick={this.handleCheckboxClick}>Выходной</Checkbox>
+                    {getFieldDecorator('isDayOff', {
+                        initialValue: isDayOff
+                    })(
+                        <Checkbox checked={this.state.isDayOff} onClick={this.handleCheckboxClick}>Выходной</Checkbox>
+                    )}
+
                 </FormItem>
-                <WarningModal visible={this.state.wrongInterval}
-                              onClick={() => this.setState({wrongInterval: false})}
-                              message='Выбранная длительность приема не подходит к установленному промежутку времени.'/>
-                <Button
-                        htmlType="submit"
-                        btnText='Сохранить'
-                        size='default'
-                        type='float'
-                />
+                <div className='receptionsScheduleModal-submit'>
+                    <Button size='default'
+                            btnText='Сохранить'
+                            htmlType="submit"
+                            type='float'/>
+
+                    {this.state.wrongInterval && <div className='receptionsScheduleModal-submit-error'>Выбран неподходящий интервал</div>}
+                    {this.state.emptyTimePickers && <div className='receptionsScheduleModal-submit-error'>Выберите время</div>}
+                </div>
             </Form>
         )
     }
