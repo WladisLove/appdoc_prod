@@ -6,6 +6,7 @@ import { Form } from 'antd';
 import Upload from '../Upload'
 import Input from '../Input'
 import DatePicker from '../DatePicker'
+import InputNew from "../InputNew";
 
 const FormItem = Form.Item;
 
@@ -58,8 +59,7 @@ class Step2_graduate_educ extends React.Component{
                             message: 'Введите учебное заведение'
                         }],
                     })(
-                        <Input addonBefore='Учебное заведение'
-                               className='step-form-item'
+                        <InputNew width ="100%" bubbleplaceholder="Учебное заведение" className="step-form-item"
                         onChange={(e)=>this.handleChange(e, "eduName")}/>
                     )}
                 </FormItem>
@@ -70,8 +70,7 @@ class Step2_graduate_educ extends React.Component{
                                 message: 'Введите название цикла обучения'
                             }],
                         })(
-                        <Input addonBefore='Название цикла обучения'
-                               className='step-form-item'
+                        <InputNew width ="100%" bubbleplaceholder="Название цикла обучения" className="step-form-item"
                         onChange={(e)=>this.handleChange(e, "eduCycle")}/>
                     )}
                 </FormItem>
