@@ -39,7 +39,6 @@
 .new-input .effect:focus ~ label,
 .new-input .has-content.effect ~ label {
   top: -23px;
-  color: #0495ff;
   font-size: 12px;
   transition: 0.3s;
 }
