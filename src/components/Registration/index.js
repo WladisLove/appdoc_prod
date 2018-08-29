@@ -11,6 +11,8 @@ import Steps from '../Step'
 import './style.css'
 import '../../icon/style.css'
 import RegistrationComplete from "../RegistrationComplete";
+import Spinner from "../Spinner";
+import {Alert} from "antd";
 
 
 class RegistrationForm extends React.Component{
@@ -25,7 +27,9 @@ class RegistrationForm extends React.Component{
             content:
                 (state) => <Step1 data={state}
                                   onSubmit={(data) => this.setState({...data})}
-                                  onNext={this.next}/>,
+                                  onNext={this.next}
+                                  checkEmailAvailability={this.props.onCheckEmailAvailability}
+                />,
         },
             {
             title: 'Образование, опыт работы',
@@ -64,7 +68,7 @@ class RegistrationForm extends React.Component{
 
 
     render(){
-
+        console.log(this.props);
         if(this.props.isRegFinished) {
             return (
                 <RegistrationComplete urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={false}/>
@@ -79,6 +83,10 @@ class RegistrationForm extends React.Component{
                        onNext = {this.next}
                        onPrev={this.prev}
                 />
+                {this.props.isRegInProgress &&
+                <div style={{marginTop: "15px"}}>
+                    <Spinner size="large"/>
+                </div>}
             </div>
         )
     }
@@ -89,12 +97,14 @@ RegistrationForm.propTypes = {
     urlForget: PropTypes.string,
     urlRegistration: PropTypes.string,
     onFinish: PropTypes.func,
+    onCheckEmailAvailability: PropTypes.func
 };
 
 RegistrationForm.defaultProps = {
     urlForget: '',
     urlRegistration: '',
     onFinish: () => {},
+    onCheckEmailAvailability: () => {}
 };
 
 export default RegistrationForm

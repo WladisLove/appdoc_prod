@@ -62,6 +62,13 @@ const reducer = (state = initialState, action) => {
                 isRegInProgress: false,
                 isRegistrationFinished: true
             };
+        case actionTypes.RESET_REG_STATUS:
+            return {
+                ...state,
+                isRegInProgress: false,
+                isRegistrationFinished: false,
+                isUserExist: false
+            };
         default: return state;
     }
 };

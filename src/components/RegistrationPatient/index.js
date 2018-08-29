@@ -64,6 +64,16 @@ class RegistrationPatientForm extends React.Component{
         this.modifyFiles(info.file);
 
     };
+    checkEmail = (role, email, callBack) => {
+        if (email) {
+            this.props.checkEmailAvailability(email)
+                .then((res) => {
+                    if (res && res.status === 200)
+                        res.data.email && res.data.login ? callBack() : callBack("Данный email уже занят")
+                });
+        }
+        else callBack();
+    };
     handleCheckBoxClick = (e) => {
         if(e.target.checked === true) {
             this.setState({shouldAgreeTOU: false})
@@ -142,6 +152,9 @@ class RegistrationPatientForm extends React.Component{
                                 {
                                     required: true,
                                     message: 'Введите ваш e-mail, пожалуйста'
+                                },
+                                {
+                                    validator: this.checkEmail
                                 }],
                         })(
                             <Input addonBefore='* E-mail'
@@ -251,7 +264,6 @@ class RegistrationPatientForm extends React.Component{
                                 type='gradient'
                                 style={{margin:0}}/>
                     </div>
-                    {this.props.isUserExist && <Alert style={{marginTop:10}} message="E-mail уже зарегистрирован" type="error" >Выберете доступное время</Alert>}
                     <div style={{marginTop: "15px", textAlign: "center"}}>У вас уже есть аккаунт? <NavLink to={this.props.urlLogin}
                                                                                                            className="login-form-navlink">Войти</NavLink>
                     </div>
@@ -273,12 +285,14 @@ RegistrationPatientForm.propTypes = {
     urlForget: PropTypes.string,
     urlRegistration: PropTypes.string,
     onFinish: PropTypes.func,
+    checkEmailAvailability: PropTypes.func
 };
 
 RegistrationPatientForm.defaultProps = {
     urlForget: '',
     urlRegistration: '',
     onFinish: () => {},
+    checkEmailAvailability: () => {}
 };
 const RegistrationPatient = Form.create()(RegistrationPatientForm);
 export default RegistrationPatient

@@ -23,7 +23,11 @@ class LoginPage extends React.Component {
         console.log('Close & go back')
     };
 
-
+    componentWillReceiveProps(nextProps) {
+        if (this.props.location.pathname !== nextProps.location.pathname
+            && nextProps.location.pathname === "/login")
+            this.props.onResetRegisterStatus();
+    }
 
     render(){
 
@@ -81,9 +85,9 @@ class LoginPage extends React.Component {
                                                            academicDegree = {academicDegree}
                                                            finalText='Все верно'
                                                            urlLogin = "/login"
-                                                           isUserExist={this.props.isUserExist}
                                                            isRegFinished={this.props.isRegistrationFinished}
                                                            isRegInProgress = {this.props.isRegInProgress}
+                                                           onCheckEmailAvailability={this.props.onCheckEmailAvailability}
                                />}
                         />
                         <Route path="/patient-registration"
@@ -95,9 +99,9 @@ class LoginPage extends React.Component {
                                                                   academicTitle={academicTitle}
                                                                   academicDegree={academicDegree}
                                                                   finalText='to continue'
-                                                                  isUserExist={this.props.isUserExist}
                                                                   isRegFinished={this.props.isRegistrationFinished}
-                                                                  isRegInProgress = {this.props.isRegInProgress}
+                                                                  isRegInProgress={this.props.isRegInProgress}
+                                                                  checkEmailAvailability={this.props.onCheckEmailAvailability}
                                />}
                         />
                     </Col>
@@ -113,8 +117,7 @@ const mapStateToProps = state => {
 	return {
         errorCode: state.auth.errorCode,
         isRegInProgress: state.auth.isRegInProgress,
-        isRegistrationFinished: state.auth.isRegistrationFinished,
-        isUserExist: state.auth.isUserExist
+        isRegistrationFinished: state.auth.isRegistrationFinished
 	}
 };
 
@@ -122,7 +125,9 @@ const mapDispatchToProps = dispatch => {
 	return {
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
         onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
-        onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo))
+        onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo)),
+        onResetRegisterStatus: () => dispatch(actions.resetRegisterStatus()),
+        onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email))
 	}
 };
 

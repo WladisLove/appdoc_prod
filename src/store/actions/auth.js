@@ -139,7 +139,8 @@ export const registerDoctor = (data) => {
         axios.post('/fusers.doc/createUserDoc',
             JSON.stringify(result))
             .then(res => {
-                if (res.data.code === 400) {
+                console.log(res);
+                if (res.data.error && res.data.error.code === 400) {
                     dispatch({
                         type: actionTypes.REG_DOCTOR_EXIST
                     })
@@ -178,7 +179,13 @@ export const registerUser = (userInfo) => {
     }
 }
 
-
+export const resetRegisterStatus = () => {
+    return (dispatch) => {
+        dispatch({
+            type: actionTypes.RESET_REG_STATUS
+        });
+    };
+}
 
 export const logout = () => {
     return (dispatch, getState) => {
@@ -191,6 +198,20 @@ export const logout = () => {
     }
 
 }
+
+export const checkEmailAvailability = (email) => {
+    return () => {
+        const emailObj = {
+            email: email
+        };
+        return axios.post('/catalog.doc2/emailVerification',
+            JSON.stringify(emailObj))
+            .then(res => res)
+            .catch(err => {
+                console.log('error: ', err);
+            })
+    }
+};
 
 const rememberMe = (flag, userName, password) => {
     flag ? 

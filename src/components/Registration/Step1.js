@@ -21,7 +21,6 @@ class Step1Form extends React.Component{
         avatarUrl: ""
     };
 
-
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -46,13 +45,15 @@ class Step1Form extends React.Component{
         reader.readAsDataURL(info.file);
     };
 
-    isValid = () =>  {
-        let {fio,
-            email,
-            phone,
-            sex,
-            datebirth} = this.props.form.getFieldsValue();
-        return !(fio && email && phone && sex && datebirth);
+    checkEmail = (role, email, callBack) => {
+        if (email) {
+            this.props.checkEmailAvailability(email)
+                .then((res) => {
+                    if (res && res.status === 200)
+                        res.data.email && res.data.login ? callBack() : callBack("Данный email уже занят")
+                });
+        }
+        else callBack();
     };
 
     render(){
@@ -79,10 +80,10 @@ class Step1Form extends React.Component{
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('email', {
-                        rules: [{
-                            type: 'email', message: 'Неправильный формат e-mail адреса',
-                        },{ required: true,
-                            message: 'Введите ваш e-mail, пожалуйста' }],
+                        rules: [
+                            {type: 'email', message: 'Неправильный формат e-mail адреса'},
+                            {required: true, message: "Введите ваш e-mail, пожалуйста"},
+                            {validator: this.checkEmail}],
                     })(
                         <Input addonBefore='* E-mail'
                                className='step-form-item'/>
@@ -146,7 +147,6 @@ class Step1Form extends React.Component{
                 </div>
                 <div className="steps-action">
                     <Button htmlType="submit"
-                            disable={this.isValid()}
                             btnText='Далее'
                             size='large'
                             type='gradient'/>
@@ -175,12 +175,14 @@ Step1.propTypes = {
     urlForget: PropTypes.string,
     urlRegistration: PropTypes.string,
     onSubmit: PropTypes.func,
+    checkEmailAvailability: PropTypes.func
 };
 
 Step1.defaultProps = {
     urlForget: '',
     urlRegistration: '',
     onSubmit: () => {},
+    checkEmailAvailability: () => {}
 };
 
 export default Step1

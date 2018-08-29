@@ -73,7 +73,9 @@ export {
     logout,
     registerDoctor,
     registerUser,
+    resetRegisterStatus,
     setOnlineStatus,
+    checkEmailAvailability
 } from './auth'
 
 export {
