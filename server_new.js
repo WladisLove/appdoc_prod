@@ -100,7 +100,6 @@ function ChatStories(){
 ChatStories.prototype.addDoctor = function(id){
     this.doctorsChat[id] 
         ? null : this.doctorsChat[id] = {};
-    //console.log('add doctor', id);
 }
 
 ChatStories.prototype.addPatient = function(doc_id, user_id){
@@ -119,6 +118,10 @@ ChatStories.prototype.addMessage = function(doc_id, user_id, message){
 
 ChatStories.prototype.getMessages = function(doc_id, user_id){
     return this.doctorsChat[doc_id][user_id];
+}
+
+ChatStories.prototype.clearChat = function(doc_id){
+    delete this.doctorsChat[doc_id];
 }
 
 // Represents a B2B active call
@@ -337,6 +340,10 @@ wss.on('connection', function(ws) {
             startReception(message.name, message.other_name, message.receptionId);
             break;
 
+        case 'closeReception':
+            closeReception(message.name, message.other_name);
+            break;
+
         case 'onIceCandidate':
             onIceCandidate(sessionId, message.candidate);
             break;
@@ -387,24 +394,11 @@ function chatting(callerId, to, from, text, date, _message){
 var message = text ? {
 	id: 'chat',from,to,text,date
 } : Object.assign({
-	id:'chat',from,to,date},_message);		
-    /*var message = !_message.link ? {
-            id: 'chat',
-            from,
-            to,
-            text,
-            date,
-        } : {
-			id: 'chat',
-            from,
-            to,
-            link: _message.link,
-			name: _message.name,
-            date,
-		};*/
+    id:'chat',from,to,date},_message);
 
         if(chatStories.doctorsChat[from]){
-            chatStories.addMessage(from, to, message);
+            if (!_message.isVisEnd) chatStories.addMessage(from, to, message);
+            else chatStories.clearChat(from);
             try{
                 callee && callee.sendMessage(message);
                 caller && caller.sendMessage(message);
@@ -562,8 +556,6 @@ function call(callerId, to, from, sdpOffer, receptionId) {
 }
 
 function startReception(name, other_name, receptionId){
-    /*if(+name !== 2){
-        console.log('name', name, 'other_name', other_name);*/
         !chatStories.isChatOpen(name, other_name) && (
             chatStories.addDoctor(name),
             chatStories.addPatient(name, other_name)
@@ -579,7 +571,19 @@ function startReception(name, other_name, receptionId){
         } catch(exception) {
             console.log("Error " + exception);
         }
-   // }
+}
+
+function closeReception(name, other_name){
+        var callee = userRegistry.getByName(other_name);
+        try{
+            callee && callee.sendMessage({
+                id: 'closeReception',
+                by: name,
+            });
+            return;
+        } catch(exception) {
+            console.log("Error " + exception);
+        }
 }
 
 function register(id, name, other_name, ws, mode, callback) {
