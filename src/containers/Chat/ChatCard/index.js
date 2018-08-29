@@ -101,6 +101,7 @@ class ChatCard extends React.Component {
 			chat: this.props.chatStory,
 		}
 		this.props.completeReception(new_obj);
+		this.props.setReceptionStatus(false);
 		this.props.changeReceptionStatus(this.props.receptionId, "finish");
 
 		this.setState({reception_vis: false,treatment_vis: true});
