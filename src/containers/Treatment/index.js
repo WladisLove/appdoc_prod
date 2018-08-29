@@ -13,28 +13,39 @@ import './styles.css'
 
 
 class Treatment extends React.Component{
-
+    state = {
+        cancelModal: false,
+        addModal: false,
+        isNewFreeVisitVisible: false,
+    };
     componentDidMount(){
         this.props.onGetTreatments();
     }
 
     gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
-		this.props.history.push('/patient'+id);
-	}
+		let link = this.props.mode==="user"?"doctor":"patient";
+		this.props.history.push(link+id);
+	};
+
+
 
     render(){
         return (
             <Hoc>
             	<Row>
             		<Col span={24} className='section'>
-                        <HistoryReceptionsTabs data={this.props.treatments}
-                                            onGoto={this.gotoHandler}
-                                            onGotoChat = {(id) => {
-                                                this.props.onSelectTretment(id);
-                                                this.props.history.push('/chat');
-                                            }}
-                                               isUser={this.props.mode === "user"}
+                        <HistoryReceptionsTabs
+                            getTreatments = {this.props.onGetTreatments}
+                            data={this.props.treatments}
+                            onGoto={this.gotoHandler}
+                            isUser={this.props.mode === "user"}
+                            onGotoChat = {(id) => {
+                                this.props.onSelectTretment(id);
+                                this.props.history.push('/chat');
+                            }}
+                            treatmentsCount ={this.props.treatmentsCount}
+                            onSubmit={this.props.makeReview}
                         />
             		</Col>
             	</Row>
@@ -47,14 +58,16 @@ const mapStateToProps = state => {
 	return {
         mode: state.auth.mode,
         treatments: state.treatments.treatments,
+        treatmentsCount: state.treatments.treatmentsCount
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-        onGetTreatments: () => dispatch(actions.getAllTreatments()),
+        onGetTreatments: (obj) => dispatch(actions.getPaginationTreatments(obj)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
+        makeReview: (obj) => dispatch(actions.makeReview(obj))
 	}
 };
 

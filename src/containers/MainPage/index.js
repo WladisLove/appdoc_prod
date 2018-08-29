@@ -25,10 +25,10 @@ class MainPage extends React.Component{
 		}
 		else {
 			this.props.reviews && this.props.onGetAllReviews();
-			this.props.onGetActualTreatments();
 			let now = new Date();
 			this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
 											new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
+            this.props.onGetActualTreatments({status: "topical"});
 			this.props.getDocTodayInfo();
 		}
 		
@@ -37,7 +37,9 @@ class MainPage extends React.Component{
 	onAddVisit = () => {
 		this.props.onGetDocPatients();
 		this.setState({addModal: true});
-		let now = new Date();
+
+
+        let now = new Date();
 		this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
 										new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
 		this.props.getDocTodayInfo();
@@ -77,7 +79,7 @@ class MainPage extends React.Component{
                 onAddVisit = {this.props.onAddNewVisit}
             />
 		) : (
-			<DoctorPage 
+			<DoctorPage
 				showCancel = {() => {this.setState({cancelModal: true})}}
 				onAdd = {this.onAddVisit}
 				addModal = {this.state.addModal}
@@ -97,7 +99,7 @@ const mapStateToProps = state => {
 		patients: state.patients.docPatients,
 		visits: state.schedules.visits,
 		reviews: state.reviews.reviews,
-		actualTreatments: state.treatments.actualTreatments,
+		actualTreatments: state.treatments.treatments,
 		completedApps: state.treatments.completedApps,
 		docTodayInfo: state.doctor.todayInfo,
 		patientDoctors: state.patients.patientDoctorsShort,
@@ -119,7 +121,7 @@ const mapDispatchToProps = dispatch => {
 		onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
 		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
-		onGetActualTreatments: () => dispatch(actions.getActualTreatments()),
+		onGetActualTreatments: (obj) => dispatch(actions.getPaginationTreatments(obj)),
         onGetCompletedApp: () => dispatch(actions.getCompletedApps()),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetNearVisits: (count) => dispatch(actions.getCountNearVisits(count)),

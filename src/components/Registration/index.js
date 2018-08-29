@@ -10,6 +10,7 @@ import Steps from '../Step'
 
 import './style.css'
 import '../../icon/style.css'
+import RegistrationComplete from "../RegistrationComplete";
 
 
 class RegistrationForm extends React.Component{
@@ -64,6 +65,11 @@ class RegistrationForm extends React.Component{
 
     render(){
 
+        if(this.props.isRegFinished) {
+            return (
+                <RegistrationComplete urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={false}/>
+            )
+        }
         return (
             <div className="registration-form">
                 <div className="registration-title">Регистрация</div>

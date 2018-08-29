@@ -9,6 +9,7 @@ const initialState = {
     visitInfo: {},
     treatInfo: {},
     from: 0,
+    callback: null,
     treatmFiles: [],
 };
 
@@ -18,6 +19,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 treatments: action.treatments,
+            }
+        case actionTypes.GET_TREATMENTS:
+            return {
+                ...state,
+                treatments: action.treatments,
+                treatmentsCount: action.treatmentsCount
             }
         case actionTypes.GET_ACTUAL_TREATMENTS:
             return {
@@ -34,11 +41,18 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 completedApps: action.completedApps,
             }
+        case actionTypes.APPS_BETWEEN_DOC_USER:
+            return {
+                ...state,
+                appsBetween: action.appsBetween,
+                appsBetweenCount: action.appsBetweenCount
+            }
 
         case actionTypes.SELECT_VISIT:
             return {
                 ...state,
                 visitInfo: action.visitInfo,
+                callback: action.callback,
                 treatInfo: {},
                 from: FR_VISIT,
                 treatmFiles: [],
@@ -62,6 +76,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 treatmFiles: action.files,
+            }
+        case actionTypes.CLEAR_CALLBACK:
+            return {
+                ...state,
+                callback: null,
             }
         default: return state;
     }

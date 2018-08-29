@@ -16,7 +16,6 @@ class PatientsPage extends React.Component{
 
     componentDidMount(){
         this.props.getPatientInfo(this.props.match.params.id);
-
     }
 
     render(){
@@ -60,8 +59,14 @@ class PatientsPage extends React.Component{
 
                     <Row>
                         <Col span={24}>
-                            <HistoryReceptions data={treatments}
-                                               onGotoChat={(id) => this.props.history.push('/chat')}/>
+                            <HistoryReceptions data={this.props.appsBetween}
+                                               appsBetweenCount = {this.props.appsBetweenCount}
+                                               onGotoChat={(id) => this.props.history.push('/chat')}
+                                               getApps={this.props.onGetAppointments}
+                                               id_user={this.props.match.params.id}
+                                               personalPage = {true}
+                                               isUser = {this.props.mode === "user"}
+                            />
                         </Col>
                     </Row>
                 </div>
@@ -75,10 +80,14 @@ class PatientsPage extends React.Component{
 const mapStateToProps = state => {
     return {
         info: state.patients.selectedPatientInfo,
+
         intervals: state.patients.intervals,
         availableIntervals: state.profileDoctor.workIntervals,
         isReceptionRecorded: state.patients.isReceptionRecorded,
         receptionRecordedID: state.patients.receptionRecordedID
+        appsBetween: state.treatments.appsBetween,
+        appsBetweenCount: state.treatments.appsBetweenCount
+
     }
 };
 
@@ -88,7 +97,8 @@ const mapDispatchToProps = dispatch => {
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
         onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
-        onSaveReception: (reception) => dispatch(actions.setReception(reception))
+        onSaveReception: (reception) => dispatch(actions.setReception(reception)),
+        onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
     }
 };
 

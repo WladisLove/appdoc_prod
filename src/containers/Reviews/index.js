@@ -14,10 +14,6 @@ import './styles.css'
 
 class Reviews extends React.Component{
 
-	componentDidMount(){
-		this.props.isDoctor ? this.props.onGetAllReviews() : this.props.onGetAllReviewsByPatient();
-	}
-
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
 		this.props.history.push('/patient'+id);
@@ -40,7 +36,7 @@ class Reviews extends React.Component{
                         <ReviewsTree data={reviews}
                                      limit={reviewsLoadCount}
                                      numberOfReviews={this.props.commentCount}
-                                     onShowMore={this.props.isDoctor ?
+                                     onLoad={this.props.isDoctor ?
 										 this.props.onGetAllReviews : this.props.onGetAllReviewsByPatient}
                                      onSend={obj => this.props.onSendAnswer(obj)}
                                      onGoto={(val) => this.gotoHandler(val)}

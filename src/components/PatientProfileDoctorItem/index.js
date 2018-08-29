@@ -37,7 +37,7 @@ class PatientProfileDoctorItem extends React.Component{
                     <div className='profile__doctor-item-block'>
                         <div className='profile__doctor-item-avatar'>
                             <ProfileAvatar 
-                              img='https://images.fastcompany.net/image/upload/w_1280,f_auto,q_auto,fl_lossy/fc/3036143-poster-p-1-5-strategies-for-big-picture-thinking.png'
+                              img={this.props.doctorAvatar}
                               owner='doctor'
                               size="large"
                               online={true}

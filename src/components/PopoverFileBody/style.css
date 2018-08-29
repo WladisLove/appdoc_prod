@@ -19,7 +19,7 @@
   flex-direction: column;
   max-width: 345px;
   position: relative;
-  padding: 25px 45px 45px 30px;
+  padding: 25px 45px 45px 30px!important;
 }
 .popover-file-body .btn {
   position: absolute;

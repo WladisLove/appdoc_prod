@@ -173,6 +173,7 @@ class ContentForm extends React.Component {
                 }
             });
         }
+
     };
 
     modifyFiles = (file) => {

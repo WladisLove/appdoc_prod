@@ -16,6 +16,7 @@ export {
     setReceptionByPatient,
     selectPatient,
     unselectPatient,
+    makeReview,
     getNotPatientDoctors,
     clearNotPatientDoctors,
     getSelectedPatientInfo,
@@ -50,11 +51,12 @@ export {
     getActualTreatments,
     getCompletedTreatments,
     getAllTreatments,
+    getPaginationTreatments,
+    getAppsBetweenDocAndUser,
     getCompletedApps,
     seletVisit,
     selectTreatment,
     clearSelections,
-
     completeReception,
     closeTreatment,
     uploadChatFile,
@@ -62,7 +64,7 @@ export {
     getAllFilesTreatment,
     changeReceptionStatus,
     getReceptionDuration,
-    
+    clearCallback,
 } from './treatment'
 
 
@@ -96,9 +98,20 @@ export {
     getNotifications,
     readNotification,
     getAllDocIntervals,
+    getDateWorkIntervalWithoutMakingAppAll
 } from './doctorData'
 
 export {
     loadingStart,
     loadingEnd
 } from './loading'
+
+export {
+    setReceptionStatus,
+    setChatFromId,
+    setChatToId,
+    setIsCallingStatus,
+    setChatStory,
+    setNewTimer,
+    
+} from './chatWS'

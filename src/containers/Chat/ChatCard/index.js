@@ -1,5 +1,4 @@
 import React from 'react';
-import kurentoUtils from 'kurento-utils'
 
 import PropTypes from 'prop-types'
 import cn from 'classnames'
@@ -19,23 +18,12 @@ import ChatVideoContent from './ChatVideoContent'
 import ChatAudioContent from './ChatAudioContent'
 import Hoc from '../../../hoc'
 
+import {
+	startReception, call, stop, messAboutStop, messForCloseReception, fileUploadCallback, 
+	sendMessage, setVideoIn, setVideoOut
+} from '../../App/chatWs'
+
 import './style.css'
-
-var videoInput;
-var videoOutput;
-var webRtcPeer;
-
-const NOT_REGISTERED = 0;
-const REGISTERING = 1;
-const REGISTERED = 2;
-var registerState = null
-
-
-
-const NO_CALL = 0;
-const PROCESSING_CALL = 1;
-const IN_CALL = 2;
-var callState = null
 
 
 class ChatCard extends React.Component {
@@ -46,74 +34,12 @@ class ChatCard extends React.Component {
 			isActiveChat: props.isEnded ? true : false,
             mode: this.props.mode,
 
-            from: 0,
-			to: 0,
 			duration: 0,
-			timer: {
-				s: 0,
-				m: 0,
-				h: 0,
-			},
-			receptionStarts: false,
-			isCalling: false,
-			chatStory: [],
+			
 
 			reception_vis: false,
 			treatment_vis: false,
 			visit_vis: false,
-		}
-        this.ws = new WebSocket(props.wsURL);
-        this.ws.onmessage = (message) => {
-			var parsedMessage = JSON.parse(message.data);
-			console.log("receive new mes", parsedMessage);
-		
-			switch (parsedMessage.id) {
-			case 'registerResponse':
-				this.resgisterResponse(parsedMessage);
-				break;
-			case 'startReception':
-				this.setState({receptionStarts: true});
-				break;
-			case 'closeReception':
-				this.setState({receptionStarts: false});
-				break;
-			case 'callResponse':
-				this.callResponse(parsedMessage);
-				break;
-			case 'incomingCall':
-				this.incomingCall(parsedMessage);
-				break;
-			case 'startCommunication':
-				this.startCommunication(parsedMessage);
-				break;
-			case 'stopCommunication':
-				this.stop(true);
-				break;
-			case 'chat':
-				console.log('[CHAT]', [...this.state.chatStory, parsedMessage]);
-				/*const chatStory = parsedMessage.from == this.state.from 
-					? [...this.state.chatStory, {...parsedMessage}]
-					: [...this.state.chatStory, {
-						...parsedMessage, 
-						img: this.props.avatar,
-						online: this.props.online,
-					}]*/
-				this.setState({chatStory: [...this.state.chatStory, {...parsedMessage}]})
-				break;
-			case 'chatHistory':
-				(parsedMessage.chat.length > 0)
-					? this.setState({
-						receptionStarts: true,
-						chatStory: parsedMessage.chat,
-					})
-					: null;
-				break;
-			case 'iceCandidate':
-				webRtcPeer.addIceCandidate(parsedMessage.candidate)
-				break;
-			default:
-				console.error('Unrecognized message', parsedMessage);
-			}
 		}
     }
 
@@ -124,364 +50,58 @@ class ChatCard extends React.Component {
         });
     };
 
-    timer = () => {
-		this.state.timer.s >= 59 
-			? (
-				this.state.timer.m >= 59 
-					? (
-						this.setState(prev => ({timer: {
-							h: prev.timer.h +1,
-							s: 0,
-							m: 0,
-						}}))
-					)
-					: this.setState(prev => ({timer: {
-						...prev.timer,
-						m: prev.timer.m +1,
-						s: 0,
-					}}))
-			)
-			: 
-			this.setState(prev => ({timer: {
-				...prev.timer,
-				s: prev.timer.s +1,
-			}}));
-	}
-
-	componentWillMount(){
-
-		// TOFIX
-		/*this.props.user_mode === "user" ? 
-			this.register(''+this.props.callerID, ''+2697, this.props.user_mode) 
-			: this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);*/
-		this.register(''+this.props.callerID, ''+this.props.user_id, this.props.user_mode);
-	}
+    
 
 	componentWillReceiveProps(nextProps){
 		// ---- TO FIX (chack)
-		(''+this.props.receptionId != ''+nextProps.receptionId) && nextProps.user_mode === "doc"
-			? (
-				this.register(''+nextProps.callerID, ''+nextProps.user_id, nextProps.user_mode),
-				this.setState({receptionStarts: false})
-			) : null;
+		((''+this.props.receptionId != ''+nextProps.receptionId) && nextProps.user_mode === "doc")
+				&& (
+					this.props.setReceptionStatus(false),
+					this.props.setChatToId(nextProps.calledID)
+				);
+
+		
 		//---------
 		''+this.state.mode != ''+nextProps.mode
 			&& this.setState({mode: nextProps.mode})
 	}
 
-	componentWillUnmount(){
-		clearInterval(this.timerInterval);
-		this.ws.close();
+	componentDidUpdate(prevProps){
+		(this.props.callback !== prevProps.callback) && this.props.callback instanceof Function ?
+				(this.props.callback(), this.props.clearCallback()) : null;
 	}
 
-	setRegisterState = (nextState) => {
-		switch (nextState) {
-		case REGISTERED:
-			this.setCallState(NO_CALL);
-			break;
-		default:
-			return;
-		}
-		registerState = nextState;
-	}
-
-	setCallState = (nextState) => {
-		nextState === IN_CALL ? this.timerInterval = setInterval(this.timer, 1000) : null;
-		callState = nextState;
-	}
-
-	resgisterResponse = (message) => {
-		if (message.response == 'accepted') {
-			this.setRegisterState(REGISTERED);
-		} else {
-			this.setRegisterState(NOT_REGISTERED);
-			var errorMessage = message.message ? message.message
-					: 'Unknown reason for register rejection.';
-			console.log(errorMessage);
-			window.alert('Error registering user. See console for further information.');
-		}
-	}
-
-	callResponse = (message) => {
-		if (message.response != 'accepted') {
-			console.info('Call not accepted by peer. Closing call');
-			var errorMessage = message.message ? message.message
-					: 'Unknown reason for call rejection.';
-			console.log(errorMessage);
-			this.sendMessage({
-				id : 'chat',
-				type: "notBegin",
-				name: this.props.patientName,
-				from : this.state.from,
-				to: this.state.to,
-				date: Math.ceil(Date.now()/1000),
-			});
-			this.stop(true);
-		} else {
-			this.sendMessage({
-				id : 'chat',
-				type: "begin",
-				name: this.props.patientName,
-				from : this.state.from,
-				to: this.state.to,
-				date: Math.ceil(Date.now()/1000),
-			});
-			this.setCallState(IN_CALL);
-			webRtcPeer.processAnswer(message.sdpAnswer);
-		}
-	}
-
-	startCommunication = (message) => {
-		this.setCallState(IN_CALL);
-		webRtcPeer.processAnswer(message.sdpAnswer);
-	}
-
-	incomingCall = (message) => {
-		// If bussy just reject without disturbing user
-		if (callState != NO_CALL) {
-			return this.sendMessage({
-				id : 'incomingCallResponse',
-				from : message.from,
-				callResponse : 'reject',
-				message : 'bussy'
-	
-			});
-		}
-	
-		this.setCallState(PROCESSING_CALL);
-		if (window.confirm('User ' + message.from
-		+ ' is calling you for '+message.receptionId+' visit. Do you accept the call?')) {
-			this.setState({receptionStarts: true, isCalling: true, to: message.from})
-	
-			!this.props.receptionId && this.props.onSelectReception(message.receptionId);
-
-
-			var options = this.state.mode === 'video' ? 
-				{
-					localVideo : videoInput,
-					remoteVideo : videoOutput,
-					mediaConstraints: {  
-						audio:true,  
-						video:true,  
-					},
-					onicecandidate : this.onIceCandidate
-				} : {
-					localVideo : videoInput,
-					remoteVideo : videoOutput,
-					mediaConstraints: {  
-						audio:true,  
-						video:false  
-					},
-					onicecandidate : this.onIceCandidate
-				};
-			
-			let that = this;
-	
-			webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
-					function(error) {
-						if (error) {
-							console.error(error);
-							that.setCallState(NO_CALL);
-						}
-	
-						this.generateOffer(function(error, offerSdp) {
-							if (error) {
-								console.error(error);
-								that.setCallState(NO_CALL);
-							}
-							that.sendMessage({
-								id : 'incomingCallResponse',
-								from : message.from,
-								callResponse : 'accept',
-								sdpOffer : offerSdp,
-								mode: that.state.mode,
-							});
-						});
-					});
-	
-		} else {
-			var response = {
-				id : 'incomingCallResponse',
-				from : message.from,
-				callResponse : 'reject',
-				message : 'user declined'
-			};
-			this.sendMessage(response);
-			this.stop(true);
-		}
-	}
-
-	register = (id1, id2, user_mode) => {
-		this.setState({from: id1, to: id2});
-		this.setRegisterState(REGISTERING);
-
-		this.ws.onopen = () => this.sendMessage({
-			id : 'register',
-			name : id1,
-			other_name: id2,
-			//doc_name: user_mode === 'doc' ? id1 : id2,
-			mode: user_mode,
-		});
-	}
-
-	startReception = () => {	
-												
-		this.sendMessage({
-			id : 'startReception',
-			name : this.state.from,
-			other_name: this.state.to,
-		});
-		this.sendMessage({
-			id : 'chat',
-			from : this.state.from,
-			to: this.state.to,
-			date: Math.ceil(Date.now()/1000),
-			isDate: true,
-		});
-		this.setState({receptionStarts: true,});
+	startReceptionHandler = () => {	
+		startReception();
 		this.props.changeReceptionStatus(this.props.receptionId, "begin")
 	}
 
-	checkTimeFormat = (number) => {
-        return (''+number).length < 2 ? '0'+number : number;
-	}
-	
-	stop = (message) => {
-		this.setState({isCalling: false});
-		clearInterval(this.timerInterval);
-		this.setState({timer: {
-			s: 0,
-			m: 0,
-			h: 0,
-		}})
-		this.setCallState(NO_CALL);
-		if (webRtcPeer) {
-			webRtcPeer.dispose();
-			webRtcPeer = null;
-	
-			if (!message) {
-				this.sendMessage({
-					id : 'stop'
-				});
-			}
-		}
-	}
-
-	sendMessage = (message) => {
-		console.log("[sendMessage]", message);
-		this.ws.send(JSON.stringify(message));
-	}
-
-	onIceCandidate = (candidate) => {
-		this.sendMessage({
-			id : 'onIceCandidate',
-			candidate : candidate
-		});
-    }
-	
-	call = () => {
-		!this.state.receptionStarts && this.setState({receptionStarts: true});
-		//!this.state.receptionStarts && this.startReception();
-		this.setState({isCalling: true});
-		this.setCallState(PROCESSING_CALL);
-    
-		let options = this.state.mode === 'video' ? 
-				{
-					localVideo : videoInput,
-					remoteVideo : videoOutput,
-					onicecandidate : this.onIceCandidate
-				} : {
-					mediaConstraints: {  
-						audio:true,  
-						video:false  
-					},
-					onicecandidate : this.onIceCandidate
-				};
-
-		let that = this;
-    
-        webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(
-                error) {
-            if (error) {
-                console.error(error);
-                that.setCallState(NO_CALL);
-            }
-
-			const {from, to} = that.state;
-
-            this.generateOffer(function(error, offerSdp) {
-                if (error) {
-                    console.error(error);
-                    that.setCallState(NO_CALL);
-				}
-				that.sendMessage({
-                    id : 'call',
-                    from,
-					to,
-					receptionId: that.props.receptionId,
-                    sdpOffer : offerSdp
-                });
-            });
-        });
-    
-    }
-
 	onCall = () => {	
-		//!this.state.receptionStarts && this.startReception();
-		this.call();
-	}
-
-	messAboutStop = () => {
-		const {s,m,h} = this.state.timer;
-		console.log(s,m,h, s || m || h)
-		if(s || m || h){
-			const callTime = h 
-				? this.checkTimeFormat(h) +':'+ this.checkTimeFormat(m) +':'+ this.checkTimeFormat(s)
-				: this.checkTimeFormat(m) +':'+ this.checkTimeFormat(s);
-			this.sendMessage({
-				id: 'chat',
-				from: this.state.from,
-				to: this.state.to,
-				date: Math.ceil(Date.now()/1000),
-				type: "stop",
-				callTime,
-			});
-		}
+		call();
 	}
 
 	onStop = () => {
-		this.messAboutStop();
-		this.stop();
+		messAboutStop();
+		stop();
 	}
 
 	beforeCloseReseption = () => {
 		/* НЕ ДЕЛАЕМ завершение чата, обнуление истории на сервере*/
 		this.setState({reception_vis: true});
-
 	}
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере*/
-		this.messAboutStop();
-		this.stop();
+		messAboutStop();
+		stop();
+		messForCloseReception();
 		let new_obj = {
 			...obj,
 			id: this.props.receptionId,
-			chat: this.state.chatStory,
+			chat: this.props.chatStory,
 		}
-		this.sendMessage({
-			id : 'closeReception',
-			name : this.state.from,
-			other_name: this.state.to,
-		});
-		this.sendMessage({
-			id : 'chat',
-			from : this.state.from,
-			to: this.state.to,
-			date: Math.ceil(Date.now()/1000),
-			isVisEnd: true,
-		});
 		this.props.completeReception(new_obj);
+		this.props.setReceptionStatus(false);
 		this.props.changeReceptionStatus(this.props.receptionId, "finish");
 
 		this.setState({reception_vis: false,treatment_vis: true});
@@ -496,7 +116,6 @@ class ChatCard extends React.Component {
 	}
 
 	onAddVisit = (obj) => {
-
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
 	
@@ -507,17 +126,6 @@ class ChatCard extends React.Component {
 				: this.props.uploadFile(id_zap,id_user, file,callback);
 			this.state.isActive && this.props.getAllFilesTreatment(this.props.id_treatment);
 		}
-	}
-
-	fileUploadCallback = (serverResponse) => {
-		console.log('[fileUploadCallback]', serverResponse)
-		this.sendMessage({
-			id: 'chat',
-			from: this.state.from,
-			to: this.state.to,
-			date: Math.ceil(Date.now()/1000),
-			...serverResponse,
-		});
 	}
 
 	toggleFilesArea = () => {
@@ -536,29 +144,28 @@ class ChatCard extends React.Component {
 		let content;
 		
 		const chatProps= {
-			ws: this.ws,
-			from: this.state.from,
-			to: this.state.to,
+			from: this.props.callerID,
+			to: this.props.calledID,
 			avatar: this.props.avatar,
 			online: this.props.online,
-			chatStory: [...this.props.chat, ...this.state.chatStory],
-			sendMessage: this.sendMessage,
+			chatStory: [...this.props.chat, ...this.props.chatStory],
+			sendMessage: sendMessage,
 			onEnd: this.beforeCloseReseption,
-			onBegin: this.startReception,
-			receptionStarts: this.state.receptionStarts,
+			onBegin: this.startReceptionHandler,
+			receptionStarts: this.props.receptionStarts,
 			fromTR_VIS: this.props.fromTR_VIS,
 			user_mode: this.props.user_mode,
-			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.state.from, this.fileUploadCallback),
+			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.callerID, fileUploadCallback),
 			receptionId: this.props.receptionId,
 		};
 		const chatAdditionalProps = {
-			setVideoOut: (video)=>videoOutput=video,
-			setVideoIn: (video)=>videoInput=video,
+			setVideoOut: (video)=>setVideoOut(video),
+			setVideoIn: (video)=>setVideoIn(video),
 			onStop: this.onStop,
 			onCall: this.onCall,
 			onChat: () => this.setState(prev => ({isActiveChat: !prev.isActiveChat})),
-			timer: this.state.timer,
-			isCalling: this.state.isCalling,
+			timer: this.props.timer,
+			isCalling: this.props.isCalling,
 			isActiveChat: this.state.isActiveChat,
 			isEnded: this.props.isEnded,
 		}
@@ -676,6 +283,7 @@ ChatCard.propTypes = {
 	changeReceptionStatus: PropTypes.func,
 	uploadFile: PropTypes.func,
 	getAllFilesTreatment: PropTypes.func,
+	setChatToId: PropTypes.func,
 
     videoContent: PropTypes.node,
 };
@@ -692,6 +300,7 @@ ChatCard.defaultProps = {
 	changeReceptionStatus: () => {},
 	uploadFile: () => {},
 	getAllFilesTreatment: () => {},
+	setChatToId: () => {},
 };
 
 export default ChatCard

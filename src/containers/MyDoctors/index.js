@@ -85,7 +85,6 @@ class Patients extends React.Component{
                     isChoosebleTime={false}
                     onSave = {(obj) => {
                         this.props.onSaveReceptionByPatient(obj);
-                        this.props.onGetPatientDoctors();
                         this.setState({isModalNewVisitVisible: false})
                     }}
                     doctorName = {this.state.newVisit.name}

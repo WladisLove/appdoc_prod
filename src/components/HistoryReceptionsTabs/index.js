@@ -12,134 +12,174 @@ import Hoc from '../Hoc'
 
 import './style.css'
 import '../../icon/style.css'
+import Spinner from "../Spinner";
 const TabPane = Tabs.TabPane;
 
-class HistoryReceptionsTabs extends React.Component { 
+class HistoryReceptionsTabs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            range: [],
-            limit: this.props.limit,
-            limitedShow: true,
-            periodReceptions: [],
-            topicalReceptions: [],
-            completedReceptions: [],
-            upcomingReceptions: [],
-            currentTab: 'all'
+            tab: 'all',
+            date: {},
+            filt_name: '',
+            max: 3,
+            old: 0,
+            count: 0,
+            loadedCount: 0,
+            data: [],
+            loading: true,
+            rangeSet: [],
+            noData: true
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.data.length !== this.props.data.length) {
-            this.setState(prev => ({
-                range: [],
-                periodReceptions: [],
-                limitedShow: true,
-            }));
-            this.sortHistoryReceptions(nextProps.data);
-        }
-    }
+
+
+
 
     tabChangeHadler = (currentTab) => {
-        this.setState(prev => ({
-            limitedShow: true,
-            range: [],
-            periodReceptions: [],
-            currentTab,
-        }));
-    };
+        let status;
+        switch (currentTab) {
+            case 'all': {
+                status="";
+                break;
+            }
+            case 'completed': {
+                status="completed";
+                break;
+            }
+            case 'topical': {
+                status="topical";
+                break;
+            }
+            case 'upcoming': {
+                status="new";
+                break;
+            }
+            default : {
+                status = "";
+            }
 
-    renderShowMoreBtn = (revArr) => {
-        if (this.state.limit < revArr.length && this.state.limitedShow) {
-            return (
-                <div className="table-footer"
-                     key="btn">
-                    <Button btnText='Показать еще'
-                            size='link'
-                            type='link'
-                            title='Показать ещё'
-                            icon='circle_arrow_down'
-                            onClick={() => this.setState(prev => ({limitedShow: false}))}/>
-                </div>)
         }
+      this.setState({
+          data:[],
+          count: 0,
+          old: 0,
+          loadedCount: 0,
+          loading: true,
+          status: status
+      }, () => {this.getTreatments()})
     };
 
-    sortPeriod = (period = this.state.range) => {
-        const [start, end] = period,
-            currentTab = this.state.currentTab;
-        
 
-        let itemsToSort = currentTab === 'all'
-            ? this.props.data
-            : this.state[`${currentTab}Receptions`];
+    componentWillMount() {
+        this.getTreatments();
+        this.timer = null;
+    }
 
-            if (start && end){
-                const starttmp = start.unix(), endtmp = end.unix();
-                    
-                return itemsToSort.filter((item) => {
-                    if (item.startDate > starttmp && item.endDate < endtmp)
-                        return item;
-                });
-            }
-            else {
-                return itemsToSort;
-            }
-        
+
+    componentWillReceiveProps(newProps) {
+
+      if(newProps.data.length && this.state.loading) {
+        this.setState({
+          data: [...this.state.data, ...newProps.data],
+          loading:false,
+          loadedCount:this.state.loadedCount+newProps.data.length,
+          noData: false})
+      } else if(!newProps.data.lenght) {
+        this.setState({noData:true})
+      }
+
+      if(newProps.treatmentsCount !== this.state.count) {
+        this.setState({count:newProps.treatmentsCount})
+      }
+    }
+
+    getTreatments = () => {
+      let obj ={...this.state};
+      if(this.state.date.datestart && this.state.date.dateend) {
+        obj.datestart = this.state.date.datestart;
+        obj.dateend = this.state.date.dateend;
+      }
+      this.props.getTreatments(obj)
     };
 
     dpHandler = (range) => {
-        let _range = range.length ? [
+        let _range = range.length ? {
+            datestart: moment(range[0]).hour(0).minute(0).second(0).millisecond(0).format("X"),
+            dateend: moment(range[1]).hour(23).minute(59).second(59).millisecond(999).format("X")
+    } : {};
+        this.setState({
+          date: _range,
+          old:0,
+          count: 0,
+          loadedCount: 0,
+          data: [],
+          loading: true,
+          rangeSet:[
             moment(range[0]).hour(0).minute(0).second(0).millisecond(0),
             moment(range[1]).hour(0).minute(0).second(0).millisecond(0)
-        ] : [];
-        this.setState(prev => ({
-            periodReceptions: this.sortPeriod(_range),
-            range: _range,
-        }));
+          ]
+        }, () => {
+          this.getTreatments()
+        })
+
     };
+    loadMore = () => {
+      this.setState({old: this.state.old+this.state.max, loading: true}, ()=> {
+        this.getTreatments()
+      })
+    };
+
 
     historyRender = (dataArr) => {
-        let historyArr = [];
-        const arr = (this.state.periodReceptions.length || this.state.range.length)
-            ? this.state.periodReceptions : dataArr;
-        arr.map((item, i) => {
-            if (this.state.limit > i || !this.state.limitedShow) {
-                historyArr.push(<HistoryReceptionsItem {...item} 
-                                    onGotoChat = {this.props.onGotoChat}
-                                    onGoto={this.props.onGoto} 
-                                    key={'histRecept' + i}/>)
-            }
-        });
-        historyArr.push(this.renderShowMoreBtn(arr));
-        return historyArr;
+          if(!dataArr.length && this.state.loading &&this.state.noData) {
+            return <div className="table-footer"
+                 key="btn">
+                      <Button btnText={'Нет обращений. Нажмите чтобы обновить.' }
+                              size='link'
+                              type='link'
+                              icon={'circle_close'}
+                              onClick={() => this.setState({noData: false},() => {
+                                this.getTreatments()
+                              })}/>
+                  </div>
+          }
+          let history = dataArr.map((item, i) => {
+                if(item.doc_name) {
+                    return (<HistoryReceptionsItem {...item}
+                                        onGotoChat = {this.props.onGotoChat}
+                                        onGoto={this.props.onGoto}
+                                        key={'histRecept' + i}
+                                        isUser = {this.props.isUser}
+
+                    />)
+                }
+
+            });
+      if(this.state.count > this.state.loadedCount && !this.state.loading) {
+        history.push(
+          <div className="table-footer"
+               key="btn">
+            <Button btnText='Показать еще'
+                    size='link'
+                    type='link'
+                    title='Показать ещё'
+                    icon='circle_arrow_down'
+                    onClick={this.loadMore}/>
+          </div>
+        );
+      } else if(this.state.loading && !this.state.noData){
+        history.push(
+        <div className="table-footer"
+             key="btn">
+          <Spinner size="small" />
+        </div>)
+      }
+      return history
+
     };
 
-    sortHistoryReceptions =(data = this.props.data) => {
-        let topicalArr = [],
-            completedArr = [],
-            upcomingArr =[];
-        const now = Date.now() /1000;
-        data.map((item) => {
-            switch (item.status){
-                case 'topical':
-                    topicalArr.push(item);
-                    break;
-                case 'completed':
-                    completedArr.push(item);
-                    break;
-                case 'new':
-                    upcomingArr.push(item);
-                    break;
-                default:
-                    break;
-            }
-        });
-        this.setState({
-            topicalReceptions: topicalArr,
-            completedReceptions: completedArr,
-            upcomingReceptions: upcomingArr,
-        })
-    };
 
     tabHeaderRender = () => {
         return (
@@ -181,19 +221,41 @@ class HistoryReceptionsTabs extends React.Component {
                         <div className="tableheader-name">Отзыв</div>
                     </div>
                     <div className="flex-col">
-                        <div className="tableheader-name"></div>
+                        <div className="tableheader-name">Файлы</div>
                     </div>
                 </div>
             </Hoc>
         )
     };
 
-    componentWillMount(){
-        this.sortHistoryReceptions();
-    }
+
+    changeHandleSearch = (e) => {
+        this.setState({filt_name: e.target.value});
+        clearTimeout(this.timer);
+        this.timer = setTimeout(this.triggerChange, 800);
+    };
+
+    triggerChange = () => {
+        this.setState({
+            old:0,
+            count: 0,
+            loadedCount: 0,
+            data: [],
+            loading: true,
+        }, () => {
+            this.getTreatments()
+        })
+    };
+
+    handleKeyDown = (e) => {
+        if(e.keyCode===13) {
+                clearTimeout(this.timer);
+                this.triggerChange();
+        }
+    };
 
     render() {
-
+      console.log(this.props.data, "PROPS DAA FROM HRT", this.state);
         return (
             <div className='receptions-all'>
                 <Card title="История обращений">
@@ -203,17 +265,23 @@ class HistoryReceptionsTabs extends React.Component {
                               <div className='extra-panel'>
                                   <DatePicker small
                                               onChange={this.dpHandler}
-                                              defaultValue={this.state.range}/>
-                                  <Input.Search placeholder="Поиск..."/></div>}>
+                                              defaultValue={this.state.rangeSet}
+                                  />
+                                  <Input.Search
+                                      placeholder="Поиск..."
+                                      onChange = {this.changeHandleSearch}
+
+                                  />
+                              </div>}>
                         <TabPane tab="Все" key="all">
                             <ScrollArea
                                 speed={1}
                                 className=""
-                                contentClassName="content" 
+                                contentClassName="content"
                                 horizontal={true}
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.props.data)}
+                                {this.historyRender(this.state.data)}
                             </ScrollArea>
                         </TabPane>
                         <TabPane tab="Завершенные" key="completed">
@@ -221,10 +289,10 @@ class HistoryReceptionsTabs extends React.Component {
                                 speed={1}
                                 className=""
                                 contentClassName="content"
-                                horizontal={true} 
+                                horizontal={true}
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.state.completedReceptions)}
+                                {this.historyRender(this.state.data)}
                             </ScrollArea>
                         </TabPane>
                         <TabPane tab="Актуальные" key="topical">
@@ -232,10 +300,10 @@ class HistoryReceptionsTabs extends React.Component {
                                 speed={1}
                                 className=""
                                 contentClassName="content"
-                                horizontal={true} 
+                                horizontal={true}
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.state.topicalReceptions)}
+                                {this.historyRender(this.state.data)}
                             </ScrollArea>
                         </TabPane>
                         <TabPane tab="Предстоящие" key="upcoming">
@@ -243,10 +311,10 @@ class HistoryReceptionsTabs extends React.Component {
                                 speed={1}
                                 className=""
                                 contentClassName="content"
-                                horizontal={true} 
+                                horizontal={true}
                             >
                                 {this.tabHeaderRender()}
-                                {this.historyRender(this.state.upcomingReceptions)}
+                                {this.historyRender(this.state.data)}
                             </ScrollArea>
                         </TabPane>
                     </Tabs>

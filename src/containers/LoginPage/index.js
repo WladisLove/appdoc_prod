@@ -79,7 +79,11 @@ class LoginPage extends React.Component {
                                                            category = {category}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
-                                                           finalText='to continue'
+                                                           finalText='Все верно'
+                                                           urlLogin = "/login"
+                                                           isUserExist={this.props.isUserExist}
+                                                           isRegFinished={this.props.isRegistrationFinished}
+                                                           isRegInProgress = {this.props.isRegInProgress}
                                />}
                         />
                         <Route path="/patient-registration"

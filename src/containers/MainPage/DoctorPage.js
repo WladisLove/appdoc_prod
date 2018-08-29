@@ -51,7 +51,6 @@ const DoctorPage = props => {
 					<Row>
 						<Col span={24} className='section'>
 							<TreatmentTable data={props.actualTreatments}
-
 											onGoto={(id) => gotoHandler(id)}
 											onGotoChat = {(id) => {
                                                 props.onSelectTretment(id);

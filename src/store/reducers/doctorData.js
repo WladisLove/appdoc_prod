@@ -27,7 +27,8 @@ let  profileDoctor = {
     "active" :'1',
     "avatar" : null,
     "works": [],
-    "workIntervals": []
+    "workIntervals": [],
+    "docIntervalsWithAppsAll": []
 };
 
 const initialState = profileDoctor;
@@ -47,6 +48,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 workIntervals: action.intervalsDoctor
+            };
+        case actionTypes.DOC_INTERVALS_WITH_APPS_ALL:
+            return {
+                ...state,
+                docIntervalsWithAppsAll: action.intervals
             };
 
         default: return state;

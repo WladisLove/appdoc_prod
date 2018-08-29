@@ -4,19 +4,40 @@ import * as actionTypes from './actionTypes';
 export const getAllTreatments = () => {
 
     return (dispatch, getState) => {
-        let isUser = getState().auth.mode === "user" ? "/isuser/1" : "";
-        axios.get('/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+isUser)
+        let id_user = getState().auth.mode === "user" ? getState().auth.id : "";
+        let id_doc = getState().auth.mode === "user" ? "" : getState().auth.id;
+        axios.get('/catalog.doc2/getTreatments/id_user/'+id_user+'/id_doc/' + id_doc)
             .then(res => {
-                console.log('[getAllTreatments]',res.data)
+                console.log('[getAllTreatments]',res);
                 dispatch({
                     type: actionTypes.GET_ALL_TREATMENTS,
-                    treatments: res.data,
+                    treatments: res.data.result,
                 });
             })
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
+}
+export const getPaginationTreatments = (filters) => {
+
+    return (dispatch, getState) => {
+        let obj = {...filters};
+        getState().auth.mode === "user" ? obj.id_user = getState().auth.id : obj.id_doc = getState().auth.id;
+        console.log(obj, "OB TO REQUEST getPaginationTreatments");
+        axios.post('/catalog.doc2/getTreatmentsNew', JSON.stringify(obj))
+            .then(res => {
+                console.log("GET TREAMENTS NEW",res);
+                dispatch({
+                    type: actionTypes.GET_TREATMENTS,
+                    treatments: res.data.result,
+                    treatmentsCount: res.data.count
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 }
 
 export const getActualTreatments = () => {
@@ -70,9 +91,32 @@ export const getCompletedApps = () => {
     }
 }
 
+export const getAppsBetweenDocAndUser = (obj) => {
+    console.log(obj, "OBJ TO SEND BETWEEN")
+    return (dispatch, getState) => {
+        obj.id_user ? obj.id_doc = getState().auth.id : obj.id_user = getState().auth.id;
+        axios.post('/catalog.doc2/allMAbyIdUserAndIdDoc',
+            JSON.stringify({
+                ...obj,
+
+            }))
+            .then(res => {
+                console.log(res, "RES FROM BETWEEN")
+                dispatch({
+                    type: actionTypes.APPS_BETWEEN_DOC_USER,
+                    appsBetween: res.data.result,
+                    appsBetweenCount: res.data.count
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
+
 export const completeReception = (obj) => {
     return dispatch => {
-        axios.post('/catalog.doc2/toFinishReception', 
+        axios.post('/catalog.doc2/toFinishReception',
             JSON.stringify(obj))
             .then(res => {
                 console.log('[completeReception]',JSON.stringify(obj))
@@ -168,7 +212,7 @@ export const getAllFilesTreatment = (treatId) => {
     }
 }
 
-export const seletVisit = (visId) => {
+export const seletVisit = (visId, callback) => {
     return (dispatch) => {
         axios.get('/catalog.doc2/getInfoByMakingAppId/id/'+visId)
             .then(res => {
@@ -176,7 +220,10 @@ export const seletVisit = (visId) => {
                 dispatch({
                     type: actionTypes.SELECT_VISIT,
                     visitInfo: res.data,
-                })
+                    callback: callback,
+                });
+                
+                //(callback instanceof Function) && callback();
             })
             .catch(err => {
                 console.log(err);
@@ -216,4 +263,11 @@ export const getReceptionDuration = (id) => {
                 console.log(err);
         })
     }    
+}
+
+export const clearCallback = () => {
+    console.log('clearCallback')
+    return ({
+        type: actionTypes.CLEAR_CALLBACK,
+    });
 }

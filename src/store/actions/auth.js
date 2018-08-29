@@ -41,7 +41,7 @@ export const login = (userName, password, remember, history, isAuto) => {
                     login: userName,
                     password: password,
                 }))
-                    .then(res => {       
+                    .then(res => {     
                         !res.data.error 
                             ? (
                                 dispatch(authSuccess(res.data.id, res.data.usergroup)),
@@ -133,10 +133,21 @@ export const registerDoctor = (data) => {
 
 
 //
+        dispatch({
+            type: actionTypes.REG_DOCTOR_START
+        });
         axios.post('/fusers.doc/createUserDoc',
             JSON.stringify(result))
             .then(res => {
-                console.log(res, "RES FROM DOCTOR REGISTRATION")
+                if (res.data.code === 400) {
+                    dispatch({
+                        type: actionTypes.REG_DOCTOR_EXIST
+                    })
+                } else if (res.data.code === 200) {
+                    dispatch({
+                        type: actionTypes.REG_DOCTOR_SUCCESS
+                    })
+                }
             })
             .catch(err => {
                 console.log('error: ',err);

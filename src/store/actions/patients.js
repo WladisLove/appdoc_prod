@@ -1,7 +1,9 @@
 import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
+
 import moment from "moment";
 
+import {getDateWorkIntervalWithoutMakingAppAll} from "./doctorData";
 export const getDateInterval = (beginDay, endDay) => {
     return (dispatch, getState) => {
         let obj =
@@ -68,27 +70,24 @@ export const setReception = (reception) => {
     }
 }
 export const setReceptionByPatient = (reception) => {
-
+    console.log(reception, "SET RECEPTION BY PATIENT");
     return (dispatch, getState) => {
         let obj = {
             ...reception,
             id_user: getState().auth.id
         };
-
         axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
-                console.log("FREE VUSIT RES", res)
                 dispatch(getPatientDoctors());
-                dispatch({
-                    type: actionTypes.SET_RECEPTION_BY_PATIENT,
-                })
+                dispatch(getDateWorkIntervalWithoutMakingAppAll(reception.id_doc));
             })
             .catch(err => {
                 console.log(err);
             });
     }
 }
+
 
 export const getDocPatients = () => {
     return (dispatch, getState) => {
@@ -104,6 +103,18 @@ export const getDocPatients = () => {
             })
     }
 }
+
+export const makeReview = (obj) => {
+    console.log("REVIEW DELIVERED TO REDUX :)", obj);
+    return (dispatch, getState) => {
+        obj.id_user = getState().auth.id;
+        return axios.post('/catalog.doc2/putCommentToDoc',JSON.stringify(obj))
+            .then((res) => res)
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
 
 export const getPatientDoctors = (count, both) => {
     return (dispatch, getState) => {

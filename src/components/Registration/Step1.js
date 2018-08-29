@@ -25,7 +25,6 @@ class Step1Form extends React.Component{
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log(values);
             if (!err) {
                 let fields = {
                     ...values,
@@ -45,20 +44,23 @@ class Step1Form extends React.Component{
             fileList: [info.file]
         }));
         reader.readAsDataURL(info.file);
-
     };
 
-    render(){
-        const { getFieldDecorator } = this.props.form;
-        const {fio,
+    isValid = () =>  {
+        let {fio,
             email,
             phone,
             sex,
             datebirth} = this.props.form.getFieldsValue();
+        return !(fio && email && phone && sex && datebirth);
+    };
+
+    render(){
+        const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'} />
-                <div className="ant-upload-text">Upload</div>
+                <div className="ant-upload-text">Загрузить</div>
             </div>
         );
         const avatarUrl = this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl ? this.props.data.avatarUrl : "";
@@ -142,14 +144,9 @@ class Step1Form extends React.Component{
                             )}
                     </FormItem>
                 </div>
-
                 <div className="steps-action">
                     <Button htmlType="submit"
-                            disable={!(fio&&
-                                email &&
-                                phone &&
-                                sex &&
-                                datebirth)}
+                            disable={this.isValid()}
                             btnText='Далее'
                             size='large'
                             type='gradient'/>
