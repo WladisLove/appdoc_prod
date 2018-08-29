@@ -89,6 +89,7 @@ export function createSocket(wsUrl,_props,_callbacks) {
     return ws;
 }
 export function closeSocket() {
+    clearInterval(timerInterval);
     ws && ws.close();
 }
 
