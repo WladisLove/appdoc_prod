@@ -89,6 +89,7 @@ class Step2_graduate_educ extends React.Component{
                 <div className="step-row">
                     <FormItem>
                         {getFieldDecorator('educationsgroup2-ucationyears-'+number, {
+                                valuePropName: 'rangeSet',
                                 rules: [{
                                     validator: this.validateYears
                                 }],

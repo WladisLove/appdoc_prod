@@ -151,6 +151,7 @@ class Step3 extends React.Component{
     };
 
     finishHandler = () => {
+        this.setState({loadingSpinner: true});
         let data = this.props.data;
         for(let key in data) {
             if(!data[key]) {
@@ -161,9 +162,17 @@ class Step3 extends React.Component{
         this.props.onFinish(data);
     };
 
+
+    handleGoBack = () => {
+        this.setState({loadingSpinner: true});
+        this.props.onPrev();
+        this.setState({loadingSpinner: false});
+
+
+
+    }
     render(){
         const {data} = this.props;
-
         return (
             <div className="step-form">
                 <div className="step-posttitle">Проверьте введенные данные</div>
@@ -188,6 +197,7 @@ class Step3 extends React.Component{
                 {this.renderItem('Категория','category')}
                 {data.academicdegree && this.renderItem('Ученая степень','academicdegree')}
                 {data.academicstatus && this.renderItem('Ученое звание','academicstatus')}
+                {data.experience && this.renderItem('Стаж работы','experience')}
 
                 {this.renderAdditionalInfo(data)}
 
@@ -197,7 +207,7 @@ class Step3 extends React.Component{
                 </Checkbox>
 
                 <div className="steps-action">
-                    <Button onClick={this.props.onPrev}
+                    <Button onClick={this.handleGoBack}
                             btnText='Назад'
                             size='large'
                             type='float'

@@ -26,7 +26,7 @@ class DatePickerNew extends AntDatePicker{
 
         const datePickerClassName = "effect";
         const rootCl = "new-dp dp-effect" +" "+ this.props.className + " " +  'dp-root ';
-        const labelClass = (this.state.isFocused || this.state.date) ? "title" : "placeholder";
+        const labelClass = (this.state.isFocused || this.state.date) || this.props.value ? "title" : "placeholder";
         return (
             <div className={rootCl}
                  style={{width:this.props.width ? this.props.width : null, ...this.props.style}}

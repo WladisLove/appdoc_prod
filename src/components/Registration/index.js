@@ -11,8 +11,7 @@ import Steps from '../Step'
 import './style.css'
 import '../../icon/style.css'
 import RegistrationComplete from "../RegistrationComplete";
-import Spinner from "../Spinner";
-import {Alert} from "antd";
+
 
 
 class RegistrationForm extends React.Component{

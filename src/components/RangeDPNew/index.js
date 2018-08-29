@@ -8,7 +8,11 @@ import './style.css'
 class RangeDPNew extends DatePickerAnt{
     constructor(props){
         super(props);
+        const {rangeSet} = props;
+        const {defaultStartValue,defaultEndValue} = rangeSet || {defaultEndValue:null, defaultStartValue: null};
         this.state ={
+            startValue: defaultStartValue,
+            endValue: defaultEndValue,
             onFocus: false
         }
     }

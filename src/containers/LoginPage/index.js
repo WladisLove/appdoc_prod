@@ -77,7 +77,7 @@ class LoginPage extends React.Component {
                         />
                         <Route path="/registration"
                                exact
-                               render={() => <Registration onFinish={docInfo => this.props.onRegisterDoctor(docInfo)}
+                               render={() => <Registration onFinish={this.props.onRegisterDoctor}
                                                            langs={langs}
                                                            payments={payments}
                                                            category = {category}
@@ -86,8 +86,7 @@ class LoginPage extends React.Component {
                                                            academicDegree = {academicDegree}
                                                            finalText='Все верно'
                                                            urlLogin = "/login"
-                                                           isRegFinished={this.props.isRegistrationFinished}
-                                                           isRegInProgress = {this.props.isRegInProgress}
+
                                                            onCheckEmailAvailability={this.props.onCheckEmailAvailability}
                                />}
                         />

@@ -20,6 +20,7 @@ import '../../icon/style.css'
 import Input from "../Input";
 import SelectNew from "../SelectNew";
 import InputNew from "../InputNew";
+import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 
@@ -32,7 +33,9 @@ class Step2_From extends React.Component{
             placesNum: this.props.data.placesNum || 1,
             isCategory: this.props.data.isCategory || false,
             isDegree : this.props.data.isDegree || false,
-            isStatus: this.props.data.isStatus || false
+            isStatus: this.props.data.isStatus || false,
+            loadingSpinner: false
+
         }
     }
 
@@ -45,24 +48,27 @@ class Step2_From extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-
+        this.setState({loadingSpinner: true});
         this.props.form.validateFields((err, values) => {
-            console.log(values, "VALUES FROM STEP 2")
+            console.log(values, "VALUES STEP 2");
             if (!err) {
                 let toSubmit = {
                     ...values,
                     ...this.state,
                 };
-                console.log(toSubmit, "VALUES FROM STEP2");
-                // this.props.onSubmit(toSubmit);
-                // this.props.onNext();
+                this.props.onSubmit(toSubmit);
+                this.props.onNext();
+                this.setState({loadingSpinner: false})
+            } else {
+                this.setState({loadingSpinner: false})
             }
         });
     };
 
     handleGoBack = (e) => {
-        e.preventDefault();
 
+        e.preventDefault();
+        this.setState({loadingSpinner: true});
         this.props.form.validateFields((err, values) => {
             let fields = {
                 ...values,
@@ -70,6 +76,7 @@ class Step2_From extends React.Component{
             };
             this.props.onSubmit(fields);
             this.props.onPrev();
+            this.setState({loadingSpinner: false})
         });
     };
 
@@ -269,14 +276,18 @@ class Step2_From extends React.Component{
                     <Button onClick={this.handleGoBack}
                             btnText='Назад'
                             size='large'
+                            disable={this.props.loadingSpinner}
                             type='float'
+                            style = {{marginRight: "20px"}}
                     />
                     <Button htmlType="submit"
                             btnText='Далее'
+                            disable={this.props.loadingSpinner}
                             size='large'
                             type='gradient'
                     />
                 </div>
+                {this.state.loadingSpinner &&  <Spinner/>}
             </Form>
         )
     }
@@ -291,8 +302,7 @@ const Step2 = Form.create({
                    console.log(props.data[key][0], props.data[key][1], "НОЛЬ И ОДИН");
 
                     fields[key] = Form.createFormField({
-                        value: {placeholderStart: "Начало обучения", placeholderEnd: "Окончание обучения",
-                            defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
+                        value: {defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
                     })
                 } else {
                     fields[key] = Form.createFormField({
