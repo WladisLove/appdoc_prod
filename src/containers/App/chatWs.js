@@ -89,7 +89,7 @@ export function createSocket(wsUrl,_props,_callbacks) {
     return ws;
 }
 export function closeSocket() {
-    ws.close();
+    ws && ws.close();
 }
 
 const resgisterResponse = (message) => {
