@@ -23,6 +23,7 @@ NewVisitModal.propTypes = {
     date: PropTypes.instanceOf(Date),
     patients: PropTypes.array,
     isChoosebleTime: PropTypes.bool,
+    intervals: PropTypes.array,
     onSave: PropTypes.func,
     onCancel: PropTypes.func,
 };
@@ -32,6 +33,7 @@ NewVisitModal.defaultProps = {
     date: null,
     patients: [],
     isChoosebleTime: false,
+    intervals: [],
     onSave: () => {},
     onCancel: () => {},
 };
