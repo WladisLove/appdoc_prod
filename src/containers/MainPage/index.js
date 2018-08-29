@@ -108,6 +108,8 @@ const mapStateToProps = state => {
 		intervals: state.patients.intervals,
 		availableIntervals: state.profileDoctor.workIntervals,
 		userInfoShort: state.profilePatient,
+        isReceptionRecorded: state.patients.isReceptionRecorded,
+        receptionRecordedID: state.patients.receptionRecordedID
     }
 };
 

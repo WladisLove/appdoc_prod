@@ -92,10 +92,11 @@ export const addVisit = (reception, start, end) => {
         axios.post('/catalog.doc2/makingApp',
                     JSON.stringify(obj))
             .then(res => {
-                console.log(JSON.stringify(obj));
                 console.log('[addVisit]',res);
                 dispatch({
                     type: actionTypes.SET_RECEPTION,
+                    isReceptionRecorded: res.data.code === 200,
+                    receptionRecordedID: res.data.code === 200 ? res.data.id : moment().format('x')
                 });
                 start && dispatch(getAllVisits(start,end))
             })

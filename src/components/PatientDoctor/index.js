@@ -8,6 +8,7 @@ import Icon from '../Icon'
 
 import './style.css'
 import '../../icon/style.css'
+import {message} from "antd";
 
 
 class PatientDoctor extends React.Component{
@@ -15,13 +16,15 @@ class PatientDoctor extends React.Component{
     state = {
         modal1Visible: false,
         doctorName: '',
-    }
+        isRecordInProcess: false,
+        submitSuccess: true
+    };
 
     setModal1Visible = (value, name, ID)=> {
         this.setState({
             modal1Visible: value,
-            doctorName: name,
-            doctorID: ID,
+            doctorName: (value) ? name : this.state.doctorName,
+            doctorID: (value) ? ID : this.state.doctorID,
         });
         if (value) this.props.onGetAllDocIntervals(ID);
     };
@@ -34,13 +37,24 @@ class PatientDoctor extends React.Component{
         });
 
         return doctorArr;
-    }
+    };
 
+    componentWillReceiveProps(nextProps) {
+        if (this.state.isRecordInProcess)
+            if (nextProps.isReceptionRecorded && nextProps.receptionRecordedID !== this.props.receptionRecordedID) {
+                message.success("Запись прошла успешно");
+                this.setState({modal1Visible: false, isRecordInProcess: false});
+            }
+            else {
+                this.setState({isRecordInProcess: false, submitSuccess: false});
+            }
+    };
 
     onSave = (obj) => {
         this.props.onAddVisit(obj);
-        this.setState({modal1Visible:false})
+        this.setState({isRecordInProcess: true, submitSuccess: true});
     };
+
     render(){
         const { data, onGoto } = this.props;
 
@@ -55,14 +69,13 @@ class PatientDoctor extends React.Component{
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
                     onSave={this.onSave}
-                    isUser={this.props.isUser}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.doctorName}
                     intervals={this.props.intervals}
                     onChangeDate={this.props.onGetIntervalForDate}
                     availableIntervals={this.props.availableIntervals}
                     id={this.state.doctorID}
-                    setModal1Visible = {this.setModal1Visible}
+                    submitSuccess={this.state.submitSuccess}
                 />
             </div>
         )
@@ -72,11 +85,15 @@ class PatientDoctor extends React.Component{
 PatientDoctor.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
     onGoto: PropTypes.func,
+    isReceptionRecorded: PropTypes.bool,
+    receptionRecordedID: PropTypes.string
 };
 
 PatientDoctor.defaultProps = {
     data: [],
     onGoto: () => {},
+    isReceptionRecorded: false,
+    receptionRecordedID: "0"
 };
 
 export default PatientDoctor

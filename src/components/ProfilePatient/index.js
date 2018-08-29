@@ -11,22 +11,42 @@ import NewVisitModalPage from '../NewVisitModalPage'
 import ScrollArea from 'react-scrollbar'
 import './style.css'
 import '../../icon/style.css'
+import {message} from "antd";
 
 class ProfilePatient extends React.Component{
     state = {
         modal1Visible: false,
         modal2Visible: false,
-    }
+        isRecordInProcess: false,
+        submitSuccess: true
+    };
 
     setModal1Visible(modal1Visible) {
         this.setState({ modal1Visible });
+        if (modal1Visible) this.props.onGetAllDocIntervals();
     }
     setModal2Visible(modal2Visible) {
         this.setState({ modal2Visible });
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.state.isRecordInProcess)
+            if (nextProps.isReceptionRecorded && nextProps.receptionRecordedID !== this.props.receptionRecordedID) {
+                message.success("Запись прошла успешно");
+                this.setState({modal1Visible: false, isRecordInProcess: false});
+            }
+            else {
+                this.setState({isRecordInProcess: false, submitSuccess: false});
+            }
+    };
+
+    onSave = (obj) => {
+        this.props.onSaveReception(obj);
+        this.setState({isRecordInProcess: true, submitSuccess: true});
+    };
+
     render(){
-        const {name, img, status, lastDate, speciality, doctor, birthday, age, height, weight} = this.props;
+        const {name, img, status, lastDate, speciality, doctor, birthday, age, height, weight, id} = this.props;
         const [fname, ...rest] = name.split(' ');
         let doctorType = '';
         Array.isArray(speciality) && speciality.forEach(el => {
@@ -119,10 +139,14 @@ class ProfilePatient extends React.Component{
 
                 <NewVisitModalPage 
                     visible={this.state.modal1Visible}
-                    onOk={() => this.setModal1Visible(false)}
+                    onSave={this.onSave}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={name}
-                    onSave = {(obj) => console.log(obj)}
+                    intervals={this.props.intervals}
+                    onChangeDate={this.props.onGetIntervalForDate}
+                    availableIntervals={this.props.availableIntervals}
+                    id={id}
+                    submitSuccess={this.state.submitSuccess}
                 />
             </div>
         )
@@ -140,6 +164,7 @@ ProfilePatient.propTypes = {
     age: PropTypes.string,
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     weight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    id: PropTypes.number
 };
 
 ProfilePatient.defaultProps = {
@@ -152,7 +177,8 @@ ProfilePatient.defaultProps = {
     birthday: 0,
     age: '',
     height: '',
-    weight: ''
+    weight: '',
+    id: 0
 };
 
 export default ProfilePatient
