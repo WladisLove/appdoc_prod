@@ -58,9 +58,6 @@ class Step2_From extends React.Component{
                 };
                 this.props.onSubmit(toSubmit);
                 this.props.onNext();
-                this.setState({loadingSpinner: false})
-            } else {
-                this.setState({loadingSpinner: false})
             }
         });
     };
@@ -76,7 +73,6 @@ class Step2_From extends React.Component{
             };
             this.props.onSubmit(fields);
             this.props.onPrev();
-            this.setState({loadingSpinner: false})
         });
     };
 
@@ -276,13 +272,13 @@ class Step2_From extends React.Component{
                     <Button onClick={this.handleGoBack}
                             btnText='Назад'
                             size='large'
-                            disable={this.props.loadingSpinner}
+                            disabled={this.state.loadingSpinner}
                             type='float'
                             style = {{marginRight: "20px"}}
                     />
                     <Button htmlType="submit"
                             btnText='Далее'
-                            disable={this.props.loadingSpinner}
+                            disabled={this.state.loadingSpinner}
                             size='large'
                             type='gradient'
                     />

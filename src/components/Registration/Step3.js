@@ -10,6 +10,8 @@ import Button from '../Button'
 import './style.css'
 import '../../icon/style.css'
 import Hr from "../Hr";
+import Spinner from "../Spinner";
+import {Form} from "antd";
 
 class Step3 extends React.Component{
     constructor(props){
@@ -166,7 +168,6 @@ class Step3 extends React.Component{
     handleGoBack = () => {
         this.setState({loadingSpinner: true});
         this.props.onPrev();
-        this.setState({loadingSpinner: false});
 
 
 
@@ -209,16 +210,18 @@ class Step3 extends React.Component{
                 <div className="steps-action">
                     <Button onClick={this.handleGoBack}
                             btnText='Назад'
+                            disabled={this.state.loadingSpinner}
                             size='large'
                             type='float'
                     />
                     <Button btnText='Завершить'
-                            disable={!this.state.checked}
+                            disabled={this.state.loadingSpinner}
                             onClick={this.finishHandler}
                             size='large'
                             type='gradient'
                     />
                 </div>
+                {this.state.loadingSpinner &&  <Spinner/>}
             </div>
         )
     }

@@ -36,10 +36,6 @@ class Step1Form extends React.Component{
                 values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl: null : null;
                 this.props.onSubmit(fields);
                 this.props.onNext();
-                this.setState({loadingSpinner: false})
-            } else {
-                this.setState({loadingSpinner: false})
-
             }
         });
     };
@@ -163,7 +159,7 @@ class Step1Form extends React.Component{
 
                 <div className="steps-action">
                     <Button htmlType="submit"
-                            disable={this.state.loadingSpinner}
+                            disabled={this.state.loadingSpinner}
                             btnText='Далее'
                             size='large'
                             type='gradient'/>
