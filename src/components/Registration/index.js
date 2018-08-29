@@ -27,7 +27,9 @@ class RegistrationForm extends React.Component{
             content:
                 (state) => <Step1 data={state}
                                   onSubmit={(data) => this.setState({...data})}
-                                  onNext={this.next}/>,
+                                  onNext={this.next}
+                                  checkEmailAvailability={this.props.onCheckEmailAvailability}
+                />,
         },
             {
             title: 'Образование, опыт работы',
@@ -81,7 +83,6 @@ class RegistrationForm extends React.Component{
                        onNext = {this.next}
                        onPrev={this.prev}
                 />
-                {this.props.isUserExist && <Alert style={{marginTop:10}} message="E-mail уже зарегистрирован" type="error" >Выберете доступное время</Alert>}
                 {this.props.isRegInProgress &&
                 <div style={{marginTop: "15px"}}>
                     <Spinner size="large"/>
@@ -96,12 +97,14 @@ RegistrationForm.propTypes = {
     urlForget: PropTypes.string,
     urlRegistration: PropTypes.string,
     onFinish: PropTypes.func,
+    onCheckEmailAvailability: PropTypes.func
 };
 
 RegistrationForm.defaultProps = {
     urlForget: '',
     urlRegistration: '',
     onFinish: () => {},
+    onCheckEmailAvailability: () => {}
 };
 
 export default RegistrationForm

@@ -199,6 +199,20 @@ export const logout = () => {
 
 }
 
+export const checkEmailAvailability = (email) => {
+    return () => {
+        const emailObj = {
+            email: email
+        };
+        return axios.post('/catalog.doc2/emailVerification',
+            JSON.stringify(emailObj))
+            .then(res => res)
+            .catch(err => {
+                console.log('error: ', err);
+            })
+    }
+};
+
 const rememberMe = (flag, userName, password) => {
     flag ? 
         (localStorage.setItem('_appdoc-user',userName),
