@@ -14,7 +14,8 @@
   position: relative;
   z-index: 1;
 }
-.new-input .ant-select-selection.ant-select-selection--single {
+.new-input .ant-select-selection.ant-select-selection--single,
+.new-input .ant-select-selection.ant-select-selection--multiple {
   border-bottom: 0;
   background: transparent;
 }

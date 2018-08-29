@@ -1,0 +1,48 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.new-dp {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  border-bottom: 1px solid #e1e1e1;
+}
+.new-dp input.ant-calendar-picker-input {
+  outline: none;
+  font-size: 14px;
+  line-height: 36px;
+  color: #333333;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+}
+.new-dp .effect {
+  border: 0;
+  padding: 4px 0;
+  background-color: transparent;
+}
+.new-dp .effect ~ label.placeholder,
+.new-dp .effect ~ label {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 0;
+  color: #777777;
+  transition: 0.3s;
+  z-index: -1;
+}
+.new-dp .effect ~ label.title {
+  top: -23px;
+  font-size: 12px;
+  color: #777;
+  transition: 0.3s;
+}

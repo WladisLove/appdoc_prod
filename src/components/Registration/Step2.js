@@ -18,6 +18,8 @@ import Upload from '../Upload'
 import './style.css'
 import '../../icon/style.css'
 import Input from "../Input";
+import SelectNew from "../SelectNew";
+import InputNew from "../InputNew";
 
 const FormItem = Form.Item;
 
@@ -45,14 +47,15 @@ class Step2_From extends React.Component{
         e.preventDefault();
 
         this.props.form.validateFields((err, values) => {
+            console.log(values, "VALUES FROM STEP 2")
             if (!err) {
                 let toSubmit = {
                     ...values,
                     ...this.state,
                 };
                 console.log(toSubmit, "VALUES FROM STEP2");
-                this.props.onSubmit(toSubmit);
-                this.props.onNext();
+                // this.props.onSubmit(toSubmit);
+                // this.props.onNext();
             }
         });
     };
@@ -120,9 +123,6 @@ class Step2_From extends React.Component{
             ({[type]: prev[type] +1}))
     };
 
-    componentWillReceiveProps(nextProps) {
-        console.log("NEW PROPS FROM STEP2", nextProps)
-    }
 
     render(){
         const {getFieldDecorator} = this.props.form;
@@ -161,14 +161,13 @@ class Step2_From extends React.Component{
                 <Hr/>
                 <FormItem>
                     {getFieldDecorator('academicdegree')(
-                        <Select placeholder="Ученая степень"
-                                onChange={(e)=>this.selectChangeHandler(e,"degree")}
 
-                        >
-                            {academicDegree.map(elem => <Select.Option key={elem}
-                                                              value={elem}>
-                                {elem}</Select.Option>)}
-                        </Select>
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder="Учёная степень"
+                                   className="step-form-item"
+                                   data={academicDegree}
+                                   onChange={(e)=>this.selectChangeHandler(e,"degree")}
+                        />
                     )}
                 </FormItem>
                 <FormItem>
@@ -185,14 +184,12 @@ class Step2_From extends React.Component{
 
                 <FormItem>
                     {getFieldDecorator('academicstatus')(
-                        <Select placeholder="Ученое звание"
-                                onChange={(e)=>this.selectChangeHandler(e,"status")}
-
-                        >
-                            {academicTitle.map(elem => <Select.Option key={elem}
-                                                              value={elem}>
-                                {elem}</Select.Option>)}
-                        </Select>
+                        <SelectNew width ="100%"
+                        bubbleplaceholder="Учёное звание"
+                        className="step-form-item"
+                        data={academicTitle}
+                        onChange={(e)=>this.selectChangeHandler(e,"status")}
+                        />
                     )}
                 </FormItem>
                 <FormItem>
@@ -229,14 +226,12 @@ class Step2_From extends React.Component{
                             message: 'Введите категорию'
                         }],
                     })(
-                        <Select placeholder="* Категория"
-                                onChange={(e)=>this.selectChangeHandler(e,"category")}
-
-                        >
-                            {category.map(elem => <Select.Option key={elem}
-                                                                      value={elem}>
-                                {elem}</Select.Option>)}
-                        </Select>
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder="* Категория"
+                                   className="step-form-item"
+                                   data={category}
+                                   onChange={(e)=>this.selectChangeHandler(e,"category")}
+                        />
                     )}
                 </FormItem>
                 <FormItem>
@@ -250,6 +245,21 @@ class Step2_From extends React.Component{
                             text="Прикрепить документ, подтверждающий категорию"/>
                     )}
                 </FormItem>
+                <Hr/>
+                <FormItem>
+
+                    {getFieldDecorator('experience', {
+                        rules: [{
+                            required: true,
+                            message: 'Введите общий стаж работы'
+                        }],
+                    })(
+                        <InputNew width ="100%" bubbleplaceholder="* Общий стаж работы" className="step-form-item"/>
+
+                    )}
+                </FormItem>
+
+
                 <div className="step-block-title">Дополнительная информация</div>
                 <Step2_additional getFieldDecorator={getFieldDecorator}
                                   langs={langs}

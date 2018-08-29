@@ -14,7 +14,7 @@ class InputNew extends AntInput{
 
 
     render() {
-        const inputClassName = (this.inp && this.inp.input.value ? "effect has-content" : "effect");
+        const inputClassName = ((this.inp && this.inp.input.value) || this.props.value ? "effect has-content" : "effect");
         const rootCl = "new-input input-effect" +" "+ this.props.className + " " +  'input-root ';
         return (
             <div className={rootCl}

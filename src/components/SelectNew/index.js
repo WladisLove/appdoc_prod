@@ -20,17 +20,20 @@ class SelectNew extends AntSelect{
         return dataArr
     };
     handleChange = (value) => {
-        this.setState({select: value})
-    }
+        this.setState({select: value});
+        this.props.onChange(value)
+    };
     render() {
-        const inputClassName = (this.state.select ? "effect has-content" : "effect");
+        const inputClassName = (this.state.select || this.props.value ? "effect has-content" : "effect");
         const rootCl = "new-input input-effect" +" "+ this.props.className + " " +  'input-root ';
         return (
             <div className={rootCl}
                  style={{width:this.props.width ? this.props.width : null}}
             >
                 <AntSelect
+                    {...this.props}
                     showSearch
+                    mode={this.props.mode || null}
                     style={{ width: "100%" }}
                     placeholder=""
                     optionFilterProp="children"

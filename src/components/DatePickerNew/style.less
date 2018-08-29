@@ -1,0 +1,43 @@
+@import url('../../styles/variables');
+
+
+.new-dp {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	border-bottom: 1px solid #e1e1e1;
+
+	input.ant-calendar-picker-input {
+		outline: none;
+		font-size: 14px;
+		line-height: 36px;
+		color: #333333;
+		width: 100%;
+		box-sizing: border-box;
+		background: transparent;
+	}
+	.effect {
+		border: 0;
+		padding: 4px 0;
+		background-color: transparent;
+	}
+
+	.effect ~ label.placeholder, .effect ~ label {
+		position: absolute;
+		left: 0;
+		width: 100%;
+		top: 0;
+		color: #777777;
+		transition: 0.3s;
+		z-index: -1;
+	}
+
+
+
+	.effect ~ label.title {
+		top: -23px;
+		font-size: 12px;
+		color: #777;
+		transition: 0.3s;
+	}
+}

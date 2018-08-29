@@ -304,10 +304,8 @@
   color: #333;
 }
 .steps-action {
-  margin-top: 50px;
+  margin: 50px 0 30px 0;
   display: flex;
   justify-content: center;
-}
-.steps-action .btn:first-child {
-  margin-right: 30px;
+  align-items: center;
 }

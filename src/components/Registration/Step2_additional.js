@@ -4,6 +4,7 @@ import { Form } from 'antd';
 
 import Select from '../Select'
 import Radio from '../RadioBox'
+import SelectNew from "../SelectNew";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -19,11 +20,13 @@ class Step2_additional extends React.Component{
             <div className="step-block">
                 <FormItem>
                     {getFieldDecorator('language')(
-                        <Select mode="multiple" placeholder="Какими языками владеете">
-                            {langs.map((elem,i) => <Select.Option key={elem+''+i}
-                                                              value={elem}>
-                                {elem}</Select.Option>)}
-                        </Select>
+
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder="Владение языками"
+                                   className="step-form-item"
+                                   mode="multiple"
+                                   data={langs}
+                        />
                     )}
                 </FormItem>
                 <div className='radio-label'>Консультация детей:
@@ -40,11 +43,12 @@ class Step2_additional extends React.Component{
 
                 <FormItem>
                     {getFieldDecorator('consultPayment')(
-                        <Select placeholder="Желаемая сумма оплаты за консультацию">
-                            {payments.map((elem,i) => <Select.Option key={elem+''+i}
-                                                              value={elem}>
-                                {elem}</Select.Option>)}
-                        </Select>
+
+                        <SelectNew width ="100%"
+                        bubbleplaceholder="Желаемая сумма оплаты за консультацию"
+                        className="step-form-item"
+                        data={payments}
+                        />
                     )}
                 </FormItem>
                 <div className='radio-label'>Готовы проводить консультации бесплатно?

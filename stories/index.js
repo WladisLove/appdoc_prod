@@ -32,6 +32,8 @@ const loadStories = () => {
     require('../src/components/RatePanel/stories');
     require('../src/components/TextArea/stories');
     require('../src/components/Icon/stories');
+    require('../src/components/DatePickerNew/stories');
+    require('../src/components/RangeDPNew/stories');
     require('../src/components/Tabs/stories');
     require('../src/components/CancelVisitModal/stories');
     require('../src/components/Upload/stories');
