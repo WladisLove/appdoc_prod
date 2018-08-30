@@ -181,6 +181,7 @@ class Schedule extends React.Component {
     };
 
     openReceptionSchedule = (date, schedule) => {
+        
 
         if (schedule) {
             this.setState({
@@ -250,7 +251,7 @@ class Schedule extends React.Component {
                                   selectable
                                   editor
                                   onMonthSelect={(date, schedule) => {
-                                      this.openReceptionSchedule(date, schedule)
+                                      !!schedule && this.openReceptionSchedule(date, schedule)
                                   }}
                                   schedules={this.props.schedules}
                                   date={this.state.currentDate}
