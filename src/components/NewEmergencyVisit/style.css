@@ -19,6 +19,14 @@
 .newEmergencyVisit .new-emergency-visit-content {
   padding: 30px;
 }
+.newEmergencyVisit .new-emergency-visit-content-submit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.newEmergencyVisit .new-emergency-visit-content-submit-spinner {
+  padding-left: 10px;
+}
 .newEmergencyVisit .ant-form-explain {
   position: relative;
   top: 0;

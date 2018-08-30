@@ -76,11 +76,12 @@ export const setReceptionByPatient = (reception) => {
             ...reception,
             id_user: getState().auth.id
         };
-        axios.post('/catalog.doc2/makingApp',
+        return axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
                 dispatch(getPatientDoctors());
                 dispatch(getDateWorkIntervalWithoutMakingAppAll(reception.id_doc));
+                return res;
             })
             .catch(err => {
                 console.log(err);

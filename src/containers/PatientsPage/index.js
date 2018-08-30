@@ -84,7 +84,7 @@ const mapStateToProps = state => {
         intervals: state.patients.intervals,
         availableIntervals: state.profileDoctor.workIntervals,
         isReceptionRecorded: state.patients.isReceptionRecorded,
-        receptionRecordedID: state.patients.receptionRecordedID
+        receptionRecordedID: state.patients.receptionRecordedID,
         appsBetween: state.treatments.appsBetween,
         appsBetweenCount: state.treatments.appsBetweenCount
 

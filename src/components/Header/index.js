@@ -26,7 +26,7 @@ class Header extends React.Component {
     }
     
     handleClick = () => {
-      this.setState({chooseTypeVisitVisible: true})
+      this.setState({isNewFreeVisit: true})
     };
 
 render() {
@@ -74,7 +74,7 @@ render() {
                                 onSubmit = {this.props.onMakeVisit}
                                 getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
                                 freeVisitsIntervals = {this.props.freeVisitsIntervals}
-                                onMakeFreeVisit = {this.props.onMakeFreeVisit}
+                                onMakeFreeVisit = {this.props.onMakeVisit}
 
                             />
                             <NewEmergencyVisit

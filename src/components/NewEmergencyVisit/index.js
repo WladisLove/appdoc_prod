@@ -5,9 +5,10 @@ import './style.css'
 import '../../icon/style.css'
 import TextArea from "../TextArea";
 import Upload from "../Upload";
-import {Form, Alert} from "antd";
+import {Form, Alert, message} from "antd";
 import {previewFile} from "../../helpers/modifyFiles";
 import Modal from "../Modal";
+import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 
@@ -17,7 +18,9 @@ class NewEmergencyVisitForm extends React.Component {
 
     }
     state = {
-        shouldWriteComment: false
+        shouldWriteComment: false,
+        showSubmitError: false,
+        isSubmitInProgress: false
     };
 
     handleSubmit = (e) => {
@@ -39,7 +42,20 @@ class NewEmergencyVisitForm extends React.Component {
                     }
 
                     console.log(obj, "EMERGENCY VISIT OBJECT");
-                    this.props.onSubmit(obj);
+                    this.setState({isSubmitInProgress: true});
+                    this.props.onSubmit(obj)
+                        .then((res) => {
+                                if (res.data.code === 200) {
+                                    message.success('Заявка отправлена');
+                                    this.props.onCancel();
+                                    this.setState({isSubmitInProgress: false});
+                                }
+                                else {
+                                    this.setState({isSubmitInProgress: false});
+                                    message.error('Произошла ошибка при отправке заявки');
+                                }
+                            }
+                        )
                 }
 
             } else {
@@ -58,8 +74,14 @@ class NewEmergencyVisitForm extends React.Component {
         }
     };
     componentWillReceiveProps(nextProps){
-        nextProps.visible === false ? (this.setState({shouldWriteComment: false}),
-            this.props.form.resetFields()) : null;
+        if (this.props.visible !== nextProps.visible && nextProps.visible === true) {
+            this.setState({
+                shouldWriteComment: false,
+                showSubmitError: false,
+                isSubmitInProgress: false
+            });
+            this.props.form.resetFields();
+        }
     }
 
     render() {
@@ -94,20 +116,15 @@ class NewEmergencyVisitForm extends React.Component {
                                                 text="Прикрепить файлы"/>
                                 )}
                             </FormItem>
-                            <Button size='default'
-                                    btnText='Отправить'
-                                    htmlType="submit"
-                                    type='float'
-                                    style={{
-                                        backgroundColor: "#ef5350",
-                                        color: "white",
-                                        alignSelf:"center",
-                                        border: "none",
-                                        marginBottom: 10
-
-                                    }}
-
-                            />
+                            <div className="new-emergency-visit-content-submit">
+                                <Button size='default'
+                                        btnText='Отправить'
+                                        htmlType="submit"
+                                        disable={this.state.isSubmitInProgress}
+                                        type='emergency'
+                                />
+                                {this.state.isSubmitInProgress && <div className="new-emergency-visit-content-submit-spinner"><Spinner/></div>}
+                            </div>
                             {this.state.shouldWriteComment && <Alert message="Напишите причину обращения" type="error"/>}
                         </div>
                     </Card>
