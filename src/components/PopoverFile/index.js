@@ -40,7 +40,7 @@ class PopoverFile extends React.Component {
     };
 
     handleVisibleChange = (visible) => {
-        this.setState({visible});
+        this.props.data.length && this.setState({visible});
     };
 
     render() {
@@ -54,6 +54,7 @@ class PopoverFile extends React.Component {
                             {this.renderLinks(this.props.data ? this.props.data: null)}
                         </div>
                         <Button
+                            onClick={() => console.log('hello', this.props)}
                             size='file'
                             type='file'
                             icon='download'

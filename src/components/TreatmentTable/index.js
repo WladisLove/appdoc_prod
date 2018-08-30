@@ -11,20 +11,16 @@ import '../../icon/style.css'
 class TreatmentTable extends React.Component{
 
     treatmentRender = (dataArr) => {
-        let treatmentArr = [];
-
-        dataArr.map((item, index) => {
-            treatmentArr.push(<TreatmentTableItem {...item} 
-                                    onGotoChat = {this.props.onGotoChat}
-                                    onGoto={this.props.onGoto} 
-                                    data={this.props.data} 
-                                    key={item.id + ''+index}
-                                    isUser = {this.props.isUser}
+        return dataArr.map((item) => {
+            return (<TreatmentTableItem {...item} 
+                                onGotoChat = {this.props.onGotoChat}
+                                onGoto={this.props.onGoto} 
+                                data={this.props.data} 
+                                key={item.id_treatment}
+                                isUser = {this.props.isUser}
 
             />)
         });
-
-        return treatmentArr;
     };
 
     render(){
