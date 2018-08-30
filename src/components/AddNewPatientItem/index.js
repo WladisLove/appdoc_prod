@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames'
 
 import Button from '../Button'
 import ProfileAvatar from '../ProfileAvatar'
@@ -15,13 +14,12 @@ class AddNewPatientItem extends React.Component{
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
 
-        flag==="add" ? this.props.onAdd(this.props.id) :  this.props.onDelete(this.props.id);
+        flag==="add" ? this.props.onAdd(this.props.id) :  this.props.onDelete(this.props.id, this.props.name);
     }
 
     render(){
         const { name, age, avatar, online, isSearchItem, usertype, academicdegree,
             academicstatus, category, specialitys, favorite} = this.props;
-        const rootClass = cn('new-patient-item');
 
         return (
             <div className='new-patient-item' onClick={() => this.props.onGoto(this.props.id)}>

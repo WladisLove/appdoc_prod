@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import cn from 'classnames'
-import moment from 'moment'
 
-import Button from '../Button'
 import Icon from '../Icon'
 import RatePanel from '../RatePanel'
 import ProfileAvatar from '../ProfileAvatar'
@@ -11,17 +8,16 @@ import ProfileAvatar from '../ProfileAvatar'
 import './style.css'
 import '../../icon/style.css'
 
-class PatientPageDoctorItem extends React.Component{
-handleClick = () => {
-    this.props.onDelete(this.props.id)
-}
-    render(){
-        const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp,
-            doctorPrice, doctorLanguages, doctorChild, doctorAvatar} = this.props;
-        const rootClass = cn('page__doctor-item');
-        return (
+const PatientPageDoctorItem = props => {
+    const handleClick = () => {
+        props.onDelete(props.id, props.doctorName);
+    }
 
-            <div className={rootClass}>
+    const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp,
+            doctorPrice, doctorLanguages, doctorChild, doctorAvatar} = props;
+       
+    return (
+            <div className='page__doctor-item'>
                 <div className='page__doctor-item-block'>
                     <div className='page__doctor-item-rate'>
                         <RatePanel 
@@ -35,7 +31,7 @@ handleClick = () => {
                                 type='empty'
                                 size={20}
                                 svg
-                                onClick={this.handleClick}
+                                onClick={handleClick}
 
                             />
                         )}
@@ -76,7 +72,6 @@ handleClick = () => {
                 </div>
             </div>
         )
-    }
 }
 
 PatientPageDoctorItem.propTypes = {

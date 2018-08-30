@@ -39,6 +39,7 @@ export {
 
     getAllIntervals,
     clearIntervals,
+    clearVisits,
     addInterval,
     addVisit,
     getAllVisits,

@@ -188,7 +188,7 @@ export const getNotDocPatients = (name) => {
             id: getState().auth.id,
             name,
         }
-        axios.post('/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
+        name && axios.post('/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_NOT_DOCTORS_PATIENTS,

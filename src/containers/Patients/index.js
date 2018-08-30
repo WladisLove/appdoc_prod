@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import moment from 'moment'
 import Row from "../../components/Row";
 import Col from "../../components/Col";
 import PatientTable from "../../components/PatientTable";
 import AddNewPatient from "../../components/AddNewPatient";
 import NewMessageModal from "../../components/NewMessageModal";
 import NewVisitModalPage from "../../components/NewVisitModalPage";
+import {Modal} from 'antd';
+
 
 import Hoc from '../../hoc'
 
@@ -22,7 +23,7 @@ class Patients extends React.Component{
 			addNew_show: false,
             modal1Visible: false,
             modal2Visible: false,
-			id: null,
+            id: null,
 			name: "",
             isRecordInProcess: false,
             submitSuccess: true
@@ -71,6 +72,20 @@ class Patients extends React.Component{
         this.props.onSaveReception(obj);
         this.setState({isRecordInProcess: true, submitSuccess: true});
     };
+    
+    onPatientDelete = (id, patientName) => {
+        const {removePatient} = this.props;
+        Modal.confirm({
+            title: `Вы действительно хотите удалить пациента?`,
+            content: `${patientName} будет удален из списка пациентов`,
+            width: '445px',
+            okText: 'Да',
+            cancelText: 'Нет',
+            onOk() {
+                removePatient(id);
+            },
+          });
+    }
 
     render(){
         return (
@@ -86,10 +101,10 @@ class Patients extends React.Component{
 										data={this.props.docPatients}
 										onSearch = {(val) => console.log(val)}
 										onAdd = {this.showModalHandler}
-										onGoto={(id) => this.gotoHandler(id)}
+										onGoto={this.gotoHandler}
 										onNewVisit={(val) => console.log(val)}
 										onNewMessage = {(val) => this.props.onSendMessage(val)}
-										onDelete = {(val) => this.props.removePatient(val)}
+										onDelete = {this.onPatientDelete}
                                         setModal1Visible = {this.setModal1Visible}
                                         setModal2Visible = {this.setModal2Visible}
 										/>
@@ -102,8 +117,8 @@ class Patients extends React.Component{
                         this.setState({addNew_show: false});
                         this.props.onClearNotDocPatients();
                     }}
-                    onSearch = {(name) => this.props.onGetNotDocPatients(name)}
-                    onAdd={(id)=>this.props.addPatient(id)}
+                    onSearch = {this.props.onGetNotDocPatients}
+                    onAdd={this.props.addPatient}
 
                 />
 

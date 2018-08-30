@@ -10,6 +10,7 @@ import PatientDoctors from "../../components/PatientDoctors";
 import AddNewDoctor from "../../components/AddNewDoctor";
 import NewVisitByPatientModal from "../../components/NewVisitByPatientModal";
 import Spinner from "../../components/Spinner";
+import {Modal} from 'antd';
 
 class Patients extends React.Component{
 	constructor(props){
@@ -53,6 +54,19 @@ class Patients extends React.Component{
 	addNewDoctor = (id) => {
         this.props.addDoctor(id, this.state.searchName)
 	};
+	onDeleteDoctorHandler = (id, patientName) => {
+		const {removeDoctor} = this.props;
+        Modal.confirm({
+            title: `Вы действительно хотите удалить доктора?`,
+            content: `${patientName} будет удален из списка докторов`,
+            width: '445px',
+            okText: 'Да',
+            cancelText: 'Нет',
+            onOk() {
+                removeDoctor(id);
+            },
+          });
+	}
 	componentWillReceiveProps(props) {
 		if(!props.isLoadingPatientDoctors) {
 			this.setState({isLoadingPatientDoctors: false})
@@ -74,7 +88,7 @@ class Patients extends React.Component{
 							data = {this.props.patientDoctors ? this.props.patientDoctors : []}
 							addNewDoctorVisible={this.addNewDoctorVisible}
 							newVisitVisible = {this.addNewVisitVisible}
-							onDelete = {this.props.removeDoctor}
+							onDelete = {this.onDeleteDoctorHandler}
 						/>
             		</Col>
             	</Row>

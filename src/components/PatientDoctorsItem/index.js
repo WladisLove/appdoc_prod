@@ -1,12 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import cn from 'classnames'
-import moment from 'moment'
-
-import Button from '../Button'
-import Icon from '../Icon'
-import RatePanel from '../RatePanel'
-import ProfileAvatar from '../ProfileAvatar'
 
 import './style.css'
 import '../../icon/style.css'

@@ -37,7 +37,7 @@ class PatientTable extends React.Component{
     };
 
     patinetRender = (dataArr) => {
-        return dataArr.map((item,index) => {
+        return dataArr.map((item) => {
             return (<PatientTableItem key={item.id} 
                                 onGoto={this.props.onGoto}
                                 onDelete={this.props.onDelete} 

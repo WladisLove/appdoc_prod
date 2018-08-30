@@ -92,11 +92,13 @@ class RangeTp extends React.Component {
     };
 
     onChange = (field, value) => {
-        //console.log("value", value, moment(value).format("x"), moment(value).format("hh:mm"));
+        
         if(value) {
             this.getNotAvailableMin(value._d.getHours());
             if(field === "start") {
-                this.setState({startValue: moment(value, "hh:mm")})
+                let minuteAdd = 10 - (+moment(value).format("mm").substr(-1));
+                let roundVal = (minuteAdd === 5 || minuteAdd === 10) ? moment(value) : moment(value).add(minuteAdd, 'minute');
+                this.setState({startValue: roundVal});
             } else if(field==="end") {
                 this.setState({endValue: moment(value, "hh:mm")})
             }
@@ -129,11 +131,13 @@ class RangeTp extends React.Component {
             this.props.onChange([start, value]);
         }
         else {
+            let minuteAdd = 10 - (+moment(value).format("mm").substr(-1));
+            let roundVal = (minuteAdd === 5 || minuteAdd === 10) ? moment(value) : moment(value).add(minuteAdd, 'minute');
             this.setState({
-                [field]: value,
-                endValue: value,
+                [field]: roundVal,
+                endValue: roundVal,
             });
-            this.props.onChange([value, value]);
+            this.props.onChange([roundVal, roundVal]);
         }
         this.setState({isReset:false});
         //this.props.onChange([value, value], field, this.props.id);
