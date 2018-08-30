@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 import Button from '../Button'
-import Rate from '../Rate'
-import Icon from '../Icon'
-import Popover from '../Popover'
 import ProfileAvatar from '../ProfileAvatar'
 import './style.css'
 import '../../icon/style.css'
@@ -63,7 +60,7 @@ class PatientTableItem extends React.Component{
                         icon='empty'
                         iconSize={24}
                         title='Удалить пациента'
-                        onClick = {() => this.props.onDelete(this.props.id)}
+                        onClick = {() => this.props.onDelete(this.props.id, this.props.name)}
                     />
                 </div>
 

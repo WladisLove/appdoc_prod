@@ -12,15 +12,19 @@ class AddNewPatient extends React.Component{
         super(props);
         this.state = {
             patients: props.data,
+            inputValue: '',
         };
         this.inp;
     }
     
+    onAddHandler = (id) => {
+        this.props.onAdd(id, this.state.inputValue);
+    }
 
     patientsRender = (dataArr) => {
         return dataArr.map((item, index) => {
             return (<AddNewPatientItem {...item}
-                                        onAdd={this.props.onAdd} 
+                                        onAdd={this.onAddHandler} 
                                         key={item.id + ''+index}/>)
         });
 
@@ -81,9 +85,13 @@ class AddNewPatient extends React.Component{
                             contentClassName="content"
                             horizontal={false}
                     >
-                        {this.props.data.length === 0 ?
-                        (<div className="no-patients">Пациенты не найдены</div>)
-                        : this.patientsRender(this.props.data)}
+                        {this.state.inputValue.length > 2 ?
+                        (
+                            this.props.data.length === 0 ? 
+                                (<div className="no-patients">Пациенты не найдены</div>)
+                                : this.patientsRender(this.props.data)
+                        )
+                        : (<div className="no-patients">Введите больше символов для поиска</div>)}
                     </ScrollArea>
                 </div>
             </Modal>
