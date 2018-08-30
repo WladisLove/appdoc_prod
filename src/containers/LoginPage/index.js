@@ -32,8 +32,19 @@ class LoginPage extends React.Component {
 
 
     registerDoctor = (data) => {
-        this.setState({regInProgress: true})
+        this.setState({regInProgress: true});
         this.props.onRegisterDoctor(data).then(res=> {
+            console.log(res);
+            if(res.data.code !== 200) {
+                message.error('Заполнены не все обязательные поля', 4);
+            } else {
+                this.setState({isRegFinished:true})
+            }
+        })
+    };
+    registerPatient = (data) => {
+        this.setState({regInProgress: true});
+        this.props.onRegisterUser(data).then(res=> {
             console.log(res);
             if(res.data.code !== 200) {
                 message.error('Заполнены не все обязательные поля', 4);
@@ -113,15 +124,15 @@ class LoginPage extends React.Component {
                         />
                         <Route path="/patient-registration"
                                exact
-                               render={() => <RegistrationPatient onFinish={obj => this.props.onRegisterUser(obj)}
+                               render={() => <RegistrationPatient onFinish={this.registerPatient}
                                                                   langs={langs}
                                                                   urlLogin = "/login"
                                                                   payments={payments}
                                                                   academicTitle={academicTitle}
                                                                   academicDegree={academicDegree}
                                                                   finalText='to continue'
-                                                                  isRegFinished={this.props.isRegistrationFinished}
-                                                                  isRegInProgress={this.props.isRegInProgress}
+                                                                  isRegFinished={this.state.isRegFinished}
+                                                                  isRegInProgress={this.state.regInProgress}
                                                                   checkEmailAvailability={this.props.onCheckEmailAvailability}
                                />}
                         />

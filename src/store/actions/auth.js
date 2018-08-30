@@ -149,19 +149,9 @@ export const registerUser = (userInfo) => {
         dispatch({
             type: actionTypes.REG_PATIENT_START
         });
-        axios.post('/catalog.doc2/creatUser',
+        return axios.post('/catalog.doc2/creatUser',
                 JSON.stringify(userInfo))
-                    .then(res => {
-                        if(res.data.code===400) {
-                                dispatch({
-                                    type: actionTypes.REG_PATIENT_EXIST
-                                })
-                            } else  if(res.data.code === 200) {
-                                dispatch({
-                                    type: actionTypes.REG_PATIENT_SUCCESS
-                                })
-                            }
-                    })
+                    .then(res => res)
                     .catch(err => {
                         console.log('error: ',err);
                     })

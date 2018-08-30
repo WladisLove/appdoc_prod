@@ -60,6 +60,10 @@
 .registration-patient-form-control button {
   margin-bottom: 50px;
 }
+.registration-patient-form .avatar-uploader .avatar-image {
+  max-width: 300px;
+  max-height: 300px;
+}
 .registration-patient-title {
   font-family: 'GothamPro-Bold';
   font-size: 44px;
