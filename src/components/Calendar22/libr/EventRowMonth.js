@@ -268,8 +268,6 @@ class EventRowMonth extends React.Component {
         else
             row = this.prepareEditorRow(scheds,slotCount);
 
-
-
         return <div className="month-row" 
             style={this.props.isUser ? {zIndex: 8}:{}}>
             {editor
