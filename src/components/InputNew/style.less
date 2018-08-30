@@ -1,0 +1,40 @@
+@import url('../../styles/variables');
+
+
+.new-input {
+	position: relative;
+	z-index: 1;
+
+	input[type="text"] {
+		outline: none;
+		font-size: 14px;
+		line-height: 36px;
+		color: #333333;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	.effect {
+		border: 0;
+		padding: 4px 0;
+		background-color: transparent;
+	}
+
+	.effect ~ label {
+		position: absolute;
+		left: 0;
+		width: 100%;
+		top: 0;
+		color: #777777;
+		transition: 0.3s;
+		z-index: -1;
+	}
+
+
+
+	.effect:focus ~ label, .has-content.effect ~ label {
+		top: -23px;
+		font-size: 12px;
+		color: #777;
+		transition: 0.3s;
+	}
+}

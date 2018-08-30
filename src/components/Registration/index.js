@@ -19,6 +19,7 @@ class RegistrationForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+
             current: 0,
         };
         this.steps = [
@@ -42,17 +43,18 @@ class RegistrationForm extends React.Component{
                                        academicTitle = {this.props.academicTitle}
                                        langs = {this.props.langs}
                                        payments = {this.props.payments}
+                                       specs = {this.props.specs}
             /> ,
         },
             {
             title: 'Проверка данных',
             content: (state) => <Step3
                                        data = {state}
-
                                        onPrev = {this.prev}
                                        onNext = {this.next}
                                        finalText={this.props.finalText}
                                        onFinish={this.props.onFinish}
+                                       regInProgress = {this.props.regInProgress}
             />,
         }];
     }
@@ -68,10 +70,10 @@ class RegistrationForm extends React.Component{
 
 
     render(){
-        console.log(this.props);
+
         if(this.props.isRegFinished) {
             return (
-                <RegistrationComplete urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={false}/>
+                <RegistrationComplete onOk={this.props.onOk} urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={false}/>
             )
         }
         return (
@@ -83,10 +85,6 @@ class RegistrationForm extends React.Component{
                        onNext = {this.next}
                        onPrev={this.prev}
                 />
-                {this.props.isRegInProgress &&
-                <div style={{marginTop: "15px"}}>
-                    <Spinner size="large"/>
-                </div>}
             </div>
         )
     }
@@ -104,7 +102,6 @@ RegistrationForm.defaultProps = {
     urlForget: '',
     urlRegistration: '',
     onFinish: () => {},
-    onCheckEmailAvailability: () => {}
 };
 
 export default RegistrationForm

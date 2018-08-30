@@ -189,7 +189,7 @@ export const getNotDocPatients = (name) => {
             id: getState().auth.id,
             name,
         }
-        axios.post('/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
+        name && axios.post('/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_NOT_DOCTORS_PATIENTS,
@@ -208,7 +208,8 @@ export const searchUsers = (name) => {
             filter: getState().auth.mode === "user" ? "doc" : "user",
             name,
         };
-        axios.post('/catalog.doc2/getDoctorOrPatientsListShortById', JSON.stringify(obj))
+        axios.post('/catalog.doc2/' +
+            '', JSON.stringify(obj))
             .then(rez => {
               console.log(rez, "usersHeaderSearch");
               dispatch({

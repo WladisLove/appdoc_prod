@@ -34,10 +34,10 @@ class ContentForm extends React.Component{
         this.setState({loading:true}, () => {
             this.props.onSubmit(obj).then((res) => {
                 console.log(res, "RES");
-                if(res.status===200) {
+                if(+res.data.code===200) {
                     this.setState({loading:false});
-                    this.props.onCancel(res.status)
-                } else {console.log(res.status)}
+                    this.props.onCancel(res.data.code)
+                } else {console.log(res.data.code)}
 
 
             })

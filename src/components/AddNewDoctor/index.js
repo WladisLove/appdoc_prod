@@ -77,11 +77,14 @@ class AddNewDoctor extends React.Component{
                             speed={1}
                             className="new-doctor-list"
                             contentClassName="content"
-                            horizontal={false}
-                    >
-                        {this.props.data.length === 0 ?
-                        (<div className="no-doctors">Доктора не найдены</div>)
-                        : this.doctorsRender(this.props.data)}
+                            horizontal={false}>
+                        {this.state.inputValue.length > 2 ?
+                            (
+                                this.props.data.length === 0 ? 
+                                    (<div className="no-doctors">Доктора не найдены</div>)
+                                    : this.doctorsRender(this.props.data)
+                            )
+                            : (<div className="no-doctors">Введите больше символов для поиска</div>)}
                     </ScrollArea>
                 </div>
             </Modal>

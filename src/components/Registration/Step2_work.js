@@ -9,6 +9,7 @@ import Upload from '../Upload'
 import Button from '../Button'
 import Hr from '../Hr'
 import UploadBig  from '../UploadBig'
+import InputNew from "../InputNew";
 
 
 const FormItem = Form.Item;
@@ -34,8 +35,8 @@ class Step2_work extends React.Component {
                                 message: 'Введите текущее место работы'
                             }],
                         })(
-                            <Input addonBefore='* Текущее место работы'
-                                   className='step-form-item'/>
+
+                            <InputNew width ="100%" bubbleplaceholder="* Текущее место работы" className="step-form-item"/>
                         )}
                     </FormItem>
                 <FormItem>
@@ -45,9 +46,9 @@ class Step2_work extends React.Component {
                             message: 'Введите адрес места работы'
                         }],
                     })(
-                        <Input addonBefore='* Адрес места работы'
-                               className='step-form-item'/>
-                    )}
+                        <InputNew width ="100%" bubbleplaceholder="* Адрес места работы" className="step-form-item"/>
+
+                        )}
                 </FormItem>
 
 
@@ -59,9 +60,9 @@ class Step2_work extends React.Component {
                                 message: 'Введите текущую должность'
                             }],
                         })(
-                            <Input addonBefore='* Должность'
-                                   className='step-form-item'/>
-                        )}
+                            <InputNew width ="100%" bubbleplaceholder="* Должность" className="step-form-item"/>
+
+                            )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('work-copycontract-'+number, {

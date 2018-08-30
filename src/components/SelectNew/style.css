@@ -1,0 +1,58 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.new-input {
+  position: relative;
+  z-index: 1;
+}
+.new-input .ant-select-selection.ant-select-selection--single,
+.new-input .ant-select-selection.ant-select-selection--multiple {
+  border-bottom: 0;
+  background: transparent;
+}
+.new-input .ant-select-selection-selected-value {
+  color: #333;
+}
+.new-input input[type="text"] {
+  outline: none;
+  font-size: 14px;
+  line-height: 36px;
+  color: #333333;
+  width: 100%;
+  box-sizing: border-box;
+}
+.new-input .effect {
+  border: 0;
+  padding: 4px 0;
+  background-color: transparent;
+}
+.new-input .effect ~ label {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 0;
+  color: #777777;
+  transition: 0.3s;
+  z-index: -1;
+}
+.new-input .ant-select-focused .ant-select-selection,
+.new-input .ant-select-selection:focus,
+.new-input .ant-select-selection:active {
+  box-shadow: none;
+}
+.new-input .effect.ant-select-focused ~ label,
+.new-input .has-content.effect ~ label {
+  top: -23px;
+  color: #777;
+  font-size: 12px;
+  transition: 0.3s;
+}

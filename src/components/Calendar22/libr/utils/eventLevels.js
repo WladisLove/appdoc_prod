@@ -68,23 +68,33 @@ export function eventLevels(rowSegments, limit = Infinity) {
   return { levels, extra }
 }
 
-export function inRange(e, start, end, { startAccessor, endAccessor }, editor) {
-  let eStart = dates.startOf(get(e, startAccessor,editor), 'day')
-  let eEnd = get(e, endAccessor,editor)
+export function inRange(e, start, end, { startAccessor, endAccessor, date }, editor) {
+  let eStart = dates.startOf(get(e, startAccessor,editor), 'day');
+  let eEnd = get(e, endAccessor,editor);
 
   let startsBeforeEnd;
   let endsAfterStart;
 
     if (editor && eStart && eEnd) {
 
-        startsBeforeEnd =
+      startsBeforeEnd = eStart.getMonth() === start.getMonth() ? 
+            (eStart.getDate() >= start.getDate() && eStart.getFullYear() === start.getFullYear())
+            : eStart.getMonth() === date.getMonth() ?
+              (eStart.getDate() < 7 && eStart.getFullYear() >= start.getFullYear())
+              : false;
+      endsAfterStart = eEnd.getMonth() === end.getMonth() ? 
+            (eEnd.getDate() <= end.getDate() && eEnd.getFullYear() === end.getFullYear())
+            : eEnd.getMonth() === date.getMonth() ?
+              (eStart.getDate() > 7 && eEnd.getFullYear() <= end.getFullYear())
+              : false;
+        /*startsBeforeEnd =
             eStart.getDate() >= start.getDate()
             && eStart.getMonth() === start.getMonth()
             && eStart.getFullYear() === start.getFullYear();
         endsAfterStart =
             eEnd.getDate() <= end.getDate()
             && eEnd.getMonth() === end.getMonth()
-            && eEnd.getFullYear() === end.getFullYear();
+            && eEnd.getFullYear() === end.getFullYear();*/
     }
     else{
         startsBeforeEnd = dates.lte(eStart, end, 'day')

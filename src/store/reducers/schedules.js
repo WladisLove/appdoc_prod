@@ -44,6 +44,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 schedules: [],
             }
+        case actionTypes.CLEAR_VISITS:
+            return {
+                ...state,
+                visits: [],
+            }
         case actionTypes.GET_ALL_VISITS:
             return {
                 ...state,

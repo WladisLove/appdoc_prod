@@ -39,7 +39,7 @@
 .registration-form .ant-form-item .has-error .ant-input-group-addon {
   color: #777777;
 }
-.registration-form .ant-form-item .ant-form-explain {
+.registration-form .ant-form-item.registration-form .ant-form-item.avatar-doctor-uploader .ant-form-explain {
   position: absolute;
   top: 45px;
 }
@@ -129,7 +129,8 @@
 .step-form .ant-form-item .has-error .input-root-focus {
   border-bottom: #ff4242 1px solid;
 }
-.step-form .ant-form-item .has-error .input-root {
+.step-form .ant-form-item .has-error .input-root,
+.step-form .ant-form-item .has-error div.radio-label {
   border-bottom: #ff4242 1px solid;
 }
 .step-form .ant-form-item .has-error .ant-input:focus {
@@ -141,6 +142,9 @@
 .step-form .ant-form-item .ant-form-explain {
   position: absolute;
   top: 45px;
+}
+.step-form .ant-form-item.avatar-doctor-uploader .ant-form-explain {
+  top: 150px;
 }
 .step-form-item .ant-input-group-addon:first-child {
   text-align: left;
@@ -158,6 +162,9 @@
 }
 .step-form-control button {
   margin-bottom: 50px;
+}
+.step-form .step-row .ant-form-item.avatar-doctor-uploader div.ant-form-item-control-wrapper {
+  margin-bottom: 40px;
 }
 .step-title {
   font-family: 'GothamPro-Bold';
@@ -183,7 +190,7 @@
 .step-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 35px;
 }
 .step-row .ant-form-item {
@@ -297,10 +304,8 @@
   color: #333;
 }
 .steps-action {
-  margin-top: 50px;
+  margin: 50px 0 30px 0;
   display: flex;
   justify-content: center;
-}
-.steps-action .btn:first-child {
-  margin-right: 30px;
+  align-items: center;
 }
