@@ -1,0 +1,16 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.range-date-picker-new {
+  display: flex;
+  justify-content: space-between;
+}

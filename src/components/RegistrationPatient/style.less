@@ -1,6 +1,6 @@
 @import url("../../styles/variables");
 
-.registration {
+.registration-patient {
 
     &-form {
         max-width: 850px;
@@ -61,6 +61,12 @@
 
             button {
                 margin-bottom: 50px;
+            }
+        }
+        .avatar-uploader {
+            .avatar-image {
+                max-width: 300px;
+                max-height: 300px;
             }
         }
     }
@@ -149,7 +155,7 @@
     }
 }
 
-.step {
+.step-patient {
 
     &-form {
         width: 100%;
@@ -396,14 +402,8 @@
 }
 
 .steps-action {
-    margin-top: 50px;
+    margin: 50px 0 30px 0;
     display: flex;
     justify-content: center;
-
-    .btn {
-
-        &:first-child {
-            margin-right: 30px;
-        }
-    }
+    align-items: center;
 }

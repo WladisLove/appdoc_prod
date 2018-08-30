@@ -10,14 +10,12 @@ import Step2_additional from './Step2_additional'
 
 import Button from '../Button'
 import Hr from '../Hr'
-import Select from '../Select'
 
 import Upload from '../Upload'
 
-
-import './style.css'
-import '../../icon/style.css'
-import Input from "../Input";
+import SelectNew from "../SelectNew";
+import InputNew from "../InputNew";
+import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 
@@ -30,7 +28,9 @@ class Step2_From extends React.Component{
             placesNum: this.props.data.placesNum || 1,
             isCategory: this.props.data.isCategory || false,
             isDegree : this.props.data.isDegree || false,
-            isStatus: this.props.data.isStatus || false
+            isStatus: this.props.data.isStatus || false,
+            loadingSpinner: false
+
         }
     }
 
@@ -43,30 +43,36 @@ class Step2_From extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({loadingSpinner: true}, () => {
+            this.props.form.validateFields((err, values) => {
+                console.log(values, "VALUES STEP 2");
+                if (!err) {
+                    let toSubmit = {
+                        ...values,
+                        ...this.state,
+                    };
+                    this.props.onSubmit(toSubmit);
+                    this.props.onNext();
+                } else {
+                    this.setState({loadingSpinner: false});
 
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                let toSubmit = {
-                    ...values,
-                    ...this.state,
-                };
-                console.log(toSubmit, "VALUES FROM STEP2");
-                this.props.onSubmit(toSubmit);
-                this.props.onNext();
-            }
+                }
+            });
         });
+
     };
 
     handleGoBack = (e) => {
         e.preventDefault();
-
-        this.props.form.validateFields((err, values) => {
-            let fields = {
-                ...values,
-                ...this.state,
-            };
-            this.props.onSubmit(fields);
-            this.props.onPrev();
+        this.setState({loadingSpinner: true}, () => {
+            this.props.form.validateFields((err, values) => {
+                let fields = {
+                    ...values,
+                    ...this.state,
+                };
+                this.props.onSubmit(fields);
+                this.props.onPrev();
+            });
         });
     };
 
@@ -98,6 +104,7 @@ class Step2_From extends React.Component{
             formArr = [<Component getFieldDecorator={fieldDecorator}
                                   normFile={this.normFile}
                                   key={name + 0}
+                                  specs = {this.props.specs}
                                   form = {this.props.form}
                                   number={0}/>,];
         while (i < num){
@@ -105,6 +112,7 @@ class Step2_From extends React.Component{
             formArr.push(<Component getFieldDecorator={fieldDecorator}
                                     normFile={this.normFile}
                                     form = {this.props.form}
+                                    specs = {this.props.specs}
                                     key={name + i}
                                     number={i}/>);
             i++;
@@ -118,9 +126,6 @@ class Step2_From extends React.Component{
             ({[type]: prev[type] +1}))
     };
 
-    componentWillReceiveProps(nextProps) {
-        console.log("NEW PROPS FROM STEP2", nextProps)
-    }
 
     render(){
         const {getFieldDecorator} = this.props.form;
@@ -159,14 +164,13 @@ class Step2_From extends React.Component{
                 <Hr/>
                 <FormItem>
                     {getFieldDecorator('academicdegree')(
-                        <Select placeholder="Ученая степень"
-                                onChange={(e)=>this.selectChangeHandler(e,"degree")}
 
-                        >
-                            {academicDegree.map(elem => <Select.Option key={elem}
-                                                              value={elem}>
-                                {elem}</Select.Option>)}
-                        </Select>
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder="Учёная степень"
+                                   className="step-form-item"
+                                   data={academicDegree}
+                                   onChange={(e)=>this.selectChangeHandler(e,"degree")}
+                        />
                     )}
                 </FormItem>
                 <FormItem>
@@ -183,14 +187,12 @@ class Step2_From extends React.Component{
 
                 <FormItem>
                     {getFieldDecorator('academicstatus')(
-                        <Select placeholder="Ученое звание"
-                                onChange={(e)=>this.selectChangeHandler(e,"status")}
-
-                        >
-                            {academicTitle.map(elem => <Select.Option key={elem}
-                                                              value={elem}>
-                                {elem}</Select.Option>)}
-                        </Select>
+                        <SelectNew width ="100%"
+                        bubbleplaceholder="Учёное звание"
+                        className="step-form-item"
+                        data={academicTitle}
+                        onChange={(e)=>this.selectChangeHandler(e,"status")}
+                        />
                     )}
                 </FormItem>
                 <FormItem>
@@ -227,14 +229,12 @@ class Step2_From extends React.Component{
                             message: 'Введите категорию'
                         }],
                     })(
-                        <Select placeholder="* Категория"
-                                onChange={(e)=>this.selectChangeHandler(e,"category")}
-
-                        >
-                            {category.map(elem => <Select.Option key={elem}
-                                                                      value={elem}>
-                                {elem}</Select.Option>)}
-                        </Select>
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder="* Категория"
+                                   className="step-form-item"
+                                   data={category}
+                                   onChange={(e)=>this.selectChangeHandler(e,"category")}
+                        />
                     )}
                 </FormItem>
                 <FormItem>
@@ -248,6 +248,21 @@ class Step2_From extends React.Component{
                             text="Прикрепить документ, подтверждающий категорию"/>
                     )}
                 </FormItem>
+                <Hr/>
+                <FormItem>
+
+                    {getFieldDecorator('experience', {
+                        rules: [{
+                            required: true,
+                            message: 'Введите общий стаж работы'
+                        }],
+                    })(
+                        <InputNew width ="100%" bubbleplaceholder="* Общий стаж работы" className="step-form-item"/>
+
+                    )}
+                </FormItem>
+
+
                 <div className="step-block-title">Дополнительная информация</div>
                 <Step2_additional getFieldDecorator={getFieldDecorator}
                                   langs={langs}
@@ -257,14 +272,18 @@ class Step2_From extends React.Component{
                     <Button onClick={this.handleGoBack}
                             btnText='Назад'
                             size='large'
+                            disable={this.state.loadingSpinner}
                             type='float'
+                            style = {{marginRight: "20px"}}
                     />
                     <Button htmlType="submit"
                             btnText='Далее'
+                            disable={this.state.loadingSpinner}
                             size='large'
                             type='gradient'
                     />
                 </div>
+                {this.state.loadingSpinner &&  <Spinner/>}
             </Form>
         )
     }
@@ -279,8 +298,7 @@ const Step2 = Form.create({
                    console.log(props.data[key][0], props.data[key][1], "НОЛЬ И ОДИН");
 
                     fields[key] = Form.createFormField({
-                        value: {placeholderStart: "Начало обучения", placeholderEnd: "Окончание обучения",
-                            defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
+                        value: {defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
                     })
                 } else {
                     fields[key] = Form.createFormField({

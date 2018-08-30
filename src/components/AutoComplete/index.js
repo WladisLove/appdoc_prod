@@ -15,9 +15,9 @@ class AutoComplete extends React.Component{
             isVisible: false,
             inputValue: "",
             loading: false,
-            
             searchRes: this.props.data,
         };
+        this.input;
     }
 
     focusHandler = (e) => {
@@ -38,9 +38,9 @@ class AutoComplete extends React.Component{
                     (el.id === id) ? user = el : null;
                     return el.id === id;
                 }),
-                    this.input.inp.input.value = "",
-                    this.props.onGoto(id),
-                    this.setState({isVisible: false})
+                this.input.inp.input.value = "",
+                this.props.onGoto(id),
+                this.setState({isVisible: false})
             )
             : flag === 'add' ? (
                 this.props.onAdd(id, this.input.inp.input.value)

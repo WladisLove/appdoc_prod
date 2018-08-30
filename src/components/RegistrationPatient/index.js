@@ -14,55 +14,32 @@ import moment from 'moment'
 
 import './style.css'
 import '../../icon/style.css'
-import {previewFile} from "../../helpers/modifyFiles";
 import Checkbox from "../Checkbox";
 import {NavLink} from "react-router-dom";
 import RegistrationComplete from "../RegistrationComplete";
+import InputNew from "../InputNew";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
-function getBase64(img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-}
 
-function beforeUpload(file) {
-    const isJPG = file.type === 'image/jpeg';
-    if (!isJPG) {
-        message.error('You can only upload JPG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-        message.error('Image must smaller than 2MB!');
-    }
-    return isJPG && isLt2M;
-}
 class RegistrationPatientForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             loading: false,
-            shouldAgreeTOU: false
         };
 
     }
     handleChange = (info) => {
-        if (info.file.status === 'uploading') {
-            this.setState({ loading: true });
-            return;
-        }
-        if (info.file.status === 'done') {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj, imageUrl => this.setState({
-                imageUrl,
-                loading: false,
-            }));
-        }
-
-        this.modifyFiles(info.file);
-
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {this.setState({
+            avatarUrl: reader.result,
+            fileList: [info.file]
+        });
+        info.file.thumbUrl=reader.result}
+        );
+        reader.readAsDataURL(info.file);
     };
     checkEmail = (role, email, callBack) => {
         if (email) {
@@ -75,19 +52,15 @@ class RegistrationPatientForm extends React.Component{
         else callBack();
     };
     handleCheckBoxClick = (e) => {
-        if(e.target.checked === true) {
-            this.setState({shouldAgreeTOU: false})
-        }
+        this.setState({checked: e.target.checked})
 
     };
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            console.log(values);
             if (!err) {
-                if(!values.termsOfUse) {
-                    this.setState({shouldAgreeTOU: true});
-                    return;
-                }
+
                 let avatar = values.avatar
                     ? {name: values.avatar.file.name, thumbUrl: values.avatar.file.thumbUrl} : undefined;
                 let response = {
@@ -95,51 +68,37 @@ class RegistrationPatientForm extends React.Component{
                     avatar: avatar,
                     date: moment(values.date).format("X")
                 };
-
+                console.log(response);
                this.props.onFinish(response);
             }
         });
     };
-    modifyFiles = (file) => {
-        if (!file.thumbUrl && !file.modify) {
-            file.modify = true;
-            previewFile(file.originFileObj, function (previewDataUrl) {
-                file.thumbUrl = previewDataUrl;
-            });
-        }
-    }
 
     render(){
         const { getFieldDecorator } = this.props.form;
-        const {name,
-            email,
-            phone,
-            sex,
-            date} = this.props.form.getFieldsValue();
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'} />
                 <div className="ant-upload-text">Загрузить</div>
             </div>
         );
-        const imageUrl = this.state.imageUrl;
+        const avatarUrl = this.state.avatarUrl;
         if(this.props.isRegFinished) {
             return (
                 <RegistrationComplete urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={true}/>
             )
         }
         return (
-            <div className="registration-form">
+            <div className="registration-patient-form">
                 <div className="registration-title">Регистрация</div>
-                <Form onSubmit={this.handleSubmit} className="step-form">
+                <Form onSubmit={this.handleSubmit} className="step-patient-form">
                     <div className="step-notification">* Поля, обязательные для заполнения</div>
                     <FormItem>
                         {getFieldDecorator('name', {
                             rules: [{ required: true,
                                 message: 'Введите ФИО, пожалуйста' }],
                         })(
-                            <Input addonBefore='* ФИО'
-                                   className='step-form-item'/>
+                            <InputNew width ="100%" bubbleplaceholder="* ФИО" className="step-form-item"/>
                         )}
                     </FormItem>
                     <FormItem>
@@ -157,8 +116,7 @@ class RegistrationPatientForm extends React.Component{
                                     validator: this.checkEmail
                                 }],
                         })(
-                            <Input addonBefore='* E-mail'
-                                   className='step-form-item'/>
+                            <InputNew width ="100%" bubbleplaceholder="* E-mail" className="step-form-item"/>
                         )}
                     </FormItem>
                     <FormItem>
@@ -169,8 +127,7 @@ class RegistrationPatientForm extends React.Component{
                                 pattern: /^[+]?[0-9()\- ]+$/ }]
 
                         })(
-                            <Input addonBefore='* Телефон'
-                                   className='step-form-item'/>
+                            <InputNew width ="100%" bubbleplaceholder="* Телефон" className="step-form-item"/>
                         )}
                     </FormItem>
                     <FormItem>
@@ -180,8 +137,7 @@ class RegistrationPatientForm extends React.Component{
                                 message: 'Введите ваш адрес, пожалуйста'}]
 
                         })(
-                            <Input addonBefore='* Адрес'
-                                   className='step-form-item'/>
+                            <InputNew width ="100%" bubbleplaceholder="* Адрес" className="step-form-item"/>
                         )}
                     </FormItem>
 
@@ -212,16 +168,14 @@ class RegistrationPatientForm extends React.Component{
                     </div>
                     <FormItem>
                         {getFieldDecorator('chronic')(
-                            <TextArea placeholder="Астма, гастрит"
-                                      autosize
+                            <TextArea autosize
                                       label="Хронические заболевания"
                             />
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('allergy')(
-                            <TextArea placeholder="На молоко, на воздух, на глицин"
-                                      autosize
+                            <TextArea autosize
                                       label="Аллергии"
                             />
                         )}
@@ -229,16 +183,16 @@ class RegistrationPatientForm extends React.Component{
                     <FormItem>
                         <div>Фото</div>
                         {getFieldDecorator('avatar')(
+
                             <Upload
-                                name="avatar"
-                                listType="picture-card"
-                                className="avatar-uploader"
-                                showUploadList={false}
-                                action="//jsonplaceholder.typicode.com/posts/"
-                                beforeUpload={beforeUpload}
-                                onChange={this.handleChange}
+                            name="avatar"
+                            listType="picture-card"
+                            className="avatar-uploader"
+                            showUploadList={false}
+                            beforeUpload = {()=>false}
+                            onChange={this.handleChange}
                             >
-                                {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+                        {avatarUrl ? <img src={avatarUrl} alt="avatar" className="avatar-image"/> : uploadButton}
                             </Upload>
                         )}
                     </FormItem>
@@ -247,20 +201,15 @@ class RegistrationPatientForm extends React.Component{
                             valuePropName: 'checked',
                             initialValue: false,
                         })(
-                            <Checkbox onChange={this.handleCheckBoxClick}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam dicta ducimus, id minus nostrum nulla possimus provident temporibus vitae voluptatem.</Checkbox>
+                            <Checkbox onChange={this.handleCheckBoxClick}>Я ознакомлен с условиями и принимаю их</Checkbox>
                         )}
-                        {this.state.shouldAgreeTOU && <Alert style={{marginTop:10}} message="Прочтите и примите условия соглашения, пожалуйста" type="error" >Выберете доступное время</Alert>}
                     </FormItem>
 
                     <div className="steps-action">
                         <Button htmlType="submit"
-                                disable={!(name&&
-                                    email &&
-                                    phone &&
-                                    sex &&
-                                    date)}
                                 btnText='Зарегистрироваться'
                                 size='large'
+                                disable={!this.state.checked || this.props.isRegInProgress}
                                 type='gradient'
                                 style={{margin:0}}/>
                     </div>

@@ -24,6 +24,7 @@ class RegistrationComplete extends React.Component{
                     <NavLink to={this.props.urlLogin}
                              className="login-form-navlink">
                         <Button
+                            onClick={this.props.onOk}
                             htmlType="submit"
                             btnText='Ок'
                             size='large'

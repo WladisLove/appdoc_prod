@@ -6,10 +6,9 @@ import Hoc from '../Hoc'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
 
-
-import './style.css'
-import '../../icon/style.css'
 import Hr from "../Hr";
+import Spinner from "../Spinner";
+import {Form} from "antd";
 
 class Step3 extends React.Component{
     constructor(props){
@@ -151,19 +150,30 @@ class Step3 extends React.Component{
     };
 
     finishHandler = () => {
-        let data = this.props.data;
-        for(let key in data) {
-            if(!data[key]) {
-                delete data[key]
-            }
+        this.setState({loadingSpinner: true}, () => {
+            let data = this.props.data;
+            for(let key in data) {
+                if(!data[key]) {
+                    delete data[key]
+                }
 
-        }
-        this.props.onFinish(data);
+            }
+            this.props.onFinish(data);
+        });
     };
 
+
+    handleGoBack = () => {
+        this.setState({loadingSpinner: true}, () => {
+            this.props.onPrev();
+        });
+
+
+
+
+    }
     render(){
         const {data} = this.props;
-
         return (
             <div className="step-form">
                 <div className="step-posttitle">Проверьте введенные данные</div>
@@ -185,30 +195,35 @@ class Step3 extends React.Component{
                 {this.renderGraduateEducInfo(data)}
                 {this.renderWorkInfo(data)}
 
-                {this.renderItem('Категория','category')}
+                {data.category && this.renderItem('Категория','category')}
                 {data.academicdegree && this.renderItem('Ученая степень','academicdegree')}
                 {data.academicstatus && this.renderItem('Ученое звание','academicstatus')}
+                {data.experience && this.renderItem('Стаж работы','experience')}
 
                 {this.renderAdditionalInfo(data)}
 
                 <Checkbox checked={this.state.checked}
+                          style={{marginTop:"20px"}}
                           onChange={(e) => this.setState({checked: e.target.checked})}>
                     {this.props.finalText}
                 </Checkbox>
 
                 <div className="steps-action">
-                    <Button onClick={this.props.onPrev}
+                    <Button onClick={this.handleGoBack}
                             btnText='Назад'
+                            disable={this.state.loadingSpinner}
                             size='large'
                             type='float'
+                            style = {{marginRight: "20px"}}
                     />
                     <Button btnText='Завершить'
-                            disable={!this.state.checked}
+                            disable={this.state.loadingSpinner  || !this.state.checked}
                             onClick={this.finishHandler}
                             size='large'
                             type='gradient'
                     />
                 </div>
+                {(this.state.loadingSpinner|| this.props.regInProgress)  &&  <Spinner/>}
             </div>
         )
     }

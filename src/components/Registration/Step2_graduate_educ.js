@@ -6,6 +6,8 @@ import { Form } from 'antd';
 import Upload from '../Upload'
 import Input from '../Input'
 import DatePicker from '../DatePicker'
+import InputNew from "../InputNew";
+import RangeDPNew from "../RangeDPNew";
 
 const FormItem = Form.Item;
 
@@ -21,9 +23,20 @@ class Step2_graduate_educ extends React.Component{
     static get getName() {
         return 'grad_educ'
     }
+
+    validateYears = (rule, value, cb) => {
+        console.log(value, "VALIDATE VALUE");
+
+        if( (this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile) && !this.state.isDate) {
+            cb("Введите период обучения 222222")
+        }
+        if((value && value[0] && value[1]) || (value && !value[0] && !value[1]) || !value) {
+            cb()
+        } else cb("Введите период обучения 222222")
+    }
     handleChange = (e, name) => {
+        console.log("EEEEEEE", e);
         const validate = () => {
-            console.log("VALIDATION")
             this.props.form.validateFields([
                 'educationsgroup2-education-'+this.props.number,
                 'educationsgroup2-ciklname-'+this.props.number,
@@ -58,8 +71,7 @@ class Step2_graduate_educ extends React.Component{
                             message: 'Введите учебное заведение'
                         }],
                     })(
-                        <Input addonBefore='Учебное заведение'
-                               className='step-form-item'
+                        <InputNew width ="100%" bubbleplaceholder="Учебное заведение" className="step-form-item"
                         onChange={(e)=>this.handleChange(e, "eduName")}/>
                     )}
                 </FormItem>
@@ -70,35 +82,34 @@ class Step2_graduate_educ extends React.Component{
                                 message: 'Введите название цикла обучения'
                             }],
                         })(
-                        <Input addonBefore='Название цикла обучения'
-                               className='step-form-item'
+                        <InputNew width ="100%" bubbleplaceholder="Название цикла обучения" className="step-form-item"
                         onChange={(e)=>this.handleChange(e, "eduCycle")}/>
                     )}
                 </FormItem>
-                <FormItem>
-                    {getFieldDecorator('educationsgroup2-ucationyears-'+number, {
-                        valuePropName: 'rangeSet',
-                        initialValue: {placeholderStart: "Начало обучения", placeholderEnd: "Окончание обучения"},
-                            rules: [{
-                                required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
-                                message: 'Введите период обучения'
-                            }],
-                        })(
-                        <DatePicker range
-                        onChange={(e)=>this.handleChange(e, "eduDate")}/>
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('educationsgroup2-diplomphoto-'+number, {
-                            rules: [{
-                                required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
-                                message: 'Загрузите подтверждающий документ'
-                            }],
-                        })(
-                        <Upload text="Прикрепить диплом (сертификат, свидетельство)"
-                        onChange={(e)=>this.handleChange(e, "eduFile")}/>
-                    )}
-                </FormItem>
+                <div className="step-row">
+                    <FormItem>
+                        {getFieldDecorator('educationsgroup2-ucationyears-'+number, {
+                                valuePropName: 'rangeSet',
+                                rules: [{
+                                    validator: this.validateYears
+                                }],
+                            })(
+                            <RangeDPNew
+                            onChange={(e)=>this.handleChange(e, "eduDate")}/>
+                        )}
+                    </FormItem>
+                    <FormItem>
+                        {getFieldDecorator('educationsgroup2-diplomphoto-'+number, {
+                                rules: [{
+                                    required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
+                                    message: 'Загрузите подтверждающий документ'
+                                }],
+                            })(
+                            <Upload text="Прикрепить диплом (сертификат, свидетельство)"
+                            onChange={(e)=>this.handleChange(e, "eduFile")}/>
+                        )}
+                    </FormItem>
+                </div>
             </div>
         )
     }

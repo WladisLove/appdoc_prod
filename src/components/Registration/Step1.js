@@ -4,12 +4,14 @@ import moment from 'moment'
 
 import { Form, Upload, Icon, message } from 'antd';
 import Input from '../Input'
+import InputNew from '../InputNew'
 import Radio from '../RadioBox'
 import DatePicker from '../DatePicker'
 import Button from '../Button'
 
 import './style.css'
 import '../../icon/style.css'
+import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -18,22 +20,29 @@ const RadioGroup = Radio.Group;
 class Step1Form extends React.Component{
     state = {
         fileList: [],
-        avatarUrl: ""
+        avatarUrl: "",
+        loadingSpinner: false
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                let fields = {
-                    ...values,
-                    avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
-                };
-                values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl: null : null;
-                this.props.onSubmit(fields);
-                this.props.onNext();
-            }
-        });
+        this.setState({loadingSpinner: true}, () => {
+            this.props.form.validateFields((err, values) => {
+                if (!err) {
+
+                    let fields = {
+                        ...values,
+                        avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
+                    };
+                    values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl: null : null;
+                    this.props.onSubmit(fields);
+                    this.props.onNext();
+                } else {
+                    this.setState({loadingSpinner: false});
+
+                }
+            })});
+
     };
 
     handleChange = (info) => {
@@ -71,11 +80,12 @@ class Step1Form extends React.Component{
                 <div className="step-notification">* Поля, обязательные для заполнения</div>
                 <FormItem>
                     {getFieldDecorator('fio', {
-                        rules: [{ required: true,
-                            message: 'Введите ФИО, пожалуйста' }],
+                        rules: [{
+                            required: true,
+                            message: 'Введите ФИО, пожалуйста'
+                        }],
                     })(
-                        <Input addonBefore='* ФИО'
-                               className='step-form-item'/>
+                        <InputNew width ="100%" bubbleplaceholder="* ФИО" className="step-form-item"/>
                     )}
                 </FormItem>
                 <FormItem>
@@ -85,20 +95,21 @@ class Step1Form extends React.Component{
                             {required: true, message: "Введите ваш e-mail, пожалуйста"},
                             {validator: this.checkEmail}],
                     })(
-                        <Input addonBefore='* E-mail'
-                               className='step-form-item'/>
+                        <InputNew width ="100%" bubbleplaceholder="* E-mail" className="step-form-item"/>
                     )}
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('phone', {
-                        rules: [{
-                            required: true,
-                            message: 'Неправильный формат номера телефона',
-                            pattern: /^[+]?[0-9()\- ]+$/ }]
-
-                        })(
-                        <Input addonBefore='* Телефон'
-                               className='step-form-item'/>
+                        rules:
+                            [{
+                                required: true,
+                                message: 'Введите телефон, пожалуйста'
+                            },{
+                                pattern: /^[+]?[0-9()\- ]+$/,
+                                message: 'Неправильный формат номера телефона'
+                            }]})
+                    (
+                        <InputNew width ="100%" bubbleplaceholder="* Телефон" className="step-form-item"/>
                     )}
                 </FormItem>
                 <div className="step-row">
@@ -119,18 +130,22 @@ class Step1Form extends React.Component{
                         <div className='radio-label'>* Дата рождения
                             {getFieldDecorator('datebirth', {
                                 rules: [{ required: true,
-                                    message: 'Введите дату вашего рождения, пожалуйста' }],
+                                    message: 'Введите дату, пожалуйста' }],
                             })(
                                 <DatePicker placeholder="дд/мм/гггг"/>
                             )}
                         </div>
                     </FormItem>
                 </div>
-                <div className="step-row">
-                    <FormItem>
-                        <div>Загрузите фото</div>
+                    <FormItem className="avatar-doctor-uploader">
+                        <div >* Фото</div>
 
-                            {getFieldDecorator('avatar')(
+                            {getFieldDecorator('avatar', {
+                                rules: [{
+                                    required: true,
+                                    message: 'Загрузите фото, пожалуйста'
+                                }]})
+                            (
                                 <Upload
                                     name="avatar"
                                     listType="picture-card"
@@ -144,13 +159,16 @@ class Step1Form extends React.Component{
                                 </Upload>
                             )}
                     </FormItem>
-                </div>
+
                 <div className="steps-action">
                     <Button htmlType="submit"
+                            disable={this.state.loadingSpinner}
                             btnText='Далее'
                             size='large'
                             type='gradient'/>
+
                 </div>
+                {this.state.loadingSpinner &&  <Spinner/>}
             </Form>
         )
     }

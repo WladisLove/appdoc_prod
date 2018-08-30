@@ -7,43 +7,73 @@ import Icon from "../../components/Icon/index.js";
 import Row from "../../components/Row/index.js";
 import Col from "../../components/Col/index.js";
 import Login from "../../components/Login/index.js";
+import { message } from 'antd';
 import LoginForget from "../../components/LoginForget/index.js";
 import Registration from "../../components/Registration/index.js";
 import RegistrationPatient from "../../components/RegistrationPatient/index.js";
+
 
 
 import * as actions from '../../store/actions'
 import './styles.css'
 
 class LoginPage extends React.Component {
-    
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isRegFinished: false
+        };
+    }
     closeAuthPage = (e) => {
         e.preventDefault();
         console.log('Close & go back')
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.location.pathname !== nextProps.location.pathname
-            && nextProps.location.pathname === "/login")
-            this.props.onResetRegisterStatus();
-    }
+
+    registerDoctor = (data) => {
+        this.setState({regInProgress: true});
+        this.props.onRegisterDoctor(data).then(res=> {
+            console.log(res);
+            if(res.data.code !== 200) {
+                message.error('Заполнены не все обязательные поля', 4);
+            } else {
+                this.setState({isRegFinished:true})
+            }
+        })
+    };
+    registerPatient = (data) => {
+        this.setState({regInProgress: true});
+        this.props.onRegisterUser(data).then(res=> {
+            console.log(res);
+            if(res.data.code !== 200) {
+                message.error('Заполнены не все обязательные поля', 4);
+            } else {
+                this.setState({isRegFinished:true})
+            }
+        })
+    };
+
+    onOk = () => {
+        this.setState({isRegFinished: false, regInProgress: false})
+
+    };
 
     render(){
 
         const langs = ["Русский", "Английский", "Немецкий"];
-        const payments = [50,75,100,125,150];
+        const payments = [10,20,30,40,50,75,100,200];
         const academicTitle = ['Нет звания',
-            'Кандидат медицинских наук',
-            'Доктор медицинских наук'];
-        const academicDegree = ['Нет степени',
             'Доцент',
             'Профессор'];
+        const academicDegree = ['Нет степени',
+            'Кандидат медицинских наук',
+            'Доктор медицинских наук'];
         const category = ['Без категории',
             'Первая категория',
             'Вторая категория',
             'Высшая категория'];
-
+        const specs = ['Хирург', "Терапевт","Кардиолог","Офтальмолог", "Психиатр", "Стоматолог", "Невролог"];
 
         return (
             <Hoc>
@@ -77,30 +107,32 @@ class LoginPage extends React.Component {
                         />
                         <Route path="/registration"
                                exact
-                               render={() => <Registration onFinish={docInfo => this.props.onRegisterDoctor(docInfo)}
+                               render={() => <Registration onFinish={this.registerDoctor}
                                                            langs={langs}
                                                            payments={payments}
                                                            category = {category}
+                                                           specs = {specs}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
-                                                           finalText='Все верно'
+                                                           finalText='Я ознакомлен с условиями работы и принимаю их'
                                                            urlLogin = "/login"
-                                                           isRegFinished={this.props.isRegistrationFinished}
-                                                           isRegInProgress = {this.props.isRegInProgress}
+                                                           onOk={this.onOk}
+                                                           isRegFinished = {this.state.isRegFinished}
+                                                           regInProgress = {this.state.regInProgress}
                                                            onCheckEmailAvailability={this.props.onCheckEmailAvailability}
                                />}
                         />
                         <Route path="/patient-registration"
                                exact
-                               render={() => <RegistrationPatient onFinish={obj => this.props.onRegisterUser(obj)}
+                               render={() => <RegistrationPatient onFinish={this.registerPatient}
                                                                   langs={langs}
                                                                   urlLogin = "/login"
                                                                   payments={payments}
                                                                   academicTitle={academicTitle}
                                                                   academicDegree={academicDegree}
                                                                   finalText='to continue'
-                                                                  isRegFinished={this.props.isRegistrationFinished}
-                                                                  isRegInProgress={this.props.isRegInProgress}
+                                                                  isRegFinished={this.state.isRegFinished}
+                                                                  isRegInProgress={this.state.regInProgress}
                                                                   checkEmailAvailability={this.props.onCheckEmailAvailability}
                                />}
                         />
@@ -116,8 +148,6 @@ class LoginPage extends React.Component {
 const mapStateToProps = state => {
 	return {
         errorCode: state.auth.errorCode,
-        isRegInProgress: state.auth.isRegInProgress,
-        isRegistrationFinished: state.auth.isRegistrationFinished
 	}
 };
 
@@ -126,7 +156,6 @@ const mapDispatchToProps = dispatch => {
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
         onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
         onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo)),
-        onResetRegisterStatus: () => dispatch(actions.resetRegisterStatus()),
         onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email))
 	}
 };
