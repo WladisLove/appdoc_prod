@@ -10,14 +10,9 @@ import Step2_additional from './Step2_additional'
 
 import Button from '../Button'
 import Hr from '../Hr'
-import Select from '../Select'
 
 import Upload from '../Upload'
 
-
-import './style.css'
-import '../../icon/style.css'
-import Input from "../Input";
 import SelectNew from "../SelectNew";
 import InputNew from "../InputNew";
 import Spinner from "../Spinner";
@@ -48,31 +43,36 @@ class Step2_From extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({loadingSpinner: true});
-        this.props.form.validateFields((err, values) => {
-            console.log(values, "VALUES STEP 2");
-            if (!err) {
-                let toSubmit = {
-                    ...values,
-                    ...this.state,
-                };
-                this.props.onSubmit(toSubmit);
-                this.props.onNext();
-            }
+        this.setState({loadingSpinner: true}, () => {
+            this.props.form.validateFields((err, values) => {
+                console.log(values, "VALUES STEP 2");
+                if (!err) {
+                    let toSubmit = {
+                        ...values,
+                        ...this.state,
+                    };
+                    this.props.onSubmit(toSubmit);
+                    this.props.onNext();
+                } else {
+                    this.setState({loadingSpinner: false});
+
+                }
+            });
         });
+
     };
 
     handleGoBack = (e) => {
-
         e.preventDefault();
-        this.setState({loadingSpinner: true});
-        this.props.form.validateFields((err, values) => {
-            let fields = {
-                ...values,
-                ...this.state,
-            };
-            this.props.onSubmit(fields);
-            this.props.onPrev();
+        this.setState({loadingSpinner: true}, () => {
+            this.props.form.validateFields((err, values) => {
+                let fields = {
+                    ...values,
+                    ...this.state,
+                };
+                this.props.onSubmit(fields);
+                this.props.onPrev();
+            });
         });
     };
 
@@ -272,13 +272,13 @@ class Step2_From extends React.Component{
                     <Button onClick={this.handleGoBack}
                             btnText='Назад'
                             size='large'
-                            disabled={this.state.loadingSpinner}
+                            disable={this.state.loadingSpinner}
                             type='float'
                             style = {{marginRight: "20px"}}
                     />
                     <Button htmlType="submit"
                             btnText='Далее'
-                            disabled={this.state.loadingSpinner}
+                            disable={this.state.loadingSpinner}
                             size='large'
                             type='gradient'
                     />

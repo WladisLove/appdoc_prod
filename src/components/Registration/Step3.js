@@ -6,9 +6,6 @@ import Hoc from '../Hoc'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
 
-
-import './style.css'
-import '../../icon/style.css'
 import Hr from "../Hr";
 import Spinner from "../Spinner";
 import {Form} from "antd";
@@ -153,21 +150,24 @@ class Step3 extends React.Component{
     };
 
     finishHandler = () => {
-        this.setState({loadingSpinner: true});
-        let data = this.props.data;
-        for(let key in data) {
-            if(!data[key]) {
-                delete data[key]
-            }
+        this.setState({loadingSpinner: true}, () => {
+            let data = this.props.data;
+            for(let key in data) {
+                if(!data[key]) {
+                    delete data[key]
+                }
 
-        }
-        this.props.onFinish(data);
+            }
+            this.props.onFinish(data);
+        });
     };
 
 
     handleGoBack = () => {
-        this.setState({loadingSpinner: true});
-        this.props.onPrev();
+        this.setState({loadingSpinner: true}, () => {
+            this.props.onPrev();
+        });
+
 
 
 
@@ -195,7 +195,7 @@ class Step3 extends React.Component{
                 {this.renderGraduateEducInfo(data)}
                 {this.renderWorkInfo(data)}
 
-                {this.renderItem('Категория','category')}
+                {data.category && this.renderItem('Категория','category')}
                 {data.academicdegree && this.renderItem('Ученая степень','academicdegree')}
                 {data.academicstatus && this.renderItem('Ученое звание','academicstatus')}
                 {data.experience && this.renderItem('Стаж работы','experience')}
@@ -203,6 +203,7 @@ class Step3 extends React.Component{
                 {this.renderAdditionalInfo(data)}
 
                 <Checkbox checked={this.state.checked}
+                          style={{marginTop:"20px"}}
                           onChange={(e) => this.setState({checked: e.target.checked})}>
                     {this.props.finalText}
                 </Checkbox>
@@ -210,18 +211,19 @@ class Step3 extends React.Component{
                 <div className="steps-action">
                     <Button onClick={this.handleGoBack}
                             btnText='Назад'
-                            disabled={this.state.loadingSpinner}
+                            disable={this.state.loadingSpinner}
                             size='large'
                             type='float'
+                            style = {{marginRight: "20px"}}
                     />
                     <Button btnText='Завершить'
-                            disabled={this.state.loadingSpinner}
+                            disable={this.state.loadingSpinner  || !this.state.checked}
                             onClick={this.finishHandler}
                             size='large'
                             type='gradient'
                     />
                 </div>
-                {this.state.loadingSpinner &&  <Spinner/>}
+                {(this.state.loadingSpinner|| this.props.regInProgress)  &&  <Spinner/>}
             </div>
         )
     }

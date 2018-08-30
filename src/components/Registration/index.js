@@ -11,13 +11,15 @@ import Steps from '../Step'
 import './style.css'
 import '../../icon/style.css'
 import RegistrationComplete from "../RegistrationComplete";
-
+import Spinner from "../Spinner";
+import {Alert} from "antd";
 
 
 class RegistrationForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+
             current: 0,
         };
         this.steps = [
@@ -48,11 +50,11 @@ class RegistrationForm extends React.Component{
             title: 'Проверка данных',
             content: (state) => <Step3
                                        data = {state}
-
                                        onPrev = {this.prev}
                                        onNext = {this.next}
                                        finalText={this.props.finalText}
                                        onFinish={this.props.onFinish}
+                                       regInProgress = {this.props.regInProgress}
             />,
         }];
     }
@@ -71,7 +73,7 @@ class RegistrationForm extends React.Component{
 
         if(this.props.isRegFinished) {
             return (
-                <RegistrationComplete urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={false}/>
+                <RegistrationComplete onOk={this.props.onOk} urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={false}/>
             )
         }
         return (
@@ -100,7 +102,6 @@ RegistrationForm.defaultProps = {
     urlForget: '',
     urlRegistration: '',
     onFinish: () => {},
-    onCheckEmailAvailability: () => {}
 };
 
 export default RegistrationForm

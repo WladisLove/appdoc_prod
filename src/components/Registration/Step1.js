@@ -26,18 +26,23 @@ class Step1Form extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({loadingSpinner: true});
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                let fields = {
-                    ...values,
-                    avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
-                };
-                values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl: null : null;
-                this.props.onSubmit(fields);
-                this.props.onNext();
-            }
-        });
+        this.setState({loadingSpinner: true}, () => {
+            this.props.form.validateFields((err, values) => {
+                if (!err) {
+
+                    let fields = {
+                        ...values,
+                        avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
+                    };
+                    values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl: null : null;
+                    this.props.onSubmit(fields);
+                    this.props.onNext();
+                } else {
+                    this.setState({loadingSpinner: false});
+
+                }
+            })});
+
     };
 
     handleChange = (info) => {
@@ -132,7 +137,6 @@ class Step1Form extends React.Component{
                         </div>
                     </FormItem>
                 </div>
-                <div className="step-row">
                     <FormItem className="avatar-doctor-uploader">
                         <div >* Фото</div>
 
@@ -155,11 +159,10 @@ class Step1Form extends React.Component{
                                 </Upload>
                             )}
                     </FormItem>
-                </div>
 
                 <div className="steps-action">
                     <Button htmlType="submit"
-                            disabled={this.state.loadingSpinner}
+                            disable={this.state.loadingSpinner}
                             btnText='Далее'
                             size='large'
                             type='gradient'/>

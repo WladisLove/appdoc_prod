@@ -39,9 +39,6 @@
 .registration-form .ant-form-item .has-error .ant-input-group-addon {
   color: #777777;
 }
-.registration-form .ant-form-item .ant-form-explain {
-  position: static;
-}
 .registration-form .ant-form-item.registration-form .ant-form-item.avatar-doctor-uploader .ant-form-explain {
   position: absolute;
   top: 45px;
@@ -147,7 +144,7 @@
   top: 45px;
 }
 .step-form .ant-form-item.avatar-doctor-uploader .ant-form-explain {
-  position: static;
+  top: 150px;
 }
 .step-form-item .ant-input-group-addon:first-child {
   text-align: left;
@@ -165,6 +162,9 @@
 }
 .step-form-control button {
   margin-bottom: 50px;
+}
+.step-form .step-row .ant-form-item.avatar-doctor-uploader div.ant-form-item-control-wrapper {
+  margin-bottom: 40px;
 }
 .step-title {
   font-family: 'GothamPro-Bold';
