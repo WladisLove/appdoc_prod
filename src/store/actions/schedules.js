@@ -67,9 +67,14 @@ export const getFreeVisitsBySpec = (spec) => {
 }
 
 export const clearIntervals = () => {
-
     return ({
         type: actionTypes.CLEAR_INTERVALS,
+    })
+}
+
+export const clearVisits = () => {
+    return ({
+        type: actionTypes.CLEAR_VISITS,
     })
 }
 
@@ -88,7 +93,6 @@ export const addVisit = (reception, start, end) => {
             obj.id_user = getState().auth.id;
             obj.id_doc = reception.id || reception.id_user;
         }
-        console.log(obj, "DATA TO SEND FROM SCHEDULES");
         axios.post('/catalog.doc2/makingApp',
                     JSON.stringify(obj))
             .then(res => {
@@ -98,7 +102,7 @@ export const addVisit = (reception, start, end) => {
                     isReceptionRecorded: res.data.code === 200,
                     receptionRecordedID: res.data.code === 200 ? res.data.id : moment().format('x')
                 });
-                start && dispatch(getAllVisits(start,end))
+                start && dispatch(getAllVisits(start,end));
             })
             .catch(err => {
                 console.log(err);

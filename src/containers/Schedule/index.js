@@ -64,6 +64,7 @@ class Schedule extends React.Component {
 
     componentWillUnmount() {
         this.props.clearReceptions();
+        this.props.onClearVisits();
     }
 
     getCountOfReceptionsAtCurMonth = () => {
@@ -335,12 +336,12 @@ class Schedule extends React.Component {
                                {...this.state.newVisitData}
                                patients={this.props.patients}
                                onCancel={this.closeNewVisitModal}
-                               onSave={(info) => this.onSaveNewVisit(info)}
+                               onSave={this.onSaveNewVisit}
                 />
                 <NewMessageModal visible={this.state.newMessageModal}
                                  {...this.props.chosenData}
                                  onCancel={this.closeNewMessage}
-                                 onSend={info => this.onSendNewMessage(info)}
+                                 onSend={ this.onSendNewMessage}
                 />
                 <ReceptionsScheduleModal visible={this.state.receptionsScheduleModal}
                                          dateSet={{
@@ -392,6 +393,7 @@ const mapDispatchToProps = dispatch => {
         onGetAllUserVisits: () => dispatch(actions.getAllPatientVisits()),
         onSendMessage: (mess) => dispatch(actions.sendMessage(mess)),
         onCloseCancelModal: (obj) => dispatch(actions.cancelEventsRange(obj)),
+        onClearVisits: () => dispatch(actions.clearVisits()),
 
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onSelectEvent: (event) => dispatch(actions.selectEvent(event)),
