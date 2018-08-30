@@ -5,6 +5,7 @@ import DoctorPage from "./DoctorPage"
 import PatientPage from "./PatientPage"
 
 import * as actions from '../../store/actions'
+import moment from 'moment'
 
 import './styles.css'
 
@@ -30,6 +31,7 @@ class MainPage extends React.Component{
 											new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
             this.props.onGetActualTreatments({status: "topical"});
 			this.props.getDocTodayInfo();
+			this.props.onGetIntervalForDate(moment(+new Date()).format('X'), moment(+new Date()).format('X'), );
 		}
 		
 	}

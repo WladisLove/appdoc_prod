@@ -63,6 +63,7 @@ const DoctorPage = props => {
 					<NewVisitModal visible={props.addModal}
 									date={new Date()}
 									isChoosebleTime={true}
+								    intervals={props.intervals}
 									patients={props.patients}
 									onCancel={props.closeAdd}
 									onSave = {(obj) => props.onSaveNewVisit(obj)}
