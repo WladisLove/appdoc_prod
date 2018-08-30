@@ -10,12 +10,13 @@ import Radio from "../Radio";
 import TextArea from "../TextArea";
 import Upload from "../Upload";
 import moment from "moment";
-import {Form} from "antd";
+import {Form, message} from "antd";
 import {previewFile} from "../../helpers/modifyFiles";
 import Select from "../Select";
 
 import {timeIntervals} from "./stories/mock-data"
 import Modal from "../Modal";
+import Spinner from "../Spinner";
 const FormItem = Form.Item;
 
 class NewFreeVisitByPatientForm extends React.Component {
@@ -25,8 +26,12 @@ class NewFreeVisitByPatientForm extends React.Component {
             type: "video",
             timeStamp: null,
             shouldChooseTime: false,
+            isCarouselLoading: false,
             isCarouselVisible: false,
+            showSubmitError: false,
             isTypeVisible: false,
+            isSubmitInProgress: false,
+            currentSpeciality: "",
             docs: []
         }
     }
@@ -54,15 +59,20 @@ class NewFreeVisitByPatientForm extends React.Component {
         this.setState({
             timeStamp,
             type,
-            docs: docs ? docs.split(" ") : null
+            docs: docs ? docs.split(" ") : null,
+            showSubmitError: false
         })
     };
     componentWillReceiveProps(nextProps){
         nextProps.visible === true && this.props.visible===false ? (this.setState({
             type: 'video',  timeStamp: null,
             shouldChooseTime: false,
+            isCarouselLoading: false,
             isCarouselVisible: false,
-            isTypeVisible: false
+            isTypeVisible: false,
+            showSubmitError: false,
+            currentSpeciality: "",
+            isSubmitInProgress: false
         }),
             this.props.form.resetFields()) : null;
     }
@@ -91,8 +101,32 @@ class NewFreeVisitByPatientForm extends React.Component {
                 if(values.file) {
                     obj.file = values.file.fileList.map((item, index) => { return {name: item.name, thumbUrl: item.originFileObj.thumbUrl}})
                 }
-                this.props.onMakeFreeVisit(obj);
-                this.props.onCancel();
+
+                this.setState({isSubmitInProgress: true});
+                this.props.onMakeFreeVisit(obj).then((res) => {
+                        if (res.data.code === 200) {
+                            message.success('Заявка отправлена');
+                            this.props.onCancel();
+                            this.setState({
+                                showSubmitError: false,
+                                isSubmitInProgress: false
+                            });
+                        }
+                        else if (res.data.code === 701) {
+                            this.setState({
+                                showSubmitError: true,
+                                isSubmitInProgress: false
+                            });
+                            this.handleSelectChange(this.state.currentSpeciality);
+                        }
+                        else {
+                            this.setState({
+                                isSubmitInProgress: false
+                            });
+                            message.error('Произошла ошибка при отправке заявки');
+                        }
+                    }
+                )
             } else { console.log(err, "ERROR")}
 
         });
@@ -123,8 +157,15 @@ class NewFreeVisitByPatientForm extends React.Component {
         })
     };
     handleSelectChange = (speciality) => {
-        this.props.getFreeVisitIntervals(speciality);
-        !this.state.isCarouselVisible && this.setState({isCarouselVisible: true})
+        this.setState({isCarouselLoading: true});
+        this.props.getFreeVisitIntervals(speciality)
+            .then((res) => {
+                if (res.data.code === 200)
+                    this.setState({
+                        isCarouselLoading: false,
+                        isCarouselVisible: true
+                    })
+            });
     };
     onCancel = () => {
 
@@ -150,7 +191,13 @@ class NewFreeVisitByPatientForm extends React.Component {
                                     }]
                                 })(
                                     <Select placeholder="Категория врача"
-                                            onChange={this.handleSelectChange}
+                                            onChange={(spec) => {
+                                                this.setState({
+                                                    currentSpeciality: spec,
+                                                    showSubmitError: false
+                                                });
+                                                this.handleSelectChange(spec);
+                                            }}
 
                                     >
                                         {this.renderOptions()}
@@ -158,12 +205,13 @@ class NewFreeVisitByPatientForm extends React.Component {
                                 )}
                             </FormItem>
 
-                            {this.state.isCarouselVisible && <PatientCalendarCarousel
-                                intervals = {this.refactorIntervals(this.props.freeVisitsIntervals)}
-                                makeActive={this.getTimeStampFromCarousel}
-                                shouldChooseTime = {this.state.shouldChooseTime}
-                                isOnFreeAppointments = {true}
-                            />}
+                            {this.state.isCarouselLoading ? <Spinner/> : this.state.isCarouselVisible ?
+                                <PatientCalendarCarousel
+                                    intervals = {this.refactorIntervals(this.props.freeVisitsIntervals)}
+                                    makeActive={this.getTimeStampFromCarousel}
+                                    shouldChooseTime = {this.state.shouldChooseTime}
+                                    isOnFreeAppointments = {true}
+                                /> : null}
                             {this.state.isTypeVisible && <FormItem>
                                 <div className="typeOfVisit">
                                     <div className="chose-visit-type"> Выберите тип связи </div>
@@ -193,13 +241,18 @@ class NewFreeVisitByPatientForm extends React.Component {
                                                 text="Прикрепить результаты исследований"/>
                                 )}
                             </FormItem>
-                            <Button size='default'
-                                    btnText={`Записаться ${this.state.timeStamp ? `на ${moment(this.state.timeStamp*1000).format("D MMMM H:mm")}`:``}`}
-                                    htmlType="submit"
-                                    type='float'
-                                    onClick={this.handleSubmit}
+                            <div className="new-visit-content-submit">
+                                <Button size='default'
+                                        btnText={`Записаться ${this.state.timeStamp ? `на ${moment(this.state.timeStamp*1000).format("D MMMM H:mm")}`:``}`}
+                                        disable={this.state.isSubmitInProgress}
+                                        htmlType="submit"
+                                        type='float'
+                                        onClick={this.handleSubmit}
 
-                            />
+                                />
+                                {this.state.isSubmitInProgress && <div className="new-visit-content-submit-spinner"><Spinner/></div>}
+                            </div>
+                            {this.state.showSubmitError && <div className="new-visit-content-error">Данное время уже занято</div>}
                         </div>
                     </Card>
                 </div>

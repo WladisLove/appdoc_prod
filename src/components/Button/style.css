@@ -135,6 +135,13 @@
   background-color: #0495ff;
   color: #fff;
 }
+.btn-type-emergency {
+  background-color: #ef5350;
+  color: white;
+  align-self: center;
+  border: none;
+  margin-bottom: 1px;
+}
 .btn-type-upload {
   background-color: transparent;
   min-width: auto;

@@ -175,7 +175,7 @@ class App extends React.Component {
                                 logout={this.props.onLogout}
                                 getFreeVisitIntervals = {(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
                                 freeVisitsIntervals = {this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
-                                onMakeVisit = {this.props.onMakeVisit}
+                                onMakeVisit = {(obj)=>this.props.onMakeVisit(obj)}
 
 
                         />
@@ -247,7 +247,7 @@ const mapDispatchToProps = dispatch => {
         setExInfo: ({isIn, isUserSet}) => dispatch(actions.setExIntervalInfo(isIn, isUserSet)),
         switchExInterval: (flag) => dispatch(actions.switchExInterval(flag)),
         onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
-        onMakeVisit: (info)=> {dispatch(actions.setReceptionByPatient(info))},
+        onMakeVisit: (info)=> dispatch(actions.setReceptionByPatient(info)),
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
         
         setChatFromId: (id) => dispatch(actions.setChatFromId(id)),

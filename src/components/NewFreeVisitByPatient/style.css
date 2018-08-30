@@ -27,6 +27,18 @@
   display: flex;
   flex-direction: column;
 }
+.patient-page-new-free-visit .ant-card-body .new-visit-content-error {
+  text-align: center;
+  color: #ef5350;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content-submit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.patient-page-new-free-visit .ant-card-body .new-visit-content-submit-spinner {
+  padding-left: 10px;
+}
 .patient-page-new-free-visit .ant-card-body .new-visit-content .calendar-carousel {
   align-self: center;
 }
