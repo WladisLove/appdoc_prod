@@ -85,7 +85,6 @@ class Patients extends React.Component{
                 removePatient(id);
             },
           });
-        //this.props.removePatient(id);
     }
 
     render(){
