@@ -74,6 +74,7 @@ class MainPage extends React.Component{
 				completedApps = {this.props.completedApps}
 				nearVisits = {this.props.nearVisits}
                 nearVisitsLoaded={this.props.nearVisitsLoaded}
+                myDoctorsLoaded={this.props.myDoctorsLoaded}
 				{...this.props}
                 isNewFreeVisitVisible = {this.state.isNewFreeVisitVisible}
                 onCancel = {()=>this.setState({isNewFreeVisitVisible: false })}
@@ -107,6 +108,7 @@ const mapStateToProps = state => {
 		patientDoctors: state.patients.patientDoctorsShort,
 		nearVisits: state.schedules.nearVisits,
 		nearVisitsLoaded: state.schedules.nearVisitsLoaded,
+        myDoctorsLoaded: state.patients.myDoctorsLoaded,
 		intervals: state.patients.intervals,
 		availableIntervals: state.profileDoctor.workIntervals,
 		userInfoShort: state.profilePatient,

@@ -94,6 +94,7 @@ const PatientPage = props => {
                         onAddVisit = {props.onAddVisit}
                         isReceptionRecorded={props.isReceptionRecorded}
                         receptionRecordedID={props.receptionRecordedID}
+                        myDoctorsLoaded={props.myDoctorsLoaded}
                     />
                 </Col>
             </Row>
