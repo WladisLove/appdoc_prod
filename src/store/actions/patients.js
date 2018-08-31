@@ -219,6 +219,7 @@ export const searchUsers = (name) => {
             })
             .catch(err => {
                 console.log(err);
+                return err;
             })
     }
 }
@@ -236,12 +237,13 @@ export const getNotPatientDoctors = (name) => {
             id: getState().auth.id,
             name,
         };
-        axios.post('/catalog.doc2/getNoDoctorByPatientsId', JSON.stringify(obj))
+        return axios.post('/catalog.doc2/getNoDoctorByPatientsId', JSON.stringify(obj))
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_NOT_PATIENT_DOCTORS,
                     notPatientDoctors: rez.data,
                 })
+                return rez;
             })
             .catch(err => {
                 console.log(err);
