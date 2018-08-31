@@ -5,6 +5,7 @@ import AddNewPatientItem from '../AddNewPatientItem'
 import Modal from '../Modal'
 import Input from '../Input'
 import './styles.css'
+import Spinner from "../Spinner";
 
 
 class AddNewPatient extends React.Component{
@@ -13,13 +14,13 @@ class AddNewPatient extends React.Component{
         this.state = {
             patients: props.data,
             inputValue: '',
+            loading: false
         };
-        this.inp;
     }
     
     onAddHandler = (id) => {
         this.props.onAdd(id, this.state.inputValue);
-    }
+    };
 
     patientsRender = (dataArr) => {
         return dataArr.map((item, index) => {
@@ -31,7 +32,12 @@ class AddNewPatient extends React.Component{
     };
 
     componentWillReceiveProps(nextProps){
-        nextProps.visible === false ? this.state.inputValue = '' : null;
+        if (this.props.visible !== nextProps.visible && nextProps.visible === true)
+            this.setState({
+                inputValue: '',
+                loading: false,
+                patients: []
+            })
     }
 
     componentWillMount() {
@@ -41,26 +47,42 @@ class AddNewPatient extends React.Component{
     handleChange = (e) => {
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
-        e.target.value.length > 2 ?  this.timer = setTimeout(this.triggerChange, 800) : null;
-
+        if (e.target.value.length === 3)
+            this.triggerChange();
+        else if (e.target.value.length > 2)
+            this.timer = setTimeout(this.triggerChange, 800);
+        else this.props.onClear();
     };
 
     triggerChange = () => {
+        this.setState({loading: true});
         this.props.onSearch(this.state.inputValue)
+            .then((res) => {
+                if (res.status === 200)
+                    this.setState({loading: false});
+            })
+            .catch((err) => console.log(err))
     };
 
     handleKeyDown = (e) => {
-        if(e.keyCode===13 && e.target.value.length > 2) {
-            clearTimeout(this.timer);
-            this.props.onSearch(this.state.inputValue);
+        if (e.target.value.length > 2) {
+            if (e.keyCode === 13) {
+                clearTimeout(this.timer);
+                this.props.onSearch(this.state.inputValue);
+            }
         }
+        else this.props.onClear();
     };
-    handleSearch = (e) => {
-        if (this.state.inputValue.length > 2) this.props.onSearch(this.state.inputValue);
-    };
-    render(){
-        this.inp && console.log(this.inp.input.input.value)
 
+    handleSearch = () => {
+        if (this.state.inputValue.length > 2) {
+            clearTimeout(this.timer);
+            this.triggerChange();
+        }
+        else this.props.onClear();
+    };
+
+    render(){
         const {visible, onCancel} = this.props;
 
         return (
@@ -86,12 +108,13 @@ class AddNewPatient extends React.Component{
                             horizontal={false}
                     >
                         {this.state.inputValue.length > 2 ?
-                        (
-                            this.props.data.length === 0 ? 
-                                (<div className="no-patients">Пациенты не найдены</div>)
-                                : this.patientsRender(this.props.data)
-                        )
-                        : (<div className="no-patients">Введите больше символов для поиска</div>)}
+                            (
+                                this.state.loading ? <Spinner/> :
+                                    this.props.data.length === 0 ?
+                                        (<div className="no-patients">Пациенты не найдены</div>)
+                                        : this.patientsRender(this.props.data)
+                            )
+                            : (<div className="no-patients">Введите больше символов для поиска</div>)}
                     </ScrollArea>
                 </div>
             </Modal>

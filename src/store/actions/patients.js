@@ -184,20 +184,30 @@ export const getSelectedPatientInfo = (id) => {
 }
 
 export const getNotDocPatients = (name) => {
+    if (name === "" || name === " ") {
+        return (dispatch) => {
+            dispatch({
+                type: actionTypes.GET_NOT_DOCTORS_PATIENTS,
+                patients: []
+            })
+        }
+    }
     return (dispatch, getState) => {
         let obj = {
             id: getState().auth.id,
             name,
-        }
-        name && axios.post('/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
+        };
+        return axios.post('/catalog.doc2/getNoPatientsByDoctorId', JSON.stringify(obj))
             .then(rez => {
                 dispatch({
                     type: actionTypes.GET_NOT_DOCTORS_PATIENTS,
-                    patients: rez.data,
-                })
+                    patients: rez.data
+                });
+                return rez;
             })
             .catch(err => {
                 console.log(err);
+                return err;
             })
     }
 }
