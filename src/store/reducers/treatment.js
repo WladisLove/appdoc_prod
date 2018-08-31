@@ -40,6 +40,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 completedApps: action.completedApps,
+                completedAppsLoaded: true
             }
         case actionTypes.APPS_BETWEEN_DOC_USER:
             return {

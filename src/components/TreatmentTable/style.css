@@ -22,6 +22,9 @@
 .treatment-all {
   width: 100%;
 }
+.treatment-all-spinner {
+  padding: 20px 0;
+}
 .treatment-all .scrollarea-content.content {
   min-width: 100%;
 }

@@ -106,7 +106,9 @@ const PatientPage = props => {
 
                         data={props.completedApps}
                         onGoto={(id) => console.log(id)}
-                        onGotoChat={(id) => console.log(id)}/>
+                        onGotoChat={(id) => console.log(id)}
+                        treatmentsLoaded={props.completedAppsLoaded}
+                    />
                 </Col>
             </Row>
 
