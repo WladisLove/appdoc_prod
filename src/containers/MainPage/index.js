@@ -17,7 +17,7 @@ class MainPage extends React.Component{
 
 	}
 
-	componentDidMount(){
+	componentWillMount(){
 		if (this.props.mode === "user"){
 			this.props.onGetPatientDoctors(2);
 			this.props.onGetCompletedApp();
@@ -90,7 +90,8 @@ class MainPage extends React.Component{
 				closeAdd= {() => {this.setState({addModal: false})}}
 				onSaveNewVisit = {this.onSaveNewVisit}
 				cancelModal ={this.state.cancelModal}
-				closeCancel= {() => {this.setState({cancelModal: false})}}
+                completedAppsLoaded={this.props.completedAppsLoaded}
+                closeCancel= {() => {this.setState({cancelModal: false})}}
 				saveCancel = {() => {}}
 				{...this.props}/>
 		)

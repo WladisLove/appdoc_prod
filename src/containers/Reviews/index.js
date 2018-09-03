@@ -15,8 +15,13 @@ import './styles.css'
 class Reviews extends React.Component{
 
 	gotoHandler = (id) => {
-		this.props.onSelectPatient(id);
-		this.props.history.push('/patient'+id);
+	    if(this.props.isDoctor) {
+            this.props.onSelectPatient(id);
+            this.props.history.push('/patient'+id);
+        } else {
+            this.props.history.push('/doctor'+id);
+        }
+
 	};
 
     render() {

@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import moment from 'moment'
-
 import Hoc from '../Hoc'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
-
 import Hr from "../Hr";
 import Spinner from "../Spinner";
-import {Form} from "antd";
 
 class Step3 extends React.Component{
     constructor(props){
@@ -41,7 +38,6 @@ class Step3 extends React.Component{
         let i = 0,
             elArr = [];
         while (true){
-            console.log("FFFF");
             if(data['educationsgroup1-education-'+i]){
                 elArr.push(<Hoc key={'educInfo'+i}>
                     {this.renderItem(`Учебное заведение`,'educationsgroup1-education-'+i)}
@@ -60,7 +56,6 @@ class Step3 extends React.Component{
             let i = 0,
                 elArr = [];
             while (true){
-                console.log("TTTTT");
                 if(data['work-worknow-'+i]){
                     elArr.push(<Hoc key={'workInfo'+i}>
                         {this.renderItem(`Место работы`,'work-worknow-'+i)}
@@ -150,28 +145,20 @@ class Step3 extends React.Component{
     };
 
     finishHandler = () => {
-        this.setState({loadingSpinner: true}, () => {
-            let data = this.props.data;
-            for(let key in data) {
-                if(!data[key]) {
-                    delete data[key]
-                }
-
+        let data = this.props.data;
+        for (let key in data) {
+            if (!data[key]) {
+                delete data[key]
             }
-            this.props.onFinish(data);
-        });
+
+        }
+        this.props.onFinish(data);
     };
 
-
     handleGoBack = () => {
-        this.setState({loadingSpinner: true}, () => {
-            this.props.onPrev();
-        });
+        this.props.onPrev();
+    };
 
-
-
-
-    }
     render(){
         const {data} = this.props;
         return (
@@ -211,19 +198,19 @@ class Step3 extends React.Component{
                 <div className="steps-action">
                     <Button onClick={this.handleGoBack}
                             btnText='Назад'
-                            disable={this.state.loadingSpinner}
+                            disable={this.props.regInProgress}
                             size='large'
                             type='float'
                             style = {{marginRight: "20px"}}
                     />
                     <Button btnText='Завершить'
-                            disable={this.state.loadingSpinner  || !this.state.checked}
+                            disable={!this.state.checked || this.props.regInProgress}
                             onClick={this.finishHandler}
                             size='large'
                             type='gradient'
                     />
                 </div>
-                {(this.state.loadingSpinner|| this.props.regInProgress)  &&  <Spinner/>}
+                {this.props.regInProgress && <Spinner/>}
             </div>
         )
     }

@@ -29,7 +29,7 @@ class PatientDoctorItem extends React.Component{
                 </div>
                 <div className='doctor-item-block'>
                     <div className='doctor-item-info'>
-                        <div className='doctor-item-doctor__name'>{doctorName}</div>
+                        <div className='doctor-item-doctor__name' onClick={()=>{this.props.onGoto(this.props.id)}}>{doctorName}</div>
                         <div className='doctor-item-doctor__specialty'>{doctorSpeciality}</div>
                         <div className='doctor-item-doctor__rating'><Rate defaultValue={doctorRate} disabled/></div>
                     </div>

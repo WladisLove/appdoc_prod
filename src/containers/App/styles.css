@@ -108,3 +108,6 @@
   font-size: 12px;
   letter-spacing: 0.12px;
 }
+button {
+  outline: none!important;
+}

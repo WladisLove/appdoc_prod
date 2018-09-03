@@ -1,17 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import moment from 'moment'
-
-import { Form, Upload, Icon, message } from 'antd';
-import Input from '../Input'
+import { Form, Upload, Icon } from 'antd';
 import InputNew from '../InputNew'
 import Radio from '../RadioBox'
 import DatePicker from '../DatePicker'
 import Button from '../Button'
-
-import './style.css'
-import '../../icon/style.css'
-import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -21,28 +14,22 @@ class Step1Form extends React.Component{
     state = {
         fileList: [],
         avatarUrl: "",
-        loadingSpinner: false
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({loadingSpinner: true}, () => {
-            this.props.form.validateFields((err, values) => {
-                if (!err) {
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
 
-                    let fields = {
-                        ...values,
-                        avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
-                    };
-                    values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl: null : null;
-                    this.props.onSubmit(fields);
-                    this.props.onNext();
-                } else {
-                    this.setState({loadingSpinner: false});
-
-                }
-            })});
-
+                let fields = {
+                    ...values,
+                    avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
+                };
+                values.avatar ? values.avatar.fileList[0].thumbUrl = this.state.avatarUrl ? this.state.avatarUrl : null : null;
+                this.props.onSubmit(fields);
+                this.props.onNext();
+            }
+        })
     };
 
     handleChange = (info) => {
@@ -90,12 +77,14 @@ class Step1Form extends React.Component{
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('email', {
-                        rules: [
-                            {type: 'email', message: 'Неправильный формат e-mail адреса'},
-                            {required: true, message: "Введите ваш e-mail, пожалуйста"},
-                            {validator: this.checkEmail}],
+                        rules:
+                            [
+                                {type: 'email', message: 'Неправильный формат e-mail адреса'},
+                                {required: true, message: "Введите ваш e-mail, пожалуйста"},
+                                {validator: this.checkEmail}
+                            ]
                     })(
-                        <InputNew width ="100%" bubbleplaceholder="* E-mail" className="step-form-item"/>
+                        <InputNew width="100%" bubbleplaceholder="* E-mail" className="step-form-item"/>
                     )}
                 </FormItem>
                 <FormItem>
@@ -162,13 +151,11 @@ class Step1Form extends React.Component{
 
                 <div className="steps-action">
                     <Button htmlType="submit"
-                            disable={this.state.loadingSpinner}
                             btnText='Далее'
                             size='large'
                             type='gradient'/>
 
                 </div>
-                {this.state.loadingSpinner &&  <Spinner/>}
             </Form>
         )
     }

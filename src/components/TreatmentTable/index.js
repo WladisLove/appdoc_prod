@@ -39,17 +39,21 @@ class TreatmentTable extends React.Component{
                         contentClassName="content"
                         horizontal={true}
                     >
-                        {this.props.treatmentsLoaded !== true ? <div className="treatment-all-spinner"><Spinner/></div> : (<div className="tableheader">
-                        <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Врач" : "Имя пациента"}</div></div>
-                        <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
-                        <div className="flex-col"><div className="tableheader-name">Диагноз</div></div>
-                        <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
-                        <div className="flex-col"><div className="tableheader-name">Стоимость</div></div>
-                        <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
-                        <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
-                        <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
-                        </div>) && (data.length ? this.treatmentRender(data)
-                                : <div className='entry-list'>{this.props.isUser ? "Приёмов нет" : "Обращений нет"}</div>)}
+
+                                <div className="tableheader">
+                                    <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Врач" : "Имя пациента"}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">Диагноз</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">Стоимость</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
+                                </div>
+                        {this.props.treatmentsLoaded !== true ?
+                            <div className="treatment-all-spinner"><Spinner/></div>
+                            : data.length ? this.treatmentRender(data)
+                                : <div className='entry-list'>{this.props.isUser ? "Приёмов нет" : "Обращений нет"}</div>}
                         </ScrollArea>
                   </Card>
             </div>

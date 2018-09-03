@@ -9,6 +9,10 @@ import TopPanelPatient from "../../components/TopPanelPatient";
 import TreatmentTable from "../../components/TreatmentTable";
 import NewFreeVisitByPatient from "../../components/NewFreeVisitByPatient";
 const PatientPage = props => {
+    const gotoHandler = (id) => {
+        props.onSelectPatient(id);
+        props.history.push('/doctor'+id);
+    };
     return (
         <Hoc>
             <Row>
@@ -84,7 +88,7 @@ const PatientPage = props => {
                 <Col xs={24} xxl={10} className='section'>
                     <PatientDoctor
                         data = {props.doctors}
-                        onGoto={() => console.log('click')}
+                        onGoto={gotoHandler}
                         redirect={() => props.history.push('/doctors')}
                         intervals={props.intervals}
                         onGetAllDocIntervals={props.onGetAllDocIntervals}
@@ -105,7 +109,7 @@ const PatientPage = props => {
                         redirect={() => props.history.push('/treatment')}
 
                         data={props.completedApps}
-                        onGoto={(id) => console.log(id)}
+                        onGoto={gotoHandler}
                         onGotoChat={(id) => console.log(id)}
                         treatmentsLoaded={props.completedAppsLoaded}
                     />

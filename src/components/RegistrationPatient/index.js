@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-
-import {Form, Upload, Icon, message, Alert} from 'antd';
-
-import Input from '../Input'
+import {Form, Upload, Icon} from 'antd';
 import TextArea from '../TextArea'
 import Spinner from '../Spinner'
-
 import Radio from '../RadioBox'
 import DatePicker from '../DatePicker'
 import Button from '../Button'
 import moment from 'moment'
-
 import './style.css'
 import '../../icon/style.css'
 import Checkbox from "../Checkbox";

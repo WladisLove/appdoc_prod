@@ -15,6 +15,11 @@
   display: flex;
   cursor: pointer;
 }
-.loginPage-header-close .icon {
+
+.loginPage-header-close a .icon {
   margin: auto;
+}
+.loginPage-header-close a  {
+  display: flex;
+  width: 100%;
 }

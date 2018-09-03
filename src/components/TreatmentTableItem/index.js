@@ -34,8 +34,9 @@ class TreatmentTableItem extends React.Component{
         }
     };
     render(){
-        const {type, id, id_user, file, user_name,doc_name, date, begin, finish, diagnostic, comment, price, conclusion,
+        const {type, id, id_user,id_doc, file, user_name,doc_name, date, begin, finish, diagnostic, comment, price, conclusion,
             isUser, patientWasnt, rate, complaint, onGoto, onGotoChat} = this.props;
+        const goToId = isUser ? id_doc : id_user;
         const rootClass = cn('treatment');
         const key_val = {
             'chat': 'chat1',
@@ -54,7 +55,7 @@ class TreatmentTableItem extends React.Component{
                 <div className="flex-col">
                     <div className="patient-name">
                         <div onClick={(e) => {
-                            onGoto(id_user);
+                            onGoto(goToId);
                             this.handleClick(e);
                         }} className='go-to'>{name}</div>
                     </div>

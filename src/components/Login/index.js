@@ -28,7 +28,6 @@ class LoginForm extends React.Component{
         const {errorCode, urlForget, urlRegistrationDoctor, urlRegistrationPatient} = this.props;
 
         const { getFieldDecorator } = this.props.form;
-        const {userName, password} = this.props.form.getFieldsValue();
 
         let error = [];
 
@@ -86,8 +85,7 @@ class LoginForm extends React.Component{
                     )}
                 </FormItem>
                 <div className="login-form-control">
-                    <Button disable={!(userName && password)}
-                            htmlType="submit"
+                    <Button htmlType="submit"
                             btnText='Войти'
                             size='large'
                             type='gradient'/>

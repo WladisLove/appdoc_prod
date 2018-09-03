@@ -13,26 +13,32 @@ import './styles.css';
 import PatientProfileDoctorItem from "../../components/PatientProfileDoctorItem";
 import DoctorPageNewVisit from "../../components/DoctorPageNewVisit";
 import ReviewsTree from "../../components/ReviewsTree";
+import Spinner from "../../components/Spinner";
 
 class PatientsPage extends React.Component{
     constructor(props) {
         super(props);
 
         this.state = {
-            loading: false
+            loading: true
         };
         this.onMakeNewApp = this.onMakeNewApp.bind(this)
     }
 
     componentWillMount(){
-        this.props.onGetInfoDoctor(this.props.match.params.id);
-        this.props.onGetDocSchedule(this.props.match.params.id);
+        const info = this.props.onGetInfoDoctor(this.props.match.params.id);
+        const schedule = this.props.onGetDocSchedule(this.props.match.params.id);
+        Promise.all([info, schedule])
+            .then(()=> {this.setState({loading:false})})
     }
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.match.params.id !== this.props.match.params.id) {
-            this.props.onGetInfoDoctor(nextProps.match.params.id);
-            this.props.onGetDocSchedule(nextProps.match.params.id);
+            this.setState({loading:true})
+            const info = this.props.onGetInfoDoctor(this.props.match.params.id);
+            const schedule = this.props.onGetDocSchedule(this.props.match.params.id);
+            Promise.all([info, schedule])
+                .then(()=> {this.setState({loading:false})})
         }
     }
 
@@ -106,6 +112,9 @@ class PatientsPage extends React.Component{
     render(){
         const { fio, academicdegree, academicstatus, category, experience, consultationPrice, isChildConsult, avatar} = this.props.profileDoctor;
         const reviewsLoadCount = 7;
+        if(this.state.loading) {
+            return <Spinner size="large"/>
+        }
         if(!this.props.profileDoctor.fio) {
             return(
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>

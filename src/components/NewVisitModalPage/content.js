@@ -133,15 +133,12 @@ class ContentForm extends React.Component {
             message: '',
             isResetTime: true,
             showSubmitError: false,
-            loading: false
         }),
             this.props.form.resetFields()) : null;
 
         nextProps.intervals !== this.props.intervals ?
             this.setState({availableArea: this.getIntervals(nextProps.intervals)}) : null;
 
-        if (nextProps.submitSuccess)
-            this.setState({loading: false});
 
         if (!nextProps.submitSuccess && nextProps.submitSuccess !== this.props.submitSuccess) {
             this.onChangeDate();
@@ -151,7 +148,6 @@ class ContentForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if (!this.state.loading) {
             this.props.form.validateFieldsAndScroll((err, values) => {
                 if (!err) {
                     let paramDate = this.state.currentTime;
@@ -166,13 +162,19 @@ class ContentForm extends React.Component {
                             return item.originFileObj
                         })
                     }
-                    this.props.onSave(response);
+
                     this.setState({loading: true});
+                    this.props.onSave(response)
+                        .then((res) => {
+                            res.data.code === 200
+                                ? (message.success("Запись прошла успешно"), this.props.onCancel())
+                                : message.error("Произошла ошибка, выберете другое время")
+                            this.setState({loading:false})
+                    });
                 } else {
                     console.log(err, "ERROR")
                 }
             });
-        }
 
     };
 
@@ -246,8 +248,13 @@ class ContentForm extends React.Component {
                 <div className='NewVisitModal-submit'>
                 <Button size='default'
                         btnText='Сохранить'
+                        disable={this.state.loading}
                         htmlType="submit"
-                        type='float'/>
+                        type='float'
+                        style={{marginRight: "20px"}}
+
+                />
+                    {this.state.loading && <Spinner inline={true} size="small"/>}
 
                 {this.state.showSubmitError && <div className='NewVisitModal-submit-error'>Это время уже занято</div>}
                 </div>
