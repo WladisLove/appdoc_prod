@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux';
-import {Route} from 'react-router-dom'
+import {NavLink, Route} from 'react-router-dom'
 import Hoc from '../../hoc'
 import Icon from "../../components/Icon/index.js";
 import Row from "../../components/Row/index.js";
@@ -25,10 +25,7 @@ class LoginPage extends React.Component {
             isRegFinished: false
         };
     }
-    closeAuthPage = (e) => {
-        e.preventDefault();
-        console.log('Close & go back')
-    };
+
 
 
     registerDoctor = (data) => {
@@ -79,7 +76,10 @@ class LoginPage extends React.Component {
             <Hoc>
                 <div className="loginPage-header">
                     <div className="loginPage-header-close">
-                        <Icon type='close' svg onClick={this.closeAuthPage}/>
+                        <NavLink to="/login">
+                            <Icon type='close' svg />
+                        </NavLink>
+
                     </div>
                 </div>
     

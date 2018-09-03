@@ -129,13 +129,6 @@ export const registerDoctor = (data) => {
 
         console.log(data, "AFTER", result);
 
-
-
-
-//
-        dispatch({
-            type: actionTypes.REG_DOCTOR_START
-        });
         return axios.post('/fusers.doc/createUserDoc',
             JSON.stringify(result))
             .then(res => res)

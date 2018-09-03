@@ -1,21 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-
 import { Form } from 'antd';
-
 import Step2_educ from './Step2_educ'
 import Step2_graduate_educ from './Step2_graduate_educ'
 import Step2_work from './Step2_work'
 import Step2_additional from './Step2_additional'
-
 import Button from '../Button'
 import Hr from '../Hr'
-
 import Upload from '../Upload'
-
 import SelectNew from "../SelectNew";
 import InputNew from "../InputNew";
-import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 
@@ -29,7 +23,6 @@ class Step2_From extends React.Component{
             isCategory: this.props.data.isCategory || false,
             isDegree : this.props.data.isDegree || false,
             isStatus: this.props.data.isStatus || false,
-            loadingSpinner: false
 
         }
     }
@@ -43,37 +36,30 @@ class Step2_From extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.setState({loadingSpinner: true}, () => {
-            this.props.form.validateFields((err, values) => {
-                console.log(values, "VALUES STEP 2");
-                if (!err) {
-                    let toSubmit = {
-                        ...values,
-                        ...this.state,
-                    };
-                    this.props.onSubmit(toSubmit);
-                    this.props.onNext();
-                } else {
-                    this.setState({loadingSpinner: false});
-
-                }
-            });
-        });
-
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            console.log(values, "VALUES STEP 2");
+            if (!err) {
+                let toSubmit = {
+                    ...values,
+                    ...this.state,
+                };
+                this.props.onSubmit(toSubmit);
+                this.props.onNext();
+            }
+        })
     };
 
     handleGoBack = (e) => {
         e.preventDefault();
-        this.setState({loadingSpinner: true}, () => {
-            this.props.form.validateFields((err, values) => {
-                let fields = {
-                    ...values,
-                    ...this.state,
-                };
-                this.props.onSubmit(fields);
-                this.props.onPrev();
-            });
-        });
+
+        this.props.form.validateFields((err, values) => {
+            let fields = {
+                ...values,
+                ...this.state,
+            };
+            this.props.onSubmit(fields);
+            this.props.onPrev();
+        })
     };
 
     selectChangeHandler = (e, name) => {
@@ -272,18 +258,15 @@ class Step2_From extends React.Component{
                     <Button onClick={this.handleGoBack}
                             btnText='Назад'
                             size='large'
-                            disable={this.state.loadingSpinner}
                             type='float'
                             style = {{marginRight: "20px"}}
                     />
                     <Button htmlType="submit"
                             btnText='Далее'
-                            disable={this.state.loadingSpinner}
                             size='large'
                             type='gradient'
                     />
                 </div>
-                {this.state.loadingSpinner &&  <Spinner/>}
             </Form>
         )
     }
@@ -295,8 +278,6 @@ const Step2 = Form.create({
         for (let key in props.data){
             if (key !== 'current' && props.data[key]){
                 if(key.indexOf("ucationyears") + 1) {
-                   console.log(props.data[key][0], props.data[key][1], "НОЛЬ И ОДИН");
-
                     fields[key] = Form.createFormField({
                         value: {defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
                     })

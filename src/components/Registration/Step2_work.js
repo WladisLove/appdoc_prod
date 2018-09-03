@@ -67,7 +67,7 @@ class Step2_work extends React.Component {
                     <FormItem>
                         {getFieldDecorator('work-copycontract-'+number, {
                             rules: [{
-                                required: false,  //change to true
+                                required: true,
                                 message: 'Загрузите подтверждающий документ'
                             }],
                         })(

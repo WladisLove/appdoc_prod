@@ -101,7 +101,7 @@ const resgisterResponse = (message) => {
         var errorMessage = message.message ? message.message
                 : 'Unknown reason for register rejection.';
         console.log(errorMessage);
-        window.alert('Error registering user. See console for further information.');
+        //window.alert('Error registering user. See console for further information.');
     }
 }
 

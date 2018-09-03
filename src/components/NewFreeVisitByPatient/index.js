@@ -14,9 +14,9 @@ import {Form, message} from "antd";
 import {previewFile} from "../../helpers/modifyFiles";
 import Select from "../Select";
 
-import {timeIntervals} from "./stories/mock-data"
 import Modal from "../Modal";
 import Spinner from "../Spinner";
+
 const FormItem = Form.Item;
 
 class NewFreeVisitByPatientForm extends React.Component {

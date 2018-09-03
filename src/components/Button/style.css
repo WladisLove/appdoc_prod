@@ -226,7 +226,6 @@
 }
 .btn-type-gradient[disabled] {
   background: #bbbbbb;
-  border: none;
 }
 .btn-type-light-blue {
   background-color: #e1f2fe;

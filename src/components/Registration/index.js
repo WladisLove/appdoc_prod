@@ -1,18 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-
-
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
 import Steps from '../Step'
-
-
 import './style.css'
 import '../../icon/style.css'
 import RegistrationComplete from "../RegistrationComplete";
-import Spinner from "../Spinner";
-import {Alert} from "antd";
+
 
 
 class RegistrationForm extends React.Component{
