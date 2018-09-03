@@ -7,6 +7,7 @@ import Icon from '../Icon'
 import ScrollArea from 'react-scrollbar'
 import './style.css'
 import '../../icon/style.css'
+import Spinner from "../Spinner";
 
 class TreatmentTable extends React.Component{
 
@@ -32,14 +33,13 @@ class TreatmentTable extends React.Component{
                         extra={<div className='go-to' onClick={this.props.redirect}>
                             <Icon svg size={16} type="order-form" /> <span>Все обращения</span>
                         </div>}>
-                    {data.length ?
                     <ScrollArea
                         speed={1}
                         className=""
                         contentClassName="content"
                         horizontal={true}
                     >
-                        <div className="tableheader">
+                        {this.props.treatmentsLoaded !== true ? <div className="treatment-all-spinner"><Spinner/></div> : (<div className="tableheader">
                         <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Врач" : "Имя пациента"}</div></div>
                         <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
                         <div className="flex-col"><div className="tableheader-name">Диагноз</div></div>
@@ -48,10 +48,9 @@ class TreatmentTable extends React.Component{
                         <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
                         <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
                         <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
-                        </div>
-                    {this.treatmentRender(data)}
+                        </div>) && (data.length ? this.treatmentRender(data)
+                                : <div className='entry-list'>{this.props.isUser ? "Приёмов нет" : "Обращений нет"}</div>)}
                         </ScrollArea>
-                        : <div className='entry-list'>{this.props.isUser ? "Приёмов нет" : "Обращений нет"}</div>}
                   </Card>
             </div>
         )

@@ -9,6 +9,7 @@ import Icon from '../Icon'
 import './style.css'
 import '../../icon/style.css'
 import {message} from "antd";
+import Spinner from "../Spinner";
 
 
 class PatientDoctor extends React.Component{
@@ -17,7 +18,8 @@ class PatientDoctor extends React.Component{
         modal1Visible: false,
         doctorName: '',
         isRecordInProcess: false,
-        submitSuccess: true
+        submitSuccess: true,
+        loading: true
     };
 
     setModal1Visible = (value, name, ID)=> {
@@ -48,6 +50,10 @@ class PatientDoctor extends React.Component{
             else {
                 this.setState({isRecordInProcess: false, submitSuccess: false});
             }
+
+        if (nextProps.myDoctorsLoaded) {
+            this.setState({loading: false});
+        }
     };
 
     onSave = (obj) => {
@@ -64,7 +70,7 @@ class PatientDoctor extends React.Component{
                     <div onClick={this.props.redirect} className='go-to'>
                         <Icon svg type='people' size={18} /> Весь список
                     </div>}>
-                    {this.doctorRender(data)}
+                    {this.state.loading ? <Spinner/> : this.doctorRender(data)}
                 </Card>
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
