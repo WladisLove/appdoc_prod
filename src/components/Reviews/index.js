@@ -18,6 +18,7 @@ class Reviews extends React.Component{
                                 onGoto={this.props.onGoto}
                                 onGotoChat={this.props.onGotoChat}
                                 isSecondAllowed={false}
+                                isDoctor={this.props.isDoctor}
                                 key={dataArr[i].id}/>)
         }
 

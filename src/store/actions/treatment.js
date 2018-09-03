@@ -33,6 +33,10 @@ export const getPaginationTreatments = (filters) => {
                     treatments: res.data.result,
                     treatmentsCount: res.data.count
                 });
+                dispatch({
+                    type: actionTypes.GET_COMPLETED_APPS,
+                    completedApps: res.data,
+                });
             })
             .catch(err => {
                 console.log(err);

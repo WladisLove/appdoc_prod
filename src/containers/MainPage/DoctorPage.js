@@ -45,6 +45,7 @@ const DoctorPage = props => {
                                         props.onSelectTretment(id);
                                         props.history.push('/chat');
                                     }}
+									 isDoctor={true}
 									 redirect={() => {props.history.push('/reviews');}}/>
 						</Col>
 					</Row>
@@ -56,6 +57,7 @@ const DoctorPage = props => {
                                                 props.onSelectTretment(id);
 												props.history.push('/chat');
 											}}
+                                            treatmentsLoaded={props.completedAppsLoaded}
 
 											redirect={() => props.history.push('/treatment')}/>
 						</Col>

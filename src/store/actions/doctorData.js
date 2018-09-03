@@ -24,7 +24,7 @@ export const getInfoDoctor = (id) => {
     let ids = {"id":idstr}; //задать самому id доктора
     return (dispatch) => {
 
-        axios.post('/fusers.doc/infoDoc',
+        return axios.post('/fusers.doc/infoDoc',
          JSON.stringify(ids))
             .then(res => {
                 res.data.result.id= ids.id;
@@ -83,7 +83,7 @@ export const getAllDocIntervals = (id) => {
 };
 export const getDateWorkIntervalWithoutMakingAppAll = (id_doc) => {
     return (dispatch) => {
-        axios.post('/catalog.doc2/getDateWorkIntervalWithoutMakingAppAll', JSON.stringify({
+        return axios.post('/catalog.doc2/getDateWorkIntervalWithoutMakingAppAll', JSON.stringify({
             id_doc: id_doc,
             datestart: +moment().format("X")+1800
         }))

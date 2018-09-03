@@ -40,7 +40,9 @@ class MainReview extends React.Component{
             avatar, 
             date, 
             dateCommentDoc, 
-            online, 
+            online,
+            id_doc,
+            id_user,
             status_user,
             comment, 
             rating, 
@@ -55,6 +57,7 @@ class MainReview extends React.Component{
         const commentDisplay = this.state.showComment ? 'block' : 'none';
         const answAreaDisplay = this.state.showAnswerArea ? 'block' : 'none';
         const isOnline = status_user === undefined ? !!online : !!status_user;
+        const goToId = isDoctor ? id_user : id_doc;
 
         return (
             <div className='review-root'>
@@ -66,7 +69,7 @@ class MainReview extends React.Component{
                 <div className="patient-info">
                     <div className="flex-row">
                         <div className="patient-name go-to"
-                            onClick={()=>this.props.onGoto(this.props.id_user)}
+                            onClick={()=>this.props.onGoto(goToId)}
                         >
                             {author}
                         </div>

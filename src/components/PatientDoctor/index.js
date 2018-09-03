@@ -35,31 +35,18 @@ class PatientDoctor extends React.Component{
         let doctorArr = [];
 
         dataArr.map((item,index) => {
-            doctorArr.push(<PatientDoctorItem key={index} {...item} checkModal1Visible={this.setModal1Visible}/>)
+            doctorArr.push(<PatientDoctorItem onGoto={this.props.onGoto} key={index} {...item} checkModal1Visible={this.setModal1Visible}/>)
         });
 
         return doctorArr;
     };
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.isRecordInProcess)
-            if (nextProps.isReceptionRecorded && nextProps.receptionRecordedID !== this.props.receptionRecordedID) {
-                message.success("Запись прошла успешно");
-                this.setState({modal1Visible: false, isRecordInProcess: false});
-            }
-            else {
-                this.setState({isRecordInProcess: false, submitSuccess: false});
-            }
-
         if (nextProps.myDoctorsLoaded) {
             this.setState({loading: false});
         }
     };
 
-    onSave = (obj) => {
-        this.props.onAddVisit(obj);
-        this.setState({isRecordInProcess: true, submitSuccess: true});
-    };
 
     render(){
         const { data, onGoto } = this.props;
@@ -74,7 +61,7 @@ class PatientDoctor extends React.Component{
                 </Card>
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
-                    onSave={this.onSave}
+                    onSave={this.props.onAddVisit}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.doctorName}
                     intervals={this.props.intervals}
