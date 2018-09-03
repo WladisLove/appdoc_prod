@@ -35,6 +35,7 @@ class Patients extends React.Component{
 	};
 
     addNewDoctorVisible = () => {
+        this.props.onClearNotPatientDoctors();
     	this.setState({isModalAddNewDoctorVisible: true})
 	};
 
@@ -48,8 +49,8 @@ class Patients extends React.Component{
     }
 
     handleDoctorsSearch = (name) => {
-       this.props.onGetNotPatientDoctors(name);
-       this.setState({searchName: name})
+       this.setState({searchName: name});
+       return this.props.onGetNotPatientDoctors(name);
 	};
 	addNewDoctor = (id) => {
         this.props.addDoctor(id, this.state.searchName)
@@ -111,8 +112,8 @@ class Patients extends React.Component{
                     visible={this.state.isModalAddNewDoctorVisible}
                     onCancel={() => {
                         this.setState({isModalAddNewDoctorVisible: false});
-                        this.props.onClearNotPatientDoctors();
                     }}
+					onClear={this.props.onClearNotPatientDoctors}
 					onSearch={this.handleDoctorsSearch}
                     onAdd={(id)=>this.addNewDoctor(id)}
                 />

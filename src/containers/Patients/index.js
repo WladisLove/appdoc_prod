@@ -54,6 +54,7 @@ class Patients extends React.Component{
 	}
 
 	showModalHandler = () => {
+	    this.props.onClearNotDocPatients();
 		this.setState({addNew_show: true});
 	};
 
@@ -115,8 +116,8 @@ class Patients extends React.Component{
                     visible={this.state.addNew_show}
                     onCancel={() => {
                         this.setState({addNew_show: false});
-                        this.props.onClearNotDocPatients();
                     }}
+                    onClear={this.props.onClearNotDocPatients}
                     onSearch = {this.props.onGetNotDocPatients}
                     onAdd={this.props.addPatient}
 

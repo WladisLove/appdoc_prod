@@ -5,17 +5,18 @@ import AddNewDoctorItem from '../AddNewPatientItem'
 import Modal from '../Modal'
 import Input from '../Input'
 import './styles.css'
+import Spinner from "../Spinner";
 
 
 class AddNewDoctor extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            patients: props.data,
-            inputValue: ""
+            doctors: props.data,
+            inputValue: "",
+            loading: false
         };
     }
-    
 
     doctorsRender = (dataArr) => {
         return dataArr.map((item, index) => {
@@ -26,8 +27,13 @@ class AddNewDoctor extends React.Component{
 
     };
 
-    componentWillReceiveProps(nextProps){
-        nextProps.visible === false ? this.state.inputValue = '' : null;
+    componentWillReceiveProps(nextProps) {
+        if (this.props.visible !== nextProps.visible && nextProps.visible === true)
+            this.setState({
+                inputValue: '',
+                loading: false,
+                doctors: []
+            })
     }
 
     componentWillMount() {
@@ -37,23 +43,41 @@ class AddNewDoctor extends React.Component{
     handleChange = (e) => {
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
-        e.target.value.length > 2 ?  this.timer = setTimeout(this.triggerChange, 800) : null;
-
+        if (e.target.value.length === 3)
+            this.triggerChange();
+        else if (e.target.value.length > 2)
+            this.timer = setTimeout(this.triggerChange, 800);
+        else this.props.onClear();
     };
 
     triggerChange = () => {
+        this.setState({loading: true});
         this.props.onSearch(this.state.inputValue)
+            .then((res) => {
+                if (res.status === 200)
+                    this.setState({loading: false});
+            })
+            .catch((err) => console.log(err))
     };
 
     handleKeyDown = (e) => {
-        if(e.keyCode===13 && e.target.value.length > 2) {
-        clearTimeout(this.timer);
-        this.props.onSearch(this.state.inputValue);
+        if (e.target.value.length > 2) {
+            if (e.keyCode === 13) {
+                clearTimeout(this.timer);
+                this.props.onSearch(this.state.inputValue);
+            }
         }
+        else this.props.onClear();
     };
-    handleSearch = (e) => {
-        if (this.state.inputValue.length > 2) this.props.onSearch(this.state.inputValue);
+
+    handleSearch = () => {
+        if (this.state.inputValue.length > 2) {
+            clearTimeout(this.timer);
+            this.triggerChange();
+        }
+        else this.props.onClear();
     };
+
     render(){
         const {visible, onCancel} = this.props;
 
@@ -80,9 +104,10 @@ class AddNewDoctor extends React.Component{
                             horizontal={false}>
                         {this.state.inputValue.length > 2 ?
                             (
-                                this.props.data.length === 0 ? 
-                                    (<div className="no-doctors">Доктора не найдены</div>)
-                                    : this.doctorsRender(this.props.data)
+                                this.state.loading ? <Spinner/> :
+                                    this.props.data.length === 0 ?
+                                        (<div className="no-doctors">Доктора не найдены</div>)
+                                        : this.doctorsRender(this.props.data)
                             )
                             : (<div className="no-doctors">Введите больше символов для поиска</div>)}
                     </ScrollArea>
@@ -99,6 +124,7 @@ AddNewDoctor.propTypes = {
     onCancel: PropTypes.func,
     onAdd: PropTypes.func, 
     onSearch: PropTypes.func,
+    onClear: PropTypes.func
 };
 
 AddNewDoctor.defaultProps = {
@@ -107,6 +133,7 @@ AddNewDoctor.defaultProps = {
     onCancel: () => {},
     onAdd: () => {},
     onSearch: () => {},
+    onClear: () => {}
 };
 
 export default AddNewDoctor;
