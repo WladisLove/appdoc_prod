@@ -1,16 +1,15 @@
 import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
+import {getDocShortInfo} from "./doctor";
 
 export const sendNewInfoPatient = (data) => {
     console.log(data, "DATA PATIENT EDITING");
     return (dispatch) => {
-        axios.post('/catalog.doc2/saveEditUser',
+        return axios.post('/catalog.doc2/saveEditUser',
             JSON.stringify(data))
             .then(res => {
-                console.log("result of editing" , res);
-                dispatch({
-                    type: actionTypes.SEND_NEW_INFO_PATIENT,
-                });
+                dispatch(getDocShortInfo());
+                return res
             })
             .catch(err => {
                 console.log(err);
@@ -23,18 +22,12 @@ export const sendNewPasswordPatient = (oldPass, newPass, id) => {
     return (dispatch, getState) => {
         const id_patient = id ? id : getState().auth.id;
 
-        axios.post('/catalog.doc2/rePassDoc',
+       return axios.post('/catalog.doc2/rePassDoc',
             JSON.stringify({
                 id: id_patient,
                 oldpass: oldPass,
                 newpass: newPass
             }))
-            .then(res => {
-                console.log("result of editing" , res);
-                dispatch({
-                    type: actionTypes.SEND_NEW_PASSWORD_PATIENT,
-                });
-            })
             .catch(err => {
                 console.log(err);
             })

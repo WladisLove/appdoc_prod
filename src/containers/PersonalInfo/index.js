@@ -41,12 +41,11 @@ class PersonalInfo extends React.Component{
 
     onSubmitPatient = (profilePatient) => {
         profilePatient = compileToServerPatient(profilePatient, this.props.auth.id);
-        this.props.onSendNewInfoPatient(profilePatient);
-        this.setState({visible:true}) ;
+        return this.props.onSendNewInfoPatient(profilePatient);
     };
 
     onSubmitPasswordPatient = (oldPass, newPass) => {
-        this.props.onSendNewPasswordPatient(oldPass, newPass, this.props.auth.id);
+        return this.props.onSendNewPasswordPatient(oldPass, newPass, this.props.auth.id);
     };
 
     render() {

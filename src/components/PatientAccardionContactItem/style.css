@@ -139,6 +139,7 @@
 .patient-contacts-password .input-form-item {
   max-width: 290px;
   margin-bottom: 20px;
+  width: 100%;
 }
 .patient-contacts-saveBtn {
   margin-bottom: 30px;
