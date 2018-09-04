@@ -34,7 +34,7 @@ class HistoryReceptions extends React.Component{
         if(!dataArr.length && this.state.loading && this.state.noData) {
             return <div className="table-footer"
                         key="btn">
-                <Button btnText={'Нет обращений. Нажмите чтобы обновить.' }
+                <Button btnText={'Нет приёмов. Нажмите чтобы обновить.' }
                         size='link'
                         type='link'
                         icon={'circle_close'}
@@ -45,13 +45,17 @@ class HistoryReceptions extends React.Component{
         }
         let historyArr = [];
         dataArr.forEach((item, index) => {
-                historyArr.push(<HistoryReceptionsItems {...item}
-                                                    personalPage = {this.props.personalPage}
-                                                    onGotoChat = {this.props.onGotoChat}
-                                                    isUser = {this.props.isUser}
-                                                    key = {index}
+            historyArr.push(<HistoryReceptionsItems {...item}
+                                                    personalPage={this.props.personalPage}
+                                                    onGotoChat={this.props.onGotoChat}
+                                                    isUser={this.props.isUser}
+                                                    key={index}
                                                     setModalRewiewsVisible={this.setModalRewiewsVisible}
-                                                    />)
+                                                    onAddFiles={this.props.onAddFiles}
+                                                    refresh={this.refresh}
+
+
+            />)
         });
         if(this.state.count > this.state.loadedCount && !this.state.loading) {
             historyArr.push(
@@ -90,6 +94,11 @@ class HistoryReceptions extends React.Component{
         this.getApps();
     }
 
+    refresh =() => {
+        this.setState({data:[], loading: true}, () => {
+            this.getApps({max:this.state.loadedCount, old: 0})
+        })
+    };
 
     componentWillReceiveProps(newProps) {
         console.log(newProps, "NEW PROPS")
@@ -135,7 +144,7 @@ class HistoryReceptions extends React.Component{
         console.log(this.state, "state from HR")
         return (
             <div className='receptions-all'>
-                <Card title="История обращений">
+                <Card title="История приёмов">
                     <ScrollArea
                     horizontal = {true}>
                         <div className="tableheader">
@@ -146,12 +155,12 @@ class HistoryReceptions extends React.Component{
                         </div>
                         <div className="tableheader menu-header">
                             <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
-                            <div className="flex-col"><div className="tableheader-name">диагноз</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Диагноз</div></div>
                             <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
-                            <div className="flex-col"><div className="tableheader-name">стоимость</div></div>
-                            <div className="flex-col"><div className="tableheader-name">заключение</div></div>
-                            <div className="flex-col"><div className="tableheader-name">отзыв</div></div>
-                            <div className="flex-col"><div className="tableheader-name"></div></div>
+                            <div className="flex-col"><div className="tableheader-name">Стоимость</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
                         </div>
                     {this.historyRender(this.state.data)}
                     </ScrollArea>

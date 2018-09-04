@@ -22,9 +22,7 @@ class HistoryReceptionsItem extends React.Component{
        if(file.length > 1) {
            let files = [];
            file.forEach((item) => {
-                item.data.forEach(item => {
-                    files.push(item)
-                })
+                files.push(item)
            });
            return files
        } else return file
@@ -37,6 +35,7 @@ class HistoryReceptionsItem extends React.Component{
             type,
             id_doc,
             user_name,
+            lastMA,
             doc_name,
             status,
             conclusion,
@@ -94,7 +93,7 @@ class HistoryReceptionsItem extends React.Component{
                     <div className="patient-date">{moment(date*1000).format('DD.MM.YYYY')}</div>
                     <div className="patient-time">
                         {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
-                        {finish ? `-${moment(finish).format('HH:mm')}`: null}
+                        {finish ? `-${moment(finish*1000).format('HH:mm')}`: null}
                     </div>
                     <div className="patient-icon"><Icon svg type={extr?"emergency-call":key_val[type]} size={16}
                     style={extr?{color:"red"}:null}/></div>
@@ -135,7 +134,14 @@ class HistoryReceptionsItem extends React.Component{
                 </div>
                 <div className="flex-col"
                     onClick={this.handleClick}>
-                    <PopoverFile data={this.refactorFiles(file)}></PopoverFile>
+                    <PopoverFile data={this.refactorFiles(file)}
+                                 canAddFiles={status !== "completed"}
+                                 id_app={lastMA}
+                                 onAddFiles = {this.props.onAddFiles}
+                                 refresh={this.props.refresh}
+
+                    >
+                    </PopoverFile>
                 </div>
             </div>
         )
@@ -145,7 +151,7 @@ class HistoryReceptionsItem extends React.Component{
 HistoryReceptionsItem.propTypes = {
     id: PropTypes.number,
     id_user: PropTypes.string,
-    status: PropTypes.oneOf(['new', 'topical', 'completed', 'extra']),
+    status: PropTypes.string,
     type: PropTypes.string,
     diagnostic: PropTypes.string,
     name: PropTypes.string,

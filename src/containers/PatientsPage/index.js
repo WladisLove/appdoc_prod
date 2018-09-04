@@ -64,6 +64,7 @@ class PatientsPage extends React.Component{
                                                id_user={this.props.match.params.id}
                                                personalPage = {true}
                                                isUser = {this.props.mode === "user"}
+                                               onAddFiles = {this.props.onAddFiles}
                             />
                         </Col>
                     </Row>
@@ -89,6 +90,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
+        onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
         onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),

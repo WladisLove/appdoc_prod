@@ -104,7 +104,7 @@
   color: #344051;
   display: inline-block;
   position: absolute;
-  left: 21px;
+  left: 13px;
   top: 22.5px;
 }
 .reception-status:before {
@@ -123,6 +123,9 @@
 }
 .reception-status.completed:before {
   background-color: #344051;
+}
+.reception-status.extra {
+  left: 2px;
 }
 .reception-status.extra:before {
   background-color: #ef5350;

@@ -4,9 +4,11 @@ import cn from 'classnames'
 import DownloadLink from '../DownloadLink'
 import Button from '../Button'
 
-import {Popover} from 'antd';
+import {Popover, message} from 'antd';
 
 import './style.css'
+import Upload from "../Upload";
+import Spinner from "../Spinner";
 
 class PopoverFile extends React.Component {
     constructor(props) {
@@ -38,14 +40,36 @@ class PopoverFile extends React.Component {
                                        key={item.id + '' + index}/>)
         );
     };
+    handleChange = (file) => {
+        this.setState({loading: true});
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener('load', () => {
+            file={thumbUrl: reader.result, name: file.name};
+            this.props.onAddFiles(file, this.props.id_app)
+                .then((res)=> {
+                    this.setState({loading: false});
+                    if(res.data.code===200) {
+                        message.success("Файл успешно добавлен");
+                        this.props.refresh();
+                    } else {
+                        message.error("При загрузке файла произошла ошибка, попробуйте ешё раз")
 
+                    }
+
+                    console.log(res)
+                });
+        });
+
+
+
+    };
     handleVisibleChange = (visible) => {
-        this.props.data.length && this.setState({visible});
+        this.props.canAddFiles ? this.setState({visible}) : (this.props.data.length && this.setState({visible}));
     };
 
     render() {
         const popoverNumCl = cn('popover-num', this.state.num && 'active');
-
         return (
             <Popover
                 content={
@@ -53,14 +77,22 @@ class PopoverFile extends React.Component {
                         <div className='popover-file-block'>
                             {this.renderLinks(this.props.data ? this.props.data: null)}
                         </div>
-                        <Button
+                        {!!this.props.data.length && <Button
                             onClick={() => console.log('hello', this.props)}
                             size='file'
                             type='file'
                             icon='download'
                             svg
                             iconSize={23}
-                        />
+                        />}
+                        {this.props.canAddFiles && !!this.props.id_app &&
+                        <div className="add-files">
+                            <Upload className="add-new-file-upload"
+                                    onChange={({file}) => this.handleChange(file)}
+                                    listType='text'
+                                    text="Добавить файл"/>
+                            {this.state.loading && <Spinner size="small" isInline={true} />}
+                        </div>}
                     </div>}
                 trigger="click"
                 visible={this.state.visible}
@@ -78,6 +110,7 @@ class PopoverFile extends React.Component {
                             iconSize={32}
                             title="Скачать все файлы"
                     />
+
                     <div className={popoverNumCl}>
                         {this.state.num ? ('+' + this.state.num) : this.props.data.length}
                     </div>
@@ -91,6 +124,7 @@ class PopoverFile extends React.Component {
 PopoverFile.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
     onDownload: PropTypes.func,
+
 };
 
 PopoverFile.defaultProps = {
