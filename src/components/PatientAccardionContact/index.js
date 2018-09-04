@@ -18,7 +18,7 @@ class PatientAccardionContact extends React.Component{
         return (
             <div className={rootClass}>
                <Accordion defaultActiveKey={['1']}>
-                    <Panel header="Контакты" key="1">
+                    <Panel header="Контакты" key="1" >
                         <PatientAccardionContactItem
                             contactFio={fio}
                             contactPhone={phone}

@@ -146,12 +146,12 @@ class HistoryReceptions extends React.Component{
                         </div>
                         <div className="tableheader menu-header">
                             <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
-                            <div className="flex-col"><div className="tableheader-name">диагноз</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Диагноз</div></div>
                             <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
-                            <div className="flex-col"><div className="tableheader-name">стоимость</div></div>
-                            <div className="flex-col"><div className="tableheader-name">заключение</div></div>
-                            <div className="flex-col"><div className="tableheader-name">отзыв</div></div>
-                            <div className="flex-col"><div className="tableheader-name"></div></div>
+                            <div className="flex-col"><div className="tableheader-name">Стоимость</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
                         </div>
                     {this.historyRender(this.state.data)}
                     </ScrollArea>
