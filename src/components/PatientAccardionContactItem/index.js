@@ -31,7 +31,6 @@ class PatientAccardionContactItemForm extends React.Component{
                 if(this.state.avatar) {
                     values.avatar = {...this.state.avatar}
                 }
-                console.log(values);
                 this.props.onSubmit(values)
                     .then((res) => {
                         this.setState({loadingInfo: false});
@@ -56,7 +55,6 @@ class PatientAccardionContactItemForm extends React.Component{
                 this.props.onSubmitPassword(values.oldPassField, values.newPassField)
                     .then((res) => {
                         this.setState({loadingPass: false});
-                        console.log(res,"REEEEEEEES")
                         if (res.data.code === 200) {
                             message.success("Изменения сохранены")
                         } else if(res.data.code===601){
@@ -95,7 +93,6 @@ class PatientAccardionContactItemForm extends React.Component{
             let file = event.target.files[0];
             if (file && file.type.indexOf("image/") !== -1) {
                 const reader = new FileReader();
-                console.log("AVATARFILE", file);
                 reader.addEventListener('load', () => this.setState({
                     avatar: ({thumbUrl: reader.result, name: file.name})
                 }));
