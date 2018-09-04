@@ -54,15 +54,15 @@ export const setReception = (reception) => {
             id_doc: getState().auth.id
         };
 
-        axios.post('/catalog.doc2/makingApp',
+        return axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {
-                console.log("[setReception]", res);
                 dispatch({
                     type: actionTypes.SET_RECEPTION,
                     isReceptionRecorded: res.data.code === 200,
                     receptionRecordedID: res.data.code === 200 ? res.data.id : moment().format('x')
                 })
+                return res
             })
             .catch(err => {
                 console.log(err);
@@ -70,7 +70,6 @@ export const setReception = (reception) => {
     }
 }
 export const setReceptionByPatient = (reception) => {
-    console.log(reception, "SET RECEPTION BY PATIENT");
     return (dispatch, getState) => {
         let obj = {
             ...reception,
@@ -106,7 +105,6 @@ export const getDocPatients = () => {
 }
 
 export const makeReview = (obj) => {
-    console.log("REVIEW DELIVERED TO REDUX :)", obj);
     return (dispatch, getState) => {
         obj.id_user = getState().auth.id;
         return axios.post('/catalog.doc2/putCommentToDoc',JSON.stringify(obj))
@@ -220,7 +218,6 @@ export const searchUsers = (name) => {
         };
         axios.post('/catalog.doc2/getDoctorOrPatientsListShortById', JSON.stringify(obj))
             .then(rez => {
-              console.log(rez, "usersHeaderSearch");
               dispatch({
                     type: actionTypes.GET_RESULTS_HEADER_SEARCH,
                     usersHeaderSearch: rez.data,

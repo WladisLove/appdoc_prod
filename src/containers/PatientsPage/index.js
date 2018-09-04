@@ -46,8 +46,6 @@ class PatientsPage extends React.Component{
                                 intervals={this.props.intervals}
                                 onGetIntervalForDate={this.props.onGetIntervalForDate}
                                 availableIntervals={this.props.availableIntervals}
-                                isReceptionRecorded={this.props.isReceptionRecorded}
-                                receptionRecordedID={this.props.receptionRecordedID}
                                 onSaveReception={this.props.onSaveReception}
                                 onGetAllDocIntervals={this.props.onGetAllDocIntervals}
                             />
@@ -80,11 +78,8 @@ class PatientsPage extends React.Component{
 const mapStateToProps = state => {
     return {
         info: state.patients.selectedPatientInfo,
-
         intervals: state.patients.intervals,
         availableIntervals: state.profileDoctor.workIntervals,
-        isReceptionRecorded: state.patients.isReceptionRecorded,
-        receptionRecordedID: state.patients.receptionRecordedID,
         appsBetween: state.treatments.appsBetween,
         appsBetweenCount: state.treatments.appsBetweenCount
 
