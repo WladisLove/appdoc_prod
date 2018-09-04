@@ -65,7 +65,7 @@ class TreatmentTableItem extends React.Component{
                         {moment(date*1000).format('DD.MM.YYYY')}</div>
                     <div className="patient-time">
                         {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
-                        {finish ? `-${moment(finish).format('HH:mm')}`: null}
+                        {finish ? `-${moment(+finish*1000).format('HH:mm')}`: null}
                     </div>
                     <div className="patient-icon">
                         <Icon svg type={key_val[type]} size={16}/>
