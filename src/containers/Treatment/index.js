@@ -46,6 +46,7 @@ class Treatment extends React.Component{
                             }}
                             treatmentsCount ={this.props.treatmentsCount}
                             onSubmit={this.props.makeReview}
+                            onAddFiles = {this.props.onAddFiles}
                         />
             		</Col>
             	</Row>
@@ -67,8 +68,10 @@ const mapDispatchToProps = dispatch => {
         onGetTreatments: (obj) => dispatch(actions.getPaginationTreatments(obj)),
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
-        makeReview: (obj) => dispatch(actions.makeReview(obj))
-	}
+        makeReview: (obj) => dispatch(actions.makeReview(obj)),
+        onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
+
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Treatment);

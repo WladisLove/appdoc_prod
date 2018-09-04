@@ -94,6 +94,21 @@ export const getCompletedApps = () => {
             })
     }
 }
+export const addFileToApp = (file, id) => {
+    return (dispatch, getState) => {
+        let obj = {
+            id: id,
+            files: [file]
+        };
+        console.log("obj to send", obj);
+        return axios.post('/catalog.doc2/addFilesInMA',
+            JSON.stringify(obj))
+
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
 
 export const getAppsBetweenDocAndUser = (obj) => {
     console.log(obj, "OBJ TO SEND BETWEEN")

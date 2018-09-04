@@ -49,6 +49,16 @@
   position: relative;
   padding: 25px 45px 45px 30px!important;
 }
+.popover-file-body .add-files {
+  margin-top: 30px;
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+}
+.popover-file-body .add-files .add-new-file-upload button {
+  position: static;
+  margin-right: 5px;
+}
 .popover-file-body .btn {
   position: absolute;
   bottom: 25px;
