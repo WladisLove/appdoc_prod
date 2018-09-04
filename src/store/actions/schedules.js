@@ -80,7 +80,7 @@ export const clearVisits = () => {
     })
 }
 
-export const addVisit = (reception, start, end) => {
+export const addVisit = (reception, start, end, isToday) => {
     return (dispatch, getState) => {
         let obj = {
             ...reception,
@@ -104,6 +104,7 @@ export const addVisit = (reception, start, end) => {
                     receptionRecordedID: res.data.code === 200 ? res.data.id : moment().format('x')
                 });
                 start && dispatch(getAllVisits(start,end));
+                isToday && dispatch(getTodayVisits());
                 return res
             })
             .catch(err => {

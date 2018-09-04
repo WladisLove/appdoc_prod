@@ -48,7 +48,7 @@ class MainPage extends React.Component{
 	}
 
 	onSaveNewVisit = (obj) => {
-        this.props.onAddNewVisit(obj);
+		this.props.onAddNewVisit(obj, true);
         this.setState({
             addModal: false,
         })
@@ -123,7 +123,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
 		onGetDocPatients: () => dispatch(actions.getDocPatients()),
-		onAddNewVisit: (obj) => dispatch(actions.addVisit(obj)),
+		onAddNewVisit: (obj, isToday) => dispatch(actions.addVisit(obj,null,null,isToday)),
 		onSelectReception: (id) => dispatch(actions.seletVisit(id)),
 		onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
 		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
@@ -132,7 +132,7 @@ const mapDispatchToProps = dispatch => {
         onGetCompletedApp: () => dispatch(actions.getCompletedApps()),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetNearVisits: (count) => dispatch(actions.getCountNearVisits(count)),
-		onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),
+		//onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),
 		getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
 		onGetPatientDoctors: (count) => dispatch(actions.getPatientDoctors(count)),
 		onGetIntervalForDate: (beginDay, endDay, id) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay, id)),
