@@ -35,8 +35,8 @@ class PatientsPage extends React.Component{
     componentWillReceiveProps(nextProps) {
         if(nextProps.match.params.id !== this.props.match.params.id) {
             this.setState({loading:true})
-            const info = this.props.onGetInfoDoctor(this.props.match.params.id);
-            const schedule = this.props.onGetDocSchedule(this.props.match.params.id);
+            const info = this.props.onGetInfoDoctor(nextProps.match.params.id);
+            const schedule = this.props.onGetDocSchedule(nextProps.match.params.id);
             Promise.all([info, schedule])
                 .then(()=> {this.setState({loading:false})})
         }
