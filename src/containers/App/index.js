@@ -14,6 +14,7 @@ import 'antd/dist/antd.css';
 import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";
+import ReportBugModal from "../../components/ReportBugModal";
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -26,6 +27,7 @@ class App extends React.Component {
         this.state = {
             collapsed: true,
             notifications: [],
+            bugfixVisible: false
         };
     }
 
@@ -127,7 +129,7 @@ class App extends React.Component {
         return (
             <div className="main">
             {
-                this.props.id ? 
+                this.props.id ?
             
                 (<Hoc>
                     <div className={siderClass}>
@@ -199,7 +201,13 @@ class App extends React.Component {
                 <div className="main-footer">
                         <div className="main-footer-item company">AppDoc 2018</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
-                </div> </Hoc>)
+                </div>
+                    <button id="bugfix" onClick={()=>this.setState({bugfixVisible: true})}></button>
+                    <ReportBugModal
+                        visible={this.state.bugfixVisible}
+                        onCancel={()=>this.setState({bugfixVisible: false})}
+                    />
+                </Hoc>)
             : (
                 <Redirect to='login'/>
             )
