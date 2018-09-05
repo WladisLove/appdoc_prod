@@ -266,7 +266,7 @@ const mapDispatchToProps = dispatch => {
         setChatStory: (chat) => dispatch(actions.setChatStory(chat)),
         onSelectReception: (id, callback) => dispatch(actions.seletVisit(id, callback)),
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
-        reportBug: (message) => dispatch(actions.reportBug(message))
+        reportBug: (message, href) => dispatch(actions.reportBug(message, href))
 	}
 };
 

@@ -17,7 +17,7 @@ class ContentForm extends React.Component {
         e.preventDefault();
         if(this.state.message) {
             this.setState({loading: true});
-            this.props.onSend(this.state.message).then((res)=>{
+            this.props.onSend(this.state.message, window.location.href).then((res)=>{
                 if(res.data.res) {
                     this.setState({loading:false});
                     this.props.onCancel();

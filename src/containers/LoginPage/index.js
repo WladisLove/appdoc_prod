@@ -164,7 +164,7 @@ const mapDispatchToProps = dispatch => {
         onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
         onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo)),
         onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email)),
-        reportBug: (message) => dispatch(actions.reportBug(message))
+        reportBug: (message, href) => dispatch(actions.reportBug(message, href))
 	}
 };
 

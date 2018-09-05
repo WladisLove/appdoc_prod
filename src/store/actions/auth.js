@@ -212,11 +212,11 @@ const authFail = (error) => {
     };
 };
 
-export const reportBug = (text) => {
+export const reportBug = (text, href) => {
     return (dispatch, getState) => {
         const obj = {
             id_user: getState().auth.id,
-            message: text
+            message: text+" "+"PAGE: " + href
         };
         return axios.post('/catalog.mf/sendLog',
             JSON.stringify(obj))
