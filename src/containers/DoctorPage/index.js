@@ -112,6 +112,9 @@ class PatientsPage extends React.Component{
     render(){
         const { fio, academicdegree, academicstatus, category, experience, consultationPrice, isChildConsult, avatar} = this.props.profileDoctor;
         const reviewsLoadCount = 7;
+        const categoryString = academicdegree
+            ? (academicstatus ? academicdegree + '. ' + academicstatus + '. ' + category + '.': academicdegree + '. ' + category + '.')
+            :(academicstatus ? academicstatus + '. ' + category + '.' : category + '.') ;
         if(this.state.loading) {
             return <Spinner size="large"/>
         }
@@ -140,7 +143,7 @@ class PatientsPage extends React.Component{
                               doctorAvatar={avatar}
                               doctorName={fio}
                               doctorSpeciality={this.getDoctorSpecialityStr()}
-                              doctorCategory={academicdegree + '. ' + academicstatus + '. ' + category + '.'}
+                              doctorCategory={categoryString}
                               doctorExp={experience}
                               doctorPrice={consultationPrice}
                               doctorLanguages={this.getDoctorLanguagesArr()}
