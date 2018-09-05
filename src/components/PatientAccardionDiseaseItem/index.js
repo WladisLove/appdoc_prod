@@ -12,7 +12,6 @@ class PatientAccardionDiseaseItem extends React.Component{
     render(){
         const { title, diseases,} = this.props;
         const rootClass = cn('disease');
-        console.log(diseases, "BOLEZNI");
         return (
             <div className={rootClass}>
                 <div className='disease-item'>

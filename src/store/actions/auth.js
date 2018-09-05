@@ -70,7 +70,6 @@ export const login = (userName, password, remember, history, isAuto) => {
 }
 
 export const registerDoctor = (data) => {
-    console.log(data, "DATA FROM auth.js");
     return (dispatch) => {
 
         const fillNewField = (res, name) => {
@@ -126,8 +125,6 @@ export const registerDoctor = (data) => {
                             [key]: data[key],
                         };
         }
-
-        console.log(data, "AFTER", result);
 
         return axios.post('/fusers.doc/createUserDoc',
             JSON.stringify(result))

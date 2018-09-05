@@ -262,7 +262,6 @@ class HistoryReceptionsTabs extends React.Component {
     };
 
     render() {
-      console.log(this.props.data, "PROPS DAA FROM HRT", this.state);
         return (
             <div className='receptions-all'>
                 <Card title="История обращений">

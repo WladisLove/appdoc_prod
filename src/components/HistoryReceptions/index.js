@@ -101,7 +101,6 @@ class HistoryReceptions extends React.Component{
     };
 
     componentWillReceiveProps(newProps) {
-        console.log(newProps, "NEW PROPS")
         if(newProps.data.length && this.state.loading && newProps.data !== this.props.data) {
             this.setState({
                 data: [...this.state.data, ...newProps.data],
@@ -117,7 +116,6 @@ class HistoryReceptions extends React.Component{
         }
 
         if(newProps.id_doc !== this.props.id_doc) {
-            console.log("New id");
             this.setState({loading: true, data: [], count: 0, loadedCount: 0, old: 0}, () => newProps.getApps({max: 3, old: 0, id_doc: newProps.id_doc}))
 
         }
@@ -141,7 +139,6 @@ class HistoryReceptions extends React.Component{
         }
     };
     render(){
-        console.log(this.state, "state from HR")
         return (
             <div className='receptions-all'>
                 <Card title="История приёмов">

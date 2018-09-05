@@ -16,7 +16,6 @@ class Radio extends React.Component{
     };
 
     renderRadio = (icons) => {
-        console.log(icons)
         let radios = [];
         const key_val = {
             'chat1': 'chat',

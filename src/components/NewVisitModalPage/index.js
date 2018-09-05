@@ -6,7 +6,6 @@ import './styles.css'
 import { PropTypes } from 'prop-types';
 
 const NewVisitModalPage = (props) => {
-    console.log(props.intervals);
         const {visible, onCancel} = props;
         return (
             <Modal title='Запись на прием'

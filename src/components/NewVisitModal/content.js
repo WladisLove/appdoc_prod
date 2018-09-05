@@ -26,7 +26,6 @@ class ContentForm extends React.Component {
             if (!err) {
                 this.setState({loading: true});
                 let newDate = new Date();
-                console.log(values);
 
                 let response = this.props.isChoosebleTime ? (
                     newDate.setHours(values.time.format('HH')),
@@ -43,9 +42,7 @@ class ContentForm extends React.Component {
                         date: Math.floor((this.props.date).getTime()/1000),
                     }
                 );
-                console.log(response);
                 this.props.onSave(response).then((res)=> {
-                    console.log(res)
                     res.data.code === 200
                         ? (message.success("Запись прошла успешно"), this.props.onCancel())
                         : message.error("Произошла ошибка, выберете другое время");
@@ -120,7 +117,6 @@ class ContentForm extends React.Component {
 
     getType = () => {
         let type = this.props.intervals[0] && this.props.intervals[0].type || "video";
-        console.log(type)
         switch (type) {
             case "video":
                 return ['chat1','telephone', "video-camera"];
@@ -133,7 +129,6 @@ class ContentForm extends React.Component {
     }
 
     render() {
-        console.log(this.props.intervals)
         const {getFieldDecorator} = this.props.form;
         const {visible, date} = this.props;
         const icons = this.getType();
