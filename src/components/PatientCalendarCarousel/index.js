@@ -40,14 +40,16 @@ class PatientCalendarCarousel extends React.Component {
             e.target.classList.toggle("activeTime");
         }
     };
-    nextCarouselItem = () => {
+    nextCarouselItem = (e) => {
+        e.preventDefault()
         if (this.state.carouselStep < this.props.intervals.length - 3) {
             this.setState({
                 carouselStep: this.state.carouselStep + 1
             })
         }
     };
-    prevCarouselItem = () => {
+    prevCarouselItem = (e) => {
+        e.preventDefault()
         if (this.state.carouselStep > 0) {
             this.setState({
                 carouselStep: this.state.carouselStep - 1
@@ -186,7 +188,7 @@ class PatientCalendarCarousel extends React.Component {
                                             isFull: !this.state.isFull
                                         })}/>
                             </div>
-                            {this.props.shouldChooseTime && <Alert message="Выберите время" type="error"/>}
+                            {this.props.shouldChooseTime && <Alert message="Выберите время" type="error" style={{marginTop: "10px"}}/>}
                             <NewVisitModalPage
                                 visible={this.state.modalVisible}
                                 onOk={() => this.setModalVisible(false)}

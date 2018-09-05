@@ -35,8 +35,8 @@ class PatientsPage extends React.Component{
     componentWillReceiveProps(nextProps) {
         if(nextProps.match.params.id !== this.props.match.params.id) {
             this.setState({loading:true})
-            const info = this.props.onGetInfoDoctor(this.props.match.params.id);
-            const schedule = this.props.onGetDocSchedule(this.props.match.params.id);
+            const info = this.props.onGetInfoDoctor(nextProps.match.params.id);
+            const schedule = this.props.onGetDocSchedule(nextProps.match.params.id);
             Promise.all([info, schedule])
                 .then(()=> {this.setState({loading:false})})
         }
@@ -103,7 +103,7 @@ class PatientsPage extends React.Component{
     };
     onMakeNewApp = (obj) => {
         obj.id_doc = this.props.match.params.id;
-        this.props.onMakeNewAppointment(obj);
+        return this.props.onMakeNewAppointment(obj);
     };
 
 
@@ -112,6 +112,9 @@ class PatientsPage extends React.Component{
     render(){
         const { fio, academicdegree, academicstatus, category, experience, consultationPrice, isChildConsult, avatar} = this.props.profileDoctor;
         const reviewsLoadCount = 7;
+        const categoryString = academicdegree
+            ? (academicstatus ? academicdegree + '. ' + academicstatus + '. ' + category + '.': academicdegree + '. ' + category + '.')
+            :(academicstatus ? academicstatus + '. ' + category + '.' : category + '.') ;
         if(this.state.loading) {
             return <Spinner size="large"/>
         }
@@ -140,7 +143,7 @@ class PatientsPage extends React.Component{
                               doctorAvatar={avatar}
                               doctorName={fio}
                               doctorSpeciality={this.getDoctorSpecialityStr()}
-                              doctorCategory={academicdegree + '. ' + academicstatus + '. ' + category + '.'}
+                              doctorCategory={categoryString}
                               doctorExp={experience}
                               doctorPrice={consultationPrice}
                               doctorLanguages={this.getDoctorLanguagesArr()}
@@ -176,7 +179,7 @@ class PatientsPage extends React.Component{
                             <ReviewsTree key={this.props.match.params.id}
                                          data={this.props.reviews}
                                          limit={reviewsLoadCount}
-                                         onGoto={(val) => this.gotoHandler(val)}
+                                         onGoto={() => false}
                                          isOnDoctorPage={true}
                                          numberOfReviews={this.props.commentCount}
 

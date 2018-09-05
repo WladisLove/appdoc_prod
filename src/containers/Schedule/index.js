@@ -125,10 +125,7 @@ class Schedule extends React.Component {
     };
 
     onSaveNewVisit = (obj) => {
-        this.props.onAddNewVisit(obj, this.state.interval.start, this.state.interval.end);
-        this.setState({
-            newVisitModal: false,
-        })
+        return this.props.onAddNewVisit(obj, this.state.interval.start, this.state.interval.end);
     };
 
     onPatientEmail = () => {

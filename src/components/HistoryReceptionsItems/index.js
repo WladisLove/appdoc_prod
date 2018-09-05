@@ -34,7 +34,6 @@ class HistoryReceptionsItems extends React.Component{
         this.props.setModalRewiewsVisible(obj);
     }
     render(){
-        console.log(this.props, "PROPS FROM HRIS");
         const {
             id_treatment,
             type,

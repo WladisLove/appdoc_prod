@@ -27,6 +27,7 @@ export const getInfoDoctor = (id) => {
         return axios.post('/fusers.doc/infoDoc',
          JSON.stringify(ids))
             .then(res => {
+                console.log(res, "DOC INFO");
                 res.data.result.id= ids.id;
 
                 dispatch({

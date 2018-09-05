@@ -13,6 +13,12 @@
 .NewVisitModal {
   padding: 20px 30px 40px 30px;
 }
+.NewVisitModal.ant-form .ant-row.ant-form-item.ant-form-item-with-help.user-select {
+  margin-bottom: 24px;
+}
+.NewVisitModal.ant-form .ant-row.ant-form-item.ant-form-item-with-help.user-select .ant-form-explain {
+  top: 35px;
+}
 .NewVisitModal-txtarea {
   margin-bottom: 12px;
 }
@@ -30,32 +36,34 @@
   display: flex;
   margin-bottom: 40px;
 }
-.modal-row {
+.NewVisitModal .modal-row {
   display: flex;
-  margin-bottom: 25px;
+  align-items: flex-start;
+  margin-bottom: 0;
 }
-.modal-result {
+.NewVisitModal .modal-result {
   font-size: 14px;
   line-height: 18px;
   color: #344051;
   font-family: 'GothamPro-Medium';
 }
-.modal-data {
+.NewVisitModal .modal-data {
   display: flex;
   align-items: center;
   width: 50%;
 }
-.modal-data .icon {
+.NewVisitModal .modal-data .icon {
   margin-right: 15px;
 }
-.modal-time {
+.NewVisitModal .modal-time {
   width: 50%;
   display: flex;
   align-items: center;
+  margin-bottom: 24px;
 }
-.modal-time .ant-form-item {
+.NewVisitModal .modal-time .ant-form-item {
   margin-bottom: 0;
 }
-.modal-time .icon {
+.NewVisitModal .modal-time .icon {
   margin-right: 15px;
 }

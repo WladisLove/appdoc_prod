@@ -6,7 +6,6 @@ import cn from 'classnames'
 
 import Button from '../../../components/Button'
 import Radio from "../../../components/Radio";
-//import ChatFiles from '../../../components/ChatFiles'
 import ChatFiles from '../../../components/ChatFiles'
 import CompletionReceptionModal from "../../../components/CompletionReceptionModal";
 import CompleteAppeal from '../../../components/CompleteAppeal'
@@ -32,7 +31,8 @@ class ChatCard extends React.Component {
         this.state = {
             isActive: this.props.isActive,
 			isActiveChat: props.isEnded ? true : false,
-            mode: this.props.mode,
+			mode: this.props.mode,
+			isCurVisEnd: false,
 
 			duration: 0,
 			
@@ -57,6 +57,7 @@ class ChatCard extends React.Component {
 		((''+this.props.receptionId != ''+nextProps.receptionId) && nextProps.user_mode === "doc")
 				&& (
 					this.props.setReceptionStatus(false),
+					this.setState({isCurVisEnd: false}),
 					this.props.setChatToId(nextProps.calledID)
 				);
 
@@ -91,7 +92,7 @@ class ChatCard extends React.Component {
 	}
 
 	onCloseReception = (obj) => {
-		/* завершение чата, обнуление истории на сервере*/
+		/* завершение чата, обнуление истории на сервере */
 		messAboutStop();
 		stop();
 		messForCloseReception();
@@ -104,7 +105,7 @@ class ChatCard extends React.Component {
 		this.props.setReceptionStatus(false);
 		this.props.changeReceptionStatus(this.props.receptionId, "finish");
 
-		this.setState({reception_vis: false,treatment_vis: true});
+		this.setState({reception_vis: false,treatment_vis: true, isCurVisEnd: true});
 		this.props.extr ?
 			this.setState({reception_vis: false})
 			: this.setState({reception_vis: false,treatment_vis: true});
@@ -121,8 +122,12 @@ class ChatCard extends React.Component {
 	
 	uploadOnlyFile = (id_zap,id_user, callback) => {
 		return (file, isConclusion) => {
-			isConclusion ? 
-				this.props.uploadConclusion(id_zap,file, callback)
+			isConclusion ? (
+				this.props.uploadConclusion(id_zap,file, callback),
+				console.log({id: this.props.receptionId,
+					chat: this.props.chatStory})
+			)
+				
 				: this.props.uploadFile(id_zap,id_user, file,callback);
 			this.state.isActive && this.props.getAllFilesTreatment(this.props.id_treatment);
 		}
@@ -157,6 +162,7 @@ class ChatCard extends React.Component {
 			user_mode: this.props.user_mode,
 			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.callerID, fileUploadCallback),
 			receptionId: this.props.receptionId,
+			isCurVisEnd: this.state.isCurVisEnd,
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>setVideoOut(video),
@@ -249,7 +255,7 @@ class ChatCard extends React.Component {
             </div>
 			<CompletionReceptionModal 
 				visible={this.state.reception_vis}
-				onComplete={obj=> this.onCloseReception(obj)}
+				onComplete={this.onCloseReception}
 				onCancel={() => this.setState({reception_vis: false})}
 			/>
 			<CompleteAppeal 

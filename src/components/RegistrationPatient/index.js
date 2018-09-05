@@ -80,7 +80,7 @@ class RegistrationPatientForm extends React.Component{
         const avatarUrl = this.state.avatarUrl;
         if(this.props.isRegFinished) {
             return (
-                <RegistrationComplete urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={true}/>
+                <RegistrationComplete onOk={this.props.onOk} urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={true}/>
             )
         }
         return (
@@ -207,9 +207,6 @@ class RegistrationPatientForm extends React.Component{
                                 disable={!this.state.checked || this.props.isRegInProgress}
                                 type='gradient'
                                 style={{margin:0}}/>
-                    </div>
-                    <div style={{marginTop: "15px", textAlign: "center"}}>У вас уже есть аккаунт? <NavLink to={this.props.urlLogin}
-                                                                                                           className="login-form-navlink">Войти</NavLink>
                     </div>
                     {this.props.isRegInProgress &&
                     <div style={{marginTop: "15px"}}>

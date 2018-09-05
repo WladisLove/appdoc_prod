@@ -1,13 +1,14 @@
 import React from 'react';
 import moment from 'moment'
 
-import {Form} from 'antd';
+import {Form, message} from 'antd';
 import TextArea from '../TextArea'
 import Button from '../Button'
 import Radio from '../Radio'
 import Select from '../Select'
 import Icon from '../Icon'
 import TimePicker from '../TimePicker'
+import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 
@@ -23,8 +24,8 @@ class ContentForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                this.setState({loading: true});
                 let newDate = new Date();
-                console.log(values);
 
                 let response = this.props.isChoosebleTime ? (
                     newDate.setHours(values.time.format('HH')),
@@ -41,7 +42,12 @@ class ContentForm extends React.Component {
                         date: Math.floor((this.props.date).getTime()/1000),
                     }
                 );
-                this.props.onSave(response);
+                this.props.onSave(response).then((res)=> {
+                    res.data.code === 200
+                        ? (message.success("Запись прошла успешно"), this.props.onCancel())
+                        : message.error("Произошла ошибка, выберете другое время");
+                    this.setState({loading:false})
+                });
             }
           });
     };
@@ -109,23 +115,38 @@ class ContentForm extends React.Component {
         })
     };
 
+    getType = () => {
+        let type = this.props.intervals[0] && this.props.intervals[0].type || "video";
+        switch (type) {
+            case "video":
+                return ['chat1','telephone', "video-camera"];
+            case "voice":
+                return ['chat1','telephone'];
+            default:
+                return ['chat1']
+
+        }
+    }
+
     render() {
         const {getFieldDecorator} = this.props.form;
         const {visible, date} = this.props;
-
+        const icons = this.getType();
         let timeElement = this.props.isChoosebleTime 
-            ? <div className='modal-time'><FormItem>
-                {getFieldDecorator('time',{
-                    rules: [{required: true, message: 'Введите время',}],
-                })(
-                    <TimePicker format="HH:mm"
-                        placeholder='Время приёма'
-                        availableArea={this.state.availableArea}
-                        minuteStep={this.getAppointmentDuration()}
-                        isReset={this.state.isResetTime}
-                        onChange={this.onChangeTime}/>
-                )}
-            </FormItem> </div>
+            ? <div className='modal-time'>
+                <FormItem>
+                    {getFieldDecorator('time',{
+                        rules: [{required: true, message: 'Введите время',}],
+                    })(
+                        <TimePicker format="HH:mm"
+                            placeholder='Время приёма'
+                            availableArea={this.state.availableArea}
+                            minuteStep={this.getAppointmentDuration()}
+                            isReset={this.state.isResetTime}
+                            onChange={this.onChangeTime}/>
+                    )}
+                </FormItem>
+            </div>
             : <div className='modal-time'>
                 <Icon svg type='alarm' size={26}/>
                 <div className='modal-result'>{moment(date).format('HH:mm')}</div>
@@ -145,14 +166,14 @@ class ContentForm extends React.Component {
                 </div>
 
 
-                <FormItem>
-                    {getFieldDecorator('id_user',{
-                        rules: [{required: true, message: ' ',}],
-                    })(
-                        <Select placeholder="ФИО">
-                            {this.renderOptions()}
-                        </Select>
-                    )}
+                <FormItem className="user-select">
+                        {getFieldDecorator('id_user',{
+                            rules: [{required: true, message: 'Выберите пациента',}],
+                        })(
+                            <Select placeholder="ФИО">
+                                {this.renderOptions()}
+                            </Select>
+                        )}
                 </FormItem>
                 
                 <TextArea label='Комментарий к приему'
@@ -165,14 +186,19 @@ class ContentForm extends React.Component {
                     {getFieldDecorator('type', {
                         initialValue: 'chat'
                     })(
-                        <Radio icons={['chat1','telephone', "video-camera"]}/>
+                        <Radio icons={icons}/>
                     )}
                 </FormItem>
 
                 <Button size='default'
                         btnText='Сохранить'
                         htmlType="submit"
-                        type='float'/>
+                        type='float'
+                        style={{marginRight: "20px"}}
+                        disable={this.state.loading}
+
+                />
+                 {this.state.loading && <Spinner isInline={true} size="small"/>}
             </Form>
         )
     }

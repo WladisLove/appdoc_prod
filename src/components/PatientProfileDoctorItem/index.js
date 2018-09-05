@@ -26,6 +26,8 @@ class PatientProfileDoctorItem extends React.Component{
                             <RatePanel 
                                 rateValue={doctorRate}
                                 timesRated={doctorReviews}
+                                disable={true}
+
                             />
                         </div>
                         <div className='profile__doctor-item-favorites'>

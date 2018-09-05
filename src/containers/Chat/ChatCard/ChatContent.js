@@ -36,7 +36,9 @@ class ChatContent extends React.Component {
     render() {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.props.isActive});
 
-        let scrlClname = this.props.chatMode == "chat" ? "text_mode" : this.props.fromTR_VIS === 1 ? "" : "media_mode";
+        let scrlClname = this.props.fromTR_VIS === 1 ? "" : this.props.chatMode == "chat" ? "text_mode" : "media_mode";
+
+        //let scrlClname = this.props.chatMode == "chat" ? "text_mode" : this.props.fromTR_VIS === 1 ? "" : "media_mode";
         scrlClname = scrlClname + " chat-card-message__overlay";
         
         return (
@@ -86,6 +88,7 @@ class ChatContent extends React.Component {
                 (<div className='chat-card-message__send'>
                     <ChatSend 
                         disable={!this.props.receptionStarts}
+                        isCurVisEnd={this.props.isCurVisEnd}
                         isUser={this.props.user_mode === "user"}
                         closeVisit={this.props.onEnd}
                         uploadFiles = {this.props.uploadFile}

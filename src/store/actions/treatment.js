@@ -24,10 +24,8 @@ export const getPaginationTreatments = (filters) => {
     return (dispatch, getState) => {
         let obj = {...filters};
         getState().auth.mode === "user" ? obj.id_user = getState().auth.id : obj.id_doc = getState().auth.id;
-        console.log(obj, "OB TO REQUEST getPaginationTreatments");
         axios.post('/catalog.doc2/getTreatmentsNew', JSON.stringify(obj))
             .then(res => {
-                console.log("GET TREAMENTS NEW",res);
                 dispatch({
                     type: actionTypes.GET_TREATMENTS,
                     treatments: res.data.result,
@@ -48,7 +46,6 @@ export const getActualTreatments = () => {
     return (dispatch, getState) => {
         axios.get('/catalog.doc2/getTreatmentsByDoctorId/id/'+getState().auth.id+'/status/topical')
             .then(res => {
-                console.log(res.data)
                 dispatch({
                     type: actionTypes.GET_ACTUAL_TREATMENTS,
                     treatments: res.data,
@@ -83,7 +80,6 @@ export const getCompletedApps = () => {
                 id: getState().auth.id
             }))
             .then(res => {
-                console.log("COMPLETED APPS", res);
                 dispatch({
                     type: actionTypes.GET_COMPLETED_APPS,
                     completedApps: res.data,
@@ -100,7 +96,6 @@ export const addFileToApp = (file, id) => {
             id: id,
             files: [file]
         };
-        console.log("obj to send", obj);
         return axios.post('/catalog.doc2/addFilesInMA',
             JSON.stringify(obj))
 
@@ -111,7 +106,6 @@ export const addFileToApp = (file, id) => {
 }
 
 export const getAppsBetweenDocAndUser = (obj) => {
-    console.log(obj, "OBJ TO SEND BETWEEN")
     return (dispatch, getState) => {
         obj.id_user ? obj.id_doc = getState().auth.id : obj.id_user = getState().auth.id;
         axios.post('/catalog.doc2/allMAbyIdUserAndIdDoc',
@@ -120,7 +114,6 @@ export const getAppsBetweenDocAndUser = (obj) => {
 
             }))
             .then(res => {
-                console.log(res, "RES FROM BETWEEN")
                 dispatch({
                     type: actionTypes.APPS_BETWEEN_DOC_USER,
                     appsBetween: res.data.result,
