@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import cn from 'classnames'
 
-import { Input, Upload } from 'antd';
+import { Input, Upload, Modal } from 'antd';
 import Button from '../Button'
 
 import {previewFile} from '../../helpers/modifyFiles'
@@ -53,13 +52,48 @@ class ChatSend extends React.Component{
         this.inp.focus();
     }
 
+    conclusionAddingHandler = (e) => {
+        const {disable, isCurVisEnd} = this.props;
+        let that = this;
+        if(!disable || isCurVisEnd){
+
+            Modal.confirm({
+                title: 'Прикрепить заключение?',
+                //content: 'Some descriptions',
+                onOk() {
+                    that.pushFiles(e,true);
+                },
+                onCancel() {},
+              });
+            
+        }
+        else {
+            Modal.error({
+                title: 'Не удалось прикрепить заключение',
+            });
+        }
+    }
+
+    fileAddingHandler = (e) => {
+        const {disable} = this.props;
+        if(!disable) {
+            this.pushFiles(e,true);
+        } 
+        else {
+            Modal.error({
+                title: 'Не удалось прикрепить файл',
+              });
+        }
+
+        
+    }
+
     render(){
         const { TextArea } = Input;
         const {message, attachment, disable} = this.props;
-        const rootClass = cn('message__send');
         
         return (
-            <div className={rootClass}>
+            <div className='message__send'>
                 <div className='message__send-smileys'>
                     <Button
                         btnText=''
@@ -82,26 +116,23 @@ class ChatSend extends React.Component{
                 </div>
                 <div className='message__send-btns'>
                     <Upload //multiple={true}
-                    disable = {true}
+                        disable = {true}
                         showUploadList={false}
                         fileList={this.state.conclusionList}
-                        onChange = {(e) => !disable && this.pushFiles(e,true)}>
+                        onChange = {this.conclusionAddingHandler}>
                         {!this.props.isUser && (<Button
                                 btnText=''
                                 size='small'
                                 type='no-brd'
                                 icon='result'
                                 title='Добавить заключение'
-                                onClick={e => e.preventDefault()}
                         />)}
                     </Upload>
                     <Upload
                         //multiple={true}
                         showUploadList={false}
                         fileList={this.state.fileList}
-                        onChange = {(e) => {
-                            !disable && this.pushFiles(e)
-                        }}>
+                        onChange = {this.fileAddingHandler}>
                         <Button
                             btnText=''
                             size='small'
@@ -145,6 +176,7 @@ ChatSend.propTypes = {
     send: PropTypes.func,
     closeVisit: PropTypes.func,
     isUser: PropTypes.bool,
+    isCurVisEnd: PropTypes.bool,
     makeReview: PropTypes.func,
 };
 
@@ -155,6 +187,7 @@ ChatSend.defaultProps = {
     send: () => {},
     closeVisit: () => {},
     isUser: false,
+    isCurVisEnd: false,
     makeReview: () => {},
 };
 
