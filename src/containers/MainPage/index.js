@@ -48,10 +48,8 @@ class MainPage extends React.Component{
 	}
 
 	onSaveNewVisit = (obj) => {
-		this.props.onAddNewVisit(obj, true);
-        this.setState({
-            addModal: false,
-        })
+		return this.props.onAddNewVisit(obj, true);
+
 	};
 
 	onNewFreeVisit = () => {
@@ -115,8 +113,6 @@ const mapStateToProps = state => {
 		intervals: state.patients.intervals,
 		availableIntervals: state.profileDoctor.workIntervals,
 		userInfoShort: state.profilePatient,
-        isReceptionRecorded: state.patients.isReceptionRecorded,
-        receptionRecordedID: state.patients.receptionRecordedID
     }
 };
 

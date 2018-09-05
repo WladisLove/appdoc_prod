@@ -69,10 +69,6 @@ class Patients extends React.Component{
             }
     };
 
-    onSave = (obj) => {
-        this.props.onSaveReception(obj);
-        this.setState({isRecordInProcess: true, submitSuccess: true});
-    };
     
     onPatientDelete = (id, patientName) => {
         const {removePatient} = this.props;
@@ -125,7 +121,7 @@ class Patients extends React.Component{
 
                 <NewVisitModalPage
                     visible={this.state.modal1Visible}
-                    onSave={this.onSave}
+                    onSave={this.props.onSaveReception}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={this.state.name}
                     intervals={this.props.intervals}
@@ -156,9 +152,7 @@ const mapStateToProps = state => {
 		docPatients: state.patients.docPatients,
 		notDocPatients: state.patients.notDocPatients,
 		intervals: state.patients.intervals,
-		isReceptionRecorded: state.patients.isReceptionRecorded,
 		availableIntervals: state.profileDoctor.workIntervals,
-        receptionRecordedID: state.patients.receptionRecordedID
 	}
 };
 
