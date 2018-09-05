@@ -22,9 +22,7 @@ class HistoryReceptionsItems extends React.Component{
         if(file.length > 1) {
             let files = [];
             file.forEach((item) => {
-                item.data.forEach(item => {
                     files.push(item)
-                })
             });
             return files
         } else return file
@@ -36,6 +34,7 @@ class HistoryReceptionsItems extends React.Component{
         this.props.setModalRewiewsVisible(obj);
     }
     render(){
+        console.log(this.props, "PROPS FROM HRIS");
         const {
             id_treatment,
             type,
@@ -60,8 +59,9 @@ class HistoryReceptionsItems extends React.Component{
             'voice': 'telephone', 
             'video': "video-camera",
         }
-        const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение"
-
+        const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение";
+        const status = +moment(+date*1000).format("X") > +moment().format("X") ? "new" : conclusion ? "completed" : "topical";
+        const statusClass = cn('patient-status', 'reception-status',`${status}`);
         return (
             <div className={"reception"}
                     onClick={(e) => {
@@ -70,12 +70,12 @@ class HistoryReceptionsItems extends React.Component{
                     }}
             >
                 <div className="flex-col">
-                    {extr && <div className="patient-status receptions-status-extra"></div>}
-                    <div className={"1"}></div>
+                    {extr && <div className="patient-status reception-status extra"></div>}
+                    <div className={statusClass}></div>
                     <div className="patient-date">{moment(date*1000).format('DD.MM.YYYY')}</div>
                     <div className="patient-time">
                         {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
-                        {finish ? `-${moment(finish).format('HH:mm')}`: null}
+                        {finish ? `-${moment(finish*1000).format('HH:mm')}`: null}
                     </div>
                     <div className="patient-icon"><Icon svg type={extr?"emergency-call":key_val[type]} size={16}
                                                         style={extr?{color:"red"}:null}/></div>
@@ -116,7 +116,15 @@ class HistoryReceptionsItems extends React.Component{
                 </div>
                 <div className="flex-col"
                      onClick={this.handleClick}>
-                    <PopoverFile data={this.refactorFiles(file)}></PopoverFile>
+                    <PopoverFile data={this.refactorFiles(file)}
+                                 canAddFiles={status!=="completed"}
+                                 id_app={id_treatment}
+                                 onAddFiles = {this.props.onAddFiles}
+                                 refresh={this.props.refresh}
+
+                    >
+
+                    </PopoverFile>
                 </div>
             </div>
         )

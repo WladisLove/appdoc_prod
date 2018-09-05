@@ -29,22 +29,6 @@ class ProfilePatient extends React.Component{
         this.setState({ modal2Visible });
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.state.isRecordInProcess)
-            if (nextProps.isReceptionRecorded && nextProps.receptionRecordedID !== this.props.receptionRecordedID) {
-                message.success("Запись прошла успешно");
-                this.setState({modal1Visible: false, isRecordInProcess: false});
-            }
-            else {
-                this.setState({isRecordInProcess: false, submitSuccess: false});
-            }
-    };
-
-    onSave = (obj) => {
-        this.props.onSaveReception(obj);
-        this.setState({isRecordInProcess: true, submitSuccess: true});
-    };
-
     render(){
         const {name, img, status, lastDate, speciality, doctor, birthday, age, height, weight, id} = this.props;
         const [fname, ...rest] = name.split(' ');
@@ -139,7 +123,7 @@ class ProfilePatient extends React.Component{
 
                 <NewVisitModalPage 
                     visible={this.state.modal1Visible}
-                    onSave={this.onSave}
+                    onSave={this.props.onSaveReception}
                     onCancel={() => this.setModal1Visible(false)}
                     userName={name}
                     intervals={this.props.intervals}

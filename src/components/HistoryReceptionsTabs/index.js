@@ -95,12 +95,13 @@ class HistoryReceptionsTabs extends React.Component {
       }
     }
 
-    getTreatments = () => {
+    getTreatments = (params) => {
       let obj ={...this.state};
       if(this.state.date.datestart && this.state.date.dateend) {
         obj.datestart = this.state.date.datestart;
         obj.dateend = this.state.date.dateend;
       }
+      obj={...obj,...params};
       this.props.getTreatments(obj)
     };
 
@@ -131,7 +132,11 @@ class HistoryReceptionsTabs extends React.Component {
       })
     };
 
-
+    refresh = () => {
+        this.setState({loading: true, data: []}, ()=>{
+            this.getTreatments({old:0, max:this.state.loadedCount})
+        })
+    };
     historyRender = (dataArr) => {
           if(!dataArr.length && this.state.loading &&this.state.noData) {
             return <div className="table-footer"
@@ -148,10 +153,12 @@ class HistoryReceptionsTabs extends React.Component {
           let history = dataArr.map((item, i) => {
                 if(item.doc_name) {
                     return (<HistoryReceptionsItem {...item}
-                                        onGotoChat = {this.props.onGotoChat}
-                                        onGoto={this.props.onGoto}
-                                        key={'histRecept' + i}
-                                        isUser = {this.props.isUser}
+                                                   onGotoChat={this.props.onGotoChat}
+                                                   onGoto={this.props.onGoto}
+                                                   key={'histRecept' + i}
+                                                   isUser={this.props.isUser}
+                                                   onAddFiles={this.props.onAddFiles}
+                                                   refresh={this.refresh}
 
                     />)
                 }

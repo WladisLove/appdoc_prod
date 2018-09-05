@@ -46,8 +46,6 @@ class PatientsPage extends React.Component{
                                 intervals={this.props.intervals}
                                 onGetIntervalForDate={this.props.onGetIntervalForDate}
                                 availableIntervals={this.props.availableIntervals}
-                                isReceptionRecorded={this.props.isReceptionRecorded}
-                                receptionRecordedID={this.props.receptionRecordedID}
                                 onSaveReception={this.props.onSaveReception}
                                 onGetAllDocIntervals={this.props.onGetAllDocIntervals}
                             />
@@ -66,6 +64,7 @@ class PatientsPage extends React.Component{
                                                id_user={this.props.match.params.id}
                                                personalPage = {true}
                                                isUser = {this.props.mode === "user"}
+                                               onAddFiles = {this.props.onAddFiles}
                             />
                         </Col>
                     </Row>
@@ -80,11 +79,8 @@ class PatientsPage extends React.Component{
 const mapStateToProps = state => {
     return {
         info: state.patients.selectedPatientInfo,
-
         intervals: state.patients.intervals,
         availableIntervals: state.profileDoctor.workIntervals,
-        isReceptionRecorded: state.patients.isReceptionRecorded,
-        receptionRecordedID: state.patients.receptionRecordedID,
         appsBetween: state.treatments.appsBetween,
         appsBetweenCount: state.treatments.appsBetweenCount
 
@@ -94,6 +90,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getPatientInfo: (id) => dispatch(actions.getSelectedPatientInfo(id)),
+        onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
         addPatient: (id) => dispatch(actions.addPatient(id, '', true)),
         onGetIntervalForDate: (beginDay, endDay) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay)),
         onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),

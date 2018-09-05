@@ -37,26 +37,18 @@
 .ant-collapse-header .arrow {
   right: 27px;
   left: auto !important;
-  line-height: 53px !important;
+  line-height: 1 !important;
   font-family: 'icon' !important;
-  font-size: 9.875px !important;
+  font-size: 30px !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .ant-collapse-content-active {
   border-left: 1px solid #d9d9d9;
   border-right: 1px solid #d9d9d9;
-}
-.ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow:before {
-  content: "\E903";
-  font-family: 'icon' !important;
-}
-.ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow {
-  transform: rotate(-180deg);
 }

@@ -4,6 +4,7 @@ import Button from '../Button'
 import DownloadLink from '../DownloadLink'
 
 import './style.css'
+import Upload from "../Upload";
 
 class PopoverFileBody extends React.Component{
 
@@ -32,6 +33,10 @@ class PopoverFileBody extends React.Component{
 					svg
 					iconSize={23}
 				/>
+			  {this.props.canAddFile && <Upload className="add-new-file-upload"
+                      onChange={({file}) => this.modifyFiles(file)}
+                      listType = 'text'
+                      text="Добавить файл"/>}
 			</div>
 	    );
 	};
