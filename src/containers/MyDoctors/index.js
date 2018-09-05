@@ -98,10 +98,7 @@ class Patients extends React.Component{
                     visible={this.state.isModalNewVisitVisible}
                     date={+this.state.newVisit.timestamp}
                     isChoosebleTime={false}
-                    onSave = {(obj) => {
-                        this.props.onSaveReceptionByPatient(obj);
-                        this.setState({isModalNewVisitVisible: false})
-                    }}
+                    onSave = {this.props.onSaveReceptionByPatient}
                     doctorName = {this.state.newVisit.name}
                     type = {this.state.newVisit.type}
                     onCancel={() => this.setState({isModalNewVisitVisible: false})}

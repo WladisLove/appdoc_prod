@@ -103,7 +103,7 @@ class PatientsPage extends React.Component{
     };
     onMakeNewApp = (obj) => {
         obj.id_doc = this.props.match.params.id;
-        this.props.onMakeNewAppointment(obj);
+        return this.props.onMakeNewAppointment(obj);
     };
 
 
@@ -176,7 +176,7 @@ class PatientsPage extends React.Component{
                             <ReviewsTree key={this.props.match.params.id}
                                          data={this.props.reviews}
                                          limit={reviewsLoadCount}
-                                         onGoto={(val) => this.gotoHandler(val)}
+                                         onGoto={() => false}
                                          isOnDoctorPage={true}
                                          numberOfReviews={this.props.commentCount}
 

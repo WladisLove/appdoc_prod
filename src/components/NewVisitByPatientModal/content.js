@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment'
-import {Form} from 'antd';
+import {Form, message} from 'antd';
 import TextArea from '../TextArea'
 import Button from '../Button'
 import Radio from '../Radio'
@@ -8,18 +8,21 @@ import Upload from '../Upload'
 import Icon from '../Icon'
 import TimePicker from '../TimePicker'
 import {previewFile} from "../../helpers/modifyFiles";
+import Spinner from "../Spinner";
 
 const FormItem = Form.Item;
 
 class ContentForm extends React.Component {
     state = {
         message: '',
+        loading:false
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                this.setState({loading:true});
                 let newDate = this.props.date;
 
                 let response = this.props.isChoosebleTime ? (
@@ -45,7 +48,15 @@ class ContentForm extends React.Component {
                             : [],
                     }
                 );
-                this.props.onSave(response);
+                this.props.onSave(response).then((res)=> {
+                   if(res.data.code===200) {
+                       message.success("Запись прошла успешно");
+                   } else {
+                       message.error("Произошла ошибка, попробуйте другое время")
+                   }
+                    this.props.onCancel();
+                    this.setState({loading:false})
+                });
             }
         });
     };
@@ -141,7 +152,12 @@ class ContentForm extends React.Component {
                 <Button size='default'
                         btnText={`Записаться на ${moment(date).format("D MMMM H:mm")}`}
                         htmlType="submit"
-                        type='float'/>
+                        type='float'
+                        disable={this.state.loading}
+                        style={{marginRight: "20px"}}
+
+                />
+                {this.state.loading && <Spinner isInline={true} size="small" />}
             </Form>
         )
     }
