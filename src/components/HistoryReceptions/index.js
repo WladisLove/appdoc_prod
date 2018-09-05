@@ -96,7 +96,7 @@ class HistoryReceptions extends React.Component{
 
     refresh =() => {
         this.setState({data:[], loading: true}, () => {
-            this.getApps({max:this.state.loadedCount, old: 0})
+            this.getApps({max:this.state.loadedCount, old: 0,loadedCount: 0})
         })
     };
 
