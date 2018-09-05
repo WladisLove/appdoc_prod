@@ -134,7 +134,7 @@ class HistoryReceptionsTabs extends React.Component {
 
     refresh = () => {
         this.setState({loading: true, data: []}, ()=>{
-            this.getTreatments({old:0, max:this.state.loadedCount})
+            this.getTreatments({old:0, max:this.state.loadedCount, loadedCount: 0})
         })
     };
     historyRender = (dataArr) => {

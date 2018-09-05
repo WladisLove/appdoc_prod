@@ -19,16 +19,19 @@ class HistoryReceptionsItem extends React.Component{
         e.nativeEvent.stopImmediatePropagation();
       }
     refactorFiles = (file) => {
-       if(file.length > 1) {
+       if(file.length) {
            let files = [];
            file.forEach((item) => {
-                files.push(item)
+               if(item.data.length) {
+                   item.data.forEach((eachFile)=>{
+                       files.push(eachFile)
+                   })
+               }
            });
            return files
        } else return file
     };
     render(){
-        console.log('RENDER TREATMENTS')
         const {
             id_treatment,
             id_user,

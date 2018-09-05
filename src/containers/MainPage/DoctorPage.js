@@ -58,8 +58,8 @@ const DoctorPage = props => {
 												props.history.push('/chat');
 											}}
                                             treatmentsLoaded={props.completedAppsLoaded}
-
-											redirect={() => props.history.push('/treatment')}/>
+											redirect={() => props.history.push('/treatment')}
+							/>
 						</Col>
 					</Row>
 					<NewVisitModal visible={props.addModal}
@@ -68,7 +68,7 @@ const DoctorPage = props => {
 								    intervals={props.intervals}
 									patients={props.patients}
 									onCancel={props.closeAdd}
-									onSave = {(obj) => props.onSaveNewVisit(obj)}
+									onSave = {props.onSaveNewVisit}
 					/>
 					<CancelVisitModal visible={props.cancelModal} 
 									onGoto={() => {}}

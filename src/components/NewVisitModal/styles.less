@@ -2,7 +2,14 @@
 
 .NewVisitModal {
   padding: 20px 30px 40px 30px;
-
+  &.ant-form {
+    .ant-row.ant-form-item.ant-form-item-with-help.user-select {
+      margin-bottom: 24px;
+      .ant-form-explain {
+        top: 35px;
+      }
+    }
+  }
   .ant-select {
 
   }
@@ -32,44 +39,45 @@
     display: flex;
     margin-bottom: 40px;
   }
-}
 
-.modal {
+  .modal {
 
-
-  &-row {
-    display: flex;
-    margin-bottom: 25px;
-  }
-
-  &-result {
-    font-size: 14px;
-    line-height: 18px;
-    color: #344051;
-    font-family: @f-m;
-  }
-
-  &-data {
-    display: flex;
-    align-items: center;
-    width: 50%;
-
-    .icon {
-      margin-right: 15px;
-    }
-  }
-
-  &-time {
-    width: 50%;
-    display: flex;
-    align-items: center;
-
-    .ant-form-item{
+    &-row {
+      display: flex;
+      align-items: flex-start;
       margin-bottom: 0;
     }
 
-    .icon {
-      margin-right: 15px;
+    &-result {
+      font-size: 14px;
+      line-height: 18px;
+      color: #344051;
+      font-family: @f-m;
+    }
+
+    &-data {
+      display: flex;
+      align-items: center;
+      width: 50%;
+
+      .icon {
+        margin-right: 15px;
+      }
+    }
+
+    &-time {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+
+      .ant-form-item {
+        margin-bottom: 0;
+      }
+
+      .icon {
+        margin-right: 15px;
+      }
     }
   }
 }

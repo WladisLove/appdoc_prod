@@ -76,7 +76,7 @@ class LoginPage extends React.Component {
             <Hoc>
                 <div className="loginPage-header">
                     <div className="loginPage-header-close">
-                        <NavLink to="/login">
+                        <NavLink to="/login" onClick={this.onOk}>
                             <Icon type='close' svg />
                         </NavLink>
 
@@ -134,6 +134,7 @@ class LoginPage extends React.Component {
                                                                   isRegFinished={this.state.isRegFinished}
                                                                   isRegInProgress={this.state.regInProgress}
                                                                   checkEmailAvailability={this.props.onCheckEmailAvailability}
+                                                                  onOk={this.onOk}
                                />}
                         />
                     </Col>

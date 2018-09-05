@@ -12,8 +12,9 @@ import Radio from "../Radio";
 import TextArea from "../TextArea";
 import Upload from "../Upload";
 import moment from "moment";
-import {Form} from "antd";
+import {Form, message} from "antd";
 import {previewFile} from "../../helpers/modifyFiles";
+import Spinner from "../Spinner";
 
 
 const FormItem = Form.Item;
@@ -62,10 +63,11 @@ class DoctorPageNewVisitForm extends React.Component {
         }
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                this.setState({loading: true});
                 let obj = {
                     type: values.type,
                     date: this.state.timeStamp
-                }
+                };
 
                 values.comment ? obj.comment=values.comment : null;
 
@@ -73,9 +75,16 @@ class DoctorPageNewVisitForm extends React.Component {
                     obj.file = values.file.fileList.map((item, index) => { return {name: item.name, thumbUrl: item.thumbUrl}})
                 }
 
-                this.props.form.resetFields();
-                this.setState({timeStamp: 0});
-                this.props.onMakeNewAppointment(obj);
+                this.props.onMakeNewAppointment(obj).then((res)=>{
+                    if(res.data.code===200) {
+                        message.success("Запись прошла успешно");
+
+                    } else {
+                        message.error("Произошла ошибка, попробуйте другое время")
+                    }
+                    this.setState({loading:false,timeStamp: 0})
+                    this.props.form.resetFields();
+                });
             } else { console.log(err, "ERROR")}
 
         });
@@ -138,10 +147,17 @@ class DoctorPageNewVisitForm extends React.Component {
                                                 text="Прикрепить результаты исследований"/>
                                 )}
                             </FormItem>
-                            <Button size='default'
-                                    btnText={`Записаться ${this.state.timeStamp ? `на ${moment(this.state.timeStamp*1000).format("D MMMM H:mm")}`:``}`}
-                                    htmlType="submit"
-                                    type='float'/>
+                            <div>
+                                <Button size='default'
+                                        btnText={`Записаться ${this.state.timeStamp ? `на ${moment(this.state.timeStamp*1000).format("D MMMM H:mm")}`:``}`}
+                                        htmlType="submit"
+                                        disable={this.state.loading}
+                                        type='float'
+                                        style={{marginRight: "20px"}}
+
+                                />
+                                {this.state.loading && <Spinner isInline={true} size="small" />}
+                            </div>
                         </div>
                     </Card>
                 </div>
