@@ -3,22 +3,39 @@ import React from 'react';
 import {Form, message} from 'antd';
 import TextArea from '../TextArea'
 import Button from '../Button'
+import Spinner from "../Spinner";
 
 
 
 class ContentForm extends React.Component {
     state = {
-        message: '',
-    }
+        message: "",
+        loading: false
+    };
 
     handleSubmit = (e) => {
-        !this.state.message && message.error("Опишите проблему");
         e.preventDefault();
-        let response = {
-            message: this.state.message,
-        };
-        this.props.onSend(response)
+        if(this.state.message) {
+            this.setState({loading: true});
+            this.props.onSend(this.state.message).then((res)=>{
+                if(res.data.res) {
+                    this.setState({loading:false});
+                    this.props.onCancel();
+                    message.success("Ваш отчёт отправлен")
+                } else {
+                    message.error("Произошла ошибка, попробуйте ещё раз")
+                }
+            })
+        } else message.error("Опишите проблему");
+
     };
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.visible===true && this.props.visible===false) {
+            this.setState({message:""})
+        }
+    }
+
 
     render() {
 
@@ -28,13 +45,18 @@ class ContentForm extends React.Component {
 
                 <TextArea label='Опишите проблему'
                           value={this.state.message}
-                            onChange={message => this.setState({message})}
+                          onChange={message => this.setState({message})}
                           className="reportBugModal-txtarea"
                 />
                 <Button size='default'
                         btnText='Отправить'
                         htmlType="submit"
-                        type='float'/>
+                        type='float'
+                        disable={this.state.loading}
+                        style={{marginRight: "20px"}}
+
+                />
+                {this.state.loading && <Spinner size="small" isInline={true} /> }
             </Form>
         )
     }

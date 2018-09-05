@@ -240,7 +240,6 @@
 .chat-card-video__box {
   position: relative;
   width: 100%;
-  min-width: 455px;
   height: 100%;
   display: block;
 }

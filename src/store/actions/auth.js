@@ -214,3 +214,17 @@ const authFail = (error) => {
         errorCode: error.code,
     };
 };
+
+export const reportBug = (text) => {
+    return (dispatch, getState) => {
+        const obj = {
+            id_user: getState().auth.id,
+            message: text
+        };
+        return axios.post('/catalog.mf/sendLog',
+            JSON.stringify(obj))
+            .catch(err => {
+                console.log('error: ', err);
+            })
+    }
+};

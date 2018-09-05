@@ -206,6 +206,7 @@ class App extends React.Component {
                     <ReportBugModal
                         visible={this.state.bugfixVisible}
                         onCancel={()=>this.setState({bugfixVisible: false})}
+                        onSend={this.props.reportBug}
                     />
                 </Hoc>)
             : (
@@ -265,6 +266,7 @@ const mapDispatchToProps = dispatch => {
         setChatStory: (chat) => dispatch(actions.setChatStory(chat)),
         onSelectReception: (id, callback) => dispatch(actions.seletVisit(id, callback)),
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
+        reportBug: (message) => dispatch(actions.reportBug(message))
 	}
 };
 
