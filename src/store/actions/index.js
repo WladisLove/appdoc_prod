@@ -77,7 +77,8 @@ export {
     registerUser,
     resetRegisterStatus,
     setOnlineStatus,
-    checkEmailAvailability
+    checkEmailAvailability,
+    reportBug
 } from './auth'
 
 export {

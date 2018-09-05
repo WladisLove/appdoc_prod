@@ -16,6 +16,7 @@ import RegistrationPatient from "../../components/RegistrationPatient/index.js";
 
 import * as actions from '../../store/actions'
 import './styles.css'
+import ReportBugModal from "../../components/ReportBugModal";
 
 class LoginPage extends React.Component {
 
@@ -31,7 +32,6 @@ class LoginPage extends React.Component {
     registerDoctor = (data) => {
         this.setState({regInProgress: true});
         this.props.onRegisterDoctor(data).then(res=> {
-            console.log(res);
             if(res.data.code !== 200) {
                 message.error('Заполнены не все обязательные поля', 4);
             } else {
@@ -42,7 +42,6 @@ class LoginPage extends React.Component {
     registerPatient = (data) => {
         this.setState({regInProgress: true});
         this.props.onRegisterUser(data).then(res=> {
-            console.log(res);
             if(res.data.code !== 200) {
                 message.error('Заполнены не все обязательные поля', 4);
             } else {
@@ -74,6 +73,7 @@ class LoginPage extends React.Component {
 
         return (
             <Hoc>
+
                 <div className="loginPage-header">
                     <div className="loginPage-header-close">
                         <NavLink to="/login" onClick={this.onOk}>
@@ -139,6 +139,12 @@ class LoginPage extends React.Component {
                         />
                     </Col>
                 </Row>
+                <button id="bugfix" onClick={()=>this.setState({bugfixVisible: true})}></button>
+                <ReportBugModal
+                    visible={this.state.bugfixVisible}
+                    onCancel={()=>this.setState({bugfixVisible: false})}
+                    onSend={this.props.reportBug}
+                />
             </Hoc>
         )
     }
@@ -157,7 +163,8 @@ const mapDispatchToProps = dispatch => {
         onLogin: ({userName, password, remember}, history) => dispatch(actions.login(userName, password, remember, history)),
         onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
         onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo)),
-        onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email))
+        onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email)),
+        reportBug: (message) => dispatch(actions.reportBug(message))
 	}
 };
 
