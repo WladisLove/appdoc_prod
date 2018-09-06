@@ -9,7 +9,7 @@ import '../../icon/style.css'
 const Review = props => {
 
         const {fio} = props;
-        let authorFIO = fio.split(' ');
+        let authorFIO = fio ? fio.split(' ') : ["Пациент"];
         let author = authorFIO[0] + " ";
 
         for(let i = 1, len = authorFIO.length; i < len; i++){

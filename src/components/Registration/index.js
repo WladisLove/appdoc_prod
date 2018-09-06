@@ -43,8 +43,7 @@ class RegistrationForm extends React.Component{
         },
             {
             title: 'Проверка данных',
-            content: (state) => <Step3
-                                       data = {state}
+            content: (state) => <Step3 data = {state}
                                        onPrev = {this.prev}
                                        onNext = {this.next}
                                        finalText={this.props.finalText}

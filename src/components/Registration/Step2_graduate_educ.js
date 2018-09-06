@@ -28,11 +28,11 @@ class Step2_graduate_educ extends React.Component{
         console.log(value, "VALIDATE VALUE");
 
         if( (this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile) && !this.state.isDate) {
-            cb("Введите период обучения 222222")
+            cb("Введите период обучения")
         }
         if((value && value[0] && value[1]) || (value && !value[0] && !value[1]) || !value) {
             cb()
-        } else cb("Введите период обучения 222222")
+        } else cb("Введите период обучения")
     }
     handleChange = (e, name) => {
         console.log("EEEEEEE", e);
