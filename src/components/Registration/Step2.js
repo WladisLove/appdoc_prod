@@ -191,6 +191,7 @@ class Step2_From extends React.Component{
                             required: this.state.isStatus,
                             message: 'Загрузите подтверждающий документ'
                         }],
+                        valuePropName: "docsfiles"
                     })(<div>
                           <Dropzone
                             onDrop={this.handleDrop}
