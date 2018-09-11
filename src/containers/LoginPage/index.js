@@ -120,6 +120,7 @@ class LoginPage extends React.Component {
                                                            isRegFinished = {this.state.isRegFinished}
                                                            regInProgress = {this.state.regInProgress}
                                                            onCheckEmailAvailability={this.props.onCheckEmailAvailability}
+                                                           uploadFile = {this.props.uploadFile}
                                />}
                         />
                         <Route path="/patient-registration"
@@ -164,7 +165,8 @@ const mapDispatchToProps = dispatch => {
         onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
         onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo)),
         onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email)),
-        reportBug: (message, href) => dispatch(actions.reportBug(message, href))
+        reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
+        uploadFile: (file) => dispatch(actions.uploadFile(file))
 	}
 };
 

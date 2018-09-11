@@ -103,7 +103,8 @@ export {
     getNotifications,
     readNotification,
     getAllDocIntervals,
-    getDateWorkIntervalWithoutMakingAppAll
+    getDateWorkIntervalWithoutMakingAppAll,
+    uploadFile
 } from './doctorData'
 
 export {

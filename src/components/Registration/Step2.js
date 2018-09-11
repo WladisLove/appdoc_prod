@@ -8,6 +8,7 @@ import Step2_additional from './Step2_additional'
 import Button from '../Button'
 import Hr from '../Hr'
 import Upload from '../Upload'
+import Dropzone from 'react-dropzone'
 import SelectNew from "../SelectNew";
 import InputNew from "../InputNew";
 
@@ -112,7 +113,10 @@ class Step2_From extends React.Component{
             ({[type]: prev[type] +1}))
     };
 
-
+    handleDrop = (files) => {
+      console.log(files[0], "FILES FROM DROP ZONE");
+      this.props.uploadFile(files[0])
+    };
     render(){
         const {getFieldDecorator} = this.props.form;
         const {academicDegree, academicTitle, category,  langs, payments} = this.props;
@@ -187,8 +191,26 @@ class Step2_From extends React.Component{
                             required: this.state.isStatus,
                             message: 'Загрузите подтверждающий документ'
                         }],
-                    })(
-                        <Upload text="Прикрепить документ, подтверждающий ученое звание"/>
+                    })(<div>
+                          <Dropzone
+                            onDrop={this.handleDrop}
+                            style = {{width: "100%"}}
+                            multiple={false}
+
+                          >
+                                <Button btnText="Прикрепить документ, подтверждающий ученое звание"
+                                        size='upload'
+                                        type='upload'
+                                        icon='upload'
+                                        iconSize={36}
+                                        svg
+                                        onClick={e => e.preventDefault()}
+                                />
+                          </Dropzone>
+                          {
+                            this.state.accepted && this.state.accepted.map(f => <div key={f.name}>{f.name} - {f.size} bytes</div>)
+                          }
+                      </div>
                     )}
                 </FormItem>
 
