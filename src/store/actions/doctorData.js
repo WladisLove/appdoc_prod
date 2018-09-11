@@ -104,10 +104,10 @@ export const uploadFile = (file) => {
   return () => {
     const data = new FormData();
     data.append('file', file);
-    console.log(data, "DATA TO SEND");
     return axios.post('https://appdoc.by/upload.php', data)
       .then(res => {
         console.log(res, "RES UPLOADING FILE")
+        return res
       })
       .catch(err => {
         console.log(err);

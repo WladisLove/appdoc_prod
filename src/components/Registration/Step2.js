@@ -24,6 +24,7 @@ class Step2_From extends React.Component{
             isCategory: this.props.data.isCategory || false,
             isDegree : this.props.data.isDegree || false,
             isStatus: this.props.data.isStatus || false,
+            accepted: []
 
         }
     }
@@ -116,8 +117,13 @@ class Step2_From extends React.Component{
     handleDrop = (files) => {
       console.log(files[0], "FILES FROM DROP ZONE");
       this.props.uploadFile(files[0])
+        .then(res => {
+          console.log(res)
+          this.setState({accepted: [...this.state.accepted, res.data.file[0]]})
+        })
     };
     render(){
+      console.log(this.state.accepted, "ACCEPTED");
         const {getFieldDecorator} = this.props.form;
         const {academicDegree, academicTitle, category,  langs, payments} = this.props;
 
@@ -187,16 +193,18 @@ class Step2_From extends React.Component{
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('academicstatusdoc', {
+                        valuePropName: "docsfiles",
                         rules: [{
                             required: this.state.isStatus,
                             message: 'Загрузите подтверждающий документ'
-                        }],
-                        valuePropName: "docsfiles"
+                        }]
+
                     })(<div>
                           <Dropzone
                             onDrop={this.handleDrop}
                             style = {{width: "100%"}}
                             multiple={false}
+                            docsfiles={this.state.accepted}
 
                           >
                                 <Button btnText="Прикрепить документ, подтверждающий ученое звание"
