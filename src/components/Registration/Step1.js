@@ -26,7 +26,6 @@ class Step1Form extends React.Component{
                     avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
                 };
                 values.avatar ? fields.avatar = { thumbUrl: this.state.avatarUrl ? this.state.avatarUrl : null, name: values.avatar.file.name }: null;
-                console.log(fields, "FIELDS FROM STEP 1");
                 this.props.onSubmit(fields);
                 this.props.onNext();
             }

@@ -38,13 +38,11 @@ class Step2_From extends React.Component{
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
-            console.log(values, "VALUES STEP 2");
             if (!err) {
                 let toSubmit = {
                     ...values,
                     ...this.state,
                 };
-                console.log(toSubmit);
                 this.props.onSubmit(toSubmit);
                 this.props.onNext();
             }
@@ -120,7 +118,6 @@ class Step2_From extends React.Component{
 
 
     render(){
-      console.log(this.state, "STATE");
         const {getFieldDecorator} = this.props.form;
         const {academicDegree, academicTitle, category,  langs, payments} = this.props;
 

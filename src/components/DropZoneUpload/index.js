@@ -14,11 +14,9 @@ class DropZoneUpload extends Component {
     }
 
     handleDrop = (files) => {
-        console.log(files[0], "FILES FROM DROP ZONE");
         this.setState({loading: true});
         this.props.uploadFile(files[0])
             .then(res => {
-                console.log(res)
                 const file = res.data.file[0];
                 if (file.url && file.name) {
                     message.success("Файл успешно загружен")

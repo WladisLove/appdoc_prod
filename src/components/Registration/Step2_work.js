@@ -3,12 +3,6 @@ import PropTypes from 'prop-types'
 
 import {Form} from 'antd';
 
-import Input from '../Input'
-import DatePicker from '../DatePicker'
-import Upload from '../Upload'
-import Button from '../Button'
-import Hr from '../Hr'
-import UploadBig  from '../UploadBig'
 import InputNew from "../InputNew";
 import DropZoneUpload from "../DropZoneUpload";
 

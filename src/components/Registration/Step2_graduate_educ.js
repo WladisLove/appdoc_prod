@@ -21,7 +21,6 @@ class Step2_graduate_educ extends React.Component{
     }
 
     validateYears = (rule, value, cb) => {
-        console.log(value, "VALIDATE VALUE");
 
         if( (this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile) && !this.state.isDate) {
             cb("Введите период обучения")
@@ -31,7 +30,6 @@ class Step2_graduate_educ extends React.Component{
         } else cb("Введите период обучения")
     }
     handleChange = (e, name) => {
-        console.log("EEEEEEE", e);
         const validate = () => {
             this.props.form.validateFields([
                 'educationsgroup2-education-'+this.props.number,
