@@ -8,6 +8,7 @@ import Step2_additional from './Step2_additional'
 import Button from '../Button'
 import Hr from '../Hr'
 import Upload from '../Upload'
+import DropZoneUpload from '../DropZoneUpload'
 import SelectNew from "../SelectNew";
 import InputNew from "../InputNew";
 
@@ -43,6 +44,7 @@ class Step2_From extends React.Component{
                     ...values,
                     ...this.state,
                 };
+                console.log(toSubmit);
                 this.props.onSubmit(toSubmit);
                 this.props.onNext();
             }
@@ -92,6 +94,8 @@ class Step2_From extends React.Component{
                                   key={name + 0}
                                   specs = {this.props.specs}
                                   form = {this.props.form}
+                                  fileToState={this.fileToState}
+                                  uploadFile={this.props.uploadFile}
                                   number={0}/>,];
         while (i < num){
             formArr.push(<Hr key={'hr_' + name + i}/>);
@@ -100,6 +104,8 @@ class Step2_From extends React.Component{
                                     form = {this.props.form}
                                     specs = {this.props.specs}
                                     key={name + i}
+                                    fileToState={this.fileToState}
+                                    uploadFile={this.props.uploadFile}
                                     number={i}/>);
             i++;
         }
@@ -114,6 +120,7 @@ class Step2_From extends React.Component{
 
 
     render(){
+      console.log(this.state, "STATE");
         const {getFieldDecorator} = this.props.form;
         const {academicDegree, academicTitle, category,  langs, payments} = this.props;
 
@@ -166,8 +173,10 @@ class Step2_From extends React.Component{
                             message: 'Загрузите подтверждающий документ'
                         }],
                     })(
-                        <Upload 
-                            text="Прикрепить документ, подтверждающий ученую степень"/>
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text="Прикрепить документ, подтверждающий учёную степень"
+                        />
                     )}
                 </FormItem>
 
@@ -186,9 +195,13 @@ class Step2_From extends React.Component{
                         rules: [{
                             required: this.state.isStatus,
                             message: 'Загрузите подтверждающий документ'
-                        }],
+                        }]
+
                     })(
-                        <Upload text="Прикрепить документ, подтверждающий ученое звание"/>
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text="Прикрепить документ, подтверждающий учёное звание"
+                        />
                     )}
                 </FormItem>
 
@@ -230,8 +243,10 @@ class Step2_From extends React.Component{
                             message: 'Загрузите подтверждающий документ'
                         }],
                     })(
-                        <Upload
-                            text="Прикрепить документ, подтверждающий категорию"/>
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text="Прикрепить документ, подтверждающий категорию"
+                        />
                     )}
                 </FormItem>
                 <Hr/>

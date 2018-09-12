@@ -3,15 +3,11 @@ import PropTypes from 'prop-types'
 
 import { Form } from 'antd';
 
-import Upload from '../Upload'
-import Input from '../Input'
-import DatePicker from '../DatePicker'
 import InputNew from "../InputNew";
 import RangeDPNew from "../RangeDPNew";
+import DropZoneUpload from "../DropZoneUpload";
 
 const FormItem = Form.Item;
-
-/* styles in style.css (importing in Step2.js)*/
 
 class Step2_graduate_educ extends React.Component{
     state = {
@@ -54,7 +50,7 @@ class Step2_graduate_educ extends React.Component{
                 (e[0] && e[1]) ? !this.state.isDate ? this.setState({isDate: true},validate) : null : this.setState({isDate: false},validate);
                 return;
             case "eduFile":
-                e.fileList.length ? !this.state.isFile? this.setState({isFile: true},validate): null : this.setState({isFile: false},validate);
+                e.length ? !this.state.isFile? this.setState({isFile: true},validate): null : this.setState({isFile: false},validate);
                 return;
 
             default: return;
@@ -105,8 +101,12 @@ class Step2_graduate_educ extends React.Component{
                                     message: 'Загрузите подтверждающий документ'
                                 }],
                             })(
-                            <Upload text="Прикрепить диплом (сертификат, свидетельство)"
-                            onChange={(e)=>this.handleChange(e, "eduFile")}/>
+                            <DropZoneUpload
+                                uploadFile = {this.props.uploadFile}
+                                text="Прикрепить диплом, свидетельство"
+                                onChange={(e)=>this.handleChange(e, "eduFile")}
+
+                            />
                         )}
                     </FormItem>
                 </div>

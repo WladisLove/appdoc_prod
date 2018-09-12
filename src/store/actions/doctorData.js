@@ -99,3 +99,18 @@ export const getDateWorkIntervalWithoutMakingAppAll = (id_doc) => {
             })
     }
 };
+export const uploadFile = (file) => {
+  console.log(file, "FILE");
+  return () => {
+    const data = new FormData();
+    data.append('file', file);
+    return axios.post('https://appdoc.by/upload.php', data)
+      .then(res => {
+        console.log(res, "RES UPLOADING FILE")
+        return res
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+};
