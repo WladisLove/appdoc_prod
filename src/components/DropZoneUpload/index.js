@@ -3,6 +3,7 @@ import Button from "../Button";
 import Dropzone from 'react-dropzone'
 import {message} from "antd"
 import Spinner from "../Spinner";
+import RegistrationForm from "../Registration";
 
 class DropZoneUpload extends Component {
     constructor() {
@@ -26,15 +27,29 @@ class DropZoneUpload extends Component {
                 } else {
                     message.error("Произошла ошибка, попробуйте ещё раз")
                 }
-                this.props.onChange && this.props.onChange(this.state.accepted);
+                this.props.onChange && this.props.onChange([...this.props.value, file]);
                 this.setState({loading: false})
 
             })
     };
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.value !== this.props.value) {
+            this.setState({accepted: nextProps.value})
+        }
+    }
 
 
     render() {
+        let files = [];
+
+        if (this.props.value && this.props.value.length) {
+            files = [...this.props.value]
+        } else if (this.state.accepted.length) {
+            files = [...this.state.accepted];
+        } else {
+            files = [];
+        }
         return (
             <div data-files={this.state.accepted}>
                 <Dropzone
@@ -54,11 +69,16 @@ class DropZoneUpload extends Component {
                     /> {this.state.loading && <Spinner size="small" isInline={true}></Spinner>}
                 </Dropzone>
                 {
-                    this.state.accepted && this.state.accepted.map(f => <div key={f.name}>{f.name} </div>)
+                    files.length > 0 && files.map(f => <div key={f.name}>{f.name} </div>)
                 }
             </div>
         );
     }
 }
+
+
+DropZoneUpload.defaultProps = {
+    value: []
+};
 
 export default DropZoneUpload;

@@ -57,6 +57,7 @@ class Step2_From extends React.Component{
                 ...values,
                 ...this.state,
             };
+            console.log("FIELDS WHEN BACK TO 1", fields)
             this.props.onSubmit(fields);
             this.props.onPrev();
         })
@@ -290,9 +291,16 @@ const Step2 = Form.create({
         for (let key in props.data){
             if (key !== 'current' && props.data[key]){
                 if(key.indexOf("ucationyears") + 1) {
-                    fields[key] = Form.createFormField({
-                        value: {defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
-                    })
+                    if(props.data[key].defaultEndValue && props.data[key].defaultStartValue) {
+                        fields[key] = Form.createFormField({
+                            value: {defaultStartValue: props.data[key].defaultStartValue , defaultEndValue: props.data[key].defaultEndValue}
+                        })
+                    } else {
+                        fields[key] = Form.createFormField({
+                            value: {defaultStartValue: props.data[key][0] , defaultEndValue: props.data[key][1]}
+                        })
+                    }
+
                 } else {
                     fields[key] = Form.createFormField({
                         value: props.data[key],

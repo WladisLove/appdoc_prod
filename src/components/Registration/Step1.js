@@ -19,13 +19,15 @@ class Step1Form extends React.Component{
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
+            console.log(values, "VALUE FROM STEP 1")
             if (!err) {
 
                 let fields = {
                     ...values,
                     avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
                 };
-                values.avatar ? fields.avatar = { thumbUrl: this.state.avatarUrl ? this.state.avatarUrl : null, name: values.avatar.file.name }: null;
+                values.avatar ? fields.avatar = { thumbUrl: this.state.avatarUrl ? this.state.avatarUrl : null,
+                    name: (values.avatar.file && values.avatar.file.name) || values.avatar.name}: null;
                 this.props.onSubmit(fields);
                 this.props.onNext();
             }
