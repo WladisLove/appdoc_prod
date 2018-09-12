@@ -19,7 +19,6 @@ class Step1Form extends React.Component{
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
-            console.log(values, "VALUE FROM STEP 1")
             if (!err) {
 
                 let fields = {

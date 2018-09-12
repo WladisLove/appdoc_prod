@@ -21,7 +21,7 @@ class DropZoneUpload extends Component {
                 const file = res.data.file[0];
                 if (file.url && file.name) {
                     message.success("Файл успешно загружен")
-                    this.setState({accepted: [...this.state.accepted, {name: file.name}]}) //file.deleteUrl can be added
+                    this.setState({accepted: [...this.state.accepted, {name: file.name, deleteUrl: file.deleteUrl}]})
                 } else if (res.data.file[0].error) {
                     message.error(res.data.file[0].error)
                 } else {
@@ -39,7 +39,13 @@ class DropZoneUpload extends Component {
         }
     }
 
-
+    deleteElement = (e, file) => {
+        e.preventDefault();
+        let files = [...this.props.value];
+        let indexToDelete = files.map(item => item.name).indexOf(file.name);
+        files.splice(indexToDelete, 1);
+        this.props.onChange && this.props.onChange(files);
+    }
     render() {
         let files = [];
 
@@ -69,7 +75,23 @@ class DropZoneUpload extends Component {
                     /> {this.state.loading && <Spinner size="small" isInline={true}></Spinner>}
                 </Dropzone>
                 {
-                    files.length > 0 && files.map(f => <div key={f.name}>{f.name} </div>)
+                    files.length > 0 && files.map(f => <div key={f.name}>{f.name}
+                        <button
+                            onClick={(e)=>{
+                                this.deleteElement(e, f)
+                            }}
+                            style={{
+                                display: "inline-block",
+                                background: "none",
+                                outline: "none",
+                                marginLeft: "10px",
+                                border: "none",
+                                cursor: "pointer"
+                            }}
+                        >
+                        x
+                    </button>
+                    </div>)
                 }
             </div>
         );
