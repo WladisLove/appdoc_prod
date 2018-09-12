@@ -10,6 +10,7 @@ import Button from '../Button'
 import Hr from '../Hr'
 import UploadBig  from '../UploadBig'
 import InputNew from "../InputNew";
+import DropZoneUpload from "../DropZoneUpload";
 
 
 const FormItem = Form.Item;
@@ -71,8 +72,10 @@ class Step2_work extends React.Component {
                                 message: 'Загрузите подтверждающий документ'
                             }],
                         })(
-                            <Upload
-                                text="Прикрепить копию контракта"/>
+                            <DropZoneUpload
+                                uploadFile = {this.props.uploadFile}
+                                text="Прикрепить копию контракта"
+                            />
                         )}
                     </FormItem>
 

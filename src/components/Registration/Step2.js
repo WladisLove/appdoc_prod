@@ -8,7 +8,7 @@ import Step2_additional from './Step2_additional'
 import Button from '../Button'
 import Hr from '../Hr'
 import Upload from '../Upload'
-import Dropzone from 'react-dropzone'
+import DropZoneUpload from '../DropZoneUpload'
 import SelectNew from "../SelectNew";
 import InputNew from "../InputNew";
 
@@ -24,7 +24,6 @@ class Step2_From extends React.Component{
             isCategory: this.props.data.isCategory || false,
             isDegree : this.props.data.isDegree || false,
             isStatus: this.props.data.isStatus || false,
-            accepted: []
 
         }
     }
@@ -45,6 +44,7 @@ class Step2_From extends React.Component{
                     ...values,
                     ...this.state,
                 };
+                console.log(toSubmit);
                 this.props.onSubmit(toSubmit);
                 this.props.onNext();
             }
@@ -94,6 +94,8 @@ class Step2_From extends React.Component{
                                   key={name + 0}
                                   specs = {this.props.specs}
                                   form = {this.props.form}
+                                  fileToState={this.fileToState}
+                                  uploadFile={this.props.uploadFile}
                                   number={0}/>,];
         while (i < num){
             formArr.push(<Hr key={'hr_' + name + i}/>);
@@ -102,6 +104,8 @@ class Step2_From extends React.Component{
                                     form = {this.props.form}
                                     specs = {this.props.specs}
                                     key={name + i}
+                                    fileToState={this.fileToState}
+                                    uploadFile={this.props.uploadFile}
                                     number={i}/>);
             i++;
         }
@@ -114,16 +118,9 @@ class Step2_From extends React.Component{
             ({[type]: prev[type] +1}))
     };
 
-    handleDrop = (files) => {
-      console.log(files[0], "FILES FROM DROP ZONE");
-      this.props.uploadFile(files[0])
-        .then(res => {
-          console.log(res)
-          this.setState({accepted: [...this.state.accepted, res.data.file[0]]})
-        })
-    };
+
     render(){
-      console.log(this.state.accepted, "ACCEPTED");
+      console.log(this.state, "STATE");
         const {getFieldDecorator} = this.props.form;
         const {academicDegree, academicTitle, category,  langs, payments} = this.props;
 
@@ -176,8 +173,10 @@ class Step2_From extends React.Component{
                             message: 'Загрузите подтверждающий документ'
                         }],
                     })(
-                        <Upload 
-                            text="Прикрепить документ, подтверждающий ученую степень"/>
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text="Прикрепить документ, подтверждающий учёную степень"
+                        />
                     )}
                 </FormItem>
 
@@ -193,33 +192,16 @@ class Step2_From extends React.Component{
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('academicstatusdoc', {
-                        valuePropName: "docsfiles",
                         rules: [{
                             required: this.state.isStatus,
                             message: 'Загрузите подтверждающий документ'
                         }]
 
-                    })(<div>
-                          <Dropzone
-                            onDrop={this.handleDrop}
-                            style = {{width: "100%"}}
-                            multiple={false}
-                            docsfiles={this.state.accepted}
-
-                          >
-                                <Button btnText="Прикрепить документ, подтверждающий ученое звание"
-                                        size='upload'
-                                        type='upload'
-                                        icon='upload'
-                                        iconSize={36}
-                                        svg
-                                        onClick={e => e.preventDefault()}
-                                />
-                          </Dropzone>
-                          {
-                            this.state.accepted && this.state.accepted.map(f => <div key={f.name}>{f.name} - {f.size} bytes</div>)
-                          }
-                      </div>
+                    })(
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text="Прикрепить документ, подтверждающий учёное звание"
+                        />
                     )}
                 </FormItem>
 
@@ -261,8 +243,10 @@ class Step2_From extends React.Component{
                             message: 'Загрузите подтверждающий документ'
                         }],
                     })(
-                        <Upload
-                            text="Прикрепить документ, подтверждающий категорию"/>
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text="Прикрепить документ, подтверждающий категорию"
+                        />
                     )}
                 </FormItem>
                 <Hr/>

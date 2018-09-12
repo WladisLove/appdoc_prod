@@ -8,6 +8,7 @@ import Upload from '../Upload'
 import Hoc from '../Hoc'
 import InputNew from "../InputNew";
 import SelectNew from "../SelectNew";
+import DropZoneUpload from "../DropZoneUpload";
 
 const FormItem = Form.Item;
 
@@ -28,7 +29,7 @@ class Step2_educ extends React.Component {
                 <FormItem>
                     {getFieldDecorator('educationsgroup1-education-' + number, {
                         rules: [{
-                            required: true,
+                            required: true ,
                             message: 'Введите учебное заведение'
                         }],
                     })(
@@ -71,8 +72,10 @@ class Step2_educ extends React.Component {
                                 message: 'Загрузите подтверждающий документ'
                             }],
                         })(
-                            <Upload
-                                text="Прикрепить диплом, свидетельство"/>
+                            <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text="Прикрепить диплом, свидетельство"
+                            />
                         )}
                     </FormItem>
                 </div>

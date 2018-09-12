@@ -18,15 +18,15 @@ class RegistrationForm extends React.Component{
             current: 0,
         };
         this.steps = [
-        //     {
-        //     title: 'Контактная информация',
-        //     content:
-        //         (state) => <Step1 data={state}
-        //                           onSubmit={(data) => this.setState({...data})}
-        //                           onNext={this.next}
-        //                           checkEmailAvailability={this.props.onCheckEmailAvailability}
-        //         />,
-        // },
+            {
+                title: 'Контактная информация',
+                content:
+                    (state) => <Step1 data={state}
+                                      onSubmit={(data) => this.setState({...data})}
+                                      onNext={this.next}
+                                      checkEmailAvailability={this.props.onCheckEmailAvailability}
+                    />,
+            },
             {
             title: 'Образование, опыт работы',
             content: (state) => <Step2 data={state}
