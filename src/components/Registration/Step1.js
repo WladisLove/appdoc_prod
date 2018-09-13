@@ -14,6 +14,7 @@ class Step1Form extends React.Component{
     state = {
         fileList: [],
         avatarUrl: "",
+        avatarThumb: "",
     };
 
     handleSubmit = (e) => {
@@ -23,7 +24,7 @@ class Step1Form extends React.Component{
 
                 let fields = {
                     ...values,
-                    avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
+                    avatarThumb: this.state.avatarThumb ? this.state.avatarThumb : this.props.data.avatarThumb
                 };
                 if(!values.avatar.url && !values.avatar.name) {
                     fields.avatar = {name: this.state.avatarName, url: this.state.avatarUrl};
@@ -36,19 +37,18 @@ class Step1Form extends React.Component{
     };
 
     handleChange = (info) => {
+        const reader = new FileReader();
         this.setState({ loading: true });
         this.props.uploadFile(info.file)
             .then((res) => {
-                this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name, loading: false});
+                this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name});
                 message.success("Фото загружено")
-            })
-
-        // const reader = new FileReader();
-        // reader.addEventListener('load', () => this.setState({
-        //     avatarUrl: reader.result,
-        //     fileList: [info.file]
-        // }));
-        // reader.readAsDataURL(info.file);
+            });
+        reader.addEventListener('load', () => this.setState({
+            avatarThumb: reader.result,
+            loading: false
+        }));
+        reader.readAsDataURL(info.file);
     };
 
     checkEmail = (role, email, callBack) => {
@@ -71,7 +71,7 @@ class Step1Form extends React.Component{
                 <div className="ant-upload-text">Загрузить</div>
             </div>
         );
-        const avatarUrl = this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl ? this.props.data.avatarUrl : "";
+        const avatarUrl = this.state.avatarThumb ? this.state.avatarThumb : this.props.data.avatarThumb ? this.props.data.avatarThumb : "";
         return (
             <Form onSubmit={this.handleSubmit} className="step-form">
                 <div className="step-posttitle">Заполните основные контактные данные</div>
@@ -153,7 +153,6 @@ class Step1Form extends React.Component{
                                     showUploadList={false}
                                     beforeUpload = {()=>false}
                                     onChange={this.handleChange}
-                                    fileList = {this.props.data.avatar ? [this.props.data.avatar.file] : []}
                                 >
                                     {avatarUrl ? <img src={avatarUrl} alt="avatar" className="avatar-image"/> : uploadButton}
                                 </Upload>

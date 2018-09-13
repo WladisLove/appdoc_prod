@@ -70,6 +70,7 @@ export const login = (userName, password, remember, history, isAuto) => {
 }
 
 export const registerDoctor = (data) => {
+    delete data.avatarThumb;
     return (dispatch) => {
 
         const fillNewField = (res, name) => {
