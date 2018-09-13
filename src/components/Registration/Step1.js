@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import { Form, Upload, Icon } from 'antd';
+import { Form, Upload, Icon, message } from 'antd';
 import InputNew from '../InputNew'
 import Radio from '../RadioBox'
 import DatePicker from '../DatePicker'
@@ -25,8 +25,10 @@ class Step1Form extends React.Component{
                     ...values,
                     avatarUrl: this.state.avatarUrl ? this.state.avatarUrl : this.props.data.avatarUrl
                 };
-                values.avatar ? fields.avatar = { thumbUrl: this.state.avatarUrl ? this.state.avatarUrl : null,
-                    name: (values.avatar.file && values.avatar.file.name) || values.avatar.name}: null;
+                if(!values.avatar.url && !values.avatar.name) {
+                    fields.avatar = {name: this.state.avatarName, url: this.state.avatarUrl};
+                }
+                console.log(fields, "FIELDS");
                 this.props.onSubmit(fields);
                 this.props.onNext();
             }
@@ -34,12 +36,19 @@ class Step1Form extends React.Component{
     };
 
     handleChange = (info) => {
-        const reader = new FileReader();
-        reader.addEventListener('load', () => this.setState({
-            avatarUrl: reader.result,
-            fileList: [info.file]
-        }));
-        reader.readAsDataURL(info.file);
+        this.setState({ loading: true });
+        this.props.uploadFile(info.file)
+            .then((res) => {
+                this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name, loading: false});
+                message.success("Фото загружено")
+            })
+
+        // const reader = new FileReader();
+        // reader.addEventListener('load', () => this.setState({
+        //     avatarUrl: reader.result,
+        //     fileList: [info.file]
+        // }));
+        // reader.readAsDataURL(info.file);
     };
 
     checkEmail = (role, email, callBack) => {
@@ -54,6 +63,7 @@ class Step1Form extends React.Component{
     };
 
     render(){
+        console.log(this.state, "STATE");
         const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>

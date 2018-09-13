@@ -25,6 +25,7 @@ class RegistrationForm extends React.Component{
                                       onSubmit={(data) => this.setState({...data})}
                                       onNext={this.next}
                                       checkEmailAvailability={this.props.onCheckEmailAvailability}
+                                      uploadFile={this.props.uploadFile}
                     />,
             },
             {
