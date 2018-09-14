@@ -106,7 +106,7 @@
   border-radius: 16px;
   text-transform: capitalize;
   font-size: 12px;
-  font-family: 'GothamPro';
+  font-family: "RobotoRegular";
   line-height: 1;
 }
 .chat-card-status:before {
@@ -211,8 +211,6 @@
 .chat-card-video__box {
   position: relative;
   width: 100%;
-  min-width: 600px;
-  height: 80%;
   display: block;
 }
 .chat-card-video__mini {

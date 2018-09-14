@@ -75,12 +75,12 @@
   line-height: 1;
   color: #fff;
   font-size: 24px;
-  font-family: 'GothamPro';
+  font-family: 'RobotoRegular';
 }
 .steps-round .ant-steps-item-title {
   font-size: 14px;
   line-height: 24px;
-  font-family: 'GothamPro';
+  font-family: 'RobotoRegular';
   max-width: 120px;
   white-space: normal;
 }

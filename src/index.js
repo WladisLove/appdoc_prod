@@ -7,7 +7,6 @@ import { LocaleProvider } from 'antd'
 import ruRU from 'antd/lib/locale-provider/ru_RU';
 import 'moment/locale/ru';
 import "./styles/fonts.css"
-import "./styles/variables.css"
 import "./icon/style.css"
 import './index.css';
 import '../node_modules/antd/dist/antd.css'

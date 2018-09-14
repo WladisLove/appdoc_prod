@@ -1,4 +1,3 @@
-@import url("../../styles/variables");
 
 .flexTest{
 	display: flex;
@@ -23,7 +22,7 @@
 	border-radius: 2rem;
 	transition: .2s ease-out;
 	border: none;
-	font-family: @f-r;
+	font-family: "RobotoRegular";
 	z-index: 1;
 
 	.icon,.anticon{
@@ -44,7 +43,7 @@
 			font-size: 12px;
 			color: #204d8d;
 			padding: 9px 0;
-			font-family: @f-r;
+			font-family: "RobotoRegular";
 
 			&:hover{
 				color: #fff;
@@ -55,7 +54,7 @@
 			text-transform: uppercase;
 			letter-spacing: .025em;
 			font-size: 0.75rem;
-			font-family: GothamPro-Medium;
+			font-family: RobotoMedium;
 			min-width: 5.3125rem;
 			padding: .625rem .85rem;
 		}
@@ -64,7 +63,7 @@
 			text-transform: uppercase;
 			padding: 13.5px 1.25rem;
 			font-size: 11px;
-			font-family: GothamPro-Medium;
+			font-family: RobotoMedium;
 			min-width: 8.875rem;
 			letter-spacing: .025em;
 		}
@@ -94,7 +93,7 @@
 			}
 
 			&:focus{
-				background-color: @blue;
+				background-color: #0495ff;
 
 				.icon{
 					color: #fff;
@@ -137,7 +136,7 @@
 
 		&-blue-float{
 			min-width: auto;
-			color: @blue;
+			color: #0495ff;
 			background-color: transparent;
 			border-radius: 100%;
 			border: 1px solid transparent;
@@ -146,7 +145,7 @@
 			}
 
 			&:hover{
-				background-color: @blue;
+				background-color: #0495ff;
 				color: #fff;
 			}
 		}
@@ -180,11 +179,11 @@
 
 		&-float{
 			background-color: transparent;
-			color: @blue;
-			border: 1px solid @blue;
+			color: #0495ff;
+			border: 1px solid #0495ff;
 
 			&:hover{
-				background-color: @blue;
+				background-color: #0495ff;
 				color: #fff;
 			}
 
@@ -198,7 +197,7 @@
 			// 	left: -1px;
 			// 	right: -1px;
 			// 	bottom: -1px;
-			// 	background-image: -webkit-gradient(radial, right top, 10, 90% 0%, 150, from(@dark-blue), to(@blue));
+			// 	background-image: -webkit-gradient(radial, right top, 10, 90% 0%, 150, from(#344051), to(#0495ff));
 			// 	z-index: -2;
 			// 	border-radius: 2rem;
 			// }
@@ -227,11 +226,11 @@
 
 		&-no-brd{
 			background-color: transparent;
-			color: @blue;
+			color: #0495ff;
 			border: none;
 
 			&:hover{
-				background-color: @blue;
+				background-color: #0495ff;
 				color: #fff;
 			}
 		}
@@ -240,11 +239,11 @@
 			background-color: transparent;
 			color: #344051;
 			border: none;
-			font-family: @f-b;
+			font-family: "RobotoBold";
 		}
 
 		&-transparent.rbc-active{
-			background-color: @blue;
+			background-color: #0495ff;
 			color: #fff;
 			box-shadow: 0 4px 18px rgba(52,64,81,0.35);
 
@@ -257,36 +256,36 @@
 
 			&:hover{
 				color: #fff;
-				background-color: @blue;
+				background-color: #0495ff;
 			}
 		}
 
 		&-dark-blue{
 			background-color: transparent;
-			color: @dark-blue;
-			border: 1px solid @dark-blue;
+			color: #344051;
+			border: 1px solid #344051;
 
 			&:hover{
 				color: #fff;
-				background-color: @dark-blue;
+				background-color: #344051;
 			}
 		}
 
 		&-yellow{
-			background-color: @yllw;
-			color: @dark-blue;
+			background-color: #fdc401;
+			color: #344051;
 
 			&:hover{
-				background-color: @yllw-h;
+				background-color: #fdc401-h;
 			}
 		}
 
 		&-gradient{
-			background: @grad;
+			background: linear-gradient(to right, #0270c0, #0a98ff);
 			color: #fff;
 
 			&:hover{
-				background: @grad-h;
+				background: linear-gradient(to right, #0495ff, #0495ff);
 			}
 
 			&[disabled]{
@@ -302,9 +301,9 @@
 			}
 
 			&:hover{
-				background-color: @blue;
+				background-color: #0495ff;
 				color: #fff;
-				border-color: @blue;
+				border-color: #0495ff;
 				.icon{
 					color: #fff;
 				}
@@ -312,17 +311,17 @@
 		}
 
 		&-link{
-			color: @dark-blue;
+			color: #344051;
 			background-color: #fff;
 
 			.icon{
-				color: @dark-blue;
+				color: #344051;
 			}
 
 			&:hover{
 
 				.icon{
-					color: @blue;
+					color: #0495ff;
 				}
 			}
 		}
@@ -336,10 +335,10 @@
 			}
 
 			&:hover{
-				color: @blue;
+				color: #0495ff;
 
 				.icon{
-					color: @blue;
+					color: #0495ff;
 				}
 			}
 		}
@@ -359,7 +358,7 @@
 			&:hover{
 
 				.icon{
-					color: @blue;
+					color: #0495ff;
 					border-bottom: 0;
 				}
 

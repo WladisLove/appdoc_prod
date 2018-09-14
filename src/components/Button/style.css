@@ -31,7 +31,7 @@
   border-radius: 2rem;
   transition: 0.2s ease-out;
   border: none;
-  font-family: 'GothamPro';
+  font-family: 'RobotoRegular';
   z-index: 1;
 }
 .btn .icon,
@@ -49,7 +49,7 @@
   font-size: 12px;
   color: #204d8d;
   padding: 9px 0;
-  font-family: 'GothamPro';
+  font-family: 'RobotoRegular';
 }
 .btn-size-mini:hover {
   color: #fff;
@@ -58,7 +58,7 @@
   text-transform: uppercase;
   letter-spacing: 0.025em;
   font-size: 0.75rem;
-  font-family: GothamPro-Medium;
+  font-family: RobotoMedium;
   min-width: 5.3125rem;
   padding: 0.625rem 0.85rem;
 }
@@ -66,7 +66,7 @@
   text-transform: uppercase;
   padding: 13.5px 1.25rem;
   font-size: 11px;
-  font-family: GothamPro-Medium;
+  font-family: RobotoMedium;
   min-width: 8.875rem;
   letter-spacing: 0.025em;
 }
@@ -186,7 +186,7 @@
   background-color: transparent;
   color: #344051;
   border: none;
-  font-family: 'GothamPro-Bold';
+  font-family: 'RobotoBold';
 }
 .btn-type-transparent.rbc-active {
   background-color: #0495ff;

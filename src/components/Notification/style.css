@@ -129,18 +129,18 @@
   text-transform: uppercase;
   font-size: 11px;
   line-height: 1;
-  font-family: 'GothamPro-Bold';
+  font-family: 'RobotoBold';
   margin-bottom: 12px;
 }
 .notification-time {
-  font-family: 'GothamPro';
+  font-family: "RobotoRegular";
   font-size: 12px;
   color: #344051;
   line-height: 1;
   margin-bottom: 12px;
 }
 .notification-info {
-  font-family: 'GothamPro';
+  font-family: "RobotoRegular";
   font-size: 12px;
   color: #344051;
   line-height: 1;

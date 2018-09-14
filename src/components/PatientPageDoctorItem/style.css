@@ -56,25 +56,25 @@
 .page__doctor-item-name {
   color: #344051;
   font-size: 18px;
-  font-family: 'GothamPro-Bold';
+  font-family: 'RobotoBold';
   margin-bottom: 5px;
 }
 .page__doctor-item-speciality {
   color: #344051;
   font-size: 12px;
-  font-family: 'GothamPro-Medium';
+  font-family: 'RobotoMedium';
   margin-bottom: 5px;
   text-transform: uppercase;
 }
 .page__doctor-item-category {
   color: #344051;
   font-size: 14px;
-  font-family: 'GothamPro';
+  font-family: 'RobotoRegular';
 }
 .page__doctor-item-exp {
   color: #344051;
   font-size: 14px;
-  font-family: 'GothamPro';
+  font-family: 'RobotoRegular';
 }
 .page__doctor-item-price {
   position: relative;
@@ -94,7 +94,7 @@
   color: #0495ff;
   font-size: 24px;
   line-height: 1;
-  font-family: 'GothamPro-Bold';
+  font-family: 'RobotoBold';
 }
 .page__doctor-item-language {
   display: flex;

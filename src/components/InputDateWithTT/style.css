@@ -1,0 +1,63 @@
+.new-input-date-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid #111;
+  justify-content: space-between;
+}
+.new-input-date-wrapper input.ant-calendar-picker-input {
+  background: transparent;
+  font: 14px/20px "RobotoMedium", serif;
+}
+.new-input-date-wrapper input.ant-calendar-picker-input ~ i.anticon:before {
+  display: none;
+}
+.new-input-date-wrapper input.ant-calendar-picker-input ~ i.anticon:after {
+  display: none;
+}
+.new-input-date-wrapper .effect {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  width: 100%;
+  font: 14px/20px "RobotoMedium", serif;
+  color: #111;
+  z-index: 1;
+}
+.new-input-date-wrapper .effect ~ label {
+  font: 14px/20px "RobotoMedium", serif;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 7px;
+  color: #999;
+  transition: 0.1s;
+  z-index: 0;
+  letter-spacing: 0.5px;
+}
+.new-input-date-wrapper label.bubble {
+  top: -14px;
+  font-size: 12px;
+  transition: 0.3s;
+}
+.new-input-date-wrapper .note {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #999;
+  color: #999;
+  cursor: pointer;
+  line-height: 15px;
+  font-size: 15px;
+  background: none;
+  outline: none;
+  z-index: 1;
+}
+.input-date-with-tt-calendar-popup {
+  font: 14px/20px "RobotoMedium", serif !important;
+}
+.input-date-with-tt-calendar-popup .ant-calendar-input-wrap {
+  display: none;
+}

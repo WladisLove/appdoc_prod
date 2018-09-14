@@ -43,7 +43,7 @@
 .panelItem.first-col .panelItem-num {
   color: #fff;
   font-size: 1rem;
-  font-family: 'GothamPro';
+  font-family: 'RobotoRegular';
   text-align: left;
 }
 .panelItem-header {
@@ -70,7 +70,7 @@
 .panelItem-num {
   color: #0495ff;
   font-size: 50px;
-  font-family: 'GothamPro-Light';
+  font-family: 'RobotoLight';
   text-align: right;
   display: block;
   width: 100%;

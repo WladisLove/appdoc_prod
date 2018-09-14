@@ -60,14 +60,14 @@
   margin-bottom: 5px;
 }
 .analyzes-popover-name {
-  font-family: 'GothamPro-Medium';
+  font-family: 'RobotoMedium';
   font-size: 11px;
   color: #0495ff;
   letter-spacing: 0.275px;
   text-transform: uppercase;
 }
 .analyzes-popover-price {
-  font-family: 'GothamPro-Medium';
+  font-family: 'RobotoMedium';
   font-size: 12px;
   color: #0495ff;
 }
@@ -89,7 +89,7 @@
   color: #1f4d8d !important;
   line-height: 20px;
   font-size: 12px;
-  font-family: 'GothamPro';
+  font-family: 'RobotoRegular';
   padding: 0 !important;
 }
 .analyzes-popover-adress .ant-collapse-item .ant-collapse-header .arrow {

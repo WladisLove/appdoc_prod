@@ -46,7 +46,7 @@
   margin-bottom: 50px;
 }
 .login-title {
-  font-family: 'GothamPro-Bold';
+  font-family: 'RobotoBold';
   font-size: 44px;
   line-height: 1;
   letter-spacing: -0.88px;
@@ -54,7 +54,7 @@
   margin-bottom: 40px;
 }
 .login-notification {
-  font-family: 'GothamPro-Light';
+  font-family: 'RobotoLight';
   font-size: 12px;
   line-height: 1;
   color: #333;
