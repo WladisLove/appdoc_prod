@@ -1,3 +1,7 @@
+body{
+	min-width: 1300px;
+}
+
 .ant-layout {
     background-color: #ddebf5;
 
@@ -68,6 +72,7 @@
 
             .main-header{
                 width: ~"calc(100% - 170px)";
+                min-width: ~"calc(1300px - 170px)";
             }
         }
     }
@@ -82,6 +87,8 @@
         border-bottom: 1px solid #e8e8e8;
         align-items: center;
         z-index: 30;
+        min-width: ~'calc(1300px - 340px)';
+
         .sidenav-root-btn {
             position: absolute;
             left: -11px;
