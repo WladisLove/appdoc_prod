@@ -16,16 +16,16 @@ var argv = minimist(process.argv.slice(2), {
   }
 });
 
-var options =
+/*var options =
 {
   key:  fs.readFileSync('/etc/ssl/appdoc/private.key'),
   cert: fs.readFileSync('/etc/ssl/appdoc/server.pem')
-};
-/*var options =
+};*/
+var options =
 {
   key:  fs.readFileSync('keys/server.key'),
   cert: fs.readFileSync('keys/server.crt')
-};*/
+};
 
 var app = express();
 
@@ -599,7 +599,7 @@ function register(id, name, other_name, ws, mode, callback) {
         return onError("User " + name + " is already registered");
     }
 
-    console.log("register", name)
+    console.log("register", name);
     userRegistry.register(new UserSession(id, name, ws));
 
     mode === 'doc' 
