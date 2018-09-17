@@ -41,11 +41,11 @@ class ChatSend extends React.Component{
 
     sendHandler = () => {        
         this.inp.focus();
-        this.props.send({
+        this.state.value && (this.props.send({
             text: this.state.value,
             date: Math.floor(Date.now()/1000),
-        });
-        this.setState({value: ''});
+        }),
+        this.setState({value: ''}))
     }
 
     componentDidMount(){
