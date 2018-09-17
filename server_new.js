@@ -16,16 +16,16 @@ var argv = minimist(process.argv.slice(2), {
   }
 });
 
-/*var options =
+var options =
 {
   key:  fs.readFileSync('/etc/ssl/appdoc/private.key'),
   cert: fs.readFileSync('/etc/ssl/appdoc/server.pem')
-};*/
+};
 var options =
-{
+/*{
   key:  fs.readFileSync('keys/server.key'),
   cert: fs.readFileSync('keys/server.crt')
-};
+};*/
 
 var app = express();
 
