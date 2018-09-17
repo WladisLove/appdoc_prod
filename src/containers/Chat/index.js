@@ -10,6 +10,9 @@ import ChatCard from './ChatCard'
 import * as actions from '../../store/actions'
 
 class Chat extends React.Component{
+    state = {
+        displayChat: false
+    }
 
     componentDidMount(){
         this.props.onGetTodayVisits();
@@ -69,34 +72,39 @@ class Chat extends React.Component{
                     {
                         !isUser && (<Col xs={24} xxl={7} className='section'>
                             <ChatDialogs  data={this.props.visits}
-                                        onGotoChat = {id => this.props.onSelectReception(id)}
+                                          onGotoChat={id =>
+                                              {
+                                                  this.props.onSelectReception(id);
+                                                  this.setState({displayChat: true})
+                                              }
+                                          }
                             />
                         </Col>)
                     }
-                    <Col xs={24} xxl={17} className='section'>
+                    {this.state.displayChat && <Col xs={24} xxl={17} className='section'>
                         {
-                             isUser ? (
+                            isUser ? (
                                 <ChatCard {...chatProps}
-                                    //mode={"video"}
-                                    mode={contactLevel}
+                                          mode={contactLevel}
                                     //isEnded = {true}
-                                    onSelectReception= {this.props.onSelectReception}
-                                    completeReception = {this.props.completeReception}
-                                    closeTreatm = {this.props.closeTreatment}
-                                    fromTR_VIS = {2}/>
+                                          onSelectReception={this.props.onSelectReception}
+                                          completeReception={this.props.completeReception}
+                                          closeTreatm={this.props.closeTreatment}
+                                          fromTR_VIS={2}/>
                             ) : (
                                 <ChatCard {...chatProps}
-                                    mode={contactLevel}
+                                          mode={contactLevel}
                                     //isEnded = {true}
-                                    onSelectReception= {this.props.onSelectReception}
-                                    changeReceptionStatus={this.props.changeReceptionStatus}
-                                    completeReception = {this.props.completeReception}
-                                    closeTreatm = {this.props.closeTreatment}
-                                    uploadConclusion={this.props.uploadConclusion}
-                                    fromTR_VIS = {this.props.fromTR_VIS}/>
+                                          onSelectReception={this.props.onSelectReception}
+                                          changeReceptionStatus={this.props.changeReceptionStatus}
+                                          completeReception={this.props.completeReception}
+                                          closeTreatm={this.props.closeTreatment}
+                                          uploadConclusion={this.props.uploadConclusion}
+                                          fromTR_VIS={this.props.fromTR_VIS}/>
                             )
                         }
                     </Col>
+                    }
                 </Row>
             </Hoc>
         )

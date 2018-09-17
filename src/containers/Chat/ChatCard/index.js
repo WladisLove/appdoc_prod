@@ -30,7 +30,7 @@ class ChatCard extends React.Component {
         super(props);
         this.state = {
             isActive: this.props.isActive,
-			isActiveChat: props.isEnded ? true : false,
+			isActiveChat: true,
 			mode: this.props.mode,
 			isCurVisEnd: false,
 
@@ -137,11 +137,28 @@ class ChatCard extends React.Component {
 		(!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
 		this.setState(prev => ({isActive: !prev.isActive}));
 	}
+    getIconByType = () => {
+		let icon;
+        switch (this.state.mode) {
+            case 'chat':
+                icon = "chat1";
+                break;
+            case 'voice':
+                icon =  "telephone";
+                break;
+            case "video":
+                icon =  "video-camera";
+                break;
+			default:
+				icon =  "chat1";
 
+        }
+        return icon
+    };
     render() {
 		const {patientName, user_id, online: onl} = this.props;
 		const online = +onl ?'online' :  'offline';
-
+		const iconType = this.getIconByType();
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
         const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
@@ -194,37 +211,35 @@ class ChatCard extends React.Component {
                                             />;
                 break;
 		}
-		
+
+
+
         return (
 			<Hoc>
             <div className='chat-card'>
                 <div className='chat-card-head'>
                     <div className='chat-card-title'>
                         <Button
-                            btnText=''
-                            size='small'
-                            type='no-brd'
-                            icon='file'
-                            svg
-                            title='Открыть прикреплённые файлы'
-                            style={{width: 30}}
-                            onClick={this.toggleFilesArea}
+                            icon={iconType}
+                            title='Тип приёма'
+                            style={{color: "white", padding: 0, width: "auto"}}
                         />
+
                         <div className='chat-card-namePatient'>{patientName}</div>
                         <div className={statusClass}>{online}</div>
                     </div>
                     <div className='chat-card-btns'>
-                        <Radio icons={['chat1', 'telephone', "video-camera"]}
-							   value={this.state.mode}
-							   onChange = {() => {}}
-                               /*onChange={(mode) => this.setState({mode: mode.target.value})}*//>
+
                         <div className='chat-card-archive'>
                             <Button
                                 btnText=''
                                 size='small'
                                 type='no-brd'
-                                icon='archive-box'
-                                title='В архив'
+                                icon='file'
+                                svg
+                                title='Открыть прикреплённые файлы'
+                                style={{width: 30}}
+                                onClick={this.toggleFilesArea}
                             />
                         </div>
                     </div>
@@ -277,7 +292,6 @@ class ChatCard extends React.Component {
 }
 
 ChatCard.propTypes = {
-	treatmFiles: PropTypes.arrayOf(PropTypes.object),
 	chat: PropTypes.array,
 	patientName: PropTypes.string,
 	user_id: PropTypes.number,
@@ -302,7 +316,6 @@ ChatCard.defaultProps = {
     isActive: false,
 	mode: 'chat',
 	chat: [],
-	treatmFiles: [],
 	changeReceptionStatus: () => {},
 	uploadFile: () => {},
 	getAllFilesTreatment: () => {},
