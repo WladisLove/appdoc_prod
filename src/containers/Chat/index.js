@@ -11,7 +11,7 @@ import * as actions from '../../store/actions'
 
 class Chat extends React.Component{
     state = {
-        displayChat: false
+        displayChat: true //TO DO make it false and just display for selected user
     }
 
     componentDidMount(){

@@ -11,6 +11,7 @@ import {createSocket, closeSocket,register} from './chatWs'
 import * as actions from '../../store/actions'
 import './styles.css';
 import 'antd/dist/antd.css';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";

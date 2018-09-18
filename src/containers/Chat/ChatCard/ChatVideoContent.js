@@ -7,11 +7,18 @@ import ChatContent from './ChatContent'
 
 import './style.css'
 import Hoc from '../../../hoc'
+import Button from "../../../components/Button";
+import ScrollArea from "react-scrollbar"
+
+import ChatFiles from "../../../components/ChatFiles";
 
 class ChatVideoContent extends React.Component {
 	constructor(props){
 		super(props);
 		this.timerInterval;
+		this.state = {
+			isActive: false
+		}
 	}
 
 	/*renderPlayer = () => {
@@ -30,13 +37,30 @@ class ChatVideoContent extends React.Component {
 			</div>
 		</Hoc>)
 	}*/
+    componentWillReceiveProps(nextProps) {
+        this.setState({isActive: nextProps.filesActive})
+    }
+
+    filesRender = () => {
+        const files = this.props.treatmFiles;
+        return files.map((item, index) => {
+        	if(item.data.length) {
+                return (<ChatFiles {...item} key={index}/>)
+			}
+
+        });
+    };
+    toggleFilesArea = () => {
+        (!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
+        this.setState(prev => ({isActive: !prev.isActive}));
+    }
 
 	renderCallArea = () => {
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isActiveChat});
 
 		let {s, m, h} = this.props.timer;
 		return (<Hoc>
-			<div className='chat-card-message__area'>
+			<div className='chat-card-video__area'>
 				<video className='chat-card-video__box' 
 						poster={this.props.avatar}
 						autoPlay
@@ -47,25 +71,26 @@ class ChatVideoContent extends React.Component {
 						ref={video => this.props.setVideoIn(video)}
 						></video>
 			</div>
-				<div className={panelClass}>
-					{this.props.receptionId &&(
-						<ChatVideoPanel  
-								onStop={() => {
-									this.props.onStop();
-								}} 
-								onCall={() => {
-									!this.props.receptionStarts && 
-										this.props.onBegin();
-									this.props.onCall();
-								}} 
-								onChat = {this.props.onChat}
-								uploadFiles={this.props.uploadFile}
-								sec= {s}
-								min={m}
-								hour={h}
-								isCalling={this.props.isCalling}/>)}
+			<div className={panelClass}>
+				{this.props.receptionId &&(
+					<ChatVideoPanel
+							onStop={() => {
+								this.props.onStop();
+							}}
+							onCall={() => {
+								!this.props.receptionStarts &&
+									this.props.onBegin();
+								this.props.onCall();
+							}}
+							onChat = {this.props.onChat}
+							uploadFiles={this.props.uploadFile}
+							sec= {s}
+							min={m}
+							hour={h}
+							isCalling={this.props.isCalling}/>)}
 
-				</div>
+			</div>
+
 		</Hoc>)
 	}
     
@@ -74,6 +99,7 @@ class ChatVideoContent extends React.Component {
         const {isActive,isActiveChat, onVideoCallBegin, onVideoCallStop} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
 		const filesClass = cn('chat-card-files', {'chat-card-files-active': isActiveChat});
+        const attachmentsClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
 		
 			let videoContent = /*this.props.isEnded ?
 			this.renderPlayer() :*/ this.renderCallArea()
@@ -94,6 +120,15 @@ class ChatVideoContent extends React.Component {
 						uploadFile={this.props.uploadFile}
 						 data={this.props.chatStory}
 					/>
+                </div>
+                <div className={attachmentsClass}>
+                    <ScrollArea>
+						{
+							this.state.isActive && <div className='chat-card-files__items'>
+								{this.filesRender()}
+							</div>
+                    	}
+                    </ScrollArea>
                 </div>
 			</div>
 

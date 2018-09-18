@@ -124,3 +124,11 @@ button {
   border: 0;
   outline: 0;
 }
+.ps__rail-x:hover > .ps__thumb-x,
+.ps__rail-x:focus > .ps__thumb-x,
+.ps__rail-y:hover > .ps__thumb-y,
+.ps__rail-y:focus > .ps__thumb-y,
+.ps__thumb-x,
+.ps__thumb-y {
+  background-color: #0495ff !important;
+}

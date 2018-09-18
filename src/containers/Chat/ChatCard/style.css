@@ -153,7 +153,8 @@
     background-color: #fff;
     transition: .2s linear;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .chat-card-dialogs-row {
@@ -161,8 +162,9 @@
 }
 
 .chat-card-dialogs-row .chat-card-files-active {
-    width: 400px;
-    flex: 600 0 auto
+    display: flex;
+    width: 35%;
+    min-width: 35%;
 }
 
 .chat-card-dialogs-row .message__send {
@@ -179,7 +181,7 @@
 
 .chat-card-dialogs-row .message__send-area {
     margin-bottom: 10px;
-    max-width: calc(100% - 50px)
+    max-width: 100%;
 }
 
 .chat-card-dialogs-row .message__send-area .ant-input {
@@ -204,7 +206,6 @@
     width: 0;
     transition: .2s linear;
     position: relative;
-    display: flex;
     flex-direction: column;
     overflow-y: auto
 }
@@ -238,6 +239,7 @@
 .chat-card-files__items {
     position: relative;
     width: 100%;
+    padding-top: 20px;
     height: calc(100% - 65px);
     z-index: 2;
     background-color: #fff;
@@ -245,13 +247,18 @@
 }
 
 .chat-card-files-active {
-    width: 332px;
     box-shadow: 0 0 55px 0 rgba(0, 0, 0, .1)
 }
 
 .chat-card-message__area {
     position: relative;
-    flex: 600 1 auto;
+    display: flex;
+    flex-direction: column
+}
+.chat-card-video__area {
+    position: relative;
+    min-width: 30%;
+    width: 100%;
     display: flex;
     flex-direction: column
 }
@@ -294,7 +301,6 @@
 .chat-card-video__box {
     position: relative;
     width: 100%;
-    min-width: 600px;
     height: 80%;
     display: block
 }

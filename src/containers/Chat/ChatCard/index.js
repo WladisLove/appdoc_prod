@@ -29,7 +29,7 @@ class ChatCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isActive: this.props.isActive,
+            isActive: false,
 			isActiveChat: true,
 			mode: this.props.mode,
 			isCurVisEnd: false,
@@ -43,12 +43,7 @@ class ChatCard extends React.Component {
 		}
     }
 
-    filesRender = () => {
-		const files = this.props.treatmFiles;
-        return files.map((item, index) => {
-            return (<ChatFiles {...item} key={item.date}/>)
-        });
-    };
+
 
     
 
@@ -156,11 +151,12 @@ class ChatCard extends React.Component {
         return icon
     };
     render() {
+    	console.log("RENDER CHAT CARD");
 		const {patientName, user_id, online: onl} = this.props;
 		const online = +onl ?'online' :  'offline';
 		const iconType = this.getIconByType();
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
-        const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
+
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
 	
 		let content;
@@ -180,6 +176,10 @@ class ChatCard extends React.Component {
 			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.callerID, fileUploadCallback),
 			receptionId: this.props.receptionId,
 			isCurVisEnd: this.state.isCurVisEnd,
+			treatmFiles: this.props.treatmFiles,
+			id_treatment: this.props.id_treatment,
+			getAllFilesTreatment: this.props.getAllFilesTreatment,
+			filesActive: this.state.isActive
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>setVideoOut(video),
@@ -248,23 +248,7 @@ class ChatCard extends React.Component {
                     <div className={dialogsClass}>
                             {content}
                     </div>
-                    <div className={filesClass}>
-                        <div className='chat-card-files__close'>
-                            <Button
-                                btnText=''
-                                size='small'
-                                type='no-brd'
-                                icon='arrow_up'
-                                title='Закрыть'
-                                onClick={this.toggleFilesArea}
-                            />
-                        </div>
-                        {
-                            this.state.isActive && <div className='chat-card-files__items'>
-                                {this.filesRender()}
-                            </div>
-                        }
-                    </div>
+
 
                 </div>
             </div>
