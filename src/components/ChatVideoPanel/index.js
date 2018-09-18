@@ -14,18 +14,18 @@ class ChatVideoPanel extends React.Component{
     }
 
     render(){
-        const { duration, isCalling, sec, min, hour} = this.props;
+        const { duration, isCalling, sec, min, hour,isUser} = this.props;
 
 
         return (
             <div className='message__panel'>
 
-                {isCalling ? 
+                {isCalling ?
                 <Hoc>
                     <div className="message__panel-duration">
                         {this.checkTimeFormat(hour)} : {this.checkTimeFormat(min)} : {this.checkTimeFormat(sec)}
                     </div>
-                    <div className="message__panel-btns">
+                    {!isUser && <div className="message__panel-btns">
                         <Button
                             btnText=''
                             className='btn-endcall'
@@ -36,7 +36,7 @@ class ChatVideoPanel extends React.Component{
                             title='Завершить звонок'
                             onClick={this.props.onStop}
                         />
-                    </div>
+                    </div> }
                     <div className="message__panel-full">
                         <Button
                             btnText=''
@@ -48,10 +48,10 @@ class ChatVideoPanel extends React.Component{
                         />
                     </div>
                 </Hoc>
-                : 
+                :
                 <Hoc>
 
-                    <div className="message__panel-btns startcall">
+                    {!isUser && <div className="message__panel-btns startcall">
                         <Button
                             className='btn-call'
                             btnText=''
@@ -62,7 +62,7 @@ class ChatVideoPanel extends React.Component{
                             title='Начать разговор'
                             onClick={this.props.onCall}
                         />
-                    </div>
+                    </div>}
                     <div className="message__panel-full">
 
                         <Button

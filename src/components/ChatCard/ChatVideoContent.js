@@ -105,7 +105,7 @@ function register() {
 }
 */
 
- 
+
 
 
 class ChatVideoContent extends React.Component {
@@ -125,7 +125,7 @@ class ChatVideoContent extends React.Component {
         this.ws.onmessage = function(message) {
             var parsedMessage = JSON.parse(message.data);
             console.info('Received message: ' + message.data);
-        
+
             switch (parsedMessage.id) {
             /*case 'registerResponse':
                 resgisterResponse(parsedMessage);
@@ -188,24 +188,24 @@ class ChatVideoContent extends React.Component {
                 message : 'bussy'
             });
         }
-    
+
         this.setState({callState: PROCESSING_CALL});
         //TODO: normal confirm
         if (window.confirm('User ' + message.from
         + ' is calling you. Do you accept the call?')) {
-    
+
             const options = {
                 localVideo : this.videoInput,
                 remoteVideo : this.videoOutput,
                 onicecandidate : this.onIceCandidate
             }
-    
+
             this.webRtcPeer = this.kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
                     (error) => {
                         if (error) {
                             this.setState({callState: NO_CALL});
                         }
-    
+
                         console.log(this);
                         this.generateOffer((error, offerSdp) => {
                             if (error) {
@@ -219,7 +219,7 @@ class ChatVideoContent extends React.Component {
                             });
                         });
                     });
-    
+
         } else {
             sendMessage({
                 id : 'incomingCallResponse',
@@ -228,6 +228,10 @@ class ChatVideoContent extends React.Component {
                 message : 'user declined'
             });
             stop(true);
+        }
+
+        return {
+            acceptCall: acceptcall()
         }
     }
 
@@ -238,18 +242,18 @@ class ChatVideoContent extends React.Component {
             return;
         }
         this.setState({callState:NO_CALL});
-    
+
         const options = {
             localVideo : this.videoInput,
             remoteVideo : this.videoOutput,
             onicecandidate : this.onIceCandidate,
         }
-    
+
         this.webRtcPeer = this.kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, (error) => {
             if (error) {
                 this.setState({callState:NO_CALL});
             }
-    
+
             this.generateOffer((error, offerSdp) => {
                 if (error) {
                     this.setState({callState:NO_CALL});
@@ -265,7 +269,7 @@ class ChatVideoContent extends React.Component {
                 });
             });
         });
-    
+
     }
 
     stop = (message) => {
@@ -273,7 +277,7 @@ class ChatVideoContent extends React.Component {
         if (this.webRtcPeer) {
             this.webRtcPeer.dispose();
             this.webRtcPeer = null;
-    
+
             if (!message) {
                 this.sendMessage({id : 'stop'});
             }
@@ -291,18 +295,18 @@ class ChatVideoContent extends React.Component {
         });
     }
 
-    
+
     render() {
         const {isActive, videoCalling, onVideoCallBegin, onVideoCallStop} = this.props;
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': isActive});
 
         const content = videoCalling
             ?   <div className='chat-card-message__area'>
-                    <video className='chat-card-video__box' 
+                    <video className='chat-card-video__box'
                             autoPlay
                             ref={video => {this.videoOutput = video;}}
                             poster="https://i.ytimg.com/vi/gLa1sVtgGyI/maxresdefault.jpg"></video>
-                    <video className='chat-card-video__mini' 
+                    <video className='chat-card-video__mini'
                             autoPlay
                             ref={video => {this.videoInput = video;}}
                             poster="https://i.ytimg.com/vi/gLa1sVtgGyI/maxresdefault.jpg"></video>

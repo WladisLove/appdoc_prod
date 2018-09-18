@@ -34,6 +34,7 @@ class HistoryReceptionsItems extends React.Component{
         this.props.setModalRewiewsVisible(obj);
     }
     render(){
+        console.log(this.props, "PROPS EVERY APP")
         const {
             id_treatment,
             type,
@@ -55,7 +56,7 @@ class HistoryReceptionsItems extends React.Component{
 
         const key_val = {
             'chat': 'chat1',
-            'voice': 'telephone', 
+            'voice': 'telephone',
             'video': "video-camera",
         }
         const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение";

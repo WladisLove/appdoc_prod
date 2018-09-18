@@ -59,7 +59,11 @@ class PatientsPage extends React.Component{
                         <Col span={24}>
                             <HistoryReceptions data={this.props.appsBetween}
                                                appsBetweenCount = {this.props.appsBetweenCount}
-                                               onGotoChat={(id) => this.props.history.push('/chat')}
+                                               onGotoChat={(id) => {
+                                                   console.log(id, "ID GO TO CHAT");
+                                                   this.props.onSelectTretment(id);
+                                                   this.props.history.push('/chat')
+                                               }}
                                                getApps={this.props.onGetAppointments}
                                                id_user={this.props.match.params.id}
                                                personalPage = {true}
@@ -96,6 +100,7 @@ const mapDispatchToProps = dispatch => {
         onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
         onSaveReception: (reception) => dispatch(actions.setReception(reception)),
         onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
+        onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
     }
 };
 

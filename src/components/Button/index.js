@@ -7,31 +7,32 @@ import Icon from '../Icon'
 import './style.css'
 import '../../icon/style.css'
 
-const Button = props =>{
+class Button extends React.Component {
 
+        render() {
+            const {className, type, size, btnText, icon, iconSize, title, svg, disable, onClick} = this.props;
 
-        const {className, type, size, btnText, icon, iconSize, title, svg, disable, onClick} = props;
+            const rootClass = cn( `${className}`, 'btn',`btn-size-${size}`, `btn-type-${type}`)
 
-        const rootClass = cn( `${className}`, 'btn',`btn-size-${size}`, `btn-type-${type}`)
+            return (
+                <button className={rootClass}
+                        title={title}
+                        onClick={onClick}
+                        {...(disable ? { disabled: true } : {})}
+                        style={this.props.style}
+                >
+                    {icon && (
+                        <Icon title={title} key={btnText+icon} svg={svg} type={icon} size={iconSize}/>
+                    )}
 
-        return (
-            <button className={rootClass}
-                    title={title}
-                    onClick={onClick}
-                    {...(disable ? { disabled: true } : {})}
-                    style={props.style}
-            >
-                {icon && (
-                    <Icon key={btnText+icon} svg={svg} type={icon} size={iconSize}/>
-                )}
-                
-                {type !== 'icon' 
-                    && btnText !== "" 
-                    && <span style={type ==="go" ? {marginRight:10} : {}}>
-                        {btnText}
-                    </span>}
-            </button>
-        )
+                    {type !== 'icon'
+                        && btnText !== ""
+                        && <span style={type ==="go" ? {marginRight:10} : {}}>
+                            {btnText}
+                        </span>}
+                </button>
+            )
+        }
 
 }
 
