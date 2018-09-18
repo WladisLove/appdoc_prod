@@ -3,22 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-
 import Button from '../../../components/Button'
-import Radio from "../../../components/Radio";
-import ChatFiles from '../../../components/ChatFiles'
 import CompletionReceptionModal from "../../../components/CompletionReceptionModal";
 import CompleteAppeal from '../../../components/CompleteAppeal'
 import NewVisitModalPage from "../../../components/NewVisitModalPage";
-
-
 import ChatTextContent from './ChatTextContent'
 import ChatVideoContent from './ChatVideoContent'
 import ChatAudioContent from './ChatAudioContent'
 import Hoc from '../../../hoc'
 
 import {
-	startReception, call, stop, messAboutStop, messForCloseReception, fileUploadCallback, 
+	startReception, call, stop, messAboutStop, messForCloseReception, fileUploadCallback,
 	sendMessage, setVideoIn, setVideoOut
 } from '../../App/chatWs'
 
@@ -35,7 +30,7 @@ class ChatCard extends React.Component {
 			isCurVisEnd: false,
 
 			duration: 0,
-			
+
 
 			reception_vis: false,
 			treatment_vis: false,
@@ -45,7 +40,7 @@ class ChatCard extends React.Component {
 
 
 
-    
+
 
 	componentWillReceiveProps(nextProps){
 		// ---- TO FIX (chack)
@@ -56,7 +51,7 @@ class ChatCard extends React.Component {
 					this.props.setChatToId(nextProps.calledID)
 				);
 
-		
+
 		//---------
 		''+this.state.mode != ''+nextProps.mode
 			&& this.setState({mode: nextProps.mode})
@@ -67,12 +62,12 @@ class ChatCard extends React.Component {
 				(this.props.callback(), this.props.clearCallback()) : null;
 	}
 
-	startReceptionHandler = () => {	
+	startReceptionHandler = () => {
 		startReception();
 		this.props.changeReceptionStatus(this.props.receptionId, "begin")
 	}
 
-	onCall = () => {	
+	onCall = () => {
 		call();
 	}
 
@@ -114,7 +109,7 @@ class ChatCard extends React.Component {
 	onAddVisit = (obj) => {
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
-	
+
 	uploadOnlyFile = (id_zap,id_user, callback) => {
 		return (file, isConclusion) => {
 			isConclusion ? (
@@ -122,7 +117,7 @@ class ChatCard extends React.Component {
 				console.log({id: this.props.receptionId,
 					chat: this.props.chatStory})
 			)
-				
+
 				: this.props.uploadFile(id_zap,id_user, file,callback);
 			this.state.isActive && this.props.getAllFilesTreatment(this.props.id_treatment);
 		}
@@ -151,16 +146,16 @@ class ChatCard extends React.Component {
         return icon
     };
     render() {
-    	console.log("RENDER CHAT CARD");
+    	console.log("RENDER CHAT CARD", this.props);
 		const {patientName, user_id, online: onl} = this.props;
 		const online = +onl ?'online' :  'offline';
 		const iconType = this.getIconByType();
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
 
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
-	
+
 		let content;
-		
+
 		const chatProps= {
 			from: this.props.callerID,
 			to: this.props.calledID,
@@ -179,7 +174,8 @@ class ChatCard extends React.Component {
 			treatmFiles: this.props.treatmFiles,
 			id_treatment: this.props.id_treatment,
 			getAllFilesTreatment: this.props.getAllFilesTreatment,
-			filesActive: this.state.isActive
+			filesActive: this.state.isActive,
+            isUser: this.props.isUser
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>setVideoOut(video),
@@ -192,25 +188,33 @@ class ChatCard extends React.Component {
 			isActiveChat: this.state.isActiveChat,
 			isEnded: this.props.isEnded,
 		}
-        switch (this.state.mode) {
-            case 'chat':
-                content = <ChatTextContent isActive={this.state.isActive} 		
-											{...chatProps}
-                                            />;
-                break;
-			case 'voice':
-				content = <ChatAudioContent 
-											{...chatProps}
-											{...chatAdditionalProps}
-                                            />;
-                break;
-            case "video":
-                content = <ChatVideoContent 
-											{...chatProps}
-											{...chatAdditionalProps}
-                                            />;
-                break;
-		}
+        if(this.props.isUser) {
+            content = <ChatTextContent isActive={this.state.isActive}
+                                       {...chatProps}
+                                       {...chatAdditionalProps}
+            />;
+		} else {
+			switch (this.state.mode) {
+				case 'chat':
+					content = <ChatTextContent isActive={this.state.isActive}
+												{...chatProps}
+											   {...chatAdditionalProps}
+												/>;
+					break;
+				case 'voice':
+					content = <ChatAudioContent
+												{...chatProps}
+												{...chatAdditionalProps}
+												/>;
+					break;
+				case "video":
+					content = <ChatVideoContent
+												{...chatProps}
+												{...chatAdditionalProps}
+												/>;
+					break;
+			}
+        }
 
 
 
@@ -252,18 +256,18 @@ class ChatCard extends React.Component {
 
                 </div>
             </div>
-			<CompletionReceptionModal 
+			<CompletionReceptionModal
 				visible={this.state.reception_vis}
 				onComplete={this.onCloseReception}
 				onCancel={() => this.setState({reception_vis: false})}
 			/>
-			<CompleteAppeal 
+			<CompleteAppeal
 				visible={this.state.treatment_vis}
 				onCancel={() =>  this.setState({treatment_vis: false})}
 				onAdd={() => this.setState({treatment_vis: false, visit_vis: true})}
 				onComplete={this.onCloseTreatment}
 			/>
-			<NewVisitModalPage 
+			<NewVisitModalPage
 				visible={this.state.visit_vis}
 				onCancel={() => this.setState({visit_vis: false, treatment_vis: true})}
 				userName={patientName}

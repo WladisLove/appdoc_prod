@@ -166,7 +166,9 @@
     width: 35%;
     min-width: 35%;
 }
-
+.chat-card-dialogs-row .chat-card-files-active.only-chat {
+    width: 100%;
+}
 .chat-card-dialogs-row .message__send {
     flex-wrap: wrap;
     padding: 14px
@@ -180,6 +182,7 @@
 }
 
 .chat-card-dialogs-row .message__send-area {
+
     margin-bottom: 10px;
     max-width: 100%;
 }
@@ -267,7 +270,8 @@
     margin-top: auto;
     z-index: 3;
     display: flex;
-    flex: 1 1 auto
+    flex: 1 1 auto;
+    max-height: 150px;
 }
 
 .chat-card-message__box {
@@ -317,10 +321,7 @@
 .chat-card-video__panel {
     position: absolute;
     bottom: 30px;
-    left: calc(50% - 215px);
-    width: 430px
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.chat-card-video__panel-active {
-    left: calc(50% - 400px)
-}

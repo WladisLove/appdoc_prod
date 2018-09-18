@@ -29,13 +29,13 @@ class Chat extends React.Component{
     render(){
         console.log('visitInfo',this.props.visitInfo)
         console.log('treatInfo',this.props.treatInfo)
-        let  id_user, id_doc, name, name_doc, avatar, status, chat, visitId, contactLevel, comment, id_treatment;
+        let  id_user, id_doc, name, name_doc, avatar, name_user, status, avatar_doc, chat, visitId, contactLevel, comment, id_treatment;
 
         this.props.fromTR_VIS === 1 ? (
-            {id_user,name_user: name, avatar, status, chat, id_treatment} = this.props.treatInfo
+            {id_user,name_user: name, avatar, name_doc, contactLevel, name_user, avatar_doc, status, chat, id_treatment} = this.props.treatInfo
         ) : (
-            {id_user,id_doc,name, name_doc, id: visitId, contactLevel,comment, chat, avatar, status, id_treatment} = this.props.visitInfo
-        )  
+            {id_user,id_doc,name, name_doc, id: visitId, contactLevel,comment, chat, avatar, avatar_doc, status, id_treatment} = this.props.visitInfo
+        )
         const isUser = this.props.user_mode === "user";
 
         const chatProps = {
@@ -55,7 +55,7 @@ class Chat extends React.Component{
             patientName: isUser ? name_doc : name,
             id_treatment,
             online: +status,
-            avatar,
+            avatar: isUser? avatar_doc: avatar,
             chat,
             comment,
             uploadFile: this.props.uploadFile,
@@ -90,7 +90,9 @@ class Chat extends React.Component{
                                           onSelectReception={this.props.onSelectReception}
                                           completeReception={this.props.completeReception}
                                           closeTreatm={this.props.closeTreatment}
-                                          fromTR_VIS={2}/>
+                                          fromTR_VIS={2}
+                                          isUser ={true}
+                                />
                             ) : (
                                 <ChatCard {...chatProps}
                                           mode={contactLevel}

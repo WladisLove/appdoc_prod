@@ -132,3 +132,7 @@ button {
 .ps__thumb-y {
   background-color: #0495ff !important;
 }
+.ps__rail-y,
+.ps__rail-x {
+  z-index: 6;
+}

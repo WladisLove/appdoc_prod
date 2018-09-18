@@ -23,9 +23,9 @@ const ChatMessage = props => {
                     {moment(date*1000).format('HH:mm')}
                 </div>
                 <div className="call-info-content">
-                    <Icon svg 
-                        type={iconType} 
-                        size={iconType === "end-call-button" ? 10 : 18} 
+                    <Icon svg
+                        type={iconType}
+                        size={iconType === "end-call-button" ? 10 : 18}
                         style={{color: isRed ? "#ef5350" : "#204d8d", marginRight: 20}}/>
                     {text1} {
                         name ? (<span style={{fontWeight: "bold"}}>{name}</span>) : null
@@ -35,7 +35,7 @@ const ChatMessage = props => {
         )
     }
 
-        
+
 
         let content;
         switch (type){
@@ -80,7 +80,7 @@ const ChatMessage = props => {
                                     }
                                     <div className={`${rootClass}-box`}>
                                         <div className={`${rootClass}-attached`}>
-                                            {text ? 
+                                            {text ?
                                                 text : <DownloadLink
                                                             btnText={props.name}
                                                             href={props.link}
@@ -100,15 +100,15 @@ const ChatMessage = props => {
         return (
             <Hoc>
                 {
-                    isDate ? 
-                        ( <div className='message-today'>{moment(date*1000).format("D MMMM YYYY")}</div>) 
-                        : isVisEnd ? 
+                    isDate ?
+                        ( <div className='message-today'>{moment(date*1000).format("D MMMM YYYY")}</div>)
+                        : isVisEnd ?
                             (<div className='message-visit-end'>Прием завершен</div>)
                             : (
                             content
                 )
                 }
-            
+
             </Hoc>
         )
 
@@ -125,7 +125,6 @@ ChatMessage.propTypes = {
     isVisEnd: PropTypes.bool,
     type: PropTypes.oneOf(["default", "stop", "begin", "notBegin"]),
     callTime: PropTypes.string,
-    name: PropTypes.string,
 };
 
 ChatMessage.defaultProps = {
@@ -140,7 +139,6 @@ ChatMessage.defaultProps = {
     isVisEnd: false,
     type: "default",
     callTime: "",
-    name: "",
 };
 
 export default ChatMessage
