@@ -69,7 +69,6 @@ class LoginPage extends React.Component {
             'Первая категория',
             'Вторая категория',
             'Высшая категория'];
-        const specs = ['Хирург', "Терапевт","Кардиолог","Офтальмолог", "Психиатр", "Стоматолог", "Невролог"];
 
         return (
             <Hoc>
@@ -82,7 +81,7 @@ class LoginPage extends React.Component {
 
                     </div>
                 </div>
-    
+
                 <Row style={{marginLeft: 0, marginRight: 0}}>
                     <Col xs={{span: 24}}
                          sm={{span: 22, offset: 1}}
@@ -111,7 +110,6 @@ class LoginPage extends React.Component {
                                                            langs={langs}
                                                            payments={payments}
                                                            category = {category}
-                                                           specs = {specs}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='Я ознакомлен с условиями работы и принимаю их'
@@ -149,7 +147,7 @@ class LoginPage extends React.Component {
             </Hoc>
         )
     }
-    
+
 
 }
 

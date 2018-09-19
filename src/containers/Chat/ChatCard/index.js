@@ -110,7 +110,7 @@ class ChatCard extends React.Component {
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
 
-	uploadOnlyFile = (id_zap,id_user, callback) => {
+	uploadOnlyFile = (id_zap, id_user, callback) => {
 		return (file, isConclusion) => {
 			isConclusion ? (
 				this.props.uploadConclusion(id_zap,file, callback),
