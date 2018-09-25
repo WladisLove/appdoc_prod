@@ -187,33 +187,27 @@ class ChatCard extends React.Component {
 			isCalling: this.props.isCalling,
 			isActiveChat: this.state.isActiveChat,
 			isEnded: this.props.isEnded,
-		}
-        if(this.props.isUser) {
-            content = <ChatTextContent isActive={this.state.isActive}
-                                       {...chatProps}
-                                       {...chatAdditionalProps}
-            />;
-		} else {
-			switch (this.state.mode) {
-				case 'chat':
-					content = <ChatTextContent isActive={this.state.isActive}
-												{...chatProps}
-											   {...chatAdditionalProps}
-												/>;
-					break;
-				case 'voice':
-					content = <ChatAudioContent
-												{...chatProps}
-												{...chatAdditionalProps}
-												/>;
-					break;
-				case "video":
-					content = <ChatVideoContent
-												{...chatProps}
-												{...chatAdditionalProps}
-												/>;
-					break;
-			}
+        }
+
+        switch (this.state.mode) {
+            case 'chat':
+                content = <ChatTextContent isActive={this.state.isActive}
+                                           {...chatProps}
+                                           {...chatAdditionalProps}
+                />;
+                break;
+            case 'voice':
+                content = <ChatAudioContent
+                    {...chatProps}
+                    {...chatAdditionalProps}
+                />;
+                break;
+            case "video":
+                content = <ChatVideoContent
+                    {...chatProps}
+                    {...chatAdditionalProps}
+                />;
+                break;
         }
 
 
