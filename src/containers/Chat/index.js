@@ -61,7 +61,7 @@ class Chat extends React.Component{
             uploadFile: this.props.uploadFile,
             setReceptionStatus: this.props.setReceptionStatus,
             setChatToId: this.props.setChatToId,
-
+            uploadConclusion: this.props.uploadConclusion,
             getAllFilesTreatment: this.props.getAllFilesTreatment,
             treatmFiles: this.props.treatmFiles,
         }
