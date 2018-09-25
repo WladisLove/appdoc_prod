@@ -221,7 +221,7 @@ const incomingCall = (message) => {
     setCallState(PROCESSING_CALL);
     console.log(message, "MODAL message");
     Modal.confirm({
-        title: `Доктор с id ${message.from} звонит вам, хотите ли вы принять вызов?`,
+        title: `Доктор с id ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
         width: '300px',
         okText: 'Да',
         cancelText: 'Нет',
@@ -372,6 +372,7 @@ export const call = () => {
                 from: callbacks.get_from(),
                 to: callbacks.get_to(),
                 receptionId,
+                userData: callbacks.get_shortDocInfo(),
                 sdpOffer : offerSdp
             });
         });

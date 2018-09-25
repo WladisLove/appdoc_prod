@@ -93,7 +93,7 @@ function ChatStories(){
 }
 
 ChatStories.prototype.addDoctor = function(id){
-    this.doctorsChat[id] 
+    this.doctorsChat[id]
         ? null : this.doctorsChat[id] = {};
     //console.log('add doctor', id);
 }
@@ -128,7 +128,7 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mo
         if (error) {
             return callback(error);
         }
-                      
+
         kurentoClient.create('MediaPipeline', function(error, pipeline) {
             if (error) {
                 return callback(error);
@@ -201,7 +201,7 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mo
 
                                     recordsCounter++;
                                     var recorderParams = {
-                                        uri : mode === 'video' 
+                                        uri : mode === 'video'
                                             ? 'file:///media/audiovideo/'+receptionId+'.mp4'
                                             : 'file:///media/audiovideo/'+receptionId+'.mp3',
                                     }
@@ -236,7 +236,7 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mo
                                                                     pipeline.release();
                                                                     return callback(error);
                                                                 }
-                                        
+
                                                                 calleeWebRtcEndpoint.connect(callerWebRtcEndpoint, function(error) {
                                                                     if (error) {
                                                                         pipeline.release();
@@ -244,7 +244,7 @@ CallMediaPipeline.prototype.createPipeline = function(callerId, calleeId, ws, mo
                                                                     }
                                                                 });
                                                             });
-                                                            
+
                                                             recorderEndpoint.record();
                                                             self.pipeline = pipeline;
                                                             self.webRtcEndpoint[callerId] = callerWebRtcEndpoint;
@@ -312,7 +312,7 @@ wss.on('connection', function(ws) {
             break;
 
         case 'call':
-            call(sessionId, message.to, message.from, message.sdpOffer, message.receptionId);
+            call(sessionId, message.to, message.from, message.sdpOffer, message.receptionId, message.userData);
             break;
 
         case 'incomingCallResponse':
@@ -326,7 +326,7 @@ wss.on('connection', function(ws) {
         case 'chat':
             chatting(sessionId, message.to, message.from, message.text, message.date);
             break;
-        
+
         case 'startReception':
             startReception(message.name, message.other_name);
             break;
@@ -372,7 +372,7 @@ function sendCurrentChat(whom, doc_id, user_id){
 }
 
 function chatting(callerId, to, from, text, date){
-    
+
     var caller = userRegistry.getById(callerId);
     var callee = userRegistry.getByName(to);
         callee && (callee.peer = from);
@@ -513,9 +513,9 @@ function incomingCallResponse(calleeId, from, callResponse, calleeSdp, ws, mode,
     }
 }
 
-function call(callerId, to, from, sdpOffer, receptionId) {
+function call(callerId, to, from, sdpOffer, receptionId, userData) {
     clearCandidatesQueue(callerId);
-    
+
 
     var caller = userRegistry.getById(callerId);
     var rejectCause = 'User ' + to + ' is not registered';
@@ -528,6 +528,7 @@ function call(callerId, to, from, sdpOffer, receptionId) {
             id: 'incomingCall',
             from: from,
             receptionId: receptionId,
+            userData: userData
         };
         try{
             return callee.sendMessage(message);
@@ -578,11 +579,11 @@ function register(id, name, other_name, ws, mode, callback) {
     console.log("register", name)
     userRegistry.register(new UserSession(id, name, ws));
 
-    mode === 'doc' 
-        ? (chatStories.isChatOpen(name, other_name) 
+    mode === 'doc'
+        ? (chatStories.isChatOpen(name, other_name)
             && sendCurrentChat(name, name, other_name)
             )
-        : (chatStories.isChatOpen(other_name, name) 
+        : (chatStories.isChatOpen(other_name, name)
             && sendCurrentChat(name, other_name, name)
         )
 
