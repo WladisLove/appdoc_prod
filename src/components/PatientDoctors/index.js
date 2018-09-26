@@ -56,6 +56,7 @@ class PatientDoctors extends React.Component {
                         key = {index+1}
                         {...item}
                         doctorFavorite={true}
+                        onGoTo={this.props.onGoTo}
                         onDelete = {this.props.onDelete}
                         newVisitVisible = {this.props.newVisitVisible} />
                 ))}

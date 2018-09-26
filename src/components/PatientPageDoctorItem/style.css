@@ -58,6 +58,10 @@
   font-size: 18px;
   font-family: 'GothamPro-Bold';
   margin-bottom: 5px;
+  cursor: pointer;
+}
+.page__doctor-item-name:hover {
+  color: #51657b;
 }
 .page__doctor-item-speciality {
   color: #344051;

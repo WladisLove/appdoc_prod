@@ -13,14 +13,16 @@ const PatientPageDoctorItem = props => {
         props.onDelete(props.id, props.doctorName);
     }
 
-    const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp,
+    const { id, doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp,
             doctorPrice, doctorLanguages, doctorChild, doctorAvatar} = props;
-       
+    const onGoTo = () => {
+        props.onGoTo(id);
+    };
     return (
             <div className='page__doctor-item'>
                 <div className='page__doctor-item-block'>
                     <div className='page__doctor-item-rate'>
-                        <RatePanel 
+                        <RatePanel
                             rateValue={doctorRate}
                             timesRated={doctorReviews}
                         />
@@ -39,7 +41,7 @@ const PatientPageDoctorItem = props => {
                 </div>
                 <div className='page__doctor-item-block'>
                     <div className='page__doctor-item-avatar'>
-                        <ProfileAvatar 
+                        <ProfileAvatar
                           img={doctorAvatar}
                           owner='doctor'
                           size="large"
@@ -47,7 +49,10 @@ const PatientPageDoctorItem = props => {
                         />
                     </div>
                     <div className='page__doctor-item-info'>
-                        <div className='page__doctor-item-name'>{doctorName}</div>
+                        <div
+                            className='page__doctor-item-name'
+                            onClick={onGoTo}>{doctorName}
+                        </div>
                         <div className='page__doctor-item-speciality'>{doctorSpeciality}</div>
                         <div className='page__doctor-item-category'>{doctorCategory}</div>
                         <div className='page__doctor-item-exp'>Стаж работы {doctorExp} лет</div>

@@ -89,6 +89,7 @@ class Patients extends React.Component{
 							addNewDoctorVisible={this.addNewDoctorVisible}
 							newVisitVisible = {this.addNewVisitVisible}
 							onDelete = {this.onDeleteDoctorHandler}
+							onGoTo={this.gotoHandler}
 						/>
             		</Col>
             	</Row>
