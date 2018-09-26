@@ -35,8 +35,6 @@ class InputDateWithToolTip extends React.Component{
                     className = "effect"
                     placeholder = ""
                     onChange={this.onChange}
-                    onFocus ={()=>this.onFocusBlur(true)}
-                    onBlur = {()=>this.onFocusBlur(false)}
                     dropdownClassName = "input-date-with-tt-calendar-popup"
 
                 />

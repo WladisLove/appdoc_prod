@@ -1,7 +1,7 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 
-import StorybookStylesProvider from './StorybookStylesProvider'
+
 
 const styles = {
     padding: 15,
@@ -9,7 +9,7 @@ const styles = {
 
 const LocalProviderDecorator = story => (
     <div style={styles}>
-        <StorybookStylesProvider>{story()}</StorybookStylesProvider>
+        {story()}
     </div>
 );
 

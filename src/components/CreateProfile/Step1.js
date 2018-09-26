@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { Form, Upload, Icon, message } from 'antd';
-import Radio from '../RadioBox'
-import DatePicker from '../DatePicker'
+import Dropzone from "react-dropzone";
 import Button from '../Button'
 import InputWithTT from "../InputWithTT";
 import InputDateWithToolTip from "../InputDateWithTT";
+import SelectWithTT from "../SelectWithTT";
+import { Auth } from "react-vk";
+import  VK from "react-vk";
+
+
+import UploadPhotoImage from "../../img/uploadPhoto.png"
 
 const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
 
 
 class Step1Form extends React.Component{
@@ -50,27 +54,24 @@ class Step1Form extends React.Component{
         }));
         reader.readAsDataURL(info.file);
     };
-
-    checkEmail = (role, email, callBack) => {
-        if (email) {
-            this.props.checkEmailAvailability(email)
-                .then((res) => {
-                    if (res && res.status === 200)
-                        res.data.email && res.data.login ? callBack() : callBack("Данный email уже занят")
-                });
-        }
-        else callBack();
+    onDrop = (file) => {
+        console.log(file)
+        const reader = new FileReader();
+        // this.props.uploadFile(info.file)
+        //     .then((res) => {
+        //         this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name});
+        //         message.success("Фото загружено")
+        //     });
+        reader.addEventListener('load', () => this.setState({
+            avatarThumb: reader.result,
+            loading: false
+        }));
+        reader.readAsDataURL(file[0]);
     };
 
     render(){
-        console.log(this.state, "STATE");
         const { getFieldDecorator } = this.props.form;
-        const uploadButton = (
-            <div>
-                <Icon type={this.state.loading ? 'loading' : 'plus'} />
-                <div className="ant-upload-text">Загрузить</div>
-            </div>
-        );
+
         const avatarUrl = this.state.avatarThumb ? this.state.avatarThumb : this.props.data.avatarThumb ? this.props.data.avatarThumb : "";
         return (
             <Form onSubmit={this.handleSubmit} className="step-form step-1">
@@ -113,79 +114,98 @@ class Step1Form extends React.Component{
                         )}
                     </FormItem>
                 </div>
+                <div className="step-form-row">
+                    <FormItem>
+                        {getFieldDecorator('fio2', {
+                            rules: [{
+                                required: true,
+                                message: 'Введите ФИО, пожалуйста'
+                            }],
+                        })(
+                            <SelectWithTT
+                                bubbleplaceholder="Дата рождения"
+                                className="step-form-item"
+                                tooltip="ДР Tooltip"
 
-                {/*<FormItem>
-                    {getFieldDecorator('email', {
-                        rules:
-                            [
-                                {type: 'email', message: 'Неправильный формат e-mail адреса'},
-                                {required: true, message: "Введите ваш e-mail, пожалуйста"},
-                                {validator: this.checkEmail}
-                            ]
+
+                            />
+                        )}
+                    </FormItem>
+                    <FormItem>
+                        {getFieldDecorator('fio2', {
+                            rules: [{
+                                required: true,
+                                message: 'Введите ФИО, пожалуйста'
+                            }],
+                        })(
+                            <SelectWithTT
+                                bubbleplaceholder="Дата рождения"
+                                className="step-form-item"
+                                tooltip="ДР Tooltip"
+
+
+                            />
+                        )}
+                    </FormItem>
+                </div>
+                <FormItem>
+                    {getFieldDecorator('fio2', {
+                        rules: [{
+                            required: true,
+                            message: 'Введите ФИО, пожалуйста'
+                        }],
                     })(
-                        <InputNew width="100%" bubbleplaceholder="* E-mail" className="step-form-item"/>
+                        <SelectWithTT
+                            bubbleplaceholder="Дата рождения"
+                            className="step-form-item"
+                            tooltip="ДР Tooltip"
+
+
+                        />
                     )}
                 </FormItem>
                 <FormItem>
-                    {getFieldDecorator('phone', {
-                        rules:
-                            [{
-                                required: true,
-                                message: 'Введите телефон, пожалуйста'
-                            },{
-                                pattern: /^[+]?[0-9()\- ]+$/,
-                                message: 'Неправильный формат номера телефона'
-                            }]})
-                    (
-                        <InputNew width ="100%" bubbleplaceholder="* Телефон" className="step-form-item"/>
+                    {getFieldDecorator('fio2', {
+                        rules: [{
+                            required: true,
+                            message: 'Введите ФИО, пожалуйста'
+                        }],
+                    })(
+                        <SelectWithTT
+                            bubbleplaceholder="Дата рождения"
+                            className="step-form-item"
+                            tooltip="ДР Tooltip"
+                            mode="multiple"
+
+
+                        />
                     )}
                 </FormItem>
-                <div className="step-row">
-                    <FormItem>
-                        <div className='radio-label'>* Пол
-                            {getFieldDecorator('sex', {
-                                rules: [{ required: true,
-                                    message: 'Выберите пол, пожалуйста' }],
-                            })(
-                                <RadioGroup>
-                                    <Radio value='w'>Жен.</Radio>
-                                    <Radio value='m'>Муж.</Radio>
-                                </RadioGroup>
-                            )}
-                        </div>
-                    </FormItem>
-                    <FormItem>
-                        <div className='radio-label'>* Дата рождения
-                            {getFieldDecorator('datebirth', {
-                                rules: [{ required: true,
-                                    message: 'Введите дату, пожалуйста' }],
-                            })(
-                                <DatePicker placeholder="дд/мм/гггг"/>
-                            )}
-                        </div>
-                    </FormItem>
-                </div>
-                    <FormItem className="avatar-doctor-uploader">
-                        <div >* Фото</div>
+                <div className="step-form-row">
+                    <div className="create-profile-avatar">
+                        <span className="upload-avatar-title">Загрузи сюда свою крутую аву</span>
+                        <Dropzone multiple = {false} onDrop = {this.onDrop} className="react-dropzone-avatar">
+                            {avatarUrl ?
+                                <img src={avatarUrl} alt="avatar" className="avatar-image"/> :
+                                <img src={UploadPhotoImage} alt="avatar" className="avatar-image"/>}
+                        </Dropzone>
+                        <span className="upload-avatar-photo-click">Нажми, чтобы загрузить фото</span>
+                    </div>
+                    <VK apiId={6695055}>
+                        <Auth onAuth={(prof)=>{console.log(prof, "VK AUTH")}}/>
+                    </VK>
+                    {/*<div className="create-profile-social">
+                        <div id="vk_auth"></div>
 
-                            {getFieldDecorator('avatar', {
-                                rules: [{
-                                    required: true,
-                                    message: 'Загрузите фото, пожалуйста'
-                                }]})
-                            (
-                                <Upload
-                                    name="avatar"
-                                    listType="picture-card"
-                                    className="avatar-uploader"
-                                    showUploadList={false}
-                                    beforeUpload = {()=>false}
-                                    onChange={this.handleChange}
-                                >
-                                    {avatarUrl ? <img src={avatarUrl} alt="avatar" className="avatar-image"/> : uploadButton}
-                                </Upload>
-                            )}
-                    </FormItem>*/}
+                    </div>
+                    <script type="text/javascript" src="https://vk.com/js/api/openapi.js?159"></script>
+                    <script type="text/javascript">
+                        {VK.init({apiId: 6695055})}
+                    </script>
+                    <script type="text/javascript">
+                        {VK.Widgets.Auth("vk_auth", {"onAuth" : "function(data) {alert('user '+data['uid']+' authorized');}"})}
+                    </script>*/}
+                </div>
 
                 <div className="steps-action">
                     <Button htmlType="submit"
