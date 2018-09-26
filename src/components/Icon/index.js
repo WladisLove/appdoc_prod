@@ -57,6 +57,7 @@ const iconList = [
     "volume",
     "xls-file",
     "icon1",
+    "remove",
     "icon2",
     "icon3",
     "icon4",
