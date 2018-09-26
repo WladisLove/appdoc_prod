@@ -83,7 +83,7 @@ class Icon extends React.Component{
 
         if (!this.svg)
             return (<AntdIcon onClick={onClick}
-                              title={title}
+                              title={title || null}
                               type={type}
                               style={{fontSize:size, ...style}} />);
 

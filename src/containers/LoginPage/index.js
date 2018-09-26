@@ -82,12 +82,12 @@ class LoginPage extends React.Component {
 
                     </div>
                 </div>
-    
+
                 <Row style={{marginLeft: 0, marginRight: 0}}>
-                    <Col xs={{span: 24}}
-                         sm={{span: 22, offset: 1}}
-                         md={{span: 18, offset: 3}}
-                         lg={{span: 14, offset: 5}}
+                    <Col xs={{span: 12, offset: 6}}
+                         sm={{span: 12, offset: 6}}
+                         md={{span: 12, offset: 6}}
+                         lg={{span: 12, offset: 6}}
                          xl={{span: 12, offset: 6}}>
                         <Route path="/login"
                                exact
@@ -149,7 +149,7 @@ class LoginPage extends React.Component {
             </Hoc>
         )
     }
-    
+
 
 }
 

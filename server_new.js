@@ -599,7 +599,7 @@ function register(id, name, other_name, ws, mode, callback) {
         return onError("User " + name + " is already registered");
     }
 
-    console.log("register", name)
+    console.log("register", name);
     userRegistry.register(new UserSession(id, name, ws));
 
     mode === 'doc' 

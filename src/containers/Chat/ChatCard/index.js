@@ -3,22 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-
 import Button from '../../../components/Button'
-import Radio from "../../../components/Radio";
-import ChatFiles from '../../../components/ChatFiles'
 import CompletionReceptionModal from "../../../components/CompletionReceptionModal";
 import CompleteAppeal from '../../../components/CompleteAppeal'
 import NewVisitModalPage from "../../../components/NewVisitModalPage";
-
-
 import ChatTextContent from './ChatTextContent'
 import ChatVideoContent from './ChatVideoContent'
 import ChatAudioContent from './ChatAudioContent'
 import Hoc from '../../../hoc'
 
 import {
-	startReception, call, stop, messAboutStop, messForCloseReception, fileUploadCallback, 
+	startReception, call, stop, messAboutStop, messForCloseReception, fileUploadCallback,
 	sendMessage, setVideoIn, setVideoOut
 } from '../../App/chatWs'
 
@@ -29,13 +24,13 @@ class ChatCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isActive: this.props.isActive,
-			isActiveChat: props.isEnded ? true : false,
+            isActive: false,
+			isActiveChat: true,
 			mode: this.props.mode,
 			isCurVisEnd: false,
 
 			duration: 0,
-			
+
 
 			reception_vis: false,
 			treatment_vis: false,
@@ -43,14 +38,9 @@ class ChatCard extends React.Component {
 		}
     }
 
-    filesRender = () => {
-		const files = this.props.treatmFiles;
-        return files.map((item, index) => {
-            return (<ChatFiles {...item} key={item.date}/>)
-        });
-    };
 
-    
+
+
 
 	componentWillReceiveProps(nextProps){
 		// ---- TO FIX (chack)
@@ -61,7 +51,7 @@ class ChatCard extends React.Component {
 					this.props.setChatToId(nextProps.calledID)
 				);
 
-		
+
 		//---------
 		''+this.state.mode != ''+nextProps.mode
 			&& this.setState({mode: nextProps.mode})
@@ -72,12 +62,12 @@ class ChatCard extends React.Component {
 				(this.props.callback(), this.props.clearCallback()) : null;
 	}
 
-	startReceptionHandler = () => {	
+	startReceptionHandler = () => {
 		startReception();
 		this.props.changeReceptionStatus(this.props.receptionId, "begin")
 	}
 
-	onCall = () => {	
+	onCall = () => {
 		call();
 	}
 
@@ -119,7 +109,7 @@ class ChatCard extends React.Component {
 	onAddVisit = (obj) => {
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
-	
+
 	uploadOnlyFile = (id_zap,id_user, callback) => {
 		return (file, isConclusion) => {
 			isConclusion ? (
@@ -127,7 +117,7 @@ class ChatCard extends React.Component {
 				console.log({id: this.props.receptionId,
 					chat: this.props.chatStory})
 			)
-				
+
 				: this.props.uploadFile(id_zap,id_user, file,callback);
 			this.state.isActive && this.props.getAllFilesTreatment(this.props.id_treatment);
 		}
@@ -137,17 +127,35 @@ class ChatCard extends React.Component {
 		(!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
 		this.setState(prev => ({isActive: !prev.isActive}));
 	}
+    getIconByType = () => {
+		let icon;
+        switch (this.state.mode) {
+            case 'chat':
+                icon = "chat1";
+                break;
+            case 'voice':
+                icon =  "telephone";
+                break;
+            case "video":
+                icon =  "video-camera";
+                break;
+			default:
+				icon =  "chat1";
 
+        }
+        return icon
+    };
     render() {
+    	console.log("RENDER CHAT CARD", this.props);
 		const {patientName, user_id, online: onl} = this.props;
 		const online = +onl ?'online' :  'offline';
-
+		const iconType = this.getIconByType();
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
-        const filesClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
+
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
-	
+
 		let content;
-		
+
 		const chatProps= {
 			from: this.props.callerID,
 			to: this.props.calledID,
@@ -163,6 +171,11 @@ class ChatCard extends React.Component {
 			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.callerID, fileUploadCallback),
 			receptionId: this.props.receptionId,
 			isCurVisEnd: this.state.isCurVisEnd,
+			treatmFiles: this.props.treatmFiles,
+			id_treatment: this.props.id_treatment,
+			getAllFilesTreatment: this.props.getAllFilesTreatment,
+			filesActive: this.state.isActive,
+            isUser: this.props.isUser
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>setVideoOut(video),
@@ -175,56 +188,62 @@ class ChatCard extends React.Component {
 			isActiveChat: this.state.isActiveChat,
 			isEnded: this.props.isEnded,
 		}
-        switch (this.state.mode) {
-            case 'chat':
-                content = <ChatTextContent isActive={this.state.isActive} 		
-											{...chatProps}
-                                            />;
-                break;
-			case 'voice':
-				content = <ChatAudioContent 
-											{...chatProps}
-											{...chatAdditionalProps}
-                                            />;
-                break;
-            case "video":
-                content = <ChatVideoContent 
-											{...chatProps}
-											{...chatAdditionalProps}
-                                            />;
-                break;
-		}
-		
+        if(this.props.isUser) {
+            content = <ChatTextContent isActive={this.state.isActive}
+                                       {...chatProps}
+                                       {...chatAdditionalProps}
+            />;
+		} else {
+			switch (this.state.mode) {
+				case 'chat':
+					content = <ChatTextContent isActive={this.state.isActive}
+												{...chatProps}
+											   {...chatAdditionalProps}
+												/>;
+					break;
+				case 'voice':
+					content = <ChatAudioContent
+												{...chatProps}
+												{...chatAdditionalProps}
+												/>;
+					break;
+				case "video":
+					content = <ChatVideoContent
+												{...chatProps}
+												{...chatAdditionalProps}
+												/>;
+					break;
+			}
+        }
+
+
+
         return (
 			<Hoc>
             <div className='chat-card'>
                 <div className='chat-card-head'>
                     <div className='chat-card-title'>
                         <Button
-                            btnText=''
-                            size='small'
-                            type='no-brd'
-                            icon='file'
-                            svg
-                            title='Открыть прикреплённые файлы'
-                            style={{width: 30}}
-                            onClick={this.toggleFilesArea}
+                            icon={iconType}
+                            title='Тип приёма'
+                            style={{color: "white", padding: 0, width: "auto"}}
                         />
+
                         <div className='chat-card-namePatient'>{patientName}</div>
                         <div className={statusClass}>{online}</div>
                     </div>
                     <div className='chat-card-btns'>
-                        <Radio icons={['chat1', 'telephone', "video-camera"]}
-							   value={this.state.mode}
-							   onChange = {() => {}}
-                               /*onChange={(mode) => this.setState({mode: mode.target.value})}*//>
+
                         <div className='chat-card-archive'>
                             <Button
                                 btnText=''
                                 size='small'
                                 type='no-brd'
-                                icon='archive-box'
-                                title='В архив'
+                                icon='file'
+                                svg
+                                title='Открыть прикреплённые файлы'
+                                style={{width: 30}}
+                                onClick={this.toggleFilesArea}
                             />
                         </div>
                     </div>
@@ -233,38 +252,22 @@ class ChatCard extends React.Component {
                     <div className={dialogsClass}>
                             {content}
                     </div>
-                    <div className={filesClass}>
-                        <div className='chat-card-files__close'>
-                            <Button
-                                btnText=''
-                                size='small'
-                                type='no-brd'
-                                icon='arrow_up'
-                                title='Закрыть'
-                                onClick={this.toggleFilesArea}
-                            />
-                        </div>
-                        {
-                            this.state.isActive && <div className='chat-card-files__items'>
-                                {this.filesRender()}
-                            </div>
-                        }
-                    </div>
+
 
                 </div>
             </div>
-			<CompletionReceptionModal 
+			<CompletionReceptionModal
 				visible={this.state.reception_vis}
 				onComplete={this.onCloseReception}
 				onCancel={() => this.setState({reception_vis: false})}
 			/>
-			<CompleteAppeal 
+			<CompleteAppeal
 				visible={this.state.treatment_vis}
 				onCancel={() =>  this.setState({treatment_vis: false})}
 				onAdd={() => this.setState({treatment_vis: false, visit_vis: true})}
 				onComplete={this.onCloseTreatment}
 			/>
-			<NewVisitModalPage 
+			<NewVisitModalPage
 				visible={this.state.visit_vis}
 				onCancel={() => this.setState({visit_vis: false, treatment_vis: true})}
 				userName={patientName}
@@ -277,7 +280,6 @@ class ChatCard extends React.Component {
 }
 
 ChatCard.propTypes = {
-	treatmFiles: PropTypes.arrayOf(PropTypes.object),
 	chat: PropTypes.array,
 	patientName: PropTypes.string,
 	user_id: PropTypes.number,
@@ -302,7 +304,6 @@ ChatCard.defaultProps = {
     isActive: false,
 	mode: 'chat',
 	chat: [],
-	treatmFiles: [],
 	changeReceptionStatus: () => {},
 	uploadFile: () => {},
 	getAllFilesTreatment: () => {},

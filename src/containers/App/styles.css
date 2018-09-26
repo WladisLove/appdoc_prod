@@ -1,3 +1,6 @@
+body {
+  min-width: 1300px;
+}
 .ant-layout {
   background-color: #ddebf5;
 }
@@ -61,6 +64,7 @@
 }
 .main-wrapper.collapsed .main-header {
   width: calc(100% - 170px);
+  min-width: calc(1300px - 170px);
 }
 .main-header {
   position: fixed;
@@ -72,6 +76,7 @@
   border-bottom: 1px solid #e8e8e8;
   align-items: center;
   z-index: 30;
+  min-width: calc(1300px - 340px);
 }
 .main-header .sidenav-root-btn {
   position: absolute;
@@ -123,4 +128,16 @@ button {
   z-index: 9999999999999999999;
   border: 0;
   outline: 0;
+}
+.ps__rail-x:hover > .ps__thumb-x,
+.ps__rail-x:focus > .ps__thumb-x,
+.ps__rail-y:hover > .ps__thumb-y,
+.ps__rail-y:focus > .ps__thumb-y,
+.ps__thumb-x,
+.ps__thumb-y {
+  background-color: #0495ff !important;
+}
+.ps__rail-y,
+.ps__rail-x {
+  z-index: 6;
 }

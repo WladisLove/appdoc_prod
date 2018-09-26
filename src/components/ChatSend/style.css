@@ -45,6 +45,7 @@
   display: flex;
   align-items: flex-start;
   padding-top: 12px;
+  padding-left: 20px;
 }
 .message__send-area .ant-input {
   position: relative;

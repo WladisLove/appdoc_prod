@@ -10,6 +10,9 @@ import ChatCard from './ChatCard'
 import * as actions from '../../store/actions'
 
 class Chat extends React.Component{
+    state = {
+        displayChat: true //TO DO make it false and just display for selected user
+    }
 
     componentDidMount(){
         this.props.onGetTodayVisits();
@@ -26,13 +29,13 @@ class Chat extends React.Component{
     render(){
         console.log('visitInfo',this.props.visitInfo)
         console.log('treatInfo',this.props.treatInfo)
-        let  id_user, id_doc, name, name_doc, avatar, status, chat, visitId, contactLevel, comment, id_treatment;
+        let  id_user, id_doc, name, name_doc, avatar, name_user, status, avatar_doc, chat, visitId, contactLevel, comment, id_treatment;
 
         this.props.fromTR_VIS === 1 ? (
-            {id_user,name_user: name, avatar, status, chat, id_treatment} = this.props.treatInfo
+            {id_user,name_user: name, avatar, name_doc, contactLevel, name_user, avatar_doc, status, chat, id_treatment} = this.props.treatInfo
         ) : (
-            {id_user,id_doc,name, name_doc, id: visitId, contactLevel,comment, chat, avatar, status, id_treatment} = this.props.visitInfo
-        )  
+            {id_user,id_doc,name, name_doc, id: visitId, contactLevel,comment, chat, avatar, avatar_doc, status, id_treatment} = this.props.visitInfo
+        )
         const isUser = this.props.user_mode === "user";
 
         const chatProps = {
@@ -52,7 +55,7 @@ class Chat extends React.Component{
             patientName: isUser ? name_doc : name,
             id_treatment,
             online: +status,
-            avatar,
+            avatar: isUser? avatar_doc: avatar,
             chat,
             comment,
             uploadFile: this.props.uploadFile,
@@ -69,34 +72,41 @@ class Chat extends React.Component{
                     {
                         !isUser && (<Col xs={24} xxl={7} className='section'>
                             <ChatDialogs  data={this.props.visits}
-                                        onGotoChat = {id => this.props.onSelectReception(id)}
+                                          onGotoChat={id =>
+                                              {
+                                                  this.props.onSelectReception(id);
+                                                  this.setState({displayChat: true})
+                                              }
+                                          }
                             />
                         </Col>)
                     }
-                    <Col xs={24} xxl={17} className='section'>
+                    {this.state.displayChat && <Col xs={24} xxl={17} className='section'>
                         {
-                             isUser ? (
+                            isUser ? (
                                 <ChatCard {...chatProps}
-                                    //mode={"video"}
-                                    mode={contactLevel}
+                                          mode={contactLevel}
                                     //isEnded = {true}
-                                    onSelectReception= {this.props.onSelectReception}
-                                    completeReception = {this.props.completeReception}
-                                    closeTreatm = {this.props.closeTreatment}
-                                    fromTR_VIS = {2}/>
+                                          onSelectReception={this.props.onSelectReception}
+                                          completeReception={this.props.completeReception}
+                                          closeTreatm={this.props.closeTreatment}
+                                          fromTR_VIS={2}
+                                          isUser ={true}
+                                />
                             ) : (
                                 <ChatCard {...chatProps}
-                                    mode={contactLevel}
+                                          mode={contactLevel}
                                     //isEnded = {true}
-                                    onSelectReception= {this.props.onSelectReception}
-                                    changeReceptionStatus={this.props.changeReceptionStatus}
-                                    completeReception = {this.props.completeReception}
-                                    closeTreatm = {this.props.closeTreatment}
-                                    uploadConclusion={this.props.uploadConclusion}
-                                    fromTR_VIS = {this.props.fromTR_VIS}/>
+                                          onSelectReception={this.props.onSelectReception}
+                                          changeReceptionStatus={this.props.changeReceptionStatus}
+                                          completeReception={this.props.completeReception}
+                                          closeTreatm={this.props.closeTreatment}
+                                          uploadConclusion={this.props.uploadConclusion}
+                                          fromTR_VIS={this.props.fromTR_VIS}/>
                             )
                         }
                     </Col>
+                    }
                 </Row>
             </Hoc>
         )

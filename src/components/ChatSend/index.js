@@ -41,11 +41,11 @@ class ChatSend extends React.Component{
 
     sendHandler = () => {        
         this.inp.focus();
-        this.props.send({
+        this.state.value && (this.props.send({
             text: this.state.value,
             date: Math.floor(Date.now()/1000),
-        });
-        this.setState({value: ''});
+        }),
+        this.setState({value: ''}))
     }
 
     componentDidMount(){
@@ -94,14 +94,6 @@ class ChatSend extends React.Component{
         
         return (
             <div className='message__send'>
-                <div className='message__send-smileys'>
-                    <Button
-                        btnText=''
-                        size='small'
-                        type='no-brd'
-                        icon='emoticon-face'
-                    />
-                </div>
                 <div className='message__send-area'>
                     <TextArea 
                         ref={inp => this.inp = inp}

@@ -40,8 +40,7 @@ class Patients extends React.Component{
 	};
 
 	gotoHandler = (id) => {
-		this.props.onSelectPatient(id);
-		this.props.history.push('/patient'+id);
+		this.props.history.push('/doctor'+id);
 	};
 
     componentWillMount() {
@@ -90,6 +89,7 @@ class Patients extends React.Component{
 							addNewDoctorVisible={this.addNewDoctorVisible}
 							newVisitVisible = {this.addNewVisitVisible}
 							onDelete = {this.onDeleteDoctorHandler}
+							onGoTo={this.gotoHandler}
 						/>
             		</Col>
             	</Row>

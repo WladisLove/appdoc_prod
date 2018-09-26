@@ -1,4 +1,5 @@
 import kurentoUtils from 'kurento-utils'
+import {Modal} from "antd";
 
 let ws,
     callbacks,
@@ -43,10 +44,10 @@ export function createSocket(wsUrl,_props,_callbacks) {
                 resgisterResponse(parsedMessage);
                 break;
             case 'startReception':
-            callbacks.get_history().location.pathname !== '/chat' 
+            callbacks.get_history().location.pathname !== '/chat'
                 && callbacks.get_history().push('/chat');
                 callbacks.setReceptionStatus(true);
-                
+
                 const visitInfo = callbacks.get_visitInfo();
                 const {visitId} = visitInfo;
                 !visitId && (
@@ -123,9 +124,9 @@ const setCallState = (nextState) => {
 
 const timer = () => {
     let timer = callbacks.get_timer();
-    timer.s >= 59 
+    timer.s >= 59
         ? (
-            timer.m >= 59 
+            timer.m >= 59
                 ?   callbacks.setNewTimer({
                         h: timer.h +1,
                         s: 0,
@@ -137,7 +138,7 @@ const timer = () => {
                     s: 0,
                 })
         )
-        : 
+        :
         callbacks.setNewTimer({
             ...timer,
             s: timer.s +1,
@@ -216,11 +217,29 @@ const incomingCall = (message) => {
         });
     }
 
-    
+
     setCallState(PROCESSING_CALL);
-    if (window.confirm('User ' + message.from
-    + ' is calling you for '+message.receptionId+' visit. Do you accept the call?')) {
-        callbacks.get_history().location.pathname !== '/chat' 
+    console.log(message, "MODAL message");
+    Modal.confirm({
+        title: `Доктор с id ${message.from} звонит вам, хотите ли вы принять вызов?`,
+        width: '300px',
+        okText: 'Да',
+        cancelText: 'Нет',
+        centered: true,
+        onOk() {
+            acceptCall();
+        },
+        onCancel() {
+            declineCall();
+        }});
+
+
+
+
+    function acceptCall() {
+
+
+        callbacks.get_history().location.pathname !== '/chat'
         && callbacks.get_history().push('/chat');
         callbacks.setReceptionStatus(true);
         callbacks.setIsCallingStatus(true);
@@ -239,19 +258,19 @@ const incomingCall = (message) => {
             let _visitInfo = callbacks.get_visitInfo();
             let {contactLevel} = _visitInfo;
             console.log('[video tags]',''+videoInput,videoOutput)
-            let options = contactLevel === 'video' ? 
+            let options = contactLevel === 'video' ?
                 {
                     localVideo : videoInput,
                     remoteVideo : videoOutput,
                     onicecandidate : onIceCandidate
                 } : {
-                    mediaConstraints: {  
-                        audio:true,  
-                        video:false  
+                    mediaConstraints: {
+                        audio:true,
+                        video:false
                     },
                     onicecandidate : onIceCandidate
                 };
-            
+
             webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
                     function(error) {
                         if (error) {
@@ -274,9 +293,9 @@ const incomingCall = (message) => {
                         });
                     });
         }
-        
+    }
 
-    } else {
+    function declineCall() {
         sendMessage({
             id : 'incomingCallResponse',
             from : message.from,
@@ -285,16 +304,16 @@ const incomingCall = (message) => {
         });
         stop(true);
     }
-}
+};
 
 const startCommunication = (message) => {
     setCallState(IN_CALL);
     webRtcPeer.processAnswer(message.sdpAnswer);
-}
+};
 
-export const startReception = () => {	
+export const startReception = () => {
     const visitInfo = callbacks.get_visitInfo();
-    const {id: receptionId} = visitInfo;								
+    const {id: receptionId} = visitInfo;
     sendMessage({
         id : 'startReception',
         name: callbacks.get_from(),
@@ -320,15 +339,15 @@ export const call = () => {
     const {contactLevel} = visitInfo;
 
     console.log('[video tags]',videoInput,videoOutput)
-    let options = contactLevel === 'video' ? 
+    let options = contactLevel === 'video' ?
             {
                 localVideo : videoInput,
                 remoteVideo : videoOutput,
                 onicecandidate : onIceCandidate
             } : {
-                mediaConstraints: {  
-                    audio:true,  
-                    video:false  
+                mediaConstraints: {
+                    audio:true,
+                    video:false
                 },
                 onicecandidate : onIceCandidate
             };
@@ -366,7 +385,7 @@ const checkTimeFormat = (number) => {
 export const messAboutStop = () => {
     const {s,m,h} = callbacks.get_timer();
     if(s || m || h){
-        const callTime = h 
+        const callTime = h
             ? checkTimeFormat(h) +':'+ checkTimeFormat(m) +':'+ checkTimeFormat(s)
             : checkTimeFormat(m) +':'+ checkTimeFormat(s);
         sendMessage({
