@@ -7,6 +7,7 @@ import SwitchPanel from '../SwitchPanel'
 import NotificationApp from '../NotificationApp'
 import AutoComplete from '../AutoComplete'
 import Hoc from "../Hoc"
+import specs from "../../helpers/specsArray"
 
 import './style.css'
 import '../../icon/style.css'
@@ -24,7 +25,7 @@ class Header extends React.Component {
             emergencyVisit: false
         };
     }
-    
+
     handleClick = () => {
       this.setState({isNewFreeVisit: true})
     };
@@ -44,7 +45,7 @@ render() {
                     />
                 </div>
                 <div className='header-call'>
-                    {isUser ? 
+                    {isUser ?
                         <Hoc>
                             <Button btnText='ЭКСТРЕННЫЙ ВЫЗОВ'
                                 size='small'
@@ -69,7 +70,7 @@ render() {
                             />
                             <NewFreeVisitByPatient
                                 visible = {this.state.isNewFreeVisit}
-                                docTypes = {["HIRURG","Аллерголог", "Хирург", "Терапевт", "Окулист"]}
+                                docTypes = {specs}
                                 onCancel = {() => this.setState({isNewFreeVisit: false})}
                                 onSubmit = {this.props.onMakeVisit}
                                 getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
@@ -82,8 +83,8 @@ render() {
                                 onCancel = {() => this.setState({emergencyVisit: false})}
                                 onSubmit = {this.props.onMakeVisit}
                             />
-                        </Hoc> 
-                        : <SwitchPanel 
+                        </Hoc>
+                        : <SwitchPanel
                             icon='emergency-call'
                             title="Экстренные вызовы"
                             onChange={this.props.onChange}
@@ -92,13 +93,13 @@ render() {
                     }
                 </div>
                 <div className='header-notification'>
-                    <NotificationApp  
-                        data={notifications} 
+                    <NotificationApp
+                        data={notifications}
                         getNotifications={this.props.getNotifications}
                         getId={this.props.getNotifId}>
-                         <Icon 
-                            svg 
-                            type='notification' 
+                         <Icon
+                            svg
+                            type='notification'
                             size={20}
                             title='Уведомления'
                         />

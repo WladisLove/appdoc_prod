@@ -54,7 +54,7 @@ export const getActualTreatments = () => {
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
 }
 export const getCompletedTreatments = () => {
     return (dispatch, getState) => {
@@ -169,10 +169,10 @@ export const selectTreatment = (treatId) => {
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
 }
 
-export const uploadChatFile = (id_zap,id_user,file, callback) => {
+export const uploadChatFile = (id_zap, id_user, file, callback) => {
     return (dispatch) => {
         axios.post('/catalog.doc2/saveFilesChat',
             JSON.stringify({
@@ -181,16 +181,17 @@ export const uploadChatFile = (id_zap,id_user,file, callback) => {
                 file: [file]
             }))
             .then(res => {
+                console.log(res, "RES FROM SAVE FILES CHAT");
                 const {result} = res.data;
                 (callback instanceof Function) && result &&  callback(result[0]);
             })
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
 }
 
-export const uploadConclusion = (id_zap,file, callback) => {
+export const uploadConclusion = (id_zap, file, callback) => {
     return (dispatch) => {
         //console.log(file.thumbUrl.substr(0,50));
         axios.post('/catalog.doc2/saveFilesZak',
@@ -205,7 +206,7 @@ export const uploadConclusion = (id_zap,file, callback) => {
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
 }
 
 export const getAllFilesTreatment = (treatId) => {
@@ -234,7 +235,7 @@ export const seletVisit = (visId, callback) => {
                     visitInfo: res.data,
                     callback: callback,
                 });
-                
+
                 //(callback instanceof Function) && callback();
             })
             .catch(err => {
@@ -260,7 +261,7 @@ export const changeReceptionStatus = (id,key) => {
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
 }
 
 export const getReceptionDuration = (id) => {
@@ -274,7 +275,7 @@ export const getReceptionDuration = (id) => {
             .catch(err => {
                 console.log(err);
         })
-    }    
+    }
 }
 
 export const clearCallback = () => {

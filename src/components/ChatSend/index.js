@@ -26,7 +26,7 @@ class ChatSend extends React.Component{
         this.setState({isGenerated: false})
             previewFile(file.originFileObj, function (previewDataUrl) {
                 file.thumbUrl = previewDataUrl;
-                
+
                 that.setState({
                     isGenerated: true,
                 });
@@ -39,7 +39,7 @@ class ChatSend extends React.Component{
         this.modifyFiles(e.file, isConclusion);
     }
 
-    sendHandler = () => {        
+    sendHandler = () => {
         this.inp.focus();
         this.state.value && (this.props.send({
             text: this.state.value,
@@ -65,7 +65,7 @@ class ChatSend extends React.Component{
                 },
                 onCancel() {},
               });
-            
+
         }
         else {
             Modal.error({
@@ -77,33 +77,33 @@ class ChatSend extends React.Component{
     fileAddingHandler = (e) => {
         const {disable} = this.props;
         if(!disable) {
-            this.pushFiles(e,true);
-        } 
+            this.pushFiles(e,false);
+        }
         else {
             Modal.error({
                 title: 'Не удалось прикрепить файл',
               });
         }
 
-        
+
     }
 
     render(){
         const { TextArea } = Input;
         const {message, attachment, disable} = this.props;
-        
+
         return (
             <div className='message__send'>
                 <div className='message__send-area'>
-                    <TextArea 
+                    <TextArea
                         ref={inp => this.inp = inp}
                         value = {this.state.value}
                         onChange = { e => {
-                            e.target.value.charCodeAt(e.target.value.length - 1) === 10 
+                            e.target.value.charCodeAt(e.target.value.length - 1) === 10
                                 ? (!disable && this.sendHandler())
                                 : this.setState({value: e.target.value})
                         }}
-                        placeholder="Ваше сообщение..." 
+                        placeholder="Ваше сообщение..."
                         autosize />
                 </div>
                 <div className='message__send-btns'>
@@ -140,7 +140,7 @@ class ChatSend extends React.Component{
                         disable = {disable}
                         onClick = {this.sendHandler}
                     />}
-                    {this.props.isUser ? 
+                    {this.props.isUser ?
                     (<Button
                         btnText='оставить отзыв'
                         size='default'

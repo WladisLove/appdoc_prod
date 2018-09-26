@@ -132,7 +132,7 @@ class Step1Form extends React.Component{
                                 rules: [{ required: true,
                                     message: 'Введите дату, пожалуйста' }],
                             })(
-                                <DatePicker placeholder="дд/мм/гггг"/>
+                                <DatePicker placeholder="дд.мм.гггг"/>
                             )}
                         </div>
                     </FormItem>

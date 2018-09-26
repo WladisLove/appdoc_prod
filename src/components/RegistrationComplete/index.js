@@ -15,9 +15,12 @@ class RegistrationComplete extends React.Component{
         const {text,phone} = this.props;
         return (
             <div className="registration-form">
-                <div className="registration-title">Спасибо!</div>
+                <div className="registration-title">Спасибо, что вы с нами!</div>
                 <div className="loginforget-body">
-                    {this.props.isPatientReg ? "Регистрация завершена." : "Ваша заявка отправлена."} <br />
+                    {this.props.isPatientReg ?
+                        "Регистрация завершена. Пароль для входа отправлен на вашу почту" :
+                        "После обработки данных мы пришлём пароль вам на почту"}
+                        <br />
                     {text}
                 </div>
                 <div className="login-form-control">

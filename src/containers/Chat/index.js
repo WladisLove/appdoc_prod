@@ -61,7 +61,7 @@ class Chat extends React.Component{
             uploadFile: this.props.uploadFile,
             setReceptionStatus: this.props.setReceptionStatus,
             setChatToId: this.props.setChatToId,
-
+            uploadConclusion: this.props.uploadConclusion,
             getAllFilesTreatment: this.props.getAllFilesTreatment,
             treatmFiles: this.props.treatmFiles,
         }
@@ -143,8 +143,8 @@ const mapDispatchToProps = dispatch => {
         clearTodayReceptions: () => dispatch(actions.clearIntervals()),
         onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
         clearSelectionsTRandVIS: () => dispatch(actions.clearSelections()),
-        uploadFile: (id_zap,id_user, file,callback) => dispatch(actions.uploadChatFile(id_zap,id_user, file,callback)),
-        uploadConclusion: (id_zap,file,callback) => dispatch(actions.uploadConclusion(id_zap,file,callback)),
+        uploadFile: (id_zap, id_user, file, callback) => dispatch(actions.uploadChatFile(id_zap,id_user, file,callback)),
+        uploadConclusion: (id_zap, file, callback) => dispatch(actions.uploadConclusion(id_zap,file,callback)),
         getAllFilesTreatment: (treatmId) => dispatch(actions.getAllFilesTreatment(treatmId)),
         changeReceptionStatus: (id, key) => dispatch(actions.changeReceptionStatus(id,key)),
         getReceptionDuration: (id) => dispatch(actions.getReceptionDuration(id)),

@@ -110,7 +110,7 @@ class ChatCard extends React.Component {
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
 
-	uploadOnlyFile = (id_zap,id_user, callback) => {
+	uploadOnlyFile = (id_zap, id_user, callback) => {
 		return (file, isConclusion) => {
 			isConclusion ? (
 				this.props.uploadConclusion(id_zap,file, callback),
@@ -168,7 +168,7 @@ class ChatCard extends React.Component {
 			receptionStarts: this.props.receptionStarts,
 			fromTR_VIS: this.props.fromTR_VIS,
 			user_mode: this.props.user_mode,
-			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.callerID, fileUploadCallback),
+			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.isUser ? this.props.callerID: this.props.calledID, fileUploadCallback),
 			receptionId: this.props.receptionId,
 			isCurVisEnd: this.state.isCurVisEnd,
 			treatmFiles: this.props.treatmFiles,
@@ -187,33 +187,27 @@ class ChatCard extends React.Component {
 			isCalling: this.props.isCalling,
 			isActiveChat: this.state.isActiveChat,
 			isEnded: this.props.isEnded,
-		}
-        if(this.props.isUser) {
-            content = <ChatTextContent isActive={this.state.isActive}
-                                       {...chatProps}
-                                       {...chatAdditionalProps}
-            />;
-		} else {
-			switch (this.state.mode) {
-				case 'chat':
-					content = <ChatTextContent isActive={this.state.isActive}
-												{...chatProps}
-											   {...chatAdditionalProps}
-												/>;
-					break;
-				case 'voice':
-					content = <ChatAudioContent
-												{...chatProps}
-												{...chatAdditionalProps}
-												/>;
-					break;
-				case "video":
-					content = <ChatVideoContent
-												{...chatProps}
-												{...chatAdditionalProps}
-												/>;
-					break;
-			}
+        }
+
+        switch (this.state.mode) {
+            case 'chat':
+                content = <ChatTextContent isActive={this.state.isActive}
+                                           {...chatProps}
+                                           {...chatAdditionalProps}
+                />;
+                break;
+            case 'voice':
+                content = <ChatAudioContent
+                    {...chatProps}
+                    {...chatAdditionalProps}
+                />;
+                break;
+            case "video":
+                content = <ChatVideoContent
+                    {...chatProps}
+                    {...chatAdditionalProps}
+                />;
+                break;
         }
 
 

@@ -57,7 +57,7 @@ class LoginPage extends React.Component {
 
     render(){
 
-        const langs = ["Русский", "Английский", "Немецкий"];
+        const langs = ["Азербайджанский","Английский","Армянский","Белорусский","Испанский","Итальянский","Казахский","Киргизский","Китайский","Литовский","Молдавский","Немецкий","Польский","Русский","Таджикский","Узбекский","Украинский","Французский"];
         const payments = [10,20,30,40,50,75,100,200];
         const academicTitle = ['Нет звания',
             'Доцент',
@@ -69,7 +69,6 @@ class LoginPage extends React.Component {
             'Первая категория',
             'Вторая категория',
             'Высшая категория'];
-        const specs = ['Хирург', "Терапевт","Кардиолог","Офтальмолог", "Психиатр", "Стоматолог", "Невролог"];
 
         return (
             <Hoc>
@@ -111,7 +110,6 @@ class LoginPage extends React.Component {
                                                            langs={langs}
                                                            payments={payments}
                                                            category = {category}
-                                                           specs = {specs}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='Я ознакомлен с условиями работы и принимаю их'

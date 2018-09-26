@@ -35,7 +35,7 @@ class App extends React.Component {
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
-        }); 
+        });
     };
 
     componentWillUnmount(){
@@ -48,7 +48,7 @@ class App extends React.Component {
         let conn = new ab.Session('wss://appdoc.by/wss2/',
             function() {
                 that.props.getNotifications(that.props.id);
-                
+
                 conn.subscribe(""+that.props.id, function(topic, data) {
                     that.props.setExInfo(data.exInterval)
                     that.setState({notifications: JSON.parse(data.arr)})
@@ -62,7 +62,7 @@ class App extends React.Component {
     }
 
     runChatWS = () => {
-        const {chatProps, setChatFromId, setChatToId, setReceptionStatus, setIsCallingStatus, 
+        const {chatProps, setChatFromId, setChatToId, setReceptionStatus, setIsCallingStatus,
             setChatStory, onSelectReception, setNewTimer} = this.props;
         //'wss://appdoc.by:8443/one2one'
         //'wss://localhost:8443/one2one'
@@ -84,7 +84,7 @@ class App extends React.Component {
             get_isCalling: () => this.props.isCalling,
             get_user_mode: () => this.props.mode,
             get_chatStory: () => this.props.chatStory,
-
+            get_shortDocInfo: () => this.props.shortDocInfo,
             get_visitInfo: () => this.props.visitInfo,
             get_timer: () => this.props.timer,
 
@@ -97,9 +97,9 @@ class App extends React.Component {
     componentDidMount() {
         if(this.props.id){
             this.runNotificationsWS();
-            this.runChatWS();            
+            this.runChatWS();
         }
-        
+
     }
 
     componentWillMount(){
@@ -107,7 +107,7 @@ class App extends React.Component {
                 pass = localStorage.getItem('_appdoc-pass');
         (!this.props.id && !this.props.mode && login && pass) &&
         this.props.onLogin({
-            userName: login, 
+            userName: login,
             password: pass,
         }, this.props.history);
 
@@ -131,10 +131,10 @@ class App extends React.Component {
             <div className="main">
             {
                 this.props.id ?
-            
+
                 (<Hoc>
                     <div className={siderClass}>
-                    
+
                     <SideNav {...this.props.shortDocInfo}
                             rateValue={+(this.props.shortDocInfo.rateValue)}
                             onClick={this.toggle}
@@ -142,7 +142,7 @@ class App extends React.Component {
                             menuItems={isUser ? menuPatient : menuDoc}
                             isUser={isUser}
                             isShort={this.state.collapsed}/>
-                            
+
                 </div>
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
@@ -230,7 +230,7 @@ const mapStateToProps = state =>{
         isUserSet: state.doctor.isUserSetEx,
         freeVisitsIntervals: state.schedules.freeVisitsIntervals,
 
-        
+
             from: state.chatWS.from,
             to: state.chatWS.to,
             receptionStarts: state.chatWS.receptionStarts,
@@ -238,7 +238,7 @@ const mapStateToProps = state =>{
             chatStory: state.chatWS.chatStory,
             visitInfo: state.treatments.visitInfo,
             timer: state.chatWS.timer,
-        
+
     }
 }
 
@@ -259,7 +259,7 @@ const mapDispatchToProps = dispatch => {
         onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
         onMakeVisit: (info)=> dispatch(actions.setReceptionByPatient(info)),
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
-        
+
         setChatFromId: (id) => dispatch(actions.setChatFromId(id)),
         setChatToId: (id) => dispatch(actions.setChatToId(id)),
         setIsCallingStatus: (isCalling) => dispatch(actions.setIsCallingStatus(isCalling)),
