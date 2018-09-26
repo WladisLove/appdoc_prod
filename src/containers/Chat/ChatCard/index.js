@@ -168,7 +168,7 @@ class ChatCard extends React.Component {
 			receptionStarts: this.props.receptionStarts,
 			fromTR_VIS: this.props.fromTR_VIS,
 			user_mode: this.props.user_mode,
-			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.callerID, fileUploadCallback),
+			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.isUser ? this.props.callerID: this.props.calledID, fileUploadCallback),
 			receptionId: this.props.receptionId,
 			isCurVisEnd: this.state.isCurVisEnd,
 			treatmFiles: this.props.treatmFiles,

@@ -172,7 +172,7 @@ export const selectTreatment = (treatId) => {
     }
 }
 
-export const uploadChatFile = (id_zap,id_user,file, callback) => {
+export const uploadChatFile = (id_zap, id_user, file, callback) => {
     return (dispatch) => {
         axios.post('/catalog.doc2/saveFilesChat',
             JSON.stringify({
@@ -191,7 +191,7 @@ export const uploadChatFile = (id_zap,id_user,file, callback) => {
     }
 }
 
-export const uploadConclusion = (id_zap,file, callback) => {
+export const uploadConclusion = (id_zap, file, callback) => {
     return (dispatch) => {
         //console.log(file.thumbUrl.substr(0,50));
         axios.post('/catalog.doc2/saveFilesZak',

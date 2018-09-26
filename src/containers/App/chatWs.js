@@ -221,7 +221,7 @@ const incomingCall = (message) => {
     setCallState(PROCESSING_CALL);
     console.log(message, "MODAL message");
     Modal.confirm({
-        title: `Доктор с id ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
+        title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
         width: '300px',
         okText: 'Да',
         cancelText: 'Нет',
