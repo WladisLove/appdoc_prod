@@ -41,8 +41,8 @@ export const login = (userName, password, remember, history, isAuto) => {
                     login: userName,
                     password: password,
                 }))
-                    .then(res => {     
-                        !res.data.error 
+                    .then(res => {
+                        !res.data.error
                             ? (
                                 dispatch(authSuccess(res.data.id, res.data.usergroup)),
                                 dispatch(setOnlineStatus(res.data.id, true)),
@@ -71,7 +71,7 @@ export const login = (userName, password, remember, history, isAuto) => {
 
 export const registerDoctor = (data) => {
     delete data.avatarThumb;
-    return (dispatch) => {
+    return () => {
 
         const fillNewField = (res, name) => {
             const info = name.split('-');
@@ -91,7 +91,7 @@ export const registerDoctor = (data) => {
                     ...array[+info[2]],
                     [info[1]]: (info[1].indexOf('photo')+1 || info[1].indexOf('copycontract')+1)
                         ? data[name]
-                            ? data[name].fileList
+                            ? data[name]
                             : []
                         : data[name],
                 };
@@ -184,7 +184,7 @@ export const checkEmailAvailability = (email) => {
 };
 
 const rememberMe = (flag, userName, password) => {
-    flag ? 
+    flag ?
         (localStorage.setItem('_appdoc-user',userName),
         localStorage.setItem('_appdoc-pass',password))
         : null;
