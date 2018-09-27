@@ -1,5 +1,6 @@
 import kurentoUtils from 'kurento-utils'
 import {Modal} from "antd";
+import soundCall from "../../sounds/inc-call.mp3"
 
 let ws,
     callbacks,
@@ -219,19 +220,26 @@ const incomingCall = (message) => {
 
 
     setCallState(PROCESSING_CALL);
+    let call = new Audio(soundCall);
     console.log(message, "MODAL message");
-    Modal.confirm({
-        title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
-        width: '300px',
-        okText: 'Да',
-        cancelText: 'Нет',
-        centered: true,
-        onOk() {
-            acceptCall();
-        },
-        onCancel() {
-            declineCall();
-        }});
+    call.play().then(
+        Modal.confirm({
+            title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
+            width: '300px',
+            okText: 'Да',
+            cancelText: 'Нет',
+            centered: true,
+            onOk() {
+                call.pause();
+                acceptCall();
+            },
+            onCancel() {
+                call.pause();
+                declineCall();
+            }})
+    );
+
+
 
 
 

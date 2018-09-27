@@ -4,20 +4,20 @@ import PropTypes from 'prop-types'
 import TreatmentTableItem from '../TreatmentTableItem'
 import Card from '../Card'
 import Icon from '../Icon'
-import ScrollArea from 'react-scrollbar'
 import './style.css'
 import '../../icon/style.css'
 import Spinner from "../Spinner";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 class TreatmentTable extends React.Component{
 
     treatmentRender = (dataArr) => {
-        return dataArr.map((item) => {
-            return (<TreatmentTableItem {...item} 
+        return dataArr.map((item, index) => {
+            return (<TreatmentTableItem {...item}
                                 onGotoChat = {this.props.onGotoChat}
-                                onGoto={this.props.onGoto} 
-                                data={this.props.data} 
-                                key={item.id_treatment}
+                                onGoto={this.props.onGoto}
+                                data={this.props.data}
+                                key={index}
                                 isUser = {this.props.isUser}
 
             />)
@@ -33,13 +33,11 @@ class TreatmentTable extends React.Component{
                         extra={<div className='go-to' onClick={this.props.redirect}>
                             <Icon svg size={16} type="order-form" /> <span>Все обращения</span>
                         </div>}>
-                    <ScrollArea
+                    <PerfectScrollbar
                         speed={1}
-                        className=""
                         contentClassName="content"
                         horizontal={true}
                     >
-
                                 <div className="tableheader">
                                     <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Врач" : "Имя пациента"}</div></div>
                                     <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
@@ -54,7 +52,7 @@ class TreatmentTable extends React.Component{
                             <div className="treatment-all-spinner"><Spinner/></div>
                             : data.length ? this.treatmentRender(data)
                                 : <div className='entry-list'>{this.props.isUser ? "Приёмов нет" : "Обращений нет"}</div>}
-                        </ScrollArea>
+                        </PerfectScrollbar>
                   </Card>
             </div>
         )
