@@ -155,7 +155,6 @@ class ChatCard extends React.Component {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
 
 		let content;
-
 		const chatProps= {
 			from: this.props.callerID,
 			to: this.props.calledID,
