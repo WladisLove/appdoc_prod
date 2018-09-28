@@ -70,11 +70,13 @@ export const setReception = (reception) => {
     }
 }
 export const setReceptionByPatient = (reception) => {
+
     return (dispatch, getState) => {
         let obj = {
             ...reception,
             id_user: getState().auth.id
         };
+        console.log("DATA TO SEND MAKING APP", obj);
         return axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {

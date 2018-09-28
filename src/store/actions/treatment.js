@@ -91,7 +91,7 @@ export const getCompletedApps = () => {
     }
 }
 export const addFileToApp = (file, id) => {
-    return (dispatch, getState) => {
+    return () => {
         let obj = {
             id: id,
             files: [file]

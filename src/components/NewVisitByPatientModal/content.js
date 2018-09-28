@@ -21,21 +21,22 @@ class ContentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
+            console.log(values, "VALUES FROM NEW VISIT");
             if (!err) {
                 this.setState({loading:true});
                 let newDate = this.props.date;
 
                 let response = this.props.isChoosebleTime ? (
                     newDate.setHours(values.time[1].format('HH')),
-                        newDate.setMinutes(values.time[1].format('mm')),
-                        {
-                            ...this.props.form.getFieldsValue(),
-                            comment: this.state.message,
-                            date: Math.floor((newDate).getTime() / 1000),
-                            file: this.props.form.getFieldValue('file')
-                                ? (this.props.form.getFieldValue('file').fileList)
-                                : [],
-                        }
+                    newDate.setMinutes(values.time[1].format('mm')),
+                    {
+                        ...this.props.form.getFieldsValue(),
+                        comment: this.state.message,
+                        date: Math.floor((newDate).getTime() / 1000),
+                        file: values.file ? values.file.fileList.map((item) => {
+                            return {name: item.originFileObj.name, thumbUrl: item.originFileObj.thumbUrl}
+                        }) : [],
+                    }
                 ) : (
                     {
                         ...this.props.form.getFieldsValue(),
@@ -43,11 +44,12 @@ class ContentForm extends React.Component {
                         date: this.props.date,
                         id_doc: this.props.docId,
                         type: this.props.type,
-                        file: this.props.form.getFieldValue('file')
-                            ? (this.props.form.getFieldValue('file').fileList)
-                            : [],
+                        file: values.file ? values.file.fileList.map((item) => {
+                            return {name: item.originFileObj.name, thumbUrl: item.originFileObj.thumbUrl}
+                        }) : [],
                     }
                 );
+
                 this.props.onSave(response).then((res)=> {
                    if(res.data.code===200) {
                        message.success("Запись прошла успешно");

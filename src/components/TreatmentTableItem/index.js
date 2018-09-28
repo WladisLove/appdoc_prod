@@ -40,13 +40,13 @@ class TreatmentTableItem extends React.Component{
         const rootClass = cn('treatment');
         const key_val = {
             'chat': 'chat1',
-            'voice': 'telephone', 
+            'voice': 'telephone',
             'video': "video-camera",
         }
         const name = isUser ? doc_name: user_name;
         const conclusionMessage = isUser ? "Ожидайте заключение": "Необходимо заключение";
         return (
-            <div className={rootClass} 
+            <div className={rootClass}
                     onClick={(e) => {
                         onGotoChat(id)
                         this.handleClick(e);
@@ -122,11 +122,7 @@ TreatmentTableItem.propTypes = {
     diagnostic: PropTypes.string,
     comments: PropTypes.string,
     price: PropTypes.string,
-    conclusion: PropTypes.oneOfType([
-        PropTypes.shape({
-            Name: PropTypes.string,
-            link: PropTypes.string,
-    })]),
+    conclusion: PropTypes.string,
     rating: PropTypes.oneOfType([
         PropTypes.number
     ]),
