@@ -14,7 +14,7 @@ const DoctorPage = props => {
 
     const gotoHandler = (id) => {
 		props.onSelectPatient(id);
-		props.history.push('/patient'+id);
+		props.history.push('/app/patient'+id);
 	}
 
     return (
@@ -31,7 +31,7 @@ const DoctorPage = props => {
 										onGoto={(val) => gotoHandler(val)}
 										onBegin={(val) => {
 											props.onSelectReception(val)
-											props.history.push('/chat')
+											props.history.push('/app/chat')
 										}}
 										onCancel={props.showCancel}
 										onAdd = {props.onAdd}
@@ -43,10 +43,10 @@ const DoctorPage = props => {
 									 onGoto={(val) => gotoHandler(val)}
 									 onGotoChat={(id) => {
                                         props.onSelectTretment(id);
-                                        props.history.push('/chat');
+                                        props.history.push('/app/chat');
                                     }}
 									 isDoctor={true}
-									 redirect={() => {props.history.push('/reviews');}}/>
+									 redirect={() => {props.history.push('/app/reviews');}}/>
 						</Col>
 					</Row>
 					<Row>
@@ -55,10 +55,10 @@ const DoctorPage = props => {
 											onGoto={(id) => gotoHandler(id)}
 											onGotoChat = {(id) => {
                                                 props.onSelectTretment(id);
-												props.history.push('/chat');
+												props.history.push('/app/chat');
 											}}
                                             treatmentsLoaded={props.completedAppsLoaded}
-											redirect={() => props.history.push('/treatment')}
+											redirect={() => props.history.push('/app/treatment')}
 							/>
 						</Col>
 					</Row>
@@ -70,7 +70,7 @@ const DoctorPage = props => {
 									onCancel={props.closeAdd}
 									onSave = {props.onSaveNewVisit}
 					/>
-					<CancelVisitModal visible={props.cancelModal} 
+					<CancelVisitModal visible={props.cancelModal}
 									onGoto={() => {}}
 									onCancel={props.closeCancel}
 									onSave={props.saveCancel}

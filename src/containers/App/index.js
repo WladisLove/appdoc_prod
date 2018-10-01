@@ -115,11 +115,11 @@ class App extends React.Component {
     }
 
     gotoHandler = (id) => {
-        this.props.auth.mode !== "user" ? this.props.history.push('/patient'+id) : this.props.history.push('/doctor'+id)
+        this.props.auth.mode !== "user" ? this.props.history.push('/app/patient'+id) : this.props.history.push('/app/doctor'+id)
     };
 
     logoClick = () => {
-        (this.props.history.location.pathname !== "/") && this.props.history.push('/');
+        (this.props.history.location.pathname !== "/app") && this.props.history.push('/app');
     }
 
     render() {

@@ -165,7 +165,7 @@ class PatientsPage extends React.Component{
                             <HistoryReceptions data={this.props.appsBetween}
                                                appsBetweenCount = {this.props.appsBetweenCount}
                                                getApps = {this.props.onGetAppointments}
-                                               onGotoChat={(id) => this.props.history.push('/chat')}
+                                               onGotoChat={(id) => this.props.history.push('/app/chat')}
                                                id_doc={this.props.match.params.id}
                                                personalPage = {true}
                                                isUser = {this.props.mode === "user"}

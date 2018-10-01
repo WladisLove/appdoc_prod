@@ -11,7 +11,7 @@ import NewFreeVisitByPatient from "../../components/NewFreeVisitByPatient";
 const PatientPage = props => {
     const gotoHandler = (id) => {
         props.onSelectPatient(id);
-        props.history.push('/doctor'+id);
+        props.history.push('/app/doctor'+id);
     };
     return (
         <Hoc>
@@ -55,7 +55,7 @@ const PatientPage = props => {
                         style={{height: 485}}
                         data={props.nearVisits}
                         onGoto={() => console.log('click')}
-                        redirect={() => props.history.push('/calendar')}
+                        redirect={() => props.history.push('/app/calendar')}
                         nearVisitsLoaded = {props.nearVisitsLoaded}
                     />
                 </Col>
@@ -89,7 +89,7 @@ const PatientPage = props => {
                     <PatientDoctor
                         data = {props.doctors}
                         onGoto={gotoHandler}
-                        redirect={() => props.history.push('/doctors')}
+                        redirect={() => props.history.push('/app/doctors')}
                         intervals={props.intervals}
                         onGetAllDocIntervals={props.onGetAllDocIntervals}
                         onGetIntervalForDate={props.onGetIntervalForDate}
@@ -106,7 +106,7 @@ const PatientPage = props => {
                 <Col>
                     <TreatmentTable
                         isUser={props.isUser}
-                        redirect={() => props.history.push('/treatment')}
+                        redirect={() => props.history.push('/app/treatment')}
 
                         data={props.completedApps}
                         onGoto={gotoHandler}

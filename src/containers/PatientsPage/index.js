@@ -62,7 +62,7 @@ class PatientsPage extends React.Component{
                                                onGotoChat={(id) => {
                                                    console.log(id, "ID GO TO CHAT");
                                                    this.props.onSelectTretment(id);
-                                                   this.props.history.push('/chat')
+                                                   this.props.history.push('/app/chat')
                                                }}
                                                getApps={this.props.onGetAppointments}
                                                id_user={this.props.match.params.id}
