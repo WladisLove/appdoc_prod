@@ -88,9 +88,6 @@ export const compileToClientDoctor = (doc) => {
 };
 
 export const compileToServerDoctor = (doc) => {
-    for ( let key in doc) {
-        if(!doc[key]) delete doc[key]
-    }
     console.log(doc, "DOC to func compiler ToServerDoctor");
     //
     // let arrayMain = [];
@@ -140,27 +137,5 @@ export const compileToServerDoctor = (doc) => {
     // }
 
 
-    return {
-        "email": doc.email,
-        "fio": doc.fio,
-        "phone": doc.phone,
-        // "educationsgroup1": arrayMain,
-        // "educationsgroup2": arraySecond,
-        // "category": doc.category,
-        // "academicdegree": doc.degree.name,
-        // "academicdegreedoc": doc.degree.documents,
-        // "academicstatus": doc.academicstatus,
-        // "academicstatusdoc": doc.academicstatusdoc,
-        // "language": doc.langData,
-        // "consultationPrice": doc.priceData,
-        // "isChildConsult": doc.consultChildren,
-        // "isFreeConsult": doc.freeConsult,
-        // "id": doc.id,
-        //
-        // "works": arrayExpWork,
-        // "experience": doc.experience,
-        // "isworking" : doc.isWorking,
-        // "active"      : doc.active,
-        "avatar"      : doc.avatar
-    };
+    return doc;
 };

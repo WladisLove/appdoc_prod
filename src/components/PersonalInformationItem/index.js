@@ -10,6 +10,7 @@ import Radio from '../RadioBox'
 import './style.css'
 import '../../icon/style.css'
 import {Form} from "antd/lib/index";
+import SelectNew from "../SelectNew";
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -21,24 +22,21 @@ class PersonalInformationItemForm extends React.Component{
             experBlock: 0
         }
     }
-    addPersonInfo = (values) => {
-        let pr = this.props.profileDoctor;
-        pr.langData = values.languagesField;
-        pr.priceData = values.priceField;
-
-        if(values.childrenField === 1) pr.consultChildren =  true;
-        else pr.consultChildren =  false;
-        pr.freeConsult = values.freeConsultField;
-
-        return pr;
+    preparePersonInfo = (values) => {
+        return {
+            langData: values.language,
+            consultChildren: values.isChildConsult,
+            priceData: values.consultPayment,
+            freeConsult: values.isFreeConsult
+        }
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let newProfile = this.addPersonInfo(values);
-                this.props.form.resetFields();
+                let newProfile = this.preparePersonInfo(values);
+                console.log(newProfile);
                 this.props.onSubmit(newProfile);
             }
         });
@@ -46,75 +44,60 @@ class PersonalInformationItemForm extends React.Component{
 
     render(){
         const { getFieldDecorator } = this.props.form;
-        const Option = Select.Option;
 
-        const langOptions = ['Английский', 'Русский', 'Немецкий', 'Японский'].map(lang => <Option key={lang}>{lang}</Option>);
-        const priceData = ['менее 50 руб', '50 - 100 руб', '100 - 200 руб', '200 - 500 руб', '500 - 1000 руб', 'более 1000руб'];
+        const {langData, consultChildren, priceData, freeConsult} = this.props.profileDoctor;
+        console.log(this.props.profileDoctor);
+        const {langs, payments} = this.props;
 
-        const priceOptions = priceData.map(price => <Option key={price}>{price}</Option>);
         const rootClass = cn('personal-information');
         const RadioGroup = Radio.Group;
 
         return (
                 <Form className={rootClass} onSubmit={this.handleSubmit}>
                     <div className="personal-block">
-                        <div className="personal-item">
-                            <FormItem className="personal-item" >
-                                {getFieldDecorator('languagesField', {
-                                    initialValue: this.props.profileDoctor.langData,
-                                    rules: [{
-                                        required: true,
-                                        message: 'Знание языков'
-                                    }],
-                                })(
-                                    <Select  mode="multiple" placeholder="Знание языков">
-                                      {langOptions}
-                                    </Select>
-                                )}
-                            </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('language', {
+                                initialValue: langData
+                            })(
+
+                                <SelectNew width ="100%"
+                                           bubbleplaceholder="Владение языками"
+                                           className="personal-block-form-item"
+                                           mode="multiple"
+                                           data={langs}
+                                />
+                            )}
+                        </FormItem>
+                        <div className='radio-label'>Консультация детей:
+                            {getFieldDecorator('isChildConsult', {
+                                initialValue: consultChildren
+                            })(
+                                <RadioGroup>
+                                    <Radio value={true}>Да</Radio>
+                                    <Radio value={false}>Нет</Radio>
+                                </RadioGroup>
+                            )}
                         </div>
-                        <div className="personal-item">
-                            <div className="radio-block">
-                                <div className="radio-title">Консультация детей:</div>
-                                <FormItem className="personal-item" >
-                                    {getFieldDecorator('childrenField', {
-                                        initialValue: this.props.profileDoctor.consultChildren ? 1 : 2,
-                                        rules: [{
-                                            required: true,
-                                            message: 'Введите проводите ли консультацию с детьми'
-                                        }],
-                                    })(
-                                        <RadioGroup>
-                                            <Radio value={1}>Да</Radio>
-                                            <Radio value={2}>Нет</Radio>
-                                        </RadioGroup>
-                                    )}
-                                </FormItem>
-                            </div>
-                        </div>
-                        <div className="personal-item">
-                            <FormItem className="personal-item" >
-                                {getFieldDecorator('priceField', {
-                                    initialValue: this.props.profileDoctor.priceData,
-                                })(
-                                    <Select placeholder="Желаемая оплата">
-                                      {priceOptions}
-                                    </Select>
-                                )}
-                            </FormItem>
-                        </div>
-                        <div className="personal-item">
-                            <div className="radio-block">
-                                <div className="radio-title">Готовы проводить консультации бесплатно?</div>
-                                <FormItem className="personal-item" >
-                                    {getFieldDecorator('freeConsultField', {
-                                        valuePropName: 'checked',
-                                        initialValue: this.props.profileDoctor.freeConsult,
-                                    })(
-                                        <Checkbox>Да</Checkbox>
-                                    )}
-                                </FormItem>
-                            </div>
+                        <FormItem>
+                            {getFieldDecorator('consultPayment', {
+                                initialValue: priceData
+                            })(
+                                <SelectNew width ="100%"
+                                           bubbleplaceholder="Желаемая сумма оплаты за консультацию"
+                                           className="personal-block-form-item"
+                                           data={payments}
+                                />
+                            )}
+                        </FormItem>
+                        <div className='radio-label'>Готовы проводить консультации бесплатно?
+                            {getFieldDecorator('isFreeConsult', {
+                                initialValue: freeConsult
+                            })(
+                                <RadioGroup>
+                                    <Radio value={true}>Да</Radio>
+                                    <Radio value={false}>Нет</Radio>
+                                </RadioGroup>
+                            )}
                         </div>
                     </div>
 
