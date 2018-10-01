@@ -1,6 +1,7 @@
 import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 import {getDocShortInfo} from "./doctor";
+import {getInfoDoctor} from "./doctorData";
 
 export const sendNewInfoPatient = (data) => {
     return (dispatch) => {
@@ -76,6 +77,8 @@ export const deleteAvatar = (id) => {
         axios.get('/catalog.doc2/deleteAvatar/id/' + user_id)
             .then(res => {
                 dispatch(getInfoPatient(user_id));
+
+
             })
             .catch(err => {
                 console.log(err);

@@ -26,6 +26,8 @@ class PersonalContact extends React.Component{
                         <PersonalContactItem
                             profileDoctor={this.props.profileDoctor}
                             onSubmit={this.props.onSubmit}
+                            onSubmitPassword={this.props.onSubmitPassword}
+                            onDeleteAvatar={this.props.onDeleteAvatar}
                         />
                     </Panel>
                 </Accordion>

@@ -77,8 +77,10 @@ class PersonalInfo extends React.Component{
                         <Row>
                             <Col xs={24} xxl={18}>
                                 <PersonalContact
+                                    onSubmitPassword={this.onSubmitPasswordPatient}
                                     profileDoctor={profile}
                                     onSubmit={this.onSubmit}
+                                    onDeleteAvatar={this.props.onDeleteAvatar}
                                 />
                             </Col>
                         </Row>

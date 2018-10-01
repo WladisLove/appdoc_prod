@@ -3,9 +3,9 @@ import * as actionTypes from './actionTypes';
 import moment from "moment";
 
 export const sendNewInfoDoctor = (data) => {
-
-    return (dispatch) => {
-
+    console.log(data, "DATA TO UPDATE USER DOC");
+    return (dispatch, getState) => {
+        data.id=getState().auth.id;
          axios.post('/fusers.doc/updateUserDoc',
                     JSON.stringify(data))
             .then(res => {
