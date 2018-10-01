@@ -24,7 +24,7 @@ class Treatment extends React.Component{
 
     gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
-		let link = this.props.mode==="user"?"doctor":"patient";
+		let link = this.props.mode==="user"?"app/doctor":"app/patient";
 		this.props.history.push(link+id);
 	};
 
@@ -42,7 +42,7 @@ class Treatment extends React.Component{
                             isUser={this.props.mode === "user"}
                             onGotoChat = {(id) => {
                                 this.props.onSelectTretment(id);
-                                this.props.history.push('/chat');
+                                this.props.history.push('/app/chat');
                             }}
                             treatmentsCount ={this.props.treatmentsCount}
                             onSubmit={this.props.makeReview}

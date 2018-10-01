@@ -49,7 +49,7 @@ export const login = (userName, password, remember, history, isAuto) => {
                                 sessionStorage.setItem('_appdoc-id', res.data.id),
                                 sessionStorage.setItem('_appdoc-mode', res.data.usergroup),
                                 rememberMe(remember, userName, password),
-                                history.push('/')
+                                history.push('/app')
                             )
                             : (
                                 dispatch(authFail(res.data.error)),

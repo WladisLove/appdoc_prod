@@ -71,10 +71,11 @@ class DoctorPageNewVisitForm extends React.Component {
 
                 values.comment ? obj.comment=values.comment : null;
 
-                if(values.file) {
-                    obj.file = values.file.fileList.map((item, index) => { return {name: item.name, thumbUrl: item.thumbUrl}})
+                if (values.file) {
+                    obj.file = values.file.fileList.map((item) => {
+                        return {name: item.originFileObj.name, thumbUrl: item.originFileObj.thumbUrl}
+                    })
                 }
-
                 this.props.onMakeNewAppointment(obj).then((res)=>{
                     if(res.data.code===200) {
                         message.success("Запись прошла успешно");

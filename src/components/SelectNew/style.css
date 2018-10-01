@@ -20,13 +20,13 @@
   background: transparent;
 }
 .new-input .ant-select-selection-selected-value {
-  color: #333;
+  color: #191919;
 }
 .new-input input[type="text"] {
   outline: none;
   font-size: 14px;
   line-height: 36px;
-  color: #333333;
+  color: #191919;
   width: 100%;
   box-sizing: border-box;
 }

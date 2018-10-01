@@ -17,9 +17,9 @@ class Reviews extends React.Component{
 	gotoHandler = (id) => {
 	    if(this.props.isDoctor) {
             this.props.onSelectPatient(id);
-            this.props.history.push('/patient'+id);
+            this.props.history.push('/app/patient'+id);
         } else {
-            this.props.history.push('/doctor'+id);
+            this.props.history.push('/app/doctor'+id);
         }
 
 	};
@@ -45,7 +45,7 @@ class Reviews extends React.Component{
 										 this.props.onGetAllReviews : this.props.onGetAllReviewsByPatient}
                                      onSend={obj => this.props.onSendAnswer(obj)}
                                      onGoto={(val) => this.gotoHandler(val)}
-                                     onGotoChat={(id) => this.props.history.push('/chat')}
+                                     onGotoChat={(id) => this.props.history.push('/app/chat')}
 									 isDoctor={this.props.isDoctor}
                         />
                     </Col>
