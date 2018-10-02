@@ -50,8 +50,9 @@ class App extends React.Component {
                 that.props.getNotifications(that.props.id);
 
                 conn.subscribe(""+that.props.id, function(topic, data) {
-                    that.props.setExInfo(data.exInterval)
-                    that.setState({notifications: JSON.parse(data.arr)})
+                    that.props.setExInfo(data.exInterval);
+                    console.log(data.arr);
+                    that.setState({notifications: JSON.parse(data.arr)});
                 });
             },
             function() {
@@ -127,6 +128,8 @@ class App extends React.Component {
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
         const isUser = (this.props.mode === "user");
+
+        console.log('notif', this.state.notifications);
         return (
             <div className="main">
             {
@@ -203,6 +206,7 @@ class App extends React.Component {
                         <div className="main-footer-item company">AppDoc 2018</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div>
+                    <button className='emergencyCall' onClick={()=>console.log('eeeeed')}>Запрос на экстренный вызов</button>
                     <button id="bugfix" onClick={()=>this.setState({bugfixVisible: true})}></button>
                     <ReportBugModal
                         visible={this.state.bugfixVisible}
