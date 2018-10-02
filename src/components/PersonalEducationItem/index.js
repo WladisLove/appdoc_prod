@@ -396,7 +396,8 @@ class PersonalEducationItemForm extends React.Component{
                             {elem.speciality.join(', ')}
                         </p>
                     </div>
-                    <Button onClick={() => {
+                    <Button onClick={(e) => {
+                        e.preventDefault();
                         let newMainEducationArr = this.state.mainEducationArr;
                         newMainEducationArr.splice(i, 1);
                         this.setState({mainEducationArr: newMainEducationArr});
@@ -425,7 +426,8 @@ class PersonalEducationItemForm extends React.Component{
                             {elem.ciklname}
                         </p>
                     </div>
-                    <Button onClick={() => {
+                    <Button onClick={(e) => {
+                        e.preventDefault();
                         let newSecondEducationArr = this.state.secondEducationArr;
                         newSecondEducationArr.splice(i, 1);
                         this.setState({secondEducationArr: newSecondEducationArr});
