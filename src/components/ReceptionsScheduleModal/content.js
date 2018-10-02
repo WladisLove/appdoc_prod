@@ -276,7 +276,11 @@ class ContentForm extends React.Component {
                                 {getFieldDecorator('type', {
                                     initialValue: type
                                 })(
-                                    <Radio icons={['chat1','telephone', "video-camera"]}/>
+                                    <Radio
+                                        icons={['chat1','telephone', "video-camera"]}
+                                        makingSchedule = {true}
+
+                                    />
                                 )}
                             </FormItem>
                             <FormItem>
