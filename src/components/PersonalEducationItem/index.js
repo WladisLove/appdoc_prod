@@ -20,7 +20,9 @@ class PersonalEducationItemForm extends React.Component{
         super(props);
         this.state = {
             educatBlock : 0,
-            idCurrentDegree : null
+            idCurrentDegree : null,
+            mainEducationArr: [],
+            secondEducationArr: []
         }
     }
 
@@ -339,12 +341,22 @@ class PersonalEducationItemForm extends React.Component{
             );
     };
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.profileDoctor !== this.props.profileDoctor) {
+            this.setState({
+                mainEducationArr: nextProps.profileDoctor.arrayMainInstitution,
+                secondEducationArr: nextProps.profileDoctor.arraySecondInstitution,
+            });
+        }
+    }
+
     render(){
         const { getFieldDecorator } = this.props.form;
-        const {arrayMainInstitution,  arraySecondInstitution,  arrayDegree} = this.props.profileDoctor;
+        const {mainEducationArr,  secondEducationArr,  arrayDegree} = this.state;
         const rootClass = cn('personal-education');
+        console.log(this.props.profileDoctor);
 
-        const instituions = arrayMainInstitution.map((elem) => {
+        const instituions = mainEducationArr.map((elem) => {
             return (
                 <div key={elem.id} className="personal-item mb-35 brd-b brd-d">
                     <div className="personal-info">
@@ -359,7 +371,7 @@ class PersonalEducationItemForm extends React.Component{
                     </div>
                 </div> );
         });
-        const instituionsSecond = arraySecondInstitution.map((elem) => {
+        const instituionsSecond = secondEducationArr.map((elem) => {
             return (
                 <div key={elem.id} className="personal-item pb-25 mb-35 brd-b brd-d">
                     <div className="personal-info">
