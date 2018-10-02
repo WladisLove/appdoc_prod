@@ -111,7 +111,6 @@ a:hover {
 }
 .personal-education .ant-form-item {
   position: relative;
-  margin-bottom: 45px;
   min-height: 65px;
 }
 .personal-education .ant-form-item .has-error .input-root-focus {

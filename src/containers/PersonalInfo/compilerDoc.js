@@ -2,93 +2,92 @@ import moment from 'moment';
 
 
 export const compileToClientDoctor = (doc) => {
-
-    let arrayMain = [];
-    let arraySecond = [];
-        for(let i = 0; i < doc.educationsgroup1.length; i++){
-            let date1 = (+doc.educationsgroup1[i].finishucationyear[0]  * 1000);
-            date1 = moment(date1);
-            let date2 = (+doc.educationsgroup1[i].finishucationyear[1]  * 1000);
-            date2 = moment(date2);
-
-            arrayMain.push({
-                id               : i,
-                mainInstitution  : doc.educationsgroup1[i].education,
-                mainSpecialty    : doc.educationsgroup1[i].speciality,
-                mainDateStart    : date1,
-                mainDateEnd      : date2,
-                documents        : doc.educationsgroup1[i].diplomphoto
-            })
-        }
-        for(let i = 0; i < doc.educationsgroup2.length; i++){
-            let date11 = (+doc.educationsgroup2[i].ucationyears[0] * 1000);
-            date11 = moment(date11);
-            let date22 = (+doc.educationsgroup2[i].ucationyears[1] * 1000);
-            date22 = moment(date22);
-            arraySecond.push({
-                id                 : i,
-                secondInstitution  : doc.educationsgroup2[i].education,
-                secondSpecialty    : "",
-                dateStart          : date11,
-                dateEnd            : date22,
-                documents          : doc.educationsgroup2[i].diplomphoto
-            })
-        }
-
-        let arrayExpWork = [];
-
-    for(let i = 0; i < doc.works.length; i++){
-        arrayExpWork.push({
-            id: i,
-            post: doc.works[i].post,
-            dateStart  : moment(doc.works[i].workdate * 1000),
-            placeOfWord : doc.works[i].worknow,
-            documents : doc.works[i].copycontract
-        })
-    }
-
-
-    if(!doc.language)
-        doc.language = [];
-
-    return {
-        /*personalContact*/
-        id          : doc.id,
-        fio         : doc.fio ,
-        phone       : doc.phone ,
-        email       : doc.email ,
-        oldPassword : "",
-        newPassword : "",
-
-        /*personEducation*/
-        arrayMainInstitution     : arrayMain,
-        arraySecondInstitution   : arraySecond,
-        degree : { 'name' : doc.academicdegree },
-        /*personExperience*/
-        expWork      : doc.experience,
-        arrayExpWork : arrayExpWork,
-        category : doc.category,
-
-        /*personInformation */
-        langData  : doc.language,
-        priceData : doc.consultationPrice,
-        consultChildren : doc.isChildConsult,
-        freeConsult : doc.isFreeConsult,
-
-        isWorking : doc.isworking /*||  true*/,
-
-        datebirth : doc.datebirth,
-        sex       : doc.sex,
-        academicstatus      : doc.academicstatus,
-        academicstatusdoc   : doc.academicstatusdoc,
-        academicdegreedoc   : doc.academicdegreedoc,
-        active              : doc.active,
-        avatar              : doc.avatar
-    };
+    console.log("from server", doc);
+    // let arrayMain = [];
+    // let arraySecond = [];
+    //     for(let i = 0; i < doc.educationsgroup1.length; i++){
+    //         let date1 = (+doc.educationsgroup1[i].finishucationyear[0]  * 1000);
+    //         date1 = moment(date1);
+    //         let date2 = (+doc.educationsgroup1[i].finishucationyear[1]  * 1000);
+    //         date2 = moment(date2);
+    //
+    //         arrayMain.push({
+    //             id               : i,
+    //             mainInstitution  : doc.educationsgroup1[i].education,
+    //             mainSpecialty    : doc.educationsgroup1[i].speciality,
+    //             mainDateStart    : date1,
+    //             mainDateEnd      : date2,
+    //             documents        : doc.educationsgroup1[i].diplomphoto
+    //         })
+    //     }
+    //     for(let i = 0; i < doc.educationsgroup2.length; i++){
+    //         let date11 = (+doc.educationsgroup2[i].ucationyears[0] * 1000);
+    //         date11 = moment(date11);
+    //         let date22 = (+doc.educationsgroup2[i].ucationyears[1] * 1000);
+    //         date22 = moment(date22);
+    //         arraySecond.push({
+    //             id                 : i,
+    //             secondInstitution  : doc.educationsgroup2[i].education,
+    //             secondSpecialty    : "",
+    //             dateStart          : date11,
+    //             dateEnd            : date22,
+    //             documents          : doc.educationsgroup2[i].diplomphoto
+    //         })
+    //     }
+    //
+    //     let arrayExpWork = [];
+    //
+    // for(let i = 0; i < doc.works.length; i++){
+    //     arrayExpWork.push({
+    //         id: i,
+    //         post: doc.works[i].post,
+    //         dateStart  : moment(doc.works[i].workdate * 1000),
+    //         placeOfWord : doc.works[i].worknow,
+    //         documents : doc.works[i].copycontract
+    //     })
+    // }
+    //
+    //
+    // if(!doc.language)
+    //     doc.language = [];
+    //
+    // return {
+    //     /*personalContact*/
+    //     id          : doc.id,
+    //     fio         : doc.fio ,
+    //     phone       : doc.phone ,
+    //     email       : doc.email ,
+    //
+    //     /*personEducation*/
+    //     arrayMainInstitution     : arrayMain,
+    //     arraySecondInstitution   : arraySecond,
+    //     degree : { 'name' : doc.academicdegree },
+    //     /*personExperience*/
+    //     expWork      : doc.experience,
+    //     arrayExpWork : arrayExpWork,
+    //     category : doc.category,
+    //
+    //     /*personInformation */
+    //     langData  : doc.language,
+    //     priceData : doc.consultationPrice,
+    //     consultChildren : doc.isChildConsult,
+    //     freeConsult : doc.isFreeConsult,
+    //
+    //     isWorking : doc.isworking /*||  true*/,
+    //
+    //     datebirth : doc.datebirth,
+    //     sex       : doc.sex,
+    //     academicstatus      : doc.academicstatus,
+    //     academicstatusdoc   : doc.academicstatusdoc,
+    //     academicdegreedoc   : doc.academicdegreedoc,
+    //     active              : doc.active,
+    //     avatar              : doc.avatar
+    // };
+    return doc;
 };
 
 export const compileToServerDoctor = (doc) => {
-    console.log(doc, "DOC to func compiler ToServerDoctor");
+    console.log("to server", doc);
     //
     // let arrayMain = [];
     // let arraySecond = [];

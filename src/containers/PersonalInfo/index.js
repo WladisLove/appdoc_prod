@@ -15,7 +15,6 @@ import{compileToClientDoctor, compileToServerDoctor} from './compilerDoc'
 import{compileToClientPatient, compileToServerPatient} from './compilerPatient'
 import PatientAccardionContact from "../../components/PatientAccardionContact";
 import PatientAccardionDisease from "../../components/PatientAccardionDisease";
-import PersonalExperienceItem from "../../components/PersonalExperienceItem";
 
 class PersonalInfo extends React.Component{
     constructor(props){

@@ -25,7 +25,7 @@ class PersonalExperienceItemForm extends React.Component{
         super(props);
         this.state = {
             experBlock: 0,
-            placesNum: this.props.profileDoctor.arrayExpWork.length || 1,
+            placesNum: this.props.profileDoctor.worknow.length || 1,
             changedWorkFields: [],
             idDeleteWork: null
         }
