@@ -47,7 +47,7 @@ class PatientsPage extends React.Component{
 
         if (this.props.profileDoctor.works) {
             this.props.profileDoctor.educationsgroup1.forEach((item, i, arr) => {
-                specialityStr += item.speciality;
+                specialityStr += item.speciality.join(", ");
                 if (i < arr.length - 1) specialityStr += ", ";
             });
         }
@@ -57,9 +57,11 @@ class PatientsPage extends React.Component{
 
     getDoctorLanguagesArr = () => {
         let languagesArr = [];
-
+        if(!this.props.profileDoctor.language) {
+            return["-"]
+        }
         if (typeof this.props.profileDoctor.language === "string") {
-            languagesArr = this.props.profileDoctor.language.split(' ');
+            languagesArr = this.props.profileDoctor.language.split(',');
         }
 
         return languagesArr.map((item) => {

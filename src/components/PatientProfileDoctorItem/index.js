@@ -23,22 +23,23 @@ class PatientProfileDoctorItem extends React.Component{
                 <div className={rootClass}>
                     <div className='profile__doctor-item-block'>
                         <div className='profile__doctor-item-rate'>
-                            <RatePanel 
+                            <RatePanel
                                 rateValue={doctorRate}
                                 timesRated={doctorReviews}
                                 disable={true}
 
                             />
                         </div>
-                        <div className='profile__doctor-item-favorites'>
+                        {/*FAVORITE ICON*/}
+                        {/*<div className='profile__doctor-item-favorites'>
                             {doctorFavorite && (
                                 <Icon type='heart_filled' size={20} svg />
                             )}
-                        </div>
+                        </div>*/}
                     </div>
                     <div className='profile__doctor-item-block'>
                         <div className='profile__doctor-item-avatar'>
-                            <ProfileAvatar 
+                            <ProfileAvatar
                               img={this.props.doctorAvatar}
                               owner='doctor'
                               size="large"
@@ -65,7 +66,7 @@ class PatientProfileDoctorItem extends React.Component{
                                 )}
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <Content {...this.props} />
             </div>

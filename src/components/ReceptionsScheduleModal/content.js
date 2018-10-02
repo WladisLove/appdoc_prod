@@ -8,7 +8,6 @@ import Select from '../Select'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
 import moment from "moment/moment";
-import WarningModal from "../WarningModal";
 
 const FormItem = Form.Item;
 
@@ -277,7 +276,11 @@ class ContentForm extends React.Component {
                                 {getFieldDecorator('type', {
                                     initialValue: type
                                 })(
-                                    <Radio icons={['chat1','telephone', "video-camera"]}/>
+                                    <Radio
+                                        icons={['chat1','telephone', "video-camera"]}
+                                        makingSchedule = {true}
+
+                                    />
                                 )}
                             </FormItem>
                             <FormItem>

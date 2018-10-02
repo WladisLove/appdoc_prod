@@ -11,7 +11,8 @@ import { message } from 'antd';
 import LoginForget from "../../components/LoginForget/index.js";
 import Registration from "../../components/Registration/index.js";
 import RegistrationPatient from "../../components/RegistrationPatient/index.js";
-
+import langsArray from "../../helpers/langsArray"
+import addInfoObj from "../../helpers/addInfoObj"
 
 
 import * as actions from '../../store/actions'
@@ -56,19 +57,11 @@ class LoginPage extends React.Component {
     };
 
     render(){
-
-        const langs = ["Азербайджанский","Английский","Армянский","Белорусский","Испанский","Итальянский","Казахский","Киргизский","Китайский","Литовский","Молдавский","Немецкий","Польский","Русский","Таджикский","Узбекский","Украинский","Французский"];
-        const payments = [10,20,30,40,50,75,100,200];
-        const academicTitle = ['Нет звания',
-            'Доцент',
-            'Профессор'];
-        const academicDegree = ['Нет степени',
-            'Кандидат медицинских наук',
-            'Доктор медицинских наук'];
-        const category = ['Без категории',
-            'Первая категория',
-            'Вторая категория',
-            'Высшая категория'];
+        const langs = langsArray;
+        const payments = addInfoObj.payments;
+        const academicTitle = addInfoObj.title ;
+        const academicDegree = addInfoObj.degree ;
+        const category = addInfoObj.category;
 
         return (
             <Hoc>

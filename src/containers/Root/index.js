@@ -1,5 +1,6 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
+import {Redirect} from 'react-router'
 
 
 import LoginPage from '../LoginPage'
@@ -17,8 +18,8 @@ class Root extends React.Component{
 
             {/*1 && <Redirect to='login'/>*/}
             <Route path="/app" component={App} />
-           
-            <Route exact path="/" render={() => <Redirect to="/app"/> }/>
+            {/*REDIRECT TO APP NEED TO DELETE THEN*/}
+            <Route render={() => <Redirect to="/app"/>}/>
         </Switch>)
     }
 };
