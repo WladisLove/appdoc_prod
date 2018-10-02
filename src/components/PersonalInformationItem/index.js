@@ -1,10 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 import Button from '../Button'
-import Checkbox from '../Checkbox'
-import Select from '../Select'
 import Radio from '../RadioBox'
 
 import './style.css'
@@ -12,32 +9,24 @@ import '../../icon/style.css'
 import {Form} from "antd/lib/index";
 import SelectNew from "../SelectNew";
 
+import addInfoObj from "../../helpers/addInfoObj";
+import langsArray from "../../helpers/langsArray";
+
 const FormItem = Form.Item;
-const Option = Select.Option;
 
 class PersonalInformationItemForm extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            experBlock: 0
-        }
     }
-    preparePersonInfo = (values) => {
-        return {
-            language: values.language,
-            isChildConsult: values.isChildConsult,
-            consultPayment: values.consultPayment,
-            isFreeConsult: values.isFreeConsult
-        }
-    };
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let newProfile = this.preparePersonInfo(values);
-                console.log(newProfile);
-                this.props.onSubmit(newProfile);
+                const toSubmitObj = values;
+                toSubmitObj.language = values.language.join(',');
+                toSubmitObj.consultationPrice = values.consultationPrice.toString();
+                this.props.onSubmit(toSubmitObj);
             }
         });
     };
@@ -45,9 +34,7 @@ class PersonalInformationItemForm extends React.Component{
     render(){
         const { getFieldDecorator } = this.props.form;
 
-        const {langData, consultChildren, priceData, freeConsult} = this.props.profileDoctor;
-        console.log(this.props.profileDoctor);
-        const {langs, payments} = this.props;
+        let {language, isChildConsult, consultationPrice, isFreeConsult} = this.props.profileDoctor;
 
         const rootClass = cn('personal-information');
         const RadioGroup = Radio.Group;
@@ -57,20 +44,20 @@ class PersonalInformationItemForm extends React.Component{
                     <div className="personal-block">
                         <FormItem>
                             {getFieldDecorator('language', {
-                                initialValue: langData
+                                initialValue: typeof language === "string" ? language.split(',') : []
                             })(
 
                                 <SelectNew width ="100%"
                                            bubbleplaceholder="Владение языками"
                                            className="personal-block-form-item"
                                            mode="multiple"
-                                           data={langs}
+                                           data={langsArray}
                                 />
                             )}
                         </FormItem>
                         <div className='radio-label'>Консультация детей:
                             {getFieldDecorator('isChildConsult', {
-                                initialValue: consultChildren
+                                initialValue: isChildConsult
                             })(
                                 <RadioGroup>
                                     <Radio value={true}>Да</Radio>
@@ -79,19 +66,19 @@ class PersonalInformationItemForm extends React.Component{
                             )}
                         </div>
                         <FormItem>
-                            {getFieldDecorator('consultPayment', {
-                                initialValue: priceData
+                            {getFieldDecorator('consultationPrice', {
+                                initialValue: consultationPrice
                             })(
                                 <SelectNew width ="100%"
                                            bubbleplaceholder="Желаемая сумма оплаты за консультацию"
                                            className="personal-block-form-item"
-                                           data={payments}
+                                           data={addInfoObj.payments}
                                 />
                             )}
                         </FormItem>
                         <div className='radio-label'>Готовы проводить консультации бесплатно?
                             {getFieldDecorator('isFreeConsult', {
-                                initialValue: freeConsult
+                                initialValue: isFreeConsult
                             })(
                                 <RadioGroup>
                                     <Radio value={true}>Да</Radio>

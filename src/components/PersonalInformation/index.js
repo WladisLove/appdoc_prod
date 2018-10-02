@@ -27,8 +27,6 @@ class PersonalInformation extends React.Component{
                         <PersonalInformationItem
                             profileDoctor={this.props.profileDoctor}
                             onSubmit={this.props.onSubmit}
-                            payments={this.props.payments}
-                            langs={this.props.langs}
                         />
                     </Panel>
                 </Accordion>

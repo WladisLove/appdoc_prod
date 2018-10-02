@@ -51,18 +51,6 @@ class PersonalInfo extends React.Component{
     render() {
         let isUser = this.props.auth.mode === "user";
         let profile = isUser ? compileToClientPatient(this.props.profilePatient) : compileToClientDoctor(this.props.profileDoctor);
-        const langs = ["Азербайджанский","Английский","Армянский","Белорусский","Испанский","Итальянский","Казахский","Киргизский","Китайский","Литовский","Молдавский","Немецкий","Польский","Русский","Таджикский","Узбекский","Украинский","Французский"];
-        const payments = [10,20,30,40,50,75,100,200];
-        const academicTitle = ['Нет звания',
-            'Доцент',
-            'Профессор'];
-        const academicDegree = ['Нет степени',
-            'Кандидат медицинских наук',
-            'Доктор медицинских наук'];
-        const category = ['Без категории',
-            'Первая категория',
-            'Вторая категория',
-            'Высшая категория'];
         return (
             <Hoc>
                 {isUser ? (
@@ -101,8 +89,6 @@ class PersonalInfo extends React.Component{
                                 <PersonalEducation
                                     profileDoctor={profile}
                                     onSubmit={this.onSubmit}
-                                    academicTitle={academicTitle}
-                                    academicDegree={academicDegree}
                                     uploadFile={this.props.uploadFile}
                                 />
                             </Col>
@@ -121,8 +107,6 @@ class PersonalInfo extends React.Component{
                                 <PersonalInformation
                                     profileDoctor={profile}
                                     onSubmit={this.onSubmit}
-                                    payments={payments}
-                                    langs={langs}
                                 />
                             </Col>
                         </Row>
