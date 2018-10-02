@@ -92,7 +92,7 @@ class RangeTp extends React.Component {
     };
 
     onChange = (field, value) => {
-        
+
         if(value) {
             this.getNotAvailableMin(value._d.getHours());
             if(field === "start") {
@@ -181,7 +181,7 @@ class RangeTp extends React.Component {
 
         return (
             <div className="timepicker-base-range">
-                <AntTimePicker placeholder ={this.props.rangeSet.placeholderStart}
+                <AntTimePicker placeholder ={"Начало"}
                                value={this.state.startValue ? this.state.startValue : null}
                                format={format}
                                minuteStep={minuteStep}
@@ -191,7 +191,7 @@ class RangeTp extends React.Component {
 
                 {delimiter && <span className="timepicker-base-range-delim"> {delimiter} </span>}
 
-                <AntTimePicker placeholder = {this.props.rangeSet.placeholderEnd}
+                <AntTimePicker placeholder = {"Конец"}
                                value={this.state.endValue ? this.state.endValue: null}
                                format={format}
                                minuteStep={minuteStep}

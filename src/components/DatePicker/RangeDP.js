@@ -55,14 +55,12 @@ class RangeDP extends React.Component{
     };
 
     componentWillReceiveProps (nextProps){
-        console.log(nextProps, "NEXTPROPS RANGE DP")
         if(Array.isArray(nextProps.value)) {
             console.log("we received an array:", nextProps.value)
         }
         if(this.props.shouldUpdate
             /*|| !this.state.startValue !== !nextProps.rangeSet.defaultStartValue
             || !this.state.endValue !== !nextProps.rangeSet.defaultEndValue*/){//trouble in Registration
-            console.log(nextProps.rangeSet, "NEW PROPS FROM DATEPICKER")
             const {defaultStartValue,defaultEndValue} = nextProps.rangeSet;
             this.setState({
                 startValue: defaultStartValue,
