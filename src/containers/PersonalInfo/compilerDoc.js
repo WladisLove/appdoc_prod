@@ -137,5 +137,32 @@ export const compileToServerDoctor = (doc) => {
     // }
 
 
+    /*return {
+        "id": doc.id,
+
+        "email": doc.email,
+        "fio": doc.fio,
+        "phone": doc.phone,
+        "avatar": doc.avatar,
+
+        // "educationsgroup1": arrayMain,
+        // "educationsgroup2": arraySecond,
+        // "category": doc.category,
+        // "academicdegree": doc.degree.name,
+        // "academicdegreedoc": doc.degree.documents,
+        // "academicstatus": doc.academicstatus,
+        // "academicstatusdoc": doc.academicstatusdoc,
+        //
+        // "works": arrayExpWork,
+        // "experience": doc.experience,
+        // "isworking" : doc.isWorking,
+        // "active"      : doc.active,
+
+        "language": doc.language,
+        "consultPayment": doc.consultPayment,
+        "isChildConsult": doc.isChildConsult,
+        "isFreeConsult": doc.isFreeConsult,
+    };*/
+
     return doc;
 };

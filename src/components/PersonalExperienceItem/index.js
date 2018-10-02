@@ -14,6 +14,9 @@ import './style.css'
 import '../../icon/style.css'
 import {Form} from "antd/lib/index";
 import PersonalInformation from "../PersonalInformation";
+import InputNew from "../InputNew";
+import DropZoneUpload from "../DropZoneUpload";
+import {profileDoctor} from "../PersonalContactItem/mock-data";
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -22,6 +25,8 @@ class PersonalExperienceItemForm extends React.Component{
         super(props);
         this.state = {
             experBlock: 0,
+            placesNum: this.props.profileDoctor.arrayExpWork.length || 1,
+            changedWorkFields: [],
             idDeleteWork: null
         }
     }
@@ -52,124 +57,35 @@ class PersonalExperienceItemForm extends React.Component{
             });
         return inst;
     };
-    sendCategory = (values) => {
+
+    /*sendCategory = (values) => {
         let inst  = {...this.props.profileDoctor};
         inst.category = values.categoryField;
         return inst;
-    };
+    };*/
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err && this.state.experBlock !== 0) {
-                let newProfile = null;
+            if (!err/* && this.state.experBlock !== 0*/) {
+                /*let newProfile = null;
                 switch(this.state.experBlock){
                     case 1: newProfile = this.sendPersonWork(values);
                         break;
                     case 2: newProfile = this.sendCategory(values);
                         break;
-                }
-                this.props.form.resetFields();
-                this.setState({experBlock : 0});
-                this.props.onSubmit(newProfile);
+                }*/
+                //this.props.form.resetFields();
+                //this.setState({experBlock : 0});
+                let sendObj = {
+                    ...values
+                };
+                this.props.onSubmit(sendObj);
             }
         });
     };
 
-
-    deleteWork = (id) => {
-        let newProfile = this.props.profileDoctor;
-
-        this.setState({idDeleteWork: id});
-        let newArray = [];
-        newProfile.arrayExpWork.map((elem) => {
-            if(elem.id !== id) return newArray.push(elem);
-        });
-        newProfile.arrayExpWork = newArray;
-
-        this.props.onSubmit(newProfile);
-    };
-
-    normFile = (e) => {
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e && e.fileList;
-    };
-    addDp = () => { this.setState({experBlock: 1}) };
-
-    renderDp = (getFieldDecorator) =>{
-        let dpArr = [];
-
-        if(this.state.experBlock === 1) {
-            dpArr.push(
-                <div className="personal-item" key={this.state.experBlock}>
-
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('workPlace', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите место работы'
-                            }],
-                        })(
-                            <Input addonBefore="Наименование места работы" />
-                        )}
-                    </FormItem>
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('workPosition', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите должность'
-                            }],
-                        })(
-                            <Input addonBefore="Должность"/>
-                        )}
-                    </FormItem>
-
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('datePickerWork', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите дату начала работы'
-                            }],
-                        })(
-                            <DatePicker placeholder="Дата начала работы" showTime format="DD.MM.YYYY"/>
-                        )}
-                    </FormItem>
-
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('confirmWork', {
-                            valuePropName: 'checked',
-                            initialValue: false,
-                            rules: [{
-                                required: true,
-                                message: 'Введите подтверждение работы'
-                            }],
-                        })(
-                            <Checkbox>Продолжаю работать</Checkbox>
-                        )}
-                    </FormItem>
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('workDocument', {
-                        })(
-                            <Upload text="Прикрепить копию контракта"/>
-                        )}
-                    </FormItem>
-                </div>
-            )
-        }
-        return (
-            <div className="new-d">
-                {dpArr}
-            </div>
-        );
-    };
-
-    addDp2 = () => {
-        this.setState({experBlock: 2})
-    };
-
-    renderDp2 = (getFieldDecorator) =>{
+    /*renderDp2 = (getFieldDecorator) =>{
         let dpArr2 = [];
         if(this.state.experBlock === 2) {
             dpArr2.push(
@@ -197,48 +113,94 @@ class PersonalExperienceItemForm extends React.Component{
                 {dpArr2}
             </div>
             );
+    };*/
+
+    renderWorkPlace = () => {
+        const { getFieldDecorator } = this.props.form;
+        const profileDoctor = this.props.profileDoctor;
+
+        let placesArr = [];
+        for (let i = 0; i < this.state.placesNum; i++)
+            placesArr.push(<div className="personal-block">
+                <FormItem>
+                    {getFieldDecorator('work-worknow-' + i, {
+                        initialValue: profileDoctor['work-worknow-' + i] ? profileDoctor['work-worknow-' + i] : "",
+                        rules: [{
+                            required: true,
+                            message: 'Введите текущее место работы'
+                        }],
+                    })(
+                        <InputNew width="100%" bubbleplaceholder="* Текущее место работы" className="step-form-item"
+                                  onChange={() => this.setState({changedWorkFields: [...this.state.changedWorkFields, i]})}/>
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('work-adress-' + i, {
+                        initialValue: profileDoctor['work-adress-' + i] ? profileDoctor['work-adress-' + i] : "",
+                        rules: [{
+                            required: true,
+                            message: 'Введите адрес места работы'
+                        }],
+                    })(
+                        <InputNew width="100%" bubbleplaceholder="* Адрес места работы" className="step-form-item"
+                                  onChange={() => this.setState({changedWorkFields: [...this.state.changedWorkFields, i]})}/>
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('work-post-' + i, {
+                        initialValue: profileDoctor['work-post-' + i] ? profileDoctor['work-post-' + i] : "",
+                        rules: [{
+                            required: true,
+                            message: 'Введите текущую должность'
+                        }],
+                    })(
+                        <InputNew width="100%" bubbleplaceholder="* Должность" className="step-form-item"
+                                  onChange={() => this.setState({changedWorkFields: [...this.state.changedWorkFields, i]})}/>
+                    )}
+                </FormItem>
+
+                {(!profileDoctor['work-copycontract-' + i] || this.state.changedWorkFields.includes(i)) &&
+                <FormItem>
+                    {getFieldDecorator('work-copycontract-' + i, {
+                        rules: [{
+                            required: true,
+                            message: 'Загрузите подтверждающий документ'
+                        }],
+                    })(
+                        <DropZoneUpload
+                            uploadFile={this.props.uploadFile}
+                            text="Прикрепить копию контракта"
+                        />
+                    )}
+                </FormItem>}
+
+            </div>);
+        return placesArr;
+    };
+
+    increaseStateNum = (e, type) => {
+        e.preventDefault();
+        this.setState(prev =>
+            ({[type]: prev[type] +1}))
+    };
+
+    decreaseStateNum = (e, type) => {
+        e.preventDefault();
+        this.setState(prev =>
+            ({[type]: prev[type] -1}))
     };
 
     render(){
         const { getFieldDecorator } = this.props.form;
         const {arrayExpWork,  expWork} = this.props.profileDoctor;
-        let works = (this.props.profileDoctor.arrayExpWork).map((elem) => {
-                return (
-                    <div key={elem.id}>
-                        <div className="personal-item">
-                            <Button
-                                onClick={() => this.deleteWork(elem.id)}
-                                className="personal-delete"
-                                btnText='Удалить'
-                                size='link'
-                                type='link'
-                                icon='circle_close'
-                                iconSize={16}
-                                svg
-                            />
-                        </div>
-                        <div className="personal-item mb-35">
-                            <div className="personal-info"><b>{elem.post}</b></div>
-                            <div className="personal-info"><p>{elem.placeOfWord}</p></div>
-                            <div className="personal-info"><p>{elem.dateStart.format('YYYY')} - настоящее время</p></div>
-                        </div>
-                    </div> );
-            });
         const category = this.props.profileDoctor.category;
 
         const rootClass = cn('personal-experience');
-
         return (
                 <Form className={rootClass} onSubmit={this.handleSubmit}>
-                    <div className="personal-block">
-                        <div className="personal-item">
-                            <div className="expWork">Опыт работы ( {expWork} )</div>
-                        </div>
-                        <div className="personal-title">Текущее место работы</div>
-
-                        {works}
-                        <div className="personal-item">
-                             <Button onClick={this.addDp}
+                    {this.renderWorkPlace()}
+                    <div>
+                        <Button onClick={e => this.increaseStateNum(e, 'placesNum')}
                                 className="personal-btn"
                                 btnText='Добавить'
                                 size='small'
@@ -246,28 +208,21 @@ class PersonalExperienceItemForm extends React.Component{
                                 icon='plus'
                                 iconSize={11}
                                 svg
-                            />
-                        </div>
-                        {this.renderDp(getFieldDecorator)}
+                                style={{
+                                    marginLeft:"100px",
+                                    marginRight:"10px"
+                                }}
+                        />
+                        {this.state.placesNum > 1 && <Button onClick={e => this.decreaseStateNum(e, 'placesNum')}
+                                                             className="personal-btn"
+                                                             btnText='Удалить'
+                                                             size='small'
+                                                             type='no-brd'
+                                                             icon='remove'
+                                                             iconSize={11}
+                                                             svg
+                        />}
                     </div>
-
-                    <div className="personal-block">
-                        {category}
-                        <div className="personal-item add_category">
-                             <Button onClick={this.addDp2}
-                             className="personal-btn"
-                                btnText='Добавить категорию'
-                                size='small'
-                                type='no-brd'
-                                icon='plus'
-                                iconSize={11}
-                                svg
-                            />
-                        </div>
-                        {this.renderDp2(getFieldDecorator)}
-
-                    </div>
-
                     <div className="personal-block">
                         <Button
                             htmlType="submit"

@@ -109,6 +109,7 @@ class PersonalInfo extends React.Component{
                                 <PersonalExperience
                                     profileDoctor={profile}
                                     onSubmit={this.onSubmit}
+                                    uploadFile={this.props.uploadFile}
                                 />
                             </Col>
                         </Row>
@@ -145,7 +146,8 @@ const mapDispatchToProps = dispatch => {
         onGetInfoPatient: (id) => dispatch(actions.getInfoPatient(id)),
         onSendNewInfoPatient: (info) => dispatch(actions.sendNewInfoPatient(info)),
         onSendNewPasswordPatient: (oldPass, newPass, id) => dispatch(actions.sendNewPasswordPatient(oldPass, newPass, id)),
-        onDeleteAvatar: (id) => dispatch(actions.deleteAvatar(id))
+        onDeleteAvatar: (id) => dispatch(actions.deleteAvatar(id)),
+        uploadFile: (file) => dispatch(actions.uploadFile(file))
     }
 };
 

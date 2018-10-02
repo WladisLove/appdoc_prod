@@ -24,10 +24,10 @@ class PersonalInformationItemForm extends React.Component{
     }
     preparePersonInfo = (values) => {
         return {
-            langData: values.language,
-            consultChildren: values.isChildConsult,
-            priceData: values.consultPayment,
-            freeConsult: values.isFreeConsult
+            language: values.language,
+            isChildConsult: values.isChildConsult,
+            consultPayment: values.consultPayment,
+            isFreeConsult: values.isFreeConsult
         }
     };
 
