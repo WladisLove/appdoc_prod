@@ -24,8 +24,6 @@ const rootElement = document.getElementById('root');
 
 ReactDOM.render(
     <CookiesProvider>
-        {/* ??? HOW does it act*/}
-
 <LocaleProvider locale={ruRU}>
         <Provider store={store}>
             <ConnectedRouter history={history}>

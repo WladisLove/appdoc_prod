@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 
 import LoginPage from '../LoginPage'
@@ -17,6 +17,8 @@ class Root extends React.Component{
 
             {/*1 && <Redirect to='login'/>*/}
             <Route path="/app" component={App} />
+           
+            <Route exact path="/" render={() => <Redirect to="/app"/> }/>
         </Switch>)
     }
 };
