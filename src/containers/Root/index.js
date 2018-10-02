@@ -19,7 +19,8 @@ class Root extends React.Component{
             {/*1 && <Redirect to='login'/>*/}
             <Route path="/app" component={App} />
             {/*REDIRECT TO APP NEED TO DELETE THEN*/}
-            <Route render={() => <Redirect to="/app"/>}/>
+            {/*<Route render={() => <Redirect to="/app"/>}/>*/}
+            <Route exact path="/" render={() => <Redirect to="/app"/> }/>
         </Switch>)
     }
 };

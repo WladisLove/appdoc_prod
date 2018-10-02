@@ -23,7 +23,6 @@ var callState = null;
 let timerInterval;
 
 export const sendMessage = (message) => {
-    //console.log("[sendMessage]", message);
     ws.send(JSON.stringify(message));
 }
 
@@ -46,7 +45,7 @@ export function createSocket(wsUrl,_props,_callbacks) {
                 break;
             case 'startReception':
             console.log(callbacks.get_history());
-            callbacks.get_history().location.pathname !== '/chat'
+            callbacks.get_history().location.pathname !== '/app/chat'
                 && callbacks.get_history().push('/app/chat');
                 callbacks.setReceptionStatus(true);
 
@@ -248,8 +247,8 @@ const incomingCall = (message) => {
     function acceptCall() {
 
 
-        callbacks.get_history().location.pathname !== '/chat'
-        && callbacks.get_history().push('/chat');
+        callbacks.get_history().location.pathname !== '/app/chat'
+        && callbacks.get_history().push('/app/chat');
         callbacks.setReceptionStatus(true);
         callbacks.setIsCallingStatus(true);
         callbacks.setChatToId(message.from);
@@ -266,7 +265,6 @@ const incomingCall = (message) => {
         function continueCall(){
             let _visitInfo = callbacks.get_visitInfo();
             let {contactLevel} = _visitInfo;
-            console.log('[video tags]',''+videoInput,videoOutput)
             let options = contactLevel === 'video' ?
                 {
                     localVideo : videoInput,
