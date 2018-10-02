@@ -18,7 +18,7 @@ export const setIsCallingStatus = (isCalling) => {
 }
 
 export const setChatFromId = (id) => {
-    console.log('setChatFromId',id)
+    console.log('setChatFromId',id);
     return ({
         type: actionTypes.SET_CHAT_FROM_ID,
         id,
