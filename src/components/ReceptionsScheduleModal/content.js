@@ -8,7 +8,6 @@ import Select from '../Select'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
 import moment from "moment/moment";
-import WarningModal from "../WarningModal";
 
 const FormItem = Form.Item;
 
