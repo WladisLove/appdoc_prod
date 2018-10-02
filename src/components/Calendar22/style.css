@@ -191,6 +191,7 @@
   color: white;
   white-space: nowrap;
   overflow: hidden;
+  margin-right: 20px;
   text-overflow: ellipsis;
 }
 .rbc-month-row .user-month-row-segment .user-visit .vis-info-btn {
