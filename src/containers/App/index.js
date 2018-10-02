@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Hoc from '../../hoc'
 import SideNav from '../../components/SideNav'
 import Header from "../../components/Header";
+import { Modal } from 'antd';
 
 import {connect} from 'react-redux';
 import {createSocket, closeSocket,register} from './chatWs'
@@ -51,8 +52,10 @@ class App extends React.Component {
 
                 conn.subscribe(""+that.props.id, function(topic, data) {
                     that.props.setExInfo(data.exInterval);
-                    console.log(data.arr);
-                    that.setState({notifications: JSON.parse(data.arr)});
+                    that.setState({
+                        notifications: JSON.parse(data.arr),
+                        isExtrActual: data.isExtrActual,
+                    });
                 });
             },
             function() {
@@ -128,8 +131,7 @@ class App extends React.Component {
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
         const isUser = (this.props.mode === "user");
-
-        console.log('notif', this.state.notifications);
+            
         return (
             <div className="main">
             {
@@ -206,8 +208,24 @@ class App extends React.Component {
                         <div className="main-footer-item company">AppDoc 2018</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div>
-                    <button className='emergencyCall' onClick={()=>console.log('eeeeed')}>Запрос на экстренный вызов</button>
                     <button id="bugfix" onClick={()=>this.setState({bugfixVisible: true})}></button>
+                    { this.state.isExtrActual && this.props.isIn
+                        && <button className='emergencyCall' onClick={this.props.docEmergancyCallSend}>
+                            Запрос на экстренный вызов</button> }
+                    {
+                        (this.props.isEmergRequsetReceived)
+                            && (this.props.isEmergRequsetConfirmed ? 
+                                (
+                                    this.props.docEmergancyCallReceivedMark(),
+                                    this.props.onSelectReception(this.props.emergVisitId),
+                                    this.props.history.push('/app/chat')
+                                ) : 
+                                Modal.error({
+                                    title: 'Запись не осуществлена',
+                                    content: 'Экстренный вызов не найден',
+                                    onOk: this.props.docEmergancyCallReceivedMark,
+                                }))
+                    }
                     <ReportBugModal
                         visible={this.state.bugfixVisible}
                         onCancel={()=>this.setState({bugfixVisible: false})}
@@ -233,6 +251,10 @@ const mapStateToProps = state =>{
         isIn: state.doctor.isEx,
         isUserSet: state.doctor.isUserSetEx,
         freeVisitsIntervals: state.schedules.freeVisitsIntervals,
+
+        isEmergRequsetConfirmed: state.loading.isConfirmed,
+        emergVisitId: state.loading.visitId,
+        isEmergRequsetReceived: state.loading.isReceived,
 
 
             from: state.chatWS.from,
@@ -263,6 +285,9 @@ const mapDispatchToProps = dispatch => {
         onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
         onMakeVisit: (info)=> dispatch(actions.setReceptionByPatient(info)),
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
+
+        docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
+        docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),
 
         setChatFromId: (id) => dispatch(actions.setChatFromId(id)),
         setChatToId: (id) => dispatch(actions.setChatToId(id)),
