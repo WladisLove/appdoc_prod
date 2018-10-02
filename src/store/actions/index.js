@@ -109,7 +109,10 @@ export {
 
 export {
     loadingStart,
-    loadingEnd
+    loadingEnd,
+    docEmergancyCallReceived,
+    docEmergancyCallSend,
+    docEmergancyCallReceivedMark,
 } from './loading'
 
 export {

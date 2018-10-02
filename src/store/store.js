@@ -10,6 +10,7 @@ import doctorReducer from './reducers/doctor'
 import infoDoctorReducer from './reducers/doctorData'
 import infoPatientReducer from './reducers/patientData'
 import chatWSReducer from './reducers/chatWS'
+import loadingReducer from './reducers/loading'
 
 
 const rootReducer = combineReducers({
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     profileDoctor: infoDoctorReducer,
     profilePatient: infoPatientReducer,
     chatWS: chatWSReducer,
+    loading: loadingReducer,
 });
 
 export default function configureStore() {
