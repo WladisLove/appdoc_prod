@@ -25,7 +25,6 @@ a:hover {
 .personal-experience .personal-block {
   border-bottom: 1px solid #ebebeb;
   padding: 0px 100px 0;
-  margin-bottom: 0px;
   display: flex;
   flex-direction: column;
   margin-bottom: 35px;
@@ -57,8 +56,8 @@ a:hover {
 }
 .personal-experience .personal-edit {
   position: absolute;
-  left: 300px;
-  top: -0.625rem;
+  right: 0;
+  top: -1.625rem;
 }
 .personal-experience .personal-info {
   font-size: 14px;
@@ -129,7 +128,6 @@ a:hover {
 }
 .personal-experience .ant-form-item {
   position: relative;
-  margin-bottom: 45px;
   min-height: 65px;
 }
 .personal-experience .ant-form-item .has-error .input-root-focus {
