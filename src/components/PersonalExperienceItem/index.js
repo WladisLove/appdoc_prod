@@ -262,7 +262,10 @@ class PersonalExperienceItemForm extends React.Component{
                     <FormItem className="personal-item" >
                         {getFieldDecorator('uploadCategory', {
                         })(
-                            <Upload text="Прикрепить документ, подтверждающий категорию"/>
+                            <DropZoneUpload
+                                uploadFile={this.props.uploadFile}
+                                text="Прикрепить документ, подтверждающий категорию"
+                            />
                         )}
                     </FormItem>
                     <div className="personal-item">

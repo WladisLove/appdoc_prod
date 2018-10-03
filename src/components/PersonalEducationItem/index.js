@@ -276,7 +276,10 @@ class PersonalEducationItemForm extends React.Component{
                     <FormItem className="personal-item" >
                         {getFieldDecorator('uploadDegree', {
                         })(
-                            <Upload text="Прикрепить документ, подтверждающий ученую степень"/>
+                            <DropZoneUpload
+                                uploadFile={this.props.uploadFile}
+                                text="Прикрепить документ, подтверждающий ученую степень"
+                            />
                         )}
                     </FormItem>
                     <div className="personal-item">
@@ -333,7 +336,10 @@ class PersonalEducationItemForm extends React.Component{
                     <FormItem className="personal-item" >
                         {getFieldDecorator('uploadStatus', {
                         })(
-                            <Upload text="Прикрепить документ, подтверждающий ученое звание"/>
+                            <DropZoneUpload
+                                uploadFile={this.props.uploadFile}
+                                text="Прикрепить документ, подтверждающий ученое звание"
+                            />
                         )}
                     </FormItem>
                     <div className="personal-item">
