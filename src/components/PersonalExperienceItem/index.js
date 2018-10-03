@@ -28,7 +28,7 @@ class PersonalExperienceItemForm extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields((err) => {
             if (!err && this.state.experBlock === 0) {
                 this.props.form.resetFields();
                 this.setState({experBlock: 0});
@@ -36,7 +36,9 @@ class PersonalExperienceItemForm extends React.Component{
                     works: this.state.works,
                     experience: this.state.experience,
                     category: this.state.category.name,
-                    categorydoc: this.state.category.doc
+                    categorydoc: this.state.category.doc,
+                    educationsgroup1: this.props.profileDoctor.educationsgroup1, // fix server bug
+                    educationsgroup2: this.props.profileDoctor.educationsgroup2 // fix server bug
                 };
                 this.props.onSubmit(toSubmitObj);
             }

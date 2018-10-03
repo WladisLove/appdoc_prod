@@ -37,7 +37,7 @@ class PersonalEducationItemForm extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields((err) => {
             if (!err && this.state.educatBlock === 0) {
                 this.props.form.resetFields();
                 this.setState({educatBlock: 0});
@@ -47,7 +47,8 @@ class PersonalEducationItemForm extends React.Component{
                     academicdegree: this.state.degree.name,
                     academicdegreedoc: this.state.degree.doc,
                     academicstatus: this.state.status.name,
-                    academicstatusdoc: this.state.status.doc
+                    academicstatusdoc: this.state.status.doc,
+                    works: this.props.profileDoctor.works // fix server bug
                 };
                 this.props.onSubmit(toSubmitObj);
             }
