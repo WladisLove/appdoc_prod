@@ -5,6 +5,7 @@ import Col from "../../components/Col";
 import ProfilePatient from "../../components/ProfilePatient";
 import DiseasesTable from "../../components/DiseasesTable";
 import HistoryReceptions from "../../components/HistoryReceptions";
+import Spinner from "../../components/Spinner";
 
 import Hoc from '../../hoc'
 
@@ -23,10 +24,7 @@ class PatientsPage extends React.Component{
         const info = this.props.info.infoUser;
         if(!info) {
             return(
-                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                    <h3>Страница не найдена</h3>
-                    <p>Проверьте введённый адрес</p>
-                </div>
+                <Spinner tip="Loading..." size="large"/>
             )
         } else {
         return (
