@@ -364,56 +364,52 @@ class PersonalExperienceItemForm extends React.Component{
 
         let workNowView = workNow.map((elem, i) => {
             return (
-                <div key={elem.id}>
-                    <div className="personal-item">
-                        <Button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                let newWorkNow = this.state.workNow;
-                                newWorkNow.splice(i, 1);
-                                this.setState({workNow: newWorkNow});
-                            }}
-                            className="personal-delete"
-                            size='small'
-                            type='blue-float'
-                            icon='close'
-                            iconSize={17}
-                            svg
-                        />
-                    </div>
-                    <div className="personal-item mb-35">
+                <div key={elem.id} className="personal-item brd-b brd-d">
+                    <div className="personal-info">
                         <div className="personal-info"><b>{elem.worknow} - настоящее время</b></div>
                         <div className="personal-info"><p>{elem.adress}</p></div>
                         <div className="personal-info"><p>{elem.post}</p></div>
                     </div>
+                    <Button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            let newWorkNow = this.state.workNow;
+                            newWorkNow.splice(i, 1);
+                            this.setState({workNow: newWorkNow});
+                        }}
+                        className="personal-delete"
+                        size='small'
+                        type='blue-float'
+                        icon='close'
+                        iconSize={17}
+                        svg
+                    />
                 </div>);
         });
 
         let worksView = works.map((elem, i) => {
             return (
-                <div key={elem.id}>
-                    <div className="personal-item">
-                        <Button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                let newWorks = this.state.works;
-                                newWorks.splice(i, 1);
-                                this.setState({works: newWorks});
-                            }}
-                            className="personal-delete"
-                            size='small'
-                            type='blue-float'
-                            icon='close'
-                            iconSize={17}
-                            svg
-                        />
-                    </div>
-                    <div className="personal-item mb-35">
+                <div key={elem.id} className="personal-item brd-b brd-d">
+                    <div className="personal-info">
                         <div className="personal-info"><p>{elem.worknow}</p></div>
                         <div className="personal-info"><p>{elem.adress}</p></div>
                         <div className="personal-info"><p>{elem.post}</p></div>
                     </div>
-                </div> );
+                    <Button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            let newWorks = this.state.works;
+                            newWorks.splice(i, 1);
+                            this.setState({works: newWorks});
+                        }}
+                        className="personal-delete"
+                        size='small'
+                        type='blue-float'
+                        icon='close'
+                        iconSize={17}
+                        svg
+                    />
+                </div>);
         });
 
         const rootClass = cn('personal-experience');
@@ -421,10 +417,13 @@ class PersonalExperienceItemForm extends React.Component{
         return (
             <Form className={rootClass} onSubmit={this.handleSubmit}>
                 <div className="personal-block">
-                    <div className="personal-title">Текущие места работы</div>
+                    <div className="personal-item">
+                        <div className="personal-title">Текущие места работы</div>
+                    </div>
 
                     {workNowView}
-                    <div className="personal-item">
+
+                    {this.state.experBlock !== 1 && <div className="personal-item">
                         <Button onClick={this.addDp}
                                 className="personal-btn"
                                 btnText='Добавить'
@@ -434,15 +433,18 @@ class PersonalExperienceItemForm extends React.Component{
                                 iconSize={11}
                                 svg
                         />
-                    </div>
+                    </div>}
                     {this.renderDp(getFieldDecorator)}
                 </div>
 
                 <div className="personal-block">
-                    <div className="personal-title">Прошлые места работы</div>
+                    <div className="personal-item">
+                        <div className="personal-title">Прошлые места работы</div>
+                    </div>
 
                     {worksView}
-                    <div className="personal-item">
+
+                    {this.state.experBlock !== 2 && <div className="personal-item">
                         <Button onClick={this.addDp2}
                                 className="personal-btn"
                                 btnText='Добавить'
@@ -452,14 +454,17 @@ class PersonalExperienceItemForm extends React.Component{
                                 iconSize={11}
                                 svg
                         />
-                    </div>
+                    </div>}
                     {this.renderDp2(getFieldDecorator)}
                 </div>
 
                 <div className="personal-block">
                     <div className="personal-title">Категория</div>
-                    {category.name}
+
                     <div className="personal-item mb-35">
+                        <div className="personal-info">{category.name}</div>
+
+                    {this.state.experBlock !== 3 &&
                         <Button onClick={this.addDp3}
                                 className="personal-edit"
                                 size='small'
@@ -467,15 +472,18 @@ class PersonalExperienceItemForm extends React.Component{
                                 icon='setting_edit'
                                 iconSize={17}
                                 svg
-                        />
+                        />}
                     </div>
                     {this.renderDp3(getFieldDecorator)}
                 </div>
 
                 <div className="personal-block">
-                    <div className="personal-title">Опыт работы</div>
-                    {experience}
+                        <div className="personal-title">Опыт работы</div>
+
                     <div className="personal-item mb-35">
+                    <div className="personal-info">{experience}</div>
+
+                    {this.state.experBlock !== 4 &&
                         <Button onClick={this.addDp4}
                                 className="personal-edit"
                                 size='small'
@@ -483,7 +491,7 @@ class PersonalExperienceItemForm extends React.Component{
                                 icon='setting_edit'
                                 iconSize={17}
                                 svg
-                        />
+                        />}
                     </div>
                     {this.renderDp4(getFieldDecorator)}
                 </div>

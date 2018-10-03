@@ -446,28 +446,28 @@ class PersonalEducationItemForm extends React.Component{
         const institutionDegree = (
                 <div className="personal-item mb-35">
                     <div className="personal-info">{degree.name}</div>
-                    <Button onClick={this.addDp3}
+                    {this.state.educatBlock !== 3 && <Button onClick={this.addDp3}
                             className="personal-edit"
                             size='small'
                             type='blue-float'
                             icon='setting_edit'
                             iconSize={17}
                             svg
-                    />
+                    />}
                 </div>
         );
 
         const institutionStatus = (
             <div className="personal-item mb-35">
                 <div className="personal-info">{status.name}</div>
-                <Button onClick={this.addDp4}
+                {this.state.educatBlock !== 4 && <Button onClick={this.addDp4}
                         className="personal-edit"
                         size='small'
                         type='blue-float'
                         icon='setting_edit'
                         iconSize={17}
                         svg
-                />
+                />}
             </div>
         );
 
