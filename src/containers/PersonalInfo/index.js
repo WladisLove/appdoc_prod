@@ -11,7 +11,6 @@ import Hoc from '../../hoc'
 import './styles.css'
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
-import{compileToClientDoctor, compileToServerDoctor} from './compilerDoc'
 import{compileToClientPatient, compileToServerPatient} from './compilerPatient'
 import PatientAccardionContact from "../../components/PatientAccardionContact";
 import PatientAccardionDisease from "../../components/PatientAccardionDisease";
@@ -33,9 +32,8 @@ class PersonalInfo extends React.Component{
       this.setState({visible:false}) ;
     };
 
-    onSubmit = (profileDoctor) => {
-        profileDoctor = compileToServerDoctor(profileDoctor);
-        this.props.onSendNewInfoDoctor(profileDoctor);
+    onSubmit = (submitData) => {
+        this.props.onSendNewInfoDoctor(submitData);
         this.setState({visible:true}) ;
     };
 
@@ -50,7 +48,7 @@ class PersonalInfo extends React.Component{
 
     render() {
         let isUser = this.props.auth.mode === "user";
-        let profile = isUser ? compileToClientPatient(this.props.profilePatient) : compileToClientDoctor(this.props.profileDoctor);
+        let profile = isUser ? compileToClientPatient(this.props.profilePatient) : this.props.profileDoctor;
         return (
             <Hoc>
                 {isUser ? (
