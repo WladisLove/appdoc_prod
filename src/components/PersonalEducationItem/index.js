@@ -367,7 +367,7 @@ class PersonalEducationItemForm extends React.Component{
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.profileDoctor !== this.props.profileDoctor) {
+        if (!this.props.profileDoctor.id && nextProps.profileDoctor !== this.props.profileDoctor) {
             this.setState({
                 mainEducationArr: nextProps.profileDoctor.educationsgroup1,
                 secondEducationArr: nextProps.profileDoctor.educationsgroup2,

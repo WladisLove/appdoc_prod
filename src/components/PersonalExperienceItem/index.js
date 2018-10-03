@@ -348,7 +348,7 @@ class PersonalExperienceItemForm extends React.Component{
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.profileDoctor !== this.props.profileDoctor) {
+        if (!this.props.profileDoctor.id && nextProps.profileDoctor !== this.props.profileDoctor) {
             this.setState({
                 experience: nextProps.profileDoctor.experience,
                 works: nextProps.profileDoctor.works,
