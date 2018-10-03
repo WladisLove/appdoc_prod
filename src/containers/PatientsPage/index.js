@@ -11,6 +11,7 @@ import Hoc from '../../hoc'
 import * as actions from '../../store/actions'
 
 import './styles.css';
+import Spinner from "../../components/Spinner";
 
 class PatientsPage extends React.Component{
 
@@ -21,14 +22,18 @@ class PatientsPage extends React.Component{
     render(){
         const {diseases = [], treatments = [], infoUser = {}} = this.props.info;
         const info = this.props.info.infoUser;
-        if(!info) {
+        if (info === undefined) {
+            return <Spinner/>;
+        }
+        else if (info === null) {
             return(
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>
                     <h3>Страница не найдена</h3>
                     <p>Проверьте введённый адрес</p>
                 </div>
             )
-        } else {
+        }
+        else {
         return (
             <Hoc>
                 <div>
