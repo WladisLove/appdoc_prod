@@ -15,14 +15,35 @@ import Spinner from "../../components/Spinner";
 
 class PatientsPage extends React.Component{
 
+    constructor(props){
+        super(props);
+        this.state = {
+            loading: true
+        }
+    }
+
     componentDidMount(){
         this.props.getPatientInfo(this.props.match.params.id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.match.params.id !== this.props.match.params.id) {
+            this.props.getPatientInfo(nextProps.match.params.id);
+            this.setState({
+                loading: true
+            });
+        }
+        else {
+            this.setState({
+                loading: false
+            });
+        }
     }
 
     render(){
         const {diseases = [], treatments = [], infoUser = {}} = this.props.info;
         const info = this.props.info.infoUser;
-        if (info === undefined) {
+        if (this.state.loading === true) {
             return <Spinner/>;
         }
         else if (info === null) {
