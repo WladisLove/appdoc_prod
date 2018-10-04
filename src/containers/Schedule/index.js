@@ -354,6 +354,7 @@ class Schedule extends React.Component {
                                          onCancel={this.closeReceptionSchedule}
                                          onSave={(info) => this.onSaveReceptionSchedule(info)}
                                          isDayOff={!!(+isDayOff)}
+                                         emergencyAvailable={this.props.emergencyAvailable}
                 />
                 <WarningModal visible={this.state.warningModal}
                               onClick={() => this.setState({warningModal: false})}
@@ -375,6 +376,7 @@ const mapStateToProps = state => {
         chosenData: state.schedules.chosenData,
         cancelData: state.schedules.cancelData,
         allUserVisits: state.schedules.allUserVisits,
+        emergencyAvailable: state.doctor.emergencyAvailable
     };
 };
 
