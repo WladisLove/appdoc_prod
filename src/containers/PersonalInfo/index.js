@@ -34,7 +34,7 @@ class PersonalInfo extends React.Component{
 
     onSubmit = (submitData) => {
         this.props.onSendNewInfoDoctor(submitData);
-        this.setState({visible:true}) ;
+        this.setState({visible:true});
     };
 
     onSubmitPatient = (profilePatient) => {
