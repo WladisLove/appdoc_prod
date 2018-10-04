@@ -78,6 +78,14 @@ class Schedule extends React.Component {
         return count;
     };
 
+    getCountOfScheduledIntervals = () => {
+        let count = 0;
+        if (this.props.schedules)
+            this.props.schedules.forEach((item) => {item.isDayOff === "0" ? ++count : null});
+
+        return count;
+    };
+
     dateChangeHandler = (date, view, action, isOnDay) => {
         const {start, end} = this.state.isEditorMode
             ? findTimeInterval(date, 'month')
@@ -244,7 +252,7 @@ class Schedule extends React.Component {
                                  onClick={() => this.changeToEditorMode(false)}
                                  type='yellow'
                                  icon='arrow2_left'/>);
-            calendar = (<Calendar receptionNum={this.getCountOfReceptionsAtCurMonth()}
+            calendar = (<Calendar receptionNum={this.getCountOfScheduledIntervals()}
                                   selectable
                                   editor
                                   onMonthSelect={(date, schedule) => {
