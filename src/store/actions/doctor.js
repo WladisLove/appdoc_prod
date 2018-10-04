@@ -56,3 +56,19 @@ export const switchExInterval = (isIn) => {
         })
     }    
 }
+
+export const getEmergencyAvailability = () => {
+    return (dispatch, getState) => {
+        axios.get('/catalog.doc2/canExt/id/'+getState().auth.id)
+            .then(res => {
+                console.log(res);
+                dispatch({
+                    type: actionTypes.GET_EMERGENCY_AVAILABILITY,
+                    availability: res.data.process
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}

@@ -95,6 +95,7 @@ export {
     getDocShortInfo,
     setExIntervalInfo,
     switchExInterval,
+    getEmergencyAvailability
 } from './doctor'
 
 export {

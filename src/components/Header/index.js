@@ -84,12 +84,12 @@ render() {
                                 onSubmit = {this.props.onMakeVisit}
                             />
                         </Hoc>
-                        : <SwitchPanel
+                        : (this.props.emergencyAvailable && <SwitchPanel
                             icon='emergency-call'
                             title="Экстренные вызовы"
                             onChange={this.props.onChange}
                             checked={this.props.checked}
-                            disabled={this.props.disabled}/>
+                            disabled={this.props.disabled}/>)
                     }
                 </div>
                 <div className='header-notification'>
