@@ -107,7 +107,6 @@ const PatientPage = props => {
                     <TreatmentTable
                         isUser={props.isUser}
                         redirect={() => props.history.push('/app/treatment')}
-
                         data={props.completedApps}
                         onGoto={gotoHandler}
                         onGotoChat={(id) => console.log(id)}

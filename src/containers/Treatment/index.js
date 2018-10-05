@@ -18,9 +18,7 @@ class Treatment extends React.Component{
         addModal: false,
         isNewFreeVisitVisible: false,
     };
-    componentDidMount(){
-        this.props.onGetTreatments();
-    }
+
 
     gotoHandler = (id) => {
 		this.props.onSelectPatient(id);

@@ -40,7 +40,8 @@ class HistoryReceptions extends React.Component{
                         icon={'circle_close'}
                         onClick={() => this.setState({noData: false},() => {
                             this.getApps()
-                        })}/>
+                        })}
+                />
             </div>
         }
         let historyArr = [];

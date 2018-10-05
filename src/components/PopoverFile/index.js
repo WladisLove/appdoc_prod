@@ -69,7 +69,6 @@ class PopoverFile extends React.Component {
     };
 
     render() {
-        const popoverNumCl = cn('popover-num', this.state.num && 'active');
         return (
             <Popover
                 content={
@@ -111,8 +110,8 @@ class PopoverFile extends React.Component {
                             title="Скачать все файлы"
                     />
 
-                    <div className={popoverNumCl}>
-                        {this.state.num ? ('+' + this.state.num) : this.props.data.length}
+                    <div className={'popover-num active'}>
+                        {this.props.data.length}
                     </div>
                 </div>
             </Popover>

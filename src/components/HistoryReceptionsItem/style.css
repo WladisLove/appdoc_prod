@@ -19,7 +19,6 @@
   align-items: flex-start;
   position: relative;
   border-left: 4px solid transparent;
-  min-width: 1450px;
   cursor: pointer;
 }
 .receptions:hover {
@@ -27,48 +26,38 @@
 }
 .receptions .flex-col {
   padding: 25px 0;
-  margin-right: 30px;
+  margin-right: 2%;
 }
 .receptions .flex-col:first-child {
-  padding-left: 25px;
+  margin-left: 1%;
 }
 .receptions .flex-col:last-child {
-  padding-right: 25px;
-  margin-right: 0;
+  margin-right: 1%;
 }
 .receptions .flex-col:nth-child(1) {
-  max-width: 165px;
-  width: 100%;
+  width: 13%;
 }
 .receptions .flex-col:nth-child(2) {
-  max-width: 120px;
-  width: 100%;
   position: relative;
+  width: 7%;
 }
 .receptions .flex-col:nth-child(3) {
-  max-width: 160px;
-  width: 100%;
+  width: 15%;
 }
 .receptions .flex-col:nth-child(4) {
-  max-width: 200px;
-  width: 100%;
+  width: 11%;
 }
 .receptions .flex-col:nth-child(5) {
-  max-width: 100px;
-  width: 100%;
+  width: 6%;
 }
 .receptions .flex-col:nth-child(6) {
-  max-width: 205px;
-  width: 100%;
+  width: 10%;
 }
 .receptions .flex-col:nth-child(7) {
-  max-width: 200px;
-  width: 100%;
+  width: 16%;
 }
 .receptions .flex-col:nth-child(8) {
-  width: 100%;
-  max-width: 100px;
-  margin-right: 0;
+  width: 6%;
 }
 .receptions .patient-name {
   font-size: 14px;
@@ -119,7 +108,7 @@
 }
 .receptions-status:before {
   content: "";
-  width: 8px;
+  width: 7px;
   height: 8px;
   display: inline-block;
   margin-right: 12px;

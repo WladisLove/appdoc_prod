@@ -52,7 +52,7 @@
   display: flex;
 }
 .receptions-all .tableheader .flex-col {
-  margin-right: 32px;
+  margin-right: 2%;
 }
 .receptions-all .tableheader .flex-col .receptions-status {
   position: relative;
