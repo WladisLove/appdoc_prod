@@ -96,7 +96,7 @@ class HistoryReceptions extends React.Component{
 
     refresh =() => {
         this.setState({data:[], loading: true}, () => {
-            this.getApps({max:this.state.loadedCount, old: 0,loadedCount: 0})
+            this.getApps({max:this.state.loadedCount, old: 0, loadedCount: 0})
         })
     };
 
@@ -132,12 +132,12 @@ class HistoryReceptions extends React.Component{
         this.props.getApps(obj)
     };
 
-    afterCloseReviews = () => {
-        if(this.state.reviewStatus===200) {
-            this.setState({loading: true, data: [], count: 0, loadedCount: 0, old: 0}, () => this.getApps({max: this.state.loadedCount, old: 0}));
-            message.success("Отзыв отправлен", 2)
-        }
-    };
+    // afterCloseReviews = () => {
+    //     if(this.state.reviewStatus===200) {
+    //         this.setState({loading: true, data: [], count: 0, loadedCount: 0, old: 0}, () => this.getApps({max: this.state.loadedCount, old: 0}));
+    //         message.success("Отзыв отправлен", 2)
+    //     }
+    // };
     render(){
         return (
             <div className='receptions-all'>
@@ -166,8 +166,7 @@ class HistoryReceptions extends React.Component{
                     visible={this.state.visible}
                     onSubmit ={this.props.onSubmit}
                     info = {this.state.dataForReview}
-                    afterClose ={this.afterCloseReviews}
-                    onCancel={(status)=>this.setState({visible:false, reviewStatus: status})}
+                    onCancel={()=>this.setState({visible:false})}
                 />
             </div>
         )

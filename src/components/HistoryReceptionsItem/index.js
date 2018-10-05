@@ -18,6 +18,15 @@ class HistoryReceptionsItem extends React.Component{
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
       }
+    writeReview = (e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+        const obj = {
+            id_doc: this.props.id_doc,
+            id_zap: this.props.lastMA
+        }
+        this.props.showReviewModal(obj);
+      }
     refactorFiles = (file) => {
        if(file.length) {
            let files = [];
@@ -32,6 +41,7 @@ class HistoryReceptionsItem extends React.Component{
        } else return file
     };
     render(){
+        console.log("TREATMENTS EVERY ITEM PROPS", this.props);
         const {
             id_treatment,
             id_user,
@@ -72,20 +82,20 @@ class HistoryReceptionsItem extends React.Component{
 
         const key_val = {
             'chat': 'chat1',
-            'voice': 'telephone', 
+            'voice': 'telephone',
             'video': "video-camera"
         }
         const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение"
         const goto = isUser?id_doc:id_user;
         return (
-            <div className={rootClass} 
+            <div className={rootClass}
                 onClick={(e) => {
                     onGotoChat(id_treatment);
                     this.handleClick(e);
                 }}>
                <div className="flex-col"><div className="patient-name">
-                    <div className='go-to' 
-                        onClick={(e) => {                            
+                    <div className='go-to'
+                        onClick={(e) => {
                             onGoto(goto);
                             this.handleClick(e);
                         }}>{isUser ? doc_name : user_name}</div></div>
@@ -118,7 +128,7 @@ class HistoryReceptionsItem extends React.Component{
                                 {conclusion.btnText}
                             </a>
                         ) : (moment().format("X") > moment(+date*1000).format("X")) ? <span>{conclusionMessage}</span>:<span>&mdash;</span>
-                    }  
+                    }
                     </div>
                 </div>
                 <div className="flex-col">
@@ -129,7 +139,7 @@ class HistoryReceptionsItem extends React.Component{
                             <div className="patient-review">{comment}</div>
                         </Hoc>
                     ) : conclusion && isUser ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
-                                              onClick={console.log("click")}
+                                              onClick={this.writeReview}
                                               size='small'
                                               type='float'
                                               icon='form'/> : <span>&mdash;</span>

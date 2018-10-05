@@ -22,14 +22,14 @@ class Input extends AntInput{
     }
 
     render() {
-        const {className, setFocus} = this.props;
+        const {className} = this.props;
         const rootCl = this.state.onFocus ? 'input-root-focus '+className : 'input-root '+className;
 
         return (
             <div onFocus={() => this.focusHandler(true)}
                  onBlur={() => this.focusHandler(false)}
                  className={rootCl}>
-                <AntInput {...this.props} ref = {inp => this.inp = inp}/>
+                <AntInput {...this.props}/>
             </div>
         )
     }

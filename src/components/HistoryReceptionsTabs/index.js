@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import ScrollArea from 'react-scrollbar'
 import HistoryReceptionsItem from '../HistoryReceptionsItem'
 import Card from '../Card'
 import Button from '../Button'
@@ -13,6 +12,8 @@ import Hoc from '../Hoc'
 import './style.css'
 import '../../icon/style.css'
 import Spinner from "../Spinner";
+import ReviewsModal from "../ReviewsModal";
+import PerfectScrollbar from "react-perfect-scrollbar";
 const TabPane = Tabs.TabPane;
 
 class HistoryReceptionsTabs extends React.Component {
@@ -22,19 +23,24 @@ class HistoryReceptionsTabs extends React.Component {
             tab: 'all',
             date: {},
             filt_name: '',
-            max: 3,
+            max: 1,
             old: 0,
             count: 0,
             loadedCount: 0,
             data: [],
             loading: true,
             rangeSet: [],
-            noData: true
+            noData: true,
+            dataForReview: {},
+            showReviewModal: false
         };
+        this.timer = null;
     }
 
 
-
+    componentWillUnmount() {
+        console.log("UNMOUNT TREATMENTS TABLE")
+    }
 
 
     tabChangeHadler = (currentTab) => {
@@ -74,7 +80,7 @@ class HistoryReceptionsTabs extends React.Component {
 
     componentWillMount() {
         this.getTreatments();
-        this.timer = null;
+
     }
 
 
@@ -132,11 +138,7 @@ class HistoryReceptionsTabs extends React.Component {
       })
     };
 
-    refresh = () => {
-        this.setState({loading: true, data: []}, ()=>{
-            this.getTreatments({old:0, max:this.state.loadedCount, loadedCount: 0})
-        })
-    };
+
     historyRender = (dataArr) => {
           if(!dataArr.length && this.state.loading &&this.state.noData) {
             return <div className="table-footer"
@@ -159,6 +161,7 @@ class HistoryReceptionsTabs extends React.Component {
                                                    isUser={this.props.isUser}
                                                    onAddFiles={this.props.onAddFiles}
                                                    refresh={this.refresh}
+                                                   showReviewModal = {this.showReviewModal}
 
                     />)
                 }
@@ -261,6 +264,17 @@ class HistoryReceptionsTabs extends React.Component {
         }
     };
 
+    showReviewModal = (obj) => {
+        this.setState({dataForReview: obj, showReviewModal: true})
+    };
+
+
+
+    refresh = () => {
+        this.setState({loading: true, data: []}, ()=>{
+            this.getTreatments({old:0, max:this.state.loadedCount, loadedCount: 0})
+        })
+    };
     render() {
         return (
             <div className='receptions-all'>
@@ -280,7 +294,7 @@ class HistoryReceptionsTabs extends React.Component {
                                   />
                               </div>}>
                         <TabPane tab="Все" key="all">
-                            <ScrollArea
+                            <PerfectScrollbar
                                 speed={1}
                                 className=""
                                 contentClassName="content"
@@ -288,10 +302,10 @@ class HistoryReceptionsTabs extends React.Component {
                             >
                                 {this.tabHeaderRender()}
                                 {this.historyRender(this.state.data)}
-                            </ScrollArea>
+                            </PerfectScrollbar>
                         </TabPane>
                         <TabPane tab="Завершенные" key="completed">
-                            <ScrollArea
+                            <PerfectScrollbar
                                 speed={1}
                                 className=""
                                 contentClassName="content"
@@ -299,10 +313,10 @@ class HistoryReceptionsTabs extends React.Component {
                             >
                                 {this.tabHeaderRender()}
                                 {this.historyRender(this.state.data)}
-                            </ScrollArea>
+                            </PerfectScrollbar>
                         </TabPane>
                         <TabPane tab="Актуальные" key="topical">
-                            <ScrollArea
+                            <PerfectScrollbar
                                 speed={1}
                                 className=""
                                 contentClassName="content"
@@ -310,10 +324,10 @@ class HistoryReceptionsTabs extends React.Component {
                             >
                                 {this.tabHeaderRender()}
                                 {this.historyRender(this.state.data)}
-                            </ScrollArea>
+                            </PerfectScrollbar>
                         </TabPane>
                         <TabPane tab="Предстоящие" key="upcoming">
-                            <ScrollArea
+                            <PerfectScrollbar
                                 speed={1}
                                 className=""
                                 contentClassName="content"
@@ -321,10 +335,17 @@ class HistoryReceptionsTabs extends React.Component {
                             >
                                 {this.tabHeaderRender()}
                                 {this.historyRender(this.state.data)}
-                            </ScrollArea>
+                            </PerfectScrollbar>
                         </TabPane>
                     </Tabs>
                 </Card>
+                <ReviewsModal
+                    visible={this.state.showReviewModal}
+                    onSubmit ={this.props.onSubmit}
+                    info = {this.state.dataForReview}
+                    onCancel={()=>this.setState({showReviewModal:false})}
+                    refresh={this.props.refresh}
+                />
             </div>
         )
     }

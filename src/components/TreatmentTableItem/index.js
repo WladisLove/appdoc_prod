@@ -96,7 +96,7 @@ class TreatmentTableItem extends React.Component{
                     {
                         rate ? (
                             <Hoc>
-                                <Rate defaultValue={rate} disabled/>
+                                <Rate defaultValue={+rate} disabled/>
                                 <div className="patient-review">{comment}</div>
                             </Hoc>
                         ) : conclusion ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
@@ -122,7 +122,7 @@ TreatmentTableItem.propTypes = {
     diagnostic: PropTypes.string,
     comments: PropTypes.string,
     price: PropTypes.string,
-    conclusion: PropTypes.string,
+    conclusion: PropTypes.object,
     rating: PropTypes.oneOfType([
         PropTypes.number
     ]),

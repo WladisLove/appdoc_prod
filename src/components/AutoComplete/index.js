@@ -121,7 +121,6 @@ class AutoComplete extends React.Component{
                     <Input
                         placeholder='Поиск'
                         onChange={this.changeHandleSearch}
-                        ref = {inp => {this.input = inp}}
                         onKeyDown={this.handleKeyDown}
                     />
                 </div>
