@@ -29,7 +29,7 @@ class Input extends AntInput{
             <div onFocus={() => this.focusHandler(true)}
                  onBlur={() => this.focusHandler(false)}
                  className={rootCl}>
-                <AntInput {...this.props}/>
+                <AntInput {...this.props} ref = {inp => this.inp = inp}/>
             </div>
         )
     }

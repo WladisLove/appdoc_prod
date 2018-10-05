@@ -30,8 +30,8 @@ class HistoryReceptionsItems extends React.Component{
     openModal = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const obj = {id_doc: this.props.id_doc, id_zap: this.props.id}
-        this.props.setModalRewiewsVisible(obj);
+        const obj = {id_doc: this.props.id_doc, id_zap: this.props.id};
+        this.props.showReviewModal(obj);
     }
     render(){
         console.log(this.props, "PROPS EVERY APP")
@@ -118,7 +118,7 @@ class HistoryReceptionsItems extends React.Component{
                      onClick={this.handleClick}>
                     <PopoverFile data={this.refactorFiles(file)}
                                  canAddFiles={status!=="completed"}
-                                 id_app={id_treatment}
+                                 id_app={this.props.id}
                                  onAddFiles = {this.props.onAddFiles}
                                  refresh={this.props.refresh}
 

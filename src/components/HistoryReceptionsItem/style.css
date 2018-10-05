@@ -62,6 +62,7 @@
 .receptions .patient-name {
   font-size: 14px;
   line-height: 18px;
+  word-break: break-word;
 }
 .receptions .patient-date {
   color: #344051;
@@ -78,10 +79,12 @@
 .receptions .patient-diagnostic {
   font-size: 14px;
   color: #344051;
+  word-break: break-word;
 }
 .receptions .patient-comment {
   font-size: 14px;
   color: #344051;
+  word-break: break-word;
 }
 .receptions .patient-price {
   font-size: 14px;
@@ -93,10 +96,12 @@
   max-width: 205px;
   width: 100%;
   margin-bottom: 15px;
+  word-break: break-word;
 }
 .receptions .patient-review {
   font-size: 14px;
   color: #344051;
+  word-break: break-word;
 }
 .receptions-status {
   font-size: 12px;

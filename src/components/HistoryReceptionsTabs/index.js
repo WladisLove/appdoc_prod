@@ -23,7 +23,7 @@ class HistoryReceptionsTabs extends React.Component {
             tab: 'all',
             date: {},
             filt_name: '',
-            max: 2,
+            max: 1,
             old: 0,
             data: [],
             loading: false,
@@ -140,7 +140,6 @@ class HistoryReceptionsTabs extends React.Component {
                                                onAddFiles={this.props.onAddFiles}
                                                refresh={this.refresh}
                                                showReviewModal={this.showReviewModal}
-
                 />)
 
             });
@@ -275,6 +274,7 @@ class HistoryReceptionsTabs extends React.Component {
                                   <Input.Search
                                       placeholder="Поиск..."
                                       onChange = {this.changeHandleSearch}
+                                      onKeyDown = {this.handleKeyDown}
 
                                   />
                               </div>}>

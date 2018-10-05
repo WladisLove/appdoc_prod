@@ -48,6 +48,7 @@ class PopoverFile extends React.Component {
             file={thumbUrl: reader.result, name: file.name};
             this.props.onAddFiles(file, this.props.id_app)
                 .then((res)=> {
+                    console.log(res, "RES UPLOADING FILE");
                     this.setState({loading: false});
                     if(res.data.code===200) {
                         message.success("Файл успешно добавлен");

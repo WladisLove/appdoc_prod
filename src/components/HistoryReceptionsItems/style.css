@@ -14,7 +14,6 @@
   display: flex;
   align-items: flex-start;
   position: relative;
-  border-left: 4px solid transparent;
   cursor: pointer;
 }
 .reception:hover {
@@ -22,47 +21,39 @@
 }
 .reception .flex-col {
   padding: 25px 0;
-  margin-right: 30px;
+  margin-right: 2%;
 }
 .reception .flex-col:first-child {
-  padding-left: 25px;
+  margin-left: 3%;
 }
 .reception .flex-col:last-child {
-  padding-right: 25px;
-  margin-right: 0;
+  margin-right: 1%;
 }
 .reception .flex-col:nth-child(1) {
-  max-width: 120px;
-  width: 100%;
+  width: 11%;
 }
 .reception .flex-col:nth-child(2) {
-  max-width: 160px;
-  width: 100%;
+  width: 15%;
 }
 .reception .flex-col:nth-child(3) {
-  max-width: 200px;
-  width: 100%;
+  width: 15%;
 }
 .reception .flex-col:nth-child(4) {
-  max-width: 100px;
-  width: 100%;
+  width: 6%;
 }
 .reception .flex-col:nth-child(5) {
-  max-width: 205px;
-  width: 100%;
+  width: 15%;
 }
 .reception .flex-col:nth-child(6) {
-  max-width: 200px;
-  width: 100%;
+  width: 15%;
 }
 .reception .flex-col:nth-child(7) {
-  width: 100%;
-  max-width: 100px;
-  margin-right: 0;
+  width: 7%;
 }
 .reception .patient-name {
   font-size: 14px;
   line-height: 18px;
+  word-break: break-word;
 }
 .reception .patient-date {
   color: #344051;
@@ -79,10 +70,12 @@
 .reception .patient-diagnostic {
   font-size: 14px;
   color: #344051;
+  word-break: break-word;
 }
 .reception .patient-comment {
   font-size: 14px;
   color: #344051;
+  word-break: break-word;
 }
 .reception .patient-price {
   font-size: 14px;
@@ -94,10 +87,12 @@
   max-width: 205px;
   width: 100%;
   margin-bottom: 15px;
+  word-break: break-word;
 }
 .reception .patient-review {
   font-size: 14px;
   color: #344051;
+  word-break: break-word;
 }
 .reception-status {
   font-size: 12px;

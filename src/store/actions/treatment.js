@@ -109,7 +109,7 @@ export const addFileToApp = (file, id) => {
 export const getAppsBetweenDocAndUser = (obj) => {
     return (dispatch, getState) => {
         obj.id_user ? obj.id_doc = getState().auth.id : obj.id_user = getState().auth.id;
-        axios.post('/catalog.doc2/allMAbyIdUserAndIdDoc',
+        return axios.post('/catalog.doc2/allMAbyIdUserAndIdDoc',
             JSON.stringify({
                 ...obj,
 
