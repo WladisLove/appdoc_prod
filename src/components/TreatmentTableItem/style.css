@@ -53,6 +53,7 @@
 .treatment .patient-name {
   font-size: 14px;
   line-height: 18px;
+  word-break: break-word;
 }
 .treatment .patient-date {
   color: #344051;
@@ -69,10 +70,12 @@
 .treatment .patient-diagnostic {
   font-size: 14px;
   color: #344051;
+  word-break: break-word;
 }
 .treatment .patient-comment {
   font-size: 14px;
   color: #344051;
+  word-break: break-word;
 }
 .treatment .patient-price {
   font-size: 14px;
@@ -84,6 +87,7 @@
   max-width: 205px;
   width: 100%;
   margin-bottom: 15px;
+  word-break: break-word;
 }
 .treatment .patient-review {
   font-size: 14px;

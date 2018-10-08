@@ -15,9 +15,18 @@ import '../../icon/style.css'
 class TreatmentTableItem extends React.Component{
 
     handleClick = (e) => {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
-      }
+            e.preventDefault();
+            e.stopPropagation();
+            
+    };
+     writeReview = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const obj = {id_doc: this.props.id_doc, id_zap: this.props.id};
+            this.props.showReviewModal(obj);
+    };
+
+
     refactorFiles = (file) => {
         if(file.length>1) {
             if(file[0].data){
@@ -34,6 +43,7 @@ class TreatmentTableItem extends React.Component{
         }
     };
     render(){
+        console.log(this.props, "EVERY PROPS FROM COMPLETED MA")
         const {type, id_treatment : id, id_user,id_doc, file, user_name,doc_name, date, begin, finish, diagnostic, comment, price, conclusion,
             isUser, patientWasnt, rate, complaint, onGoto, onGotoChat} = this.props;
         const goToId = isUser ? id_doc : id_user;
@@ -100,7 +110,7 @@ class TreatmentTableItem extends React.Component{
                                 <div className="patient-review">{comment}</div>
                             </Hoc>
                         ) : conclusion ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
-                                                  onClick={this.handleClick}
+                                                  onClick={this.writeReview}
                                                   size='small'
                                                   type='float'
                                                   icon='form'/> : <span>&mdash;</span>
@@ -122,7 +132,6 @@ TreatmentTableItem.propTypes = {
     diagnostic: PropTypes.string,
     comments: PropTypes.string,
     price: PropTypes.string,
-    conclusion: PropTypes.object,
     rating: PropTypes.oneOfType([
         PropTypes.number
     ]),

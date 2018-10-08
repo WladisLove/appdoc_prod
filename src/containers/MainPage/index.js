@@ -20,7 +20,6 @@ class MainPage extends React.Component{
 	componentWillMount(){
 		if (this.props.mode === "user"){
 			this.props.onGetPatientDoctors(2);
-			this.props.onGetCompletedApp();
             this.props.onGetNearVisits(3);
             this.props.onGetUserInfoShort();
 		}
@@ -29,11 +28,11 @@ class MainPage extends React.Component{
 			let now = new Date();
 			this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
 											new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
-            this.props.onGetActualTreatments({status: "topical"});
+
 			this.props.getDocTodayInfo();
 			this.props.onGetIntervalForDate(moment(+new Date()).format('X'), moment(+new Date()).format('X'), );
 		}
-		
+
 	}
 
 	onAddVisit = () => {
@@ -79,6 +78,8 @@ class MainPage extends React.Component{
                 onCancel = {()=>this.setState({isNewFreeVisitVisible: false })}
                 onFreeVisit = {this.onNewFreeVisit}
                 onAddVisit = {this.props.onAddNewVisit}
+				getCompletedApps = {this.props.onGetCompletedApp}
+                onSubmitReview={this.props.makeReview}
             />
 		) : (
 			<DoctorPage
@@ -88,9 +89,10 @@ class MainPage extends React.Component{
 				closeAdd= {() => {this.setState({addModal: false})}}
 				onSaveNewVisit = {this.onSaveNewVisit}
 				cancelModal ={this.state.cancelModal}
-                completedAppsLoaded={this.props.completedAppsLoaded}
                 closeCancel= {() => {this.setState({cancelModal: false})}}
 				saveCancel = {() => {}}
+				getCompletedApps = {(pagination)=>this.props.onGetActualTreatments({status: "new", ...pagination})}
+                treatmentsCount={this.props.treatmentsCount}
 				{...this.props}/>
 		)
     }
@@ -109,6 +111,7 @@ const mapStateToProps = state => {
 		nearVisits: state.schedules.nearVisits,
 		nearVisitsLoaded: state.schedules.nearVisitsLoaded,
         myDoctorsLoaded: state.patients.myDoctorsLoaded,
+        treatmentsCount: state.treatments.treatmentsCount,
         completedAppsLoaded: state.treatments.completedAppsLoaded,
 		intervals: state.patients.intervals,
 		availableIntervals: state.profileDoctor.workIntervals,
@@ -125,7 +128,7 @@ const mapDispatchToProps = dispatch => {
 		onGetTodayVisits: (start, end) => dispatch(actions.getTodayVisits(start, end)),
 		onGetAllReviews: () => dispatch(actions.getAllReviews()),
 		onGetActualTreatments: (obj) => dispatch(actions.getPaginationTreatments(obj)),
-        onGetCompletedApp: () => dispatch(actions.getCompletedApps()),
+        onGetCompletedApp: (obj) => dispatch(actions.getCompletedApps(obj)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetNearVisits: (count) => dispatch(actions.getCountNearVisits(count)),
 		//onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),
@@ -134,7 +137,8 @@ const mapDispatchToProps = dispatch => {
 		onGetIntervalForDate: (beginDay, endDay, id) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay, id)),
 		onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
 		onSendUserPoleValue: (pole, value) => dispatch(actions.sendUserPoleValue(pole, value)),
-		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort())
+		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort()),
+        makeReview: (obj) => dispatch(actions.makeReview(obj)),
     }
 };
 

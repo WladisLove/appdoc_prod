@@ -24,8 +24,10 @@ export const getPaginationTreatments = (filters) => {
     return (dispatch, getState) => {
         let obj = {...filters};
         getState().auth.mode === "user" ? obj.id_user = getState().auth.id : obj.id_doc = getState().auth.id;
+        console.log(obj, "WHAT WE SEND TO GET REATMENTS");
         return axios.post('/catalog.doc2/getTreatmentsNew', JSON.stringify(obj))
             .then(res => {
+                console.log(res, "WHAT WE GOT TREATMENTS");
                 dispatch({
                     type: actionTypes.GET_TREATMENTS,
                     treatments: res.data.result,
@@ -73,11 +75,11 @@ export const getCompletedTreatments = () => {
     }
 };
 
-export const getCompletedApps = () => {
+export const getCompletedApps = (obj) => {
     return (dispatch, getState) => {
-
-        axios.post('/catalog.doc2/allMAcompleteMyIdUser',
+        return axios.post('/catalog.doc2/allMAcompleteMyIdUser',
             JSON.stringify({
+                ...obj,
                 id: getState().auth.id
             }))
             .then(res => {
