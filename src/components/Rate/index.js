@@ -8,20 +8,20 @@ import './styles.css'
 class Rate extends React.Component{
     //if (props.character)
     state = {
-        rate: this.props.defaultValue,
+        rate: +this.props.defaultValue,
     }
 
     componentWillReceiveProps(nextProps){
-        (this.props.defaultValue !== nextProps.defaultValue) && this.setState({rate: nextProps.defaultValue})
+        (this.props.defaultValue !== nextProps.defaultValue) && this.setState({rate: +nextProps.defaultValue})
     }
 
     render(){
         return(
-            <AntRate {...this.props} 
+            <AntRate {...this.props}
                     defaultValue={this.state.rate}
-                    character={this.props.character 
-                        || <Icon type="star" 
-                                    size={this.props.starSize} 
+                    character={this.props.character
+                        || <Icon type="star"
+                                    size={this.props.starSize}
                                     svg/>}/>
         )
     }

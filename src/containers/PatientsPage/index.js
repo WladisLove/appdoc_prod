@@ -12,6 +12,7 @@ import * as actions from '../../store/actions'
 
 import './styles.css';
 import Spinner from "../../components/Spinner";
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 class PatientsPage extends React.Component{
 
@@ -74,6 +75,8 @@ class PatientsPage extends React.Component{
                                                personalPage = {true}
                                                isUser = {this.props.mode === "user"}
                                                onAddFiles = {this.props.onAddFiles}
+                                               addConclusion = {this.props.addConclusion}
+
                             />
                         </Col>
                     </Row>
@@ -106,6 +109,8 @@ const mapDispatchToProps = dispatch => {
         onSaveReception: (reception) => dispatch(actions.setReception(reception)),
         onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
+        addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file))
+
     }
 };
 

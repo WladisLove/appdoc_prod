@@ -31,17 +31,19 @@ class ContentForm extends React.Component{
             date: moment().format("X"),
             ...this.props.info
         };
+        console.log(obj);
         this.setState({loading:true}, () => {
             this.props.onSubmit(obj).then((res) => {
                 console.log(res, "RES");
+                this.setState({loading:false});
                 if(+res.data.code===200) {
-                    this.setState({loading:false});
-                    this.props.onCancel(res.data.code)
-                } else {console.log(res.data.code)}
-
-
+                    this.props.onCancel();
+                    this.props.refresh();
+                    message.success("Отзыв успешно оставлен")
+                } else {
+                    message.error("Произошла ошибка, попробуйте ещё раз")
+                }
             })
-                .then()
         })
     };
     render(){
@@ -50,8 +52,8 @@ class ContentForm extends React.Component{
                   className="cancelVisitModal">
                 <p>С целью повышения качества услуг просим поставить рейтинг или оставить отзыв.</p>
                 <FormItem>
-                    <Rate onChange = {this.handleChange} value={this.state.value}defaultValue={0} starSize={20}/>
-                    <span className="rate-number">{this.state.value ? this.state.value : 0}</span>
+                    <Rate onChange = {this.handleChange} value={this.state.value}defaultValue={1} starSize={20}/>
+                    <span className="rate-number">{this.state.value ? this.state.value : 1}</span>
                 </FormItem>
                 <TextArea label='Текст отзыва'
                           value={this.state.message}

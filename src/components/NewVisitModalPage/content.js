@@ -39,8 +39,8 @@ class ContentForm extends React.Component {
         paramDate.minute(start._d.getMinutes());
         paramDate.second(0);
 
-        for(let i = 0; i<area.length; i++) {
-            if(paramDate.hour()>=area[i].from.hour() && paramDate.hour()<=area[i].to.hour()) {
+        for (let i = 0; i < area.length; i++) {
+            if (paramDate.hour() >= area[i].from.hour() && paramDate.hour() <= area[i].to.hour()) {
                 type = area[i].type;
             }
         }
@@ -81,14 +81,22 @@ class ContentForm extends React.Component {
         let intervals = [];
 
         const arr = newIntervals;
-        for(let i = 0; arr && i < arr.length; i++){
-            for(let j = 0; j < arr[i].intervalOb.length; j++){
-                if(+arr[i].intervalOb[j].start < +moment().format("X")+1800) {
-                    if(+arr[i].intervalOb[j].end >  +moment().format("X")+1800) {
-                        intervals.push({from: (+moment().format("X")+1800)*1000, to: (+arr[i].intervalOb[j].end) * 1000, type: (arr[i].type)});
+        for (let i = 0; arr && i < arr.length; i++) {
+            for (let j = 0; j < arr[i].intervalOb.length; j++) {
+                if (+arr[i].intervalOb[j].start < +moment().format("X") + 1800) {
+                    if (+arr[i].intervalOb[j].end > +moment().format("X") + 1800) {
+                        intervals.push({
+                            from: (+moment().format("X") + 1800) * 1000,
+                            to: (+arr[i].intervalOb[j].end) * 1000,
+                            type: (arr[i].type)
+                        });
                     }
                 } else {
-                    intervals.push({from: (+arr[i].intervalOb[j].start)*1000, to: (+arr[i].intervalOb[j].end)*1000, type: (arr[i].type)});
+                    intervals.push({
+                        from: (+arr[i].intervalOb[j].start) * 1000,
+                        to: (+arr[i].intervalOb[j].end) * 1000,
+                        type: (arr[i].type)
+                    });
                 }
             }
         }
@@ -117,10 +125,10 @@ class ContentForm extends React.Component {
                 icons = <Radio icons={['chat1']}/>;
                 break;
             case "voice":
-                icons = <Radio icons={['chat1','telephone']}/>;
+                icons = <Radio icons={['chat1', 'telephone']}/>;
                 break;
             case "video":
-                icons = <Radio icons={['chat1','telephone', "video-camera"]}/>;
+                icons = <Radio icons={['chat1', 'telephone', "video-camera"]}/>;
                 break;
             default:
                 icons = <Radio icons={['chat1']}/>;
@@ -128,7 +136,7 @@ class ContentForm extends React.Component {
         return icons;
     };
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         (nextProps.visible && !this.props.visible) ? (this.setState({
             message: '',
             isResetTime: true,
@@ -148,42 +156,42 @@ class ContentForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-            this.props.form.validateFieldsAndScroll((err, values) => {
-                if (!err) {
-                    let paramDate = this.state.currentTime;
-                    let response = {
-                        id_user: this.props.id,
-                        comment: this.state.message,
-                        date: +paramDate.format('X'), //формат для сервера
-                        type: values.radio,
-                    };
-                    if (values.file) {
-                        response.file = values.file.fileList.map((item, index) => {
-                            return item.originFileObj
-                        })
-                    }
-
-                    this.setState({loading: true});
-                    this.props.onSave(response)
-                        .then((res) => {
-                            res.data.code === 200
-                                ? (message.success("Запись прошла успешно"), this.props.onCancel())
-                                : message.error("Произошла ошибка, выберете другое время")
-                            this.setState({loading:false})
-                    });
-                } else {
-                    console.log(err, "ERROR")
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                let paramDate = this.state.currentTime;
+                let response = {
+                    id_user: this.props.id,
+                    comment: this.state.message,
+                    date: +paramDate.format('X'), //формат для сервера
+                    type: values.radio,
+                };
+                if (values.file) {
+                    response.file = values.file.fileList.map((item, index) => {
+                        return item.originFileObj
+                    })
                 }
-            });
+
+                this.setState({loading: true});
+                this.props.onSave(response)
+                    .then((res) => {
+                        res.data.code === 200
+                            ? (message.success("Запись прошла успешно"), this.props.onCancel())
+                            : message.error("Произошла ошибка, выберете другое время")
+                        this.setState({loading: false})
+                    });
+            } else {
+                console.log(err, "ERROR")
+            }
+        });
 
     };
 
     modifyFiles = (file) => {
-        if(!file.thumbUrl && !file.modify){
-          file.modify = true;
-          previewFile(file, function (previewDataUrl) {
-            file.thumbUrl = previewDataUrl;
-          });
+        if (!file.thumbUrl && !file.modify) {
+            file.modify = true;
+            previewFile(file, function (previewDataUrl) {
+                file.thumbUrl = previewDataUrl;
+            });
         }
     };
 
@@ -207,12 +215,12 @@ class ContentForm extends React.Component {
                             />
                         )}
                     </FormItem>
-                    
+
                     <FormItem>
-                        {getFieldDecorator('time',{
+                        {getFieldDecorator('time', {
                             rules: [{required: true, message: 'Введите время',}],
                         })(
-                                <TimePicker format="HH:mm"
+                            <TimePicker format="HH:mm"
                                         minuteStep={this.state.appointmentDuration}
                                         availableArea={this.state.availableArea}
                                         placeholder='Время приёма'
@@ -228,17 +236,17 @@ class ContentForm extends React.Component {
                           value={this.state.message}
                           onChange={message => this.setState({message})}
                           className="NewVisitModal-txtarea"/>
-              {this.props.isUser && <FormItem>
-                {getFieldDecorator('file')(
-                  <Upload className="newMessageModal-upload"
-                          onChange={({file}) => this.modifyFiles(file)}
-                          listType = 'text'
-                          text="Прикрепить результаты исследований"/>
-                )}
+                {this.props.isUser && <FormItem>
+                    {getFieldDecorator('file')(
+                        <Upload className="newMessageModal-upload"
+                                onChange={({file}) => this.modifyFiles(file)}
+                                listType='text'
+                                text="Прикрепить результаты исследований"/>
+                    )}
                 </FormItem>}
 
                 <FormItem>
-                    {getFieldDecorator('radio',{
+                    {getFieldDecorator('radio', {
                         initialValue: 'chat',
                     })(
                         this.getIconsFromType(this.state.type)
@@ -246,17 +254,18 @@ class ContentForm extends React.Component {
                 </FormItem>
 
                 <div className='NewVisitModal-submit'>
-                <Button size='default'
-                        btnText='Сохранить'
-                        disable={this.state.loading}
-                        htmlType="submit"
-                        type='float'
-                        style={{marginRight: "20px"}}
+                    <Button size='default'
+                            btnText='Сохранить'
+                            disable={this.state.loading}
+                            htmlType="submit"
+                            type='float'
+                            style={{marginRight: "20px"}}
 
-                />
+                    />
                     {this.state.loading && <Spinner inline={true} size="small"/>}
 
-                {this.state.showSubmitError && <div className='NewVisitModal-submit-error'>Это время уже занято</div>}
+                    {this.state.showSubmitError &&
+                    <div className='NewVisitModal-submit-error'>Это время уже занято</div>}
                 </div>
 
             </Form>

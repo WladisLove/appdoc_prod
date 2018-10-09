@@ -224,13 +224,14 @@ class NewFreeVisitByPatientForm extends React.Component {
                                 </div>
 
                             </FormItem>}
-
+                            <div className="textarea-label">Комментарий к приему</div>
                             <FormItem>
                                 {getFieldDecorator('comment', {
                                     initialValue: this.state.comment
                                 })(
-                                    <TextArea label='Комментарий к приему'
-                                              className="NewVisitModal-txtarea"/>
+                                    <textarea className="textarea-field"
+                                              onChange={this.handleChange}
+                                    />
                                 )}
                             </FormItem>
                             <FormItem>

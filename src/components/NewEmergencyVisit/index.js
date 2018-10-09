@@ -3,7 +3,6 @@ import Card from '../Card'
 import Button from '../Button'
 import './style.css'
 import '../../icon/style.css'
-import TextArea from "../TextArea";
 import Upload from "../Upload";
 import {Form, Alert, message} from "antd";
 import {previewFile} from "../../helpers/modifyFiles";
@@ -84,6 +83,15 @@ class NewEmergencyVisitForm extends React.Component {
         }
     }
 
+    handleChange = (string) => {
+        return "123"
+    };
+
+    componentDidMount() {
+        this.props.form.setFieldsValue({comment : "vgasd"})
+    }
+
+
     render() {
         const {getFieldDecorator} = this.props.form;
         const {visible, onCancel} = this.props;
@@ -96,14 +104,14 @@ class NewEmergencyVisitForm extends React.Component {
                   className="newEmergencyVisit">
                     <Card title = "Заявка на экстренный вызов">
                         <div className="new-emergency-visit-content">
+                            <div className="textarea-label">Опишите проблему</div>
                             <FormItem>
                                 {getFieldDecorator('comment',{
-                                    rules: [{required: true, message: 'Опишите жалобу',}],
+                                    rules: [{required: true, message: 'Опишите жалобу'}],
+                                    getValueFromEvent: this.onChange,
                                 })(
-                                    <TextArea label='Жалоба, причина обращения'
-                                              className="newEmergencyVisit-txtarea"
-                                              onChange = { (val) => {val && this.setState({shouldWriteComment:false})}}
-
+                                    <textarea className="textarea-field"
+                                              onChange={this.handleChange}
                                     />
                                 )}
                             </FormItem>

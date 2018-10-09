@@ -18,9 +18,7 @@ class Treatment extends React.Component{
         addModal: false,
         isNewFreeVisitVisible: false,
     };
-    componentDidMount(){
-        this.props.onGetTreatments();
-    }
+
 
     gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
@@ -47,6 +45,7 @@ class Treatment extends React.Component{
                             treatmentsCount ={this.props.treatmentsCount}
                             onSubmit={this.props.makeReview}
                             onAddFiles = {this.props.onAddFiles}
+                            addConclusion = {this.props.addConclusion}
                         />
             		</Col>
             	</Row>
@@ -70,7 +69,7 @@ const mapDispatchToProps = dispatch => {
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
-
+        addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file))
     }
 };
 

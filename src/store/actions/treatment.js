@@ -24,8 +24,10 @@ export const getPaginationTreatments = (filters) => {
     return (dispatch, getState) => {
         let obj = {...filters};
         getState().auth.mode === "user" ? obj.id_user = getState().auth.id : obj.id_doc = getState().auth.id;
-        axios.post('/catalog.doc2/getTreatmentsNew', JSON.stringify(obj))
+        console.log(obj, "WHAT WE SEND TO GET REATMENTS");
+        return axios.post('/catalog.doc2/getTreatmentsNew', JSON.stringify(obj))
             .then(res => {
+                console.log(res, "WHAT WE GOT TREATMENTS");
                 dispatch({
                     type: actionTypes.GET_TREATMENTS,
                     treatments: res.data.result,
@@ -35,6 +37,7 @@ export const getPaginationTreatments = (filters) => {
                     type: actionTypes.GET_COMPLETED_APPS,
                     completedApps: res.data,
                 });
+                return res
             })
             .catch(err => {
                 console.log(err);
@@ -72,11 +75,11 @@ export const getCompletedTreatments = () => {
     }
 };
 
-export const getCompletedApps = () => {
+export const getCompletedApps = (obj) => {
     return (dispatch, getState) => {
-
-        axios.post('/catalog.doc2/allMAcompleteMyIdUser',
+        return axios.post('/catalog.doc2/allMAcompleteMyIdUser',
             JSON.stringify({
+                ...obj,
                 id: getState().auth.id
             }))
             .then(res => {
@@ -108,7 +111,7 @@ export const addFileToApp = (file, id) => {
 export const getAppsBetweenDocAndUser = (obj) => {
     return (dispatch, getState) => {
         obj.id_user ? obj.id_doc = getState().auth.id : obj.id_user = getState().auth.id;
-        axios.post('/catalog.doc2/allMAbyIdUserAndIdDoc',
+        return axios.post('/catalog.doc2/allMAbyIdUserAndIdDoc',
             JSON.stringify({
                 ...obj,
 
@@ -194,7 +197,7 @@ export const uploadChatFile = (id_zap, id_user, file, callback) => {
 export const uploadConclusion = (id_zap, file, callback) => {
     return (dispatch) => {
         //console.log(file.thumbUrl.substr(0,50));
-        axios.post('/catalog.doc2/saveFilesZak',
+        return axios.post('/catalog.doc2/saveFilesZak',
             JSON.stringify({
                 id_zap,
                 file,
@@ -202,10 +205,8 @@ export const uploadConclusion = (id_zap, file, callback) => {
             .then(res => {
                 const {result} = res.data;
                 (callback instanceof Function) &&  callback({...result, isConclusion: true});
+                return res
             })
-            .catch(err => {
-                console.log(err);
-        })
     }
 }
 

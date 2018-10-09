@@ -9,6 +9,7 @@ import TableNoHead from "../../components/TableNoHead";
 import CancelVisitModal from "../../components/CancelVisitModal";
 
 import Hoc from '../../hoc'
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 const DoctorPage = props => {
 
@@ -16,7 +17,7 @@ const DoctorPage = props => {
 		props.onSelectPatient(id);
 		props.history.push('/app/patient'+id);
 	}
-
+	console.log(props, "PROPS FROM DOC PAGE")
     return (
         <Hoc>
 					<Row>
@@ -52,14 +53,20 @@ const DoctorPage = props => {
 					<Row>
 						<Col span={24} className='section'>
 							<TreatmentTable data={props.actualTreatments}
+											dataCount = {props.treatmentsCount}
 											onGoto={(id) => gotoHandler(id)}
 											onGotoChat = {(id) => {
                                                 props.onSelectTretment(id);
 												props.history.push('/app/chat');
 											}}
-                                            treatmentsLoaded={props.completedAppsLoaded}
+                                            getCompletedApps ={props.getCompletedApps}
+                                            onSubmitReview={props.onSubmitReview}
 											redirect={() => props.history.push('/app/treatment')}
-							/>
+                                            addConclusion = {props.addConclusion}
+
+
+
+                            />
 						</Col>
 					</Row>
 					<NewVisitModal visible={props.addModal}

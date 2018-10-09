@@ -107,11 +107,12 @@ const PatientPage = props => {
                     <TreatmentTable
                         isUser={props.isUser}
                         redirect={() => props.history.push('/app/treatment')}
-
-                        data={props.completedApps}
+                        data={props.completedApps ? props.completedApps.result : []}
+                        dataCount = {props.completedApps ? props.completedApps.count : 0}
                         onGoto={gotoHandler}
                         onGotoChat={(id) => console.log(id)}
-                        treatmentsLoaded={props.completedAppsLoaded}
+                        getCompletedApps ={props.getCompletedApps}
+                        onSubmitReview={props.onSubmitReview}
                     />
                 </Col>
             </Row>

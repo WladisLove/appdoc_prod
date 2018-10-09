@@ -33,7 +33,10 @@ class Radio extends React.Component{
         icons.forEach((icon,index) => {
             radios.push(
                     <div className="wrapper-tip-radio"
-                         data-tip={this.getToolTipByType(icon)}>
+                         data-tip={this.getToolTipByType(icon)}
+                         key={index}
+
+                    >
                         <RadioButton value={key_val[icon]} key={'radio'+icon+index} >
                             <Icon svg size={16} type={icon} />
                         </RadioButton>

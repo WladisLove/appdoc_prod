@@ -48,6 +48,7 @@ class PopoverFile extends React.Component {
             file={thumbUrl: reader.result, name: file.name};
             this.props.onAddFiles(file, this.props.id_app)
                 .then((res)=> {
+                    console.log(res, "RES UPLOADING FILE");
                     this.setState({loading: false});
                     if(res.data.code===200) {
                         message.success("Файл успешно добавлен");
@@ -69,7 +70,6 @@ class PopoverFile extends React.Component {
     };
 
     render() {
-        const popoverNumCl = cn('popover-num', this.state.num && 'active');
         return (
             <Popover
                 content={
@@ -111,8 +111,8 @@ class PopoverFile extends React.Component {
                             title="Скачать все файлы"
                     />
 
-                    <div className={popoverNumCl}>
-                        {this.state.num ? ('+' + this.state.num) : this.props.data.length}
+                    <div className={'popover-num active'}>
+                        {this.props.data.length}
                     </div>
                 </div>
             </Popover>

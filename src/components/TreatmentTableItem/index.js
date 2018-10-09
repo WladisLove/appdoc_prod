@@ -11,13 +11,39 @@ import Hoc from '../Hoc'
 
 import './style.css'
 import '../../icon/style.css'
+import {message} from "antd";
 
 class TreatmentTableItem extends React.Component{
 
     handleClick = (e) => {
-        e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
-      }
+            e.preventDefault();
+            e.stopPropagation();
+
+    };
+     writeReview = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const obj = {id_doc: this.props.id_doc, id_zap: this.props.id};
+            this.props.showReviewModal(obj);
+    };
+
+     addConclusion = (file) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            const filesend = {name: file.name, thumbUrl: reader.result};
+            this.props.addConclusion(this.props.lastMA, filesend)
+                .then((res)=>{
+                    if(+res.data.code===200) {
+                        message.success("Заключение успешно добавлено")
+                    } else {
+                        message.error("Произошла ошибка попробуйте ещё раз")
+                    }
+                    this.props.refresh();
+                })
+        });
+        reader.readAsDataURL(file);
+    };
+
     refactorFiles = (file) => {
         if(file.length>1) {
             if(file[0].data){
@@ -34,6 +60,7 @@ class TreatmentTableItem extends React.Component{
         }
     };
     render(){
+        console.log(this.props, "PROPS TT")
         const {type, id_treatment : id, id_user,id_doc, file, user_name,doc_name, date, begin, finish, diagnostic, comment, price, conclusion,
             isUser, patientWasnt, rate, complaint, onGoto, onGotoChat} = this.props;
         const goToId = isUser ? id_doc : id_user;
@@ -44,7 +71,24 @@ class TreatmentTableItem extends React.Component{
             'video': "video-camera",
         }
         const name = isUser ? doc_name: user_name;
-        const conclusionMessage = isUser ? "Ожидайте заключение": "Необходимо заключение";
+        const conclusionMessage = isUser ? "Ожидайте заключение":
+            <div onClick={e=>{e.stopPropagation()}}>
+            <input type="file"
+                   id="addConclusion"
+                   style={{
+                       width: "0.1px",
+                       height: "0.1px",
+                       opacity: 0,
+                       overflow: "hidden",
+                       position: "absolute",
+                       zIndex: -1
+                   }}
+                   onChange={e => this.addConclusion(e.target.files[0])}
+            />
+            <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
+                <span>Добавить</span>
+            </label>
+        </div>;;
         return (
             <div className={rootClass}
                     onClick={(e) => {
@@ -96,11 +140,11 @@ class TreatmentTableItem extends React.Component{
                     {
                         rate ? (
                             <Hoc>
-                                <Rate defaultValue={rate} disabled/>
+                                <Rate defaultValue={+rate} disabled/>
                                 <div className="patient-review">{comment}</div>
                             </Hoc>
-                        ) : conclusion ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
-                                                  onClick={this.handleClick}
+                        ) : conclusion && isUser ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
+                                                  onClick={this.writeReview}
                                                   size='small'
                                                   type='float'
                                                   icon='form'/> : <span>&mdash;</span>
@@ -122,7 +166,6 @@ TreatmentTableItem.propTypes = {
     diagnostic: PropTypes.string,
     comments: PropTypes.string,
     price: PropTypes.string,
-    conclusion: PropTypes.string,
     rating: PropTypes.oneOfType([
         PropTypes.number
     ]),
