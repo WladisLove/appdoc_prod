@@ -10,6 +10,7 @@ import Spinner from "../Spinner";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Button from "../Button";
 import ReviewsModal from "../ReviewsModal";
+import HistoryReceptionsTabs from "../HistoryReceptionsTabs";
 
 class TreatmentTable extends React.Component{
     constructor(props){
@@ -35,6 +36,9 @@ class TreatmentTable extends React.Component{
                                     key={index}
                                     isUser = {this.props.isUser}
                                     showReviewModal={this.showReviewModal}
+                                    addConclusion = {this.props.addConclusion}
+                                    refresh = {this.refresh}
+
 
                 />)
             });

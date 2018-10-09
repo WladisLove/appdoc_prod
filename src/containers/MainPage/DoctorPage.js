@@ -9,6 +9,7 @@ import TableNoHead from "../../components/TableNoHead";
 import CancelVisitModal from "../../components/CancelVisitModal";
 
 import Hoc from '../../hoc'
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 const DoctorPage = props => {
 
@@ -61,8 +62,11 @@ const DoctorPage = props => {
                                             getCompletedApps ={props.getCompletedApps}
                                             onSubmitReview={props.onSubmitReview}
 											redirect={() => props.history.push('/app/treatment')}
+                                            addConclusion = {props.addConclusion}
 
-							/>
+
+
+                            />
 						</Col>
 					</Row>
 					<NewVisitModal visible={props.addModal}

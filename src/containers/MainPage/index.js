@@ -8,6 +8,7 @@ import * as actions from '../../store/actions'
 import moment from 'moment'
 
 import './styles.css'
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 class MainPage extends React.Component{
 	state = {
@@ -93,6 +94,7 @@ class MainPage extends React.Component{
 				saveCancel = {() => {}}
 				getCompletedApps = {(pagination)=>this.props.onGetActualTreatments({status: "new", ...pagination})}
                 treatmentsCount={this.props.treatmentsCount}
+                addConclusion = {this.props.addConclusion}
 				{...this.props}/>
 		)
     }
@@ -139,6 +141,7 @@ const mapDispatchToProps = dispatch => {
 		onSendUserPoleValue: (pole, value) => dispatch(actions.sendUserPoleValue(pole, value)),
 		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
+        addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file))
     }
 };
 
