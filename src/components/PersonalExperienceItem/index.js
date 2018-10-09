@@ -20,9 +20,9 @@ class PersonalExperienceItemForm extends React.Component{
         super(props);
         this.state = {
             experBlock: 0,
-            experience: null,
-            works: [],
-            category: {}
+            experience: props.profileDoctor.experience || null,
+            works: props.profileDoctor.works || [],
+            category: {name: props.profileDoctor.category || "", doc: props.profileDoctor.copycontract || []}
         }
     }
 
@@ -254,7 +254,7 @@ class PersonalExperienceItemForm extends React.Component{
     };
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.profileDoctor.id && nextProps.profileDoctor !== this.props.profileDoctor) {
+        if (this.props.profileDoctor && JSON.stringify(nextProps.profileDoctor) !== JSON.stringify(this.props.profileDoctor)) {
             this.setState({
                 experience: nextProps.profileDoctor.experience,
                 works: nextProps.profileDoctor.works,
