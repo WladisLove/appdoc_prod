@@ -10,3 +10,6 @@
   display: block;
   font-size: 12px;
 }
+.completionReceptionModal .ant-form-item-with-help {
+  margin-bottom: 30px;
+}
