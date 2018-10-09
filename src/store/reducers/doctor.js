@@ -7,6 +7,7 @@ const initialState = {
     },
     isEx: false,
     isUserSetEx: false,
+    emergencyAvailable: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -32,6 +33,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isEx: action.isIn,
                 isUserSetEx: true,
+            }
+        case actionTypes.GET_EMERGENCY_AVAILABILITY:
+            return {
+                ...state,
+                emergencyAvailable: action.availability
             }
             
         default: return state;

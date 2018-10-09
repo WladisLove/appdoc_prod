@@ -249,7 +249,7 @@ class ContentForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {dateSet, selOptions, intervalTime, type, isDayOff} = this.props;
+        const {dateSet, selOptions, intervalTime, type, isDayOff, emergencyAvailable} = this.props;
         return (
             <Form onSubmit={this.handleSubmit}
                   className="receptionsScheduleModal">
@@ -301,7 +301,7 @@ class ContentForm extends React.Component {
                                         svg/>
                         </Tabs.TabPane>
 
-                    <Tabs.TabPane tab="Экстренные вызовы"
+                    <Tabs.TabPane disabled={!emergencyAvailable} tab="Экстренные вызовы"
                                   key="2">
                         {this.renderTpBlock(
                             'reception',

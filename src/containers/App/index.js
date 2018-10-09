@@ -102,6 +102,7 @@ class App extends React.Component {
         if(this.props.id){
             this.runNotificationsWS();
             this.runChatWS();
+            this.props.getEmergencyAvailability();
         }
 
     }
@@ -184,7 +185,7 @@ class App extends React.Component {
                                 getFreeVisitIntervals = {(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
                                 freeVisitsIntervals = {this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
                                 onMakeVisit = {(obj)=>this.props.onMakeVisit(obj)}
-
+                                emergencyAvailable={this.props.emergencyAvailable}
 
                         />
                     </div>
@@ -249,6 +250,7 @@ const mapStateToProps = state =>{
         shortDocInfo: state.doctor.shortInfo,
         usersHeaderSearch: state.patients.usersHeaderSearch,
         isIn: state.doctor.isEx,
+        emergencyAvailable: state.doctor.emergencyAvailable,
         isUserSet: state.doctor.isUserSetEx,
         freeVisitsIntervals: state.schedules.freeVisitsIntervals,
 
@@ -285,6 +287,7 @@ const mapDispatchToProps = dispatch => {
         onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
         onMakeVisit: (info)=> dispatch(actions.setReceptionByPatient(info)),
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
+        getEmergencyAvailability: () => dispatch(actions.getEmergencyAvailability()),
 
         docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
         docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),

@@ -46,7 +46,8 @@ ReceptionsScheduleModal.propTypes = {
     selOptions: PropTypes.array,
     intervalTime: PropTypes.number,
     type: PropTypes.string,
-    isDayOff: PropTypes.bool
+    isDayOff: PropTypes.bool,
+    emergencyAvailable: PropTypes.bool
 };
 
 ReceptionsScheduleModal.defaultProps = {
