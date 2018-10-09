@@ -11,6 +11,7 @@ import '../../icon/style.css'
 import HistoryReceptionsItems from "../HistoryReceptionsItems";
 import Spinner from "../Spinner";
 import ReviewsModal from "../ReviewsModal";
+import HistoryReceptionsTabs from "../HistoryReceptionsTabs";
 
 class HistoryReceptions extends React.Component{
     constructor(props){
@@ -46,7 +47,9 @@ class HistoryReceptions extends React.Component{
                                                 showReviewModal={this.showReviewModal}
                                                 onAddFiles={this.props.onAddFiles}
                                                 refresh={this.refresh}
-                />)
+                                                addConclusion = {this.props.addConclusion}
+
+                 />)
             });
         }
         if(this.props.appsBetweenCount > dataArr.length && !this.state.loading) {

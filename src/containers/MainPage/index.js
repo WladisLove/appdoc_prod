@@ -92,7 +92,7 @@ class MainPage extends React.Component{
 				cancelModal ={this.state.cancelModal}
                 closeCancel= {() => {this.setState({cancelModal: false})}}
 				saveCancel = {() => {}}
-				getCompletedApps = {(pagination)=>this.props.onGetActualTreatments({status: "new", ...pagination})}
+				getCompletedApps = {(pagination)=>this.props.onGetActualTreatments({status: "topical", ...pagination})}
                 treatmentsCount={this.props.treatmentsCount}
                 addConclusion = {this.props.addConclusion}
 				{...this.props}/>

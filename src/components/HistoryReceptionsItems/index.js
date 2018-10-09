@@ -11,6 +11,7 @@ import PopoverFile from '../PopoverFile'
 import './style.css'
 import '../../icon/style.css'
 import Hoc from "../Hoc";
+import {message} from "antd";
 
 class HistoryReceptionsItems extends React.Component{
 
@@ -33,6 +34,24 @@ class HistoryReceptionsItems extends React.Component{
         const obj = {id_doc: this.props.id_doc, id_zap: this.props.id};
         this.props.showReviewModal(obj);
     }
+
+    addConclusion = (file) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            const filesend = {name: file.name, thumbUrl: reader.result};
+            this.props.addConclusion(this.props.id, filesend)
+                .then((res)=>{
+                    if(+res.data.code===200) {
+                        message.success("Заключение успешно добавлено")
+                    } else {
+                        message.error("Произошла ошибка попробуйте ещё раз")
+                    }
+                    this.props.refresh();
+                })
+        });
+        reader.readAsDataURL(file);
+    };
+
     render(){
         console.log(this.props, "PROPS EVERY APP")
         const {
@@ -59,7 +78,23 @@ class HistoryReceptionsItems extends React.Component{
             'voice': 'telephone',
             'video': "video-camera",
         }
-        const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение";
+        const conclusionMessage = isUser? "Ожидайте заключения" : <div onClick={e=>{e.stopPropagation()}}>
+            <input type="file"
+                   id="addConclusion"
+                   style={{
+                       width: "0.1px",
+                       height: "0.1px",
+                       opacity: 0,
+                       overflow: "hidden",
+                       position: "absolute",
+                       zIndex: -1
+                   }}
+                   onChange={e => this.addConclusion(e.target.files[0])}
+            />
+            <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
+                <span>Добавить</span>
+            </label>
+        </div>;
         const status = +moment(+date*1000).format("X") > +moment().format("X") ? "new" : conclusion ? "completed" : "topical";
         const statusClass = cn('patient-status', 'reception-status',`${status}`);
         return (
