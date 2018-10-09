@@ -140,7 +140,7 @@ class ProfilePatient extends React.Component{
 ProfilePatient.propTypes = { 
     name: PropTypes.string,
     img: PropTypes.string,
-    status: PropTypes.string,
+    status: PropTypes.bool,
     lastDate: PropTypes.number,
     speciality: PropTypes.array,
     doctor: PropTypes.string,
@@ -154,7 +154,7 @@ ProfilePatient.propTypes = {
 ProfilePatient.defaultProps = {
     name: '',
     img: '',
-    status: '',
+    status: null,
     lastDate: 0,
     speciality: [],
     doctor: '',
