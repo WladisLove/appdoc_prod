@@ -197,7 +197,7 @@ export const uploadChatFile = (id_zap, id_user, file, callback) => {
 export const uploadConclusion = (id_zap, file, callback) => {
     return (dispatch) => {
         //console.log(file.thumbUrl.substr(0,50));
-        axios.post('/catalog.doc2/saveFilesZak',
+        return axios.post('/catalog.doc2/saveFilesZak',
             JSON.stringify({
                 id_zap,
                 file,
@@ -205,10 +205,8 @@ export const uploadConclusion = (id_zap, file, callback) => {
             .then(res => {
                 const {result} = res.data;
                 (callback instanceof Function) &&  callback({...result, isConclusion: true});
+                return res
             })
-            .catch(err => {
-                console.log(err);
-        })
     }
 }
 

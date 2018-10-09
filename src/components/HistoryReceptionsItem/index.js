@@ -11,13 +11,14 @@ import Hoc from '../Hoc'
 
 import './style.css'
 import '../../icon/style.css'
+import {message} from "antd";
 
 class HistoryReceptionsItem extends React.Component{
 
     handleClick = (e) => {
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
-      }
+    }
     writeReview = (e) => {
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
@@ -26,7 +27,24 @@ class HistoryReceptionsItem extends React.Component{
             id_zap: this.props.lastMA
         }
         this.props.showReviewModal(obj);
-      }
+    };
+    addConclusion = (file) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            const filesend = {name: file.name, thumbUrl: reader.result};
+            this.props.addConclusion(this.props.lastMA, filesend)
+                .then((res)=>{
+                    if(+res.data.code===200) {
+                        message.success("Заключение успешно добавлено")
+                    } else {
+                        message.error("Произошла ошибка попробуйте ещё раз")
+                    }
+                    this.props.refresh();
+                })
+        });
+        reader.readAsDataURL(file);
+    };
+
     refactorFiles = (file) => {
        if(file.length) {
            let files = [];
@@ -41,6 +59,7 @@ class HistoryReceptionsItem extends React.Component{
        } else return file
     };
     render(){
+        console.log(this.props.addConclusion);
         const {
             id_treatment,
             id_user,
@@ -61,17 +80,7 @@ class HistoryReceptionsItem extends React.Component{
             finish,
             comment,
             rate,
-            size,
-            name,
-            personalPage,
-            time,
-            startDate,
-            endDate,
-            comments,
-            review,
-            content,
             onGoto,
-            rating,
             onGotoChat,
             isUser,
         } = this.props;
@@ -84,7 +93,24 @@ class HistoryReceptionsItem extends React.Component{
             'voice': 'telephone',
             'video': "video-camera"
         }
-        const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение"
+        const conclusionMessage = isUser? "Ожидайте заключения" :
+            <div onClick={e=>{e.stopPropagation()}}>
+                <input type="file"
+                       id="addConclusion"
+                       style={{
+                           width: "0.1px",
+                           height: "0.1px",
+                           opacity: 0,
+                           overflow: "hidden",
+                           position: "absolute",
+                           zIndex: -1
+                       }}
+                       onChange={e => this.addConclusion(e.target.files[0])}
+                />
+                <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
+                      <span>Добавить</span>
+                </label>
+            </div>;
         const goto = isUser ? id_doc : id_user;
         return (
             <div className={rootClass}

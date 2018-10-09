@@ -17,7 +17,7 @@ class TreatmentTableItem extends React.Component{
     handleClick = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            
+
     };
      writeReview = (e) => {
             e.preventDefault();
