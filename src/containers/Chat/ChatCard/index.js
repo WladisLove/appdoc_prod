@@ -146,7 +146,6 @@ class ChatCard extends React.Component {
         return icon
     };
     render() {
-    	console.log("RENDER CHAT CARD", this.props);
 		const {patientName, user_id, online: onl} = this.props;
 		const online = +onl ?'online' :  'offline';
 		const iconType = this.getIconByType();

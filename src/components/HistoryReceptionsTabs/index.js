@@ -89,7 +89,6 @@ class HistoryReceptionsTabs extends React.Component {
         }
         this.props.getTreatments(obj).then(res => {
             this.setState({loading: false});
-            console.log(res.data, "GET TREATMENTS DATA")
         })
     };
 
@@ -260,7 +259,6 @@ class HistoryReceptionsTabs extends React.Component {
         this.props.getTreatments(obj)
     };
     render() {
-        console.log("TAB PROPS", this.props)
         return (
             <div className='receptions-all'>
                 <Card title="История обращений">

@@ -17,7 +17,6 @@ const DoctorPage = props => {
 		props.onSelectPatient(id);
 		props.history.push('/app/patient'+id);
 	}
-	console.log(props, "PROPS FROM DOC PAGE")
     return (
         <Hoc>
 					<Row>

@@ -59,7 +59,6 @@ class HistoryReceptionsItem extends React.Component{
        } else return file
     };
     render(){
-        console.log(this.props.addConclusion);
         const {
             id_treatment,
             id_user,

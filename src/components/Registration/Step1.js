@@ -29,7 +29,6 @@ class Step1Form extends React.Component{
                 if(!values.avatar.url && !values.avatar.name) {
                     fields.avatar = {name: this.state.avatarName, url: this.state.avatarUrl};
                 }
-                console.log(fields, "FIELDS");
                 this.props.onSubmit(fields);
                 this.props.onNext();
             }
@@ -63,7 +62,6 @@ class Step1Form extends React.Component{
     };
 
     render(){
-        console.log(this.state, "STATE");
         const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>

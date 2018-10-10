@@ -76,7 +76,6 @@ export const setReceptionByPatient = (reception) => {
             ...reception,
             id_user: getState().auth.id
         };
-        console.log("DATA TO SEND MAKING APP", obj);
         return axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
             .then(res => {

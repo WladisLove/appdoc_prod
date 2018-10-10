@@ -24,10 +24,8 @@ export const getPaginationTreatments = (filters) => {
     return (dispatch, getState) => {
         let obj = {...filters};
         getState().auth.mode === "user" ? obj.id_user = getState().auth.id : obj.id_doc = getState().auth.id;
-        console.log(obj, "WHAT WE SEND TO GET REATMENTS");
         return axios.post('/catalog.doc2/getTreatmentsNew', JSON.stringify(obj))
             .then(res => {
-                console.log(res, "WHAT WE GOT TREATMENTS");
                 dispatch({
                     type: actionTypes.GET_TREATMENTS,
                     treatments: res.data.result,
@@ -184,7 +182,6 @@ export const uploadChatFile = (id_zap, id_user, file, callback) => {
                 file: [file]
             }))
             .then(res => {
-                console.log(res, "RES FROM SAVE FILES CHAT");
                 const {result} = res.data;
                 (callback instanceof Function) && result &&  callback(result[0]);
             })

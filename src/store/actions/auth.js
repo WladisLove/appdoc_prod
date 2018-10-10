@@ -126,7 +126,6 @@ export const registerDoctor = (data) => {
                             [key]: data[key],
                         };
         }
-        console.log("OBJECT TO SEND REGISTER DOCTOR", result)
         return axios.post('/fusers.doc/createUserDoc',
             JSON.stringify(result))
             .then(res => res)
