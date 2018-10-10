@@ -12,6 +12,7 @@ export const sendNewInfoDoctor = (data) => {
                 dispatch({
                     type: actionTypes.SEND_NEW_INFO_DOCTOR,
                 });
+                dispatch(getInfoDoctor(data.id));
             })
             .catch(err => {
                 console.log(err);

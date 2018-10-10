@@ -28,10 +28,10 @@ class PersonalEducationItemForm extends React.Component{
         this.state = {
             educatBlock : 0,
             idCurrentDegree : null,
-            mainEducationArr: [],
-            secondEducationArr: [],
-            degree: {},
-            status: {}
+            mainEducationArr: props.profileDoctor.educationsgroup1 || [],
+            secondEducationArr: props.profileDoctor.educationsgroup2 || [],
+            degree: {name: props.profileDoctor.academicdegree || "", doc: []},
+            status: {name: props.profileDoctor.academicstatus || "", doc: []}
         }
     }
 
@@ -374,7 +374,7 @@ class PersonalEducationItemForm extends React.Component{
     };
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.profileDoctor.id && nextProps.profileDoctor !== this.props.profileDoctor) {
+        if (this.props.profileDoctor && JSON.stringify(nextProps.profileDoctor) !== JSON.stringify(this.props.profileDoctor)) {
             this.setState({
                 mainEducationArr: nextProps.profileDoctor.educationsgroup1,
                 secondEducationArr: nextProps.profileDoctor.educationsgroup2,
