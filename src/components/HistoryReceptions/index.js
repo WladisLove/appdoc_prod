@@ -17,7 +17,7 @@ class HistoryReceptions extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            max: 2,
+            max: 7,
             old: 0,
             data: [],
             loading: false,

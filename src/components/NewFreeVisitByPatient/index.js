@@ -72,7 +72,8 @@ class NewFreeVisitByPatientForm extends React.Component {
             isTypeVisible: false,
             showSubmitError: false,
             currentSpeciality: "",
-            isSubmitInProgress: false
+            isSubmitInProgress: false,
+            comment:""
         }),
             this.props.form.resetFields()) : null;
     }

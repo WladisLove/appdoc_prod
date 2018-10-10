@@ -16,7 +16,7 @@ class TreatmentTable extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            max: 1,
+            max: 7,
             old: 0,
             data: [],
             loading: false,

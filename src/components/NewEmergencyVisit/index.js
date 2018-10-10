@@ -80,12 +80,10 @@ class NewEmergencyVisitForm extends React.Component {
                 isSubmitInProgress: false
             });
             this.props.form.resetFields();
+
         }
     }
 
-    handleChange = (string) => {
-        return "123"
-    };
 
     componentDidMount() {
         this.props.form.setFieldsValue({comment : "vgasd"})
@@ -107,12 +105,13 @@ class NewEmergencyVisitForm extends React.Component {
                             <div className="textarea-label">Опишите проблему</div>
                             <FormItem>
                                 {getFieldDecorator('comment',{
-                                    rules: [{required: true, message: 'Опишите жалобу'}],
-                                    getValueFromEvent: this.onChange,
+                                    rules: [{
+                                        required: true,
+                                        message: 'Опишите жалобу'
+                                    }],
+                                    initialValue: ""
                                 })(
-                                    <textarea className="textarea-field"
-                                              onChange={this.handleChange}
-                                    />
+                                    <textarea className="textarea-field"/>
                                 )}
                             </FormItem>
 

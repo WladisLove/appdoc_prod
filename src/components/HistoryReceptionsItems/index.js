@@ -53,7 +53,6 @@ class HistoryReceptionsItems extends React.Component{
     };
 
     render(){
-        console.log(this.props, "PROPS EVERY APP")
         const {
             id_treatment,
             type,
@@ -173,7 +172,6 @@ HistoryReceptionsItems.propTypes = {
     diagnostic: PropTypes.string,
     comments: PropTypes.string,
     price: PropTypes.string,
-    conclusion: PropTypes.string,
     conclusionDownload: PropTypes.string,
     review: PropTypes.string,
     date: PropTypes.string,
@@ -187,7 +185,7 @@ HistoryReceptionsItems.defaultProps = {
     diagnostic: '-',
     comment: '-',
     price: '-',
-    conclusion: '-',
+    conclusion: {},
     conclusionDownload: '',
     review: '-',
     date: '-',

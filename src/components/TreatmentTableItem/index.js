@@ -60,7 +60,6 @@ class TreatmentTableItem extends React.Component{
         }
     };
     render(){
-        console.log(this.props, "PROPS TT")
         const {type, id_treatment : id, id_user,id_doc, file, user_name,doc_name, date, begin, finish, diagnostic, comment, price, conclusion,
             isUser, patientWasnt, rate, complaint, onGoto, onGotoChat} = this.props;
         const goToId = isUser ? id_doc : id_user;

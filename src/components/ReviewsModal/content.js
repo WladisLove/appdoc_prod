@@ -23,6 +23,14 @@ class ContentForm extends React.Component{
         this.setState({value})
     };
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
+        if(nextProps.visible===true && this.props.visible===false) {
+            this.setState({message: "", value: 1})
+        }
+    }
+
+
     handleSubmit = (e) => {
         e.preventDefault();
         const obj = {
@@ -52,7 +60,7 @@ class ContentForm extends React.Component{
                   className="cancelVisitModal">
                 <p>С целью повышения качества услуг просим поставить рейтинг или оставить отзыв.</p>
                 <FormItem>
-                    <Rate onChange = {this.handleChange} value={this.state.value}defaultValue={1} starSize={20}/>
+                    <Rate onChange = {this.handleChange} value={this.state.value} defaultValue={1} starSize={20}/>
                     <span className="rate-number">{this.state.value ? this.state.value : 1}</span>
                 </FormItem>
                 <TextArea label='Текст отзыва'

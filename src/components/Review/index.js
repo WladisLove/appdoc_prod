@@ -13,12 +13,12 @@ const Review = props => {
         let author = authorFIO[0] + " ";
 
         for(let i = 1, len = authorFIO.length; i < len; i++){
-            author = author + authorFIO[i].slice(0,1) + ". " 
+            author = author + authorFIO[i].slice(0,1) + ". "
         }
 
         return <MainReview {...props} author={author}/>;
 
-} 
+}
 
 Review.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -29,7 +29,7 @@ Review.propTypes = {
     comment: PropTypes.string,
     date: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
     dateCommentDoc: PropTypes.string,
-    makingAppDate: PropTypes.number,
+    makingAppDate: PropTypes.string,
     rating: PropTypes.string,
     commentDoc: PropTypes.string,
 

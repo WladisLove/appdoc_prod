@@ -23,7 +23,7 @@ class HistoryReceptionsTabs extends React.Component {
             tab: 'all',
             date: {},
             filt_name: '',
-            max: 1,
+            max: 7,
             old: 0,
             data: [],
             loading: false,
