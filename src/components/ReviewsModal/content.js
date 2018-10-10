@@ -24,7 +24,6 @@ class ContentForm extends React.Component{
     };
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         if(nextProps.visible===true && this.props.visible===false) {
             this.setState({message: "", value: 1})
         }

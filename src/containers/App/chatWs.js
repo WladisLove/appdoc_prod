@@ -216,12 +216,12 @@ const incomingCall = (message) => {
             message : 'bussy'
         });
     }
-
-
+    
     setCallState(PROCESSING_CALL);
-    let call = new Audio("/project/templates/_ares/static/media/incoming_call.mp3");
-    console.log(message, "MODAL message");
-    call.play().then(
+
+    if(/constructor/i.test(window.HTMLElement) ||
+        (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] ||
+            (typeof safari !== 'undefined' && safari.pushNotification))) {
         Modal.confirm({
             title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
             width: '300px',
@@ -229,15 +229,31 @@ const incomingCall = (message) => {
             cancelText: 'Нет',
             centered: true,
             onOk() {
-                call.pause();
                 acceptCall();
             },
             onCancel() {
-                call.pause();
                 declineCall();
             }})
-    );
 
+    } else {
+        let call = new Audio("/project/templates/_ares/static/media/incoming_call.mp3");
+        call.play().then(
+            Modal.confirm({
+                title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
+                width: '300px',
+                okText: 'Да',
+                cancelText: 'Нет',
+                centered: true,
+                onOk() {
+                    call.pause();
+                    acceptCall();
+                },
+                onCancel() {
+                    call.pause();
+                    declineCall();
+                }})
+        );
+    }
 
 
 
