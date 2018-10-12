@@ -29,7 +29,7 @@ export {
     getAllReviews,
     getAllReviewsByPatient,
     putCommentAnswer,
-    
+
 } from './reviews';
 
 export {
@@ -87,7 +87,8 @@ export {
     sendNewPasswordPatient,
     deleteAvatar,
     sendUserPoleValue,
-    getUserInfoShort
+    getUserInfoShort,
+    hasNoReviewToFreeApp
 } from './patientData'
 
 export {
@@ -123,5 +124,5 @@ export {
     setIsCallingStatus,
     setChatStory,
     setNewTimer,
-    
+
 } from './chatWS'

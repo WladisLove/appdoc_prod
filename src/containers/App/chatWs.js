@@ -1,6 +1,7 @@
 import kurentoUtils from 'kurento-utils'
 import {Modal} from "antd";
-
+import { detect } from 'detect-browser';
+const browser = detect();
 let ws,
     callbacks,
     props;
@@ -216,14 +217,12 @@ const incomingCall = (message) => {
             message : 'bussy'
         });
     }
-    
     setCallState(PROCESSING_CALL);
 
-    if(/constructor/i.test(window.HTMLElement) ||
-        (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] ||
-            (typeof safari !== 'undefined' && safari.pushNotification))) {
+    if(browser && browser.name==="safari") {
+        console.log("this is safari")
         Modal.confirm({
-            title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
+            title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`,
             width: '300px',
             okText: 'Да',
             cancelText: 'Нет',
@@ -246,6 +245,7 @@ const incomingCall = (message) => {
                 centered: true,
                 onOk() {
                     call.pause();
+                    debugger;
                     acceptCall();
                 },
                 onCancel() {
