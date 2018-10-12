@@ -167,7 +167,10 @@ class PatientsPage extends React.Component{
                             <HistoryReceptions data={this.props.appsBetween}
                                                appsBetweenCount = {this.props.appsBetweenCount}
                                                getApps = {this.props.onGetAppointments}
-                                               onGotoChat={(id) => this.props.history.push('/app/chat')}
+                                               onGotoChat={(id) => {
+                                                   this.props.onSelectTretment(id);
+                                                   this.props.history.push('/app/chat')
+                                               }}
                                                id_doc={this.props.match.params.id}
                                                personalPage = {true}
                                                isUser = {this.props.mode === "user"}
@@ -224,6 +227,7 @@ const mapDispatchToProps = dispatch => {
         onGetDocSchedule: (doc_id) => dispatch(actions.getDateWorkIntervalWithoutMakingAppAll(doc_id)),
         onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
+        onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
         onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
         makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),
     }

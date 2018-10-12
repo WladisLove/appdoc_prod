@@ -8,6 +8,7 @@ import Select from '../Select'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
 import moment from "moment/moment";
+import ReactTooltip from "react-tooltip";
 
 const FormItem = Form.Item;
 
@@ -259,10 +260,12 @@ class ContentForm extends React.Component {
                         <DatePicker range
                                     shouldUpdate={this.state.shouldDPUpdate}
                                     rangeSet={dateSet}
-                                    delimiter='&mdash;'/>
+                                    delimiter='&mdash;'
+                                    data-tip
+
+                        />
                     )}
                 </FormItem>
-
                 <Tabs defaultActiveKey="1"
                       className="receptionsScheduleModal-tabs">
                         <Tabs.TabPane tab="Плановые приемы"
@@ -301,8 +304,15 @@ class ContentForm extends React.Component {
                                         svg/>
                         </Tabs.TabPane>
 
-                    <Tabs.TabPane disabled={!emergencyAvailable} tab="Экстренные вызовы"
-                                  key="2">
+                    <Tabs.TabPane disabled={!emergencyAvailable}
+                                  tab="Экстренные вызовы"
+                                  key="2"
+                                  id="emergencyTAB"
+                                  data-tip
+                                  data-for="emergencyTab"
+
+
+                    >
                         {this.renderTpBlock(
                             'reception',
                             this.state.timeSetReception,
@@ -318,7 +328,10 @@ class ContentForm extends React.Component {
                                 svg
                         />
                     </Tabs.TabPane>
+
+
                 </Tabs>
+
                 <FormItem>
                     {getFieldDecorator('isDayOff', {
                         initialValue: isDayOff
@@ -336,7 +349,10 @@ class ContentForm extends React.Component {
                     {this.state.wrongInterval && <div className='receptionsScheduleModal-submit-error'>Выбран неподходящий интервал</div>}
                     {this.state.emptyTimePickers && <div className='receptionsScheduleModal-submit-error'>Выберите время</div>}
                 </div>
+                <ReactTooltip id="emergencyTab" aria-haspopup='true' role='example'><span>У вас нет необходимых специализаций для приёма экстренных вызовов</span></ReactTooltip>
+
             </Form>
+
         )
     }
 }

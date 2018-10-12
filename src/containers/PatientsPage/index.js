@@ -87,7 +87,6 @@ class PatientsPage extends React.Component{
                             <HistoryReceptions data={this.props.appsBetween}
                                                appsBetweenCount = {this.props.appsBetweenCount}
                                                onGotoChat={(id) => {
-                                                   console.log(id, "ID GO TO CHAT");
                                                    this.props.onSelectTretment(id);
                                                    this.props.history.push('/app/chat')
                                                }}
