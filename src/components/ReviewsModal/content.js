@@ -57,7 +57,8 @@ class ContentForm extends React.Component{
         return (
             <Form onSubmit={this.handleSubmit}
                   className="cancelVisitModal">
-                <p>С целью повышения качества услуг просим поставить рейтинг или оставить отзыв.</p>
+                {this.props.mustLeave && <p>Вы не оставили обязательный отзыв на бесплатный приём.</p>}
+                <p>С целью повышения качества услуг просим вас оставить отзыв.</p>
                 <FormItem>
                     <Rate onChange = {this.handleChange} value={this.state.value} defaultValue={1} starSize={20}/>
                     <span className="rate-number">{this.state.value ? this.state.value : 1}</span>

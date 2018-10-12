@@ -17,6 +17,7 @@ import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";
 import ReportBugModal from "../../components/ReportBugModal";
+import ReviewsModal from "../../components/ReviewsModal";
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -29,7 +30,8 @@ class App extends React.Component {
         this.state = {
             collapsed: true,
             notifications: [],
-            bugfixVisible: false
+            bugfixVisible: false,
+            mustLeaveReview: false
         };
     }
 
@@ -103,6 +105,16 @@ class App extends React.Component {
             this.runNotificationsWS();
             this.runChatWS();
             this.props.getEmergencyAvailability();
+            if(this.props.auth.mode === "user") {
+                this.props.hasNoReviewToFreeApp().then(res=>{
+                    if(res.result.length) {
+                        this.setState({mustLeaveReview: true, infoForReview:{
+                                id_doc: res.result[0].id_doc,
+                                id_zap: res.result[0].idMA
+                            }})
+                    }
+                })
+            }
         }
 
     }
@@ -119,6 +131,10 @@ class App extends React.Component {
         this.props.id && (this.props.getDocShortInfo());
     }
 
+    makeReview = (obj) => {
+        return this.props.makeReview(obj).then( res =>  res)
+    }
+
     gotoHandler = (id) => {
         this.props.auth.mode !== "user" ? this.props.history.push('/app/patient'+id) : this.props.history.push('/app/doctor'+id)
     };
@@ -132,7 +148,15 @@ class App extends React.Component {
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
         const isUser = (this.props.mode === "user");
-            
+        if (this.state.mustLeaveReview) {
+            return <ReviewsModal
+                visible={this.state.mustLeaveReview}
+                info={this.state.infoForReview}
+                onSubmit={this.makeReview}
+                mustLeave={this.state.mustLeaveReview}
+                refresh={()=>this.setState({mustLeaveReview: false})}
+            />
+        }
         return (
             <div className="main">
             {
@@ -215,12 +239,12 @@ class App extends React.Component {
                             Запрос на экстренный вызов</button> }
                     {
                         (this.props.isEmergRequsetReceived)
-                            && (this.props.isEmergRequsetConfirmed ? 
+                            && (this.props.isEmergRequsetConfirmed ?
                                 (
                                     this.props.docEmergancyCallReceivedMark(),
                                     this.props.onSelectReception(this.props.emergVisitId),
                                     this.props.history.push('/app/chat')
-                                ) : 
+                                ) :
                                 Modal.error({
                                     title: 'Запись не осуществлена',
                                     content: 'Экстренный вызов не найден',
@@ -299,8 +323,10 @@ const mapDispatchToProps = dispatch => {
         setChatStory: (chat) => dispatch(actions.setChatStory(chat)),
         onSelectReception: (id, callback) => dispatch(actions.seletVisit(id, callback)),
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
-        reportBug: (message, href) => dispatch(actions.reportBug(message, href))
-	}
+        reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
+        hasNoReviewToFreeApp: ()=>dispatch(actions.hasNoReviewToFreeApp()),
+        makeReview: (obj) => dispatch(actions.makeReview(obj)),
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

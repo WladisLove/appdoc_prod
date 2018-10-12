@@ -1,7 +1,6 @@
 import axios from './axiosSettings'
 import * as actionTypes from './actionTypes';
 import {getDocShortInfo} from "./doctor";
-import {getInfoDoctor} from "./doctorData";
 
 export const sendNewInfoPatient = (data) => {
     return (dispatch) => {
@@ -30,6 +29,13 @@ export const sendNewPasswordPatient = (oldPass, newPass, id) => {
             .catch(err => {
                 console.log(err);
             })
+    }
+};
+export const hasNoReviewToFreeApp = () => {
+    return (dispatch, getState) => {
+        const id_patient = getState().auth.id;
+        return axios.get(`/catalog.doc2/noCommentToFree/id/${id_patient}`)
+            .then(res=>res.data)
     }
 };
 
