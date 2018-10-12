@@ -97,6 +97,7 @@ class PatientsPage extends React.Component{
                                                isUser = {this.props.mode === "user"}
                                                onAddFiles = {this.props.onAddFiles}
                                                addConclusion = {this.props.addConclusion}
+                                               makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
 
                             />
                         </Col>
@@ -130,7 +131,8 @@ const mapDispatchToProps = dispatch => {
         onSaveReception: (reception) => dispatch(actions.setReception(reception)),
         onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
-        addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file))
+        addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file)),
+        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files))
 
     }
 };

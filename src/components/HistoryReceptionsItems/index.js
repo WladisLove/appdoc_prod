@@ -155,6 +155,7 @@ class HistoryReceptionsItems extends React.Component{
                                  id_app={this.props.id}
                                  onAddFiles = {this.props.onAddFiles}
                                  refresh={this.props.refresh}
+                                 makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
 
                     >
 

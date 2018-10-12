@@ -38,6 +38,8 @@ class TreatmentTable extends React.Component{
                                     showReviewModal={this.showReviewModal}
                                     addConclusion = {this.props.addConclusion}
                                     refresh = {this.refresh}
+                                    makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
+
 
 
                 />)

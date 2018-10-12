@@ -62,6 +62,7 @@ const DoctorPage = props => {
                                             onSubmitReview={props.onSubmitReview}
 											redirect={() => props.history.push('/app/treatment')}
                                             addConclusion = {props.addConclusion}
+                                            makeArchiveOfFiles = {props.makeArchiveOfFiles}
 
 
 

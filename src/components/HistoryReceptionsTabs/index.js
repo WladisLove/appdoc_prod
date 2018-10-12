@@ -140,6 +140,7 @@ class HistoryReceptionsTabs extends React.Component {
                                                refresh={this.refresh}
                                                showReviewModal={this.showReviewModal}
                                                addConclusion={this.props.addConclusion}
+                                               makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
                 />)
 
             });

@@ -48,6 +48,7 @@ class HistoryReceptions extends React.Component{
                                                 onAddFiles={this.props.onAddFiles}
                                                 refresh={this.refresh}
                                                 addConclusion = {this.props.addConclusion}
+                                                makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
 
                  />)
             });
