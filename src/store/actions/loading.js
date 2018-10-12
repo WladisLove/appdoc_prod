@@ -23,8 +23,8 @@ export const docEmergancyCallSend = () => {
     return (dispatch, getState) => {
         axios.get('/catalog.doc2/docTakeMakinAppFromAll/id_doc/' + getState().auth.id)
             .then(res => {
-                res.data.code === 200 ? 
-                    dispatch(docEmergancyCallReceived(res.data.result.id_makingApp,true)) 
+                res.data.code === 200 ?
+                    dispatch(docEmergancyCallReceived(res.data.result.id_makingApp,true))
                     : dispatch(docEmergancyCallReceived(0, false));
             })
             .catch(err => {
@@ -45,5 +45,20 @@ export const docEmergancyCallReceivedMark = () => {
         dispatch({
             type: actionTypes.DOC_EMERGANCY_RECEIVED_MARK,
         })
+    }
+};
+
+export const makeArchiveOfFiles = (obj) => {
+    return (dispatch, getState) => {
+        const files = {
+            id: getState().auth.id,
+            data: obj
+        };
+        console.log("WHAT WE SEND TO MAKE FILES", files);
+        return axios.post('/catalog.doc2/getArchive/id_doc/', JSON.stringify(files))
+            .then(res => res)
+            .catch(err => {
+                console.log(err);
+            });
     }
 };

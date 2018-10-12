@@ -16,7 +16,6 @@ import {message} from "antd";
 class TreatmentTableItem extends React.Component{
 
     handleClick = (e) => {
-            e.preventDefault();
             e.stopPropagation();
 
     };
@@ -151,7 +150,12 @@ class TreatmentTableItem extends React.Component{
                 </div>
                 <div className="flex-col"
                      onClick={this.handleClick}>
-                    <PopoverFile data={this.refactorFiles(file)}></PopoverFile>
+                    <PopoverFile
+                        data={this.refactorFiles(file)}
+                        makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
+                    >
+
+                    </PopoverFile>
                 </div>
             </div>
         )

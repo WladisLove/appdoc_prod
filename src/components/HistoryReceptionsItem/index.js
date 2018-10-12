@@ -182,6 +182,7 @@ class HistoryReceptionsItem extends React.Component{
                                  id_app={lastMA}
                                  onAddFiles = {this.props.onAddFiles}
                                  refresh={this.props.refresh}
+                                 makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
 
                     >
                     </PopoverFile>

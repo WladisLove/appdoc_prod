@@ -113,6 +113,7 @@ const PatientPage = props => {
                         onGotoChat={(id) => console.log(id)}
                         getCompletedApps ={props.getCompletedApps}
                         onSubmitReview={props.onSubmitReview}
+                        makeArchiveOfFiles = {props.makeArchiveOfFiles}
                     />
                 </Col>
             </Row>

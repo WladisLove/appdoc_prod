@@ -115,6 +115,7 @@ export {
     docEmergancyCallReceived,
     docEmergancyCallSend,
     docEmergancyCallReceivedMark,
+    makeArchiveOfFiles,
 } from './loading'
 
 export {

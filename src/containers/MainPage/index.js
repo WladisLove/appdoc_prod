@@ -81,6 +81,7 @@ class MainPage extends React.Component{
                 onAddVisit = {this.props.onAddNewVisit}
 				getCompletedApps = {this.props.onGetCompletedApp}
                 onSubmitReview={this.props.makeReview}
+                makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
             />
 		) : (
 			<DoctorPage
@@ -95,6 +96,7 @@ class MainPage extends React.Component{
 				getCompletedApps = {(pagination)=>this.props.onGetActualTreatments({status: "topical", ...pagination})}
                 treatmentsCount={this.props.treatmentsCount}
                 addConclusion = {this.props.addConclusion}
+                makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
 				{...this.props}/>
 		)
     }
@@ -141,7 +143,8 @@ const mapDispatchToProps = dispatch => {
 		onSendUserPoleValue: (pole, value) => dispatch(actions.sendUserPoleValue(pole, value)),
 		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
-        addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file))
+        addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file)),
+        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files))
     }
 };
 
