@@ -68,7 +68,14 @@ class PopoverFile extends React.Component {
     handleVisibleChange = (visible) => {
         this.props.canAddFiles ? this.setState({visible}) : (this.props.data.length && this.setState({visible}));
     };
-
+    makeArchive = () => {
+        console.log("click");
+        // let newTab = window.open();
+        this.props.makeArchiveOfFiles(this.props.data).then((res) => {
+            console.log(res)
+            document.location.href = res.data.result;
+        })
+    };
     render() {
         return (
             <Popover
@@ -78,7 +85,10 @@ class PopoverFile extends React.Component {
                             {this.renderLinks(this.props.data ? this.props.data: null)}
                         </div>
                         {!!this.props.data.length && <Button
-                            onClick={() => console.log('hello', this.props)}
+                            onClick={() => {
+
+                                this.makeArchive()
+                            }}
                             size='file'
                             type='file'
                             icon='download'

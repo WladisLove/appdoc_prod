@@ -173,6 +173,7 @@ class PatientsPage extends React.Component{
                                                isUser = {this.props.mode === "user"}
                                                onSubmit={this.props.makeReview}
                                                onAddFiles={this.props.onAddFiles}
+                                               makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
                         />
                         </Col>
                     </Row>
@@ -224,6 +225,7 @@ const mapDispatchToProps = dispatch => {
         onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
+        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),
     }
 };
 
