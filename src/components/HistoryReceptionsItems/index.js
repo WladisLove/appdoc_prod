@@ -53,11 +53,12 @@ class HistoryReceptionsItems extends React.Component{
     };
 
     render(){
+        console.log(this.props)
         const {
             id_treatment,
             type,
             conclusion,
-            price,
+            cost,
             diagnostic,
             file,
             date,
@@ -121,7 +122,7 @@ class HistoryReceptionsItems extends React.Component{
                     <div className="patient-comment">{complaint ? complaint:<span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-price">{price ? price : <span>&mdash;</span>}</div>
+                    <div className="patient-price">{cost ? cost : <span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
                     <div className="patient-conclusion">

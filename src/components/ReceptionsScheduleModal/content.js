@@ -7,7 +7,6 @@ import Radio from '../Radio'
 import Select from '../Select'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
-import moment from "moment/moment";
 
 const FormItem = Form.Item;
 
@@ -259,10 +258,11 @@ class ContentForm extends React.Component {
                         <DatePicker range
                                     shouldUpdate={this.state.shouldDPUpdate}
                                     rangeSet={dateSet}
-                                    delimiter='&mdash;'/>
+                                    delimiter='&mdash;'
+
+                        />
                     )}
                 </FormItem>
-
                 <Tabs defaultActiveKey="1"
                       className="receptionsScheduleModal-tabs">
                         <Tabs.TabPane tab="Плановые приемы"
@@ -301,8 +301,10 @@ class ContentForm extends React.Component {
                                         svg/>
                         </Tabs.TabPane>
 
-                    <Tabs.TabPane disabled={!emergencyAvailable} tab="Экстренные вызовы"
-                                  key="2">
+                    <Tabs.TabPane disabled={!emergencyAvailable}
+                                  tab="Экстренные вызовы"
+                                  key="2"
+                    >
                         {this.renderTpBlock(
                             'reception',
                             this.state.timeSetReception,
@@ -337,6 +339,7 @@ class ContentForm extends React.Component {
                     {this.state.emptyTimePickers && <div className='receptionsScheduleModal-submit-error'>Выберите время</div>}
                 </div>
             </Form>
+
         )
     }
 }
