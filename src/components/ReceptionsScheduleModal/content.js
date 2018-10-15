@@ -349,8 +349,6 @@ class ContentForm extends React.Component {
                     {this.state.wrongInterval && <div className='receptionsScheduleModal-submit-error'>Выбран неподходящий интервал</div>}
                     {this.state.emptyTimePickers && <div className='receptionsScheduleModal-submit-error'>Выберите время</div>}
                 </div>
-                <ReactTooltip id="emergencyTab" aria-haspopup='true' role='example'><span>У вас нет необходимых специализаций для приёма экстренных вызовов</span></ReactTooltip>
-
             </Form>
 
         )
