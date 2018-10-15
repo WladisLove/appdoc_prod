@@ -7,8 +7,6 @@ import Radio from '../Radio'
 import Select from '../Select'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
-import moment from "moment/moment";
-import ReactTooltip from "react-tooltip";
 
 const FormItem = Form.Item;
 
@@ -261,7 +259,6 @@ class ContentForm extends React.Component {
                                     shouldUpdate={this.state.shouldDPUpdate}
                                     rangeSet={dateSet}
                                     delimiter='&mdash;'
-                                    data-tip
 
                         />
                     )}
@@ -307,11 +304,6 @@ class ContentForm extends React.Component {
                     <Tabs.TabPane disabled={!emergencyAvailable}
                                   tab="Экстренные вызовы"
                                   key="2"
-                                  id="emergencyTAB"
-                                  data-tip
-                                  data-for="emergencyTab"
-
-
                     >
                         {this.renderTpBlock(
                             'reception',
@@ -328,10 +320,7 @@ class ContentForm extends React.Component {
                                 svg
                         />
                     </Tabs.TabPane>
-
-
                 </Tabs>
-
                 <FormItem>
                     {getFieldDecorator('isDayOff', {
                         initialValue: isDayOff
