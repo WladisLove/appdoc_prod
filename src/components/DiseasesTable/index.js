@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
-import ScrollArea from 'react-scrollbar'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import DiseasesTableItem from '../DiseasesTableItem'
 import Card from '../Card'
 import Button from '../Button'
@@ -28,14 +28,14 @@ class DiseasesTable extends React.Component{
         return (
             <div className={rootClass}>
                 <Card title="Хронические болезни/аллергии" extra={<div className="right-icon"><Icon svg iconSize="24" type="caution" /></div>}>
-                    <ScrollArea
+                    <PerfectScrollbar
                             speed={1}
                             className="new-patient-list"
                             contentClassName="content"
                             horizontal={false}
                     >
                         {this.diseasesRender(this.props.data)}
-                    </ScrollArea>
+                    </PerfectScrollbar>
                   </Card>
             </div>
         )
