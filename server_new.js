@@ -314,7 +314,7 @@ wss.on('connection', function(ws) {
 
     ws.on('message', function(_message) {
         var message = JSON.parse(_message);
-             console.log(message);
+        //console.log(message);
         switch (message.id) {
         case 'register':
             register(sessionId, message.name, message.other_name, ws, message.mode);

@@ -26,6 +26,5 @@ export const compileToServerPatient = (patient, id) => {
         "avatar": patient.avatar
         };
 
-    console.log(obj);
     return obj;
 };

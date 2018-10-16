@@ -245,7 +245,6 @@ const incomingCall = (message) => {
                 centered: true,
                 onOk() {
                     call.pause();
-                    debugger;
                     acceptCall();
                 },
                 onCancel() {
@@ -290,6 +289,7 @@ const incomingCall = (message) => {
                         audio:true,
                         video:false
                     },
+                    remoteVideo : videoOutput,
                     onicecandidate : onIceCandidate
                 };
 

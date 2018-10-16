@@ -41,7 +41,7 @@ class ChatAudioContent extends React.Component {
 	renderCallArea = () => {
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isActiveChat});
 		const avatar = this.props.avatar;
-		let {s, m, h} = this.props.timer;
+        let {s, m, h} = this.props.timer;
 		return (<Hoc>
 			<div className='chat-card-video__area'>
 				<video className='chat-card-video__box'
