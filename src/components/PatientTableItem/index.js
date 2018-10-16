@@ -25,11 +25,11 @@ class PatientTableItem extends React.Component{
                 <div className="flex-col">
                     <div className="patient-item-title">Последний приём:</div>
                     <div className="patient-item-time">
-                        {moment.unix(datestart).format('DD.MM.YYYY')}
+
+                        {datestart && dateend ? moment.unix(datestart).format('DD.MM.YYYY') : <span>&mdash;</span> }
                         <br/>
-                        {moment.unix(datestart).format('HH:mm')}
-                        -
-                        {moment.unix(dateend).format('HH:mm')}
+                        {datestart && dateend ? `${moment.unix(datestart).format('HH:mm')} - ${moment.unix(dateend).format('HH:mm')}` : null}
+
                     </div>
                 </div>
                 <div className="flex-col">
