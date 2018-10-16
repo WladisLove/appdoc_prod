@@ -124,9 +124,7 @@ class ChatCard extends React.Component {
 	uploadOnlyFile = (id_zap, id_user, callback) => {
 		return (file, isConclusion) => {
 			isConclusion ? (
-				this.props.uploadConclusion(id_zap,file, callback),
-				console.log({id: this.props.receptionId,
-					chat: this.props.chatStory})
+				this.props.uploadConclusion(id_zap,file, callback)
 			)
 
 				: this.props.uploadFile(id_zap,id_user, file,callback);
@@ -198,7 +196,6 @@ class ChatCard extends React.Component {
 			isEnded: this.props.isEnded,
         }
 
-		console.log('this.state.mode', this.state.mode);
         switch (this.state.mode) {
             case 'chat':
                 content = <ChatTextContent isActive={this.state.isActive}

@@ -27,8 +27,8 @@ class Chat extends React.Component{
     }
 
     render(){
-        console.log('visitInfo',this.props.visitInfo)
-        console.log('treatInfo',this.props.treatInfo)
+        //console.log('visitInfo',this.props.visitInfo)
+        //console.log('treatInfo',this.props.treatInfo)
         let  id_user, id_doc, name, name_doc, avatar, name_user, status, avatar_doc, chat, visitId, contactLevel, comment, id_treatment;
 
         this.props.fromTR_VIS === 1 ? (

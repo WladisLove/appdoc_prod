@@ -2988,6 +2988,10 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
+detect-browser@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-3.0.1.tgz#39beead014347a8a2be1f3c4cb30a0aef2127c44"
+
 detect-indent@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"
@@ -5670,17 +5674,17 @@ kurento-browser-extensions@*:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/kurento-browser-extensions/-/kurento-browser-extensions-0.0.2.tgz#4b2bac2b820aa004b724acf6ae3eb4dfe8126abb"
 
-"kurento-client-core@github:Kurento/kurento-client-core-js#master":
-  version "6.8.0"
-  resolved "https://codeload.github.com/Kurento/kurento-client-core-js/tar.gz/b2e02101e22772acffb259eb13f2ab0c08c918ff"
+kurento-client-core@Kurento/kurento-client-core-js#master:
+  version "6.8.1-dev"
+  resolved "https://codeload.github.com/Kurento/kurento-client-core-js/tar.gz/c88df181a20d28a428edc7d6e8a37193510b9b5c"
 
-"kurento-client-elements@github:Kurento/kurento-client-elements-js#master":
-  version "6.8.0"
-  resolved "https://codeload.github.com/Kurento/kurento-client-elements-js/tar.gz/15b972a13ef856ab9b67517aa44de5dd812fc4ce"
+kurento-client-elements@Kurento/kurento-client-elements-js#master:
+  version "6.8.1-dev"
+  resolved "https://codeload.github.com/Kurento/kurento-client-elements-js/tar.gz/b13b1369aaab503b95aecad8ea2e51647f7278a1"
 
-"kurento-client-filters@github:Kurento/kurento-client-filters-js#master":
-  version "6.8.0"
-  resolved "https://codeload.github.com/Kurento/kurento-client-filters-js/tar.gz/5b6d3f257490ca051af0a7f498380142b87438e3"
+kurento-client-filters@Kurento/kurento-client-filters-js#master:
+  version "6.8.1-dev"
+  resolved "https://codeload.github.com/Kurento/kurento-client-filters-js/tar.gz/2400eaa450c528b67c289888f21a429909c9474e"
 
 kurento-client@^6.6.0:
   version "6.8.0"
@@ -5700,7 +5704,7 @@ kurento-client@^6.6.0:
     promisecallback "0.0.4"
     reconnect-ws KurentoForks/reconnect-ws#master
 
-"kurento-jsonrpc@github:Kurento/kurento-jsonrpc-js#master":
+kurento-jsonrpc@Kurento/kurento-jsonrpc-js#master:
   version "6.8.1-dev"
   resolved "https://codeload.github.com/Kurento/kurento-jsonrpc-js/tar.gz/b295874cbbb0f400374054f270cb557ecdfd2faa"
   dependencies:
@@ -8300,7 +8304,7 @@ reconnect-core@KurentoForks/reconnect-core:
   dependencies:
     backoff "~2.3.0"
 
-"reconnect-ws@github:KurentoForks/reconnect-ws#master":
+reconnect-ws@KurentoForks/reconnect-ws#master:
   version "0.0.0"
   resolved "https://codeload.github.com/KurentoForks/reconnect-ws/tar.gz/f287385d75861654528c352e60221f95c9209f8a"
   dependencies:
