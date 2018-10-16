@@ -64,6 +64,7 @@ class Chat extends React.Component{
             uploadConclusion: this.props.uploadConclusion,
             getAllFilesTreatment: this.props.getAllFilesTreatment,
             treatmFiles: this.props.treatmFiles,
+            appShouldStartAt: this.props.visitInfo.date
         }
 
         return (

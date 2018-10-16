@@ -4,7 +4,7 @@ import Card from '../Card'
 import NotificationItem from '../Notification'
 
 import './style.css'
-import ScrollArea from 'react-scrollbar'
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 class NotificationCard extends React.Component{
     constructor(props) {
@@ -14,7 +14,7 @@ class NotificationCard extends React.Component{
     notificationRender = (dataArr) => {
         let notificationArr = [];
         dataArr.map((item, index) => {
-            notificationArr.push(<NotificationItem {...item} 
+            notificationArr.push(<NotificationItem {...item}
                 getId={this.props.getId}
                 key={item.id}/>)
         });
@@ -25,10 +25,8 @@ class NotificationCard extends React.Component{
         return (
 
             <div className='notification-card'>
-
-
-                    <Card title="Уведомления">
-                        <ScrollArea
+                    <Card title="Уведомления" >
+                        <PerfectScrollbar
                             speed={1}
                             className="scroll"
                             contentClassName="content"
@@ -41,7 +39,7 @@ class NotificationCard extends React.Component{
                             }}
                         >
                             {this.notificationRender(this.props.data)}
-                        </ScrollArea>
+                        </PerfectScrollbar>
                     </Card>
 
             </div>
@@ -49,7 +47,7 @@ class NotificationCard extends React.Component{
         );
     }
 
-    
+
 }
 
 NotificationCard.propTypes ={

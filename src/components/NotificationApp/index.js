@@ -28,7 +28,7 @@ class NotificationApp extends React.Component {
        this.setState({visible});
        (visible == false) && (this.state.inverseCount != 0) && this.props.getNotifications();
     };
-    
+
     componentWillReceiveProps(nexProps){
         this.setState({inverseCount: 0})
     }
@@ -44,10 +44,10 @@ class NotificationApp extends React.Component {
         <div className="notific_component">
             <div >
                 <Popover
-                    classname="notific_popover"
+                    className="notific_popover"
                     content={this.state.visible && <NotificationCard
-                        data = {this.props.data} 
-                        top={this.props.top} 
+                        data = {this.props.data}
+                        top={this.props.top}
                         getId={(id) => {
                             this.props.getId(id);
                             this.setState(prevState => {return {...prevState, inverseCount: prevState.inverseCount + 1}})
@@ -55,9 +55,9 @@ class NotificationApp extends React.Component {
                     trigger="click"
                     visible={this.state.visible}
                     onVisibleChange={this.handleVisibleChange}
-                    placement="leftBottom"
+                    placement="bottomLeft"
                 >
-                   
+
                         <div className="notific_container" >
                             <Icon svg type='notification' size={25} />
                             <div className="notific_number" style={styleNotf}>
@@ -66,7 +66,7 @@ class NotificationApp extends React.Component {
                                 </p>
                             </div>
                         </div>
-                  
+
                 </Popover>
             </div>
         </div>
