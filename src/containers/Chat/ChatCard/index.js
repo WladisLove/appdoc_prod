@@ -2,6 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import moment from "moment"
+import {message} from "antd"
+
 
 import Button from '../../../components/Button'
 import CompletionReceptionModal from "../../../components/CompletionReceptionModal";
@@ -63,11 +66,19 @@ class ChatCard extends React.Component {
 	}
 
 	startReceptionHandler = () => {
+    	if(this.props.appShouldStartAt > +moment().format("X")+300) {
+    		message.error("Приём можно начать за 5 минут до указанного времени")
+    		return;
+		}
+
 		startReception();
 		this.props.changeReceptionStatus(this.props.receptionId, "begin")
 	}
 
 	onCall = () => {
+        if(this.props.appShouldStartAt > +moment().format("X")+300) {
+            return;
+        }
 		call();
 	}
 
