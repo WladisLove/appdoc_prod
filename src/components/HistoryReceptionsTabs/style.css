@@ -1,20 +1,8 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .scrollarea .scrollbar-container.horizontal {
   bottom: 10px;
 }
 .scrollarea .scrollbar-container.horizontal .scrollbar {
-  background-color: #0495ff;
+  background-color: #21bedd;
   height: 6px;
   border-radius: 4px;
 }
@@ -71,9 +59,7 @@
 }
 .receptions-all .tableheader.menu-header {
   padding: 22.5px 0;
-  background-color: #fef8f8;
-  border-top: 1px solid #ebebeb;
-  border-bottom: 1px solid #ebebeb;
+  background-color: #fff2f6;
   justify-content: flex-start;
   top: 66px;
 }

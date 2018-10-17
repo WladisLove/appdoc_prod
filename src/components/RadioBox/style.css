@@ -14,11 +14,11 @@
   margin-right: 14px;
 }
 .ant-radio-group {
-  font-family: 'GothamPro';
+  font-family: "RobotoRegular";
   display: flex;
 }
 .ant-radio-wrapper {
-  font-family: 'GothamPro';
+  font-family: "RobotoRegular";
   display: inline-flex;
   align-items: center;
 }
@@ -53,7 +53,7 @@
 .ant-radio + span {
   color: #191919;
   font-size: 14px;
-  font-family: 'GothamPro';
+  font-family: "RobotoRegular";
   padding: 0;
 }
 .ant-radio-checked .ant-radio-inner {

@@ -8,6 +8,7 @@ import DownloadLink from '../DownloadLink'
 import Hoc from '../Hoc'
 
 import './style.css'
+import {notificationArr} from './stories/mock-data'
 
 class NotificationItem extends React.Component{
     state = {
@@ -15,6 +16,7 @@ class NotificationItem extends React.Component{
     }
 
     renderLinks = () =>{
+        
         return (
             <div className='notification-links'
                 onClick = {e => {
@@ -44,7 +46,8 @@ class NotificationItem extends React.Component{
         );
     };
 
-    render() {
+    render() { 
+       
         const {id, title, desc, time, thisTime, status, watch, getId} = this.props;
         let iconType = 'notification';
         let links;

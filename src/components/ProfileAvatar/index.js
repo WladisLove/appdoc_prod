@@ -17,7 +17,7 @@ class ProfileAvatar extends React.Component{
         return(
             <div className={rootClass}>
                 <div className={avatarClass} style={{background: back,backgroundSize: 'cover',}}>
-                    <div className={indicatorClass}></div>
+                    
                 </div>
             </div>
 

@@ -42,27 +42,3 @@
 .link:focus .icon {
   color: #b7b7b7;
 }
-
-.link-conclusion {
-  align-items: center;
-  color: #344051;
-  display: inline-flex;
-}
-.chat__files-item .link-conclusion{
-  margin: 20px 0;
-  padding: 6px 12px;
-  background-color: #f5f6fa;
-}
-
-.link-conclusion .icon {
-  color: #fdc401;
-}
-.link-conclusion:hover {
-  text-decoration: none;
-}
-.link-conclusion:hover span {
-  text-decoration: underline;
-}
-.link-conclusion:hover span.icon {
-  text-decoration: none;
-}

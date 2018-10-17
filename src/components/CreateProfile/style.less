@@ -1,0 +1,138 @@
+.create-profile-form {
+    .steps {
+        .ant-steps {
+            padding: 25px 70px;
+            background-color: #ff7daa;
+            border-top-left-radius: 7px;
+            border-top-right-radius : 7px;
+            .ant-steps-item {
+                &-process {
+                    .ant-steps-item-content {
+                        .ant-steps-item-title:after{
+                            background-color: #ffa4c4;
+                        }
+                    }
+                    .ant-steps-item-icon {
+                        background: #7544ea;
+                        border: 0;
+                        span.ant-steps-icon {
+                            color: #fd7daa;
+                            font-family: "RobotoMedium", serif;
+
+                        }
+                    }
+                }
+                &-wait {
+                    .ant-steps-item-content {
+                        .ant-steps-item-title:after{
+                            background-color: #ffa4c4;
+                        }
+                    }
+                    .ant-steps-item-icon {
+                        background: #ffa4c4;
+                        border: 0;
+                        span.ant-steps-icon {
+                            display: none;
+
+                        }
+                    }
+                }
+                &-finish {
+                    .ant-steps-item-content {
+                        .ant-steps-item-title:after{
+                            background-color: #7544ea;
+                        }
+                    }
+                    .ant-steps-item-icon {
+                        background: #7544ea;
+                        border: 0;
+                        span.ant-steps-icon {
+                            color: #fd7daa;
+                            font-family: "RobotoMedium", serif;
+                            line-height: 30px;
+                            i:before {
+                                display: none;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        .steps-content {
+            margin: 0;
+            padding: 30px 70px;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            .ant-form.step-form {
+                .step-title {
+                    font-family: "RobotoBlackItalic", serif;
+                    font-size: 36px;
+                    line-height: 36px;
+                    color: #111;
+                    margin-bottom: 35px;
+                }
+                .step-note {
+                    font-family: "RobotoRegularItalic", serif;
+                    font-size: 14px;
+                    line-height: 22px;
+                    color: #111;
+                    margin-bottom: 20px;
+
+                }
+                .step-form-row {
+                    display: flex;
+                    width: 100%;
+                    .ant-row.ant-form-item {
+                        width: 100%;
+                        margin-right: 40px;
+                        &:last-child{
+                            margin-right: 0;
+                        }
+                    }
+                }
+                .create-profile-avatar {
+                    display: flex;
+                    width: 100%;
+                    flex-direction: column;
+                    align-items: center;
+                    .upload-avatar-title {
+                        font-family: "RobotoMedium", serif;
+                        font-size: 14px;
+                        color: #111;
+                        margin-bottom: 30px;
+                    }
+                    .react-dropzone-avatar {
+                        max-width: 200px;
+                        max-height: 200px;
+                        border-radius: 15px;
+                        border: 1px dashed #21bedd;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        img {
+                            max-width: 100%;
+                            max-height: 100%;
+                            border-radius: 15px;
+                        }
+                    }
+                    .upload-avatar-photo-click {
+                        text-align: center;
+                        font-family: "RobotoRegular", serif;
+                        font-size: 14px;
+                        margin-top: 10px;
+                    }
+                }
+                .create-profile-social {
+                    width: 100%;
+                }
+
+            }
+            .ant-form.step-form.step-1 {
+
+            }
+        }
+    }
+}

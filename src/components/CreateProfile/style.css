@@ -1,0 +1,109 @@
+.create-profile-form .steps .ant-steps {
+  padding: 25px 70px;
+  background-color: #ff7daa;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-process .ant-steps-item-content .ant-steps-item-title:after {
+  background-color: #ffa4c4;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-process .ant-steps-item-icon {
+  background: #7544ea;
+  border: 0;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-process .ant-steps-item-icon span.ant-steps-icon {
+  color: #fd7daa;
+  font-family: "RobotoMedium", serif;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-wait .ant-steps-item-content .ant-steps-item-title:after {
+  background-color: #ffa4c4;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-wait .ant-steps-item-icon {
+  background: #ffa4c4;
+  border: 0;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-wait .ant-steps-item-icon span.ant-steps-icon {
+  display: none;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-finish .ant-steps-item-content .ant-steps-item-title:after {
+  background-color: #7544ea;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-finish .ant-steps-item-icon {
+  background: #7544ea;
+  border: 0;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-finish .ant-steps-item-icon span.ant-steps-icon {
+  color: #fd7daa;
+  font-family: "RobotoMedium", serif;
+  line-height: 30px;
+}
+.create-profile-form .steps .ant-steps .ant-steps-item-finish .ant-steps-item-icon span.ant-steps-icon i:before {
+  display: none;
+}
+.create-profile-form .steps .steps-content {
+  margin: 0;
+  padding: 30px 70px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .step-title {
+  font-family: "RobotoBlackItalic", serif;
+  font-size: 36px;
+  line-height: 36px;
+  color: #111;
+  margin-bottom: 35px;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .step-note {
+  font-family: "RobotoRegularItalic", serif;
+  font-size: 14px;
+  line-height: 22px;
+  color: #111;
+  margin-bottom: 20px;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .step-form-row {
+  display: flex;
+  width: 100%;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .step-form-row .ant-row.ant-form-item {
+  width: 100%;
+  margin-right: 40px;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .step-form-row .ant-row.ant-form-item:last-child {
+  margin-right: 0;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .create-profile-avatar {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .create-profile-avatar .upload-avatar-title {
+  font-family: "RobotoMedium", serif;
+  font-size: 14px;
+  color: #111;
+  margin-bottom: 30px;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .create-profile-avatar .react-dropzone-avatar {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 15px;
+  border: 1px dashed #21bedd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .create-profile-avatar .react-dropzone-avatar img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 15px;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .create-profile-avatar .upload-avatar-photo-click {
+  text-align: center;
+  font-family: "RobotoRegular", serif;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.create-profile-form .steps .steps-content .ant-form.step-form .create-profile-social {
+  width: 100%;
+}

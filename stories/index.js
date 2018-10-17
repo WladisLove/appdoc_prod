@@ -1,7 +1,7 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 
-import StorybookStylesProvider from './StorybookStylesProvider'
+
 
 const styles = {
     padding: 15,
@@ -9,7 +9,7 @@ const styles = {
 
 const LocalProviderDecorator = story => (
     <div style={styles}>
-        <StorybookStylesProvider>{story()}</StorybookStylesProvider>
+        {story()}
     </div>
 );
 
@@ -23,6 +23,8 @@ const loadStories = () => {
     require('../src/components/InputNew/stories');
     require('../src/components/SelectNew/stories');
     require('../src/components/Select/stories');
+    require('../src/components/InputWithTT/stories');
+    require('../src/components/InputDateWithTT/stories');
     require('../src/components/Switch/stories');
     require('../src/components/SwitchPanel/stories');
     require('../src/components/DatePicker/stories');
@@ -39,6 +41,7 @@ const loadStories = () => {
     require('../src/components/Upload/stories');
     require('../src/components/NewMessageModal/stories');
     require('../src/components/TimePicker/stories');
+    require('../src/components/CreateProfile/stories');
     require('../src/components/DownloadLink/stories');
     require('../src/components/Popover/stories');
     require('../src/components/TopPanel/stories');

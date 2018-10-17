@@ -1,74 +1,64 @@
-@import url('../../styles/variables');
-
-.auto__complete{
-
-	&-overlay{
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: transparent;
-		display: none;
-
-		&-focus{
-			display: block;
-		}
-	}
-
-	&-search{}
-
-	&-result{
-		display: none;
-		background-color: #fff;
-		width: 100%;
-		max-width: 670px;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-		border-radius: 4px;
-		position: absolute;
-
-		&-focus{
-			display: block;
-		}
-	}
-
-	&-title{
-		position: relative;
-		padding: 35px 30px;
-		color: #344051;
-		font-size: 20px;
-		display: flex;
-    	align-items: center;
-
-		&-spinner{
-			padding-left: 20px;
-		}
-	}
-
-	&-count{
-		background-color: @blue;
-		border-radius: 20px;
-		line-height: 1;
-		font-size: 12px;
-		color: #fff;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		height: 20px;
-		padding: 0 15px;
-		margin-left: 20px;
-	}
-
-	&-list{
-		position: relative;
-    	height: 400px;
-
-    	.new-patient-btn{
-    		
-    	}
-
-    	.new-patient-item{
-    		padding: 14px 30px;
-    	}
-	}
+.auto__complete {
+    .ant-input {
+        font-size: 18px;
+        font-style: italic;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 1);
+    }
+    &-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: transparent;
+        display: none;
+        &-focus {
+            display: block;
+        }
+    }
+    &-result {
+        display: none;
+        background-color: #fff;
+        width: 100%;
+        max-width: 670px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        position: absolute;
+        &-focus {
+            display: block;
+        }
+    }
+    &-title {
+        position: relative;
+        padding: 35px 30px;
+        color: #344051;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        &-spinner {
+            padding-left: 20px;
+        }
+    }
+    &-count {
+        background-color: #21bedd;
+        border-radius: 20px;
+        line-height: 1;
+        font-size: 12px;
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 20px;
+        padding: 0 15px;
+        margin-left: 20px;
+    }
+    &-list {
+        position: relative;
+        height: 400px;
+        .new-patient-btn {}
+        .new-patient-item {
+            padding: 14px 30px;
+        }
+    }
 }

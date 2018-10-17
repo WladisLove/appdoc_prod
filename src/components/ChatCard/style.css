@@ -1,15 +1,3 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .chat-card {
   position: relative;
   max-width: calc(100% - 20px);
@@ -19,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #0495ff;
+  background-color: #21bedd;
   border-radius: 2px;
 }
 .chat-card-title {
@@ -57,14 +45,14 @@
   background-color: #fff;
 }
 .chat-card-btns .ant-radio-button-wrapper-checked .icon {
-  color: #0495ff;
+  color: #21bedd;
 }
 .chat-card-btns .ant-radio-button-wrapper:hover {
   background-color: #fff;
   border: none;
 }
 .chat-card-btns .ant-radio-button-wrapper:hover .icon {
-  color: #0495ff;
+  color: #21bedd;
 }
 .chat-card-archive {
   background-color: #204d8d;
@@ -88,7 +76,7 @@
   background-color: transparent;
 }
 .chat-card-archive .btn:hover .icon {
-  color: #0495ff;
+  color: #21bedd;
 }
 .chat-card-namePatient {
   font-size: 18px;
@@ -106,7 +94,7 @@
   border-radius: 16px;
   text-transform: capitalize;
   font-size: 12px;
-  font-family: 'GothamPro';
+  font-family: "RobotoRegular";
   line-height: 1;
 }
 .chat-card-status:before {
@@ -171,7 +159,7 @@
   background-color: transparent;
 }
 .chat-card-files__close .btn:hover .icon {
-  color: #0495ff;
+  color: #21bedd;
 }
 .chat-card-files__items {
   position: relative;
@@ -211,8 +199,6 @@
 .chat-card-video__box {
   position: relative;
   width: 100%;
-  min-width: 600px;
-  height: 80%;
   display: block;
 }
 .chat-card-video__mini {
