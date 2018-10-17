@@ -25,7 +25,7 @@ class Header extends React.Component {
             emergencyVisit: false
         };
     }
-    
+
     handleClick = () => {
       this.setState({isNewFreeVisit: true})
     };
@@ -45,7 +45,7 @@ render() {
                     />
                 </div>
                 <div className='header-call'>
-                    {isUser ? 
+                    {isUser ?
                         <Hoc>
                             <Button btnText='ЭКСТРЕННЫЙ ВЫЗОВ'
                                 size='small'
@@ -103,13 +103,13 @@ render() {
                     }
                 </div>
                 <div className='header-notification'>
-                    <NotificationApp  
-                        data={notifications} 
+                    <NotificationApp
+                        data={notifications}
                         getNotifications={this.props.getNotifications}
                         getId={this.props.getNotifId}>
-                         <Icon 
-                            svg 
-                            type='notification' 
+                         <Icon
+                            svg
+                            type='notification'
                             size={20}
                             title='Уведомления'
                         />

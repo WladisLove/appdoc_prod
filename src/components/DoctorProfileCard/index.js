@@ -7,7 +7,7 @@ import Hoc from "../Hoc"
 import './styles.css'
 
 class DoctorProfileCard extends React.Component{
-    
+
     shouldComponentUpdate(nextProps){
         return (this.props.timesRated !== nextProps.timesRated)
                     || (this.props.timesRated !== nextProps.timesRated)
@@ -26,9 +26,9 @@ class DoctorProfileCard extends React.Component{
         }).join(", ");
 
         const rootClass = short ?
-            (isUser ? 
+            (isUser ?
             "patientProfileCard-short" : "doctorProfileCard-short")
-            : (isUser ? 
+            : (isUser ?
                 "patientProfileCard" : "doctorProfileCard");
 
         return (

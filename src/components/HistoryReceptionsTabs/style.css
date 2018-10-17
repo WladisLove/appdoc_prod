@@ -41,7 +41,7 @@
 }
 .receptions-all .tableheader {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   padding: 22.5px 32.5px;
   background-color: #fff;
@@ -64,51 +64,40 @@
   top: 66px;
 }
 .receptions-all .tableheader.menu-header .flex-col:first-child {
-  padding-left: 25px;
+  margin-left: calc(1% + 4px);
 }
 .receptions-all .tableheader.menu-header .flex-col:last-child {
-  padding-right: 25px;
-  margin-right: 0;
+  margin-right: calc(1% - 4px);
 }
 .receptions-all .tableheader.menu-header .flex-col:nth-child(1) {
-  max-width: 165px;
-  width: 100%;
+  width: 13%;
 }
 .receptions-all .tableheader.menu-header .flex-col:nth-child(2) {
-  max-width: 120px;
-  width: 100%;
-  position: relative;
+  width: 7%;
 }
 .receptions-all .tableheader.menu-header .flex-col:nth-child(3) {
-  max-width: 157px;
-  width: 100%;
+  width: 15%;
 }
 .receptions-all .tableheader.menu-header .flex-col:nth-child(4) {
-  max-width: 200px;
-  width: 100%;
+  width: 11%;
 }
 .receptions-all .tableheader.menu-header .flex-col:nth-child(5) {
-  max-width: 97px;
-  width: 100%;
+  width: 6%;
 }
 .receptions-all .tableheader.menu-header .flex-col:nth-child(6) {
-  max-width: 205px;
-  width: 100%;
+  width: 10%;
 }
 .receptions-all .tableheader.menu-header .flex-col:nth-child(7) {
-  max-width: 200px;
-  width: 100%;
+  width: 16%;
 }
 .receptions-all .tableheader.menu-header .flex-col:nth-child(8) {
-  width: 100%;
-  max-width: 100px;
-  margin-right: 0;
+  width: 6%;
 }
 .receptions-all .tableheader .ico-btn {
   display: flex;
 }
 .receptions-all .tableheader .flex-col {
-  margin-right: 32px;
+  margin-right: 2%;
 }
 .receptions-all .tableheader .flex-col .receptions-status {
   position: relative;

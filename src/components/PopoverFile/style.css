@@ -52,6 +52,9 @@
   bottom: 25px;
   right: 20px;
 }
+.popover-file-body .popover-file-block {
+  word-break: break-word;
+}
 .popover-num {
   background-color: transparent;
   border-radius: 100%;
