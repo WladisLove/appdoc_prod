@@ -63,12 +63,12 @@ class AutoComplete extends React.Component{
             },
           });
 
-        
+
     }
 
     patientsRender = (dataArr) => {
         return dataArr.map((item) => {
-            return (<AddNewPatientItem {...item} 
+            return (<AddNewPatientItem {...item}
                                     onAdd = {(id) => {this.onClickHandler(id, 'add')}}
                                     onDelete = {this.onDeletePatientHandler}
                                     onGoto = {(id) => {this.onClickHandler(id, 'goto')}}
@@ -80,18 +80,17 @@ class AutoComplete extends React.Component{
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
         if(e.target.value.length === 3) {
-            this.triggerChange();
+            this.triggerChange(e.target.value);
             return
         }
         e.target.value.length > 2 ? this.timer = setTimeout(this.triggerChange, 800) : this.setState({searchRes:[]});
     };
 
-    triggerChange = () => {
-
+    triggerChange = (value) => {
         this.setState({
             loading: true,
             isVisible: true
-        },this.props.findName(this.state.inputValue));
+        },this.props.findName(value || this.state.inputValue));
     };
 
     handleKeyDown = (e) => {
@@ -119,17 +118,17 @@ class AutoComplete extends React.Component{
             <div className='auto__complete'>
                 <div className={overlayClass} onClick={() => this.focusHandler(false)}/>
                 <div className='auto__complete-search'>
-                    <Input 
+                    <Input
                         placeholder='Поиск'
                         onChange={this.changeHandleSearch}
-                        ref = {inp => {this.input = inp}}
                         onKeyDown={this.handleKeyDown}
+                        ref = {inp => {this.input = inp}}
                     />
                 </div>
                 <div className={resultClass}>
                     <div className='auto__complete-title'>
                         Результаты поиска
-                        {this.state.searchRes.length && this.state.inputValue.length > 2 
+                        {this.state.searchRes.length && this.state.inputValue.length > 2
                             ? <span className='auto__complete-count'>{this.state.searchRes.length}</span> : null }
                         {this.state.loading ? <div className='auto__complete-title-spinner'><Spinner/></div> : null}
                     </div>
@@ -141,7 +140,7 @@ class AutoComplete extends React.Component{
 
                     {this.state.inputValue.length > 2 ?
                         (
-                            (this.state.searchRes).length ? 
+                            (this.state.searchRes).length ?
                                 this.patientsRender(this.state.searchRes)
                                 : <div className='entry-list'>{this.props.isUser ? "Докторов нет" : "Пациентов нет"}</div>
                         )

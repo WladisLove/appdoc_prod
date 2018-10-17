@@ -1,7 +1,12 @@
 import * as actionTypes from '../actions/actionTypes'
 
+const initialState = {
+    isConfirmed: false,
+    isReceived: false,
+    visitId: 0,
+}
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type){
         case actionTypes.LOADING_START:
             return {
@@ -13,6 +18,19 @@ const reducer = (state, action) => {
                 ...state,
                 [action.loader]: false
             };
+        case actionTypes.DOC_EMERGANCY_RECEIVED_MARK: 
+            return {
+                ...state,
+                isReceived: false,
+                visitId: 0,
+            }
+        case actionTypes.DOC_EMERGANCY_REQUEST_RECEIVED:
+            return {
+                ...state,
+                isConfirmed: action.isConfirmed,
+                visitId: action.visitId,
+                isReceived: true,
+            }; 
 
         default: return state;
 

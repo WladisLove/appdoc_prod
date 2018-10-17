@@ -35,19 +35,18 @@ class MainReview extends React.Component{
     };
 
     render(){
-
-        const {author, 
-            avatar, 
-            date, 
-            dateCommentDoc, 
+        const {author,
+            avatar,
+            date,
+            dateCommentDoc,
             online,
             id_doc,
             id_user,
             status_user,
-            comment, 
-            rating, 
-            makingAppDate, 
-            commentDoc, 
+            comment,
+            rating,
+            makingAppDate,
+            commentDoc,
             isSecondAllowed,
             isDoctor,
             onTreatmentClick} = this.props;
@@ -62,9 +61,9 @@ class MainReview extends React.Component{
         return (
             <div className='review-root'>
                 <div className='review'>
-                <ProfileAvatar owner="patient" 
-                                img={avatar} 
-                                online={isOnline} 
+                <ProfileAvatar owner="patient"
+                                img={avatar}
+                                online={isOnline}
                                 size='small'/>
                 <div className="patient-info">
                     <div className="flex-row">
@@ -87,7 +86,7 @@ class MainReview extends React.Component{
                         type='go'
                         icon='circle_arrow_right'
                         svg
-                        onClick={()=>this.props.onGotoChat(this.props.id_zap)}
+                        onClick={()=>this.props.onGotoChat(this.props.id_treatment)}
                     />}
                 </div>
                      <div className="review-answerBtn">

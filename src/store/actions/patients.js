@@ -70,6 +70,7 @@ export const setReception = (reception) => {
     }
 }
 export const setReceptionByPatient = (reception) => {
+
     return (dispatch, getState) => {
         let obj = {
             ...reception,

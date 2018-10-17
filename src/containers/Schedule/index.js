@@ -78,6 +78,14 @@ class Schedule extends React.Component {
         return count;
     };
 
+    getCountOfScheduledIntervals = () => {
+        let count = 0;
+        if (this.props.schedules)
+            this.props.schedules.forEach((item) => {item.isDayOff === "0" ? ++count : null});
+
+        return count;
+    };
+
     dateChangeHandler = (date, view, action, isOnDay) => {
         const {start, end} = this.state.isEditorMode
             ? findTimeInterval(date, 'month')
@@ -178,7 +186,7 @@ class Schedule extends React.Component {
     };
 
     openReceptionSchedule = (date, schedule) => {
-        
+
 
         if (schedule) {
             this.setState({
@@ -210,7 +218,7 @@ class Schedule extends React.Component {
 
     gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
-		this.props.history.push('/patient'+id);
+		this.props.history.push('/app/patient'+id);
 	}
 
     render() {
@@ -244,7 +252,7 @@ class Schedule extends React.Component {
                                  onClick={() => this.changeToEditorMode(false)}
                                  type='yellow'
                                  icon='arrow2_left'/>);
-            calendar = (<Calendar receptionNum={this.getCountOfReceptionsAtCurMonth()}
+            calendar = (<Calendar receptionNum={this.getCountOfScheduledIntervals()}
                                   selectable
                                   editor
                                   onMonthSelect={(date, schedule) => {
@@ -354,6 +362,7 @@ class Schedule extends React.Component {
                                          onCancel={this.closeReceptionSchedule}
                                          onSave={(info) => this.onSaveReceptionSchedule(info)}
                                          isDayOff={!!(+isDayOff)}
+                                         emergencyAvailable={this.props.emergencyAvailable}
                 />
                 <WarningModal visible={this.state.warningModal}
                               onClick={() => this.setState({warningModal: false})}
@@ -375,6 +384,7 @@ const mapStateToProps = state => {
         chosenData: state.schedules.chosenData,
         cancelData: state.schedules.cancelData,
         allUserVisits: state.schedules.allUserVisits,
+        emergencyAvailable: state.doctor.emergencyAvailable
     };
 };
 

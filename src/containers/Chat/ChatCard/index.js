@@ -2,6 +2,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import moment from "moment"
+import {message} from "antd"
+
 
 import Button from '../../../components/Button'
 import CompletionReceptionModal from "../../../components/CompletionReceptionModal";
@@ -63,11 +66,19 @@ class ChatCard extends React.Component {
 	}
 
 	startReceptionHandler = () => {
+    	if(this.props.appShouldStartAt > +moment().format("X")+300) {
+    		message.error("Приём можно начать за 5 минут до указанного времени")
+    		return;
+		}
+
 		startReception();
 		this.props.changeReceptionStatus(this.props.receptionId, "begin")
 	}
 
 	onCall = () => {
+        if(this.props.appShouldStartAt > +moment().format("X")+300) {
+            return;
+        }
 		call();
 	}
 
@@ -110,12 +121,10 @@ class ChatCard extends React.Component {
 		this.setState({reception_vis: false,treatment_vis: true});
 	}
 
-	uploadOnlyFile = (id_zap,id_user, callback) => {
+	uploadOnlyFile = (id_zap, id_user, callback) => {
 		return (file, isConclusion) => {
 			isConclusion ? (
-				this.props.uploadConclusion(id_zap,file, callback),
-				console.log({id: this.props.receptionId,
-					chat: this.props.chatStory})
+				this.props.uploadConclusion(id_zap,file, callback)
 			)
 
 				: this.props.uploadFile(id_zap,id_user, file,callback);
@@ -146,7 +155,6 @@ class ChatCard extends React.Component {
         return icon
     };
     render() {
-    	console.log("RENDER CHAT CARD", this.props);
 		const {patientName, user_id, online: onl} = this.props;
 		const online = +onl ?'online' :  'offline';
 		const iconType = this.getIconByType();
@@ -155,7 +163,6 @@ class ChatCard extends React.Component {
         const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
 
 		let content;
-
 		const chatProps= {
 			from: this.props.callerID,
 			to: this.props.calledID,
@@ -168,7 +175,7 @@ class ChatCard extends React.Component {
 			receptionStarts: this.props.receptionStarts,
 			fromTR_VIS: this.props.fromTR_VIS,
 			user_mode: this.props.user_mode,
-			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.callerID, fileUploadCallback),
+			uploadFile: this.uploadOnlyFile(this.props.receptionId, this.props.isUser ? this.props.callerID: this.props.calledID, fileUploadCallback),
 			receptionId: this.props.receptionId,
 			isCurVisEnd: this.state.isCurVisEnd,
 			treatmFiles: this.props.treatmFiles,
@@ -187,33 +194,27 @@ class ChatCard extends React.Component {
 			isCalling: this.props.isCalling,
 			isActiveChat: this.state.isActiveChat,
 			isEnded: this.props.isEnded,
-		}
-        if(this.props.isUser) {
-            content = <ChatTextContent isActive={this.state.isActive}
-                                       {...chatProps}
-                                       {...chatAdditionalProps}
-            />;
-		} else {
-			switch (this.state.mode) {
-				case 'chat':
-					content = <ChatTextContent isActive={this.state.isActive}
-												{...chatProps}
-											   {...chatAdditionalProps}
-												/>;
-					break;
-				case 'voice':
-					content = <ChatAudioContent
-												{...chatProps}
-												{...chatAdditionalProps}
-												/>;
-					break;
-				case "video":
-					content = <ChatVideoContent
-												{...chatProps}
-												{...chatAdditionalProps}
-												/>;
-					break;
-			}
+        }
+
+        switch (this.state.mode) {
+            case 'chat':
+                content = <ChatTextContent isActive={this.state.isActive}
+                                           {...chatProps}
+                                           {...chatAdditionalProps}
+                />;
+                break;
+            case 'voice':
+                content = <ChatAudioContent
+                    {...chatProps}
+                    {...chatAdditionalProps}
+                />;
+                break;
+            case "video":
+                content = <ChatVideoContent
+                    {...chatProps}
+                    {...chatAdditionalProps}
+                />;
+                break;
         }
 
 

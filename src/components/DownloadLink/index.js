@@ -60,7 +60,7 @@ DownloadLink.propTypes = {
     size: PropTypes.oneOf(['small', 'default', 'large']),
     href: PropTypes.string,
     btnText: PropTypes.string,
-    conclusion: PropTypes.string,
+    conclusion: PropTypes.bool,
     icon: PropTypes.string,
     iconSize: PropTypes.number,
     svg: PropTypes.bool,
@@ -78,7 +78,7 @@ DownloadLink.defaultProps = {
     iconSize: 20,
     svg: false,
     download: false,
-    conclusion: '',
+    conclusion: false,
     disable: false,
     onClick: () => {},
 };

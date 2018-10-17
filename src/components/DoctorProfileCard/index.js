@@ -17,11 +17,13 @@ class DoctorProfileCard extends React.Component{
     }
 
     render(){
-        const {short, name, specialty, isUser} = this.props;
-        let spec = specialty.map(function(elem) {
-            return elem.toUpperCase();
-        });
-        spec = spec.join(", ");
+        const {short, name, specialty, isUser} = this.props; 
+        
+        const spec = specialty.map(function(elem) {
+            return elem.map(function(elem2) {
+                return elem2.toUpperCase();
+            })     
+        }).join(", ");
 
         const rootClass = short ?
             (isUser ? 
@@ -33,14 +35,6 @@ class DoctorProfileCard extends React.Component{
             <div className={rootClass}>
                 <ProfileAvatar owner="doctor" {...this.props} short={short} size={(short ? 'medium' : 'large')}/>
                 <div className={'doctorProfileCard-name'}>{name}</div>
-                {
-                    isUser ? null : (
-                        <Hoc>
-                            <div className={'doctorProfileCard-specialty'}>{spec}</div>
-                            <RatePanel {...this.props} disable={true}/>
-                        </Hoc>
-                    )
-                }
             </div>
         )
     }

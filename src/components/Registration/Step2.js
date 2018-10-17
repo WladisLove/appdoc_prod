@@ -57,7 +57,6 @@ class Step2_From extends React.Component{
                 ...values,
                 ...this.state,
             };
-            console.log("FIELDS WHEN BACK TO 1", fields)
             this.props.onSubmit(fields);
             this.props.onPrev();
         })
@@ -91,7 +90,6 @@ class Step2_From extends React.Component{
             formArr = [<Component getFieldDecorator={fieldDecorator}
                                   normFile={this.normFile}
                                   key={name + 0}
-                                  specs = {this.props.specs}
                                   form = {this.props.form}
                                   fileToState={this.fileToState}
                                   uploadFile={this.props.uploadFile}
@@ -101,7 +99,6 @@ class Step2_From extends React.Component{
             formArr.push(<Component getFieldDecorator={fieldDecorator}
                                     normFile={this.normFile}
                                     form = {this.props.form}
-                                    specs = {this.props.specs}
                                     key={name + i}
                                     fileToState={this.fileToState}
                                     uploadFile={this.props.uploadFile}
@@ -115,6 +112,11 @@ class Step2_From extends React.Component{
         e.preventDefault();
         this.setState(prev =>
             ({[type]: prev[type] +1}))
+    };
+    decreaseStateNum = (e, type) => {
+        e.preventDefault();
+        this.setState(prev =>
+            ({[type]: prev[type] -1}))
     };
 
 
@@ -130,7 +132,8 @@ class Step2_From extends React.Component{
 
                 <div className="step-block-title">Сведения об образовании</div>
                 {this.addFormElem(Step2_educ, this.state.educNum, getFieldDecorator)}
-                <Button onClick={e => this.increaseStateNum(e, 'educNum')}
+                <div>
+                    <Button onClick={e => this.increaseStateNum(e, 'educNum')}
                         className="personal-btn"
                         btnText='Добавить'
                         size='small'
@@ -138,19 +141,42 @@ class Step2_From extends React.Component{
                         icon='plus'
                         iconSize={11}
                         svg
-                />
+                        style={{marginRight:"10px"}}
+                    />
+                    {this.state.educNum>1 && <Button onClick={e => this.decreaseStateNum(e, 'educNum')}
+                        className="personal-btn"
+                        btnText='Удалить'
+                        size='small'
+                        type='no-brd'
+                        icon='remove'
+                        iconSize={11}
+                        svg
+                    />}
+                </div>
 
                 <div className="step-block-title">Последипломное образование</div>
                 {this.addFormElem(Step2_graduate_educ, this.state.gradEducNum, getFieldDecorator)}
-                <Button onClick={e => this.increaseStateNum(e, 'gradEducNum')}
-                        className="personal-btn"
-                        btnText='Добавить'
-                        size='small'
-                        type='no-brd'
-                        icon='plus'
-                        iconSize={11}
-                        svg
-                />
+                <div>
+                    <Button onClick={e => this.increaseStateNum(e, 'gradEducNum')}
+                            className="personal-btn"
+                            btnText='Добавить'
+                            size='small'
+                            type='no-brd'
+                            icon='plus'
+                            iconSize={11}
+                            svg
+                            style={{marginRight:"10px"}}
+                    />
+                    {this.state.gradEducNum >1 && <Button onClick={e => this.decreaseStateNum(e, 'gradEducNum')}
+                            className="personal-btn"
+                            btnText='Удалить'
+                            size='small'
+                            type='no-brd'
+                            icon='remove'
+                            iconSize={11}
+                            svg
+                    />}
+                </div>
 
                 <Hr/>
                 <FormItem>
@@ -206,15 +232,28 @@ class Step2_From extends React.Component{
 
                 <div className="step-block-title">Сведения о работе</div>
                 {this.addFormElem(Step2_work, this.state.placesNum, getFieldDecorator)}
-                <Button onClick={e => this.increaseStateNum(e, 'placesNum')}
-                        className="personal-btn"
-                        btnText='Добавить'
-                        size='small'
-                        type='no-brd'
-                        icon='plus'
-                        iconSize={11}
-                        svg
-                />
+
+                <div>
+                    <Button onClick={e => this.increaseStateNum(e, 'placesNum')}
+                            className="personal-btn"
+                            btnText='Добавить'
+                            size='small'
+                            type='no-brd'
+                            icon='plus'
+                            iconSize={11}
+                            svg
+                            style={{marginRight:"10px"}}
+                    />
+                    {this.state.placesNum > 1 && <Button onClick={e => this.decreaseStateNum(e, 'placesNum')}
+                            className="personal-btn"
+                            btnText='Удалить'
+                            size='small'
+                            type='no-brd'
+                            icon='remove'
+                            iconSize={11}
+                            svg
+                    />}
+                </div>
 
                 <Hr/>
 

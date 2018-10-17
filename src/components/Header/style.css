@@ -1,18 +1,7 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .header-search {
   width: 100%;
@@ -44,10 +33,7 @@
 }
 .header-call {
   margin-left: auto;
-  margin-right: 135px;
-}
-.header-call button {
-  margin-right: 25px;
+  margin-right: 40px;
 }
 .header-call button:last-child {
   margin-right: 0;
@@ -60,7 +46,7 @@
   cursor: pointer;
 }
 .header-notification .icon:hover {
-  color: #0495ff;
+  color: #21bedd;
 }
 .header-exit .btn {
   width: auto;
@@ -76,5 +62,12 @@
   background-color: transparent;
 }
 .header-exit .btn:hover .icon {
-  color: #0495ff;
+  color: #21bedd;
+}
+.header-btn {
+  width: 200px;
+  margin-left: 30px;
+}
+.header-btn-transfer {
+  margin-left: 50px;
 }

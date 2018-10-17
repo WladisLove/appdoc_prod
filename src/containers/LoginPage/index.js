@@ -11,7 +11,8 @@ import { message } from 'antd';
 import LoginForget from "../../components/LoginForget/index.js";
 import Registration from "../../components/Registration/index.js";
 import RegistrationPatient from "../../components/RegistrationPatient/index.js";
-
+import langsArray from "../../helpers/langsArray"
+import addInfoObj from "../../helpers/addInfoObj"
 
 
 import * as actions from '../../store/actions'
@@ -56,20 +57,11 @@ class LoginPage extends React.Component {
     };
 
     render(){
-
-        const langs = ["Русский", "Английский", "Немецкий"];
-        const payments = [10,20,30,40,50,75,100,200];
-        const academicTitle = ['Нет звания',
-            'Доцент',
-            'Профессор'];
-        const academicDegree = ['Нет степени',
-            'Кандидат медицинских наук',
-            'Доктор медицинских наук'];
-        const category = ['Без категории',
-            'Первая категория',
-            'Вторая категория',
-            'Высшая категория'];
-        const specs = ['Хирург', "Терапевт","Кардиолог","Офтальмолог", "Психиатр", "Стоматолог", "Невролог"];
+        const langs = langsArray;
+        const payments = addInfoObj.payments;
+        const academicTitle = addInfoObj.title ;
+        const academicDegree = addInfoObj.degree ;
+        const category = addInfoObj.category;
 
         return (
             <Hoc>
@@ -111,7 +103,6 @@ class LoginPage extends React.Component {
                                                            langs={langs}
                                                            payments={payments}
                                                            category = {category}
-                                                           specs = {specs}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='Я ознакомлен с условиями работы и принимаю их'

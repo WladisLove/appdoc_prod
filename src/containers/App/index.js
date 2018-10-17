@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Hoc from '../../hoc'
 import SideNav from '../../components/SideNav'
 import Header from "../../components/Header";
+import { Modal } from 'antd';
 
 import {connect} from 'react-redux';
 import {createSocket, closeSocket,register} from './chatWs'
@@ -16,6 +17,7 @@ import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";
 import ReportBugModal from "../../components/ReportBugModal";
+import ReviewsModal from "../../components/ReviewsModal";
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -28,14 +30,15 @@ class App extends React.Component {
         this.state = {
             collapsed: true,
             notifications: [],
-            bugfixVisible: false
+            bugfixVisible: false,
+            mustLeaveReview: false
         };
     }
 
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
-        }); 
+        });
     };
 
     componentWillUnmount(){
@@ -48,10 +51,13 @@ class App extends React.Component {
         let conn = new ab.Session('wss://appdoc.by/wss2/',
             function() {
                 that.props.getNotifications(that.props.id);
-                
+
                 conn.subscribe(""+that.props.id, function(topic, data) {
-                    that.props.setExInfo(data.exInterval)
-                    that.setState({notifications: JSON.parse(data.arr)})
+                    that.props.setExInfo(data.exInterval);
+                    that.setState({
+                        notifications: JSON.parse(data.arr),
+                        isExtrActual: data.isExtrActual,
+                    });
                 });
             },
             function() {
@@ -62,7 +68,7 @@ class App extends React.Component {
     }
 
     runChatWS = () => {
-        const {chatProps, setChatFromId, setChatToId, setReceptionStatus, setIsCallingStatus, 
+        const {chatProps, setChatFromId, setChatToId, setReceptionStatus, setIsCallingStatus,
             setChatStory, onSelectReception, setNewTimer} = this.props;
         //'wss://appdoc.by:8443/one2one'
         //'wss://localhost:8443/one2one'
@@ -84,7 +90,7 @@ class App extends React.Component {
             get_isCalling: () => this.props.isCalling,
             get_user_mode: () => this.props.mode,
             get_chatStory: () => this.props.chatStory,
-
+            get_shortDocInfo: () => this.props.shortDocInfo,
             get_visitInfo: () => this.props.visitInfo,
             get_timer: () => this.props.timer,
 
@@ -97,9 +103,20 @@ class App extends React.Component {
     componentDidMount() {
         if(this.props.id){
             this.runNotificationsWS();
-            this.runChatWS();            
+            this.runChatWS();
+            this.props.getEmergencyAvailability();
+            if(this.props.auth.mode === "user") {
+                this.props.hasNoReviewToFreeApp().then(res=>{
+                    if(res.result.length) {
+                        this.setState({mustLeaveReview: true, infoForReview:{
+                                id_doc: res.result[0].id_doc,
+                                id_zap: res.result[0].idMA
+                            }})
+                    }
+                })
+            }
         }
-        
+
     }
 
     componentWillMount(){
@@ -107,19 +124,23 @@ class App extends React.Component {
                 pass = localStorage.getItem('_appdoc-pass');
         (!this.props.id && !this.props.mode && login && pass) &&
         this.props.onLogin({
-            userName: login, 
+            userName: login,
             password: pass,
         }, this.props.history);
 
         this.props.id && (this.props.getDocShortInfo());
     }
 
+    makeReview = (obj) => {
+        return this.props.makeReview(obj).then( res =>  res)
+    }
+
     gotoHandler = (id) => {
-        this.props.auth.mode !== "user" ? this.props.history.push('/patient'+id) : this.props.history.push('/doctor'+id)
+        this.props.auth.mode !== "user" ? this.props.history.push('/app/patient'+id) : this.props.history.push('/app/doctor'+id)
     };
 
     logoClick = () => {
-        (this.props.history.location.pathname !== "/") && this.props.history.push('/');
+        (this.props.history.location.pathname !== "/app") && this.props.history.push('/app');
     }
 
     render() {
@@ -127,14 +148,23 @@ class App extends React.Component {
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
         const isUser = (this.props.mode === "user");
+        if (this.state.mustLeaveReview) {
+            return <ReviewsModal
+                visible={this.state.mustLeaveReview}
+                info={this.state.infoForReview}
+                onSubmit={this.makeReview}
+                mustLeave={this.state.mustLeaveReview}
+                refresh={()=>this.setState({mustLeaveReview: false})}
+            />
+        }
         return (
             <div className="main">
             {
                 this.props.id ?
-            
+
                 (<Hoc>
                     <div className={siderClass}>
-                    
+
                     <SideNav {...this.props.shortDocInfo}
                             rateValue={+(this.props.shortDocInfo.rateValue)}
                             onClick={this.toggle}
@@ -142,7 +172,7 @@ class App extends React.Component {
                             menuItems={isUser ? menuPatient : menuDoc}
                             isUser={isUser}
                             isShort={this.state.collapsed}/>
-                            
+
                 </div>
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
@@ -179,7 +209,7 @@ class App extends React.Component {
                                 getFreeVisitIntervals = {(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
                                 freeVisitsIntervals = {this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
                                 onMakeVisit = {(obj)=>this.props.onMakeVisit(obj)}
-
+                                emergencyAvailable={this.props.emergencyAvailable}
 
                         />
                     </div>
@@ -204,6 +234,23 @@ class App extends React.Component {
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div>
                     <button id="bugfix" onClick={()=>this.setState({bugfixVisible: true})}></button>
+                    { this.state.isExtrActual && this.props.isIn
+                        && <button className='emergencyCall' onClick={this.props.docEmergancyCallSend}>
+                            Запрос на экстренный вызов</button> }
+                    {
+                        (this.props.isEmergRequsetReceived)
+                            && (this.props.isEmergRequsetConfirmed ?
+                                (
+                                    this.props.docEmergancyCallReceivedMark(),
+                                    this.props.onSelectReception(this.props.emergVisitId),
+                                    this.props.history.push('/app/chat')
+                                ) :
+                                Modal.error({
+                                    title: 'Запись не осуществлена',
+                                    content: 'Экстренный вызов не найден',
+                                    onOk: this.props.docEmergancyCallReceivedMark,
+                                }))
+                    }
                     <ReportBugModal
                         visible={this.state.bugfixVisible}
                         onCancel={()=>this.setState({bugfixVisible: false})}
@@ -211,7 +258,7 @@ class App extends React.Component {
                     />
                 </Hoc>)
             : (
-                <Redirect to='login'/>
+                <Redirect to='/login'/>
             )
             }
             </div>
@@ -227,10 +274,15 @@ const mapStateToProps = state =>{
         shortDocInfo: state.doctor.shortInfo,
         usersHeaderSearch: state.patients.usersHeaderSearch,
         isIn: state.doctor.isEx,
+        emergencyAvailable: state.doctor.emergencyAvailable,
         isUserSet: state.doctor.isUserSetEx,
         freeVisitsIntervals: state.schedules.freeVisitsIntervals,
 
-        
+        isEmergRequsetConfirmed: state.loading.isConfirmed,
+        emergVisitId: state.loading.visitId,
+        isEmergRequsetReceived: state.loading.isReceived,
+
+
             from: state.chatWS.from,
             to: state.chatWS.to,
             receptionStarts: state.chatWS.receptionStarts,
@@ -238,7 +290,7 @@ const mapStateToProps = state =>{
             chatStory: state.chatWS.chatStory,
             visitInfo: state.treatments.visitInfo,
             timer: state.chatWS.timer,
-        
+
     }
 }
 
@@ -259,7 +311,11 @@ const mapDispatchToProps = dispatch => {
         onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
         onMakeVisit: (info)=> dispatch(actions.setReceptionByPatient(info)),
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
-        
+        getEmergencyAvailability: () => dispatch(actions.getEmergencyAvailability()),
+
+        docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
+        docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),
+
         setChatFromId: (id) => dispatch(actions.setChatFromId(id)),
         setChatToId: (id) => dispatch(actions.setChatToId(id)),
         setIsCallingStatus: (isCalling) => dispatch(actions.setIsCallingStatus(isCalling)),
@@ -267,8 +323,10 @@ const mapDispatchToProps = dispatch => {
         setChatStory: (chat) => dispatch(actions.setChatStory(chat)),
         onSelectReception: (id, callback) => dispatch(actions.seletVisit(id, callback)),
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
-        reportBug: (message, href) => dispatch(actions.reportBug(message, href))
-	}
+        reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
+        hasNoReviewToFreeApp: ()=>dispatch(actions.hasNoReviewToFreeApp()),
+        makeReview: (obj) => dispatch(actions.makeReview(obj)),
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

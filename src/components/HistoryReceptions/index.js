@@ -4,60 +4,56 @@ import { NavLink } from 'react-router-dom'
 
 import Card from '../Card'
 import Button from '../Button'
+import PerfectScrollbar from "react-perfect-scrollbar";
 
-import {message} from "antd"
 import './style.css'
 import '../../icon/style.css'
-import Col from "../Col";
-import ScrollArea from "react-scrollbar";
 import HistoryReceptionsItems from "../HistoryReceptionsItems";
 import Spinner from "../Spinner";
 import ReviewsModal from "../ReviewsModal";
+import HistoryReceptionsTabs from "../HistoryReceptionsTabs";
 
 class HistoryReceptions extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            max: 3,
+            max: 7,
             old: 0,
-            count: 0,
-            loadedCount: 0,
             data: [],
-            loading: true,
-            noData: true,
-            reviewStatus: 0,
-            visible: false
+            loading: false,
+            showReviewModal: false
         };
     }
 
     historyRender = (dataArr) => {
-        if(!dataArr.length && this.state.loading && this.state.noData) {
+        let historyArr = [];
+        if (!dataArr.length && !this.state.loading) {
             return <div className="table-footer"
                         key="btn">
                 <Button btnText={'Нет приёмов. Нажмите чтобы обновить.' }
                         size='link'
                         type='link'
                         icon={'circle_close'}
-                        onClick={() => this.setState({noData: false},() => {
-                            this.getApps()
-                        })}/>
+                        onClick={() => this.getApps()}
+                />
             </div>
+        } else {
+            historyArr = dataArr.map((item, i) => {
+                 return(<HistoryReceptionsItems {...item}
+                                                personalPage={this.props.personalPage}
+                                                onGotoChat={this.props.onGotoChat}
+                                                isUser={this.props.isUser}
+                                                key={i}
+                                                showReviewModal={this.showReviewModal}
+                                                onAddFiles={this.props.onAddFiles}
+                                                refresh={this.refresh}
+                                                addConclusion = {this.props.addConclusion}
+                                                makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
+
+                 />)
+            });
         }
-        let historyArr = [];
-        dataArr.forEach((item, index) => {
-            historyArr.push(<HistoryReceptionsItems {...item}
-                                                    personalPage={this.props.personalPage}
-                                                    onGotoChat={this.props.onGotoChat}
-                                                    isUser={this.props.isUser}
-                                                    key={index}
-                                                    setModalRewiewsVisible={this.setModalRewiewsVisible}
-                                                    onAddFiles={this.props.onAddFiles}
-                                                    refresh={this.refresh}
-
-
-            />)
-        });
-        if(this.state.count > this.state.loadedCount && !this.state.loading) {
+        if(this.props.appsBetweenCount > dataArr.length && !this.state.loading) {
             historyArr.push(
                 <div className="table-footer"
                      key="btn">
@@ -69,7 +65,7 @@ class HistoryReceptions extends React.Component{
                             onClick={this.loadMore}/>
                 </div>
             );
-        } else if(this.state.loading && !this.state.noData){
+        } else if(this.state.loading){
             historyArr.push(
                 <div className="table-footer"
                      key="btn">
@@ -79,70 +75,56 @@ class HistoryReceptions extends React.Component{
         return historyArr;
 
     };
-    setModalRewiewsVisible = (obj) => {
-        this.setState({dataForReview: obj, visible: true, reviewStatus: 0})
 
+    showReviewModal = (obj) => {
+        this.setState({dataForReview: obj, showReviewModal: true})
     };
 
     loadMore = () => {
-        this.setState({old: this.state.old+this.state.max, loading: true}, ()=> {
+        this.setState({old: this.state.old+this.state.max}, ()=> {
             this.getApps()
         })
     };
 
-    componentWillMount() {
+    componentDidMount() {
         this.getApps();
     }
 
-    refresh =() => {
-        this.setState({data:[], loading: true}, () => {
-            this.getApps({max:this.state.loadedCount, old: 0,loadedCount: 0})
-        })
-    };
 
-    componentWillReceiveProps(newProps) {
-        if(newProps.data.length && this.state.loading && newProps.data !== this.props.data) {
-            this.setState({
-                data: [...this.state.data, ...newProps.data],
-                loading:false,
-                loadedCount:this.state.loadedCount+newProps.data.length,
-                noData: false})
-        } else if(!newProps.data.lenght && this.state.loading && newProps.data !== this.props.data) {
-            this.setState({noData:true})
-        }
-
-        if(newProps.appsBetweenCount !== this.state.count) {
-            this.setState({count:newProps.appsBetweenCount})
-        }
-
-        if(newProps.id_doc !== this.props.id_doc) {
-            this.setState({loading: true, data: [], count: 0, loadedCount: 0, old: 0}, () => newProps.getApps({max: 3, old: 0, id_doc: newProps.id_doc}))
-
-        }
-    }
-
-    getApps = (params) => {
-        let obj ={
-            ...this.state,
-            ...params
-
-        };
-
-        this.props.id_doc ? obj.id_doc=this.props.id_doc: this.props.id_user ? obj.id_user=this.props.id_user : null;
+    refresh = () => {
+        this.setState({refresh:true});
+        let obj = {...this.state};
+        obj.max = this.state.data.length;
+        obj.old = 0;
+        this.props.id_doc ? obj.id_doc = this.props.id_doc : this.props.id_user ? obj.id_user = this.props.id_user : null;
         this.props.getApps(obj)
     };
 
-    afterCloseReviews = () => {
-        if(this.state.reviewStatus===200) {
-            this.setState({loading: true, data: [], count: 0, loadedCount: 0, old: 0}, () => this.getApps({max: this.state.loadedCount, old: 0}));
-            message.success("Отзыв отправлен", 2)
+    componentWillReceiveProps(newProps) {
+
+        if (newProps.data.length && this.state.refresh) {
+            this.setState({data: newProps.data, refresh: false})
+        } else if (newProps.data.length && newProps.data !== this.props.data) {
+            this.setState({data: [...this.state.data, ...newProps.data]})
         }
+    }
+
+    getApps = () => {
+        this.setState({loading: true});
+        let obj ={
+            ...this.state,
+        };
+        this.props.id_doc ? obj.id_doc=this.props.id_doc: this.props.id_user ? obj.id_user=this.props.id_user : null;
+        this.props.getApps(obj).then(()=> {
+            this.setState({loading: false});
+        })
     };
+
     render(){
         return (
-            <div className='receptions-all'>
+            <div className='receptions-personal-page'>
                 <Card title="История приёмов">
-                    <ScrollArea
+                    <PerfectScrollbar
                     horizontal = {true}>
                         <div className="tableheader">
                             <div className="flex-col"><div className="receptions-status new">Новые</div></div>
@@ -152,7 +134,7 @@ class HistoryReceptions extends React.Component{
                         </div>
                         <div className="tableheader menu-header">
                             <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
-                            <div className="flex-col"><div className="tableheader-name">Диагноз</div></div>
+                            <div className="flex-col"><div className="tableheader-name">Предварительное заключение</div></div>
                             <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
                             <div className="flex-col"><div className="tableheader-name">Стоимость</div></div>
                             <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
@@ -160,14 +142,14 @@ class HistoryReceptions extends React.Component{
                             <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
                         </div>
                     {this.historyRender(this.state.data)}
-                    </ScrollArea>
+                    </PerfectScrollbar>
                   </Card>
                 <ReviewsModal
-                    visible={this.state.visible}
+                    visible={this.state.showReviewModal}
                     onSubmit ={this.props.onSubmit}
                     info = {this.state.dataForReview}
-                    afterClose ={this.afterCloseReviews}
-                    onCancel={(status)=>this.setState({visible:false, reviewStatus: status})}
+                    onCancel={()=>this.setState({showReviewModal:false})}
+                    refresh={this.refresh}
                 />
             </div>
         )

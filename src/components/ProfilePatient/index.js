@@ -31,7 +31,6 @@ class ProfilePatient extends React.Component{
 
     render(){
         const {name, img, status, lastDate, speciality, doctor, birthday, age, height, weight, id} = this.props;
-        const [fname, ...rest] = name.split(' ');
         let doctorType = '';
         Array.isArray(speciality) && speciality.forEach(el => {
             doctorType += el + ', ';
@@ -45,7 +44,7 @@ class ProfilePatient extends React.Component{
                             contentClassName="flex-div"
                             smoothScrolling={true}
                     >
-                        <ProfileAvatar 
+                        <ProfileAvatar
                           img={img}
                           owner='patient'
                           size="large"
@@ -53,9 +52,10 @@ class ProfilePatient extends React.Component{
                           />
 
                         <div className="patient-info">
-                                <div className="patient-name">{fname}<br/>{rest.concat(' ')}</div>
+                                <div className="patient-name">{name}</div>
                                 <div className="patient__last-active">
-                                    Последнее обращение: {moment((+lastDate)*1000).format('DD.MM.YYYY')} / {doctorType} {doctor}
+                                    Последнее обращение: {lastDate ? `${moment((+lastDate)*1000).format('DD.MM.YYYY')} /
+                                    ${doctorType} ${doctor}`: <span>&mdash;</span>}
                                 </div>
                                 <div className="btn-row">
                                     <Button onClick={() => this.setModal1Visible(true)}
@@ -77,7 +77,7 @@ class ProfilePatient extends React.Component{
                                 />
                                 {
                                     !this.props.isMy &&
-                                <Button 
+                                <Button
                                         className="btn-add"
                                         btnText=''
                                         size='file'
@@ -109,19 +109,19 @@ class ProfilePatient extends React.Component{
                                 <span className="title">Вес:</span>
                                 <span className="text">{weight} кг</span>
                             </div>
-                      </div> 
+                      </div>
                     </ScrollArea>
 
                 </Card>
 
-                <NewMessageModal 
+                <NewMessageModal
                     visible={this.state.modal2Visible}
                     onOk={() => this.setModal2Visible(false)}
                     onCancel={() => this.setModal2Visible(false)}
                     userName={name}
                 />
 
-                <NewVisitModalPage 
+                <NewVisitModalPage
                     visible={this.state.modal1Visible}
                     onSave={this.props.onSaveReception}
                     onCancel={() => this.setModal1Visible(false)}
@@ -137,10 +137,10 @@ class ProfilePatient extends React.Component{
     }
 }
 
-ProfilePatient.propTypes = { 
+ProfilePatient.propTypes = {
     name: PropTypes.string,
     img: PropTypes.string,
-    status: PropTypes.string,
+    status: PropTypes.bool,
     lastDate: PropTypes.number,
     speciality: PropTypes.array,
     doctor: PropTypes.string,
@@ -154,7 +154,7 @@ ProfilePatient.propTypes = {
 ProfilePatient.defaultProps = {
     name: '',
     img: '',
-    status: '',
+    status: null,
     lastDate: 0,
     speciality: [],
     doctor: '',

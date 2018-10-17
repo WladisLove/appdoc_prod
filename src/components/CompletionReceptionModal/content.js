@@ -10,7 +10,12 @@ const FormItem = Form.Item;
 class ContentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.onComplete(this.props.form.getFieldsValue())
+        this.props.form.validateFields((err, values) => {
+            if(!err) {
+                this.props.onComplete(this.props.form.getFieldsValue())
+            }
+        })
+
     };
 
     render() {
@@ -23,10 +28,10 @@ class ContentForm extends React.Component {
 
                     <FormItem>
                         {getFieldDecorator('diagnosis',{
-                            rules: [{required: true, message: 'Ввведите диагноз',}]
+                            rules: [{required: true, message: 'Напишите предварительное заключение',}]
                         })(
                             <Input className={rootClass + '-input'}
-                                   placeholder="Диагноз"/>
+                                   placeholder="Предварительное заключение"/>
                         )}
                     </FormItem>
                     <FormItem>
@@ -35,7 +40,7 @@ class ContentForm extends React.Component {
                                 Добавить в список хронических болезней</Checkbox>
                         )}
                     </FormItem>
-                    <Button 
+                    <Button
                             htmlType="submit"
                             btnText="Завершить"
                             size="default"

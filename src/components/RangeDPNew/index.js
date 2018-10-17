@@ -38,7 +38,6 @@ class RangeDPNew extends DatePickerAnt{
     }
 
     onChange = (field, value) => {
-        console.log(field, value, "FIELD AND VALUE");
         this.setState({
             [field]: value,
         });

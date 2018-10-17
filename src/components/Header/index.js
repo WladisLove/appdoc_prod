@@ -7,6 +7,7 @@ import SwitchPanel from '../SwitchPanel'
 import NotificationApp from '../NotificationApp'
 import AutoComplete from '../AutoComplete'
 import Hoc from "../Hoc"
+import specs from "../../helpers/specsArray"
 
 import './style.css'
 import '../../icon/style.css'
@@ -69,7 +70,7 @@ render() {
                             />
                             <NewFreeVisitByPatient
                                 visible = {this.state.isNewFreeVisit}
-                                docTypes = {["HIRURG","Аллерголог", "Хирург", "Терапевт", "Окулист"]}
+                                docTypes = {specs}
                                 onCancel = {() => this.setState({isNewFreeVisit: false})}
                                 onSubmit = {this.props.onMakeVisit}
                                 getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
@@ -83,12 +84,22 @@ render() {
                                 onSubmit = {this.props.onMakeVisit}
                             />
                         </Hoc> 
-                        : <SwitchPanel 
-                            icon='emergency-call'
-                            title="Экстренные вызовы"
-                            onChange={this.props.onChange}
-                            checked={this.props.checked}
-                            disabled={this.props.disabled}/>
+                        :
+                        <Hoc>
+                            <Button
+                                btnText='ЗАПИСАТЬСЯ НА ТРЕНИРОВКУ'
+                                size='default'
+                                type='pink'
+                                className="header-btn"
+
+                            />
+                            <Button
+                                btnText='ПЕРЕНЕСТИ ТРЕНИРОВКУ'
+                                size='default'
+                                type='pink'
+                                className="header-btn header-btn-transfer"
+                            />
+                        </Hoc>
                     }
                 </div>
                 <div className='header-notification'>

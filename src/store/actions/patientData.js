@@ -31,6 +31,13 @@ export const sendNewPasswordPatient = (oldPass, newPass, id) => {
             })
     }
 };
+export const hasNoReviewToFreeApp = () => {
+    return (dispatch, getState) => {
+        const id_patient = getState().auth.id;
+        return axios.get(`/catalog.doc2/noCommentToFree/id/${id_patient}`)
+            .then(res=>res.data)
+    }
+};
 
 export const getInfoPatient = (id) => {
     const idstr = String(id);
@@ -76,6 +83,8 @@ export const deleteAvatar = (id) => {
         axios.get('/catalog.doc2/deleteAvatar/id/' + user_id)
             .then(res => {
                 dispatch(getInfoPatient(user_id));
+
+
             })
             .catch(err => {
                 console.log(err);

@@ -46,7 +46,7 @@ class Patients extends React.Component{
 
 	gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
-		this.props.history.push('/patient'+id);
+		this.props.history.push('/app/patient'+id);
 	};
 
 	componentDidMount(){
@@ -69,7 +69,7 @@ class Patients extends React.Component{
             }
     };
 
-    
+
     onPatientDelete = (id, patientName) => {
         const {removePatient} = this.props;
         Modal.confirm({

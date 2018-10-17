@@ -11,6 +11,7 @@ import PopoverFile from '../PopoverFile'
 import './style.css'
 import '../../icon/style.css'
 import Hoc from "../Hoc";
+import {message} from "antd";
 
 class HistoryReceptionsItems extends React.Component{
 
@@ -30,16 +31,34 @@ class HistoryReceptionsItems extends React.Component{
     openModal = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const obj = {id_doc: this.props.id_doc, id_zap: this.props.id}
-        this.props.setModalRewiewsVisible(obj);
+        const obj = {id_doc: this.props.id_doc, id_zap: this.props.id};
+        this.props.showReviewModal(obj);
     }
+
+    addConclusion = (file) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            const filesend = {name: file.name, thumbUrl: reader.result};
+            this.props.addConclusion(this.props.id, filesend)
+                .then((res)=>{
+                    if(+res.data.code===200) {
+                        message.success("Заключение успешно добавлено")
+                    } else {
+                        message.error("Произошла ошибка попробуйте ещё раз")
+                    }
+                    this.props.refresh();
+                })
+        });
+        reader.readAsDataURL(file);
+    };
+
     render(){
-        console.log(this.props, "PROPS EVERY APP")
+        console.log(this.props)
         const {
             id_treatment,
             type,
             conclusion,
-            price,
+            cost,
             diagnostic,
             file,
             date,
@@ -59,7 +78,23 @@ class HistoryReceptionsItems extends React.Component{
             'voice': 'telephone',
             'video': "video-camera",
         }
-        const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение";
+        const conclusionMessage = isUser? "Ожидайте заключения" : <div onClick={e=>{e.stopPropagation()}}>
+            <input type="file"
+                   id="addConclusion"
+                   style={{
+                       width: "0.1px",
+                       height: "0.1px",
+                       opacity: 0,
+                       overflow: "hidden",
+                       position: "absolute",
+                       zIndex: -1
+                   }}
+                   onChange={e => this.addConclusion(e.target.files[0])}
+            />
+            <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
+                <span>Добавить</span>
+            </label>
+        </div>;
         const status = +moment(+date*1000).format("X") > +moment().format("X") ? "new" : conclusion ? "completed" : "topical";
         const statusClass = cn('patient-status', 'reception-status',`${status}`);
         return (
@@ -87,7 +122,7 @@ class HistoryReceptionsItems extends React.Component{
                     <div className="patient-comment">{complaint ? complaint:<span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
-                    <div className="patient-price">{price ? price : <span>&mdash;</span>}</div>
+                    <div className="patient-price">{cost ? cost : <span>&mdash;</span>}</div>
                 </div>
                 <div className="flex-col">
                     <div className="patient-conclusion">
@@ -118,9 +153,10 @@ class HistoryReceptionsItems extends React.Component{
                      onClick={this.handleClick}>
                     <PopoverFile data={this.refactorFiles(file)}
                                  canAddFiles={status!=="completed"}
-                                 id_app={id_treatment}
+                                 id_app={this.props.id}
                                  onAddFiles = {this.props.onAddFiles}
                                  refresh={this.props.refresh}
+                                 makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
 
                     >
 
@@ -138,7 +174,6 @@ HistoryReceptionsItems.propTypes = {
     diagnostic: PropTypes.string,
     comments: PropTypes.string,
     price: PropTypes.string,
-    conclusion: PropTypes.string,
     conclusionDownload: PropTypes.string,
     review: PropTypes.string,
     date: PropTypes.string,
@@ -152,7 +187,7 @@ HistoryReceptionsItems.defaultProps = {
     diagnostic: '-',
     comment: '-',
     price: '-',
-    conclusion: '-',
+    conclusion: {},
     conclusionDownload: '',
     review: '-',
     date: '-',

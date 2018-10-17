@@ -1,86 +1,79 @@
-
-.header{
-	display: flex;
+.header {
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    &-search {
+        width: 100%;
+        max-width: 300px;
+        z-index: 12;
+        .ant-input-search {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            align-items: center;
+            .ant-input {
+                border: none;
+                border-radius: 0;
+                color: #000;
+                position: relative;
+                padding-left: 20px;
+            }
+            .ant-input-suffix {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                .anticon,
+                .icon {
+                    color: #344051;
+                }
+            }
+        }
+    }
+    &-call {
+        margin-left: auto;
+        margin-right: 135px;
+        button {
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+    &-notification {
+        position: relative;
+        margin-right: 65px;
+        .icon {
+            cursor: pointer;
+            &:hover {
+                color: #21bedd;
+            }
+        }
+    }
+    &-exit {
+        .btn {
+            width: auto;
+            height: auto;
+            background-color: transparent;
+            border: none;
+            .icon {
+                color: #344051;
+            }
+            &:hover {
+                border: none;
+                background-color: transparent;
+                .icon {
+                    color: #21bedd;
+                }
+            }
+        }
+    }
+}
 
-	&-search{
-		width: 100%;
-    	max-width: 300px;
-		z-index: 12;
-    	
-		.ant-input-search{
-			display: flex;
-		    flex-direction: row;
-		    position: relative;
-		    align-items: center;
+.header-btn {
+    width: 200px;
+    margin-left: 30px;
+}
 
-			.ant-input{
-				border: none;
-				border-radius: 0;
-				color: #000;
-				position: relative;
-				padding-left: 20px;
-			}
-
-			.ant-input-suffix{
-				position: relative;
-				right: auto;
-				top: auto;
-				transform: none;
-
-				.anticon,.icon{
-					color: #344051;
-				}
-			}
-		}
-	}
-
-	&-call{
-		margin-left: auto;
-		margin-right: 135px;
-
-		button{
-			margin-right: 25px;
-
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-	}
-
-	&-notification{
-		position: relative;
-		margin-right: 65px;
-
-		.icon{
-			cursor: pointer;
-
-			&:hover{
-				color: #0495ff;
-			}
-		}
-	}
-
-	&-exit{
-		
-		.btn{
-			width: auto;
-			height: auto;
-			background-color: transparent;
-			border: none;
-
-			.icon{
-				color: #344051;
-			}
-
-			&:hover{
-				border: none;
-				background-color: transparent;
-
-				.icon{
-					color: #0495ff;
-				}
-			}
-		}
-	}
+.header-btn-transfer {
+    margin-left: 50px;
 }

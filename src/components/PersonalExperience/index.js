@@ -30,6 +30,7 @@ class PersonalExperience extends React.Component{
                         <PersonalExperienceItem
                             profileDoctor={this.props.profileDoctor}
                             onSubmit={this.props.onSubmit}
+                            uploadFile={this.props.uploadFile}
                         />
                     </Panel>
                 </Accordion>

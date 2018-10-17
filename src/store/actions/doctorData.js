@@ -3,15 +3,15 @@ import * as actionTypes from './actionTypes';
 import moment from "moment";
 
 export const sendNewInfoDoctor = (data) => {
-
-    return (dispatch) => {
-
+    return (dispatch, getState) => {
+        data.id=getState().auth.id;
          axios.post('/fusers.doc/updateUserDoc',
                     JSON.stringify(data))
             .then(res => {
                 dispatch({
                     type: actionTypes.SEND_NEW_INFO_DOCTOR,
                 });
+                dispatch(getInfoDoctor(data.id));
             })
             .catch(err => {
                 console.log(err);
@@ -27,7 +27,6 @@ export const getInfoDoctor = (id) => {
         return axios.post('/fusers.doc/infoDoc',
          JSON.stringify(ids))
             .then(res => {
-                console.log(res, "DOC INFO");
                 res.data.result.id= ids.id;
 
                 dispatch({
@@ -100,13 +99,11 @@ export const getDateWorkIntervalWithoutMakingAppAll = (id_doc) => {
     }
 };
 export const uploadFile = (file) => {
-  console.log(file, "FILE");
   return () => {
     const data = new FormData();
     data.append('file', file);
     return axios.post('https://appdoc.by/upload.php', data)
       .then(res => {
-        console.log(res, "RES UPLOADING FILE")
         return res
       })
       .catch(err => {
