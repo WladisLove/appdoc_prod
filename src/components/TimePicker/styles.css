@@ -1,21 +1,9 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .timepicker-base {
   cursor: pointer;
   display: inline-block;
 }
 .timepicker-base-title {
-  color: #999999;
+  color: #777 letter;
   margin-bottom: 25px;
 }
 .timepicker-base-range {
@@ -35,5 +23,5 @@
   border-bottom: 1px solid #ebebeb;
 }
 .ant-time-picker .ant-time-picker-icon:after {
-  color: #0495ff;
+  color: #21bedd;
 }

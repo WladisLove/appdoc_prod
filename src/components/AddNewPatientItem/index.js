@@ -34,28 +34,11 @@ class AddNewPatientItem extends React.Component{
                             (academicdegree ? academicdegree+ ". " : "") +
                             (academicstatus ? academicstatus+ ". " : "") +
                             (category ? category + ". " : "")
-                        ) : age + " лет"} </div>
+                        ) :  "Дисциплина"} </div>
                 </div>
                 {
                     !isSearchItem && <div className='new-patient-btn'>
-                        {!favorite ?
-                            <Button
-                                btnText=''
-                                onClick={(e) => this.onAddHandler(e, "add")}
-                                size='file'
-                                type='file'
-                                icon='add-button'
-                                svg
-                            /> :
-                            <Button
-                                btnText=''
-                                onClick={(e) => this.onAddHandler(e, "delete")}
-                                size='file'
-                                type='file'
-                                icon='empty'
-                                svg
-                            />
-                        }
+                        
                     </div>
                 }
 

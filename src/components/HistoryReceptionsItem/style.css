@@ -19,6 +19,7 @@
   align-items: flex-start;
   position: relative;
   border-left: 4px solid transparent;
+  min-width: 1450px;
   cursor: pointer;
 }
 .receptions:hover {
@@ -26,43 +27,52 @@
 }
 .receptions .flex-col {
   padding: 25px 0;
-  margin-right: 2%;
+  margin-right: 30px;
 }
 .receptions .flex-col:first-child {
-  margin-left: 1%;
+  padding-left: 25px;
 }
 .receptions .flex-col:last-child {
-  margin-right: 1%;
+  padding-right: 25px;
+  margin-right: 0;
 }
 .receptions .flex-col:nth-child(1) {
-  width: 13%;
+  max-width: 165px;
+  width: 100%;
 }
 .receptions .flex-col:nth-child(2) {
+  max-width: 120px;
+  width: 100%;
   position: relative;
-  width: 7%;
 }
 .receptions .flex-col:nth-child(3) {
-  width: 15%;
+  max-width: 160px;
+  width: 100%;
 }
 .receptions .flex-col:nth-child(4) {
-  width: 11%;
+  max-width: 200px;
+  width: 100%;
 }
 .receptions .flex-col:nth-child(5) {
-  width: 6%;
+  max-width: 100px;
+  width: 100%;
 }
 .receptions .flex-col:nth-child(6) {
-  width: 10%;
+  max-width: 205px;
+  width: 100%;
 }
 .receptions .flex-col:nth-child(7) {
-  width: 16%;
+  max-width: 200px;
+  width: 100%;
 }
 .receptions .flex-col:nth-child(8) {
-  width: 6%;
+  width: 100%;
+  max-width: 100px;
+  margin-right: 0;
 }
 .receptions .patient-name {
   font-size: 14px;
   line-height: 18px;
-  word-break: break-word;
 }
 .receptions .patient-date {
   color: #344051;
@@ -79,12 +89,10 @@
 .receptions .patient-diagnostic {
   font-size: 14px;
   color: #344051;
-  word-break: break-word;
 }
 .receptions .patient-comment {
   font-size: 14px;
   color: #344051;
-  word-break: break-word;
 }
 .receptions .patient-price {
   font-size: 14px;
@@ -96,12 +104,10 @@
   max-width: 205px;
   width: 100%;
   margin-bottom: 15px;
-  word-break: break-word;
 }
 .receptions .patient-review {
   font-size: 14px;
   color: #344051;
-  word-break: break-word;
 }
 .receptions-status {
   font-size: 12px;
@@ -113,7 +119,7 @@
 }
 .receptions-status:before {
   content: "";
-  width: 7px;
+  width: 8px;
   height: 8px;
   display: inline-block;
   margin-right: 12px;

@@ -1,19 +1,7 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .patient-item {
   display: flex;
   align-items: center;
-  font-family: 'RobotoRegular';
+  font-family: "RobotoRegular";
   min-width: 1100px;
   width: 100%;
 }
@@ -48,7 +36,7 @@
 }
 .patient-item-age {
   font-size: 14px;
-  font-family: 'RobotoRegular';
+  font-family: "RobotoRegular";
   color: #888;
   width: 100%;
 }
@@ -62,7 +50,7 @@
   color: #344051;
   font-size: 14px;
   line-height: 18px;
-  font-family: 'RobotoMedium';
+  font-family: "RobotoMedium";
   width: 100%;
 }
 .patient-item .flex-col .btn .icon {
@@ -70,5 +58,5 @@
   margin-right: 0;
 }
 .patient-item .flex-col .btn:hover .icon {
-  color: #0495ff;
+  color: #21bedd;
 }

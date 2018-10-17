@@ -1,24 +1,9 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 a {
   color: #204d8d;
 }
 a:hover {
   color: #204d8d;
   text-decoration: underline;
-}
-.personal-contact .patient-contacts-avatar {
-  margin-bottom: 40px;
 }
 .personal-block {
   position: relative;
@@ -44,13 +29,10 @@ a:hover {
 }
 .personal-title {
   width: 100%;
-  color: #0495ff;
+  color: #21bedd;
   font-size: 14px;
   text-transform: uppercase;
   margin-bottom: 15px;
   letter-spacing: 0.14px;
-  font-family: 'RobotoMedium';
-}
-.patient-contacts-avatar {
-  margin-bottom: 30px;
+  font-family: "RobotoMedium";
 }

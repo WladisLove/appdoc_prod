@@ -1,26 +1,17 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .scrollarea .scrollbar-container.horizontal {
   z-index: 99;
 }
+.section-tablenohead.ant-card-body {
+  margin-top: 20px;
+}
 .ant-card-head {
-  background-color: #0495ff;
+  background-color: #ff7daa;
   padding: 0 !important;
 }
 .ant-card-head-title {
   color: #fff;
   font-size: 1.25rem;
-  padding: 1rem 1.75rem;
+  padding: 1rem 1.25rem;
 }
 .ant-card-extra {
   display: flex;

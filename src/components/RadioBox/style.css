@@ -51,7 +51,7 @@
   transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6);
 }
 .ant-radio + span {
-  color: #191919;
+  color: #344051;
   font-size: 14px;
   font-family: "RobotoRegular";
   padding: 0;

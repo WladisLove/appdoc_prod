@@ -64,7 +64,7 @@ storiesOf('Button', module)
             <Button
                     btnText='Добавить'
                     size='default'
-                    type='blue'
+                    type='pink'
             />
             <span> size='default'
                 type='blue'</span>
