@@ -49,7 +49,7 @@ export const login = (userName, password, remember, history, isAuto) => {
                                 sessionStorage.setItem('_appdoc-id', res.data.id),
                                 sessionStorage.setItem('_appdoc-mode', res.data.usergroup),
                                 rememberMe(remember, userName, password),
-                                history.push('/')
+                                history.push('/app')
                             )
                             : (
                                 dispatch(authFail(res.data.error)),
@@ -126,7 +126,6 @@ export const registerDoctor = (data) => {
                             [key]: data[key],
                         };
         }
-        console.log("OBJECT TO SEND REGISTER DOCTOR", result)
         return axios.post('/fusers.doc/createUserDoc',
             JSON.stringify(result))
             .then(res => res)

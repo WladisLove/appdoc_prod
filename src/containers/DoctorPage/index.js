@@ -47,7 +47,7 @@ class PatientsPage extends React.Component{
 
         if (this.props.profileDoctor.works) {
             this.props.profileDoctor.educationsgroup1.forEach((item, i, arr) => {
-                specialityStr += item.speciality;
+                specialityStr += item.speciality.join(", ");
                 if (i < arr.length - 1) specialityStr += ", ";
             });
         }
@@ -57,9 +57,11 @@ class PatientsPage extends React.Component{
 
     getDoctorLanguagesArr = () => {
         let languagesArr = [];
-
+        if(!this.props.profileDoctor.language) {
+            return["-"]
+        }
         if (typeof this.props.profileDoctor.language === "string") {
-            languagesArr = this.props.profileDoctor.language.split(' ');
+            languagesArr = this.props.profileDoctor.language.split(',');
         }
 
         return languagesArr.map((item) => {
@@ -165,12 +167,16 @@ class PatientsPage extends React.Component{
                             <HistoryReceptions data={this.props.appsBetween}
                                                appsBetweenCount = {this.props.appsBetweenCount}
                                                getApps = {this.props.onGetAppointments}
-                                               onGotoChat={(id) => this.props.history.push('/chat')}
+                                               onGotoChat={(id) => {
+                                                   this.props.onSelectTretment(id);
+                                                   this.props.history.push('/app/chat')
+                                               }}
                                                id_doc={this.props.match.params.id}
                                                personalPage = {true}
                                                isUser = {this.props.mode === "user"}
                                                onSubmit={this.props.makeReview}
                                                onAddFiles={this.props.onAddFiles}
+                                               makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
                         />
                         </Col>
                     </Row>
@@ -221,7 +227,9 @@ const mapDispatchToProps = dispatch => {
         onGetDocSchedule: (doc_id) => dispatch(actions.getDateWorkIntervalWithoutMakingAppAll(doc_id)),
         onGetAppointments: (obj) => dispatch(actions.getAppsBetweenDocAndUser(obj)),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
+        onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
         onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
+        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),
     }
 };
 

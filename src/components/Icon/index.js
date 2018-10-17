@@ -57,6 +57,7 @@ const iconList = [
     "volume",
     "xls-file",
     "icon1",
+    "remove",
     "icon2",
     "icon3",
     "icon4",
@@ -85,7 +86,8 @@ class Icon extends React.Component{
             return (<AntdIcon onClick={onClick}
                               title={title || null}
                               type={type}
-                              style={{fontSize:size, ...style}} />);
+                              style={{fontSize:size, ...style}}
+            />);
 
         const clName = cn('icon', `icon-${type}`)
 

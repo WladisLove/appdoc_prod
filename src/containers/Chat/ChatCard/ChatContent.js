@@ -66,7 +66,7 @@ class ChatContent extends React.Component {
 
                         {
                             this.props.data.map((e, i) => {
-                                const messProps = e.from === this.props.from
+                                const messProps = +e.from === +this.props.from
                                     ? {isMy: true,}
                                     : {
                                         img: this.props.avatar,

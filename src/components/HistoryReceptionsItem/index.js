@@ -11,13 +11,40 @@ import Hoc from '../Hoc'
 
 import './style.css'
 import '../../icon/style.css'
+import {message} from "antd";
 
 class HistoryReceptionsItem extends React.Component{
 
     handleClick = (e) => {
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
-      }
+    }
+    writeReview = (e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+        const obj = {
+            id_doc: this.props.id_doc,
+            id_zap: this.props.lastMA
+        }
+        this.props.showReviewModal(obj);
+    };
+    addConclusion = (file) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+            const filesend = {name: file.name, thumbUrl: reader.result};
+            this.props.addConclusion(this.props.lastMA, filesend)
+                .then((res)=>{
+                    if(+res.data.code===200) {
+                        message.success("Заключение успешно добавлено")
+                    } else {
+                        message.error("Произошла ошибка попробуйте ещё раз")
+                    }
+                    this.props.refresh();
+                })
+        });
+        reader.readAsDataURL(file);
+    };
+
     refactorFiles = (file) => {
        if(file.length) {
            let files = [];
@@ -52,17 +79,7 @@ class HistoryReceptionsItem extends React.Component{
             finish,
             comment,
             rate,
-            size,
-            name,
-            personalPage,
-            time,
-            startDate,
-            endDate,
-            comments,
-            review,
-            content,
             onGoto,
-            rating,
             onGotoChat,
             isUser,
         } = this.props;
@@ -72,34 +89,57 @@ class HistoryReceptionsItem extends React.Component{
 
         const key_val = {
             'chat': 'chat1',
-            'voice': 'telephone', 
+            'voice': 'telephone',
             'video': "video-camera"
         }
-        const conclusionMessage = isUser? "Ожидайте заключения" : "Необходимо заключение"
-        const goto = isUser?id_doc:id_user;
+        const conclusionMessage = isUser? "Ожидайте заключения" :
+            <div onClick={e=>{e.stopPropagation()}}>
+                <input type="file"
+                       id="addConclusion"
+                       style={{
+                           width: "0.1px",
+                           height: "0.1px",
+                           opacity: 0,
+                           overflow: "hidden",
+                           position: "absolute",
+                           zIndex: -1
+                       }}
+                       onChange={e => this.addConclusion(e.target.files[0])}
+                />
+                <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
+                      <span>Добавить</span>
+                </label>
+            </div>;
+        const goto = isUser ? id_doc : id_user;
         return (
-            <div className={rootClass} 
+            <div className={rootClass}
                 onClick={(e) => {
                     onGotoChat(id_treatment);
                     this.handleClick(e);
                 }}>
                <div className="flex-col"><div className="patient-name">
-                    <div className='go-to' 
-                        onClick={(e) => {                            
-                            onGoto(goto);
-                            this.handleClick(e);
-                        }}>{isUser ? doc_name : user_name}</div></div>
+                    <div className='go-to'
+                        onClick={(e) => {
+                            if(+id_doc !== 1) {
+                                onGoto(goto);
+                                this.handleClick(e);
+                            }
+                        }}>{isUser ? doc_name ? doc_name : '\u2014' : user_name}</div></div>
                 </div>
                 <div className="flex-col">
-                    {extr && <div className="patient-status receptions-status-extra"></div>}
-                    <div className={statusClass}></div>
-                    <div className="patient-date">{moment(date*1000).format('DD.MM.YYYY')}</div>
-                    <div className="patient-time">
-                        {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
-                        {finish ? `-${moment(finish*1000).format('HH:mm')}`: null}
+                    <div className="status-block">
+                        {extr && <div className="patient-status receptions-status-extra"></div>}
+                        <div className={statusClass}></div>
                     </div>
-                    <div className="patient-icon"><Icon svg type={extr?"emergency-call":key_val[type]} size={16}
-                    style={extr?{color:"red"}:null}/></div>
+                    <div className="date-block">
+                        <div className="patient-date">{moment(date*1000).format('DD.MM.YYYY')}</div>
+                        <div className="patient-time">
+                            {begin ? moment(+begin*1000).format('HH:mm') : moment(+date*1000).format('HH:mm')}
+                            {finish ? `-${moment(finish*1000).format('HH:mm')}`: null}
+                        </div>
+                        <div className="patient-icon"><Icon svg type={extr?"emergency-call":key_val[type]} size={16}
+                        style={extr?{color:"red"}:null}/></div>
+                    </div>
                 </div>
                 <div className="flex-col">
                     <div className="patient-diagnostic">{diagnostic ? diagnostic:<span>&mdash;</span>}</div>
@@ -118,18 +158,18 @@ class HistoryReceptionsItem extends React.Component{
                                 {conclusion.btnText}
                             </a>
                         ) : (moment().format("X") > moment(+date*1000).format("X")) ? <span>{conclusionMessage}</span>:<span>&mdash;</span>
-                    }  
+                    }
                     </div>
                 </div>
                 <div className="flex-col">
                 {
                     rate ? (
                         <Hoc>
-                            <Rate defaultValue={rate} disabled/>
+                            <Rate defaultValue={+rate} disabled/>
                             <div className="patient-review">{comment}</div>
                         </Hoc>
                     ) : conclusion && isUser ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
-                                              onClick={console.log("click")}
+                                              onClick={this.writeReview}
                                               size='small'
                                               type='float'
                                               icon='form'/> : <span>&mdash;</span>
@@ -142,6 +182,7 @@ class HistoryReceptionsItem extends React.Component{
                                  id_app={lastMA}
                                  onAddFiles = {this.props.onAddFiles}
                                  refresh={this.props.refresh}
+                                 makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
 
                     >
                     </PopoverFile>

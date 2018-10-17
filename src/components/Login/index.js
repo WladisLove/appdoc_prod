@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-
+import ReactTooltip from 'react-tooltip'
 import { Form } from 'antd';
 import { NavLink } from 'react-router-dom'
 import Button from '../Button'
@@ -90,13 +90,29 @@ class LoginForm extends React.Component{
                             size='large'
                             type='gradient'/>
                     <div>У вас еще нет аккаунта? <br/>
-                        <NavLink to={urlRegistrationDoctor}
-                                 className="login-form-navlink">
-                            Зарегистрироваться как доктор</NavLink><br/>
+                        <NavLink
+                            to={urlRegistrationDoctor}
+                            className="login-form-navlink"
+                            data-tip
+                        >
+                            Зарегистрироваться как доктор
+                        </NavLink>
+                        <ReactTooltip place="top" type="dark" effect="float" multiline={true}>
+                            <p>При регистрации вам будут необходимы фото или сканы документов подтверждающих ваше
+                                образование,<br/> дипломы и свидетельства о послевузовском образовании,
+                            свидетельство о подтверждении категории и <br/>дипломы ученой степени и ученого звания при наличии</p>
+                        </ReactTooltip>
 
-                        <NavLink to={urlRegistrationPatient}
-                                 className="login-form-navlink">
-                            Зарегистрироваться как пациент</NavLink>
+                        <br/>
+
+                        <NavLink
+                            to={urlRegistrationPatient}
+                            className="login-form-navlink"
+                        >
+                            Зарегистрироваться как пациент
+                        </NavLink>
+
+
                     </div>
                 </div>
             </Form>

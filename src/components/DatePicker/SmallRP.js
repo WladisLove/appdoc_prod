@@ -33,7 +33,8 @@ class SmallRP extends React.Component{
                     <RangePicker format={this.props.format}
                                  onChange={this.RPHandler}
                                  value={this.state.values}
-                                 allowClear={false}/>
+                                 allowClear={false}
+                                 placeholder={['Начало', 'Конец']}/>
                 </div>
                 <Icon type="circle_close" svg size={15}
                       onClick={() => this.RPHandler([])}/>

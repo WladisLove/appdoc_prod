@@ -29,7 +29,7 @@ export {
     getAllReviews,
     getAllReviewsByPatient,
     putCommentAnswer,
-    
+
 } from './reviews';
 
 export {
@@ -87,7 +87,8 @@ export {
     sendNewPasswordPatient,
     deleteAvatar,
     sendUserPoleValue,
-    getUserInfoShort
+    getUserInfoShort,
+    hasNoReviewToFreeApp
 } from './patientData'
 
 export {
@@ -95,6 +96,7 @@ export {
     getDocShortInfo,
     setExIntervalInfo,
     switchExInterval,
+    getEmergencyAvailability
 } from './doctor'
 
 export {
@@ -109,7 +111,11 @@ export {
 
 export {
     loadingStart,
-    loadingEnd
+    loadingEnd,
+    docEmergancyCallReceived,
+    docEmergancyCallSend,
+    docEmergancyCallReceivedMark,
+    makeArchiveOfFiles,
 } from './loading'
 
 export {
@@ -119,5 +125,5 @@ export {
     setIsCallingStatus,
     setChatStory,
     setNewTimer,
-    
+
 } from './chatWS'

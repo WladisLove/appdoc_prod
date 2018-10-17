@@ -40,7 +40,7 @@ class Patients extends React.Component{
 	};
 
 	gotoHandler = (id) => {
-		this.props.history.push('/doctor'+id);
+		this.props.history.push('/app/doctor'+id);
 	};
 
     componentWillMount() {

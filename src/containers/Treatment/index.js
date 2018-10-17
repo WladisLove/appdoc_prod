@@ -18,13 +18,11 @@ class Treatment extends React.Component{
         addModal: false,
         isNewFreeVisitVisible: false,
     };
-    componentDidMount(){
-        this.props.onGetTreatments();
-    }
+
 
     gotoHandler = (id) => {
 		this.props.onSelectPatient(id);
-		let link = this.props.mode==="user"?"doctor":"patient";
+		let link = this.props.mode==="user"?"/app/doctor":"/app/patient";
 		this.props.history.push(link+id);
 	};
 
@@ -42,11 +40,13 @@ class Treatment extends React.Component{
                             isUser={this.props.mode === "user"}
                             onGotoChat = {(id) => {
                                 this.props.onSelectTretment(id);
-                                this.props.history.push('/chat');
+                                this.props.history.push('/app/chat');
                             }}
                             treatmentsCount ={this.props.treatmentsCount}
                             onSubmit={this.props.makeReview}
                             onAddFiles = {this.props.onAddFiles}
+                            addConclusion = {this.props.addConclusion}
+                            makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
                         />
             		</Col>
             	</Row>
@@ -70,7 +70,8 @@ const mapDispatchToProps = dispatch => {
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
-
+        addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file)),
+        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files))
     }
 };
 

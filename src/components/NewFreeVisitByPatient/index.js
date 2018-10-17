@@ -72,7 +72,8 @@ class NewFreeVisitByPatientForm extends React.Component {
             isTypeVisible: false,
             showSubmitError: false,
             currentSpeciality: "",
-            isSubmitInProgress: false
+            isSubmitInProgress: false,
+            comment:""
         }),
             this.props.form.resetFields()) : null;
     }
@@ -224,13 +225,14 @@ class NewFreeVisitByPatientForm extends React.Component {
                                 </div>
 
                             </FormItem>}
-
+                            <div className="textarea-label">Комментарий к приему</div>
                             <FormItem>
                                 {getFieldDecorator('comment', {
                                     initialValue: this.state.comment
                                 })(
-                                    <TextArea label='Комментарий к приему'
-                                              className="NewVisitModal-txtarea"/>
+                                    <textarea className="textarea-field"
+                                              onChange={this.handleChange}
+                                    />
                                 )}
                             </FormItem>
                             <FormItem>

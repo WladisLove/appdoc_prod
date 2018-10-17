@@ -26,6 +26,7 @@ class PersonalEducation extends React.Component{
                         <PersonalEducationItem
                             profileDoctor={this.props.profileDoctor}
                             onSubmit={this.props.onSubmit}
+                            uploadFile={this.props.uploadFile}
                         />
                     </Panel>
                 </Accordion>

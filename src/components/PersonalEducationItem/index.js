@@ -11,7 +11,14 @@ import Input from '../Input'
 
 import './style.css'
 import '../../icon/style.css'
-import PersonalExperience from "../PersonalExperience";
+import InputNew from "../InputNew";
+import SelectNew from "../SelectNew";
+import specs from "../../helpers/specsArray";
+import DropZoneUpload from "../DropZoneUpload";
+import RangeDPNew from "../RangeDPNew";
+import moment from "moment";
+import addInfoObj from "../../helpers/addInfoObj";
+
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -20,236 +27,222 @@ class PersonalEducationItemForm extends React.Component{
         super(props);
         this.state = {
             educatBlock : 0,
-            idCurrentDegree : null
+            idCurrentDegree : null,
+            mainEducationArr: props.profileDoctor.educationsgroup1 || [],
+            secondEducationArr: props.profileDoctor.educationsgroup2 || [],
+            degree: {name: props.profileDoctor.academicdegree || "", doc: []},
+            status: {name: props.profileDoctor.academicstatus || "", doc: []}
         }
     }
 
-
-    sendMainInstution = (values) => {
-        let newProfile = this.props.profileDoctor;
-
-        let inst  = newProfile.arrayMainInstitution;
-        let idInst = null;
-        try{
-            idInst = (inst[inst.length-1].id + 1);
-        }
-        catch(e) {
-            idInst = 0;
-        }
-
-        let dateStart = null;
-        let dateEnd = null;
-
-        if(values.datePickerMain){
-            if(values.datePickerMain[0]) {
-                dateStart = values.datePickerMain[0]/*.format("D.M.Y")*/;
-            }
-            if(values.datePickerMain[1]) {
-                dateEnd = values.datePickerMain[1]/*.format("D.M.Y")*/;
-            }
-        }
-
-        inst.push(
-            {
-                id               : idInst,
-                mainInstitution  : values.mainInstitutionField,
-                mainSpecialty    : values.mainSpecialtyField,
-                mainDateStart    : dateStart,
-                mainDateEnd      : dateEnd,
-                documents        : values.uploadMain || []
-            });
-        return newProfile;
-    };
-
-    sendSecondInstution = (values) => {
-        let newProfile = this.props.profileDoctor;
-        //let newProfile = {...this.props.profileDoctor};
-
-        let inst  = newProfile.arraySecondInstitution;
-        let idInst = null;
-        try{
-            idInst = (inst[inst.length-1].id + 1);
-        }
-        catch(e) {
-            idInst = 0;
-        }
-        let dateStart = null;
-        let dateEnd = null;
-
-        if(values.datePickerSecond){
-            if(values.datePickerSecond[0]) {
-                dateStart = values.datePickerSecond[0]/*.format("D.M.Y")*/;
-            }
-            if(values.datePickerSecond[1]) {
-                dateEnd = values.datePickerSecond[1]/*.format("D.M.Y")*/;
-            }
-        }
-        inst.push(
-            {
-                id                 : idInst,
-                secondInstitution  : values.secondInstitutionField,
-                secondSpecialty    : values.secondSpecialtyField,
-                secondDateStart    : dateStart,
-                secondDateEnd      : dateEnd,
-                documents          : values.uploadSecond || []
-            });
-        return newProfile;
-    };
-
-    sendDegree = (values) => {
-        let newProfile = this.props.profileDoctor;
-        newProfile.degree = {
-            name      : values.addDegreeField,
-            documents : values.uploadAddDegree
-        };
-
-        return newProfile;
-    };
-
-    changeDegree = (values) => {
-        let newProfile = this.props.profileDoctor;
-
-        newProfile.degree.name = values.changeDegreeField;
-        newProfile.degree.documents = values.uploadDegree;
-
-        this.setState({idCurrentDegree: null});
-        return newProfile;
-    };
-
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err && this.state.educatBlock !== 0) {
-                let newProfile = null;
-                switch (this.state.educatBlock) {
-                    case 1:
-                        newProfile = this.sendMainInstution(values);
-                        break;
-                    case 2:
-                        newProfile = this.sendSecondInstution(values);
-                        break;
-                    case 3:
-                        newProfile = this.changeDegree(values);
-                        break;
-                    case 4:
-                        newProfile = this.sendDegree(values);
-                        break;
-                }
+        this.props.form.validateFields((err) => {
+            if (!err && this.state.educatBlock === 0) {
                 this.props.form.resetFields();
                 this.setState({educatBlock: 0});
-                this.props.onSubmit(newProfile);
+                let toSubmitObj = {
+                    educationsgroup1: this.state.mainEducationArr,
+                    educationsgroup2: this.state.secondEducationArr,
+                    academicdegree: this.state.degree.name,
+                    academicdegreedoc: this.state.degree.doc,
+                    academicstatus: this.state.status.name,
+                    academicstatusdoc: this.state.status.doc,
+                    works: this.props.profileDoctor.works // fix server bug
+                };
+                this.props.onSubmit(toSubmitObj);
             }
         });
     };
 
-    addDp = () => {
-        this.setState({educatBlock:1})
+    validateYears = (rule, value, cb) => {
+
+        if( (this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile) && !this.state.isDate) {
+            cb("Введите период обучения")
+        }
+        if((value && value[0] && value[1]) || (value && !value[0] && !value[1]) || !value) {
+            cb()
+        } else cb("Введите период обучения")
     };
 
-    renderDp = (getFieldDecorator) =>{
+    addDp = () => {
+        this.setState({educatBlock: 1})
+    };
+
+    renderDp = (getFieldDecorator) => {
         let dpArr = [];
 
-        if(this.state.educatBlock === 1) {
+        if(this.state.educatBlock === 1)
             dpArr.push(
-                <div className="personal-item" key={this.state.educatBlock}>
-                    <FormItem className="personal-item" >
-                        <div>
-                            {getFieldDecorator('mainInstitutionField', {
+                <div className="personal-item" key={1}>
+                        <FormItem>
+                            {getFieldDecorator('educationsgroup1-education', {
                                 rules: [{
                                     required: true,
                                     message: 'Введите учебное заведение'
                                 }],
                             })(
-                                <Input addonBefore="Учебное заведение"
-                                       className='step-form-item'/>
+                                <InputNew width ="100%" bubbleplaceholder="* Учебное заведение"/>
                             )}
-                        </div>
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('educationsgroup1-speciality', {
+                                rules: [{
+                                    required: true,
+                                    message: 'Введите квалификацию'
+                                }],
+                            })(
+                                <SelectNew width ="100%"
+                                           bubbleplaceholder="* Квалификация"
+                                           mode="multiple"
+                                           data={specs}
+                                />
+                            )}
+                        </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('educationsgroup1-finishucationyear', {
+                                    rules: [{
+                                        required: true,
+                                        message: 'Введите год окончания',
 
-                    </FormItem>
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('mainSpecialtyField', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите cпециальность'
-                            }],
-                        })(
-                            <Input addonBefore="Специальность"  className='step-form-item'/>
-                        )}
-                    </FormItem>
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('datePickerMain', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите дату'
-                            }],
-                        })(
-                            <DatePicker  range placeholderStart="Начало обучения" placeholderEnd="Окончание обучения"
-                                         showTime format="DD.MM.YYYY" />
-                        )}
-                    </FormItem>
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('uploadMain', {
-                        })(
-                            <Upload text="Прикрепить диплом (сертификат, свидетельство)" />
-                        )}
-                    </FormItem>
+                                    },{
+                                        pattern: /^[ ]*[0-9]{4}[ ]*$/,
+                                        message: "Неправильной формат года"
+                                    }],
+                                })(
+                                    <InputNew width ="100%" bubbleplaceholder="* Год окончания"/>
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('educationsgroup1-diplomphoto', {
+                                    rules: [{
+                                        required: true,
+                                        message: 'Загрузите подтверждающий документ'
+                                    }],
+                                })(
+                                    <DropZoneUpload
+                                        uploadFile = {this.props.uploadFile}
+                                        text="Прикрепить диплом, свидетельство"
+                                    />
+                                )}
+                            </FormItem>
+                        <Button onClick={() => {
+                            this.props.form.validateFields((err, values) => {
+                                if (!err) {
+                                    let newEducationEntry = {
+                                        education: values['educationsgroup1-education'],
+                                        speciality: values['educationsgroup1-speciality'],
+                                        finishucationyear: values['educationsgroup1-finishucationyear'],
+                                        diplomphoto: values['educationsgroup1-diplomphoto']
+                                    };
+                                    this.setState({
+                                        educatBlock: 0,
+                                        mainEducationArr: [...this.state.mainEducationArr, newEducationEntry]
+                                    });
+                                }
+                            });
+                        }}
+                                className="personal-btn"
+                                btnText='Готово'
+                                size='small'
+                                type='no-brd'
+                                icon=''
+                                iconSize={11}
+                                svg
+                        />
                 </div>
-            )
-        }
-        return (
-            <div className="new-d">
-            {dpArr}
-    </div>
             );
+        return (<div className="new-d">{dpArr}</div>);
     };
 
     addDp2 = () => {
         this.setState({educatBlock:2})
     };
 
-    renderDp2 = (getFieldDecorator) =>{
+    renderDp2 = (getFieldDecorator) => {
         let dpArr2 = [];
 
-        if(this.state.educatBlock === 2) {
+        if (this.state.educatBlock === 2) {
             dpArr2.push(
-                <div className="personal-item" key={this.state.educatBlock}>
-                    <FormItem className="personal-item">
-                        {getFieldDecorator('secondInstitutionField', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите учебное заведение'
-                            }],
-                        })(
-                            <Input id="secondInstitution" addonBefore="Учебное заведение" />
-                        )}
-                    </FormItem>
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('secondSpecialtyField', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите название цикла'
-                            }],
-                        })(
-                            <Input id="secondSpecialty" addonBefore="Название цикла обучения" />
-                        )}
-                    </FormItem>
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('datePickerSecond', {
-                            rules: [{
-                                required: true,
-                                message: 'Введите время'
-                            }],
-                        })(
-                            <DatePicker  range placeholderStart="Начало обучения" placeholderEnd="Окончание обучения"
-                            showTime format="DD.MM.YYYY"/>
-                        )}
-                    </FormItem>
-                    <FormItem className="personal-item" >
-                        {getFieldDecorator('uploadSecond', {
-                        })(
-                            <Upload text="Прикрепить диплом (сертификат, свидетельство)"/>
-                        )}
-                    </FormItem>
+                <div className="personal-item" key={2}>
+                    <div className="step-block">
+                        <FormItem>
+                            {getFieldDecorator('educationsgroup2-education', {
+                                rules: [{
+                                    required: true,
+                                    message: 'Введите учебное заведение'
+                                }],
+                            })(
+                                <InputNew width="100%" bubbleplaceholder="Учебное заведение"
+                                          className="step-form-item"/>
+                            )}
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('educationsgroup2-ciklname', {
+                                rules: [{
+                                    required: true,
+                                    message: 'Введите название цикла обучения'
+                                }],
+                            })(
+                                <InputNew width="100%" bubbleplaceholder="Название цикла обучения"
+                                          className="step-form-item"/>
+                            )}
+                        </FormItem>
+                        <div className="step-row">
+                            <FormItem>
+                                {getFieldDecorator('educationsgroup2-ucationyears', {
+                                    valuePropName: 'rangeSet',
+                                    rules: [{
+                                        validator: this.validateYears
+                                    }],
+                                })(
+                                    <RangeDPNew/>
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('educationsgroup2-diplomphoto', {
+                                    rules: [{
+                                        required: true,
+                                        message: 'Загрузите подтверждающий документ'
+                                    }],
+                                })(
+                                    <DropZoneUpload
+                                        uploadFile={this.props.uploadFile}
+                                        text="Прикрепить диплом, свидетельство"
+                                    />
+                                )}
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div className="personal-item">
+                        <Button onClick={() => {
+                            this.props.form.validateFields((err, values) => {
+                                if (!err) {
+                                    let newEducationEntry = {
+                                        education: values['educationsgroup2-education'],
+                                        ciklname: values['educationsgroup2-ciklname'],
+                                        ucationyears: [
+                                            Math.ceil(moment(values['educationsgroup2-ucationyears'][0]).format('x') / 1000).toString(),
+                                            Math.ceil(moment(values['educationsgroup2-ucationyears'][1]).format('x') / 1000).toString()
+                                        ],
+                                        diplomphoto: values['educationsgroup2-diplomphoto']
+                                    };
+                                    this.setState({
+                                        educatBlock: 0,
+                                        secondEducationArr: [...this.state.secondEducationArr, newEducationEntry]
+                                    });
+                                }
+                            });
+                        }}
+                                className="personal-btn"
+                                btnText='Готово'
+                                size='small'
+                                type='no-brd'
+                                icon=''
+                                iconSize={11}
+                                svg
+                        />
+                    </div>
                 </div>
             )
         }
@@ -257,7 +250,7 @@ class PersonalEducationItemForm extends React.Component{
             <div className="new-d">
                 {dpArr2}
             </div>
-            );
+        );
     };
 
     addDp3 = (id) => {
@@ -268,7 +261,7 @@ class PersonalEducationItemForm extends React.Component{
         let dpArr3 = [];
         if(this.state.educatBlock === 3) {
             dpArr3.push(
-                <div className="personal-item" key={this.state.educatBlock}>
+                <div className="personal-item" key={3}>
                     <FormItem className="personal-item" >
                         {getFieldDecorator('changeDegreeField', {
                             rules: [{
@@ -277,18 +270,39 @@ class PersonalEducationItemForm extends React.Component{
                             }],
                         })(
                             <Select placeholder="Ученая степень">
-                              <Option value="Пункт 1">Пункт 1</Option>
-                              <Option value="Пункт 2">Пункт 2</Option>
-                              <Option value="Пункт 3">Пункт 3</Option>
+                                {addInfoObj.degree.map((item) => <Option value={item}>{item}</Option>)}
                             </Select>
                         )}
                     </FormItem>
                     <FormItem className="personal-item" >
                         {getFieldDecorator('uploadDegree', {
                         })(
-                            <Upload text="Прикрепить документ, подтверждающий ученую степень"/>
+                            <DropZoneUpload
+                                uploadFile={this.props.uploadFile}
+                                text="Прикрепить документ, подтверждающий ученую степень"
+                            />
                         )}
                     </FormItem>
+                    <div className="personal-item">
+                        <Button onClick={() => {
+                            this.props.form.validateFields((err, values) => {
+                                if (!err) {
+                                    this.setState({
+                                        educatBlock: 0,
+                                        degree: {name: values['changeDegreeField'], doc: values['uploadDegree']}
+                                    });
+                                }
+                            });
+                        }}
+                                className="personal-btn"
+                                btnText='Готово'
+                                size='small'
+                                type='no-brd'
+                                icon=''
+                                iconSize={11}
+                                svg
+                        />
+                    </div>
                 </div>
             )
         }
@@ -298,37 +312,57 @@ class PersonalEducationItemForm extends React.Component{
             </div>
             );
     };
-    addDp4 = () => {
-        if(!this.props.profileDoctor.degree) this.setState({educatBlock:4})
+
+    addDp4 = (id) => {
+        this.setState({educatBlock:4, idCurrentDegree: id})
     };
 
     renderDp4 = (getFieldDecorator) =>{
-
         let dpArr4 = [];
-
         if(this.state.educatBlock === 4) {
             dpArr4.push(
-                <div className="personal-item" key={this.state.educatBlock}>
+                <div className="personal-item" key={4}>
                     <FormItem className="personal-item" >
-                        {getFieldDecorator('addDegreeField', {
+                        {getFieldDecorator('changeStatusField', {
                             rules: [{
                                 required: true,
-                                message: 'Введите ученую степень'
+                                message: 'Введите ученое звание'
                             }],
                         })(
-                            <Select >
-                              <Option value="Пункт 1">Пункт 1</Option>
-                              <Option value="Пункт 2">Пункт 2</Option>
-                              <Option value="Пункт 3">Пункт 3</Option>
+                            <Select placeholder="Ученое звание">
+                                {addInfoObj.title.map((item) => <Option value={item}>{item}</Option>)}
                             </Select>
                         )}
                     </FormItem>
                     <FormItem className="personal-item" >
-                        {getFieldDecorator('uploadAddDegree', {
+                        {getFieldDecorator('uploadStatus', {
                         })(
-                            <Upload text="Прикрепить документ, подтверждающий ученую степень"/>
+                            <DropZoneUpload
+                                uploadFile={this.props.uploadFile}
+                                text="Прикрепить документ, подтверждающий ученое звание"
+                            />
                         )}
                     </FormItem>
+                    <div className="personal-item">
+                        <Button onClick={() => {
+                            this.props.form.validateFields((err, values) => {
+                                if (!err) {
+                                    this.setState({
+                                        educatBlock: 0,
+                                        status: {name: values['changeStatusField'], doc: values['uploadStatus']}
+                                    });
+                                }
+                            });
+                        }}
+                                className="personal-btn"
+                                btnText='Готово'
+                                size='small'
+                                type='no-brd'
+                                icon=''
+                                iconSize={11}
+                                svg
+                        />
+                    </div>
                 </div>
             )
         }
@@ -336,59 +370,113 @@ class PersonalEducationItemForm extends React.Component{
             <div className="new-d">
                 {dpArr4}
             </div>
-            );
+        );
     };
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.profileDoctor && JSON.stringify(nextProps.profileDoctor) !== JSON.stringify(this.props.profileDoctor)) {
+            this.setState({
+                mainEducationArr: nextProps.profileDoctor.educationsgroup1,
+                secondEducationArr: nextProps.profileDoctor.educationsgroup2,
+                degree: {name: nextProps.profileDoctor.academicdegree, doc: []},
+                status: {name: nextProps.profileDoctor.academicstatus, doc: []}
+            });
+        }
+    }
+
     render(){
-        const { getFieldDecorator } = this.props.form;
-        const {arrayMainInstitution,  arraySecondInstitution,  arrayDegree} = this.props.profileDoctor;
+        const {getFieldDecorator} = this.props.form;
+        const {mainEducationArr, secondEducationArr, degree, status} = this.state;
         const rootClass = cn('personal-education');
 
-        const instituions = arrayMainInstitution.map((elem) => {
+        const institution = mainEducationArr.map((elem, i) => {
+            mainEducationArr[i].id = "mainEducation" + i;
             return (
-                <div key={elem.id} className="personal-item mb-35 brd-b brd-d">
+                <div key={"mainEducation" + i} className="personal-item mb-35 brd-b brd-d">
                     <div className="personal-info">
                         <p>
-                            {elem.mainInstitution}, {elem.mainDateStart.format('YYYY')} - {elem.mainDateEnd.format('YYYY')}
+                            {elem.education}, {elem.finishucationyear}
                         </p>
                     </div>
                     <div className="personal-info">
                         <p>
-                            {elem.mainSpecialty}
+                            {elem.speciality.join(', ')}
                         </p>
                     </div>
+                    <Button onClick={(e) => {
+                        e.preventDefault();
+                        let newMainEducationArr = this.state.mainEducationArr;
+                        newMainEducationArr.splice(i, 1);
+                        this.setState({mainEducationArr: newMainEducationArr});
+                    }
+                    }
+                            className="personal-edit"
+                            size='small'
+                            type='blue-float'
+                            icon='close'
+                            iconSize={17}
+                            svg
+                    />
                 </div> );
         });
-        const instituionsSecond = arraySecondInstitution.map((elem) => {
+        const institutionSecond = secondEducationArr.map((elem, i) => {
+            secondEducationArr[i].id = "mainEducation" + i;
             return (
-                <div key={elem.id} className="personal-item pb-25 mb-35 brd-b brd-d">
+                <div key={"secondEducation" + i} className="personal-item pb-25 mb-35 brd-b brd-d">
                     <div className="personal-info">
                         <p>
-                            {elem.secondInstitution}, {elem.dateStart.format('MMMM YYYY')} - {elem.dateEnd.format('MMMM YYYY')}
+                            {elem.education}, {moment(elem.ucationyears[0] * 1000).format('MMMM YYYY')} - {moment(elem.ucationyears[1] * 1000).format('MMMM YYYY')}
                         </p>
                     </div>
                     <div className="personal-info">
                         <p>
-                            {elem.secondSpecialty}
+                            {elem.ciklname}
                         </p>
                     </div>
+                    <Button onClick={(e) => {
+                        e.preventDefault();
+                        let newSecondEducationArr = this.state.secondEducationArr;
+                        newSecondEducationArr.splice(i, 1);
+                        this.setState({secondEducationArr: newSecondEducationArr});
+                    }
+                    }
+                            className="personal-edit"
+                            size='small'
+                            type='blue-float'
+                            icon='close'
+                            iconSize={17}
+                            svg
+                    />
                 </div> );
         });
 
-        const degree = (
+        const institutionDegree = (
                 <div className="personal-item mb-35">
-                    <div className="personal-info">{this.props.profileDoctor.degree.name}</div>
-                    <Button onClick={this.addDp3}
+                    <div className="personal-info">{degree.name}</div>
+                    {this.state.educatBlock !== 3 && <Button onClick={this.addDp3}
                             className="personal-edit"
                             size='small'
                             type='blue-float'
                             icon='setting_edit'
                             iconSize={17}
                             svg
-                    />
-                </div>);
+                    />}
+                </div>
+        );
 
-
+        const institutionStatus = (
+            <div className="personal-item mb-35">
+                <div className="personal-info">{status.name}</div>
+                {this.state.educatBlock !== 4 && <Button onClick={this.addDp4}
+                        className="personal-edit"
+                        size='small'
+                        type='blue-float'
+                        icon='setting_edit'
+                        iconSize={17}
+                        svg
+                />}
+            </div>
+        );
 
         return (
                 <Form className={rootClass} onSubmit={this.handleSubmit}>
@@ -397,9 +485,9 @@ class PersonalEducationItemForm extends React.Component{
                             <div className="personal-title">Основное образование</div>
                         </div>
 
-                        {instituions}
+                        {institution}
 
-                        <div className="personal-item">
+                        {this.state.educatBlock !== 1 && <div className="personal-item">
                              <Button onClick={this.addDp}
                                 className="personal-btn"
                                 btnText='Добавить'
@@ -409,7 +497,7 @@ class PersonalEducationItemForm extends React.Component{
                                 iconSize={11}
                                 svg
                             />
-                        </div>
+                        </div>}
                         {this.renderDp(getFieldDecorator)}
                     </div>
 
@@ -417,9 +505,9 @@ class PersonalEducationItemForm extends React.Component{
                         <div className="personal-item">
                             <div className="personal-title">Последипломное образование</div>
                         </div>
-                        {instituionsSecond}
+                        {institutionSecond}
 
-                        <div className="personal-item">
+                        {this.state.educatBlock !== 2 && <div className="personal-item">
                              <Button onClick={this.addDp2}
                              className="personal-btn"
                                 btnText='Добавить'
@@ -429,7 +517,7 @@ class PersonalEducationItemForm extends React.Component{
                                 iconSize={11}
                                 svg
                             />
-                        </div>
+                        </div>}
                         {this.renderDp2(getFieldDecorator)}
                     </div>
 
@@ -437,24 +525,18 @@ class PersonalEducationItemForm extends React.Component{
                         <div className="personal-item">
                             <div className="personal-title">Ученая степень</div>
                         </div>
-                        {degree}
+                        {institutionDegree}
                         {this.renderDp3(getFieldDecorator)}
                     </div>
 
                     <div className="personal-block">
                         <div className="personal-item">
-                             <Button onClick={this.addDp4}
-                             className="personal-btn"
-                                btnText='Добавить ученое звание'
-                                size='small'
-                                type='no-brd'
-                                icon='plus'
-                                iconSize={11}
-                                svg
-                            />
+                            <div className="personal-title">Ученое звание</div>
                         </div>
+                        {institutionStatus}
                         {this.renderDp4(getFieldDecorator)}
                     </div>
+
                     <div className="personal-block">
                         <Button
                             htmlType="submit"

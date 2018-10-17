@@ -7,7 +7,7 @@ import Hoc from "../Hoc"
 import './styles.css'
 
 class DoctorProfileCard extends React.Component{
-    
+
     shouldComponentUpdate(nextProps){
         return (this.props.timesRated !== nextProps.timesRated)
                     || (this.props.timesRated !== nextProps.timesRated)
@@ -18,15 +18,19 @@ class DoctorProfileCard extends React.Component{
 
     render(){
         const {short, name, specialty, isUser} = this.props;
-        let spec = specialty.map(function(elem) {
-            return elem.toUpperCase();
+        let specialtyOneArray =[];
+        specialty.map((elem)=> {
+            specialtyOneArray.push(...elem)
         });
-        spec = spec.join(", ");
+        let spec = specialtyOneArray.length ?  specialtyOneArray.map(function(elem) {
+            return elem.toUpperCase();
+        }): "";
+        spec = spec ? spec.join(", ") : spec;
 
         const rootClass = short ?
-            (isUser ? 
+            (isUser ?
             "patientProfileCard-short" : "doctorProfileCard-short")
-            : (isUser ? 
+            : (isUser ?
                 "patientProfileCard" : "doctorProfileCard");
 
         return (

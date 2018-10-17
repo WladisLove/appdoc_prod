@@ -12,42 +12,42 @@ import DoctorPage from "../containers/DoctorPage";
 
 export const docRoutes = [
     {
-        path: '/',
+        path: '/app',
         component: MainPage,
         exact: true,
     },
     {
-        path: '/schedule',
+        path: '/app/schedule',
         component: Schedule,
         exact: true,
     },
     {
-        path: '/treatment',
+        path: '/app/treatment',
         component: Treatment,
         exact: true,
     },
     {
-        path: '/patients',
+        path: '/app/patients',
         component: Patients,
         exact: true,
     },
     {
-        path: '/patient:id',
+        path: '/app/patient:id',
         component: PatientsPage,
         exact: true,
     },
     {
-        path: '/personal-info',
+        path: '/app/personal-info',
         component: PersonalInfo,
         exact: true,
     },
     {
-        path: '/chat',
+        path: '/app/chat',
         component: Chat,
         exact: true,
     },
     {
-        path: '/reviews',
+        path: '/app/reviews',
         component: Reviews,
         exact: true,
     },
@@ -55,62 +55,62 @@ export const docRoutes = [
 
 export const patientRoutes = [
     {
-        path: '/',
+        path: '/app',
         component: MainPage,
         exact: true,
     },
     {
-        path: '/calendar',
+        path: '/app/calendar',
         component: Schedule,
         exact: true,
     },
     {
-        path: '/treatment',
+        path: '/app/treatment',
         component: Treatment,
         exact: true,
     },
     {
-        path: '/doctors',
+        path: '/app/doctors',
         component: MyDoctors,
         exact: true,
     },
     {
-        path: '/doctor:id',
+        path: '/app/doctor:id',
         component: DoctorPage,
         exact: true,
     },
     {
-        path: '/personal-info',
+        path: '/app/personal-info',
         component: PersonalInfo,
         exact: true,
     },
     {
-        path: '/chat',
+        path: '/app/chat',
         component: Chat,
         exact: true,
     },
     {
-        path: '/reviews',
+        path: '/app/reviews',
         component: Reviews,
         exact: true,
     },
 ];
 
 export const menuDoc =[
-    {name: '', title: 'Главная', iconType: 'dashboard', svg: true},
-    {name: 'schedule', title: 'График работы', iconType: 'calendar', svg: true},
-    {name: 'treatment', title: 'Обращения', iconType: 'order-form', svg: true},
-    {name: 'patients', title: 'Мои пациенты', iconType: 'user',},
-    {name: 'personal-info', title: 'Личные данные', iconType: 'setting_edit', svg: true},
-    {name: 'reviews', title: 'Отзывы пациентов', iconType: 'chat', svg: true},
+    {name: 'app', title: 'Главная', iconType: 'dashboard', svg: true},
+    {name: 'app/schedule', title: 'График работы', iconType: 'calendar', svg: true},
+    {name: 'app/treatment', title: 'Обращения', iconType: 'order-form', svg: true},
+    {name: 'app/patients', title: 'Мои пациенты', iconType: 'user',},
+    {name: 'app/personal-info', title: 'Личные данные', iconType: 'setting_edit', svg: true},
+    {name: 'app/reviews', title: 'Отзывы пациентов', iconType: 'chat', svg: true},
 ];
 
 export const menuPatient =[
-    {name: '', title: 'Главная', iconType: 'dashboard', svg: true},
-    {name: 'calendar', title: 'Календарь', iconType: 'calendar', svg: true},
-    {name: 'treatment', title: 'Обращения', iconType: 'order-form', svg: true},
-    {name: 'doctors', title: 'Мои врачи', iconType: 'user',},
-    {name: 'personal-info', title: 'Личные данные', iconType: 'setting_edit', svg: true},
-    {name: 'reviews', title: 'Мои отзывы', iconType: 'chat', svg: true},
+    {name: 'app', title: 'Главная', iconType: 'dashboard', svg: true},
+    {name: 'app/calendar', title: 'Календарь', iconType: 'calendar', svg: true},
+    {name: 'app/treatment', title: 'Обращения', iconType: 'order-form', svg: true},
+    {name: 'app/doctors', title: 'Мои врачи', iconType: 'user',},
+    {name: 'app/personal-info', title: 'Личные данные', iconType: 'setting_edit', svg: true},
+    {name: 'app/reviews', title: 'Мои отзывы', iconType: 'chat', svg: true},
 ];
 

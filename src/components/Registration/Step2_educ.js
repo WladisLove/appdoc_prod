@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 
 import {Form} from 'antd';
 
-import Input from '../Input'
-import Upload from '../Upload'
-import Hoc from '../Hoc'
+import specs from "../../helpers/specsArray"
 import InputNew from "../InputNew";
 import SelectNew from "../SelectNew";
 import DropZoneUpload from "../DropZoneUpload";
@@ -40,13 +38,14 @@ class Step2_educ extends React.Component {
                     {getFieldDecorator('educationsgroup1-speciality-' + number, {
                         rules: [{
                             required: true,
-                            message: 'Введите специальность'
+                            message: 'Введите квалификацию'
                         }],
                     })(
-                        <SelectNew width ="100%" bubbleplaceholder="* Специальность" className="step-form-item"
-                                   data={['Хирург', "Терапевт","Кардиолог",
-                                       "Офтальмолог", "Психиатр", "Стоматолог",
-                                       "Невролог"]}
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder="* Квалификация"
+                                   className="step-form-item"
+                                   mode="multiple"
+                                   data={specs}
                         />
                     )}
                 </FormItem>

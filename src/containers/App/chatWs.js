@@ -1,6 +1,7 @@
 import kurentoUtils from 'kurento-utils'
 import {Modal} from "antd";
-
+import { detect } from 'detect-browser';
+const browser = detect();
 let ws,
     callbacks,
     props;
@@ -22,7 +23,6 @@ var callState = null;
 let timerInterval;
 
 export const sendMessage = (message) => {
-    //console.log("[sendMessage]", message);
     ws.send(JSON.stringify(message));
 }
 
@@ -44,8 +44,9 @@ export function createSocket(wsUrl,_props,_callbacks) {
                 resgisterResponse(parsedMessage);
                 break;
             case 'startReception':
-            callbacks.get_history().location.pathname !== '/chat'
-                && callbacks.get_history().push('/chat');
+            console.log(callbacks.get_history());
+            callbacks.get_history().location.pathname !== '/app/chat'
+                && callbacks.get_history().push('/app/chat');
                 callbacks.setReceptionStatus(true);
 
                 const visitInfo = callbacks.get_visitInfo();
@@ -216,22 +217,43 @@ const incomingCall = (message) => {
             message : 'bussy'
         });
     }
-
-
     setCallState(PROCESSING_CALL);
-    console.log(message, "MODAL message");
-    Modal.confirm({
-        title: `Доктор с id ${message.from} звонит вам, хотите ли вы принять вызов?`,
-        width: '300px',
-        okText: 'Да',
-        cancelText: 'Нет',
-        centered: true,
-        onOk() {
-            acceptCall();
-        },
-        onCancel() {
-            declineCall();
-        }});
+
+    if(browser && browser.name==="safari") {
+        console.log("this is safari")
+        Modal.confirm({
+            title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`,
+            width: '300px',
+            okText: 'Да',
+            cancelText: 'Нет',
+            centered: true,
+            onOk() {
+                acceptCall();
+            },
+            onCancel() {
+                declineCall();
+            }})
+
+    } else {
+        let call = new Audio("/project/templates/_ares/static/media/incoming_call.mp3");
+        call.play().then(
+            Modal.confirm({
+                title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
+                width: '300px',
+                okText: 'Да',
+                cancelText: 'Нет',
+                centered: true,
+                onOk() {
+                    call.pause();
+                    acceptCall();
+                },
+                onCancel() {
+                    call.pause();
+                    declineCall();
+                }})
+        );
+    }
+
 
 
 
@@ -239,8 +261,8 @@ const incomingCall = (message) => {
     function acceptCall() {
 
 
-        callbacks.get_history().location.pathname !== '/chat'
-        && callbacks.get_history().push('/chat');
+        callbacks.get_history().location.pathname !== '/app/chat'
+        && callbacks.get_history().push('/app/chat');
         callbacks.setReceptionStatus(true);
         callbacks.setIsCallingStatus(true);
         callbacks.setChatToId(message.from);
@@ -257,7 +279,6 @@ const incomingCall = (message) => {
         function continueCall(){
             let _visitInfo = callbacks.get_visitInfo();
             let {contactLevel} = _visitInfo;
-            console.log('[video tags]',''+videoInput,videoOutput)
             let options = contactLevel === 'video' ?
                 {
                     localVideo : videoInput,
@@ -268,6 +289,7 @@ const incomingCall = (message) => {
                         audio:true,
                         video:false
                     },
+                    remoteVideo : videoOutput,
                     onicecandidate : onIceCandidate
                 };
 
@@ -372,6 +394,7 @@ export const call = () => {
                 from: callbacks.get_from(),
                 to: callbacks.get_to(),
                 receptionId,
+                userData: callbacks.get_shortDocInfo(),
                 sdpOffer : offerSdp
             });
         });

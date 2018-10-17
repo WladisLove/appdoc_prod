@@ -39,7 +39,6 @@ class RegistrationForm extends React.Component{
                                        academicTitle = {this.props.academicTitle}
                                        langs = {this.props.langs}
                                        payments = {this.props.payments}
-                                       specs = {this.props.specs}
                                        uploadFile={this.props.uploadFile}
             /> ,
         },

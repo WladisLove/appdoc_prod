@@ -18,7 +18,7 @@ const SideNav = props => {
             return (<Menu.Item key={path}>
                 <NavLink exact to={path} activeClassName="selectedNavLink">
                     <div className='sidenav-root-menu-item'>
-                        {iconType && <Icon type={iconType} size={26} svg={svg}/>}
+                        {iconType && <Icon type={iconType} size={26} svg={svg} title={title}/>}
                         <span className="item-title">
                             {title}
                         </span>
@@ -58,7 +58,7 @@ const SideNav = props => {
                 </div>
             </div>
         )
-    
+
 }
 
 SideNav.propTypes = {
