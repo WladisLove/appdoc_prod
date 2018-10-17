@@ -18,7 +18,7 @@ a{
 				letter-spacing: 0px;
 				text-transform: none;
 			}
-
+			
 			&-block{
 				border-bottom: 1px solid #ebebeb;
 				padding: 0px 100px 0;
@@ -32,7 +32,7 @@ a{
 					margin-bottom: 0;
 					border-bottom: 0;
 				}
-
+				
 				.personal-item{
 					max-width: 650px;
 					margin-right: 0px;
@@ -52,14 +52,15 @@ a{
 			&-delete{
 				position: absolute;
 				right: 0;
-				top: -0.5rem;
+				top: 0;
 				text-transform: none;
 				font-size: 12px;
+				color: #204d8d;
 			}
 
 			&-edit{
 				position: absolute;
-				right: 0;
+				left: 300px;
 				top: -0.625rem;
 			}
 
@@ -91,6 +92,19 @@ a{
 
 				.input-root {
 					margin-bottom: 25px;
+
+					&-focus{
+						margin-bottom: 25px;
+					}
+				}
+
+				.ant-input-group-wrapper{
+					
+
+					&:nth-child(2){
+						max-width: 47.5%;
+						margin-right: 32px;
+					}
 				}
 
 				.ant-select{
@@ -153,6 +167,7 @@ a{
 .personal-experience{
 	.ant-form-item {
 		position: relative;
+		margin-bottom: 45px;
 		min-height: 65px;
 		.has-error {
 			.input-root-focus {

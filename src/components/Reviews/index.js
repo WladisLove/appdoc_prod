@@ -27,14 +27,20 @@ class Reviews extends React.Component{
 
     render(){
         const {data} = this.props;
-
+        let extra2 = "";
+        
+        if (this.props.extra){
+            extra2 = this.props.extra
+            
+        }
+        else extra2 = "";
+    
+        
         return (
-                <Card title="Новые отзывы"
+                <Card title={this.props.title}
                       className="reviews"
-                      extra={<a onClick={this.props.redirect}>
-                                <Icon type="chat" svg size={20}/> 
-                                <span>Все отзывы</span>
-                            </a>}>
+                        extra = {extra2}
+                      >
                     <ScrollArea
                             speed={1}
                             className="reviews-list"
@@ -42,7 +48,7 @@ class Reviews extends React.Component{
                     >
                     {data.length ? 
                         this.reviewRender(data) 
-                        : <div className='entry-list'>Отзывов нет</div>}
+                        : <div className='entry-list'>домашних задания нет</div>}
                     </ScrollArea>
                 </Card>
         )

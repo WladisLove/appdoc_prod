@@ -1,15 +1,3 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .popover-btn {
   display: inline-flex;
   background-color: transparent;
@@ -29,12 +17,12 @@
   border: none;
 }
 .popover-btn .btn-size-icon:hover .icon {
-  color: #0495ff;
+  color: #21bedd;
   border: none;
 }
 .popover-btn .btn-size-icon:focus {
   background-color: transparent;
-  color: #0495ff;
+  color: #21bedd;
   border: none;
   outline: 0;
 }
@@ -63,9 +51,6 @@
   position: absolute;
   bottom: 25px;
   right: 20px;
-}
-.popover-file-body .popover-file-block {
-  word-break: break-word;
 }
 .popover-num {
   background-color: transparent;

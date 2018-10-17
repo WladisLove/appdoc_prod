@@ -6,27 +6,29 @@ import Icon from '../Icon'
 
 import './style.css'
 import '../../icon/style.css'
+import ab from '../../autobahn';
 
 class TopPanelItem extends React.Component{
 
     render(){
 
-        const {className, panelText, type, firstItem, panelTitle, icon, iconSize, svg} = this.props;
+        const {className, panelText, type, panelTitle, svg} = this.props;
 
         const rootClass = cn( `${className}`, 'panelItem')
         let panelTextStyle = {}
         let panelTitleStyle = {}
 
+        let panelIdStyle = "";
+        if (type == "next") panelIdStyle = "-next";
         return (
             <div className={rootClass}>
+                {<p className={'panelItem-num' + panelIdStyle} style={panelTextStyle}>{panelText}</p>}
                 <div className='panelItem-header'>
-                     {icon && (
-                        <Icon svg={svg} type={icon} size={iconSize}/>
-                    )}
+
                     {!svg && <span></span>} 
-                    {type !== 'icon' && <span className={'panel-title'} style={panelTitleStyle}>{panelTitle}</span>}
+                    {type !== 'icon' && <p className={'panel-title'} style={panelTitleStyle}>{panelTitle}</p>}
                 </div>
-                {<span className={'panelItem-num'} style={panelTextStyle}>{panelText}</span>}
+                
             </div>
         )
     }
@@ -37,7 +39,6 @@ TopPanelItem.propTypes ={
     className: PropTypes.string,
     panelTitle: PropTypes.string,
     panelText: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    icon: PropTypes.string,
     iconSize: PropTypes.number,
     svg: PropTypes.bool,
     firstItem: PropTypes.bool
@@ -48,7 +49,6 @@ TopPanelItem.defaultProps = {
     panelTitle: '',
     panelText: '',
     svg: true,
-    icon: '',
     iconSize: 30,
     firstItem: false,
 }

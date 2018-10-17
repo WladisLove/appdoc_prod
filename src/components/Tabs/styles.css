@@ -1,20 +1,13 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .ant-tabs-tab {
   text-transform: uppercase;
-  font-family: 'RobotoRegular';
+  font-family: "RobotoRegular";
   font-size: 11px;
 }
 .ant-tabs-tab-active {
-  font-family: 'RobotoBold';
+  font-family: "RobotoBold";
+}
+.ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
+  background-color: #21bedd;
+  height: 4px;
+  border-radius: 2px;
 }

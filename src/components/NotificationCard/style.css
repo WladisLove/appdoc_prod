@@ -19,7 +19,6 @@
 .notification-card {
   margin-left: -350px;
   width: 425px;
-  position: fixed;
 }
 .notification-card .ant-card-head {
   background-color: #fdc401;
@@ -37,12 +36,4 @@
 }
 .notification-card .scroll {
   max-height: 65vh;
-}
-.notification-card .ps__rail-x:hover > .ps__thumb-x,
-.notification-card .ps__rail-x:focus > .ps__thumb-x,
-.notification-card .ps__rail-y:hover > .ps__thumb-y,
-.notification-card .ps__rail-y:focus > .ps__thumb-y,
-.notification-card .ps__thumb-x,
-.notification-card .ps__thumb-y {
-  background-color: #fdc401 !important;
 }

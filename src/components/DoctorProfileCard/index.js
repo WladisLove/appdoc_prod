@@ -7,7 +7,7 @@ import Hoc from "../Hoc"
 import './styles.css'
 
 class DoctorProfileCard extends React.Component{
-
+    
     shouldComponentUpdate(nextProps){
         return (this.props.timesRated !== nextProps.timesRated)
                     || (this.props.timesRated !== nextProps.timesRated)
@@ -17,34 +17,24 @@ class DoctorProfileCard extends React.Component{
     }
 
     render(){
-        const {short, name, specialty, isUser} = this.props;
-        let specialtyOneArray =[];
-        specialty.map((elem)=> {
-            specialtyOneArray.push(...elem)
-        });
-        let spec = specialtyOneArray.length ?  specialtyOneArray.map(function(elem) {
-            return elem.toUpperCase();
-        }): "";
-        spec = spec ? spec.join(", ") : spec;
+        const {short, name, specialty, isUser} = this.props; 
+        
+        const spec = specialty.map(function(elem) {
+            return elem.map(function(elem2) {
+                return elem2.toUpperCase();
+            })     
+        }).join(", ");
 
         const rootClass = short ?
-            (isUser ?
+            (isUser ? 
             "patientProfileCard-short" : "doctorProfileCard-short")
-            : (isUser ?
+            : (isUser ? 
                 "patientProfileCard" : "doctorProfileCard");
 
         return (
             <div className={rootClass}>
                 <ProfileAvatar owner="doctor" {...this.props} short={short} size={(short ? 'medium' : 'large')}/>
                 <div className={'doctorProfileCard-name'}>{name}</div>
-                {
-                    isUser ? null : (
-                        <Hoc>
-                            <div className={'doctorProfileCard-specialty'}>{spec}</div>
-                            <RatePanel {...this.props} disable={true}/>
-                        </Hoc>
-                    )
-                }
             </div>
         )
     }
