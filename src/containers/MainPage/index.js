@@ -82,6 +82,7 @@ class MainPage extends React.Component{
 				getCompletedApps = {this.props.onGetCompletedApp}
                 onSubmitReview={this.props.makeReview}
                 makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
+                cancelAppByPatient = {this.props.cancelAppByPatient}
             />
 		) : (
 			<DoctorPage
@@ -144,7 +145,8 @@ const mapDispatchToProps = dispatch => {
 		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file)),
-        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files))
+        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),
+        cancelAppByPatient: (id) => dispatch(actions.cancelAppByPatient(id))
     }
 };
 
