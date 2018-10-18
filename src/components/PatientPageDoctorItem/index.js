@@ -55,7 +55,7 @@ const PatientPageDoctorItem = props => {
                         </div>
                         <div className='page__doctor-item-speciality'>{doctorSpeciality}</div>
                         <div className='page__doctor-item-category'>{doctorCategory}</div>
-                        <div className='page__doctor-item-exp'>Стаж работы {doctorExp} лет</div>
+                        <div className='page__doctor-item-exp'>Стаж работы {doctorExp}</div>
                     </div>
                 </div>
                 <div className='page__doctor-item-block'>

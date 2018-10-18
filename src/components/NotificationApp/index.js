@@ -56,6 +56,7 @@ class NotificationApp extends React.Component {
                     visible={this.state.visible}
                     onVisibleChange={this.handleVisibleChange}
                     placement="bottomLeft"
+                    overlayStyle = {{position: "fixed"}}
                 >
 
                         <div className="notific_container" >
