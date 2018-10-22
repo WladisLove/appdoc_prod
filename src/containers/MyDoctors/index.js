@@ -57,7 +57,7 @@ class Patients extends React.Component{
 	onDeleteDoctorHandler = (id, patientName) => {
 		const {removeDoctor} = this.props;
         Modal.confirm({
-            title: `Вы действительно хотите удалить доктора?`,
+            title: `Вы действительно хотите удалить дока?`,
             content: `${patientName} будет удален из списка докторов`,
             width: '445px',
             okText: 'Да',
