@@ -16,10 +16,13 @@ class AddNewPatientItem extends React.Component{
 
         flag==="add" ? this.props.onAdd(this.props.id) :  this.props.onDelete(this.props.id, this.props.name);
     }
-
+    highlight = (text, higlight) => {
+        let parts = text.split(new RegExp(`(${higlight})`, 'gi'));
+        return <span>{parts.map(part => part.toLowerCase() === higlight.toLowerCase() ? <b>{part}</b> : part)}</span>;
+    }
     render(){
         const { name, age, avatar, online, isSearchItem, usertype, academicdegree,
-            academicstatus, category, specialitys, favorite} = this.props;
+            academicstatus, category, specialitys, favorite, searchQuery} = this.props;
 
         return (
             <div className='new-patient-item' onClick={() => this.props.onGoto(this.props.id)}>
@@ -27,14 +30,20 @@ class AddNewPatientItem extends React.Component{
                     <ProfileAvatar owner="patient" online={online} img={avatar} size='small'/>
                 </div>
                 <div className='new-patient-info'>
-                    <div className='new-patient-name'>{name}</div>
-                    <div className='new-patient-age'>{
-                        usertype === "doc" ? (
-                            (specialitys ? specialitys.join(". ")+ ". " : "") +
-                            (academicdegree ? academicdegree+ ". " : "") +
-                            (academicstatus ? academicstatus+ ". " : "") +
-                            (category ? category + ". " : "")
-                        ) : age + " лет"} </div>
+                    <div className='new-patient-name'>{this.highlight(name, searchQuery)}</div>
+                    <div className='new-patient-age'>
+
+                        {
+                            usertype === "doc" ?
+                                <span>
+                                    {specialitys ? this.highlight(specialitys.join(". ") + ". ", searchQuery) : ""}
+                                    {academicdegree ? academicdegree + ". " : ""}
+                                    {academicstatus ? academicstatus + ". " : ""}
+                                    {category ? category + ". " : ""}
+                                </span>
+                                : age + " лет"
+                        }
+                    </div>
                 </div>
                 {
                     !isSearchItem && <div className='new-patient-btn'>
