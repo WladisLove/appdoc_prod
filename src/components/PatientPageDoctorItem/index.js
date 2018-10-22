@@ -53,6 +53,8 @@ const PatientPageDoctorItem = props => {
                             className='page__doctor-item-name'
                             onClick={onGoTo}>{doctorName}
                         </div>
+
+                        {/*SPECIALITIES SHOULD BE AN ARRAY, CHANGE THEN (22.10.2018)*/}
                         <div className='page__doctor-item-speciality'>{doctorSpeciality}</div>
                         <div className='page__doctor-item-category'>{doctorCategory}</div>
                         <div className='page__doctor-item-exp'>Стаж работы {doctorExp}</div>
