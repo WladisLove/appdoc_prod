@@ -20,9 +20,6 @@ class AddNewPatientItem extends React.Component{
         let parts = text.split(new RegExp(`(${higlight})`, 'gi'));
         return <span>{parts.map(part => part.toLowerCase() === higlight.toLowerCase() ? <b>{part}</b> : part)}</span>;
     }
-    renderSpecs = () => {
-
-    }
     render(){
         const { name, age, avatar, online, isSearchItem, usertype, academicdegree,
             academicstatus, category, specialitys, favorite, searchQuery} = this.props;
