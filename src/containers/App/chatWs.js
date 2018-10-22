@@ -44,7 +44,7 @@ export function createSocket(wsUrl,_props,_callbacks) {
                 resgisterResponse(parsedMessage);
                 break;
             case 'startReception':
-            console.log(callbacks.get_history());
+            console.log(callbacks.get_history()); // test
             callbacks.get_history().location.pathname !== '/app/chat'
                 && callbacks.get_history().push('/app/chat');
                 callbacks.setReceptionStatus(true);
