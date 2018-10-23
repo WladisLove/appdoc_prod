@@ -1,8 +1,26 @@
+.auto__complete {
+  align-items: center;
+  display: flex;
+}
+.auto__complete:before {
+  content: "\e931";
+  display: inline-block;
+  position: relative;
+  color: #111;
+  font-family: icomoon;
+  margin-right: 15px;
+}
+.auto__complete-search {
+  display: inline-block;
+  width: 100%;
+}
 .auto__complete .ant-input {
   font-size: 18px;
-  font-style: italic;
-  font-weight: bold;
-  color: #000000;
+  font-family: RobotoRegularItalic, sans-serif;
+  color: #111;
+}
+.auto__complete .ant-input::placeholder {
+  color: #111;
 }
 .auto__complete-overlay {
   position: fixed;
@@ -59,3 +77,4 @@
 .auto__complete-list .new-patient-item {
   padding: 14px 30px;
 }
+/*# sourceMappingURL=style.css.map */

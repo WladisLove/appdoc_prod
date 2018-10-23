@@ -2,31 +2,22 @@
     position: relative;
     overflow: hidden;
     padding: 0.45rem 0;
-    background-color: #fff;
     display: flex;
     justify-content: space-around;
     border-radius: 12px;
     margin-bottom: 15px !important;
-    &:before {
-        content: '';
-        background-image: url(../../img/icon-fasol/footer-people.png);
-        background-repeat: no-repeat;
-        width: 100vw;
-        height: 100vw;
-        border: none;
-        border-radius: 100%;
-        position: absolute;
-        left: -65vw;
-        top: -12vw;
-    }
+    background: #fff url(../../img/icon-fasol/footer-people.png) no-repeat;
+    background-position: left;
+    background-size: 50% auto;
+
     &-description {
         z-index: 2;
         padding-left: 10px;
-        max-width: 40%;
+        max-width: 35%;
         font-style: italic;
         font-weight: bold;
         margin-right: 120px;
-        
+
         &-h3 {
             color: #ffc800;
             font-size: 20px;
@@ -39,4 +30,10 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
+}
+@media screen and (max-width: 1600px) {
+    .top-panel {
+        background-size: auto 100%;
+        background-position: -20%;
+    }
 }

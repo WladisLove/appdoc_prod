@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import './styles.css'
 
 import {Menu} from 'antd'
-import DoctorProfileCard from '../DoctorProfileCard'
+import ProfileCard from '../ProfileCard'
 import Icon from '../Icon'
 import Button from "../Button"
 
@@ -37,9 +37,9 @@ const SideNav = props => {
                 <div className="logo" onClick={props.onLogoClick}><span className="logo-img"></span></div>
 
                 <div className='overwlow-a-y'>
-                    <DoctorProfileCard {...props}
-                                        online={true}
-                                       short={isShort}/>
+                    <ProfileCard {...props}
+                                 online={true}
+                                 short={isShort}/>
 
                     <Menu
                         mode="inline"

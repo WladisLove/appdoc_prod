@@ -203,12 +203,13 @@
   color: #fff;
   background-color: #21bedd;
 }
-.btn-type-pink {
+.btn-type-border-pink {
   background-color: #fff;
   color: #ff7daa;
   border: 1px solid #ff7daa;
+  font-family: RobotoMedium, sans-serif;
 }
-.btn-type-pink:hover {
+.btn-type-border-pink:hover {
   color: #fff;
   background-color: #ff7daa;
 }
@@ -338,3 +339,4 @@
   cursor: default;
   pointer-events: none;
 }
+/*# sourceMappingURL=style.css.map */

@@ -116,37 +116,38 @@ class AutoComplete extends React.Component{
 
         return (
             <div className='auto__complete'>
-                <div className={overlayClass} onClick={() => this.focusHandler(false)}/>
                 <div className='auto__complete-search'>
+                    <div className={overlayClass} onClick={() => this.focusHandler(false)}/>
                     <Input
-                        placeholder='Поиск'
+                        placeholder='Поиск...'
                         onChange={this.changeHandleSearch}
                         onKeyDown={this.handleKeyDown}
                         ref = {inp => {this.input = inp}}
                     />
-                </div>
-                <div className={resultClass}>
-                    <div className='auto__complete-title'>
-                        Результаты поиска
-                        {this.state.searchRes.length && this.state.inputValue.length > 2
-                            ? <span className='auto__complete-count'>{this.state.searchRes.length}</span> : null }
-                        {this.state.loading ? <div className='auto__complete-title-spinner'><Spinner/></div> : null}
-                    </div>
-                    <ScrollArea
+                    <div className={resultClass}>
+                        <div className='auto__complete-title'>
+                            Результаты поиска
+                            {this.state.searchRes.length && this.state.inputValue.length > 2
+                                ? <span className='auto__complete-count'>{this.state.searchRes.length}</span> : null }
+                            {this.state.loading ? <div className='auto__complete-title-spinner'><Spinner/></div> : null}
+                        </div>
+                        <ScrollArea
                             speed={1}
                             className="auto__complete-list"
                             contentClassName="content"
                             horizontal={false}>
 
-                    {this.state.inputValue.length > 2 ?
-                        (
-                            (this.state.searchRes).length ?
-                                this.patientsRender(this.state.searchRes)
-                                : <div className='entry-list'>{this.props.isUser ? "Докторов нет" : "Пациентов нет"}</div>
-                        )
-                        : (<div className='entry-list'>Введите больше символов для поиска</div>)}
-                    </ScrollArea>
+                            {this.state.inputValue.length > 2 ?
+                                (
+                                    (this.state.searchRes).length ?
+                                        this.patientsRender(this.state.searchRes)
+                                        : <div className='entry-list'>{this.props.isUser ? "Докторов нет" : "Пациентов нет"}</div>
+                                )
+                                : (<div className='entry-list'>Введите больше символов для поиска</div>)}
+                        </ScrollArea>
+                    </div>
                 </div>
+
             </div>
         )
     }

@@ -12,7 +12,7 @@ import Icon from "../../components/Icon";
 import Hoc from '../../hoc'
 import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
-const DoctorPage = props => {
+const CouchMain = props => {
 
     const gotoHandler = (id) => {
 		props.onSelectPatient(id);
@@ -61,7 +61,7 @@ const DoctorPage = props => {
 									props.history.push('/chat');
 								}}
 								isDoctor={true}
-								redirect={() => { props.history.push('/reviews'); }} 
+								redirect={() => { props.history.push('/reviews'); }}
 						extra={<a className="schedule-all-link"> <span class="span-all-queue">Весь список</span></a>}
 								/>
 						</Col>
@@ -83,4 +83,4 @@ const DoctorPage = props => {
     )
 }
 
-export default DoctorPage;
+export default CouchMain;

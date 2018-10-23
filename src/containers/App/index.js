@@ -4,10 +4,9 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Hoc from '../../hoc'
 import SideNav from '../../components/SideNav'
 import Header from "../../components/Header";
-import { Modal } from 'antd';
 
 import {connect} from 'react-redux';
-import {createSocket, closeSocket,register} from './chatWs'
+import {createSocket, closeSocket, register} from './chatWs'
 
 import * as actions from '../../store/actions'
 import './styles.css';
@@ -16,8 +15,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";
-import ReportBugModal from "../../components/ReportBugModal";
-import ReviewsModal from "../../components/ReviewsModal";
+
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -29,9 +27,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             collapsed: true,
-            notifications: [],
-            bugfixVisible: false,
-            mustLeaveReview: false
+            notifications: []
         };
     }
 
@@ -104,19 +100,7 @@ class App extends React.Component {
         if(this.props.id){
             this.runNotificationsWS();
             this.runChatWS();
-            this.props.getEmergencyAvailability();
-            if(this.props.auth.mode === "user") {
-                this.props.hasNoReviewToFreeApp().then(res=>{
-                    if(res.result.length) {
-                        this.setState({mustLeaveReview: true, infoForReview:{
-                                id_doc: res.result[0].id_doc,
-                                id_zap: res.result[0].idMA
-                            }})
-                    }
-                })
-            }
         }
-
     }
 
     componentWillMount(){
@@ -129,10 +113,6 @@ class App extends React.Component {
         }, this.props.history);
 
         this.props.id && (this.props.getDocShortInfo());
-    }
-
-    makeReview = (obj) => {
-        return this.props.makeReview(obj).then( res =>  res)
     }
 
     gotoHandler = (id) => {
@@ -148,15 +128,6 @@ class App extends React.Component {
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
         const isUser = (this.props.mode === "user");
-        if (this.state.mustLeaveReview) {
-            return <ReviewsModal
-                visible={this.state.mustLeaveReview}
-                info={this.state.infoForReview}
-                onSubmit={this.makeReview}
-                mustLeave={this.state.mustLeaveReview}
-                refresh={()=>this.setState({mustLeaveReview: false})}
-            />
-        }
         return (
             <div className="main">
             {
@@ -166,7 +137,6 @@ class App extends React.Component {
                     <div className={siderClass}>
 
                     <SideNav {...this.props.shortDocInfo}
-                            rateValue={+(this.props.shortDocInfo.rateValue)}
                             onClick={this.toggle}
                             onLogoClick={this.logoClick}
                             menuItems={isUser ? menuPatient : menuDoc}
@@ -206,10 +176,7 @@ class App extends React.Component {
                                 checked={this.props.isIn}
                                 disabled={this.props.isIn && !this.props.isUserSet}
                                 logout={this.props.onLogout}
-                                getFreeVisitIntervals = {(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
-                                freeVisitsIntervals = {this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
                                 onMakeVisit = {(obj)=>this.props.onMakeVisit(obj)}
-                                emergencyAvailable={this.props.emergencyAvailable}
 
                         />
                     </div>
@@ -233,29 +200,7 @@ class App extends React.Component {
                         <div className="main-footer-item company">AppDoc 2018</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div>
-                    <button id="bugfix" onClick={()=>this.setState({bugfixVisible: true})}></button>
-                    { this.state.isExtrActual && this.props.isIn
-                        && <button className='emergencyCall' onClick={this.props.docEmergancyCallSend}>
-                            Запрос на экстренный вызов</button> }
-                    {
-                        (this.props.isEmergRequsetReceived)
-                            && (this.props.isEmergRequsetConfirmed ?
-                                (
-                                    this.props.docEmergancyCallReceivedMark(),
-                                    this.props.onSelectReception(this.props.emergVisitId),
-                                    this.props.history.push('/app/chat')
-                                ) :
-                                Modal.error({
-                                    title: 'Запись не осуществлена',
-                                    content: 'Экстренный вызов не найден',
-                                    onOk: this.props.docEmergancyCallReceivedMark,
-                                }))
-                    }
-                    <ReportBugModal
-                        visible={this.state.bugfixVisible}
-                        onCancel={()=>this.setState({bugfixVisible: false})}
-                        onSend={this.props.reportBug}
-                    />
+
                 </Hoc>)
             : (
                 <Redirect to='/login'/>
@@ -281,8 +226,6 @@ const mapStateToProps = state =>{
         isEmergRequsetConfirmed: state.loading.isConfirmed,
         emergVisitId: state.loading.visitId,
         isEmergRequsetReceived: state.loading.isReceived,
-
-
             from: state.chatWS.from,
             to: state.chatWS.to,
             receptionStarts: state.chatWS.receptionStarts,
@@ -307,15 +250,9 @@ const mapDispatchToProps = dispatch => {
         getNotifications: (id) => dispatch(actions.getNotifications(id)),
         readNotification: (id) => dispatch(actions.readNotification(id)),
         setExInfo: ({isIn, isUserSet}) => dispatch(actions.setExIntervalInfo(isIn, isUserSet)),
-        switchExInterval: (flag) => dispatch(actions.switchExInterval(flag)),
-        onGetFreeVisitsBySpeciality: (spec) => dispatch(actions.getFreeVisitsBySpec(spec)),
         onMakeVisit: (info)=> dispatch(actions.setReceptionByPatient(info)),
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
         getEmergencyAvailability: () => dispatch(actions.getEmergencyAvailability()),
-
-        docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
-        docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),
-
         setChatFromId: (id) => dispatch(actions.setChatFromId(id)),
         setChatToId: (id) => dispatch(actions.setChatToId(id)),
         setIsCallingStatus: (isCalling) => dispatch(actions.setIsCallingStatus(isCalling)),
@@ -323,8 +260,6 @@ const mapDispatchToProps = dispatch => {
         setChatStory: (chat) => dispatch(actions.setChatStory(chat)),
         onSelectReception: (id, callback) => dispatch(actions.seletVisit(id, callback)),
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
-        reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
-        hasNoReviewToFreeApp: ()=>dispatch(actions.hasNoReviewToFreeApp()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
     }
 };

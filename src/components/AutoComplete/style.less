@@ -1,9 +1,25 @@
 .auto__complete {
+    align-items: center;
+    display: flex;
+    &:before {
+        content: "\e931";
+        display: inline-block;
+        position: relative;
+        color: #111;
+        font-family: icomoon;
+        margin-right: 15px;
+    }
+    &-search {
+        display: inline-block;
+        width: 100%;
+    }
     .ant-input {
         font-size: 18px;
-        font-style: italic;
-        font-weight: bold;
-        color: rgba(0, 0, 0, 1);
+        font-family: RobotoRegularItalic, sans-serif;
+        color: #111;
+        &::placeholder {
+            color: #111;
+        }
     }
     &-overlay {
         position: fixed;
