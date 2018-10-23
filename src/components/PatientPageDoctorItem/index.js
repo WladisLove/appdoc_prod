@@ -9,12 +9,13 @@ import './style.css'
 import '../../icon/style.css'
 
 const PatientPageDoctorItem = props => {
+    console.log(props, "PROPS EVERY DOC");
     const handleClick = () => {
         props.onDelete(props.id, props.doctorName);
     }
 
-    const { id, doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorExp,
-            doctorPrice, doctorLanguages, doctorChild, doctorAvatar} = props;
+    const { id, doctorRate, doctorReviews, doctorFavorite, doctorName, doctorCategory, doctorExp,
+            doctorPrice, doctorLanguages, doctorChild, doctorAvatar, speciality} = props;
     const onGoTo = () => {
         props.onGoTo(id);
     };
@@ -55,7 +56,9 @@ const PatientPageDoctorItem = props => {
                         </div>
 
                         {/*SPECIALITIES SHOULD BE AN ARRAY, CHANGE THEN (22.10.2018)*/}
-                        <div className='page__doctor-item-speciality'>{doctorSpeciality}</div>
+                        <div className='page__doctor-item-speciality'>{speciality.reduce((acc, current)=> {
+                            return `${acc}, ${current}`
+                        })+"."}</div>
                         <div className='page__doctor-item-category'>{doctorCategory}</div>
                         <div className='page__doctor-item-exp'>Стаж работы {doctorExp}</div>
                     </div>
