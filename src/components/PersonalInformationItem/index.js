@@ -88,12 +88,15 @@ class PersonalInformationItemForm extends React.Component{
                             )}
                         </div>
                         <FormItem>
-                            {getFieldDecorator('about', {initialValue: about})(
-                                <TextArea label="О себе"
-                                          className="step-form-item"
-                                          style={{height:"200px"}}
+                            <div className="textarea-label">О себе</div>
+                            {getFieldDecorator('about', {
+                                initialValue: about
+                            })(
 
-                                />
+                                    <textarea className="textarea-field"
+                                              style={{height: "200px"}}
+
+                                    />
                             )}
                         </FormItem>
                     </div>
