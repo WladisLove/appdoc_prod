@@ -55,7 +55,7 @@ const PatientPageDoctorItem = props => {
                             onClick={onGoTo}>{doctorName}
                         </div>
 
-                        {/*SPECIALITIES SHOULD BE AN ARRAY, CHANGE THEN (22.10.2018)*/}
+                        
                         <div className='page__doctor-item-speciality'>{speciality.reduce((acc, current)=> {
                             return `${acc}, ${current}`
                         })+"."}</div>
