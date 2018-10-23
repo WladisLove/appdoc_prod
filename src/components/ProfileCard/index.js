@@ -14,25 +14,19 @@ class ProfileCard extends React.Component{
         )
     }
     render(){
-        const {short, name} = this.props;
-        const rootClass = short ? "profileCard-short" : "profileCard";
+        const {isShort, name, img} = this.props;
+        const rootClass = isShort ? "profileCard-short" : "profileCard";
         return (
             <div className={rootClass}>
-                <ProfileAvatar owner="doctor" {...this.props} short={short} size={(short ? 'medium' : 'large')}/>
-                <div className={'doctorProfileCard-name'}>{name}</div>
+                <ProfileAvatar img={img} short={isShort} size={(isShort ? 'medium' : 'large')}/>
+                <div className={'profileCard-name'}>{name}</div>
             </div>
         )
     }
 }
 
-ProfileCard.propTypes = {
-    name: PropTypes.string,
-    short: PropTypes.bool,
-};
+ProfileCard.propTypes = {};
 
-ProfileCard.defaultProps = {
-    name: '',
-    short: false,
-};
+ProfileCard.defaultProps = {};
 
 export default ProfileCard;

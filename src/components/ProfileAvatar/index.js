@@ -14,24 +14,14 @@ class ProfileAvatar extends React.Component{
         const avatarClass = cn('profileImg');
         return(
             <div className={rootClass}>
-                <div className={avatarClass} style={{background: back,backgroundSize: 'cover',}}>
-
-                </div>
+                <div className={avatarClass} style={{background: back, backgroundSize: 'cover'}}></div>
             </div>
-
         )
     }
 }
 
-ProfileAvatar.propTypes = {
-    img: PropTypes.string,
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
-    online: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-};
+ProfileAvatar.propTypes = {};
 
-ProfileAvatar.defaultProps = {
-    img: '',
-    size: 'medium'
-};
+ProfileAvatar.defaultProps = {};
 
 export default ProfileAvatar;
