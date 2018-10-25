@@ -6,7 +6,7 @@
   margin: 5px 0 !important;
 }
 :global(.ant-menu-item) > a {
-  margin: auto 0 auto 66px;
+  margin: auto 0 auto 40px;
 }
 .ant-menu-item-selected {
   background-color: transparent !important;
@@ -134,10 +134,16 @@
   align-items: center;
 }
 .sidenav-root-menu-item > .anticon {
-  margin: auto 20px auto 0;
+  width: 50px;
+  margin: 0 20px 0 0!important;
+  display: flex;
+  justify-content: center;
 }
 .sidenav-root-menu-item > .icon {
-  margin: auto 20px auto 0;
+  width: 50px;
+  margin: 0 20px 0 0!important;
+  display: flex;
+  justify-content: center;
 }
 .sidenav-root-menu-short .selectedNavLink {
   display: flex !important;
