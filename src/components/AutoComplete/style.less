@@ -2,11 +2,11 @@
     align-items: center;
     display: flex;
     &:before {
-        content: "\e931";
+        content: "\e911";
         display: inline-block;
         position: relative;
         color: #111;
-        font-family: icomoon;
+        font-family: icomoon!important;
         margin-right: 15px;
     }
     &-search {
@@ -53,6 +53,7 @@
         font-size: 20px;
         display: flex;
         align-items: center;
+        border-bottom: 1px solid #e1e1e1;
         &-spinner {
             padding-left: 20px;
         }
@@ -70,6 +71,9 @@
         height: 20px;
         padding: 0 15px;
         margin-left: 20px;
+    }
+    .auto__complete-results {
+        height: 430px;
     }
     &-list {
         position: relative;

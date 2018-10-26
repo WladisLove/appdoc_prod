@@ -102,8 +102,8 @@ export const menuDoc =[
     {name: 'app/homework', title: 'Домашние задания', iconType: 'order-form', svg: true},
     {name: 'app/patients', title: 'Мои студенты', iconType: 'user',},
     {name: 'app/personal-info', title: 'Мой профиль', iconType: 'setting_edit', svg: true},
-    {name: 'app/reviews', title: 'Оплата', iconType: 'chat', svg: true},
-    {name: 'app/reviews', title: 'Получить бонус', iconType: 'chat', svg: true},
+    {name: 'app/reviews', title: 'Оплата', iconType: 'credit-card', svg: true},
+    {name: 'app/reviews', title: 'Получить бонус', iconType: 'bonus', svg: true},
 ];
 
 export const menuPatient =[

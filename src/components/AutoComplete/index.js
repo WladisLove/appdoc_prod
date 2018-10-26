@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ScrollArea from 'react-scrollbar'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import AddNewPatientItem from '../AddNewPatientItem'
 import Input from '../Input'
 import Spinner from '../Spinner'
@@ -131,20 +131,22 @@ class AutoComplete extends React.Component{
                                 ? <span className='auto__complete-count'>{this.state.searchRes.length}</span> : null }
                             {this.state.loading ? <div className='auto__complete-title-spinner'><Spinner/></div> : null}
                         </div>
-                        <ScrollArea
-                            speed={1}
-                            className="auto__complete-list"
-                            contentClassName="content"
-                            horizontal={false}>
+                        <PerfectScrollbar
+                            style={{height: 500}}
+                            className="auto__complete-results"
 
-                            {this.state.inputValue.length > 2 ?
-                                (
-                                    (this.state.searchRes).length ?
-                                        this.patientsRender(this.state.searchRes)
-                                        : <div className='entry-list'>{this.props.isUser ? "Докторов нет" : "Пациентов нет"}</div>
-                                )
-                                : (<div className='entry-list'>Введите больше символов для поиска</div>)}
-                        </ScrollArea>
+                        >
+                            <div>
+                                {this.state.inputValue.length > 2 ?
+                                    (
+                                        (this.state.searchRes).length ?
+                                            this.patientsRender(this.state.searchRes)
+                                            : <div
+                                                className='entry-list'>{this.props.isUser ? "Докторов нет" : "Пациентов нет"}</div>
+                                    )
+                                    : (<div className='entry-list'>Введите больше символов для поиска</div>)}
+                            </div>
+                        </PerfectScrollbar>
                     </div>
                 </div>
 
