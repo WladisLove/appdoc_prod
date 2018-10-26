@@ -289,6 +289,7 @@ const incomingCall = (message) => {
                         audio:true,
                         video:false
                     },
+                    localVideo : videoInput,
                     remoteVideo : videoOutput,
                     onicecandidate : onIceCandidate
                 };
