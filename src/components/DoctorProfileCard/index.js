@@ -25,7 +25,11 @@ class DoctorProfileCard extends React.Component{
         let spec = specialtyOneArray.length ?  specialtyOneArray.map(function(elem) {
             return elem.toUpperCase();
         }): "";
-        spec = spec ? spec.join(", ") : spec;
+        if(spec.length > 5) {
+            spec = spec.slice(0, 4).join(", ") + "..."
+        } else {
+            spec = spec ? spec.join(", ") : spec;
+        }
 
         const rootClass = short ?
             (isUser ?

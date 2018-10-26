@@ -66,19 +66,19 @@ class ChatCard extends React.Component {
 	}
 
 	startReceptionHandler = () => {
-    	if(this.props.appShouldStartAt > +moment().format("X")+300) {
-    		message.error("Приём можно начать за 5 минут до указанного времени")
-    		return;
-		}
+    	// if(this.props.appShouldStartAt > +moment().format("X")+300) {
+    	// 	message.error("Приём можно начать за 5 минут до указанного времени")
+    	// 	return;
+		// }
 
 		startReception();
 		this.props.changeReceptionStatus(this.props.receptionId, "begin")
 	}
 
 	onCall = () => {
-        if(this.props.appShouldStartAt > +moment().format("X")+300) {
-            return;
-        }
+        // if(this.props.appShouldStartAt > +moment().format("X")+300) {
+        //     return;
+        // }
 		call();
 	}
 

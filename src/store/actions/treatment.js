@@ -98,9 +98,9 @@ export const addFileToApp = (file, id) => {
             id: id,
             files: [file]
         };
+        console.log(obj, "Объект для отправки на /catalog.doc2/addFilesInMA для загрузки файла")
         return axios.post('/catalog.doc2/addFilesInMA',
             JSON.stringify(obj))
-
             .catch(err => {
                 console.log(err);
             })
