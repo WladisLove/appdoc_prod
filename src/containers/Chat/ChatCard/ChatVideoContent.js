@@ -38,7 +38,11 @@ class ChatVideoContent extends React.Component {
 	}*/
     componentWillReceiveProps(nextProps) {
         this.setState({isActive: nextProps.filesActive})
-    }
+	}
+	componentDidMount(){
+		this.videoOut && this.videoOut.play();
+		this.videoIn && this.videoIn.play();
+	}
 
     filesRender = () => {
         const files = this.props.treatmFiles;
@@ -52,6 +56,14 @@ class ChatVideoContent extends React.Component {
     toggleFilesArea = () => {
         (!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
         this.setState(prev => ({isActive: !prev.isActive}));
+	}
+	setVideoOutRef = (video) => {
+        this.videoOut = video;
+        this.props.setVideoOut(video);
+	}
+	setVideoInRef = (video) => {
+        this.videoIn = video;
+        this.props.setVideoOut(video);
     }
 
 	renderCallArea = () => {
@@ -63,11 +75,13 @@ class ChatVideoContent extends React.Component {
 				<video className='chat-card-video__box'
 						poster={this.props.avatar}
 						autoPlay
-						ref={video => this.props.setVideoOut(video)}
+						playsInline
+						ref={this.setVideoOutRef}
 						></video>
 				<video className='chat-card-video__mini'
 						autoPlay
-						ref={video => this.props.setVideoIn(video)}
+						playsInline
+						ref={this.setVideoInRef}
 						></video>
                 <div className={panelClass}>
                     {this.props.receptionId &&(

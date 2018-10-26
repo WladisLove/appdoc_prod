@@ -361,7 +361,7 @@ export const call = () => {
     const visitInfo = callbacks.get_visitInfo();
     const {contactLevel} = visitInfo;
 
-    console.log('[video tags]',videoInput,videoOutput)
+    
     let options = contactLevel === 'video' ?
             {
                 localVideo : videoInput,

@@ -35,8 +35,15 @@ class ChatAudioContent extends React.Component {
 
         });
     };
+    componentDidMount(){
+        this.videoOut && this.videoOut.play();
+    }
     componentWillReceiveProps(nextProps) {
         this.setState({isActive: nextProps.filesActive})
+    }
+    setVideoOutRef = (video) => {
+        this.videoOut = video;
+        this.props.setVideoOut(video);
     }
 	renderCallArea = () => {
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isActiveChat});
@@ -45,8 +52,9 @@ class ChatAudioContent extends React.Component {
 		return (<Hoc>
 			<div className='chat-card-video__area'>
 				<video className='chat-card-video__box'
-						ref={video => this.props.setVideoOut(video)}
-						autoPlay
+						ref={this.setVideoOutRef}
+                        autoPlay
+                        playsInline
 						poster={avatar}
 						></video>
                 <div className={panelClass}>
