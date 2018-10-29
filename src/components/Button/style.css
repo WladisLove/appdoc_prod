@@ -274,6 +274,19 @@
 .btn-type-pink:hover .icon {
   color: #fff;
 }
+.btn-type-border-green {
+  background-color: #fff;
+  color: #2abc6c;
+  font-family: RobotoMedium, sans-serif;
+  font-size: 12px;
+  border: 1px solid #2abc6c;
+  border-radius: 0;
+  text-transform: none;
+}
+.btn-type-border-green:hover {
+  background-color: #2abc6c;
+  color: #fff;
+}
 .btn-type-bright-blue {
   background-color: #21bedd;
   color: #000;
@@ -339,4 +352,3 @@
   cursor: default;
   pointer-events: none;
 }
-/*# sourceMappingURL=style.css.map */

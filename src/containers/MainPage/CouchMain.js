@@ -3,14 +3,11 @@ import Row from "../../components/Row";
 import Col from "../../components/Col";
 import TopPanel from "../../components/TopPanel";
 import Reviews from "../../components/Reviews";
-import TreatmentTable from "../../components/TreatmentTable";
-import NewVisitModal from "../../components/NewVisitModal";
-import TableNoHead from "../../components/TableNoHead";
-import CancelVisitModal from "../../components/CancelVisitModal";
+import NearTrainings from "../../components/NearTrainings";
 import Icon from "../../components/Icon";
 
 import Hoc from '../../hoc'
-import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
+import MyStudents from "../../components/MyStudents";
 
 const CouchMain = props => {
 
@@ -28,57 +25,48 @@ const CouchMain = props => {
 
 					<Row>
 						<Col xs={14} xxl={7} className='section'>
-							<TableNoHead data={props.visits}
-										onGoto={(val) => gotoHandler(val)}
-										onBegin={(val) => {
-											props.onSelectReception(val)
-											props.history.push('/app/chat')
-										}}
-										onCancel={props.showCancel}
-										onAdd = {props.onAdd}
-							/>
+                            <NearTrainings
+                                onGoto={(val) => gotoHandler(val)}
+                                data={[{
+                                    start: 1540907648,
+                                    end: 1540908648,
+                                    discipline: "Вокал",
+                                    name: "Петров василий  васильевичв асильеви чвасильеви чвасильевич"
+                                }]}
+
+                            />
 						</Col>
 						<Col xs={14} xxl={8} className='section'>
-							<Reviews data={props.reviews}
-									title="Домашние задания"
-									 numToDisplay = {7}
-									 onGoto={(val) => gotoHandler(val)}
-									 onGotoChat={(id) => {
-                                        props.onSelectTretment(id);
-                                        props.history.push('/app/chat');
-                                    }}
-									 isDoctor={true}
-									 redirect={() => {props.history.push('/app/reviews');}}/>
+							я
 						</Col>
 
 						<Col xs={14} xxl={9} className='section'>
-							<Reviews data={props.reviews}
-								title="Мои коучи"
-								numToDisplay={7}
-								onGoto={(val) => gotoHandler(val)}
-								onGotoChat={(id) => {
-									props.onSelectTretment(id);
-									props.history.push('/chat');
-								}}
-								isDoctor={true}
-								redirect={() => { props.history.push('/reviews'); }}
-						extra={<a className="schedule-all-link"> <span class="span-all-queue">Весь список</span></a>}
-								/>
+                            <MyStudents
+                                onGoto={(val) => gotoHandler(val)}
+                                data={[{
+                                    profileAvatar: 'https://pp.userapi.com/c850020/v850020281/649d7/mOIcjm823rA.jpg',
+                                    online: true,
+                                    discipline: "Вокал",
+                                    name: "Петров василий чвасильевич",
+                                    lastMessage: "Последнее сообщение, asdas Lorem Ipsum is simply dummy text of the " +
+                                        "printing and typesetting industry. Lorem Ipsum has been the industry's " +
+                                        "standard dummy text ever since the 1500s, when a"
+                                },
+								{
+									profileAvatar: 'https://pp.userapi.com/c850020/v850020281/649d7/mOIcjm823rA.jpg',
+									online: true,
+									discipline: "Вокал",
+									name: "Петров ВАСКЕ чвасильевич",
+									lastMessage: "Последнее сообщение, asdas Lorem Ipsum is simply dummy text of the " +
+										"printing and typesetting industry. Lorem Ipsum has been the industry's " +
+										"standard dummy text ever since the 1500s, when a"
+								}
+								]}
+
+                            />
 						</Col>
 					</Row>
-					<NewVisitModal visible={props.addModal}
-									date={new Date()}
-									isChoosebleTime={true}
-								    intervals={props.intervals}
-									patients={props.patients}
-									onCancel={props.closeAdd}
-									onSave = {props.onSaveNewVisit}
-					/>
-					<CancelVisitModal visible={props.cancelModal}
-									onGoto={() => {}}
-									onCancel={props.closeCancel}
-									onSave={props.saveCancel}
-					/>
+
                 </Hoc>
     )
 }
