@@ -66,7 +66,7 @@ export function createSocket(wsUrl,_props,_callbacks) {
 				incomingCall(parsedMessage);
                 break;
             case 'startCommunication':
-				startCommunication(parsedMessage);
+                startCommunication(parsedMessage);
                 break;
             case 'stopCommunication':
 				stop(true);
@@ -289,7 +289,6 @@ const incomingCall = (message) => {
                         audio:true,
                         video:false
                     },
-                    localVideo : videoInput,
                     remoteVideo : videoOutput,
                     onicecandidate : onIceCandidate
                 };
@@ -372,6 +371,7 @@ export const call = () => {
                     audio:true,
                     video:false
                 },
+                remoteVideo: videoOutput,
                 onicecandidate : onIceCandidate
             };
 

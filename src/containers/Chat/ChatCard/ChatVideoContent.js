@@ -11,6 +11,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import ChatFiles from "../../../components/ChatFiles";
 
+
 class ChatVideoContent extends React.Component {
 	constructor(props){
 		super(props);
@@ -37,11 +38,36 @@ class ChatVideoContent extends React.Component {
 		</Hoc>)
 	}*/
     componentWillReceiveProps(nextProps) {
+		const { id_treatment: next_id_treatment, 
+			receptionId: nextReceptionId, 
+			isCalling: nextIsCalling } = nextProps;
+		const { id_treatment, receptionId, isCalling } = this.props;
+		(next_id_treatment !== id_treatment || nextReceptionId !== receptionId || nextIsCalling !== isCalling)
+			&& (
+				this.startPlayVideo(this.videoOut, this.videoOutPlayInterval),
+				this.videoIn && this.videoIn.play()
+			);
         this.setState({isActive: nextProps.filesActive})
 	}
 	componentDidMount(){
-		this.videoOut && this.videoOut.play();
-		this.videoIn && this.videoIn.play();
+		this.startPlayVideo(this.videoOut, this.videoOutPlayInterval);
+	}
+	startPlayVideo = (video, intervalVar) =>{
+		let promise;
+		this.videoOut && (promise = this.videoOut.play());
+		console.log('[startPlayVideo] ');
+		promise && promise.then(() => {
+			console.log('Automatic playback started!');
+			clearInterval(intervalVar);
+		})
+		.catch(() => {
+			console.log('Automatic playback was prevented!');
+			!intervalVar && (intervalVar = setInterval(this.startPlayVideo(video), 300))
+		})
+	}
+	componentWillUnmount(){
+		clearInterval(this.videoInPlayInterval);
+		clearInterval(this.videoOutPlayInterval);
 	}
 
     filesRender = () => {
@@ -58,12 +84,13 @@ class ChatVideoContent extends React.Component {
         this.setState(prev => ({isActive: !prev.isActive}));
 	}
 	setVideoOutRef = (video) => {
-        this.videoOut = video;
+		this.videoOut = video; 
         this.props.setVideoOut(video);
 	}
 	setVideoInRef = (video) => {
-        this.videoIn = video;
-        this.props.setVideoOut(video);
+		this.videoIn = video;
+		video && video.play();
+        this.props.setVideoIn(video);
     }
 
 	renderCallArea = () => {
@@ -74,14 +101,15 @@ class ChatVideoContent extends React.Component {
 			<div className='chat-card-video__area'>
 				<video className='chat-card-video__box'
 						poster={this.props.avatar}
-						autoPlay
+						//autoPlay
 						playsInline
 						ref={this.setVideoOutRef}
 						></video>
 				<video className='chat-card-video__mini'
-						autoPlay
+						//autoPlay
 						playsInline
 						ref={this.setVideoInRef}
+						id='setVideoInRef'
 						></video>
                 <div className={panelClass}>
                     {this.props.receptionId &&(
