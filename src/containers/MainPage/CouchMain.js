@@ -8,6 +8,7 @@ import Icon from "../../components/Icon";
 
 import Hoc from '../../hoc'
 import MyStudents from "../../components/MyStudents";
+import LastTrainings from "../../components/LastTrainings";
 
 const CouchMain = props => {
 
@@ -37,7 +38,29 @@ const CouchMain = props => {
                             />
 						</Col>
 						<Col xs={14} xxl={8} className='section'>
-							я
+                            <LastTrainings
+                                onGoto={(val) => gotoHandler(val)}
+                                data={[
+                                	{
+                                    profileAvatar: 'https://pp.userapi.com/c850020/v850020281/649d7/mOIcjm823rA.jpg',
+                                    online: true,
+									date: 1540813960,
+                                    discipline: "Вокал",
+                                    name: "Петров василий чвасильевич",
+                                    homework: "Последнее сообщение, asdas Lorem Ipsum is simply dummy text of the " +
+                                        "printing and typesetting industry. Lorem Ipsum has been the industry's " +
+                                        "standard dummy text ever since the 1500s, when a"
+                                	},
+                                    {
+                                        profileAvatar: 'https://pp.userapi.com/c850020/v850020281/649d7/mOIcjm823rA.jpg',
+                                        online: true,
+                                        discipline: "Вокал",
+                                        name: "Петров ВАСКЕ чвасильевич",
+                                        homework:''
+                                    }
+                                ]}
+
+                            />
 						</Col>
 
 						<Col xs={14} xxl={9} className='section'>

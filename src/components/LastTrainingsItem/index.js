@@ -5,37 +5,57 @@ import './style.css'
 import '../../icon/style.css'
 import ProfileAvatar from "../ProfileAvatar";
 import Button from "../Button";
+import moment from "moment";
+import PopoverFile from "../PopoverFile";
+import Icon from "../Icon";
 
-class MyStudentsItem extends React.Component{
+class LastTrainingsItem extends React.Component{
     render(){
         const {
             discipline,
             name,
-            lastMessage,
+            homework,
             onGoto,
-            profileAvatar
+            profileAvatar,
+            date
         } = this.props;
 
         return (
-            <div className='myStudent'>
-                <ProfileAvatar
-                    img={profileAvatar}
-                    size='small'
-                />
-                <div className='myStudent-info'>
-                    <div>
-                        <span className='myStudent-info-name'>{name}</span>
-                        <span className='myStudent-info-discipline'>{discipline}</span>
+            <div className='lastTraining'>
+                <div className="lastTraining-contactInfo">
+                    <ProfileAvatar
+                        img={profileAvatar}
+                        size='small'
+                    />
+                    <div className="lastTraining-contactInfo-nameAndDate">
+                        <span className='lastTraining-contactInfo-name'>{name}</span>
+                        <span className='lastTraining-contactInfo-date'>{moment(date).format("DD.MM.YYYY")}</span>
                     </div>
-                    <div className='myStudent-info-lastMessage'>
-                        {lastMessage}
-                    </div>
-                    <div className='myStudent-info-openChat'>
+                    <span className='lastTraining-contactInfo-discipline'>{discipline}</span>
+                </div>
+                <div className='lastTraining-homework'>
+                    {homework ? homework:
+                        <div className="sendHomework">
+                            <textarea className="sendHomework-area" name="homework" rows="10" placeholder='Домашнее задание...'></textarea>
+                            <button className="sendHomework-btn">
+                                <Icon type="message" size={25}></Icon>
+                            </button>
+                        </div>}
+                </div>
+                <div className='lastTraining-materials'>
+                    <div className="trainingRecord">
+                        <span className='trainingRecord-title'>ЗАПИСЬ ТРЕНИРОВКИ</span>
                         <Button
-                            btnText="Открыть чат"
-                            type="border-green"
-
+                            btnText="Загрузить"
+                            type="border-pink"
                         />
+                    </div>
+                    <div className='files'>
+                        <span className='files-title'>Материалы</span>
+                        <PopoverFile
+                            data={[]}
+                        >
+                        </PopoverFile>
                     </div>
                 </div>
             </div>
@@ -43,12 +63,12 @@ class MyStudentsItem extends React.Component{
     }
 }
 
-MyStudentsItem.propTypes = {
+LastTrainingsItem.propTypes = {
 
 };
 
-MyStudentsItem.defaultProps = {
+LastTrainingsItem.defaultProps = {
 
 };
 
-export default MyStudentsItem
+export default LastTrainingsItem

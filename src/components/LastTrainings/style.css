@@ -1,38 +1,40 @@
-.myStudents .ant-card-body {
+.lastTrainings .ant-card-body {
   height: 485px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 30px!important;
 }
-.myStudents .ant-card-body:before,
-.myStudents .ant-card-body:after {
+.lastTrainings .ant-card-body:before,
+.lastTrainings .ant-card-body:after {
   display: none;
 }
-.myStudents-link {
+.lastTrainings-scroll {
+  padding: 30px!important;
+}
+.lastTrainings-link {
   font-family: RobotoRegularItalic, sans-serif;
   font-size: 14px;
   color: #111;
 }
-.myStudents .noStudents {
+.lastTrainings .noTrainings {
   font-family: RobotoBlack, sans-serif;
   text-align: center;
   font-size: 20px;
   color: #777;
 }
-.myStudents-link {
+.lastTrainings-link {
   padding: 0 !important;
   padding-right: 8px !important;
   color: #000;
   display: inline-flex;
   flex-direction: row-reverse;
 }
-.myStudents-link .icon {
+.lastTrainings-link .icon {
   margin: 0 10px;
   color: #000;
   font-size: 24px !important;
 }
-.myStudents-link span {
+.lastTrainings-link span {
   color: #000;
 }
 .ant-card-head {
@@ -44,7 +46,4 @@
   padding-right: 0;
   color: #111;
   font-style: italic;
-}
-.no-trainings {
-  margin-top: 20px;
 }

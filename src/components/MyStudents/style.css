@@ -2,7 +2,7 @@
   height: 485px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 30px!important;
 }
 .myStudents .ant-card-body:before,
