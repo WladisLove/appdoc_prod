@@ -93,8 +93,8 @@ class App extends React.Component {
             get_shortDocInfo: () => this.props.shortDocInfo,
             get_visitInfo: () => this.props.visitInfo,
             get_timer: () => this.props.timer,
-
             get_history: () => this.props.history,
+            show_review_modal: (id_zap, id_doc) => {this.setState({showReviewModal: true, infoForReview: {id_zap, id_doc}})}
             }
         );
         register(''+this.props.id, ''/*+this.props.user_id*/, this.props.auth.mode);
@@ -255,6 +255,13 @@ class App extends React.Component {
                         visible={this.state.bugfixVisible}
                         onCancel={()=>this.setState({bugfixVisible: false})}
                         onSend={this.props.reportBug}
+                    />
+                    <ReviewsModal
+                        visible={this.state.showReviewModal}
+                        onSubmit={this.props.makeReview}
+                        info={this.state.infoForReview}
+                        onCancel={()=>this.setState({showReviewModal: false})}
+                        refresh={()=>{}}
                     />
                 </Hoc>)
             : (

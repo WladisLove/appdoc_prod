@@ -94,9 +94,10 @@ class ChatCard extends React.Component {
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере */
+		console.log("Завершение приёма и чата", this.props.receptionId)
 		messAboutStop();
 		stop();
-		messForCloseReception();
+		messForCloseReception(this.props.receptionId);
 		let new_obj = {
 			...obj,
 			id: this.props.receptionId,
