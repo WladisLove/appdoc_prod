@@ -372,6 +372,7 @@ export const call = () => {
                     audio:true,
                     video:false
                 },
+                remoteVideo : videoOutput,
                 onicecandidate : onIceCandidate
             };
 
