@@ -10,15 +10,17 @@ import Hoc from '../../../hoc'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import ChatFiles from "../../../components/ChatFiles";
-
+import { detect } from 'detect-browser';
+const browser = detect();
 
 class ChatVideoContent extends React.Component {
 	constructor(props){
 		super(props);
 		this.timerInterval;
 		this.state = {
-			isActive: false
+			isActive: false,
 		}
+		this.isSafari = browser ? browser.name == 'safari' : true;
 	}
 
 	/*renderPlayer = () => {
@@ -42,20 +44,20 @@ class ChatVideoContent extends React.Component {
 			receptionId: nextReceptionId, 
 			isCalling: nextIsCalling } = nextProps;
 		const { id_treatment, receptionId, isCalling } = this.props;
-		(next_id_treatment !== id_treatment || nextReceptionId !== receptionId || nextIsCalling !== isCalling)
-			&& (
-				this.startPlayVideo(this.videoOut, this.videoOutPlayInterval),
-				this.videoIn && this.videoIn.play()
-			);
+		this.isSafari && 
+			(next_id_treatment !== id_treatment || nextReceptionId !== receptionId || nextIsCalling !== isCalling)
+				&& (
+					this.startPlayVideo(this.videoOut, this.videoOutPlayInterval),
+					this.videoIn && this.videoIn.play()
+				);
         this.setState({isActive: nextProps.filesActive})
 	}
 	componentDidMount(){
-		this.startPlayVideo(this.videoOut, this.videoOutPlayInterval);
+		this.isSafari && this.startPlayVideo(this.videoOut, this.videoOutPlayInterval);
 	}
 	startPlayVideo = (video, intervalVar) =>{
 		let promise;
 		this.videoOut && (promise = this.videoOut.play());
-		console.log('[startPlayVideo] ');
 		promise && promise.then(() => {
 			console.log('Automatic playback started!');
 			clearInterval(intervalVar);
@@ -84,33 +86,52 @@ class ChatVideoContent extends React.Component {
         this.setState(prev => ({isActive: !prev.isActive}));
 	}
 	setVideoOutRef = (video) => {
-		this.videoOut = video; 
+		this.isSafari && (this.videoOut = video); 
         this.props.setVideoOut(video);
 	}
 	setVideoInRef = (video) => {
-		this.videoIn = video;
-		video && video.play();
+		this.isSafari && (
+			this.videoIn = video,
+			video && video.play()
+		);
         this.props.setVideoIn(video);
     }
 
+	renderVideos = () => (
+		<Hoc>
+			<video className='chat-card-video__box'
+						poster={this.props.avatar}
+						autoPlay
+						ref={this.setVideoOutRef}
+						></video>
+			<video className='chat-card-video__mini'
+						autoPlay
+						ref={this.setVideoInRef}
+						id='setVideoInRef'
+						></video>
+		</Hoc>
+	)
+	renderSafariVideos = () => (
+		<Hoc>
+			<video className='chat-card-video__box'
+						poster={this.props.avatar}
+						playsInline
+						ref={this.setVideoOutRef}
+						></video>
+			<video className='chat-card-video__mini'
+						playsInline
+						ref={this.setVideoInRef}
+						id='setVideoInRef'
+						></video>
+		</Hoc>
+	)
 	renderCallArea = () => {
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isActiveChat});
 
 		let {s, m, h} = this.props.timer;
 		return (<Hoc>
 			<div className='chat-card-video__area'>
-				<video className='chat-card-video__box'
-						poster={this.props.avatar}
-						//autoPlay
-						playsInline
-						ref={this.setVideoOutRef}
-						></video>
-				<video className='chat-card-video__mini'
-						//autoPlay
-						playsInline
-						ref={this.setVideoInRef}
-						id='setVideoInRef'
-						></video>
+				{this.isSafari ? this.renderSafariVideos() : this.renderVideos()}
                 <div className={panelClass}>
                     {this.props.receptionId &&(
                         <ChatVideoPanel
