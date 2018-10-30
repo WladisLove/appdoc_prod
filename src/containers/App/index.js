@@ -5,6 +5,7 @@ import Hoc from '../../hoc'
 import SideNav from '../../components/SideNav'
 import Header from "../../components/Header";
 import { Modal } from 'antd';
+import Adapter from 'webrtc-adapter'
 
 import {connect} from 'react-redux';
 import {createSocket, closeSocket,register} from './chatWs'
