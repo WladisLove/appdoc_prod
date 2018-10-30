@@ -67,7 +67,7 @@ export function createSocket(wsUrl,_props,_callbacks) {
 				incomingCall(parsedMessage);
                 break;
             case 'startCommunication':
-				startCommunication(parsedMessage);
+                startCommunication(parsedMessage);
                 break;
             case 'stopCommunication':
 				stop(true);
@@ -361,7 +361,7 @@ export const call = () => {
     const visitInfo = callbacks.get_visitInfo();
     const {contactLevel} = visitInfo;
 
-    console.log('[video tags]',videoInput,videoOutput)
+    
     let options = contactLevel === 'video' ?
             {
                 localVideo : videoInput,
