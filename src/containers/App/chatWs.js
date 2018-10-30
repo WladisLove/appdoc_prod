@@ -58,6 +58,7 @@ export function createSocket(wsUrl,_props,_callbacks) {
 				break;
 			case 'closeReception':
                 callbacks.setReceptionStatus(false);
+                callbacks.show_review_modal(parsedMessage.receptionId, parsedMessage.by);
                 break;
             case 'callResponse':
 				callResponse(parsedMessage);
@@ -371,7 +372,7 @@ export const call = () => {
                     audio:true,
                     video:false
                 },
-                remoteVideo: videoOutput,
+                remoteVideo : videoOutput,
                 onicecandidate : onIceCandidate
             };
 
@@ -423,11 +424,12 @@ export const messAboutStop = () => {
     }
 }
 
-export const messForCloseReception = () => {
+export const messForCloseReception = (receptionId) => {
     sendMessage({
         id : 'closeReception',
         name: callbacks.get_from(),
         other_name: callbacks.get_to(),
+        receptionId,
     });
     sendMessage({
         id : 'chat',
