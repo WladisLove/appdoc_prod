@@ -17,7 +17,6 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";
-import ReportBugModal from "../../components/ReportBugModal";
 import ReviewsModal from "../../components/ReviewsModal";
 
 const renderRoutes = ({ path, component, exact }) => (
@@ -31,7 +30,6 @@ class App extends React.Component {
         this.state = {
             collapsed: true,
             notifications: [],
-            bugfixVisible: false,
             mustLeaveReview: false
         };
     }
@@ -59,6 +57,7 @@ class App extends React.Component {
                     that.setState({
                         notifications: JSON.parse(data.arr),
                         isExtrActual: data.isExtrActual,
+                        extrMessage: data.exstrMessage,
                     });
                 });
             },
@@ -235,10 +234,14 @@ class App extends React.Component {
                         <div className="main-footer-item company">AppDoc 2018</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div>
-                    <button id="bugfix" onClick={()=>this.setState({bugfixVisible: true})}></button>
                     { this.state.isExtrActual && this.props.isIn
-                        && <button className='emergencyCall' onClick={this.props.docEmergancyCallSend}>
-                            Запрос на экстренный вызов</button> }
+                        &&
+                    <div>
+                        <button className='emergencyCall' onClick={this.props.docEmergancyCallSend}>
+                            Запрос на экстренный вызов<br/>
+                            Жалоба: {this.state.extrMessage}
+                        </button>
+                    </div> }
                     {
                         (this.props.isEmergRequsetReceived)
                             && (this.props.isEmergRequsetConfirmed ?
@@ -253,11 +256,6 @@ class App extends React.Component {
                                     onOk: this.props.docEmergancyCallReceivedMark,
                                 }))
                     }
-                    <ReportBugModal
-                        visible={this.state.bugfixVisible}
-                        onCancel={()=>this.setState({bugfixVisible: false})}
-                        onSend={this.props.reportBug}
-                    />
                     <ReviewsModal
                         visible={this.state.showReviewModal}
                         onSubmit={this.props.makeReview}
@@ -332,7 +330,6 @@ const mapDispatchToProps = dispatch => {
         setChatStory: (chat) => dispatch(actions.setChatStory(chat)),
         onSelectReception: (id, callback) => dispatch(actions.seletVisit(id, callback)),
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
-        reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
         hasNoReviewToFreeApp: ()=>dispatch(actions.hasNoReviewToFreeApp()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
     }
