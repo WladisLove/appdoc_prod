@@ -107,7 +107,10 @@ class ContentForm extends React.Component {
     };
 
     renderOptions = () => {
-        return this.props.patients.map((patient, i) => {
+        if(!this.props.patients.length) {
+            message.error("Список ваших пациентов пуст");
+        }
+        return this.props.patients.length && this.props.patients.map((patient, i) => {
             return (
                 <Select.Option value={patient.id}
                                key={`my_patient_${i}`}>
@@ -167,7 +170,7 @@ class ContentForm extends React.Component {
 
 
                 <FormItem className="user-select">
-                        {getFieldDecorator('id_user',{
+                        {getFieldDecorator('id_user', {
                             rules: [{required: true, message: 'Выберите пациента',}],
                         })(
                             <Select placeholder="ФИО">

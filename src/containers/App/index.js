@@ -54,6 +54,7 @@ class App extends React.Component {
                 that.props.getNotifications(that.props.id);
 
                 conn.subscribe(""+that.props.id, function(topic, data) {
+                    console.log(data, "SUBSCRIBE EXTR CALL")
                     that.props.setExInfo(data.exInterval);
                     that.setState({
                         notifications: JSON.parse(data.arr),
@@ -178,16 +179,16 @@ class App extends React.Component {
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
-                      <button onClick={this.toggle}
-                              className="sidenav-root-btn">
-                        {
-                          this.state.collapsed ? (
-                            <Icon type="right-arrow-forward_small" size={12} svg/>
-                          ) : (
-                            <Icon type="left-arrow-forward_small" size={12} svg/>
-                          )
-                        }
-                      </button>
+                        <button onClick={this.toggle}
+                                className="sidenav-root-btn">
+                            {
+                                this.state.collapsed ? (
+                                    <Icon type="right-arrow-forward_small" size={12} svg/>
+                                ) : (
+                                    <Icon type="left-arrow-forward_small" size={12} svg/>
+                                )
+                            }
+                        </button>
                         <Header data={this.props.usersHeaderSearch}
                                 notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
@@ -201,15 +202,15 @@ class App extends React.Component {
                                 findName={(name) => {
                                     this.props.onGetSearchUsers(name)
                                 }}
-                                getNotifId = {id => this.props.readNotification(id)}
-                                getNotifications={() =>  this.props.getNotifications(this.props.id)}
+                                getNotifId={id => this.props.readNotification(id)}
+                                getNotifications={() => this.props.getNotifications(this.props.id)}
                                 onChange={(flag) => this.props.switchExInterval(flag)}
                                 checked={this.props.isIn}
                                 disabled={this.props.isIn && !this.props.isUserSet}
                                 logout={this.props.onLogout}
-                                getFreeVisitIntervals = {(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
-                                freeVisitsIntervals = {this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
-                                onMakeVisit = {(obj)=>this.props.onMakeVisit(obj)}
+                                getFreeVisitIntervals={(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
+                                freeVisitsIntervals={this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
+                                onMakeVisit={(obj) => this.props.onMakeVisit(obj)}
                                 emergencyAvailable={this.props.emergencyAvailable}
 
                         />
