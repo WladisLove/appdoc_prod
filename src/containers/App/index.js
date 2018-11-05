@@ -5,6 +5,7 @@ import Hoc from '../../hoc'
 import SideNav from '../../components/SideNav'
 import Header from "../../components/Header";
 import { Modal } from 'antd';
+import Adapter from 'webrtc-adapter'
 
 import {connect} from 'react-redux';
 import {createSocket, closeSocket,register} from './chatWs'
@@ -16,7 +17,6 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";
-import ReportBugModal from "../../components/ReportBugModal";
 import ReviewsModal from "../../components/ReviewsModal";
 
 const renderRoutes = ({ path, component, exact }) => (
@@ -30,7 +30,6 @@ class App extends React.Component {
         this.state = {
             collapsed: true,
             notifications: [],
-            bugfixVisible: false,
             mustLeaveReview: false
         };
     }
@@ -53,10 +52,12 @@ class App extends React.Component {
                 that.props.getNotifications(that.props.id);
 
                 conn.subscribe(""+that.props.id, function(topic, data) {
+                    console.log(data, "SUBSCRIBE EXTR CALL")
                     that.props.setExInfo(data.exInterval);
                     that.setState({
                         notifications: JSON.parse(data.arr),
                         isExtrActual: data.isExtrActual,
+                        extrMessage: data.exstrMessage,
                     });
                 });
             },
@@ -93,8 +94,8 @@ class App extends React.Component {
             get_shortDocInfo: () => this.props.shortDocInfo,
             get_visitInfo: () => this.props.visitInfo,
             get_timer: () => this.props.timer,
-
             get_history: () => this.props.history,
+            show_review_modal: (id_zap, id_doc) => {this.setState({showReviewModal: true, infoForReview: {id_zap, id_doc}})}
             }
         );
         register(''+this.props.id, ''/*+this.props.user_id*/, this.props.auth.mode);
@@ -177,16 +178,16 @@ class App extends React.Component {
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
                     <div className="main-header">
-                      <button onClick={this.toggle}
-                              className="sidenav-root-btn">
-                        {
-                          this.state.collapsed ? (
-                            <Icon type="right-arrow-forward_small" size={12} svg/>
-                          ) : (
-                            <Icon type="left-arrow-forward_small" size={12} svg/>
-                          )
-                        }
-                      </button>
+                        <button onClick={this.toggle}
+                                className="sidenav-root-btn">
+                            {
+                                this.state.collapsed ? (
+                                    <Icon type="right-arrow-forward_small" size={12} svg/>
+                                ) : (
+                                    <Icon type="left-arrow-forward_small" size={12} svg/>
+                                )
+                            }
+                        </button>
                         <Header data={this.props.usersHeaderSearch}
                                 notifications={this.state.notifications}
                                 onGoto={this.gotoHandler}
@@ -200,15 +201,15 @@ class App extends React.Component {
                                 findName={(name) => {
                                     this.props.onGetSearchUsers(name)
                                 }}
-                                getNotifId = {id => this.props.readNotification(id)}
-                                getNotifications={() =>  this.props.getNotifications(this.props.id)}
+                                getNotifId={id => this.props.readNotification(id)}
+                                getNotifications={() => this.props.getNotifications(this.props.id)}
                                 onChange={(flag) => this.props.switchExInterval(flag)}
                                 checked={this.props.isIn}
                                 disabled={this.props.isIn && !this.props.isUserSet}
                                 logout={this.props.onLogout}
-                                getFreeVisitIntervals = {(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
-                                freeVisitsIntervals = {this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
-                                onMakeVisit = {(obj)=>this.props.onMakeVisit(obj)}
+                                getFreeVisitIntervals={(spec) => this.props.onGetFreeVisitsBySpeciality(spec)}
+                                freeVisitsIntervals={this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
+                                onMakeVisit={(obj) => this.props.onMakeVisit(obj)}
                                 emergencyAvailable={this.props.emergencyAvailable}
 
                         />
@@ -233,10 +234,14 @@ class App extends React.Component {
                         <div className="main-footer-item company">AppDoc 2018</div>
                         <div className="main-footer-item copirate">© Все права защищены</div>
                 </div>
-                    <button id="bugfix" onClick={()=>this.setState({bugfixVisible: true})}></button>
                     { this.state.isExtrActual && this.props.isIn
-                        && <button className='emergencyCall' onClick={this.props.docEmergancyCallSend}>
-                            Запрос на экстренный вызов</button> }
+                        &&
+                    <div>
+                        <button className='emergencyCall' onClick={this.props.docEmergancyCallSend}>
+                            Запрос на экстренный вызов<br/>
+                            Жалоба: {this.state.extrMessage}
+                        </button>
+                    </div> }
                     {
                         (this.props.isEmergRequsetReceived)
                             && (this.props.isEmergRequsetConfirmed ?
@@ -251,10 +256,12 @@ class App extends React.Component {
                                     onOk: this.props.docEmergancyCallReceivedMark,
                                 }))
                     }
-                    <ReportBugModal
-                        visible={this.state.bugfixVisible}
-                        onCancel={()=>this.setState({bugfixVisible: false})}
-                        onSend={this.props.reportBug}
+                    <ReviewsModal
+                        visible={this.state.showReviewModal}
+                        onSubmit={this.props.makeReview}
+                        info={this.state.infoForReview}
+                        onCancel={()=>this.setState({showReviewModal: false})}
+                        refresh={()=>{}}
                     />
                 </Hoc>)
             : (
@@ -323,7 +330,6 @@ const mapDispatchToProps = dispatch => {
         setChatStory: (chat) => dispatch(actions.setChatStory(chat)),
         onSelectReception: (id, callback) => dispatch(actions.seletVisit(id, callback)),
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
-        reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
         hasNoReviewToFreeApp: ()=>dispatch(actions.hasNoReviewToFreeApp()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
     }

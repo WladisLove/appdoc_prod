@@ -11,6 +11,10 @@ import './styles.css'
 import HomeworkList from "../../components/HomeworkList";
 
 class MainPage extends React.Component{
+	constructor(props) {
+		super(props);
+        this.timer;
+	}
 	state = {
 		cancelModal: false,
 		addModal: false,
@@ -19,16 +23,19 @@ class MainPage extends React.Component{
 	}
 
 	componentWillMount(){
-		if (this.props.mode === "user"){
+		if (this.props.mode === "user") {
 			this.props.onGetPatientDoctors(2);
             this.props.onGetNearVisits(3);
+			this.timer = setInterval(()=>this.props.onGetNearVisits(3), 60000);
             this.props.onGetUserInfoShort();
 		}
 		else {
 			this.props.reviews && this.props.onGetAllReviews();
 			let now = new Date();
-			this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
-											new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
+            this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+                new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20));
+			this.timer = setInterval(()=>this.props.onGetTodayVisits(new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+											new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20)), 60000);
 
 			this.props.getDocTodayInfo();
 			this.props.onGetIntervalForDate(moment(+new Date()).format('X'), moment(+new Date()).format('X'), );
@@ -36,7 +43,11 @@ class MainPage extends React.Component{
 
 	}
 
-	onAddVisit = () => {
+    componentWillUnmount() {
+		clearInterval(this.timer)
+    }
+
+    onAddVisit = () => {
 		this.props.onGetDocPatients();
 		this.setState({addModal: true});
 
@@ -82,6 +93,7 @@ class MainPage extends React.Component{
 				getCompletedApps = {this.props.onGetCompletedApp}
                 onSubmitReview={this.props.makeReview}
                 makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
+                cancelAppByPatient = {this.props.cancelAppByPatient}
             />
 		) : (
 			<DoctorPage
@@ -144,7 +156,8 @@ const mapDispatchToProps = dispatch => {
 		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file)),
-        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files))
+        makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),
+        cancelAppByPatient: (id) => dispatch(actions.cancelAppByPatient(id))
     }
 };
 

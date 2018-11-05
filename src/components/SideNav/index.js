@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import { NavLink } from 'react-router-dom'
+import ReactScrollbar from "react-perfect-scrollbar"
 
 import './styles.css'
 
@@ -31,31 +32,39 @@ const SideNav = props => {
         const {isShort, menuItems, onClick, isUser} = props;
         const rootClass = cn('sidenav-root', {'sidenav-root-short' : isShort});
         const menuClass = 'sidenav-root-menu' + (isShort ? '-short':'');
-
+        const shouldScroll = window.innerHeight < 900;
         return (
             <div className={rootClass}>
                 <div className="logo" onClick={props.onLogoClick}><span className="logo-img"></span></div>
+                <ReactScrollbar
+                    className="scrollableSideNav"
+                    option={{suppressScrollX: true,
+                        wheelPropagation: false}}
 
-                <div className='overwlow-a-y'>
-                    <DoctorProfileCard {...props}
-                                        online={true}
-                                       short={isShort}/>
+                >
+                    <div className='overwlow-a-y'>
+                        <DoctorProfileCard {...props}
+                                            online={true}
+                                           short={isShort}
 
-                    <Menu
-                        mode="inline"
-                        className={menuClass}
-                    >
-                        {renderMenuItems(menuItems)}
-                    </Menu>
-                    {isUser && <div className="site-link"><Button
-                            btnText={isShort ? "" : 'Перейти на сайт'}
-                            size='go'
-                            type='go'
-                            icon='circle_arrow_right'
-                            svg
-                            onClick={props.gotoSite}
-                    /></div>}
-                </div>
+                        />
+
+                        <Menu
+                            mode="inline"
+                            className={menuClass}
+                        >
+                            {renderMenuItems(menuItems)}
+                        </Menu>
+                        {isUser && <div className="site-link"><Button
+                                btnText={isShort ? "" : 'Перейти на сайт'}
+                                size='go'
+                                type='go'
+                                icon='circle_arrow_right'
+                                svg
+                                onClick={props.gotoSite}
+                        /></div>}
+                    </div>
+                </ReactScrollbar>
             </div>
         )
 

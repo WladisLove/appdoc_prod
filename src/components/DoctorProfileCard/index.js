@@ -17,13 +17,21 @@ class DoctorProfileCard extends React.Component{
     }
 
     render(){
-        const {short, name, specialty, isUser} = this.props; 
-        
-        const spec = specialty.map(function(elem) {
-            return elem.map(function(elem2) {
-                return elem2.toUpperCase();
-            })     
-        }).join(", ");
+
+        const {short, name, specialty, isUser} = this.props;
+        let specialtyOneArray =[];
+        specialty.map((elem)=> {
+            specialtyOneArray.push(...elem)
+        });
+        let spec = specialtyOneArray.length ?  specialtyOneArray.map(function(elem) {
+            return elem.toUpperCase();
+        }): "";
+        if(spec.length > 5) {
+            spec = spec.slice(0, 4).join(", ") + "..."
+        } else {
+            spec = spec ? spec.join(", ") : spec;
+        }
+
 
         const rootClass = short ?
             (isUser ?
