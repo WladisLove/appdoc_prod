@@ -10,7 +10,7 @@ import CancelVisitModal from "../../components/CancelVisitModal";
 import Icon from "../../components/Icon";
 
 import Hoc from '../../hoc'
-import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
+import HomeworkList from "../../components/HomeworkList";
 
 const DoctorPage = props => {
 
