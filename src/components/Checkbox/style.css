@@ -14,7 +14,7 @@
   margin-right: 14px;
 }
 .ant-checkbox-wrapper {
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
 }
 .ant-checkbox-wrapper:hover .ant-checkbox-inner {
   border-color: #d7d7d7;
@@ -35,7 +35,7 @@
 .ant-checkbox + span {
   color: #344051;
   font-size: 14px;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
   padding: 0;
 }
 .ant-checkbox-checked .ant-checkbox-inner {

@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .reviewsTree-underTreeElement {
   text-align: center;
 }
@@ -11,7 +23,7 @@
   padding: 0 13px;
   border-radius: 10px;
   font-size: 12px;
-  color: #21bedd;
+  color: #0495ff;
 }
 .reviewsTree .ant-tabs-bar {
   position: relative;

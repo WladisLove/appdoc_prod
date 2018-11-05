@@ -17,7 +17,6 @@ class DoctorProfileCard extends React.Component{
     }
 
     render(){
-
         const {short, name, specialty, isUser} = this.props;
         let specialtyOneArray =[];
         specialty.map((elem)=> {
@@ -32,7 +31,6 @@ class DoctorProfileCard extends React.Component{
             spec = spec ? spec.join(", ") : spec;
         }
 
-
         const rootClass = short ?
             (isUser ?
             "patientProfileCard-short" : "doctorProfileCard-short")
@@ -43,6 +41,14 @@ class DoctorProfileCard extends React.Component{
             <div className={rootClass}>
                 <ProfileAvatar owner="doctor" {...this.props} short={short} size={(short ? 'medium' : 'large')}/>
                 <div className={'doctorProfileCard-name'}>{name}</div>
+                {
+                    isUser ? null : (
+                        <Hoc>
+                            <div className={'doctorProfileCard-specialty'}>{spec}</div>
+                            <RatePanel {...this.props} disable={true}/>
+                        </Hoc>
+                    )
+                }
             </div>
         )
     }

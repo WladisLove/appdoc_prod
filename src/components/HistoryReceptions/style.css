@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .ant-card-body {
   padding: 0 !important;
 }
@@ -26,7 +38,9 @@
 }
 .receptions-personal-page .tableheader.menu-header {
   padding: 22.5px 0;
-  background-color: #fff2f6;
+  background-color: #fef8f8;
+  border-top: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
   justify-content: flex-start;
   top: 66px;
 }

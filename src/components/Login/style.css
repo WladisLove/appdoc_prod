@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .login-form {
   max-width: 770px;
   width: 100%;
@@ -20,12 +32,12 @@
   text-align: left;
 }
 .login-form-navlink {
-  color: #21bedd;
+  color: #0495ff;
   font-size: 14px;
   line-height: 1;
 }
 .login-form-navlink:hover {
-  color: #21bedd;
+  color: #0495ff;
 }
 .login-form-control {
   text-align: center;
@@ -34,7 +46,7 @@
   margin-bottom: 50px;
 }
 .login-title {
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
   font-size: 44px;
   line-height: 1;
   letter-spacing: -0.88px;
@@ -42,7 +54,7 @@
   margin-bottom: 40px;
 }
 .login-notification {
-  font-family: "RobotoLight";
+  font-family: 'GothamPro-Light';
   font-size: 12px;
   line-height: 1;
   color: #333;

@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .patient-contacts {
   position: relative;
 }
@@ -9,9 +21,9 @@
 .patient-contacts-title {
   position: relative;
   width: 100%;
-  color: #21bedd;
+  color: #0495ff;
   font-size: 14px;
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
   text-transform: uppercase;
   margin-bottom: 40px;
 }

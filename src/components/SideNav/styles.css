@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 :global(.ant-menu-item) {
   padding: 0 !important;
   display: flex;
@@ -43,12 +55,12 @@
 }
 .sidenav-root .logo-img {
   display: block;
-  background-image: url('../../img/logo.png');
+  background-image: url('../../img/logo.svg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 65px;
-  width: 160px;
+  height: 45px;
+  width: 210px;
 }
 .sidenav-root .logo-img:hover {
   cursor: pointer;
@@ -57,9 +69,9 @@
   width: 170px;
 }
 .sidenav-root-short .logo-img {
-  background-image: url('../../img/logo-small.png');
+  background-image: url('../../img/logo-small.svg');
   height: 51px;
-  width: 85px;
+  width: 66px;
 }
 .sidenav-root-short .logo-img:hover {
   cursor: pointer;
@@ -88,11 +100,11 @@
   text-decoration: none;
 }
 .sidenav-root-menu a:hover .item-title {
-  color: #21bedd;
+  color: #0495ff;
 }
 .sidenav-root-menu a:hover .icon,
 .sidenav-root-menu a:hover .anticon {
-  color: #21bedd;
+  color: #0495ff;
 }
 .sidenav-root-menu a:before {
   display: none;
@@ -102,33 +114,36 @@
 }
 .sidenav-root-menu .selectedNavLink {
   display: flex !important;
+  background-color: #0495ff;
+  box-shadow: 5px 5px 27px rgba(4, 149, 255, 0.44);
   height: 60px;
+  border-radius: 31.5px;
+  padding: 0 35px;
   width: auto;
-  color: #21bedd;
 }
 .sidenav-root-menu .selectedNavLink:hover {
   text-decoration: none;
 }
 .sidenav-root-menu .selectedNavLink:hover .item-title {
-  color: #000;
+  color: #fff;
 }
 .sidenav-root-menu .selectedNavLink:hover .icon {
-  color: #000;
+  color: #fff;
 }
 .sidenav-root-menu .selectedNavLink:hover .anticon {
-  color: #000;
+  color: #fff;
   margin: auto 20px auto 0;
 }
 .sidenav-root-menu .selectedNavLink .icon,
 .sidenav-root-menu .selectedNavLink .anticon {
-  color: #21bedd;
+  color: #fff;
 }
 .sidenav-root-menu .selectedNavLink .item-title {
-  color: #21bedd;
+  color: #fff;
 }
 .sidenav-root-menu-item {
   font-size: 16px;
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,6 +156,8 @@
 }
 .sidenav-root-menu-short .selectedNavLink {
   display: flex !important;
+  background-color: #0495ff;
+  box-shadow: 5px 5px 27px rgba(4, 149, 255, 0.44);
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -150,15 +167,15 @@
 }
 .sidenav-root-menu-short .selectedNavLink .icon,
 .sidenav-root-menu-short .selectedNavLink .anticon {
-  color: #21bedd;
+  color: #fff;
 }
 .sidenav-root-menu-short .selectedNavLink .item-title {
-  color: #21bedd;
+  color: #fff;
 }
 .sidenav-root-menu-short .sidenav-root-menu-item {
   display: flex;
   font-size: 16px;
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
 }
 .sidenav-root-menu-short .sidenav-root-menu-item > .item-title {
   display: none;

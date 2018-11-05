@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .patient-item:nth-child(even) {
   background-color: #f0f9ff;
 }
@@ -10,7 +22,7 @@
   align-items: center;
   line-height: 1;
   padding: 0 13px;
-  color: #21bedd;
+  color: #0495ff;
   font-size: 12px;
 }
 .patient-all {

@@ -1,4 +1,4 @@
-
+@import "../../styles/variables";
 
 
 @height: 35px;
@@ -11,14 +11,14 @@
   border: none;
 }
 .ant-calendar-picker-icon:after{
-  color: #21bedd;
+  color: @blue;
 }
 
 .ant-calendar-picker-clear{
   //opacity: 1;
-  color: #d8d8d8;
+  color: @grey;
   &:hover{
-    color: #21bedd;
+    color: @blue;
   }
 }
 
@@ -37,7 +37,7 @@
     min-width: 340px;
 
     &-chosen input {
-      color: #21bedd;
+      color: @blue;
     }
 
     &-delim{
@@ -88,7 +88,7 @@
       width: 165px;
       //height: 31px;
       display: inline-block;
-      border-bottom: 1px dashed #344051;
+      border-bottom: 1px dashed @dark-blue;
       position: relative;
 
       .ant-calendar-picker-input {
@@ -99,7 +99,7 @@
           width: 75px;
           height: 21px;
           font-size: 12px;
-          color: #344051;
+          color: @dark-blue;
         }
 
         .ant-calendar-picker-icon {

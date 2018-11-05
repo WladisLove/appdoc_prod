@@ -8,7 +8,7 @@ import * as actions from '../../store/actions'
 import moment from 'moment'
 
 import './styles.css'
-import HomeworkList from "../../components/HomeworkList";
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 class MainPage extends React.Component{
 	constructor(props) {

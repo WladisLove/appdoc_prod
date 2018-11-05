@@ -36,27 +36,27 @@
 }
 .record-item-date span:nth-child(1) {
   font-size: 35px;
-  font-family: 'RobotoMedium';
+  font-family: 'GothamPro-Medium';
 }
 .record-item-date span:nth-child(2) {
   font-size: 16px;
 }
 .record-item-time {
-  font-family: 'RobotoBold';
+  font-family: 'GothamPro-Bold';
   font-size: 14px;
   line-height: 1;
   margin-bottom: 7.5px;
   color: #344051;
 }
 .record-item-doctor__name {
-  font-family: 'RobotoRegular';
+  font-family: 'GothamPro';
   font-size: 14px;
   line-height: 1;
   margin-bottom: 7.5px;
   color: #344051;
 }
 .record-item-doctor__specialty {
-  font-family: 'RobotoRegular';
+  font-family: 'GothamPro';
   font-size: 14px;
   line-height: 1;
   margin-bottom: 0px;

@@ -1,4 +1,4 @@
-
+@import "../../styles/variables";
 
 .ant-modal-body {
     padding: 0;
@@ -6,7 +6,7 @@
 }
 
 .ant-modal-title {
-    font-family: "RobotoRegular";
+    font-family: @f-r;
 }
 
 .ant {
@@ -14,11 +14,11 @@
     &-modal {
 
         &-header {
-            background-color: #21bedd;
-            color: #ffffff;
+            background-color: @blue;
+            color: @white;
 
             .ant-modal-title {
-                color: #ffffff;
+                color: @white;
                 font-size: 20px;
             }
         }
@@ -26,7 +26,7 @@
         &-close {
         	
             &-x {
-                color: #ffffff;
+                color: @white;
             }
         }
     }
@@ -34,13 +34,13 @@
     &-modal.warning {
 
         .ant-modal-header {
-            background-color: #fdc401;
-            color: #ffffff;
+            background-color: @yllw;
+            color: @white;
         }
 
         .icon {
             position: absolute;
-            color: #ffffff;
+            color: @white;
             top: -40px;
             right: 35px;
         }

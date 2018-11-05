@@ -6,7 +6,6 @@ import Icon from '../Icon'
 import TopPanelItem from '../TopPanelItem';
 import './style.css'
 import '../../icon/style.css'
-import Button from '../Button';
 
 class TopPanel extends React.Component{
     state = {
@@ -33,36 +32,27 @@ class TopPanel extends React.Component{
     };
 
     render(){
-        console.log("props", this.props);
         const {time} = this.state;
         const {receptionsToday, receptionsActual, patients} = this.props;
 
         return (
             <div className='top-panel'>
-                <div className='top-panel-description'>
-                    <h3 className='top-panel-description-h3'>Пока ждешь начала тренировки, можешь посмотреть наше новое видео</h3>
-                    <p>Lorem ipsum et ultricies pellentesque nibh auctor malesuada 
-                    sit molestie leo et non auctor non diam, duis et sed elementum sit 
-                    metus, nulla porta duis. Metus gravida pharetra gravida risus eros 
-                    sapien vitae in tempus ut, lorem pharetra sodales in eu: arc.
-                    </p>
-                    <Button
-                        btnText='Перейти к видео'
-                        size='large'
-                        type='yellow'
-                    />
-                </div>
+                <TopPanelItem   className="first-col"
+                            panelTitle={time.format("DD MMMM YYYY")}
+                            panelText={time.format("dddd HH:mm")}
+                            icon='calendar'/>
                 <TopPanelItem 
-                            panelTitle="Следующая тренировка"
-                            panelText={"24 дек"}
-                            type = {"next"}
-                            />
+                            panelTitle="Приемы сегодня"
+                            panelText={receptionsToday}
+                            icon='mark'/>
                 <TopPanelItem 
-                            panelTitle="Осталось тренировок"
-                            panelText={"3"}/>
+                            panelTitle="Актуальные обращения"
+                            panelText={receptionsActual}
+                            icon='clock'/>
                 <TopPanelItem 
-                            panelTitle="До оплаты"
-                            panelText={"24"}/>
+                            panelTitle="Мои пациенты"
+                            panelText={patients}
+                            icon='people'/>
             </div>
         )
     }

@@ -8,7 +8,6 @@ import Button from '../Button'
 import ScrollArea from 'react-scrollbar'
 import './style.css'
 import '../../icon/style.css'
-import Icon from '../Icon'
 
 class TableNoHead extends React.Component{
 
@@ -29,16 +28,51 @@ class TableNoHead extends React.Component{
         
         return (
             <div className={rootClass}>
-                <Card title="Ближайшие тренировки" extra={<a className="schedule-all-link"><Icon type="circle_arrow_right" /> <span>Все</span></a>}>
+                <Card title="График работы на сегодня" extra={<div className="sum">Приемы: {data.length}</div>}>
                     <div className="scroll">
                     {/**/}
-                         <ScrollArea
+                        <div className="tableheader">
+                            <div className="flex-col">
+                                <Button
+                                    btnText='Добавить'
+                                    onClick={this.props.onAdd}
+                                    size='default'
+                                    type='yellow'
+                                    icon='plus'
+                                    iconSize={11}
+                                    svg
+                                    title='Добавить новый приём'
+                                />
+                            </div>
+                            <div className="flex-col ico-btn">
+                                <Button 
+                                    size='link'
+                                    type='link'
+                                    icon='printer'
+                                    svg
+                                    title='Распечатать'
+                                />
+                                <Button 
+                                    size='link'
+                                    type='link'
+                                    icon='pdf-file'
+                                    title='Скачать pdf-файл'
+                                />
+                                <Button 
+                                    size='link'
+                                    type='link'
+                                    icon='xls-file'
+                                    title='Скачать xls-файл'
+                                />
+                            </div>
+                        </div>
+                        <ScrollArea
                             speed={0.8}
                             className="scroll"
                             smoothScrolling={true}>
                             {data.length ? 
                                 this.scheduleRender(data) 
-                                : <div className='entry-list priem-net'>тренировок нет</div>}
+                                : <div className='entry-list'>Приемов нет</div>}
                         </ScrollArea>
                     </div>
                   </Card>

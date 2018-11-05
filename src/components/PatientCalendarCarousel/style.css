@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .calendar-carousel {
   position: relative;
   width: 100%;
@@ -47,7 +59,7 @@
   border: none;
 }
 .calendar-carousel-slide .btn-prev:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
 }
 .calendar-carousel-slide .btn-next {
   position: absolute;
@@ -65,7 +77,7 @@
   border: none;
 }
 .calendar-carousel-slide .btn-next:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
 }
 .calendar-carousel-col {
   width: 100%;
@@ -100,7 +112,7 @@
   margin-top: 20px;
 }
 .calendar-carousel-time:hover {
-  background-color: #21bedd;
+  background-color: #0495ff;
   color: #fff;
 }
 .calendar-carousel-time.close {
@@ -109,7 +121,7 @@
   cursor: default;
 }
 .calendar-carousel-time.activeTime {
-  background-color: #204d8d!important;
+  background-color: #204d8d !important;
   color: white!important;
 }
 .calendar-carousel-time.unAvailableTime {
@@ -121,7 +133,7 @@
   background-color: #ffeeb5;
 }
 .calendar-carousel-time.afterAnalyses:hover {
-  background-color: #21bedd;
+  background-color: #0495ff;
   color: #fff;
 }
 .calendar-carousel .table-footer {

@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .flexTest {
   display: flex;
   flex-wrap: wrap;
@@ -16,9 +28,10 @@
   text-decoration: none;
   cursor: pointer;
   line-height: 1;
+  border-radius: 2rem;
   transition: 0.2s ease-out;
   border: none;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
   z-index: 1;
 }
 .btn .icon,
@@ -36,32 +49,31 @@
   font-size: 12px;
   color: #204d8d;
   padding: 9px 0;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
 }
 .btn-size-mini:hover {
   color: #fff;
 }
 .btn-size-small {
   text-transform: uppercase;
-  letter-spacing: .025em;
+  letter-spacing: 0.025em;
   font-size: 0.75rem;
-  font-family: RobotoMedium;
+  font-family: GothamPro-Medium;
   min-width: 5.3125rem;
-  padding: .625rem .85rem;
+  padding: 0.625rem 0.85rem;
 }
 .btn-size-default {
   text-transform: uppercase;
   padding: 13.5px 1.25rem;
   font-size: 11px;
-  font-family: RobotoMedium;
+  font-family: GothamPro-Medium;
   min-width: 8.875rem;
-  letter-spacing: .025em;
+  letter-spacing: 0.025em;
 }
 .btn-size-large {
   font-size: 1.25rem;
-  padding: 0.725rem 2rem;
+  padding: 1.125rem 2rem;
   min-width: 12.5rem;
-  margin: 0.7rem 0rem;
 }
 .btn-size-icon {
   border-radius: 100%;
@@ -80,7 +92,7 @@
   border: 1px solid #465060;
 }
 .btn-size-icon:focus {
-  background-color: #21bedd;
+  background-color: #0495ff;
 }
 .btn-size-icon:focus .icon {
   color: #fff;
@@ -111,7 +123,7 @@
 }
 .btn-type-blue-float {
   min-width: auto;
-  color: #21bedd;
+  color: #0495ff;
   background-color: transparent;
   border-radius: 100%;
   border: 1px solid transparent;
@@ -120,21 +132,7 @@
   margin-right: 0;
 }
 .btn-type-blue-float:hover {
-  background-color: #21bedd;
-  color: #fff;
-}
-.btn-type-pink-float {
-  min-width: auto;
-  color: #ff7daa;
-  background-color: transparent;
-  border-radius: 100%;
-  border: 1px solid transparent;
-}
-.btn-type-pink-float .icon {
-  margin-right: 0;
-}
-.btn-type-pink-float:hover {
-  background-color: #ff7daa;
+  background-color: #0495ff;
   color: #fff;
 }
 .btn-type-emergency {
@@ -159,11 +157,11 @@
 }
 .btn-type-float {
   background-color: transparent;
-  color: #21bedd;
-  border: 1px solid #21bedd;
+  color: #0495ff;
+  border: 1px solid #0495ff;
 }
 .btn-type-float:hover {
-  background-color: #21bedd;
+  background-color: #0495ff;
   color: #fff;
 }
 .btn-type-emergensy {
@@ -177,21 +175,21 @@
 }
 .btn-type-no-brd {
   background-color: transparent;
-  color: #21bedd;
+  color: #0495ff;
   border: none;
 }
 .btn-type-no-brd:hover {
-  background-color: #21bedd;
+  background-color: #0495ff;
   color: #fff;
 }
 .btn-type-transparent {
   background-color: transparent;
   color: #344051;
   border: none;
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
 }
 .btn-type-transparent.rbc-active {
-  background-color: #21bedd;
+  background-color: #0495ff;
   color: #fff;
   box-shadow: 0 4px 18px rgba(52, 64, 81, 0.35);
 }
@@ -201,16 +199,7 @@
 }
 .btn-type-blue:hover {
   color: #fff;
-  background-color: #21bedd;
-}
-.btn-type-pink {
-  background-color: #fff;
-  color: #ff7daa;
-  border: 1px solid #ff7daa;
-}
-.btn-type-pink:hover {
-  color: #fff;
-  background-color: #ff7daa;
+  background-color: #0495ff;
 }
 .btn-type-dark-blue {
   background-color: transparent;
@@ -222,20 +211,18 @@
   background-color: #344051;
 }
 .btn-type-yellow {
-  background-color: transparent;
-  color: #ffc800;
-  border: 1px solid #ffc800;
+  background-color: #fdc401;
+  color: #344051;
 }
 .btn-type-yellow:hover {
-  background-color: #ffc800;
-  color: #fff;
+  background-color: #f1bb01;
 }
 .btn-type-gradient {
   background: linear-gradient(to right, #0270c0, #0a98ff);
   color: #fff;
 }
 .btn-type-gradient:hover {
-  background: linear-gradient(to right, #21bedd, #21bedd);
+  background: linear-gradient(to right, #0495ff, #0495ff);
 }
 .btn-type-gradient[disabled] {
   background: #bbbbbb;
@@ -248,9 +235,9 @@
   color: #204d8d;
 }
 .btn-type-light-blue:hover {
-  background-color: #21bedd;
+  background-color: #0495ff;
   color: #fff;
-  border-color: #21bedd;
+  border-color: #0495ff;
 }
 .btn-type-light-blue:hover .icon {
   color: #fff;
@@ -263,7 +250,7 @@
   color: #344051;
 }
 .btn-type-link:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
 }
 .btn-type-file {
   color: #cccbcb;
@@ -273,10 +260,10 @@
   color: #cccbcb;
 }
 .btn-type-file:hover {
-  color: #21bedd;
+  color: #0495ff;
 }
 .btn-type-file:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
 }
 .btn-type-go {
   color: #204d8d;
@@ -289,7 +276,7 @@
   color: #204d8d;
 }
 .btn-type-go:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
   border-bottom: 0;
 }
 .btn-type-go:hover span {

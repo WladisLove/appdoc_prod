@@ -1,7 +1,6 @@
 import React from 'react'
 
 export const iconList = [
-    "home",
     "clock",
     "add-button",
     "alarm",

@@ -12,7 +12,7 @@ import * as actions from '../../store/actions'
 
 import './styles.css';
 import Spinner from "../../components/Spinner";
-import HomeworkList from "../../components/HomeworkList";
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 class PatientsPage extends React.Component{
 

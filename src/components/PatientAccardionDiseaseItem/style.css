@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .disease {
   border-bottom: 1px solid #ebebeb;
 }
@@ -10,7 +22,7 @@
 }
 .disease-item-title {
   position: relative;
-  color: #21bedd;
+  color: #0495ff;
   font-size: 12px;
   margin-bottom: 20px;
 }

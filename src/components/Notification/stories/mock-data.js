@@ -1,6 +1,6 @@
 export const notificationArr = [
     {
-        title: "Вам пришло сообщение",
+        title: "добавлена Новая запись",
         time: "15:50",
         thisTitle: "10:50",
         desc: "Иванов Александр",

@@ -386,7 +386,6 @@ ant-design-palettes@^1.1.3:
     tinycolor2 "^1.4.1"
 
 antd@^3.0.2:
-
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/antd/-/antd-3.10.0.tgz#fb555efca416e9a1c931bb17234ae608dc41f9d1"
   dependencies:
@@ -3065,7 +3064,6 @@ dom-closest@^0.2.0:
   resolved "https://registry.yarnpkg.com/dom-closest/-/dom-closest-0.2.0.tgz#ebd9f91d1bf22e8d6f477876bbcd3ec90216c0cf"
   dependencies:
     dom-matches ">=1.0.1"
-
 
 dom-converter@~0.2:
   version "0.2.0"
@@ -7772,7 +7770,6 @@ rc-table@~6.3.2:
     warning "^3.0.0"
 
 rc-tabs@~9.4.0:
-
   version "9.4.6"
   resolved "https://registry.yarnpkg.com/rc-tabs/-/rc-tabs-9.4.6.tgz#54dd60033d3dd86ba0cb3e4f09e9836379f5ac7a"
   dependencies:
@@ -8203,12 +8200,6 @@ react-treebeard@^2.1.0:
     shallowequal "^0.2.2"
     velocity-react "^1.3.1"
 
-react-vk@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/react-vk/-/react-vk-3.1.0.tgz#709e80fcf100b70449cf83c26517df52c8a02462"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-
 react-yandex-maps@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-yandex-maps/-/react-yandex-maps-2.3.0.tgz#b8034201f4a633397ec8d218f090e5286442a49f"
@@ -8371,10 +8362,6 @@ regenerate@^1.2.1:
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
-
-regenerator-runtime@^0.12.0:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
 
 regenerator-transform@^0.10.0:
   version "0.10.1"
@@ -8640,6 +8627,7 @@ rmc-feedback@^2.0.0:
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.5"
+
 rtcpeerconnection-shim@^1.2.14:
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/rtcpeerconnection-shim/-/rtcpeerconnection-shim-1.2.14.tgz#67903d6f7b7bf508d6d1e4791de3e3b49c3754c0"

@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .top-panel {
   margin-bottom: 30px;
 }
@@ -6,13 +18,14 @@
 }
 .top-panel:before {
   content: '';
-  width: 70vw;
-  height: 52vw;
+  background-color: #fdc401;
+  width: 100vw;
+  height: 100vw;
   border: none;
   border-radius: 100%;
   position: absolute;
-  left: -15vw;
-  top: -11vw;
+  left: -65vw;
+  top: -12vw;
 }
 .flexCol {
   display: inline-flex;

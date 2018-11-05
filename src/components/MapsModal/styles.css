@@ -1,12 +1,24 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .ant-modal-body {
   padding: 0;
   position: relative;
 }
 .ant-modal-title {
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
 }
 .ant-modal-header {
-  background-color: #21bedd;
+  background-color: #0495ff;
   color: #ffffff;
 }
 .ant-modal-header .ant-modal-title {

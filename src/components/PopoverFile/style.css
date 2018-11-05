@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .popover-btn {
   display: inline-flex;
   background-color: transparent;
@@ -17,12 +29,12 @@
   border: none;
 }
 .popover-btn .btn-size-icon:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
   border: none;
 }
 .popover-btn .btn-size-icon:focus {
   background-color: transparent;
-  color: #21bedd;
+  color: #0495ff;
   border: none;
   outline: 0;
 }
@@ -68,7 +80,7 @@
   align-items: center;
   position: absolute;
   color: #344051;
-  font-family: RobotoMedium;
+  font-family: GothamPro-Medium;
   font-size: 13px;
   line-height: 1;
   top: -18px;

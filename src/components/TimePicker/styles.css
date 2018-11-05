@@ -1,9 +1,21 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .timepicker-base {
   cursor: pointer;
   display: inline-block;
 }
 .timepicker-base-title {
-  color: #777 letter;
+  color: #999999;
   margin-bottom: 25px;
 }
 .timepicker-base-range {
@@ -11,7 +23,7 @@
   min-width: 340px;
 }
 .ant-time-picker-input {
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
   font-size: 14px;
   border: 0;
   cursor: pointer;
@@ -23,5 +35,5 @@
   border-bottom: 1px solid #ebebeb;
 }
 .ant-time-picker .ant-time-picker-icon:after {
-  color: #21bedd;
+  color: #0495ff;
 }

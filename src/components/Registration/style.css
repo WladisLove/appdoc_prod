@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .registration-form {
   max-width: 850px;
   width: 100%;
@@ -35,12 +47,12 @@
   text-align: left;
 }
 .registration-form-navlink {
-  color: #21bedd;
+  color: #0495ff;
   font-size: 14px;
   line-height: 1;
 }
 .registration-form-navlink:hover {
-  color: #21bedd;
+  color: #0495ff;
 }
 .registration-form-control {
   text-align: center;
@@ -53,7 +65,7 @@
   max-height: 300px;
 }
 .registration-title {
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
   font-size: 44px;
   line-height: 1;
   letter-spacing: -0.88px;
@@ -61,13 +73,13 @@
   margin-bottom: 60px;
 }
 .registration-posttitle {
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
   font-size: 20px;
   color: #333;
   margin-bottom: 15px;
 }
 .registration-notification {
-  font-family: "RobotoLight";
+  font-family: 'GothamPro-Light';
   font-size: 12px;
   line-height: 1;
   color: #333;
@@ -138,12 +150,12 @@
   text-align: left;
 }
 .step-form-navlink {
-  color: #21bedd;
+  color: #0495ff;
   font-size: 14px;
   line-height: 1;
 }
 .step-form-navlink:hover {
-  color: #21bedd;
+  color: #0495ff;
 }
 .step-form-control {
   text-align: center;
@@ -155,7 +167,7 @@
   margin-bottom: 40px;
 }
 .step-title {
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
   font-size: 44px;
   line-height: 1;
   letter-spacing: -0.88px;
@@ -163,13 +175,13 @@
   margin-bottom: 60px;
 }
 .step-posttitle {
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
   font-size: 20px;
   color: #333;
   margin-bottom: 15px;
 }
 .step-notification {
-  font-family: "RobotoLight";
+  font-family: 'GothamPro-Light';
   font-size: 12px;
   line-height: 1;
   color: #333;
@@ -212,19 +224,19 @@
   margin-bottom: 45px;
 }
 .step-block-title {
-  color: #21bedd;
+  color: #0495ff;
   font-size: 14px;
   line-height: 1;
   text-transform: uppercase;
   margin-bottom: 40px;
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
 }
 .step-block-title-post {
   font-size: 16px;
   color: #333;
   line-height: 1;
   margin-bottom: 30px;
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
 }
 .step-block .datepicker-base {
   width: 100%;

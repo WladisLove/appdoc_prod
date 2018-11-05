@@ -11,8 +11,8 @@
   color: #eee;
 }
 .ant-select {
-  font-family: "RobotoRegular";
-  color: #999;
+  font-family: 'GothamPro';
+  color: #191919;
   display: block;
 }
 .ant-select-selection {
@@ -32,7 +32,7 @@
 .ant-select-selection--multiple .ant-select-selection__choice__content {
   color: #191919;
   font-size: 12px;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
   border-radius: 4px;
   margin-right: 10px;
 }

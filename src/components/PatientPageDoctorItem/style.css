@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .page__doctor-item {
   position: relative;
   padding: 20px 30px;
@@ -44,7 +56,7 @@
 .page__doctor-item-name {
   color: #344051;
   font-size: 18px;
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
   margin-bottom: 5px;
   cursor: pointer;
 }
@@ -54,19 +66,19 @@
 .page__doctor-item-speciality {
   color: #344051;
   font-size: 12px;
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
   margin-bottom: 5px;
   text-transform: uppercase;
 }
 .page__doctor-item-category {
   color: #344051;
   font-size: 14px;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
 }
 .page__doctor-item-exp {
   color: #344051;
   font-size: 14px;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
 }
 .page__doctor-item-price {
   position: relative;
@@ -83,10 +95,10 @@
   margin-right: 30px;
 }
 .page__doctor-item-price-coast {
-  color: #21bedd;
+  color: #0495ff;
   font-size: 24px;
   line-height: 1;
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
 }
 .page__doctor-item-language {
   display: flex;

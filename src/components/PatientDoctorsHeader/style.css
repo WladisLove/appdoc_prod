@@ -32,10 +32,10 @@
   cursor: pointer;
 }
 .patient-doctors-header .patient-doctors-actions .sortByName span {
-  font-family: "RobotoRegular";
+  font-family: "GothamPro";
 }
 .patient-doctors-header .legend {
-  font-family: "RobotoRegular";
+  font-family: "GothamPro";
 }
 .patient-doctors-header .legend .AppAfterAnalyses,
 .patient-doctors-header .legend .AppWithVideoAudio,

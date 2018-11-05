@@ -1,9 +1,10 @@
-body {
-    min-width: 1300px;
+body{
+	min-width: 1300px;
 }
 
 .ant-layout {
     background-color: #ddebf5;
+
     &-sider {
         flex: 0 0 340px !important;
         min-width: 340px !important;
@@ -31,10 +32,12 @@ body {
 .main {
     display: flex;
     flex-wrap: wrap;
-    background-color: #7544ea;
+    background-color: #dfedf7;
     overflow: hidden; ///background-image: url("../../img/main-bg.svg");
-    background-size: 130%; //background-position: -33vw -15vw;
+    background-size: 130%;
+    //background-position: -33vw -15vw;
     //background-repeat: no-repeat;
+
     &-sidebar {
         position: relative;
         width: 100%;
@@ -44,30 +47,36 @@ body {
         transition: 0.2s linear;
         z-index: 10;
         background-color: #fff;
+
         .sidenav-root {
             position: fixed;
             background-color: #fff;
             min-height: 880px;
         }
+
         &.collapsed {
             max-width: 170px;
         }
-    }<<<<<<< HomeWorkPage
+    }
+
     &-wrapper {
         display: flex;
         flex-direction: column;
         transition: 0.2s linear;
         width: ~"calc(100% - 340px)";
         min-height: ~"calc(100vh - 80px)";
+
         &.collapsed {
             width: ~"calc(100% - 170px)";
             max-width: none;
-            .main-header {
+
+            .main-header{
                 width: ~"calc(100% - 170px)";
                 min-width: ~"calc(1300px - 170px)";
             }
         }
     }
+
     &-header {
         position: fixed;
         top: 0;
@@ -79,14 +88,13 @@ body {
         align-items: center;
         z-index: 30;
         min-width: ~'calc(1300px - 340px)';
+
         .sidenav-root-btn {
             position: absolute;
-            background-color: #21bedd;
-            color: #fff;
             left: -11px;
             top: 89px;
-            width: 25px;
-            height: 25px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             outline-width: 0;
             border: 0;
@@ -94,10 +102,12 @@ body {
             cursor: pointer;
         }
     }
+
     &-content {
-        margin-top: 113px;
+        margin-top: 100px;
         padding: 40px 50px 40px 30px;
     }
+
     &-footer {
         position: relative;
         width: 100%;
@@ -105,12 +115,15 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+
         &-item {
             color: #344051;
+
             &.company {
                 font-size: 16px;
                 margin-right: 20px;
             }
+
             &.copirate {
                 font-size: 12px;
                 letter-spacing: 0.12px;
@@ -118,9 +131,8 @@ body {
         }
     }
 }
-
 button {
-    outline: none !important;
+    outline: none!important;
 }
 
 #bugfix {
@@ -137,18 +149,56 @@ button {
     outline: 0;
 }
 
-.ps__rail-x:hover>.ps__thumb-x,
-.ps__rail-x:focus>.ps__thumb-x,
-.ps__rail-y:hover>.ps__thumb-y,
-.ps__rail-y:focus>.ps__thumb-y,
-.ps__thumb-x,
-.ps__thumb-y {
-    background-color: #21bedd !important;
-
-
+.emergencyCall{
+    position: fixed;
+    z-index: 1000;
+    bottom: 20px;
+    right: 10px;
+    word-break: break-word;
+    border: none;
+    border-radius: 40px;
+    padding: 5px 15px;
+    background-color: #ef5350;
+    color: #fff;
+    max-width: 300px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    animation-iteration-count: infinite;
 }
 
-.ps__rail-y,
-.ps__rail-x {
-    z-index: 6;
+.emergencyCall:hover{
+    animation: none;
+}
+
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(1px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-2px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(2px, 0, 0);
+    }
+  }
+
+.ps__rail-x:hover > .ps__thumb-x,
+.ps__rail-x:focus > .ps__thumb-x,
+.ps__rail-y:hover > .ps__thumb-y,
+.ps__rail-y:focus > .ps__thumb-y,
+.ps__thumb-x, .ps__thumb-y {
+    background-color: #0495ff!important;
+}
+.ps__rail-y, .ps__rail-x {
+ z-index:6;
 }

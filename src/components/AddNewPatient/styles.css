@@ -1,10 +1,22 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .scrollarea .scrollbar-container.vertical {
   right: 10px;
 }
 .scrollarea .scrollbar-container.vertical .scrollbar {
   width: 6px;
   border-radius: 4px;
-  background-color: #21bedd;
+  background-color: #0495ff;
 }
 .scrollarea .scrollbar-container:hover,
 .scrollarea .scrollbar-container.active {

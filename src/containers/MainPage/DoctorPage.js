@@ -7,10 +7,9 @@ import TreatmentTable from "../../components/TreatmentTable";
 import NewVisitModal from "../../components/NewVisitModal";
 import TableNoHead from "../../components/TableNoHead";
 import CancelVisitModal from "../../components/CancelVisitModal";
-import Icon from "../../components/Icon";
 
 import Hoc from '../../hoc'
-import HomeworkList from "../../components/HomeworkList";
+import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 const DoctorPage = props => {
 
@@ -27,7 +26,7 @@ const DoctorPage = props => {
 					</Row>
 
 					<Row>
-						<Col xs={14} xxl={7} className='section'>
+						<Col xs={24} xxl={14} className='section'>
 							<TableNoHead data={props.visits}
 										onGoto={(val) => gotoHandler(val)}
 										onBegin={(val) => {
@@ -38,9 +37,8 @@ const DoctorPage = props => {
 										onAdd = {props.onAdd}
 							/>
 						</Col>
-						<Col xs={14} xxl={8} className='section'>
+						<Col xs={24} xxl={10} className='section'>
 							<Reviews data={props.reviews}
-									title="Домашние задания"
 									 numToDisplay = {7}
 									 onGoto={(val) => gotoHandler(val)}
 									 onGotoChat={(id) => {
@@ -50,20 +48,25 @@ const DoctorPage = props => {
 									 isDoctor={true}
 									 redirect={() => {props.history.push('/app/reviews');}}/>
 						</Col>
+					</Row>
+					<Row>
+						<Col span={24} className='section'>
+							<TreatmentTable data={props.actualTreatments}
+											dataCount = {props.treatmentsCount}
+											onGoto={(id) => gotoHandler(id)}
+											onGotoChat = {(id) => {
+                                                props.onSelectTretment(id);
+												props.history.push('/app/chat');
+											}}
+                                            getCompletedApps ={props.getCompletedApps}
+                                            onSubmitReview={props.onSubmitReview}
+											redirect={() => props.history.push('/app/treatment')}
+                                            addConclusion = {props.addConclusion}
+                                            makeArchiveOfFiles = {props.makeArchiveOfFiles}
 
-						<Col xs={14} xxl={9} className='section'>
-							<Reviews data={props.reviews}
-								title="Мои коучи"
-								numToDisplay={7}
-								onGoto={(val) => gotoHandler(val)}
-								onGotoChat={(id) => {
-									props.onSelectTretment(id);
-									props.history.push('/chat');
-								}}
-								isDoctor={true}
-								redirect={() => { props.history.push('/reviews'); }} 
-						extra={<a className="schedule-all-link"> <span class="span-all-queue">Весь список</span></a>}
-								/>
+
+
+                            />
 						</Col>
 					</Row>
 					<NewVisitModal visible={props.addModal}

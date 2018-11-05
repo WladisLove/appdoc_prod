@@ -10,7 +10,7 @@ import Spinner from "../Spinner";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Button from "../Button";
 import ReviewsModal from "../ReviewsModal";
-import HomeworkList from "../HomeworkList";
+import HistoryReceptionsTabs from "../HistoryReceptionsTabs";
 
 class TreatmentTable extends React.Component{
     constructor(props){

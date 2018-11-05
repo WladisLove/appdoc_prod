@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .panel-patient-block {
   position: relative;
   z-index: 2;
@@ -8,7 +20,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 1px solid #21bedd;
+  border: 1px solid #0495ff;
   width: 130px;
   height: 130px;
 }
@@ -52,9 +64,9 @@
 }
 .panel-patient-num {
   font-size: 32px;
-  color: #21bedd;
+  color: #0495ff;
   line-height: 1;
-  font-family: "RobotoLight";
+  font-family: 'GothamPro-Light';
   margin-bottom: 10px;
 }
 .panel-patient-edit {

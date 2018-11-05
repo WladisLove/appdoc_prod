@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .profile__doctor {
   background: white;
 }
@@ -54,25 +66,25 @@
 .profile__doctor-item-name {
   color: #344051;
   font-size: 18px;
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
   margin-bottom: 5px;
 }
 .profile__doctor-item-speciality {
   color: #344051;
   font-size: 12px;
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
   margin-bottom: 5px;
   text-transform: uppercase;
 }
 .profile__doctor-item-category {
   color: #344051;
   font-size: 14px;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
 }
 .profile__doctor-item-exp {
   color: #344051;
   font-size: 14px;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
 }
 .profile__doctor-item-price {
   position: relative;
@@ -92,10 +104,10 @@
   margin-right: 30px;
 }
 .profile__doctor-item-price-coast {
-  color: #21bedd;
-  font-size: 24px;
+  color: #0495ff;
+  font-size: 20px;
   line-height: 1;
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
 }
 .profile__doctor-item-language {
   display: flex;
@@ -129,7 +141,7 @@
   position: relative;
   width: 100%;
   display: block;
-  font-family: "RobotoBold";
+  font-family: 'GothamPro-Bold';
   font-size: 14px;
   line-height: 1;
   color: #344051;

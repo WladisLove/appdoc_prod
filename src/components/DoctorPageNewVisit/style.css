@@ -22,7 +22,7 @@
   align-self: center;
 }
 .doctor-page-new-visit .ant-card-body .new-visit-content .legend {
-  font-family: "RobotoRegular";
+  font-family: "GothamPro";
   display: flex;
   flex-direction: column;
 }

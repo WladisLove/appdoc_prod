@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .new-patient-item {
   display: flex;
   align-items: center;
@@ -21,7 +33,7 @@
 .new-patient-name {
   font-size: 14px;
   line-height: 18px;
-  color: #21bedd;
+  color: #204d8d;
 }
 .new-patient-age {
   font-size: 14px;
@@ -37,5 +49,5 @@
   color: #204d8d;
 }
 .new-patient-btn .btn:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
 }

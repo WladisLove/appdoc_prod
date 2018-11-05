@@ -1,7 +1,7 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
 
-
+import StorybookStylesProvider from './StorybookStylesProvider'
 
 const styles = {
     padding: 15,
@@ -9,7 +9,7 @@ const styles = {
 
 const LocalProviderDecorator = story => (
     <div style={styles}>
-        {story()}
+        <StorybookStylesProvider>{story()}</StorybookStylesProvider>
     </div>
 );
 
@@ -23,8 +23,6 @@ const loadStories = () => {
     require('../src/components/InputNew/stories');
     require('../src/components/SelectNew/stories');
     require('../src/components/Select/stories');
-    require('../src/components/InputWithTT/stories');
-    require('../src/components/InputDateWithTT/stories');
     require('../src/components/Switch/stories');
     require('../src/components/SwitchPanel/stories');
     require('../src/components/DatePicker/stories');
@@ -41,7 +39,6 @@ const loadStories = () => {
     require('../src/components/Upload/stories');
     require('../src/components/NewMessageModal/stories');
     require('../src/components/TimePicker/stories');
-    require('../src/components/CreateProfile/stories');
     require('../src/components/DownloadLink/stories');
     require('../src/components/Popover/stories');
     require('../src/components/TopPanel/stories');
@@ -67,7 +64,7 @@ const loadStories = () => {
     require('../src/components/WarningModal/stories');
     require('../src/components/NewVisitTypeModal/stories');
     require('../src/components/SideNav/stories');
-    require('../src/components/HomeworkListItem/stories');
+    require('../src/components/HistoryReceptionsItem/stories');
     require('../src/components/HistoryReceptions/stories');
     require('../src/components/ReviewsTree/stories');
     require('../src/components/PersonalContactItem/stories');
@@ -110,7 +107,7 @@ const loadStories = () => {
     require('../src/components/NewVisitModalPage/stories');
     require('../src/components/PopoverFile/stories');
     require('../src/components/PopoverFileBody/stories');
-    require('../src/components/HomeworkList/stories');
+    require('../src/components/HistoryReceptionsTabs/stories');
     require('../src/components/ChatVideoPanel/stories');
     require('../src/components/TopPanelPatientItem/stories');
     require('../src/components/TopPanelPatientPopover/stories');

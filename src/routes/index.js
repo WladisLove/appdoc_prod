@@ -1,6 +1,6 @@
 import MainPage from '../containers/MainPage'
 import Schedule from '../containers/Schedule'
-import Treatment from '../containers/Homework'
+import Treatment from '../containers/Treatment'
 import Patients from '../containers/Patients'
 import PatientsPage from '../containers/PatientsPage'
 import PersonalInfo from '../containers/PersonalInfo'

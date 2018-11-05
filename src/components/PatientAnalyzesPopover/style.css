@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .analyzes-popover {
   position: relative;
   display: flex;
@@ -25,7 +37,7 @@
   background-color: transparent;
 }
 .analyzes-popover-close .btn:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
 }
 .analyzes-popover-title {
   color: #344051;
@@ -48,16 +60,16 @@
   margin-bottom: 5px;
 }
 .analyzes-popover-name {
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
   font-size: 11px;
-  color: #21bedd;
+  color: #0495ff;
   letter-spacing: 0.275px;
   text-transform: uppercase;
 }
 .analyzes-popover-price {
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
   font-size: 12px;
-  color: #21bedd;
+  color: #0495ff;
 }
 .analyzes-popover-adress {
   cursor: pointer;
@@ -77,7 +89,7 @@
   color: #1f4d8d !important;
   line-height: 20px;
   font-size: 12px;
-  font-family: "RobotoRegular";
+  font-family: 'GothamPro';
   padding: 0 !important;
 }
 .analyzes-popover-adress .ant-collapse-item .ant-collapse-header .arrow {

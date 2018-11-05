@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .notifications-item {
   display: flex;
   flex-direction: column;
@@ -7,7 +19,7 @@
   position: relative;
   font-size: 14px;
   line-height: 1;
-  color: #21bedd;
+  color: #0495ff;
   margin-bottom: 25px;
 }
 .notifications-item-checkbox {
@@ -21,8 +33,8 @@
   margin-bottom: 15px;
 }
 .notifications-item-checkbox .ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #21bedd;
-  border-color: #21bedd;
+  background-color: #0495ff;
+  border-color: #0495ff;
 }
 .notifications-item-checkbox .ant-checkbox + span {
   color: #777;
@@ -32,5 +44,5 @@
   color: #344051;
 }
 .notifications-item-checkbox .ant-checkbox-input:focus + .ant-checkbox-inner {
-  border-color: #21bedd;
+  border-color: #0495ff;
 }

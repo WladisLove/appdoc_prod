@@ -11,7 +11,7 @@ import '../../icon/style.css'
 import HistoryReceptionsItems from "../HistoryReceptionsItems";
 import Spinner from "../Spinner";
 import ReviewsModal from "../ReviewsModal";
-import HomeworkList from "../HomeworkList";
+import HistoryReceptionsTabs from "../HistoryReceptionsTabs";
 
 class HistoryReceptions extends React.Component{
     constructor(props){

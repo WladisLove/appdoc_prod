@@ -1,4 +1,8 @@
-
+@import url("../../styles/variables");
+.wrapper-tip-radio {
+    &:not(:last-child) {
+        margin-right: 34px;
+    }
 .ant-radio-button-wrapper {
     display: inline-flex;
     padding: 0;
@@ -37,7 +41,7 @@
 }
 
 .ant-radio-button-wrapper-checked {
-    background-color: #21bedd;
+    background-color: @blue;
     color: #fff;
 }
 }

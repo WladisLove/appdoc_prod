@@ -1,3 +1,15 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
 .ant-popover-inner {
   max-width: 345px;
 }
@@ -59,7 +71,7 @@
   margin-right: auto;
 }
 .ant-popover-inner-content .calendar-block .btn:hover .icon {
-  color: #21bedd;
+  color: #0495ff;
 }
 .ant-popover-inner-content .link {
   margin-bottom: 1rem;
@@ -89,7 +101,7 @@
   align-items: center;
   position: absolute;
   color: #fff;
-  font-family: "RobotoMedium";
+  font-family: 'GothamPro-Medium';
   font-size: 13px;
   line-height: 1;
   top: -18px;
