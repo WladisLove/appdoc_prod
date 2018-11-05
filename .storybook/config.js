@@ -1,6 +1,7 @@
 import { configure } from '@storybook/react';
 import { setOptions } from '@storybook/addon-options'
-
+import '../node_modules/antd/dist/antd.css'
+import '../src/styles/fonts.css';
 // Option defaults:
 setOptions({
     /**

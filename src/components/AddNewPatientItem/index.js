@@ -30,41 +30,19 @@ class AddNewPatientItem extends React.Component{
                     <ProfileAvatar owner="patient" online={online} img={avatar} size='small'/>
                 </div>
                 <div className='new-patient-info'>
-                    <div className='new-patient-name'>{this.highlight(name, searchQuery)}</div>
-                    <div className='new-patient-age'>
+                    <div className='new-patient-name'>{name}</div>
+                    <div className='new-patient-age'>{
+                        usertype === "doc" ? (
+                            (specialitys ? specialitys.join(". ")+ ". " : "") +
+                            (academicdegree ? academicdegree+ ". " : "") +
+                            (academicstatus ? academicstatus+ ". " : "") +
+                            (category ? category + ". " : "")
+                        ) :  "Дисциплина"} </div>
 
-                        {
-                            usertype === "doc" ?
-                                <span>
-                                    {specialitys ? this.highlight(specialitys.join(". ") + ". ", searchQuery) : ""}
-                                    {academicdegree ? academicdegree + ". " : ""}
-                                    {academicstatus ? academicstatus + ". " : ""}
-                                    {category ? category + ". " : ""}
-                                </span>
-                                : age + " лет"
-                        }
-                    </div>
                 </div>
                 {
                     !isSearchItem && <div className='new-patient-btn'>
-                        {!favorite ?
-                            <Button
-                                btnText=''
-                                onClick={(e) => this.onAddHandler(e, "add")}
-                                size='file'
-                                type='file'
-                                icon='add-button'
-                                svg
-                            /> :
-                            <Button
-                                btnText=''
-                                onClick={(e) => this.onAddHandler(e, "delete")}
-                                size='file'
-                                type='file'
-                                icon='empty'
-                                svg
-                            />
-                        }
+                        
                     </div>
                 }
 

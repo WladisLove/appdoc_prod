@@ -5,6 +5,7 @@ import Icon from '../Icon'
 import { Popover } from 'antd';
 
 import './style.css'
+import { notificationArr } from './stories/mock-data'
 
 class NotificationApp extends React.Component {
     constructor(props) {
@@ -17,8 +18,8 @@ class NotificationApp extends React.Component {
 
     getDataLength = () => {
         let count = 0;
-        for(let i = 0; i < this.props.data.length; i++){
-            if(!this.props.data[i].watch) count++
+        for (let i = 0; i < notificationArr.length; i++){
+            if (!notificationArr[i].watch) count++
         }
         return count;
     };
@@ -46,8 +47,8 @@ class NotificationApp extends React.Component {
                 <Popover
                     className="notific_popover"
                     content={this.state.visible && <NotificationCard
-                        data = {this.props.data}
-                        top={this.props.top}
+                        data={notificationArr} // this.props.data
+                        top={this.props.top} 
                         getId={(id) => {
                             this.props.getId(id);
                             this.setState(prevState => {return {...prevState, inverseCount: prevState.inverseCount + 1}})

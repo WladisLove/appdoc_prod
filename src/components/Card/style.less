@@ -1,78 +1,64 @@
-@import url("../../styles/variables");
-
-.scrollarea .scrollbar-container.horizontal{
-	z-index: 99;
+.scrollarea .scrollbar-container.horizontal {
+    z-index: 99;
 }
 
-.ant{
+.section-tablenohead.ant-card-body {
+        margin-top: 20px;
 
-	&-card{
+}
 
-		&-head{
-			background-color: @blue;
-			padding: 0 !important;
-
-			&-wrapper{
-
-			}
-
-			&-title{
-				color: #fff;
-				font-size: 1.25rem;
-				padding: 1rem 1.75rem;
-			}
-		}
-
-		&-extra{
-			display: flex;
-			align-items: center;
-			padding: 0;
-
-			a{
-				color: #fff;
-				padding: 1rem 1.75rem;
-				display: flex;
-				align-items: center;
-
-				span + span{
-					margin-left: 7.5px;
-				}
-				
-				i + span{
-					margin-left: 7.5px;
-				}
-
-
-				&:hover{
-					text-decoration: none;
-
-					span{
-						text-decoration: none;
-
-						& + span{
-							text-decoration: underline;
-						}
-					}
-
-					i{
-						text-decoration: none;
-
-						& + span{
-							text-decoration: underline;
-						}
-					}
-				}
-			}
-
-			.sum{
-				padding: 1rem 1.75rem;
-				background-color: #204d8d;
-				color: #fff;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				font-size: 1.25rem;
-			}
-		}
-	}
+.ant {
+    &-card {
+        &-head {
+            background-color: #ff7daa;
+            padding: 0 !important;
+            &-wrapper {}
+            &-title {
+                color: #fff;
+                font-size: 1.25rem;
+                padding: 1rem 1.25rem;
+            }
+        }
+        &-extra {
+            display: flex;
+            align-items: center;
+            padding: 0;
+            a {
+                color: #fff;
+                padding: 1rem 1.75rem;
+                display: flex;
+                align-items: center;
+                span+span {
+                    margin-left: 7.5px;
+                }
+                i+span {
+                    margin-left: 7.5px;
+                }
+                &:hover {
+                    text-decoration: none;
+                    span {
+                        text-decoration: none;
+                        &+span {
+                            text-decoration: underline;
+                        }
+                    }
+                    i {
+                        text-decoration: none;
+                        &+span {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+            .sum {
+                padding: 1rem 1.75rem;
+                background-color: #204d8d;
+                color: #fff;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                font-size: 1.25rem;
+            }
+        }
+    }
 }

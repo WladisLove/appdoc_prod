@@ -1,19 +1,6 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
-.wrapper-tip-radio:not(:last-child) {
-  margin-right: 34px;
-}
-.wrapper-tip-radio .ant-radio-button-wrapper {
+
+.ant-radio-button-wrapper {
+
   display: inline-flex;
   padding: 0;
   border-radius: 50%;
@@ -45,7 +32,7 @@
   border: 1px solid #465060;
   color: #465060;
 }
-.wrapper-tip-radio .ant-radio-button-wrapper-checked {
-  background-color: #0495ff;
+.ant-radio-button-wrapper-checked {
+  background-color: #21bedd;
   color: #fff;
 }

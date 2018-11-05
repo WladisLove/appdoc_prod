@@ -1,15 +1,3 @@
-/* fonts */
-/* COLORS */
-/* VAR */
-.entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
-}
 .react-calendar {
   max-width: 285px;
 }
@@ -28,7 +16,7 @@
   align-items: center;
 }
 .react-calendar__tile--active {
-  background-color: #204d8d !important;
+  background-color: #204d8d!important;
 }
 .react-calendar__month-view .react-calendar__month-view__weekdays {
   padding: 15px 6px;
@@ -67,6 +55,6 @@ button.react-calendar__tile--hasActive:not([disabled]):focus,
   color: #fff;
 }
 .highlighted-day {
-  background-color: #0495ff;
+  background-color: #21bedd;
   color: #fff;
 }

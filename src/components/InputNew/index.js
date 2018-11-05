@@ -21,8 +21,8 @@ class InputNew extends AntInput{
                  style={{width:this.props.width ? this.props.width : null}}
             >
                 <AntInput {...this.props}
-                       className={inputClassName}
-                       ref = {inp => this.inp = inp}
+                          className={inputClassName}
+                          ref = {inp => this.inp = inp}
                 />
                 <label>{this.props.bubbleplaceholder}</label>
 

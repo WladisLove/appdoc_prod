@@ -5,7 +5,7 @@ import InputNew from '../';
 storiesOf('InputNew', module)
     .add('InputNew', () => (
 		<div>
-			<InputNew width="20%" placeholder="ФИО"/>
+			<InputNew width="20%" bubbleplaceholder="ФИО"/>
 
 		</div>
     ))
