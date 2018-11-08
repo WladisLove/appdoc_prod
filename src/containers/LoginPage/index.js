@@ -68,7 +68,7 @@ class LoginPage extends React.Component {
 
                 <div className="loginPage-header">
                     <div className="loginPage-header-close">
-                        <NavLink to="/login" onClick={this.onOk}>
+                        <NavLink to="/app/login" onClick={this.onOk}>
                             <Icon type='close' svg />
                         </NavLink>
 
@@ -81,23 +81,23 @@ class LoginPage extends React.Component {
                          md={{span: 12, offset: 6}}
                          lg={{span: 12, offset: 6}}
                          xl={{span: 12, offset: 6}}>
-                        <Route path="/login"
+                        <Route path="/app/login"
                                exact
-                               render={() => <Login urlForget={this.props.match.url + '/forget'}
-                                                    urlRegistrationDoctor='/registration'
-                                                    urlRegistrationPatient='/patient-registration'
+                               render={() => <Login urlForget={this.props.match.url + '/app/forget'}
+                                                    urlRegistrationDoctor='/app/registration'
+                                                    urlRegistrationPatient='/app/patient-registration'
                                                     errorCode={this.props.errorCode}
                                                     onSubmit={(obj) => this.props.onLogin(obj, this.props.history)}
                                />}
                         />
-                        <Route path="/login/forget"
+                        <Route path="/app/login/forget"
                                exact
                                render={() => <LoginForget urlLogin={this.props.match.url}
                                                           onUrlChange={() => {
                                                               this.props.history.replace(this.props.match.url)
                                                           }}/>}
                         />
-                        <Route path="/registration"
+                        <Route path="/app/registration"
                                exact
                                render={() => <Registration onFinish={this.registerDoctor}
                                                            langs={langs}
@@ -106,7 +106,7 @@ class LoginPage extends React.Component {
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
                                                            finalText='Я ознакомлен с условиями работы и принимаю их'
-                                                           urlLogin = "/login"
+                                                           urlLogin = "/app/login"
                                                            onOk={this.onOk}
                                                            isRegFinished = {this.state.isRegFinished}
                                                            regInProgress = {this.state.regInProgress}
@@ -114,11 +114,11 @@ class LoginPage extends React.Component {
                                                            uploadFile = {this.props.uploadFile}
                                />}
                         />
-                        <Route path="/patient-registration"
+                        <Route path="/app/patient-registration"
                                exact
                                render={() => <RegistrationPatient onFinish={this.registerPatient}
                                                                   langs={langs}
-                                                                  urlLogin = "/login"
+                                                                  urlLogin = "/app/login"
                                                                   payments={payments}
                                                                   academicTitle={academicTitle}
                                                                   academicDegree={academicDegree}

@@ -265,7 +265,7 @@ class App extends React.Component {
                     />
                 </Hoc>)
             : (
-                <Redirect to='/login'/>
+                <Redirect to='/app/login'/>
             )
             }
             </div>
