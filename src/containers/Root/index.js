@@ -10,6 +10,9 @@ class Root extends React.Component{
 
     render(){
         return (
+        window.location.search ?
+            <Redirect to={`/app/${window.location.search.split("?path=")[1]}`}/>
+        :
         <Switch>
 
             <Route path="/app/login" component={LoginPage}/>
