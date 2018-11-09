@@ -19,6 +19,7 @@ class BigCalendar extends React.Component{
     };
 
     selectHandler = (range, slotInfo,selecting, schedule) => {
+        console.log(slotInfo, "LOGGING CLICK TOUCH AND ETC");
         if (slotInfo.action === 'click'){
             this.props.onMonthSelect(range, schedule);
             return

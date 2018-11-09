@@ -313,7 +313,7 @@ class Schedule extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col span={19}>
+                    <Col span={19} md={17} xs={17} sm={17}>
                         {calendar}
                     </Col>
                     <Col span={5} style={{textAlign: 'center'}}>
