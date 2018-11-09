@@ -44,7 +44,7 @@ class TableNoHead extends React.Component{
                                     title='Добавить новый приём'
                                 />
                             </div>
-                            <div className="flex-col ico-btn">
+                            {/*<div className="flex-col ico-btn">
                                 <Button 
                                     size='link'
                                     type='link'
@@ -64,7 +64,7 @@ class TableNoHead extends React.Component{
                                     icon='xls-file'
                                     title='Скачать xls-файл'
                                 />
-                            </div>
+                            </div>*/}
                         </div>
                         <ScrollArea
                             speed={0.8}
