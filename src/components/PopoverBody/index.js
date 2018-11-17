@@ -43,15 +43,6 @@ const PopoverBody = (props) => {
 					iconSize={16}
 					onClick={onEmail}
 				/>
-				<Button
-					onClick={props.onClose}
-					size='file'
-					type='file'
-					icon='circle_close'
-					title='Отменить приём'
-					svg
-					iconSize={18}
-				/>
 			</div>
 		</div>
     );

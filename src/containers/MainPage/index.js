@@ -97,14 +97,15 @@ class MainPage extends React.Component{
             />
 		) : (
 			<DoctorPage
-				showCancel = {() => {this.setState({cancelModal: true})}}
+				showCancel = {(id) => {this.setState({cancelModal: true, appIdToCancel: id})}}
 				onAdd = {this.onAddVisit}
+                appIdToCancel = {this.state.appIdToCancel || null}
 				addModal = {this.state.addModal}
 				closeAdd= {() => {this.setState({addModal: false})}}
 				onSaveNewVisit = {this.onSaveNewVisit}
 				cancelModal ={this.state.cancelModal}
                 closeCancel= {() => {this.setState({cancelModal: false})}}
-				saveCancel = {() => {}}
+				saveCancel = {this.props.cancelApp}
 				getCompletedApps = {(pagination)=>this.props.onGetActualTreatments({status: "topical", ...pagination})}
                 treatmentsCount={this.props.treatmentsCount}
                 addConclusion = {this.props.addConclusion}
@@ -147,7 +148,6 @@ const mapDispatchToProps = dispatch => {
         onGetCompletedApp: (obj) => dispatch(actions.getCompletedApps(obj)),
 		onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
 		onGetNearVisits: (count) => dispatch(actions.getCountNearVisits(count)),
-		//onGetAllPatientsVisits: () => dispatch(actions.getAllVisits()),
 		getDocTodayInfo: () => dispatch(actions.getDocTodayInfo()),
 		onGetPatientDoctors: (count) => dispatch(actions.getPatientDoctors(count)),
 		onGetIntervalForDate: (beginDay, endDay, id) => dispatch(actions.getDateIntervalWithoutMakingApp(beginDay, endDay, id)),
@@ -157,7 +157,9 @@ const mapDispatchToProps = dispatch => {
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file)),
         makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),
-        cancelAppByPatient: (id) => dispatch(actions.cancelAppByPatient(id))
+        cancelAppByPatient: (id) => dispatch(actions.cancelAppByPatient(id)),
+        cancelApp: (obj) => dispatch(actions.deleteEvent(obj)),
+
     }
 };
 

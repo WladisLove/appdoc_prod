@@ -81,6 +81,8 @@ const DoctorPage = props => {
 									onGoto={() => {}}
 									onCancel={props.closeCancel}
 									onSave={props.saveCancel}
+								  	singleCancel={true}
+								  	appIdToCancel={props.appIdToCancel}
 					/>
                 </Hoc>
     )

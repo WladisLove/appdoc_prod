@@ -182,7 +182,7 @@ export const getCountNearVisits = (count) => {
 
 export const getTodayVisits = () => {
     return (dispatch, getState) => {
-        axios.get('/catalog.doc2/todayZap/id_doc/'+getState().auth.id)
+        return axios.get('/catalog.doc2/todayZap/id_doc/'+getState().auth.id)
             .then(res => {
                 dispatch({
                     type: actionTypes.GET_ALL_VISITS,
@@ -195,18 +195,17 @@ export const getTodayVisits = () => {
     }
 }
 
-export const deleteEvent = () => {
+export const deleteEvent = (obj) => {
 
     return (dispatch, getState) => {
-        
-        axios.post('/catalog.doc2/delApp',
-                    JSON.stringify({
-                        id: getState().schedules.chosenData.id,
-                    }))
+        obj.id_doc=getState().auth.id;
+        return axios.post('/catalog.doc2/delApp',
+                    JSON.stringify(obj))
             .then(res => {
                 dispatch({
                     type: actionTypes.DELETE_EVENT,
                 })
+                return res
             })
             .catch(err => {
                 console.log(err);
@@ -215,18 +214,21 @@ export const deleteEvent = () => {
 };
 
 export const cancelEventsRange = (obj) => {
-    let response = {
-        ...obj,
-        id_doc: 2697,
-    }
+
     
-    return (dispatch) => {
-        axios.post('/catalog.doc2/delAppDateInterval',
+    return (dispatch, getState) => {
+        let response = {
+            ...obj,
+            id_doc: getState().auth.id,
+        }
+        console.log(response, "CANCEL RANGE");
+        return axios.post('/catalog.doc2/delAppDateInterval',
                 JSON.stringify(response))
         .then(res => {
             dispatch({
                 type: actionTypes.CLOSE_CANCEL_MODAL,
             })
+            return res
         })
         .catch(err => {
             console.log(err);

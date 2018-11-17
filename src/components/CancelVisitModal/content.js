@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Form } from 'antd';
+import { Form, message } from 'antd';
 import TextArea from '../TextArea'
 import Upload from '../Upload'
 import DatePicker from '../DatePicker'
@@ -24,27 +24,44 @@ class ContentForm extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
-        let tmp = {
-            ...this.props.form.getFieldsValue(),
-        }
-        
-        let rangeArr = [];
-        for (let key in tmp){
-            key.indexOf('range') === 0 && (tmp[key][0] || tmp[key][1]) && rangeArr.push({
-                start: tmp[key][0].unix(),
-                end: tmp[key][1].unix(),
-            })
-        }
 
-        let response = {
-            file: this.props.form.getFieldValue('file') 
-                ? ( this.props.form.getFieldValue('file').fileList) 
-                : [],
-            comment: this.state.message,
-            range: rangeArr,
-        };
+        if(!this.state.message) {
+            message.error("Введите причину")
+            return
+        }
+        let response = {};
+        if(!this.props.singleCancel) {
+            let tmp = {
+                ...this.props.form.getFieldsValue(),
+            }
 
-        this.props.onSave(response);
+            let rangeArr = [];
+            for (let key in tmp){
+                key.indexOf('range') === 0 && (tmp[key] && tmp[key][0] && tmp[key][1]) && rangeArr.push({
+                    start: tmp[key][0].unix(),
+                    end: tmp[key][1].unix(),
+                })
+            }
+
+            if(!rangeArr.length) {
+                message.error("Выберите период")
+                return
+            }
+            response.range = rangeArr;
+        } else {
+            response.id = this.props.appIdToCancel;
+        }
+        response.file = this.props.form.getFieldValue('file')
+            ? ( this.props.form.getFieldValue('file').fileList.map((item, index)=>{return {name: item.originFileObj.name, thumbUrl: item.originFileObj.thumbUrl}}))
+            : [];
+        response.comment = this.state.message;
+        console.log("SAVE CANCEL", response)
+        this.props.onSave(response).then((res)=>{
+            this.props.onCancel();
+            if(this.props.showWarning) {
+                this.props.showWarning()
+            };
+        });
     };
 
     addDp = (e) => {
@@ -131,13 +148,11 @@ class ContentForm extends React.Component{
     modifyFiles = (file) => {
         if(!file.thumbUrl && !file.modify){
             file.modify = true;
-            let that = this;
-            previewFile(file.originFileObj, function (previewDataUrl) {
+            previewFile(file, function (previewDataUrl) {
                 file.thumbUrl = previewDataUrl;
             });
         }
-        
-    }
+    };
 
     render(){
         const { getFieldDecorator } = this.props.form;
@@ -159,15 +174,15 @@ class ContentForm extends React.Component{
                                 text="Прикрепить файл"/>
                     )}
                 </FormItem>
-                {this.renderDp(getFieldDecorator)}
-                <Button onClick={(e) => this.addDp(e)}
+                {!this.props.singleCancel && this.renderDp(getFieldDecorator)}
+                {!this.props.singleCancel && <Button onClick={(e) => this.addDp(e)}
                         className='cancelVisitModal-dpAdd'
                         btnText='Добавить интервал'
                         size='file'
                         type='file'
                         icon='add-button'
                         svg
-                />
+                />}
                 <Button htmlType="submit"
                         size='default'
                         btnText='Сохранить'

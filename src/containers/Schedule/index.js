@@ -209,6 +209,7 @@ class Schedule extends React.Component {
     };
 
     eventDeleteHandler = (id) => {
+        console.log("INNER ID", id)
         this.props.onEventDelete(id);
         this.setState({warningModal: true});
     }
@@ -336,9 +337,9 @@ class Schedule extends React.Component {
                 <CancelVisitModal visible={this.state.cancelModal}
                                   {...this.props.cancelData}
                                   onSave={(obj) => {
-                                      this.props.onCloseCancelModal(obj);
-                                      this.setState({cancelModal: false, warningModal: true});
+                                      return this.props.onCloseCancelModal(obj);
                                   }}
+                                  showWarning={()=>{this.setState({warningModal: true})}}
                                   onCancel={() => this.setState({cancelModal: false})}
                 />
                 <NewVisitModal visible={this.state.newVisitModal}
@@ -408,7 +409,7 @@ const mapDispatchToProps = dispatch => {
 
         onSelectPatient: (id) => dispatch(actions.selectPatient(id)),
         onSelectEvent: (event) => dispatch(actions.selectEvent(event)),
-        onEventDelete: () => dispatch(actions.deleteEvent()),
+        onEventDelete: (id) => dispatch(actions.deleteEvent({id})),
         cancelAppByPatient: (id) => dispatch(actions.cancelAppByPatient(id))
 
     }
