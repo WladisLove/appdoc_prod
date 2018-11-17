@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
-
+import {message} from "antd"
 import Row from "../../components/Row";
 import Col from "../../components/Col";
 import ReviewsTree from "../../components/ReviewsTree";
@@ -24,6 +24,11 @@ class Reviews extends React.Component{
 
 	};
 
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps, "NEXT PROPS REVIEW")
+    }
+
     render() {
         const reviews = this.props.isDoctor ? this.props.reviews : this.props.reviewsByPatient;
         const reviewsLoadCount = 3;
@@ -43,7 +48,7 @@ class Reviews extends React.Component{
                                      numberOfReviews={this.props.commentCount}
                                      onLoad={this.props.isDoctor ?
 										 this.props.onGetAllReviews : this.props.onGetAllReviewsByPatient}
-                                     onSend={obj => this.props.onSendAnswer(obj)}
+                                     onSend={this.props.onSendAnswer}
                                      onGoto={(val) => this.gotoHandler(val)}
                                      onGotoChat={(id) => {
                                          this.props.onSelectTretment(id);

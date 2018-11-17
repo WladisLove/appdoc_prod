@@ -7,7 +7,7 @@ export const getAllReviews = (numberOfRequest = 0, maxReviews = 3, dateStart, da
         const user_id = id ? id : getState().auth.id;
         const datestart = dateStart ? dateStart : 0;
         const dateend = dateEnd ? dateEnd : (+new Date());
-        axios.post('/catalog.doc2/getCommentToDoc',
+         return axios.post('/catalog.doc2/getCommentToDoc',
                     JSON.stringify({
                         id_doc: user_id,
                         max: maxReviews,
@@ -22,6 +22,7 @@ export const getAllReviews = (numberOfRequest = 0, maxReviews = 3, dateStart, da
                     ratingAll: res.data.ratingAll ? res.data.ratingAll : 0,
                     commentCount: res.data.commentCount ? res.data.commentCount : 0
                 });
+                return res;
             })
             .catch(err => {
                 console.log(err);
@@ -63,10 +64,11 @@ export const putCommentAnswer = (answer) => {
     return (dispatch) => {
         dispatch({type: actionTypes.PUT_COMMENT_ANSWER})
 
-        axios.post('/catalog.doc2/putAnsCommentToDoc',
+        return axios.post('/catalog.doc2/putAnsCommentToDoc',
                     JSON.stringify(answer))
             .then(res => {
                 dispatch(getAllReviews());
+                return res;
             })
             .catch(err => {
                 console.log(err);

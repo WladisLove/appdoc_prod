@@ -10,6 +10,7 @@ import Spinner from '../Spinner'
 import moment from 'moment'
 
 import './style.css'
+import {message} from "antd";
 const TabPane = Tabs.TabPane;
 
 class ReviewsTree extends React.Component{
@@ -61,7 +62,19 @@ class ReviewsTree extends React.Component{
         const initialTab = this.state.tab;
         this.loadMoreData(initialTab);
     }
-
+    sendAnswerForReview = (obj) => {
+        console.log(obj)
+        this.props.onSend(obj)
+            .then((res)=>{
+                console.log(res, "RES ANSWER")
+                if(res.data.code === 200) {
+                    message.success("Отзыв успешно добавлен");
+                    this.refresh();
+                } else {
+                    message.error("Произошла ошибка попробуйте ещё раз")
+                }
+            })
+    }
     componentWillUpdate(nextProps) {
         const loadingTab = this.state.loadingReviewsFor;
         if (loadingTab && nextProps.data !== this.props.data) {
@@ -75,7 +88,29 @@ class ReviewsTree extends React.Component{
             });
         }
     };
-
+    refresh = () => {
+        const tab = this.state.tab;
+        const limit = this.state[tab].reviews.length;
+        if (tab === "allTab") {
+            this.props.onLoad(0, limit)
+                .then((res)=>{
+                    this.setState({allTab : {...this.state.allTab, reviews:res.data.result}})
+                });
+        } else if (tab === "todayTab") {
+            let todayStart = moment(+new Date()).startOf('day').format('X');
+            let todayEnd = moment(+new Date()).endOf('day').format('X');
+            this.props.onLoad(0, limit, todayStart, todayEnd)
+                .then((res)=>{
+                    this.setState({todayTab : {...this.state.todayTab, reviews:res.data.result}})
+                });
+        } else if (tab === "periodTab" && this.state.range.length) {
+            let [start, end] = this.state.range;
+            this.props.onLoad(0, limit, start / 1000, end / 1000)
+                .then((res)=>{
+                    this.setState({periodTab : {...this.state.periodTab, reviews:res.data.result}})
+                });
+        }
+    }
     tabChangeHandler = (tab) => {
         this.setState({tab: tab});
         this.setState({displayDP: tab === "periodTab"});
@@ -114,7 +149,7 @@ class ReviewsTree extends React.Component{
                                 key={item.id}
                                 onGoto={this.props.onGoto}
                                 onGotoChat={this.props.onGotoChat}
-                                onSend={this.props.onSend}/>)
+                                onSend={this.sendAnswerForReview}/>)
         });
 
         if(this.state.loadingReviewsFor)
