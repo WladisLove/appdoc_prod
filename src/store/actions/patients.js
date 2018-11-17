@@ -168,10 +168,10 @@ export const getSelectedPatientInfo = (id) => {
                     })
                 } else {
                     const {diseasesArr, treatmentArr, infoUser} = rez.data.result;
+                    console.log(rez.data.result, "RESULT PATIENT INFO ")
                     dispatch({
                         type: actionTypes.GET_SELECTED_PATIENT_INFO,
                         diseases: diseasesArr,
-                        treatments: treatmentArr,
                         infoUser: infoUser,
                     })
                 }
@@ -219,6 +219,7 @@ export const searchUsers = (name) => {
         };
         axios.post('/catalog.doc2/getDoctorOrPatientsListShortById', JSON.stringify(obj))
             .then(rez => {
+                console.log(rez);
               dispatch({
                     type: actionTypes.GET_RESULTS_HEADER_SEARCH,
                     usersHeaderSearch: rez.data,

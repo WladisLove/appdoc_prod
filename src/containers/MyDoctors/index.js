@@ -82,7 +82,7 @@ class Patients extends React.Component{
         				<h1 className='page-title'>Мои врачи</h1>
         			</Col>
         		</Row>
-            	<Row>
+				 <Row>
             		<Col xs={24} xxl={18}>
 						<PatientDoctors
 							data = {this.props.patientDoctors ? this.props.patientDoctors : []}

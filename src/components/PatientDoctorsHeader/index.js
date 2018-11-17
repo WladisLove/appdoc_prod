@@ -44,7 +44,7 @@ class PatientDoctorsHeader extends React.Component{
                                 svg
                             />
                         </div>
-                        <div className="flex-col ico-btn">
+                        {this.props.data.length !== 0 && <div className="flex-col ico-btn">
                             <button className="sortByName" onClick={()=>{
                                 this.props.onSort(this.state.sortByName==="down"?"up":"down");
                                 this.setState({sortByName: this.state.sortByName==="down"?"up":"down"});
@@ -57,13 +57,13 @@ class PatientDoctorsHeader extends React.Component{
                                 onSearch={this.props.onSearch}
                                 value={this.state.searchInputValue}
                             />
-                        </div>
+                        </div>}
                     </div>
-                    <div className="legend">
+                    {this.props.data.length !== 0 && <div className="legend">
                         <span className="AppAfterAnalyses">Приёмы по результатам анализов</span>
                         <span className="AppWithVideoAudio">Доступные приёмы</span>
                         <span className="AppUnavailable">Недоступные приёмы</span>
-                    </div>
+                    </div>}
                 </div>
         )
     }

@@ -50,7 +50,7 @@ class PatientDoctors extends React.Component {
                 />
 
                 {this.state.data.length === 0 ?
-                    (<div className="no-doctors">Доктора не найдены</div>)
+                    (<div className="no-doctors">Добавьте врачей в свой список</div>)
                     : (this.state.data.map((item, index)=>
                     <PatientDoctorsItem
                         key = {index+1}

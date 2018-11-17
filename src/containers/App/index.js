@@ -172,7 +172,12 @@ class App extends React.Component {
                             onLogoClick={this.logoClick}
                             menuItems={isUser ? menuPatient : menuDoc}
                             isUser={isUser}
-                            isShort={this.state.collapsed}/>
+                            isShort={this.state.collapsed}
+                            gotoSite={()=>{
+                                window.location = "/"
+                            }}
+
+                    />
 
                 </div>
                 <div className={wrapperClass}>

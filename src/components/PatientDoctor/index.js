@@ -10,6 +10,7 @@ import './style.css'
 import '../../icon/style.css'
 import {message} from "antd";
 import Spinner from "../Spinner";
+import Button from "../Button";
 
 
 class PatientDoctor extends React.Component{
@@ -33,10 +34,22 @@ class PatientDoctor extends React.Component{
 
     doctorRender = (dataArr) => {
         let doctorArr = [];
+        if(dataArr.length) {
+            dataArr.map((item,index) => {
+                doctorArr.push(<PatientDoctorItem onGoto={this.props.onGoto} key={index} {...item} checkModal1Visible={this.setModal1Visible}/>)
+            });
+        } else {
+            doctorArr.push(<div className='noMyDoctors'>
+                    <span>
+                        Врачи отсутствуют
+                    </span>
+                <Button btnText='Добавить'
+                        onClick={this.props.redirect}
+                        size='small'
+                        type='float'/>
+            </div>)
+        }
 
-        dataArr.map((item,index) => {
-            doctorArr.push(<PatientDoctorItem onGoto={this.props.onGoto} key={index} {...item} checkModal1Visible={this.setModal1Visible}/>)
-        });
 
         return doctorArr;
     };

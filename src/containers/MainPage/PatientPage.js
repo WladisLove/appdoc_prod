@@ -54,7 +54,7 @@ const PatientPage = props => {
                     <PatientNearRecord
                         style={{height: 485}}
                         data={props.nearVisits}
-                        onGoto={() => console.log('click')}
+                        onGoto={() => props.history.push('/app/doctors')}
                         redirect={() => props.history.push('/app/calendar')}
                         nearVisitsLoaded = {props.nearVisitsLoaded}
                         cancelAppByPatient = {props.cancelAppByPatient}

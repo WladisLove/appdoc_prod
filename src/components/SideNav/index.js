@@ -56,6 +56,7 @@ const SideNav = props => {
                             {renderMenuItems(menuItems)}
                         </Menu>
                         {isUser && <div className="site-link"><Button
+                                title="Перейти на сайт"
                                 btnText={isShort ? "" : 'Перейти на сайт'}
                                 size='go'
                                 type='go'

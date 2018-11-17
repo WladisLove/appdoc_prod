@@ -38,3 +38,19 @@
 .doctor-all .ant-card-body > div {
   padding: 30px;
 }
+.doctor-all .noMyDoctors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.doctor-all .noMyDoctors span {
+  font-weight: 700;
+  font-size: 14px;
+}
+.doctor-all .noMyDoctors button {
+  width: 200px;
+  margin-top: 10px;
+}
+.doctor-all .noMyDoctors button span {
+  font-size: 12px;
+}
