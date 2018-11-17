@@ -55,12 +55,17 @@ class ContentForm extends React.Component{
             ? ( this.props.form.getFieldValue('file').fileList.map((item, index)=>{return {name: item.originFileObj.name, thumbUrl: item.originFileObj.thumbUrl}}))
             : [];
         response.comment = this.state.message;
-        console.log("SAVE CANCEL", response)
         this.props.onSave(response).then((res)=>{
+            console.log(res, "RES SINGLE")
+            if(res.data.code===300) {
+                message.error("Отмена приёма осуществляется не менее чем за три часа до его начала");
+                return;
+            }
+            message.success("Заявка успешно отправлена");
             this.props.onCancel();
             if(this.props.showWarning) {
                 this.props.showWarning()
-            };
+            }
         });
     };
 
