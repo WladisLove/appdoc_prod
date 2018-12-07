@@ -19,6 +19,17 @@ const PatientPageDoctorItem = props => {
     const onGoTo = () => {
         props.onGoTo(id);
     };
+    const renderSpecialities = (speciality) => {
+
+        if(speciality.length) {
+            return speciality.reduce((acc, current)=> {
+                return `${acc}, ${current}`
+            })+"."
+        } else {
+            return "Нет специальностей."
+        }
+
+    };
     return (
             <div className='page__doctor-item'>
                 <div className='page__doctor-item-block'>
@@ -56,9 +67,7 @@ const PatientPageDoctorItem = props => {
                         </div>
 
                         
-                        <div className='page__doctor-item-speciality'>{speciality.reduce((acc, current)=> {
-                            return `${acc}, ${current}`
-                        })+"."}</div>
+                        <div className='page__doctor-item-speciality'>{renderSpecialities(speciality)}</div>
                         <div className='page__doctor-item-category'>{doctorCategory}</div>
                         <div className='page__doctor-item-exp'>Стаж работы {doctorExp}</div>
                     </div>
