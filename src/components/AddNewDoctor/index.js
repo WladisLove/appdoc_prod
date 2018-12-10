@@ -44,18 +44,20 @@ class AddNewDoctor extends React.Component {
     }
 
     handleChange = (e) => {
+        const value = e.target.value;
         this.setState({inputValue: e.target.value});
         clearTimeout(this.timer);
         if (e.target.value.length === 3)
-            this.triggerChange();
-        else if (e.target.value.length > 2)
+            this.triggerChange(value);
+        else if (e.target.value.length > 3)
             this.timer = setTimeout(this.triggerChange, 800);
         else this.props.onClear();
     };
 
-    triggerChange = () => {
+    triggerChange = (value) => {
+        const searchString = value || this.state.inputValue;
         this.setState({loading: true});
-        this.props.onSearch(this.state.inputValue)
+        this.props.onSearch(searchString)
             .then((res) => {
                 if (res.status === 200)
                     this.setState({loading: false});
