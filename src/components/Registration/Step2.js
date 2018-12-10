@@ -77,7 +77,7 @@ class Step2_From extends React.Component{
                 e === "Нет звания" ? this.setState({isStatus: false}, validate) : this.setState({isStatus: true},validate);
                 return;
             case "category":
-                e === "Нет категории" ? this.setState({isCategory: false}, validate): this.setState({isCategory: true},validate);
+                e === "Без категории" ? this.setState({isCategory: false}, validate): this.setState({isCategory: true},validate);
                 return;
 
             default: return;
