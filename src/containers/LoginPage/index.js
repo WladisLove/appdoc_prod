@@ -83,7 +83,7 @@ class LoginPage extends React.Component {
                          xl={{span: 12, offset: 6}}>
                         <Route path="/app/login"
                                exact
-                               render={() => <Login urlForget={this.props.match.url + '/app/forget'}
+                               render={() => <Login urlForget={this.props.match.url + '/forget'}
                                                     urlRegistrationDoctor='/app/registration'
                                                     urlRegistrationPatient='/app/patient-registration'
                                                     errorCode={this.props.errorCode}
