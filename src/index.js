@@ -4,6 +4,7 @@ import {CookiesProvider} from 'react-cookie'
 import {ConnectedRouter} from 'react-router-redux'
 import {Provider} from 'react-redux'
 import {LocaleProvider} from 'antd'
+import {LocalizeProvider} from 'react-localize-redux'
 import ruRU from 'antd/lib/locale-provider/ru_RU';
 import 'moment/locale/ru';
 import "./styles/fonts.css"
@@ -22,14 +23,16 @@ import registerServiceWorker from './registerServiceWorker';
 const rootElement = document.getElementById('root');
 
 ReactDOM.render(
-    <CookiesProvider>
-        <LocaleProvider locale={ruRU}>
-            <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <Root/>
-                </ConnectedRouter>
-            </Provider>
-        </LocaleProvider>
-    </CookiesProvider>,
+    <LocalizeProvider>
+        <CookiesProvider>
+            <LocaleProvider locale={ruRU}>
+                <Provider store={store}>
+                    <ConnectedRouter history={history}>
+                        <Root/>
+                    </ConnectedRouter>
+                </Provider>
+            </LocaleProvider>
+        </CookiesProvider>
+    </LocalizeProvider>,
     rootElement);
 registerServiceWorker();

@@ -1,0 +1,12 @@
+{
+    "button": {
+        "title": {
+            "add": ["Add", "Добавить"],
+            "showMore": ["Show more", "Показать ещё"]
+        },
+        "description": {
+            "add": ["Add new reseption", "Добавить новый приём"],
+            "showMore": ["Show more", "Показать ещё"]
+        }
+    }
+}

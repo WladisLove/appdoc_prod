@@ -1,12 +1,31 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import {Redirect} from 'react-router'
-
-
+import { Redirect } from 'react-router'
 import LoginPage from '../LoginPage'
 import App from '../App'
 
+import { renderToStaticMarkup } from 'react-dom/server'
+import { withLocalize } from 'react-localize-redux'
+import { translations } from '../../translations'
+
+
 class Root extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.props.initialize({
+            languages: [
+                { name: "English", code: "en" },
+                { name: "Русский", code: "ru" }
+            ],
+            translation: translations,
+            options: {
+                renderToStaticMarkup,
+                renderInnerHtml: true,
+                defaultLanguage: "en"
+            }
+        });
+    }
 
     render(){
         return (
@@ -14,7 +33,6 @@ class Root extends React.Component{
             <Redirect to={`/app/${window.location.search.split("?path=")[1]}`}/>
         :
         <Switch>
-
             <Route path="/app/login" component={LoginPage}/>
             <Route path="/app/registration" component={LoginPage}/>
             <Route path="/app/patient-registration" component={LoginPage}/>
@@ -28,4 +46,4 @@ class Root extends React.Component{
     }
 };
 
-export default Root
+export default withLocalize(Root)

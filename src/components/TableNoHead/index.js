@@ -6,6 +6,8 @@ import TableNoHeadItem from '../TableNoHeadItem'
 import Card from '../Card'
 import Button from '../Button'
 import ScrollArea from 'react-scrollbar'
+import { Translate } from 'react-localize-redux'
+
 import './style.css'
 import '../../icon/style.css'
 
@@ -13,7 +15,7 @@ class TableNoHead extends React.Component{
 
     scheduleRender = (dataArr) => {
         return dataArr.map((item,index) => {
-            return (<TableNoHeadItem {...item} 
+            return (<TableNoHeadItem {...item}
                                     key={'nogead-item'+index}
                                     onBegin={this.props.onBegin}
                                     onCancel={this.props.onCancel}
@@ -25,40 +27,43 @@ class TableNoHead extends React.Component{
     render(){
         const rootClass = cn('schedule-all');
         const {data} = this.props;
-        
+
         return (
             <div className={rootClass}>
-                <Card title="График работы на сегодня" extra={<div className="sum">Приемы: {data.length}</div>}>
+                <Card title={<Translate id="schedule.today" />} extra={<div className="sum"><Translate id="reseption.lot" />: {data.length}</div>}>
                     <div className="scroll">
-                    {/**/}
                         <div className="tableheader">
                             <div className="flex-col">
-                                <Button
-                                    btnText='Добавить'
-                                    onClick={this.props.onAdd}
-                                    size='default'
-                                    type='yellow'
-                                    icon='plus'
-                                    iconSize={11}
-                                    svg
-                                    title='Добавить новый приём'
-                                />
+                                <Translate>
+                                    {({ translate }) =>
+                                        (<Button
+                                            btnText={translate(`button.title.add`)}
+                                            onClick={this.props.onAdd}
+                                            size='default'
+                                            type='yellow'
+                                            icon='plus'
+                                            iconSize={11}
+                                            svg
+                                            title={translate(`button.description.add`)}
+                                        />)
+                                    }
+                                </Translate>
                             </div>
                             {/*<div className="flex-col ico-btn">
-                                <Button 
+                                <Button
                                     size='link'
                                     type='link'
                                     icon='printer'
                                     svg
                                     title='Распечатать'
                                 />
-                                <Button 
+                                <Button
                                     size='link'
                                     type='link'
                                     icon='pdf-file'
                                     title='Скачать pdf-файл'
                                 />
-                                <Button 
+                                <Button
                                     size='link'
                                     type='link'
                                     icon='xls-file'
@@ -70,8 +75,8 @@ class TableNoHead extends React.Component{
                             speed={0.8}
                             className="scroll"
                             smoothScrolling={true}>
-                            {data.length ? 
-                                this.scheduleRender(data) 
+                            {data.length ?
+                                this.scheduleRender(data)
                                 : <div className='entry-list'>Приемов нет</div>}
                         </ScrollArea>
                     </div>
@@ -98,4 +103,4 @@ TableNoHead.defaultProps = {
 };
 
 
-export default TableNoHead
+export default TableNoHead;

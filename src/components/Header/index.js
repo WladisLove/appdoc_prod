@@ -8,6 +8,7 @@ import NotificationApp from '../NotificationApp'
 import AutoComplete from '../AutoComplete'
 import Hoc from "../Hoc"
 import specs from "../../helpers/specsArray"
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -86,7 +87,7 @@ render() {
                         </Hoc>
                         : (this.props.emergencyAvailable && <SwitchPanel
                             icon='emergency-call'
-                            title="Экстренные вызовы"
+                            title={<Translate id="emergencyCall" />}
                             onChange={this.props.onChange}
                             checked={this.props.checked}
                             disabled={this.props.disabled}/>)
@@ -97,25 +98,33 @@ render() {
                         data={notifications}
                         getNotifications={this.props.getNotifications}
                         getId={this.props.getNotifId}>
-                         <Icon
-                            svg
-                            type='notification'
-                            size={20}
-                            title='Уведомления'
-                        />
+                        <Translate>
+                            {({ translate }) =>
+                                (<Icon
+                                   svg
+                                   type='notification'
+                                   size={20}
+                                   title={translate(`notifications`)}
+                               />)
+                            }
+                        </Translate>
                     </NotificationApp>
                 </div>
                 <div className='header-exit'>
-                    <Button
-                        btnText=''
-                        size='icon'
-                        type='icon'
-                        icon='exit'
-                        iconSize={20}
-                        svg
-                        title='Выход'
-                        onClick={this.props.logout}
-                    />
+                    <Translate>
+                        {({ translate }) =>
+                            (<Button
+                                btnText=''
+                                size='icon'
+                                type='icon'
+                                icon='exit'
+                                iconSize={20}
+                                svg
+                                title={translate(`exit`)}
+                                onClick={this.props.logout}
+                            />)
+                        }
+                    </Translate>
                 </div>
             </div>
         )

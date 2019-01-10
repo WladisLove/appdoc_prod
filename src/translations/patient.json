@@ -1,0 +1,7 @@
+{
+    "patient": {
+        "single": ["Patient", "Пациент"],
+        "name": ["Patient name", "Имя пациента"],
+        "my": ["My patients", "Мои пациенты"]
+    }
+}

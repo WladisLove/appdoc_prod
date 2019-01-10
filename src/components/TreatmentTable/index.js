@@ -11,6 +11,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import Button from "../Button";
 import ReviewsModal from "../ReviewsModal";
 import HistoryReceptionsTabs from "../HistoryReceptionsTabs";
+import { Translate } from 'react-localize-redux'
 
 class TreatmentTable extends React.Component{
     constructor(props){
@@ -26,7 +27,7 @@ class TreatmentTable extends React.Component{
     treatmentRender = (dataArr) => {
         let historyArr = [];
         if(!dataArr || !dataArr.length && !this.state.loading) {
-            return <div className='entry-list'>{this.props.isUser ? "Приёмов нет" : "Обращений нет"}</div>
+            return <div className='entry-list'>{this.props.isUser ? (<Translate id="reseption.not" />) : (<Translate id="treatment.not" />)}</div>
         } else {
             historyArr = dataArr.map((item, index) => {
                 return (<TreatmentTableItem {...item}
@@ -39,22 +40,24 @@ class TreatmentTable extends React.Component{
                                     addConclusion = {this.props.addConclusion}
                                     refresh = {this.refresh}
                                     makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
-
-
-
                 />)
             });
         }
         if(this.props.dataCount > dataArr.length && !this.state.loading) {
             historyArr.push(
-                <div className="table-footer"
-                     key="btn">
-                    <Button btnText='Показать еще'
-                            size='link'
-                            type='link'
-                            title='Показать ещё'
-                            icon='circle_arrow_down'
-                            onClick={this.loadMore}/>
+                <div className="table-footer" key="btn">
+                    <Translate>
+                        {({ translate }) =>
+                            (<Button
+                                btnText={translate(`button.title.showMore`)}
+                                size='link'
+                                type='link'
+                                title={translate(`button.title.showMore`)}
+                                icon='circle_arrow_down'
+                                onClick={this.loadMore}
+                            />)
+                        }
+                    </Translate>
                 </div>
             );
         } else if(this.state.loading){
@@ -107,10 +110,10 @@ class TreatmentTable extends React.Component{
     render(){
         return (
             <div className='treatment-all'>
-                <Card title={this.props.isUser ? "Прошедшие приемы" : "Актуальные обращения" }
+                <Card title={this.props.isUser ? (<Translate id="reseption.past" />) : (<Translate id="treatment.actual" />) }
 
                         extra={<div className='go-to' onClick={this.props.redirect}>
-                            <Icon svg size={16} type="order-form" /> <span>Все обращения</span>
+                            <Icon svg size={16} type="order-form" /> <span><Translate id="treatment.all" /></span>
                         </div>}>
                     <PerfectScrollbar
                         speed={1}
@@ -118,14 +121,14 @@ class TreatmentTable extends React.Component{
                         horizontal={true}
                     >
                                 <div className="tableheader">
-                                    <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? "Врач" : "Имя пациента"}</div></div>
-                                    <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
-                                    <div className="flex-col"><div className="tableheader-name">Предварительное заключение</div></div>
-                                    <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
-                                    <div className="flex-col"><div className="tableheader-name">Стоимость</div></div>
-                                    <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
-                                    <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
-                                    <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? (<Translate id="doctor" />) : (<Translate id="patient.name" />)}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="reseption.date" /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="conclusion.preliminary" /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="reseption.comment" /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="cost" /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="conclusion.single" /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="review.single" /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="files" /></div></div>
                                 </div>
 
                         {this.treatmentRender(this.state.data)}
