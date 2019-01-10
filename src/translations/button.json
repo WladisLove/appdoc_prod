@@ -2,7 +2,9 @@
     "button": {
         "title": {
             "add": ["Add", "Добавить"],
-            "showMore": ["Show more", "Показать ещё"]
+            "showMore": ["Show more", "Показать ещё"],
+            "signIn": ["Sign In", "Войти"],
+            "register": ["Register", "Зарегистроваться"]
         },
         "description": {
             "add": ["Add new reseption", "Добавить новый приём"],
