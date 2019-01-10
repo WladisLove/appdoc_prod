@@ -4,7 +4,8 @@
             "add": ["Add", "Добавить"],
             "showMore": ["Show more", "Показать ещё"],
             "signIn": ["Sign In", "Войти"],
-            "register": ["Register", "Зарегистроваться"]
+            "register": ["Register", "Зарегистроваться"],
+            "next": ["Next", "Далее"]
         },
         "description": {
             "add": ["Add new reseption", "Добавить новый приём"],
