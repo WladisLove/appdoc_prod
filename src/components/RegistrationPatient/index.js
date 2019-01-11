@@ -103,7 +103,7 @@ class RegistrationPatientForm extends React.Component {
                                             message: translate("auth.errors.inputName")
                                         }],
                                     })(
-                                        <InputNew width="100%" bubbleplaceholder={translate("auth.fullName")} className="step-form-item"/>
+                                        <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.fullName")}`} className="step-form-item"/>
                                     )}
                                 </FormItem>
                                 <FormItem>
@@ -134,7 +134,7 @@ class RegistrationPatientForm extends React.Component {
                                         }]
 
                                     })(
-                                        <InputNew width="100%" bubbleplaceholder={translate("auth.phone")}
+                                        <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.phone")}`}
                                                   className="step-form-item"/>
                                     )}
                                 </FormItem>
@@ -146,13 +146,13 @@ class RegistrationPatientForm extends React.Component {
                                         }]
 
                                     })(
-                                        <InputNew width="100%" bubbleplaceholder={translate("auth.address")} className="step-form-item"/>
+                                        <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.address")}`} className="step-form-item"/>
                                     )}
                                 </FormItem>
 
                                 <div className="step-row">
                                     <FormItem>
-                                        <div className='radio-label'>{translate("auth.gender")}
+                                        <div className='radio-label'>{`* ${translate("auth.gender")}`}
                                             {getFieldDecorator('sex', {
                                                 rules: [{
                                                     required: true,
@@ -167,7 +167,7 @@ class RegistrationPatientForm extends React.Component {
                                         </div>
                                     </FormItem>
                                     <FormItem>
-                                        <div className='radio-label'>{translate("auth.birthday")}
+                                        <div className='radio-label'>{`* ${translate("auth.birthday")}`}
                                             {getFieldDecorator('date', {
                                                 rules: [{
                                                     required: true,

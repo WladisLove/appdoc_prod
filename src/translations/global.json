@@ -32,5 +32,9 @@
     "files": ["files", "Файлы"],
     "emergencyCall": ["Emergency calls", "Экстренные вызовы"],
     "notifications": ["Notifications", "Уведомления"],
-    "exit": ["Exit", "Выход"]
+    "exit": ["Exit", "Выход"],
+    "start": ["Start", "Начало"],
+    "finish": ["Finish", "Окончание"],
+    "yes": ["Yes", "Да"],
+    "no": ["No", "Нет"]
 }

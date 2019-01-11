@@ -42,7 +42,7 @@ class Step1Form extends React.Component {
         this.props.uploadFile(info.file)
             .then((res) => {
                 this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name});
-                message.success("Фото загружено")
+                message.success(<Translate id={"auth.messages.photoUploaded"}/>)
             });
         reader.addEventListener('load', () => this.setState({
             avatarThumb: reader.result,
@@ -67,7 +67,7 @@ class Step1Form extends React.Component {
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'}/>
-                <div className="ant-upload-text">Загрузить</div>
+                <div className="ant-upload-text"><Translate id={"button.title.upload"}/></div>
             </div>
         );
         const avatarUrl = this.state.avatarThumb ? this.state.avatarThumb : this.props.data.avatarThumb ? this.props.data.avatarThumb : "";
@@ -85,7 +85,7 @@ class Step1Form extends React.Component {
                                         message: translate("auth.errors.inputName")
                                     }],
                                 })(
-                                    <InputNew width="100%" bubbleplaceholder={translate("auth.fullName")} className="step-form-item"/>
+                                    <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.fullName")}`} className="step-form-item"/>
                                 )}
                             </FormItem>
                             <FormItem>
@@ -112,12 +112,12 @@ class Step1Form extends React.Component {
                                         }]
                                 })
                                 (
-                                    <InputNew width="100%" bubbleplaceholder={translate("auth.phone")} className="step-form-item"/>
+                                    <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.phone")}`} className="step-form-item"/>
                                 )}
                             </FormItem>
                             <div className="step-row">
                                 <FormItem>
-                                    <div className='radio-label'>{translate("auth.gender")}
+                                    <div className='radio-label'>{`* ${translate("auth.gender")}`}
                                         {getFieldDecorator('sex', {
                                             rules: [{
                                                 required: true,
@@ -132,7 +132,7 @@ class Step1Form extends React.Component {
                                     </div>
                                 </FormItem>
                                 <FormItem>
-                                    <div className='radio-label'>{translate("auth.birthday")}
+                                    <div className='radio-label'>{`* ${translate("auth.birthday")}`}
                                         {getFieldDecorator('datebirth', {
                                             rules: [{
                                                 required: true,

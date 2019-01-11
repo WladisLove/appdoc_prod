@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import DatePickerNew from "../DatePickerNew"
 import {DatePicker as DatePickerAnt} from "antd"
+import {Translate} from "react-localize-redux";
 import './style.css'
 
 
@@ -65,7 +66,7 @@ class RangeDPNew extends DatePickerAnt{
         const { startValue, endValue } = this.state;
         return (
             <div className="range-date-picker-new">
-                <DatePickerNew bubbleplaceholder="Начало"
+                <DatePickerNew bubbleplaceholder={<Translate id={'start'}/>}
                                disabledDate={this.disabledStartDate}
                                value={startValue}
                                onChange={this.onStartChange}
@@ -73,7 +74,7 @@ class RangeDPNew extends DatePickerAnt{
 
                 />
 
-                <DatePickerNew bubbleplaceholder="Окончание"
+                <DatePickerNew bubbleplaceholder={<Translate id={'finish'}/>}
                                disabledDate={this.disabledEndDate}
                                value={endValue}
                                placeholder="End"

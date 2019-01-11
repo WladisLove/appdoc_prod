@@ -13,6 +13,7 @@ import Registration from "../../components/Registration/index.js";
 import RegistrationPatient from "../../components/RegistrationPatient/index.js";
 import langsArray from "../../helpers/langsArray"
 import addInfoObj from "../../helpers/addInfoObj"
+import {Translate} from "react-localize-redux";
 
 
 import * as actions from '../../store/actions'
@@ -105,7 +106,7 @@ class LoginPage extends React.Component {
                                                            category = {category}
                                                            academicTitle = {academicTitle}
                                                            academicDegree = {academicDegree}
-                                                           finalText='Я ознакомлен с условиями работы и принимаю их'
+                                                           finalText={<Translate id={"auth.termsAndConditions"}/>}
                                                            urlLogin = "/app/login"
                                                            onOk={this.onOk}
                                                            isRegFinished = {this.state.isRegFinished}

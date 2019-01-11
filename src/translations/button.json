@@ -2,10 +2,14 @@
     "button": {
         "title": {
             "add": ["Add", "Добавить"],
+            "delete": ["Delete", "Удалить"],
             "showMore": ["Show more", "Показать ещё"],
             "signIn": ["Sign In", "Войти"],
             "register": ["Register", "Зарегистроваться"],
-            "next": ["Next", "Далее"]
+            "next": ["Next", "Далее"],
+            "back": ["Back", "Назад"],
+            "upload": ["Upload", "Загрузить"],
+            "complete": ["Complete", "Завершить"]
         },
         "description": {
             "add": ["Add new reseption", "Добавить новый приём"],

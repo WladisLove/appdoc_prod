@@ -7,6 +7,7 @@ import specs from "../../helpers/specsArray"
 import InputNew from "../InputNew";
 import SelectNew from "../SelectNew";
 import DropZoneUpload from "../DropZoneUpload";
+import {Translate} from "react-localize-redux";
 
 const FormItem = Form.Item;
 
@@ -22,69 +23,76 @@ class Step2_educ extends React.Component {
         const {getFieldDecorator, number} = this.props;
 
         return (
-            <div className="step-block">
+            <Translate>
+                {({translate}) =>
+                    (
+                        <div className="step-block">
 
-                <FormItem>
-                    {getFieldDecorator('educationsgroup1-education-' + number, {
-                        rules: [{
-                            required: true ,
-                            message: 'Введите учебное заведение'
-                        }],
-                    })(
-                        <InputNew width ="100%" bubbleplaceholder="* Учебное заведение" className="step-form-item"/>
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('educationsgroup1-speciality-' + number, {
-                        rules: [{
-                            required: true,
-                            message: 'Введите квалификацию'
-                        }],
-                    })(
-                        <SelectNew width ="100%"
-                                   bubbleplaceholder="* Квалификация"
-                                   className="step-form-item"
-                                   mode="multiple"
-                                   data={specs}
-                        />
-                    )}
-                </FormItem>
-                <div className="step-row">
-                    <FormItem>
-                        {getFieldDecorator('educationsgroup1-finishucationyear-' + number, {
-                            rules: [{
-                                required: true,
-                                message: 'Введите год окончания',
+                            <FormItem>
+                                {getFieldDecorator('educationsgroup1-education-' + number, {
+                                    rules: [{
+                                        required: true,
+                                        message: translate("auth.errors.inputUniversityName")
+                                    }],
+                                })(
+                                    <InputNew width="100%"
+                                              bubbleplaceholder={`* ${translate("auth.universityName")}`}
+                                              className="step-form-item"/>
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('educationsgroup1-speciality-' + number, {
+                                    rules: [{
+                                        required: true,
+                                        message: translate("auth.errors.inputQualification")
+                                    }],
+                                })(
+                                    <SelectNew width="100%"
+                                               bubbleplaceholder={`* ${translate("auth.qualification")}`}
+                                               className="step-form-item"
+                                               mode="multiple"
+                                               data={specs}
+                                    />
+                                )}
+                            </FormItem>
+                            <div className="step-row">
+                                <FormItem>
+                                    {getFieldDecorator('educationsgroup1-finishucationyear-' + number, {
+                                        rules: [{
+                                            required: true,
+                                            message: translate("auth.errors.inputGraduationYear")
 
-                            },{
-                                pattern: /^[ ]*[0-9]{4}[ ]*$/,
-                                message: "Неправильной формат года"
-                            }],
-                        })(
-                            <InputNew width ="100%" bubbleplaceholder="* Год окончания" className="step-form-item"/>
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        {getFieldDecorator('educationsgroup1-diplomphoto-' + number, {
-                            rules: [{
-                                required: true,
-                                message: 'Загрузите подтверждающий документ'
-                            }],
-                        })(
-                            <DropZoneUpload
-                            uploadFile = {this.props.uploadFile}
-                            text="Прикрепить диплом, свидетельство"
-                            />
-                        )}
-                    </FormItem>
-                </div>
+                                        }, {
+                                            pattern: /^[ ]*[0-9]{4}[ ]*$/,
+                                            message: translate("auth.errors.wrongYearFormat")
+                                        }],
+                                    })(
+                                        <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.graduationYear")}`}
+                                                  className="step-form-item"/>
+                                    )}
+                                </FormItem>
+                                <FormItem>
+                                    {getFieldDecorator('educationsgroup1-diplomphoto-' + number, {
+                                        rules: [{
+                                            required: true,
+                                            message: translate("auth.errors.uploadConfirmingDoc")
+                                        }],
+                                    })(
+                                        <DropZoneUpload
+                                            uploadFile={this.props.uploadFile}
+                                            text={translate("auth.addDiplomaCertificate")}
+                                        />
+                                    )}
+                                </FormItem>
+                            </div>
 
-            </div>
+                        </div>
+                    )
+                }
+            </Translate>
         )
     }
 }
-
-// const Step2_educ = Form.create()(Step2_educ_Form);
 
 Step2_educ.propTypes = {
     number: PropTypes.oneOfType([

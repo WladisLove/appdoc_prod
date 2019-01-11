@@ -37,7 +37,7 @@ class LoginForm extends React.Component{
             case 400:
                 error = [{
                     validateStatus: 'error',
-                    help: "Неверное имя или пароль",
+                    help: <Translate id={"auth.errors.wrongLoginOrPassword"}/>
                 },{
                     validateStatus: 'error',
                 }];
@@ -45,7 +45,7 @@ class LoginForm extends React.Component{
             case 500:
                 error = [{
                     validateStatus: 'error',
-                    help: "Такого пользователя не существует",
+                    help: <Translate id={"auth.errors.userDoesNotExist"}/>
                 },{
                     validateStatus: 'error',
                 }];
