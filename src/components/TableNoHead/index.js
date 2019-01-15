@@ -30,7 +30,7 @@ class TableNoHead extends React.Component{
 
         return (
             <div className={rootClass}>
-                <Card title={<Translate id="schedule.today" />} extra={<div className="sum"><Translate id="reseption.lot" />: {data.length}</div>}>
+                <Card title={<Translate id="schedule.today" />} extra={<div className="sum"><Translate id="reception.lot" />: {data.length}</div>}>
                     <div className="scroll">
                         <div className="tableheader">
                             <div className="flex-col">

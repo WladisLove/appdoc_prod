@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ScrollArea from 'react-scrollbar'
+import { Translate } from 'react-localize-redux'
 import AddNewPatientItem from '../AddNewPatientItem'
 import Modal from '../Modal'
 import Input from '../Input'
@@ -89,38 +90,42 @@ class AddNewPatient extends React.Component{
         const {visible, onCancel} = this.props;
 
         return (
-            <Modal title='Добавление пациента в свой список'
-                   visible={visible}
-                   onCancel={onCancel}
-                   width={560}
-            >
-                <div className='new-patient'>
-                    <div className='new-patient-search'>
-                        <Input.Search placeholder="Введите ФИО пациента"
-                                    ref={inp => this.inp = inp}
-                                      onSearch={this.handleSearch}
-                                      onChange={this.handleChange}
-                                      onKeyDown={this.handleKeyDown}
-                                      value={this.state.inputValue} />
-                    </div>
-                    <div className='new-patient-title'>Результаты поиска</div>
-                    <ScrollArea
-                            speed={1}
-                            className="new-patient-list"
-                            contentClassName="content"
-                            horizontal={false}
+            <Translate>
+                {({ translate }) =>
+                    (<Modal title={translate('modal.title.addingPatientToList')}
+                           visible={visible}
+                           onCancel={onCancel}
+                           width={560}
                     >
-                        {this.state.inputValue.length > 2 ?
-                            (
-                                this.state.loading ? <Spinner/> :
-                                    this.props.data.length === 0 ?
-                                        (<div className="no-patients">Пациенты не найдены</div>)
-                                        : this.patientsRender(this.props.data)
-                            )
-                            : (<div className="no-patients">Введите больше символов для поиска</div>)}
-                    </ScrollArea>
-                </div>
-            </Modal>
+                        <div className='new-patient'>
+                            <div className='new-patient-search'>
+                                <Input.Search placeholder={translate('patient.search.input')}
+                                            ref={inp => this.inp = inp}
+                                              onSearch={this.handleSearch}
+                                              onChange={this.handleChange}
+                                              onKeyDown={this.handleKeyDown}
+                                              value={this.state.inputValue} />
+                            </div>
+                            <div className='new-patient-title'>{translate('searchResult')}</div>
+                            <ScrollArea
+                                    speed={1}
+                                    className="new-patient-list"
+                                    contentClassName="content"
+                                    horizontal={false}
+                            >
+                                {this.state.inputValue.length > 2 ?
+                                    (
+                                        this.state.loading ? <Spinner/> :
+                                            this.props.data.length === 0 ?
+                                                (<div className="no-patients">{translate('patient.search.notFound')}</div>)
+                                                : this.patientsRender(this.props.data)
+                                    )
+                                    : (<div className="no-patients">{translate('notifications.moreCharactersForSearch')}</div>)}
+                            </ScrollArea>
+                        </div>
+                    </Modal>)
+                }
+            </Translate>
         )
 
     }

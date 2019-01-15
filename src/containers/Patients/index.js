@@ -7,6 +7,7 @@ import AddNewPatient from "../../components/AddNewPatient";
 import NewMessageModal from "../../components/NewMessageModal";
 import NewVisitModalPage from "../../components/NewVisitModalPage";
 import {Modal} from 'antd';
+import { Translate } from 'react-localize-redux'
 
 
 import Hoc from '../../hoc'
@@ -61,7 +62,7 @@ class Patients extends React.Component{
     componentWillReceiveProps(nextProps) {
         if (this.state.isRecordInProcess)
             if (nextProps.isReceptionRecorded && nextProps.receptionRecordedID !== this.props.receptionRecordedID) {
-                message.success("Запись прошла успешно");
+                message.success(<Translate id="notifications.recordSuccessful" />);
                 this.setState({modal1Visible: false, isRecordInProcess: false});
             }
             else {
@@ -92,7 +93,7 @@ class Patients extends React.Component{
         	<Hoc>
         		<Row>
         			<Col span={24}>
-        				<h1 className='page-title'>Мои пациенты</h1>
+        				<h1 className='page-title'><Translate id="patient.my" /></h1>
         			</Col>
         		</Row>
             	<Row>

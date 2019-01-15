@@ -1,0 +1,17 @@
+{
+    "review": {
+        "single": ["Review", "Отзыв"],
+        "lot": ["Reviews", "Отзывы"],
+        "lot2": ["reviews", "отзывов"],
+        "new": ["New review", "Новый отзыв"],
+        "news": ["New reviews", "Новые отзывы"],
+        "all": ["All reviews", "Все отзывы"],
+        "not": ["No reviews", "Отзывов нет"],
+        "my": ["My reviews", "Мои отзывы"],
+        "patients": ["Patient reviews", "Отзывы пациентов"],
+        "notClickUpdate": [
+            "No reviews. Click to update.",
+            "Нет reviews. Нажмите чтобы обновить."
+        ]
+    }
+}

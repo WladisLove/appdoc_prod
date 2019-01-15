@@ -27,7 +27,7 @@ class TreatmentTable extends React.Component{
     treatmentRender = (dataArr) => {
         let historyArr = [];
         if(!dataArr || !dataArr.length && !this.state.loading) {
-            return <div className='entry-list'>{this.props.isUser ? (<Translate id="reseption.not" />) : (<Translate id="treatment.not" />)}</div>
+            return <div className='entry-list'>{this.props.isUser ? (<Translate id="reception.not" />) : (<Translate id="treatment.not" />)}</div>
         } else {
             historyArr = dataArr.map((item, index) => {
                 return (<TreatmentTableItem {...item}
@@ -110,7 +110,7 @@ class TreatmentTable extends React.Component{
     render(){
         return (
             <div className='treatment-all'>
-                <Card title={this.props.isUser ? (<Translate id="reseption.past" />) : (<Translate id="treatment.actual" />) }
+                <Card title={this.props.isUser ? (<Translate id="reception.past" />) : (<Translate id="treatment.actual" />) }
 
                         extra={<div className='go-to' onClick={this.props.redirect}>
                             <Icon svg size={16} type="order-form" /> <span><Translate id="treatment.all" /></span>
@@ -122,9 +122,9 @@ class TreatmentTable extends React.Component{
                     >
                                 <div className="tableheader">
                                     <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? (<Translate id="doctor" />) : (<Translate id="patient.name" />)}</div></div>
-                                    <div className="flex-col"><div className="tableheader-name"><Translate id="reseption.date" /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="reception.date" /></div></div>
                                     <div className="flex-col"><div className="tableheader-name"><Translate id="conclusion.preliminary" /></div></div>
-                                    <div className="flex-col"><div className="tableheader-name"><Translate id="reseption.comment" /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name"><Translate id="reception.comment" /></div></div>
                                     <div className="flex-col"><div className="tableheader-name"><Translate id="cost" /></div></div>
                                     <div className="flex-col"><div className="tableheader-name"><Translate id="conclusion.single" /></div></div>
                                     <div className="flex-col"><div className="tableheader-name"><Translate id="review.single" /></div></div>

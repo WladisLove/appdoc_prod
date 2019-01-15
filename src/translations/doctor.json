@@ -1,3 +1,6 @@
 {
-    "doctor": ["Doctor", "Врач"]
+    "doctor": {
+        "title": ["Doctor", "Врач"],
+        "not": ["No doctors", "Докторов нет"]
+      }
 }

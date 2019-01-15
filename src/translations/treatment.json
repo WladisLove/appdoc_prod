@@ -1,0 +1,13 @@
+{
+    "treatment": {
+        "actual": ["Actual treatments", "Актуальные обращения"],
+        "all": ["All treatments", "Все обращения"],
+        "not": ["No treatments", "Обращений нет"],
+        "notClickUpdate": [
+            "No treatments. Click to update.",
+            "Нет обращений. Нажмите чтобы обновить."
+        ],
+        "history": ["History of treatments", "История обращений"],
+        "last": ["Last treatment", "Последнее обращение"]
+    }
+}

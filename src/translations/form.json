@@ -1,0 +1,18 @@
+{
+    "form": {
+        "radio": {
+            "chat": [
+                "The patient will only be available to chat",
+                "Пациенту будет доступна только запись на чат"
+            ],
+            "telephone": [
+                "The patient will be available to record in the chat and audio",
+                "Пациенту будет доступна запись на чат и аудиосвязь"
+            ],
+            "videoCamera": [
+                "The patient will be available to record for all types of communication",
+                "Пациенту будет доступна запись на все виды связи"
+            ]
+        }
+    }
+}

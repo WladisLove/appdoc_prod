@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { Radio as AntRadio } from 'antd';
+import { Translate } from 'react-localize-redux'
 import Icon from '../Icon'
-import './styles.css'
 import ReactTooltip from "react-tooltip";
+import './styles.css'
 const RadioButton = AntRadio.Button;
 const RadioGroup = AntRadio.Group;
 
@@ -17,9 +18,9 @@ class Radio extends React.Component{
     };
     getToolTipByType = (type) => {
         switch (type) {
-            case "chat1": return "Пациенту будет доступна только запись на чат";
-            case "telephone" : return "Пациенту будет доступна запись на чат и аудиосвязь";
-            case "video-camera" : return "Пациенту будет доступна запись на все виды связи";
+            case "chat1": return "chat";
+            case "telephone" : return "telephone";
+            case "video-camera" : return "videoCamera";
         }
     }
     renderRadio = (icons) => {
@@ -32,15 +33,19 @@ class Radio extends React.Component{
 
         icons.forEach((icon,index) => {
             radios.push(
-                    <div className="wrapper-tip-radio"
-                         data-tip={this.getToolTipByType(icon)}
-                         key={index}
+                    <Translate>
+                        {({ translate }) =>
+                            (<div className="wrapper-tip-radio"
+                                 data-tip={translate(`form.radio.${this.getToolTipByType(icon)}`)}
+                                 key={index}
 
-                    >
-                        <RadioButton value={key_val[icon]} key={'radio'+icon+index} >
-                            <Icon svg size={16} type={icon} />
-                        </RadioButton>
-                    </div>
+                            >
+                                <RadioButton value={key_val[icon]} key={'radio'+icon+index} >
+                                    <Icon svg size={16} type={icon} />
+                                </RadioButton>
+                            </div>)
+                        }
+                    </Translate>
             )
         });
 

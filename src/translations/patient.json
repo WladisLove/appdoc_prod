@@ -2,6 +2,26 @@
     "patient": {
         "single": ["Patient", "Пациент"],
         "name": ["Patient name", "Имя пациента"],
-        "my": ["My patients", "Мои пациенты"]
+        "my": ["My patients", "Мои пациенты"],
+        "list": ["Patient list", "Список пациентов"],
+        "profile": ["Patient profile", "Профиль пациента"],
+        "not": ["No patients", "Пациентов нет"],
+        "chronicDiseases": [
+            "Chronic diseases/allergies",
+            "Хронические болезни/аллергии"
+        ],
+        "noPatients": [
+            "You currently have no patients",
+            "На данный момент у вас нет пациентов"
+        ],
+        "search": {
+            "input": ["Input patient full name", "Введите ФИО пациента"],
+            "notFound": ["Patients not found", "Пациенты не найдены"]
+        },
+        "form": {
+            "input": {
+                "fullName": ["Full name", "ФИО"]
+            }
+        }
     }
 }

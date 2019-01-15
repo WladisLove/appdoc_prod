@@ -8,7 +8,7 @@ import Input from '../Input'
 import Rate from '../Rate'
 import Icon from '../Icon'
 import Popover from '../Popover'
-
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -60,13 +60,13 @@ class PersonalContactItemForm extends React.Component{
                     .then((res) => {
                         this.setState({loadingPass: false});
                         if (res.data.code === 200) {
-                            message.success("Изменения сохранены");
+                            message.success(<Translate id={"notifications.saved"}/>);
                             this.props.form.resetFields();
                         } else if(res.data.code===601){
-                            message.error("Старый пароль введён неверно")
+                            message.error(<Translate id={"personal.form.errors.input.password.wrongOldPassword"}/>)
                         }
                         else{
-                            message.error("Произошла ошибка, попробуйте ещё раз")
+                            message.error(<Translate id={"personal.form.errors.input.password.tryAgain"}/>)
                         }
                     })
             } else {
@@ -109,7 +109,7 @@ class PersonalContactItemForm extends React.Component{
     compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('newPassField')) {
-            callback('Пароли не совпадают');
+            callback(<Translate id={"personal.form.errors.input.password.doNotMatch"}/>);
         } else {
             callback();
         }
@@ -121,125 +121,130 @@ class PersonalContactItemForm extends React.Component{
         const rootClass = cn('personal-contact');
 
         return (
-            <Form className={rootClass} >
-                <div className='patient-contacts-title'>контактные данные</div>
-                <div className='patient-contacts-block'>
-                    <div className='patient-contacts-avatar'>
-                        <ProfileAvatar
-                            img={this.state.avatar.thumbUrl ? this.state.avatar.thumbUrl : avatar}
-                            owner='patient'
-                            size="large"
-                            online={true}
-                        />
-                        <div className='patient-contacts-controls'>
-                            <div className="file-upload">
-                                <label className="file-upload-label">
-                                    <Icon type='retweet' size={16}/>
-                                </label>
-                                <input className="file-upload-input" type="file" name="photo-upload"
-                                       onChange={this.handleChangeAvatar}/>
+            <Form className={rootClass}>
+                <Translate>
+                    {({ translate }) =>
+                        (<div>
+                            <div className='patient-contacts-title'>{translate(`personal.contacts`)}</div>
+                            <div className='patient-contacts-block'>
+                                <div className='patient-contacts-avatar'>
+                                    <ProfileAvatar
+                                        img={this.state.avatar.thumbUrl ? this.state.avatar.thumbUrl : avatar}
+                                        owner='patient'
+                                        size="large"
+                                        online={true}
+                                    />
+                                    <div className='patient-contacts-controls'>
+                                        <div className="file-upload">
+                                            <label className="file-upload-label">
+                                                <Icon type='retweet' size={16}/>
+                                            </label>
+                                            <input className="file-upload-input" type="file" name="photo-upload" onChange={this.handleChangeAvatar} />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className='patient-contacts-info'>
+                                    <FormItem className="input-form-item">
+                                        {getFieldDecorator('fio', {
+                                            initialValue: fio,
+                                            rules: [{ required: true,
+                                                message: translate(`personal.form.errors.input.fullName`)
+                                            }],
+                                        })(
+                                            <InputNew width ="100%" bubbleplaceholder={translate(`personal.form.input.fullName`)} />
+                                        )}
+                                    </FormItem>
+                                    <FormItem className="input-form-item">
+                                        {getFieldDecorator('phone', {
+                                            initialValue: phone,
+                                            rules: [{ required: true,
+                                                message: translate(`personal.form.errors.input.phone`)
+                                            }],
+                                        })(
+                                            <InputNew width ="100%" bubbleplaceholder={translate(`personal.form.input.phone`)} />
+                                        )}
+                                    </FormItem>
+                                    <FormItem className="input-form-item">
+                                        {getFieldDecorator('email', {
+                                            initialValue: email,
+                                            rules:
+                                                [{
+                                                    required: true,
+                                                    message: translate(`personal.form.errors.input.email.required`)
+                                                },
+                                                    {
+                                                        type: "email",
+                                                        message: translate(`personal.form.errors.input.email.wrongFormat`)
+                                                    }],
+                                        })(
+                                            <InputNew width="100%" bubbleplaceholder={translate(`personal.form.input.email`)} />
+                                        )}
+                                    </FormItem>
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
-                    <div className='patient-contacts-info'>
-                        <FormItem className="input-form-item">
-                            {getFieldDecorator('fio', {
-                                initialValue: fio,
-                                rules: [{ required: true,
-                                    message: 'Введите ФИО, пожалуйста'
-                                }],
-                            })(
-                                <InputNew width ="100%" bubbleplaceholder="ФИО"/>
-                            )}
-                        </FormItem>
-                        <FormItem className="input-form-item">
-                            {getFieldDecorator('phone', {
-                                initialValue: phone,
-                                rules: [{ required: true,
-                                    message: 'Введите телефон, пожалуйста'
-                                }],
-                            })(
-                                <InputNew width ="100%" bubbleplaceholder="Телефон"/>
-                            )}
-                        </FormItem>
-                        <FormItem className="input-form-item">
-                            {getFieldDecorator('email', {
-                                initialValue: email,
-                                rules:
-                                    [{
-                                        required: true,
-                                        message: 'Введите email, пожалуйста'
-                                    },
-                                        {
-                                            type: "email",
-                                            message: 'Неправильный формат'
-                                        }],
-                            })(
-                                <InputNew width ="100%" bubbleplaceholder="E-mail"/>
-                            )}
-                        </FormItem>
-                    </div>
-                </div>
+                            <Button
+                                className="patient-contacts-saveBtn"
+                                onClick={this.handleSubmitInfo}
+                                btnText={translate(`button.title.saveChanges`)}
+                                size='default'
+                                disable={this.state.loadingInfo}
+                                type='float'
+                                style={{marginRight: "20px"}}
+                            />
 
-                <Button
-                    className="patient-contacts-saveBtn"
-                    onClick={this.handleSubmitInfo}
-                    btnText='Сохранить изменения'
-                    size='default'
-                    disable={this.state.loadingInfo}
-                    type='float'
-                    style={{marginRight: "20px"}}
-                />
-
-                {this.state.loadingInfo && <Spinner isInline={true} size="small" />}
+                            {this.state.loadingInfo && <Spinner isInline={true} size="small" />}
 
 
-                <div className='patient-contacts-title'>изменить пароль</div>
-                <div className='patient-contacts-block'>
-                    <div className='patient-contacts-password'>
-                        <FormItem className="input-form-item">
-                            {getFieldDecorator('oldPassField', {
-                                rules: [{ required: this.state.passwordsRequired,
-                                    message: 'Введите пароль, пожалуйста'
-                                }],
-                            })(
-                                <InputNew type="password" width ="100%" bubbleplaceholder="Старый пароль" onChange={this.handleChange}/>
-                            )}
-                        </FormItem>
-                        <FormItem className="input-form-item">
-                            {getFieldDecorator('newPassField', {
-                                rules: [{ required: this.state.passwordsRequired,
-                                    message: 'Введите пароль, пожалуйста'
-                                }],
-                            })(
-                                <InputNew type="password" width ="100%" bubbleplaceholder="Новый пароль" onChange={this.handleChange}/>
-                            )}
-                        </FormItem>
-                        <FormItem className="input-form-item">
-                            {getFieldDecorator('repeatPassField', {
-                                rules: [{ required: this.state.passwordsRequired,
-                                    message: 'Введите пароль, пожалуйста'
-                                },
-                                    {
-                                        validator: this.compareToFirstPassword,
-                                    }],
-                            })(
-                                <InputNew type="password" width ="100%" bubbleplaceholder="Повторите пароль" onChange={this.handleChange}/>
-                            )}
-                        </FormItem>
+                            <div className='patient-contacts-title'>{translate(`personal.changePassword`)}</div>
+                            <div className='patient-contacts-block'>
+                                <div className='patient-contacts-password'>
+                                    <FormItem className="input-form-item">
+                                        {getFieldDecorator('oldPassField', {
+                                            rules: [{ required: this.state.passwordsRequired,
+                                                message: translate(`personal.form.errors.input.password.required`)
+                                            }],
+                                        })(
+                                            <InputNew type="password" width ="100%" bubbleplaceholder={translate(`personal.form.input.password.old`)} onChange={this.handleChange}/>
+                                        )}
+                                    </FormItem>
+                                    <FormItem className="input-form-item">
+                                        {getFieldDecorator('newPassField', {
+                                            rules: [{ required: this.state.passwordsRequired,
+                                                message: translate(`personal.form.errors.input.password.required`)
+                                            }],
+                                        })(
+                                            <InputNew type="password" width ="100%" bubbleplaceholder={translate(`personal.form.input.password.new`)} onChange={this.handleChange}/>
+                                        )}
+                                    </FormItem>
+                                    <FormItem className="input-form-item">
+                                        {getFieldDecorator('repeatPassField', {
+                                            rules: [{ required: this.state.passwordsRequired,
+                                                message: translate(`personal.form.errors.input.password.required`)
+                                            },
+                                                {
+                                                    validator: this.compareToFirstPassword,
+                                                }],
+                                        })(
+                                            <InputNew type="password" width ="100%" bubbleplaceholder={translate(`personal.form.input.password.repeat`)} onChange={this.handleChange}/>
+                                        )}
+                                    </FormItem>
+                                </div>
+                            </div>
 
+                            <Button
+                                btnText={translate(`button.title.saveChanges`)}
+                                onClick={this.handleSubmitPassword}
+                                size='default'
+                                type='float'
+                                style={{marginRight: "20px"}}
+                            />
+                        </div>)
+                    }
+                </Translate>
 
-                    </div>
-                </div>
-
-                <Button
-                    btnText='Сохранить изменения'
-                    onClick={this.handleSubmitPassword}
-                    size='default'
-                    type='float'
-                    style={{marginRight: "20px"}}
-                />
                 {this.state.loadingPass && <Spinner isInline={true} size="small" />}
 
             </Form>

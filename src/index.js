@@ -5,7 +5,7 @@ import {ConnectedRouter} from 'react-router-redux'
 import {Provider} from 'react-redux'
 import {LocaleProvider} from 'antd'
 import {LocalizeProvider} from 'react-localize-redux'
-import ruRU from 'antd/lib/locale-provider/ru_RU';
+import enUS from 'antd/lib/locale-provider/en_US';
 import 'moment/locale/ru';
 import "./styles/fonts.css"
 import "./styles/variables.css"
@@ -25,7 +25,7 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
     <LocalizeProvider>
         <CookiesProvider>
-            <LocaleProvider locale={ruRU}>
+            <LocaleProvider locale={enUS}>
                 <Provider store={store}>
                     <ConnectedRouter history={history}>
                         <Root/>

@@ -8,7 +8,7 @@ import Input from '../Input'
 import Tabs from '../Tabs'
 import DatePicker from '../DatePicker'
 import Hoc from '../Hoc'
-
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 import Spinner from "../Spinner";
@@ -122,12 +122,16 @@ class HistoryReceptionsTabs extends React.Component {
         if (!dataArr.length && !this.state.loading) {
             return <div className="table-footer"
                         key="btn">
-                <Button btnText={'Нет обращений. Нажмите чтобы обновить.'}
-                        size='link'
-                        type='link'
-                        icon={'circle_close'}
-                        onClick={() => this.getTreatments()}
-                />
+                <Translate>
+                    {({ translate }) =>
+                        (<Button btnText={translate(`treatment.notClickUpdate`)}
+                            size='link'
+                            type='link'
+                            icon={'circle_close'}
+                            onClick={() => this.getTreatments()}
+                        />)
+                    }
+                </Translate>
             </div>
         } else {
             history = dataArr.map((item, i) => {
@@ -149,12 +153,17 @@ class HistoryReceptionsTabs extends React.Component {
             history.push(
                 <div className="table-footer"
                      key="btn">
-                    <Button btnText='Показать еще'
-                            size='link'
-                            type='link'
-                            title='Показать ещё'
-                            icon='circle_arrow_down'
-                            onClick={this.loadMore}/>
+                    <Translate>
+                        {({ translate }) =>
+                            (<Button btnText={translate(`button.title.showMore`)}
+                                size='link'
+                                type='link'
+                                title={translate(`button.title.showMore`)}
+                                icon='circle_arrow_down'
+                                onClick={this.loadMore}
+                            />)
+                        }
+                    </Translate>
                 </div>
             );
         } else if (this.state.loading) {
@@ -174,42 +183,42 @@ class HistoryReceptionsTabs extends React.Component {
             <Hoc>
                 <div className="tableheader">
                     <div className="flex-col">
-                        <div className="receptions-status new">Новые</div>
+                        <div className="receptions-status new"><Translate id="filter.new" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="receptions-status topical">Актуальные</div>
+                        <div className="receptions-status topical"><Translate id="filter.topical" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="receptions-status completed">Завершенные</div>
+                        <div className="receptions-status completed"><Translate id="filter.completed" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="receptions-status extra">Экстренные</div>
+                        <div className="receptions-status extra"><Translate id="filter.emergencies" /></div>
                     </div>
                 </div>
                 <div className="tableheader menu-header">
                     <div className="flex-col">
-                        <div className="tableheader-name">{this.props.isUser? "Врач" : "Имя пациента"}</div>
+                        <div className="tableheader-name">{this.props.isUser? (<Translate id="doctor" />) : (<Translate id="patient.name" />)}</div>
                     </div>
                     <div className="flex-col">
-                        <div className="tableheader-name">Дата приема</div>
+                        <div className="tableheader-name"><Translate id="reception.date" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="tableheader-name">Предварительное заключение</div>
+                        <div className="tableheader-name"><Translate id="conclusion.preliminary" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="tableheader-name">Комментарий к приему</div>
+                        <div className="tableheader-name"><Translate id="reception.comment" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="tableheader-name">Стоимость</div>
+                        <div className="tableheader-name"><Translate id="cost" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="tableheader-name">Заключение</div>
+                        <div className="tableheader-name"><Translate id="conclusion.single" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="tableheader-name">Отзыв</div>
+                        <div className="tableheader-name"><Translate id="review.single" /></div>
                     </div>
                     <div className="flex-col">
-                        <div className="tableheader-name">Файлы</div>
+                        <div className="tableheader-name"><Translate id="files" /></div>
                     </div>
                 </div>
             </Hoc>
@@ -262,7 +271,7 @@ class HistoryReceptionsTabs extends React.Component {
     render() {
         return (
             <div className='receptions-all'>
-                <Card title="История обращений">
+                <Card title={<Translate id="treatment.history" />}>
                     <Tabs onChange={this.tabChangeHadler}
                           defaultActiveKey='all'
                           tabBarExtraContent={
@@ -271,14 +280,18 @@ class HistoryReceptionsTabs extends React.Component {
                                               onChange={this.dpHandler}
                                               defaultValue={this.state.rangeSet}
                                   />
-                                  <Input.Search
-                                      placeholder="Поиск..."
-                                      onChange = {this.changeHandleSearch}
-                                      onKeyDown = {this.handleKeyDown}
+                                  <Translate>
+                                      {({ translate }) =>
+                                          (<Input.Search
+                                              placeholder={`${translate('search')}...`}
+                                              onChange = {this.changeHandleSearch}
+                                              onKeyDown = {this.handleKeyDown}
 
-                                  />
+                                          />)
+                                      }
+                                  </Translate>
                               </div>}>
-                        <TabPane tab="Все" key="all">
+                        <TabPane tab={<Translate id="all" />} key="all">
                             <PerfectScrollbar
                                 speed={1}
                                 className=""
@@ -289,7 +302,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 {this.historyRender(this.state.data)}
                             </PerfectScrollbar>
                         </TabPane>
-                        <TabPane tab="Завершенные" key="completed">
+                        <TabPane tab={<Translate id="filter.completed" />} key="completed">
                             <PerfectScrollbar
                                 speed={1}
                                 className=""
@@ -300,7 +313,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 {this.historyRender(this.state.data)}
                             </PerfectScrollbar>
                         </TabPane>
-                        <TabPane tab="Актуальные" key="topical">
+                        <TabPane tab={<Translate id="filter.topical" />} key="topical">
                             <PerfectScrollbar
                                 speed={1}
                                 className=""
@@ -311,7 +324,7 @@ class HistoryReceptionsTabs extends React.Component {
                                 {this.historyRender(this.state.data)}
                             </PerfectScrollbar>
                         </TabPane>
-                        <TabPane tab="Предстоящие" key="upcoming">
+                        <TabPane tab={<Translate id="filter.upcoming" />} key="upcoming">
                             <PerfectScrollbar
                                 speed={1}
                                 className=""

@@ -1,0 +1,190 @@
+{
+    "personal": {
+        "contacts": ["Contact details", "Контактные данные"],
+        "changePassword": ["Change Password", "Изменить пароль"],
+        "education": {
+            "basic": ["Basic education", "Основное образование"],
+            "postgraduate": [
+                "Postgraduate education",
+                "Последипломное образование"
+            ]
+        },
+        "periodStudy": [
+            "Input the period of study",
+            "Введите период обучения"
+        ],
+        "experience": ["Experience", "Опыт работы"],
+        "additionalInformation": [
+            "Additional Information",
+            "Дополнительная информация"
+        ],
+        "form": {
+            "input": {
+                "fullName": ["Full name", "ФИО"],
+                "phone": ["Phone", "Телефон"],
+                "email": ["E-mail", "E-mail"],
+                "password": {
+                    "old": ["Old password", "Старый пароль"],
+                    "new": ["New password", "Новый пароль"],
+                    "repeat": ["Repeat password", "Повторите пароль"]
+                },
+                "educationalInstitution": ["Educational institution", "Учебное заведение"],
+                "learningCurve": ["Learning curve name", "Название цикла обучения"],
+                "finisheducationyear": ["* Year of graduation", "* Год окончания"],
+                "work": {
+                    "current": [
+                        "Current place of employment",
+                        "Текущее место работы"
+                    ],
+                    "address": ["Work address", "Адрес места работы"],
+                    "position": ["Position", "Должность"]
+                },
+                "experience": [
+                    "Total work experience",
+                    "Общий стаж работы"
+                ]
+            },
+            "select": {
+                "academicDegree": ["Academic degree", "Учёная степень"],
+                "academicRank": ["Academic rank", "Учёное звание"],
+                "qualification": ["* Qualification", "* Квалификация"],
+                "workCategory": ["Category", "Категория"],
+                "language": ["Language proficiency", "Владение языками"],
+                "consultationPrice": [
+                    "Desired amount of payment for consultation",
+                    "Желаемая сумма оплаты за консультацию"
+                ]
+            },
+            "radio": {
+                "childrensConsultation": [
+                    "Children's consultation",
+                    "Консультация детей"
+                ],
+                "freeConsult": [
+                    "Ready to consult for free?",
+                    "Готовы проводить консультации бесплатно?"
+                ]
+            },
+            "textarea": {
+                "about": ["About", "О себе"]
+            },
+            "uploadFile": {
+                "diplom": [
+                    "Attach diploma, certificate",
+                    "Прикрепить диплом, свидетельство"
+                ],
+                "academicDegree": [
+                    "Attach a document certifying the academic degree",
+                    "Прикрепить документ, подтверждающий учёную степень"
+                ],
+                "academicRank": [
+                    "Attach a document certifying the academic rank",
+                    "Прикрепить документ, подтверждающий учёное звание"
+                ],
+                "contract": [
+                    "Attach a copy of the contract",
+                    "Прикрепить копию контракта"
+                ],
+                "category": [
+                    "Attach a document certifying the category",
+                    "Прикрепить документ, подтверждающий категорию"
+                ]
+            },
+            "errors": {
+                "input": {
+                    "fullName": [
+                        "Please input full name",
+                        "Введите ФИО, пожалуйста"],
+                    "phone": [
+                        "Please input phone",
+                        "Введите телефон, пожалуйста"
+                    ],
+                    "email": {
+                        "required": [
+                            "Please input email",
+                            "Введите email, пожалуйста"
+                        ],
+                        "wrongFormat": [
+                            "Wrong email format",
+                            "Неправильный формат"
+                        ]
+                    },
+                    "password": {
+                        "required": [
+                            "Please input password",
+                            "Введите пароль, пожалуйста"
+                        ],
+                        "doNotMatch": [
+                            "Passwords do not match",
+                            "Пароли не совпадают"
+                        ],
+                        "wrongOldPassword": [
+                            "Wrong old password",
+                            "Старый пароль введён неверно"
+                        ],
+                        "tryAgain": [
+                            "An error has occurred, try again",
+                            "Произошла ошибка, попробуйте ещё раз"
+                        ]
+                    },
+                    "educationalInstitution": [
+                        "Please input educational institution",
+                        "Введите учебное заведение"
+                    ],
+                    "learningCurve": [
+                        "Please input learning curve name",
+                        "Введите название цикла обучения"
+                    ],
+                    "finisheducationyear": [
+                        "Please input graduation year",
+                        "Введите год окончания"
+                    ],
+                    "wrongFinisheducationyear": [
+                        "Wrong year format",
+                        "Неправильной формат года"
+                    ],
+                    "work": {
+                        "current": [
+                            "Please input current place of employment",
+                            "Введите текущее место работы"
+                        ],
+                        "address": [
+                            "Please input work address",
+                            "Введите адрес места работы"
+                        ],
+                        "position": [
+                            "Please input current position",
+                            "Введите текущую должность"
+                        ]
+                    },
+                    "experience": [
+                        "Please input total work experience",
+                        "Введите общий стаж работы"
+                    ]
+                },
+                "select": {
+                    "academicDegree": [
+                        "Please select academic degree",
+                        "Введите учёную степень"
+                    ],
+                    "academicRank": [
+                        "Please select academic rank",
+                        "Введите учёное звание"
+                    ],
+                    "qualification": [
+                        "Please select qualification",
+                        "Введите квалификацию"
+                    ],
+                    "workCategory": [
+                        "Please select category",
+                        "Выберите категорию"
+                    ]
+                },
+                "uploadFile": [
+                    "Attach a certifying document",
+                    "Загрузите подтверждающий документ"
+                ]
+            }
+        }
+    }
+}

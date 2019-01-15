@@ -43,7 +43,7 @@ class Reviews extends React.Component{
                     >
                     {data.length ?
                         this.reviewRender(data)
-                        : <div className='entry-list'><Translate id="reviews.not" /></div>}
+                        : <div className='entry-list'><Translate id="review.not" /></div>}
                     </ScrollArea>
                 </Card>
         )

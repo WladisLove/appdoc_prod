@@ -1,0 +1,11 @@
+{
+    "filter": {
+        "new": ["New", "Новые"],
+        "completed": ["Completed", "Завершенные"],
+        "topical": ["Topical", "Актуальные"],
+        "upcoming": ["Upcoming", "Предстоящие"],
+        "emergencies": ["Emergencies", "Экстренные"],
+        "forToday": ["For today", "За сегодня"],
+        "forPeriod": ["For period", "За период"]
+    }
+}

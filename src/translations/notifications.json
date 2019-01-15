@@ -1,0 +1,45 @@
+{
+    "notifications": {
+        "title": ["Notifications", "Уведомления"],
+        "adminVerification": [
+            "Changes will take effect after administrator verification.",
+            "Изменения вступят в силу после проверки администратором"
+        ],
+        "saved": ["Changes saved", "Изменения сохранены"],
+        "recordSuccessful": [
+            "Record was successful",
+            "Запись прошла успешно"
+        ],
+        "anErrorOccurred": [
+            "An error occurred, please try another time",
+            "Произошла ошибка, попробуйте другое время"
+        ],
+        "anErrorOccurredTryAgain": [
+            "An error has occurred, please try again",
+            "Произошла ошибка попробуйте ещё раз"
+        ],
+        "wrongInterval": [
+            "Wrong interval selected",
+            "Выбран неподходящий интервал"
+        ],
+        "chooseTime": ["Choose time", "Выберите время"],
+        "moreCharactersForSearch": [
+            "Input more characters to search",
+            "Введите больше символов для поиска"
+        ],
+        "timeIsAlreadyTaken": [
+            "This time is already taken",
+            "Это время уже занято"
+        ],
+        "chooseDate": ["Choose date", "Выберите дату"],
+        "reviewSuccessfulAdd": [
+            "Review successfully added",
+            "Отзыв успешно добавлен"
+        ],
+        "404": ["Page not found", "Страница не найдена"],
+        "checkURL": [
+            "Check the url entered",
+            "Проверьте введённый адрес"
+        ]
+    }
+}

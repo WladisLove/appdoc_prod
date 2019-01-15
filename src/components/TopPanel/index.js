@@ -43,7 +43,7 @@ class TopPanel extends React.Component{
                             panelText={time.format("dddd HH:mm")}
                             icon='calendar'/>
                 <TopPanelItem
-                            panelTitle={<Translate id="reseption.today" />}
+                            panelTitle={<Translate id="reception.today" />}
                             panelText={receptionsToday}
                             icon='mark'/>
                 <TopPanelItem

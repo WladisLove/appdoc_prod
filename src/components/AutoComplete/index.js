@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import ScrollArea from 'react-scrollbar'
 import AddNewPatientItem from '../AddNewPatientItem'
 import Input from '../Input'
@@ -123,39 +123,43 @@ class AutoComplete extends React.Component{
         const overlayClass = (this.state.isVisible)? 'auto__complete-overlay auto__complete-overlay-focus' : 'auto__complete-overlay';
 
         return (
-            <div className='auto__complete'>
-                <div className={overlayClass} onClick={() => this.focusHandler(false)}/>
-                <div className='auto__complete-search'>
-                    <Input
-                        placeholder='Поиск'
-                        onChange={this.changeHandleSearch}
-                        onKeyDown={this.handleKeyDown}
-                        ref = {inp => {this.input = inp}}
-                    />
-                </div>
-                <div className={resultClass}>
-                    <div className='auto__complete-title'>
-                        Результаты поиска
-                        {this.state.searchRes.length && this.state.inputValue.length > 2
-                            ? <span className='auto__complete-count'>{this.state.searchRes.length}</span> : null }
-                        {this.state.loading ? <div className='auto__complete-title-spinner'><Spinner/></div> : null}
-                    </div>
-                    <ScrollArea
-                            speed={1}
-                            className="auto__complete-list"
-                            contentClassName="content"
-                            horizontal={false}>
+            <Translate>
+                {({ translate }) =>
+                    (<div className='auto__complete'>
+                        <div className={overlayClass} onClick={() => this.focusHandler(false)}/>
+                        <div className='auto__complete-search'>
+                            <Input
+                                placeholder={translate('search')}
+                                onChange={this.changeHandleSearch}
+                                onKeyDown={this.handleKeyDown}
+                                ref = {inp => {this.input = inp}}
+                            />
+                        </div>
+                        <div className={resultClass}>
+                            <div className='auto__complete-title'>
+                                {translate('searchResult')}
+                                {this.state.searchRes.length && this.state.inputValue.length > 2
+                                    ? <span className='auto__complete-count'>{this.state.searchRes.length}</span> : null }
+                                {this.state.loading ? <div className='auto__complete-title-spinner'><Spinner/></div> : null}
+                            </div>
+                            <ScrollArea
+                                    speed={1}
+                                    className="auto__complete-list"
+                                    contentClassName="content"
+                                    horizontal={false}>
 
-                    {this.state.inputValue.length > 2 ?
-                        (
-                            (this.state.searchRes).length ?
-                                this.patientsRender(this.state.searchRes)
-                                : <div className='entry-list'>{this.props.isUser ? "Докторов нет" : "Пациентов нет"}</div>
-                        )
-                        : (<div className='entry-list'>Введите больше символов для поиска</div>)}
-                    </ScrollArea>
-                </div>
-            </div>
+                            {this.state.inputValue.length > 2 ?
+                                (
+                                    (this.state.searchRes).length ?
+                                        this.patientsRender(this.state.searchRes)
+                                        : <div className='entry-list'>{this.props.isUser ? translate('doctor.not') : translate('patient.not')}</div>
+                                )
+                                : (<div className='entry-list'><Translate id="moreCharactersForSearch" /></div>)}
+                            </ScrollArea>
+                        </div>
+                    </div>)
+                }
+            </Translate>
         )
     }
 }

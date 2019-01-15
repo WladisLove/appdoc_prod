@@ -6,6 +6,7 @@ import Col from "../../components/Col";
 import ReviewsTree from "../../components/ReviewsTree";
 import RateIndicator from "../../components/RateIndicator";
 import Hoc from '../../hoc'
+import { Translate } from 'react-localize-redux'
 
 import * as actions from '../../store/actions'
 
@@ -38,7 +39,7 @@ class Reviews extends React.Component{
             <Hoc>
                 <Row>
                     <Col span={24}>
-                        <h1 className='page-title'>{this.props.isDoctor ? "Отзывы пациентов" : "Мои отзывы"}</h1>
+                        <h1 className='page-title'>{this.props.isDoctor ? <Translate id="review.patients" /> : <Translate id="review.my" />}</h1>
                     </Col>
                 </Row>
                 <Row>

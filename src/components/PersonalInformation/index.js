@@ -9,6 +9,7 @@ import Input from '../Input'
 import Rate from '../Rate'
 import Icon from '../Icon'
 import Popover from '../Popover'
+import { Translate } from 'react-localize-redux'
 import {profileDoctor} from "../PersonalContactItem/mock-data";
 
 import './style.css'
@@ -23,7 +24,7 @@ class PersonalInformation extends React.Component{
         return (
             <div className={rootClass}>
                 <Accordion defaultActiveKey={['1']}>
-                    <Panel header="Дополнительная информация" key="1">
+                    <Panel header={<Translate id={"personal.additionalInformation"}/>} key="1">
                         <PersonalInformationItem
                             profileDoctor={this.props.profileDoctor}
                             onSubmit={this.props.onSubmit}

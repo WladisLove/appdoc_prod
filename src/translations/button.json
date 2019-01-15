@@ -9,11 +9,21 @@
             "next": ["Next", "Далее"],
             "back": ["Back", "Назад"],
             "upload": ["Upload", "Загрузить"],
-            "complete": ["Complete", "Завершить"]
+            "complete": ["Complete", "Завершить"],
+            "save": ["Save", "Сохранить"],
+            "saveChanges": ["Save changes", "Сохранить изменения"],
+            "done": ["Done", "Готово"],
+            "submit": ["Submit", "Отправить"],
+            "signUpFor": ["Sign up for", "Записаться на"],
+            "addInterval": ["Add interval", "Добавить интервал"],
+            "newMessage": ["New message", "Новое сообщение"],
+            "sendMessage": ["Send message", "Отправить сообщение"],
+            "makeAnReception": ["Make an reception", "Записать на приём"],
+            "removePatient": ["Remove patient", "Удалить пациента"],
+            "addToMyPatients": ["Add to my patients", "Добавить в мои пациенты"]
         },
         "description": {
-            "add": ["Add new reseption", "Добавить новый приём"],
-            "showMore": ["Show more", "Показать ещё"]
+            "add": ["Add new reseption", "Добавить новый приём"]
         }
     }
 }

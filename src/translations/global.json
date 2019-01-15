@@ -1,40 +1,41 @@
 {
-    "schedule": {
-        "single": ["Schedule", "График"],
-        "today": ["Schedule for today", "График работы на сегодня"]
-    },
-    "reseption": {
-        "single": ["Reseption", "Приём"],
-        "lot": ["Reseptions", "Приёмы"],
-        "today": ["Receptions today", "Приёмы сегодня"],
-        "past": ["Past reseptions", "Прошедшие приёмы"],
-        "not": ["No reseptions", "Приёмов нет"],
-        "date": ["Reseption date", "Дата приёма"],
-        "comment": ["Comment to the reception", "Комментарий к приёму"]
-    },
-    "treatment": {
-        "actual": ["Actual treatments", "Актуальные обращения"],
-        "all": ["All treatments", "Все обращения"],
-        "not": ["No treatments", "Обращений нет"]
-    },
-    "review": {
-        "single": ["Review", "Отзыв"],
-        "new": ["New review", "Новый отзыв"],
-        "news": ["New reviews", "Новые отзывы"],
-        "all": ["All reviews", "Все отзывы"],
-        "not": ["No reviews", "Отзывов нет"]
-    },
     "conclusion": {
         "single": ["Conclusion", "Заключение"],
         "preliminary": ["Preliminary conclusion", "Предварительное заключение"]
     },
+    "myRating": ["My rating", "Мой рейтинг"],
     "cost": ["Cost", "Стоимость"],
     "files": ["files", "Файлы"],
     "emergencyCall": ["Emergency calls", "Экстренные вызовы"],
-    "notifications": ["Notifications", "Уведомления"],
+    "emergencyCallRequest": ["Request for an emergency call", "Запрос на экстренный вызов"],
     "exit": ["Exit", "Выход"],
+    "today": ["Today", "Сегодня"],
+    "day": ["Day", "День"],
+    "week": ["Week", "Неделя"],
+    "month": ["Month", "Месяц"],
+    "search": ["Search", "Поиск"],
+    "searchResult": ["Search result", "Результаты поиска"],
     "start": ["Start", "Начало"],
+    "end": ["End", "Конец"],
     "finish": ["Finish", "Окончание"],
+    "all": ["All", "Все"],
     "yes": ["Yes", "Да"],
-    "no": ["No", "Нет"]
+    "no": ["No", "Нет"],
+    "dayOff": ["Day off", "Выходной"],
+    "workingTimeInterval": ["Working time interval", "Интервал рабочего времени"],
+    "yearsOld": ["years old", "лет"],
+    "generalInformation": ["General information", "Общая информация"],
+    "newMessage": ["New message", "Новое сообщение"],
+    "messageText": ["Message text", "Текст сообщения"],
+    "attachFile": ["Attach file", "Прикрепить файл"],
+    "dateOfBirth": ["Date of birth", "Дата рождения"],
+    "age": ["Age", "Возраст"],
+    "height": ["Height", "Рост"],
+    "weight": ["Weight", "Вес"],
+    "cm": ["cm", "см"],
+    "kg": ["kg", "кг"],
+    "contacts": ["Contacts", "Контакты"],
+    "education": ["Education", "Образование"],
+    "complaint": ["Complaint", "Жалоба"],
+    "copyright": ["All rights reserved", "Все права защищены"]
 }

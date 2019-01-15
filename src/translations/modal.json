@@ -1,0 +1,22 @@
+{
+    "modal": {
+        "title": {
+              "makeAnReception": ["Make an reception", "Запись на приём"],
+              "receptionsSchedule": ["Reception schedule", "График приёмов"],
+              "addingPatientToList": [
+                  "Adding patient to your list",
+                  "Добавление пациента в свой список"
+              ]
+        },
+        "confirm": {
+            "removeDoctor": [
+                "Do you really want to remove the doctor?",
+                "Вы действительно хотите удалить доктора?"
+            ],
+            "removePatient": [
+                "Do you really want to remove the patient?",
+                "Вы действительно хотите удалить пациента?"
+            ]
+        }
+    }
+}
