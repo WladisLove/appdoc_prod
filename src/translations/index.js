@@ -12,6 +12,7 @@ import buttonTranslations from "./button.json";
 import authTranslations from "./auth.json";
 import filterTranslations from "./filter.json";
 import notificationsTranslations from "./notifications.json";
+import menuTranslations from "./menu.json";
 
 const translations = {
     ...globalTranslations,
@@ -27,7 +28,8 @@ const translations = {
     ...buttonTranslations,
     ...authTranslations,
     ...filterTranslations,
-    ...notificationsTranslations
+    ...notificationsTranslations,
+    ...menuTranslations
 }
 
 export { translations }
