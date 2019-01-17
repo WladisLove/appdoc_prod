@@ -13,7 +13,7 @@ import moment from "moment";
 import {Form, message} from "antd";
 import {previewFile} from "../../helpers/modifyFiles";
 import Select from "../Select";
-
+import { Translate } from 'react-localize-redux'
 import Modal from "../Modal";
 import Spinner from "../Spinner";
 
@@ -106,7 +106,7 @@ class NewFreeVisitByPatientForm extends React.Component {
                 this.setState({isSubmitInProgress: true});
                 this.props.onMakeFreeVisit(obj).then((res) => {
                         if (res.data.code === 200) {
-                            message.success('Заявка отправлена');
+                            message.success(<Translate id={`notifications.requestSubmitted`} />);
                             this.props.onCancel();
                             this.setState({
                                 showSubmitError: false,
@@ -124,7 +124,7 @@ class NewFreeVisitByPatientForm extends React.Component {
                             this.setState({
                                 isSubmitInProgress: false
                             });
-                            message.error('Произошла ошибка при отправке заявки');
+                            message.error(<Translate id={`notifications.anErrorOccurredSendRequest`} />);
                         }
                     }
                 )
@@ -151,10 +151,7 @@ class NewFreeVisitByPatientForm extends React.Component {
     }
     renderOptions = () => {
         return this.props.docTypes.map((docType, i) => {
-            return (
-                <Select.Option value={docType}
-                               key={`my_patient_${i}`}>
-                    {docType}</Select.Option>)
+            return (<Select.Option value={docType} key={`my_patient_${i}`}><Translate id={`doctorType.${docType}`} /></Select.Option>);
         })
     };
     handleSelectChange = (speciality) => {
@@ -182,80 +179,83 @@ class NewFreeVisitByPatientForm extends React.Component {
             >
                 <div className='patient-page-new-free-visit'>
                     <Card>
-                        <div className="new-visit-content">
-                            <span className="chose-doc-type">Выберете категорию врача</span>
-                            <FormItem>
-                                {getFieldDecorator('docType',{
-                                    rules: [{
-                                        required: true,
-                                        message: 'Выберете тип доктора'
-                                    }]
-                                })(
-                                    <Select placeholder="Категория врача"
-                                            onChange={(spec) => {
-                                                this.setState({
-                                                    currentSpeciality: spec,
-                                                    showSubmitError: false
-                                                });
-                                                this.handleSelectChange(spec);
-                                            }}
+                        <Translate>
+                            {({ translate }) =>
+                                (<div className="new-visit-content">
+                                    <span className="chose-doc-type">{translate('patient.form.select.doctorType')}</span>
+                                    <FormItem>
+                                        {getFieldDecorator('docType',{
+                                            rules: [{
+                                                required: true,
+                                                message: translate('patient.form.errors.select.doctorType')
+                                            }]
+                                        })(
+                                            <Select placeholder={translate('doctor.category')}
+                                                    onChange={(spec) => {
+                                                        this.setState({
+                                                            currentSpeciality: spec,
+                                                            showSubmitError: false
+                                                        });
+                                                        this.handleSelectChange(spec);
+                                                    }}
 
-                                    >
-                                        {this.renderOptions()}
-                                    </Select>
-                                )}
-                            </FormItem>
+                                            >
+                                                {this.renderOptions()}
+                                            </Select>
+                                        )}
+                                    </FormItem>
 
-                            {this.state.isCarouselLoading ? <Spinner/> : this.state.isCarouselVisible ?
-                                <PatientCalendarCarousel
-                                    intervals = {this.refactorIntervals(this.props.freeVisitsIntervals)}
-                                    makeActive={this.getTimeStampFromCarousel}
-                                    shouldChooseTime = {this.state.shouldChooseTime}
-                                    isOnFreeAppointments = {true}
-                                /> : null}
-                            {this.state.isTypeVisible && <FormItem>
-                                <div className="typeOfVisit">
-                                    <div className="chose-visit-type"> Выберите тип связи </div>
-                                    {getFieldDecorator('type', {
-                                        initialValue: 'chat'
-                                    })(
-                                        this.getIconsFromType(this.state.type)
+                                    {this.state.isCarouselLoading ? <Spinner/> : this.state.isCarouselVisible ?
+                                        <PatientCalendarCarousel
+                                            intervals = {this.refactorIntervals(this.props.freeVisitsIntervals)}
+                                            makeActive={this.getTimeStampFromCarousel}
+                                            shouldChooseTime = {this.state.shouldChooseTime}
+                                            isOnFreeAppointments = {true}
+                                        /> : null}
+                                    {this.state.isTypeVisible && <FormItem>
+                                        <div className="typeOfVisit">
+                                            <div className="chose-visit-type"> {translate('patient.form.connectionType')}</div>
+                                            {getFieldDecorator('type', {
+                                                initialValue: 'chat'
+                                            })(
+                                                this.getIconsFromType(this.state.type)
+                                            )}
+                                        </div>
 
-                                    )}
-                                </div>
+                                    </FormItem>}
+                                    <div className="textarea-label">{translate('reception.comment')}</div>
+                                    <FormItem>
+                                        {getFieldDecorator('comment', {
+                                            initialValue: this.state.comment
+                                        })(
+                                            <textarea className="textarea-field"
+                                                      onChange={this.handleChange}
+                                            />
+                                        )}
+                                    </FormItem>
+                                    <FormItem>
+                                        {getFieldDecorator('file')(
+                                                <Upload className="newVisitDocPageeModal-upload"
+                                                        onChange={({file}) => this.modifyFiles(file)}
+                                                        listType='text'
+                                                        text={translate('reception.uploadFile')}/>
+                                        )}
+                                    </FormItem>
+                                    <div className="new-visit-content-submit">
+                                        <Button size='default'
+                                                btnText={`${translate('button.title.signUp')} ${this.state.timeStamp ? `${translate('on')} ${moment(this.state.timeStamp*1000).format("D MMMM H:mm")}`:``}`}
+                                                disable={this.state.isSubmitInProgress}
+                                                htmlType="submit"
+                                                type='float'
+                                                onClick={this.handleSubmit}
 
-                            </FormItem>}
-                            <div className="textarea-label">Комментарий к приему</div>
-                            <FormItem>
-                                {getFieldDecorator('comment', {
-                                    initialValue: this.state.comment
-                                })(
-                                    <textarea className="textarea-field"
-                                              onChange={this.handleChange}
-                                    />
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator('file')(
-                                        <Upload className="newVisitDocPageeModal-upload"
-                                                onChange={({file}) => this.modifyFiles(file)}
-                                                listType='text'
-                                                text="Прикрепить результаты исследований"/>
-                                )}
-                            </FormItem>
-                            <div className="new-visit-content-submit">
-                                <Button size='default'
-                                        btnText={`Записаться ${this.state.timeStamp ? `на ${moment(this.state.timeStamp*1000).format("D MMMM H:mm")}`:``}`}
-                                        disable={this.state.isSubmitInProgress}
-                                        htmlType="submit"
-                                        type='float'
-                                        onClick={this.handleSubmit}
-
-                                />
-                                {this.state.isSubmitInProgress && <div className="new-visit-content-submit-spinner"><Spinner/></div>}
-                            </div>
-                            {this.state.showSubmitError && <div className="new-visit-content-error">Данное время уже занято</div>}
-                        </div>
+                                        />
+                                        {this.state.isSubmitInProgress && <div className="new-visit-content-submit-spinner"><Spinner/></div>}
+                                    </div>
+                                    {this.state.showSubmitError && <div className="new-visit-content-error">{translate('notifications.timeIsAlreadyTaken')}</div>}
+                                </div>)
+                            }
+                        </Translate>
                     </Card>
                 </div>
             </Modal>

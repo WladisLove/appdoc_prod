@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Select as AntSelect} from "antd"
+import { Translate } from 'react-localize-redux'
 import './style.css'
 
 const Option = AntSelect.Option;
@@ -15,11 +16,11 @@ class SelectNew extends AntSelect{
     renderOptions = (data) => {
         let dataArr =[];
         data.forEach((item, index) => {
-            dataArr.push( <Option value={item} key = {index}>{item}</Option>)
+            dataArr.push(<Option value={item} key={index}><Translate id={`doctorType.${item}`} /></Option>);
         });
         return dataArr
     };
-    handleChange = (value) => {
+    handleChange = (value) => { console.log( 'handleChange', value );
         this.setState({select: value});
         this.props.onChange(value)
     };
