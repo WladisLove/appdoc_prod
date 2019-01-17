@@ -18,6 +18,10 @@
             "An error has occurred, please try again",
             "Произошла ошибка попробуйте ещё раз"
         ],
+        "anErrorOccurredSendRequest": [
+            "An error occurred while sending the request",
+            "Произошла ошибка при отправке заявки"
+        ],
         "wrongInterval": [
             "Wrong interval selected",
             "Выбран неподходящий интервал"
@@ -29,7 +33,7 @@
         ],
         "timeIsAlreadyTaken": [
             "This time is already taken",
-            "Это время уже занято"
+            "Данное время уже занято"
         ],
         "chooseDate": ["Choose date", "Выберите дату"],
         "reviewSuccessfulAdd": [
@@ -40,6 +44,7 @@
         "checkURL": [
             "Check the url entered",
             "Проверьте введённый адрес"
-        ]
+        ],
+        "requestSubmitted": ["Request submitted", "Заявка отправлена"]
     }
 }

@@ -21,6 +21,15 @@
         "form": {
             "input": {
                 "fullName": ["Full name", "ФИО"]
+            },
+            "select": {
+                "doctorType": ["Choose doctor category", "Выберете категорию врача"]
+            },
+            "connectionType": ["Choose connection type", "Выберите тип связи"],
+            "errors": {
+                "select": {
+                    "doctorType": ["Choose doctor type", "Выберете тип доктора"]
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 {
     "doctor": {
         "title": ["Doctor", "Врач"],
-        "not": ["No doctors", "Докторов нет"]
+        "not": ["No doctors", "Докторов нет"],
+        "category": ["Doctor category ", "Категория врача"]
       }
 }

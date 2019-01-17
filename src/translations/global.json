@@ -21,6 +21,7 @@
     "all": ["All", "Все"],
     "yes": ["Yes", "Да"],
     "no": ["No", "Нет"],
+    "on": ["on", "на"],
     "dayOff": ["Day off", "Выходной"],
     "workingTimeInterval": ["Working time interval", "Интервал рабочего времени"],
     "yearsOld": ["years old", "лет"],

@@ -1,5 +1,6 @@
 import globalTranslations from './global.json';
 import doctorTranslations from "./doctor.json";
+import doctorTypesTranslations from "./doctorTypes.json";
 import patientTranslations from "./patient.json";
 import personalTranslations from "./personal.json";
 import receptionTranslations from "./reception.json";
@@ -14,9 +15,11 @@ import filterTranslations from "./filter.json";
 import notificationsTranslations from "./notifications.json";
 import menuTranslations from "./menu.json";
 
+
 const translations = {
     ...globalTranslations,
     ...doctorTranslations,
+    ...doctorTypesTranslations,
     ...patientTranslations,
     ...personalTranslations,
     ...receptionTranslations,

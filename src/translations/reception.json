@@ -11,7 +11,7 @@
         "schedule": ["Reception schedule", "График приёмов"],
         "planned": ["Planned receptions", "Плановые приёмы"],
         "history": ["History of receptions", "История приёмов"],
-        "comment": ["Comment to the reception", "Комментарий к приёму"],
+        "comment": ["Comment to reception", "Комментарий к приёму"],
         "notClickUpdate": [
             "No receptions. Click to update.",
             "Нет приёмов. Нажмите чтобы обновить."
@@ -22,17 +22,11 @@
                 "patient": ["Patient", "ФИО"]
             },
             "select": {
-                "patient" :["Full name", "ФИО"],
-                "duration": [
-                    "Duration of reception",
-                    "Длительность приёма"
-                ]
+                "patient" :["Patient", "ФИО"],
+                "duration": ["Duration of reception", "Длительность приёма"]
             },
             "textarea": {
-                "comment": [
-                    "Comment to reception",
-                    "Комментарий к приёму"
-                ]
+                "comment": ["Comment to reception", "Комментарий к приёму"]
             },
             "uploadFile": [
                 "Attach research results",

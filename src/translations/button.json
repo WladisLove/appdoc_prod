@@ -14,6 +14,7 @@
             "saveChanges": ["Save changes", "Сохранить изменения"],
             "done": ["Done", "Готово"],
             "submit": ["Submit", "Отправить"],
+            "signUp": ["Sign up", "Записаться"],
             "signUpFor": ["Sign up for", "Записаться на"],
             "addInterval": ["Add interval", "Добавить интервал"],
             "newMessage": ["New message", "Новое сообщение"],
