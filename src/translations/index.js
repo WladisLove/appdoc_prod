@@ -14,6 +14,7 @@ import authTranslations from "./auth.json";
 import filterTranslations from "./filter.json";
 import notificationsTranslations from "./notifications.json";
 import menuTranslations from "./menu.json";
+import languagesTranslations from "./languages.json";
 
 
 const translations = {
@@ -32,7 +33,8 @@ const translations = {
     ...authTranslations,
     ...filterTranslations,
     ...notificationsTranslations,
-    ...menuTranslations
+    ...menuTranslations,
+    ...languagesTranslations
 }
 
 export { translations }
