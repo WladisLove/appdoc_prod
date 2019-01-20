@@ -284,7 +284,7 @@ class PersonalEducationItemForm extends React.Component{
                                         }],
                                     })(
                                         <Select placeholder={translate(`personal.form.select.academicDegree`)}>
-                                            {addInfoObj.degree.map((item) => <Option value={item}>{item}</Option>)}
+                                            {addInfoObj.degree.map((item) => <Option value={item}>{translate(item)}</Option>)}
                                         </Select>
                                     )}
                                 </FormItem>
@@ -350,7 +350,7 @@ class PersonalEducationItemForm extends React.Component{
                                         }],
                                     })(
                                         <Select placeholder={translate(`personal.form.select.academicRank`)}>
-                                            {addInfoObj.title.map((item) => <Option value={item}>{item}</Option>)}
+                                            {addInfoObj.title.map((item) => <Option value={item}>{translate(item)}</Option>)}
                                         </Select>
                                     )}
                                 </FormItem>
