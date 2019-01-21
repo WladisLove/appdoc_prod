@@ -151,7 +151,7 @@ class NewFreeVisitByPatientForm extends React.Component {
     }
     renderOptions = () => {
         return this.props.docTypes.map((docType, i) => {
-            return (<Select.Option value={docType} key={`my_patient_${i}`}><Translate id={`doctorType.${docType}`} /></Select.Option>);
+            return (<Select.Option value={docType} key={`my_patient_${i}`}><Translate id={`${docType}`} /></Select.Option>);
         })
     };
     handleSelectChange = (speciality) => {
@@ -238,7 +238,7 @@ class NewFreeVisitByPatientForm extends React.Component {
                                                 <Upload className="newVisitDocPageeModal-upload"
                                                         onChange={({file}) => this.modifyFiles(file)}
                                                         listType='text'
-                                                        text={translate('reception.uploadFile')}/>
+                                                        text={translate('reception.form.uploadFile')}/>
                                         )}
                                     </FormItem>
                                     <div className="new-visit-content-submit">
