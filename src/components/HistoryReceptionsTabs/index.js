@@ -197,7 +197,7 @@ class HistoryReceptionsTabs extends React.Component {
                 </div>
                 <div className="tableheader menu-header">
                     <div className="flex-col">
-                        <div className="tableheader-name">{this.props.isUser? (<Translate id="doctor" />) : (<Translate id="patient.name" />)}</div>
+                        <div className="tableheader-name">{this.props.isUser? (<Translate id="doctor.title" />) : (<Translate id="patient.name" />)}</div>
                     </div>
                     <div className="flex-col">
                         <div className="tableheader-name"><Translate id="reception.date" /></div>

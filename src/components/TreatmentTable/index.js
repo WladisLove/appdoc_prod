@@ -121,7 +121,7 @@ class TreatmentTable extends React.Component{
                         horizontal={true}
                     >
                                 <div className="tableheader">
-                                    <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? (<Translate id="doctor" />) : (<Translate id="patient.name" />)}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{this.props.isUser ? (<Translate id="doctor.title" />) : (<Translate id="patient.name" />)}</div></div>
                                     <div className="flex-col"><div className="tableheader-name"><Translate id="reception.date" /></div></div>
                                     <div className="flex-col"><div className="tableheader-name"><Translate id="conclusion.preliminary" /></div></div>
                                     <div className="flex-col"><div className="tableheader-name"><Translate id="reception.comment" /></div></div>
