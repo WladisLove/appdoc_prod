@@ -60,13 +60,13 @@ class PersonalContactItemForm extends React.Component{
                     .then((res) => {
                         this.setState({loadingPass: false});
                         if (res.data.code === 200) {
-                            message.success(<Translate id={"notifications.saved"}/>);
+                            message.success(<Translate id="notifications.saved"/>);
                             this.props.form.resetFields();
                         } else if(res.data.code===601){
-                            message.error(<Translate id={"personal.form.errors.input.password.wrongOldPassword"}/>)
+                            message.error(<Translate id="personal.form.errors.input.password.wrongOldPassword"/>)
                         }
                         else{
-                            message.error(<Translate id={"personal.form.errors.input.password.tryAgain"}/>)
+                            message.error(<Translate id="personal.form.errors.input.password.tryAgain"/>)
                         }
                     })
             } else {
@@ -109,7 +109,7 @@ class PersonalContactItemForm extends React.Component{
     compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('newPassField')) {
-            callback(<Translate id={"personal.form.errors.input.password.doNotMatch"}/>);
+            callback(<Translate id="personal.form.errors.input.password.doNotMatch"/>);
         } else {
             callback();
         }

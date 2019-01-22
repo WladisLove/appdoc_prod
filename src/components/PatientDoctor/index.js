@@ -5,7 +5,7 @@ import PatientDoctorItem from '../PatientDoctorItem'
 import NewVisitModalPage from '../NewVisitModalPage'
 import Card from '../Card'
 import Icon from '../Icon'
-
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 import {message} from "antd";
@@ -39,14 +39,21 @@ class PatientDoctor extends React.Component{
                 doctorArr.push(<PatientDoctorItem onGoto={this.props.onGoto} key={index} {...item} checkModal1Visible={this.setModal1Visible}/>)
             });
         } else {
-            doctorArr.push(<div className='noMyDoctors'>
-                    <span>
-                        Врачи отсутствуют
-                    </span>
-                <Button btnText='Добавить'
-                        onClick={this.props.redirect}
-                        size='small'
-                        type='float'/>
+            doctorArr.push(
+                <div>
+                    <Translate>
+                        {({ translate }) =>
+                            (<div className='noMyDoctors'>
+                                <span>
+                                    {translate('patient.noDoctors')}
+                                </span>
+                            <Button btnText={translate('button.title.add')}
+                                    onClick={this.props.redirect}
+                                    size='small'
+                                    type='float'/>
+                            </div>)
+                        }
+                    </Translate>
             </div>)
         }
 
@@ -66,9 +73,9 @@ class PatientDoctor extends React.Component{
 
         return (
             <div className='doctor-all'>
-                <Card style={{height: 500}} title="Мои врачи" extra={
+                <Card style={{height: 500}} title={<Translate id="patient.myDoctors" />} extra={
                     <div onClick={this.props.redirect} className='go-to'>
-                        <Icon svg type='people' size={18} /> Весь список
+                        <Icon svg type='people' size={18} /> <Translate id="allList" />
                     </div>}>
                     {this.state.loading ? <Spinner/> : this.doctorRender(data)}
                 </Card>

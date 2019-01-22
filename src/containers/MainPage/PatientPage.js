@@ -8,6 +8,8 @@ import PatientDoctor from "../../components/PatientDoctor";
 import TopPanelPatient from "../../components/TopPanelPatient";
 import TreatmentTable from "../../components/TreatmentTable";
 import NewFreeVisitByPatient from "../../components/NewFreeVisitByPatient";
+import { Translate } from 'react-localize-redux'
+
 const PatientPage = props => {
     const gotoHandler = (id) => {
         props.onSelectPatient(id);
@@ -17,36 +19,40 @@ const PatientPage = props => {
         <Hoc>
             <Row>
                 <Col>
-                    <TopPanelPatient
-                        data={[
-                            {
-                                first: true,
-                            }, {
-                                className: "",
-                                num: props.userInfoShort.PatientAge || '—',
-                                text: "возраст",
-                                notChangeable: true,
-                            }, {
-                                className: "",
-                                num: props.userInfoShort.PatientWeight || '—',
-                                text: "вес",
-                            }, {
-                                className: "",
-                                num: props.userInfoShort.PatientHeight || '—',
-                                text: "рост",
-                            }, {
-                                className: "",
-                                num: props.userInfoShort.PatientPressure || '—',
-                                text: "давление",
-                                doubleValueInput: true,
-                            }, {
-                                className: "",
-                                num: props.userInfoShort.PatientPulse || '—',
-                                text: "пульс",
-                            },
-                        ]}
-                        onSave={props.onSendUserPoleValue}
-                    />
+                    <Translate>
+                        {({ translate }) =>
+                            (<TopPanelPatient
+                                data={[
+                                    {
+                                        first: true,
+                                    }, {
+                                        className: "",
+                                        num: props.userInfoShort.PatientAge || '—',
+                                        text: translate('age').toLowerCase(),
+                                        notChangeable: true,
+                                    }, {
+                                        className: "",
+                                        num: props.userInfoShort.PatientWeight || '—',
+                                        text: translate('weight').toLowerCase(),
+                                    }, {
+                                        className: "",
+                                        num: props.userInfoShort.PatientHeight || '—',
+                                        text: translate('height').toLowerCase(),
+                                    }, {
+                                        className: "",
+                                        num: props.userInfoShort.PatientPressure || '—',
+                                        text: translate('pressure').toLowerCase(),
+                                        doubleValueInput: true,
+                                    }, {
+                                        className: "",
+                                        num: props.userInfoShort.PatientPulse || '—',
+                                        text: translate('pulse').toLowerCase(),
+                                    },
+                                ]}
+                                onSave={props.onSendUserPoleValue}
+                            />)
+                        }
+                    </Translate>
                 </Col>
             </Row>
             <Row>
@@ -64,25 +70,25 @@ const PatientPage = props => {
                     <PatientAnalyzes data={
                         [{
                             comeDate: true,
-                            analyzesDate: "10 января",
+                            analyzesDate: "10 January",
                             analyzesType: "blood",
-                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                            analyzesText: "Complete Blood Count (without leukocyte and ESR), CBC",
                         }, {
-                            analyzesDate: "10 января",
+                            analyzesDate: "10 January",
                             analyzesType: "ultrasound",
-                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                            analyzesText: "Complete Blood Count (without leukocyte and ESR), CBC",
                         }, {
-                            analyzesDate: "10 января",
+                            analyzesDate: "10 January",
                             analyzesType: "heart",
-                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                            analyzesText: "Complete Blood Count (without leukocyte and ESR), CBC",
                         }, {
-                            analyzesDate: "10 января",
+                            analyzesDate: "10 January",
                             analyzesType: "heart",
-                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                            analyzesText: "Complete Blood Count (without leukocyte and ESR), CBC",
                         }, {
-                            analyzesDate: "10 января",
+                            analyzesDate: "10 January",
                             analyzesType: "heart",
-                            analyzesText: "Общий анализ крови (без лейкоцитарной формулы и СОЭ) (Complete Blood Count, CBC)",
+                            analyzesText: "Complete Blood Count (without leukocyte and ESR), CBC",
                         }]
                     }/>
                 </Col>

@@ -93,7 +93,7 @@ class Patients extends React.Component{
         	<Hoc>
         		<Row>
         			<Col span={24}>
-        				<h1 className='page-title'><Translate id="patient.my" /></h1>
+        				<h1 className='page-title'><Translate id="doctor.myPatients" /></h1>
         			</Col>
         		</Row>
             	<Row>

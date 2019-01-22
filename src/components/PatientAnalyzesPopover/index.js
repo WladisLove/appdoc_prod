@@ -5,7 +5,7 @@ import ScrollArea from 'react-scrollbar'
 import Button from '../Button'
 import Input from '../Input'
 import PopoverItem from './content'
-
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 
@@ -26,8 +26,8 @@ class PatientAnalyzesPopover extends React.Component {
     render(){
 
         return (
-            <div className='analyzes-popover'>  
-                <div className='analyzes-popover-title'>Ближайшие лаборатории, в которых Вы можете сдать данный анализ:</div>
+            <div className='analyzes-popover'>
+                <div className='analyzes-popover-title'><Translate id="nearestLaboratoriesPopoverTitle" />:</div>
                 <ScrollArea
                             speed={1}
                             className="analyzes-popover-overlay"

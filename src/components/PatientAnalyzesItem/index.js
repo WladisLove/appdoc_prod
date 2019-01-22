@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import moment from 'moment'
-
+import { Translate } from 'react-localize-redux'
 import { Popover } from 'antd';
 import {panelArr} from './stories/mock-data'
 import Icon from '../Icon'
@@ -34,16 +34,16 @@ class PatientAnalyzesItem extends React.Component{
 
         return (
             <div className={rootClass}>
-                <div className={dateClass}>Сдать не позднее {analyzesDate}</div>
+                <div className={dateClass}><Translate id="notifications.handOverNoLater" /> {analyzesDate}</div>
                 <div className='analyzes-item-block'>
                     <div className={'analyzes-item-icon ' + analyzesType}></div>
                     <div className='analyzes-item-text'>{analyzesText}</div>
                 </div>
-                
+
                 <div className='analyzes-item-area'>
-                    <Popover 
+                    <Popover
                         content={
-                            <PatientAnalyzesPopover 
+                            <PatientAnalyzesPopover
                                 data={panelArr}
                                 onClose={this.handleClose}
                             />
@@ -53,10 +53,10 @@ class PatientAnalyzesItem extends React.Component{
                         trigger="click"
                         placement="right"
                     >
-                        <div className='analyzes-item-btn'>Ближайшие лаборатории <Icon type='marker' svg size={16} /></div>
-                    </Popover> 
+                        <div className='analyzes-item-btn'><Translate id="nearestLaboratories" /> <Icon type='marker' svg size={16} /></div>
+                    </Popover>
                 </div>
-                
+
             </div>
         )
     }

@@ -51,7 +51,7 @@ class TopPanel extends React.Component{
                             panelText={receptionsActual}
                             icon='clock'/>
                 <TopPanelItem
-                            panelTitle={<Translate id="patient.my" />}
+                            panelTitle={<Translate id="doctor.myPatients" />}
                             panelText={patients}
                             icon='people'/>
             </div>

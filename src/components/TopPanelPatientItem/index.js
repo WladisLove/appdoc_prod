@@ -7,7 +7,7 @@ import { Popover } from 'antd';
 import Icon from '../Icon'
 import Button from '../Button'
 import TopPanelPatientPopover from '../TopPanelPatientPopover'
- 
+
 import './style.css'
 import '../../icon/style.css'
 
@@ -93,21 +93,21 @@ class TopPanelPatientItem extends React.Component{
 
         return (
                 <div className={rootClass}>
-                    {first ? 
+                    {first ?
                         <div className='panel-patient-item_first'>
                             <div className='panel-patient-icon'>
                                  <Icon svg type='calendar' size={30} />
                             </div>
-                            <div className='panel-patient-date'>{ date.toLocaleString("ru", options)}</div>
-                            <div className='panel-patient-time'>{ date.toLocaleString("ru", time)}</div>
+                            <div className='panel-patient-date'>{ date.toLocaleString("en", options)}</div>
+                            <div className='panel-patient-time'>{ date.toLocaleString("en", time)}</div>
                         </div>
-                        : 
+                        :
                         <div className='panel-patient-item'>
                             <div className='panel-patient-num'>{num}</div>
                             <div className='panel-patient-text'>{text}</div>
                             {!notChangeable && <Popover
                                 content={
-                                    <TopPanelPatientPopover title={text} 
+                                    <TopPanelPatientPopover title={text}
                                                             onClose={this.handleClose}
                                                             onSave={this.handleValueSave}
                                                             onChange={this.updateInputValue}
@@ -127,13 +127,13 @@ class TopPanelPatientItem extends React.Component{
                                         type='link'
                                         icon='setting_edit'
                                         svg
-                                    /> 
+                                    />
                                 </div>
                             </Popover> }
                         </div>
                     }
                 </div>
-            
+
         )
     }
 }

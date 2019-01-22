@@ -8,7 +8,7 @@ import {Form, Alert, message} from "antd";
 import {previewFile} from "../../helpers/modifyFiles";
 import Modal from "../Modal";
 import Spinner from "../Spinner";
-
+import { Translate } from 'react-localize-redux'
 const FormItem = Form.Item;
 
 class NewEmergencyVisitForm extends React.Component {
@@ -45,13 +45,13 @@ class NewEmergencyVisitForm extends React.Component {
                     this.props.onSubmit(obj)
                         .then((res) => {
                                 if (res.data.code === 200) {
-                                    message.success('Заявка отправлена');
+                                    message.success(<Translate id="notifications.requestSubmitted" />);
                                     this.props.onCancel();
                                     this.setState({isSubmitInProgress: false});
                                 }
                                 else {
                                     this.setState({isSubmitInProgress: false});
-                                    message.error('Произошла ошибка при отправке заявки');
+                                    message.error(<Translate id="notifications.anErrorOccurredSendRequest" />);
                                 }
                             }
                         )
@@ -100,40 +100,44 @@ class NewEmergencyVisitForm extends React.Component {
             >
             <Form onSubmit={this.handleSubmit}
                   className="newEmergencyVisit">
-                    <Card title = "Заявка на экстренный вызов">
-                        <div className="new-emergency-visit-content">
-                            <div className="textarea-label">Опишите проблему</div>
-                            <FormItem>
-                                {getFieldDecorator('comment',{
-                                    rules: [{
-                                        required: true,
-                                        message: 'Опишите жалобу'
-                                    }],
-                                    initialValue: ""
-                                })(
-                                    <textarea className="textarea-field"/>
-                                )}
-                            </FormItem>
+                    <Card title={<Translate id="emergencyCallRequest" />}>
+                        <Translate>
+                            {({ translate }) =>
+                                (<div className="new-emergency-visit-content">
+                                    <div className="textarea-label">{translate('emergencyVisit.describeProblem')}</div>
+                                    <FormItem>
+                                        {getFieldDecorator('comment',{
+                                            rules: [{
+                                                required: true,
+                                                message: translate('emergencyVisit.describeComplaint')
+                                            }],
+                                            initialValue: ""
+                                        })(
+                                            <textarea className="textarea-field"/>
+                                        )}
+                                    </FormItem>
 
-                            <FormItem>
-                                {getFieldDecorator('file')(
-                                        <Upload className="newEmergencyVisit-upload"
-                                                onChange={({file}) => this.modifyFiles(file)}
-                                                listType='text'
-                                                text="Прикрепить файлы"/>
-                                )}
-                            </FormItem>
-                            <div className="new-emergency-visit-content-submit">
-                                <Button size='default'
-                                        btnText='Отправить'
-                                        htmlType="submit"
-                                        disable={this.state.isSubmitInProgress}
-                                        type='emergency'
-                                />
-                                {this.state.isSubmitInProgress && <div className="new-emergency-visit-content-submit-spinner"><Spinner/></div>}
-                            </div>
-                            {this.state.shouldWriteComment && <Alert message="Напишите причину обращения" type="error"/>}
-                        </div>
+                                    <FormItem>
+                                        {getFieldDecorator('file')(
+                                                <Upload className="newEmergencyVisit-upload"
+                                                        onChange={({file}) => this.modifyFiles(file)}
+                                                        listType='text'
+                                                        text={translate('attachFile')}/>
+                                        )}
+                                    </FormItem>
+                                    <div className="new-emergency-visit-content-submit">
+                                        <Button size='default'
+                                                btnText={translate('button.title.submit')}
+                                                htmlType="submit"
+                                                disable={this.state.isSubmitInProgress}
+                                                type='emergency'
+                                        />
+                                        {this.state.isSubmitInProgress && <div className="new-emergency-visit-content-submit-spinner"><Spinner/></div>}
+                                    </div>
+                                    {this.state.shouldWriteComment && <Alert message={translate('reasonForTreatment.reasonForTreatment')} type="error"/>}
+                                </div>)
+                            }
+                        </Translate>
                     </Card>
                 </Form>
             </Modal>
