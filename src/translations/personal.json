@@ -18,11 +18,16 @@
             "Additional Information",
             "Дополнительная информация"
         ],
+        "chronicDiseases": [
+            "Chronic diseases, allergies",
+            "Хронические болезни, аллергии"
+        ],
         "form": {
             "input": {
                 "fullName": ["Full name", "ФИО"],
                 "phone": ["Phone", "Телефон"],
                 "email": ["E-mail", "E-mail"],
+                "address": ["Address", "Адрес"],
                 "password": {
                     "old": ["Old password", "Старый пароль"],
                     "new": ["New password", "Новый пароль"],
@@ -109,6 +114,10 @@
                             "Неправильный формат"
                         ]
                     },
+                    "address": [
+                        "Please input address",
+                        "Введите адрес, пожалуйста"
+                    ],
                     "password": {
                         "required": [
                             "Please input password",

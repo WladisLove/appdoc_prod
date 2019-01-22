@@ -8,6 +8,12 @@
     "files": ["files", "Файлы"],
     "emergencyCall": ["Emergency calls", "Экстренные вызовы"],
     "emergencyCallRequest": ["Request for an emergency call", "Запрос на экстренный вызов"],
+    "emergencyVisit": {
+        "describeProblem": ["Describe problem", "Опишите проблему"],
+        "describeComplaint": ["Describe complaint", "Опишите жалобу"],
+        "reasonForTreatment": ["Write the reason for treatment", "Напишите причину обращения"]
+    },
+    "reminding": ["Reminding", "Напоминания"],
     "exit": ["Exit", "Выход"],
     "today": ["Today", "Сегодня"],
     "day": ["Day", "День"],
@@ -19,9 +25,11 @@
     "end": ["End", "Конец"],
     "finish": ["Finish", "Окончание"],
     "all": ["All", "Все"],
+    "allList": ["All list", "Весь список"],
     "yes": ["Yes", "Да"],
     "no": ["No", "Нет"],
     "on": ["on", "на"],
+    "sortBy": ["Sort by", "Сортировать по"],
     "dayOff": ["Day off", "Выходной"],
     "workingTimeInterval": ["Working time interval", "Интервал рабочего времени"],
     "yearsOld": ["years old", "лет"],
@@ -35,8 +43,16 @@
     "weight": ["Weight", "Вес"],
     "cm": ["cm", "см"],
     "kg": ["kg", "кг"],
+    "pressure": ["Pressure", "Давление"],
+    "pulse": ["Pulse", "Пульс"],
     "contacts": ["Contacts", "Контакты"],
     "education": ["Education", "Образование"],
     "complaint": ["Complaint", "Жалоба"],
+    "nearestLaboratories": ["Nearest laboratories", "Ближайшие лаборатории"],
+    "nearestLaboratoriesPopoverTitle": [
+        "Nearest laboratories where you can hand over this analysis",
+        "Ближайшие лаборатории, в которых Вы можете сдать данный анализ"
+    ],
+    "enter": ["Enter", "Введите"],
     "copyright": ["All rights reserved", "Все права защищены"]
 }

@@ -6,6 +6,10 @@
               "addingPatientToList": [
                   "Adding patient to your list",
                   "Добавление пациента в свой список"
+              ],
+              "addingDoctorToList": [
+                  "Adding doctor to your list",
+                  "Добавление доктора в свой список"
               ]
         },
         "confirm": {

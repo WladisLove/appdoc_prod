@@ -2,10 +2,15 @@
     "patient": {
         "single": ["Patient", "Пациент"],
         "name": ["Patient name", "Имя пациента"],
-        "my": ["My patients", "Мои пациенты"],
+        "myDoctors": ["My doctors", "Мои врачи"],
+        "noDoctors": ["No doctors", "Врачи отсутствуют"],
         "list": ["Patient list", "Список пациентов"],
         "profile": ["Patient profile", "Профиль пациента"],
         "not": ["No patients", "Пациентов нет"],
+        "addDoctors" :[
+            "Add doctors to your list",
+            "Добавьте врачей в свой список"
+        ],
         "chronicDiseases": [
             "Chronic diseases/allergies",
             "Хронические болезни/аллергии"
@@ -18,6 +23,8 @@
             "input": ["Input patient full name", "Введите ФИО пациента"],
             "notFound": ["Patients not found", "Пациенты не найдены"]
         },
+        "inputCurrent": ["Input your current", "Введите свой актуальный"],
+        "inputCurrent2": ["Input your current", "Введите свое актуальное"],
         "form": {
             "input": {
                 "fullName": ["Full name", "ФИО"]

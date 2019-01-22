@@ -10,6 +10,7 @@
             "Record was successful",
             "Запись прошла успешно"
         ],
+        "noRecords": ["No records", "Записи отсутствуют"],
         "anErrorOccurred": [
             "An error occurred, please try another time",
             "Произошла ошибка, попробуйте другое время"
@@ -45,6 +46,7 @@
             "Check the url entered",
             "Проверьте введённый адрес"
         ],
-        "requestSubmitted": ["Request submitted", "Заявка отправлена"]
+        "requestSubmitted": ["Request submitted", "Заявка отправлена"],
+        "handOverNoLater": ["Hand over no later", "Сдать не позднее"]
     }
 }

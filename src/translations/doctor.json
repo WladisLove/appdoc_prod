@@ -1,6 +1,7 @@
 {
     "doctor": {
         "title": ["Doctor", "Врач"],
+        "myPatients": ["My patients", "Мои пациенты"],
         "not": ["No doctors", "Докторов нет"],
         "category": ["Doctor category ", "Категория врача"],
         "categoryList": {
@@ -18,6 +19,10 @@
             "noDegree": ["No degree", "Нет степени"],
             "candidate": ["Candidate of Medical Sciences", "Кандидат медицинских наук"],
             "doctor": ["Doctor of Medical Sciences", "Доктор медицинских наук"]
+        },
+        "search": {
+            "input": ["Input doctor full name", "Введите ФИО доктора"],
+            "notFound": ["Doctors not found", "Доктора не найдены"]
         }
     }
 }
