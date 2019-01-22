@@ -315,7 +315,7 @@ class Schedule extends React.Component {
             <Hoc>
                 <Row style={{marginBottom: 25,}}>
                     <Col span={19} className='schedule-title'>
-                        {this.props.isUser ? (<Translate id="reception.schedule" />) : (<Translate id="schedule.single" />)}
+                        {this.props.isUser ? (<Translate id="reception.schedule" />) : (<Translate id="schedule.title" />)}
                     </Col>
                     <Col span={5}
                          className='schedule-editBtn'>

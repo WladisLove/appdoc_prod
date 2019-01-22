@@ -4,6 +4,7 @@ import cn from 'classnames'
 import { navigate } from './utils/constants'
 import Button from '../../Button'
 import Arrow from '../../Arrow'
+import { Translate } from 'react-localize-redux'
 
 class Toolbar extends React.Component {
   state = {
@@ -21,27 +22,31 @@ class Toolbar extends React.Component {
   render() {
     let { messages, label, receptionNum, editor } = this.props
 
-    return (
-      <div className="rbc-toolbar">
-        <Button
-            btnText={messages.today}
-            size='small'
-            type='dark-blue'
-            onClick={this.navigate.bind(null, navigate.TODAY)}/>
-        <Arrow type='dark-blue'
-               onClickNext={this.navigate.bind(null, navigate.NEXT)}
-               onClickPrev={this.navigate.bind(null, navigate.PREVIOUS)}/>
+    return (<div>
+      <Translate>
+        {({ translate }) =>
+          (<div className="rbc-toolbar">
+            <Button
+                btnText={translate('today')}
+                size='small'
+                type='dark-blue'
+                onClick={this.navigate.bind(null, navigate.TODAY)}/>
+            <Arrow type='dark-blue'
+                   onClickNext={this.navigate.bind(null, navigate.NEXT)}
+                   onClickPrev={this.navigate.bind(null, navigate.PREVIOUS)}/>
 
-        <span className="rbc-toolbar-label">{label}</span>
-        <span className="rbc-toolbar-receptionCount">{receptionNum}</span>
+            <span className="rbc-toolbar-label">{label}</span>
+            <span className="rbc-toolbar-receptionCount">{receptionNum}</span>
 
-          {
-              !editor && !this.props.isUser &&
-              <span className="rbc-btn-group">{this.viewNamesGroup(messages)}</span>
-          }
+              {
+                  !editor && !this.props.isUser &&
+                  <span className="rbc-btn-group">{this.viewNamesGroup(messages)}</span>
+              }
 
-      </div>
-    )
+          </div>)
+        }
+      </Translate>
+    </div>)
   }
 
   navigate = action => {
@@ -58,14 +63,18 @@ class Toolbar extends React.Component {
 
     if (viewNames.length > 1) {
       return viewNames.map(name => (
-        <Button
-          key={name}
-          size="small"
-          type='transparent'
-          btnText={messages[name]}
-          className={cn({ 'rbc-active': view === name })}
-          onClick={this.view.bind(null, name)}
-        />
+        <Translate>
+          {({ translate }) =>
+            (<Button
+              key={name}
+              size="small"
+              type='transparent'
+              btnText={translate(name).length && translate(name)}
+              className={cn({ 'rbc-active': view === name })}
+              onClick={this.view.bind(null, name)}
+            />)
+          }
+        </Translate>
       ))
     }
   }

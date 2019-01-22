@@ -8,7 +8,7 @@
         "all": ["All reviews", "Все отзывы"],
         "not": ["No reviews", "Отзывов нет"],
         "my": ["My reviews", "Мои отзывы"],
-        "patients": ["Patient reviews", "Отзывы пациентов"],
+        "patients": ["Patients reviews", "Отзывы пациентов"],
         "notClickUpdate": [
             "No reviews. Click to update.",
             "Нет reviews. Нажмите чтобы обновить."

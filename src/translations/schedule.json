@@ -1,6 +1,6 @@
 {
     "schedule": {
-        "single": ["Schedule", "График работы"],
+        "title": ["Schedule", "График работы"],
         "today": ["Schedule for today", "График работы на сегодня"],
         "notFilled": ["The schedule is not filled.", "График не заполнен."],
         "editor": ["Schedule editor", "Редактор графика"],
