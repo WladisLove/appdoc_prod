@@ -71,14 +71,14 @@ class Patients extends React.Component{
     };
 
 
-    onPatientDelete = (id, patientName) => {
+    onPatientDelete = (id, patientName, translate) => {
         const {removePatient} = this.props;
         Modal.confirm({
-            title: `Вы действительно хотите удалить пациента?`,
-            content: `${patientName} будет удален из списка пациентов`,
+            title: translate("modal.confirm.removePatient"),
+            content: translate('modal.confirm.willBeRemovedFromListOfPatients', {name: patientName}),
             width: '445px',
-            okText: 'Да',
-            cancelText: 'Нет',
+            okText: translate("yes"),
+            cancelText: translate("no"),
             onOk() {
                 removePatient(id);
             },

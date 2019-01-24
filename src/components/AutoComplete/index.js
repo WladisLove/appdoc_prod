@@ -50,14 +50,14 @@ class AutoComplete extends React.Component{
             );
     };
 
-    onDeletePatientHandler = (id, patientName) => {
+    onDeletePatientHandler = (id, patientName, translate) => {
         let that = this;
         Modal.confirm({
-            title: `Вы действительно хотите удалить ${this.props.isUser ? `доктора` : `пациента`}?`,
-            content: `${patientName} будет удален из списка ${this.props.isUser ? `докторов` : `пациентов`}`,
+            title: this.props.isUser ? translate('modal.confirm.removeDoctor') : translate('modal.confirm.removePatient'),
+            content: this.props.isUser ? translate('modal.confirm.willBeRemovedFromListOfDoctors', {name: patientName}) : translate('modal.confirm.willBeRemovedFromListOfPatients', {name: patientName}),
             width: '445px',
-            okText: 'Да',
-            cancelText: 'Нет',
+            okText: translate("yes"),
+            cancelText: translate("no"),
             onOk() {
                 that.onClickHandler(id, 'delete');
             },

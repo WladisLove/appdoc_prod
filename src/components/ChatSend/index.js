@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { Input, Upload, Modal } from 'antd';
 import Button from '../Button'
-
+import { Translate } from 'react-localize-redux'
 import {previewFile} from '../../helpers/modifyFiles'
 
 import './style.css'
@@ -52,13 +52,13 @@ class ChatSend extends React.Component{
         this.inp.focus();
     }
 
-    conclusionAddingHandler = (e) => {
+    conclusionAddingHandler = (e, translate) => {
         const {disable, isCurVisEnd} = this.props;
         let that = this;
         if(!disable || isCurVisEnd){
 
             Modal.confirm({
-                title: 'Прикрепить заключение?',
+                title: translate('modal.confirm.attachConclusion'),
                 //content: 'Some descriptions',
                 onOk() {
                     that.pushFiles(e,true);
@@ -69,19 +69,19 @@ class ChatSend extends React.Component{
         }
         else {
             Modal.error({
-                title: 'Не удалось прикрепить заключение',
+                title: translate('modal.error.errorToAttachConclusion'),
             });
         }
     }
 
-    fileAddingHandler = (e) => {
+    fileAddingHandler = (e, translate) => {
         const {disable} = this.props;
         if(!disable) {
             this.pushFiles(e,false);
         }
         else {
             Modal.error({
-                title: 'Не удалось прикрепить файл',
+                title: translate('modal.error.errorToAttachFile'),
               });
         }
 
@@ -92,72 +92,76 @@ class ChatSend extends React.Component{
         const { TextArea } = Input;
         const {message, attachment, disable} = this.props;
 
-        return (
-            <div className='message__send'>
-                <div className='message__send-area'>
-                    <TextArea
-                        ref={inp => this.inp = inp}
-                        value = {this.state.value}
-                        onChange = { e => {
-                            e.target.value.charCodeAt(e.target.value.length - 1) === 10
-                                ? (!disable && this.sendHandler())
-                                : this.setState({value: e.target.value})
-                        }}
-                        placeholder="Ваше сообщение..."
-                        autosize />
-                </div>
-                <div className='message__send-btns'>
-                    <Upload //multiple={true}
-                        disable = {true}
-                        showUploadList={false}
-                        fileList={this.state.conclusionList}
-                        onChange = {this.conclusionAddingHandler}>
-                        {!this.props.isUser && (<Button
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<div className='message__send'>
+                        <div className='message__send-area'>
+                            <TextArea
+                                ref={inp => this.inp = inp}
+                                value = {this.state.value}
+                                onChange = { e => {
+                                    e.target.value.charCodeAt(e.target.value.length - 1) === 10
+                                        ? (!disable && this.sendHandler())
+                                        : this.setState({value: e.target.value})
+                                }}
+                                placeholder={`${translate('form.textarea.chat')}...`}
+                                autosize />
+                        </div>
+                        <div className='message__send-btns'>
+                            <Upload //multiple={true}
+                                disable = {true}
+                                showUploadList={false}
+                                fileList={this.state.conclusionList}
+                                onChange = {(e) => this.conclusionAddingHandler(e, translate)}>
+                                {!this.props.isUser && (<Button
+                                        btnText=''
+                                        size='small'
+                                        type='no-brd'
+                                        icon='result'
+                                        title={translate('button.title.addConclusion')}
+                                />)}
+                            </Upload>
+                            <Upload
+                                //multiple={true}
+                                showUploadList={false}
+                                fileList={this.state.fileList}
+                                onChange = {(e) => this.fileAddingHandler(e, translate)}>
+                                <Button
+                                    btnText=''
+                                    size='small'
+                                    type='no-brd'
+                                    icon='clip'
+                                    title={translate('attachFile')}
+                                />
+                            </Upload>
+                            {this.state.isGenerated && <Button
+                                className='message__send-send'
                                 btnText=''
-                                size='small'
-                                type='no-brd'
-                                icon='result'
-                                title='Добавить заключение'
-                        />)}
-                    </Upload>
-                    <Upload
-                        //multiple={true}
-                        showUploadList={false}
-                        fileList={this.state.fileList}
-                        onChange = {this.fileAddingHandler}>
-                        <Button
-                            btnText=''
-                            size='small'
-                            type='no-brd'
-                            icon='clip'
-                            title='Прикрепить файл'
-                        />
-                    </Upload>
-                    {this.state.isGenerated &&  <Button
-                        className='message__send-send'
-                        btnText=''
-                        title='Отправить сообщение'
-                        disable = {disable}
-                        onClick = {this.sendHandler}
-                    />}
-                    {this.props.isUser ?
-                    (<Button
-                        btnText='оставить отзыв'
-                        size='default'
-                        type='yellow'
-                        disable = {disable}
-                        onClick={this.props.makeReview}
-                    />)
-                    : (<Button
-                        btnText='завершить прием'
-                        size='default'
-                        type='yellow'
-                        disable = {disable}
-                        onClick={this.props.closeVisit}
-                    />)}
-                </div>
-            </div>
-        )
+                                title={translate('button.title.sendMessage')}
+                                disable = {disable}
+                                onClick = {this.sendHandler}
+                            />}
+                            {this.props.isUser ?
+                            (<Button
+                                btnText={translate('button.title.addReview')}
+                                size='default'
+                                type='yellow'
+                                disable = {disable}
+                                onClick={this.props.makeReview}
+                            />)
+                            : (<Button
+                                btnText={translate('button.title.receptionComplete')}
+                                size='default'
+                                type='yellow'
+                                disable = {disable}
+                                onClick={this.props.closeVisit}
+                            />)}
+                        </div>
+                    </div>)
+                }
+            </Translate>
+        </div>)
     }
 }
 

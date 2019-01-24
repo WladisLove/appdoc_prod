@@ -62,7 +62,7 @@ class PatientTableItem extends React.Component{
                                 icon='empty'
                                 iconSize={24}
                                 title={translate('button.title.removePatient')}
-                                onClick = {() => this.props.onDelete(this.props.id, this.props.name)}
+                                onClick = {() => this.props.onDelete(this.props.id, this.props.name, translate)}
                             />
                         </div>
 
