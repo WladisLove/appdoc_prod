@@ -5,6 +5,7 @@
         "notFilled": ["The schedule is not filled.", "График не заполнен."],
         "editor": ["Schedule editor", "Редактор графика"],
         "goTo": ["To edit it, go to", "Для его редактирования перейдите в"],
-        "backto": ["Back to schedule", "Вернуться к графику"]
+        "backto": ["Back to schedule", "Вернуться к графику"],
+        "notDefined": ["Schedule not defined", "Расписание не определено"]
     }
 }

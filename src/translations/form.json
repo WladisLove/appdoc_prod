@@ -13,6 +13,9 @@
                 "The patient will be available to record for all types of communication",
                 "Пациенту будет доступна запись на все виды связи"
             ]
+        },
+        "textarea": {
+            "chat": ["Your message", "Ваше сообщение"]
         }
     }
 }

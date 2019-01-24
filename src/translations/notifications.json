@@ -10,6 +10,10 @@
             "Record was successful",
             "Запись прошла успешно"
         ],
+        "receptionCanceled": [
+            "Reception successfully canceled",
+            "Приём успешно отменён"
+        ],
         "noRecords": ["No records", "Записи отсутствуют"],
         "anErrorOccurred": [
             "An error occurred, please try another time",

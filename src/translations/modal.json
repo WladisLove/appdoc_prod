@@ -20,7 +20,28 @@
             "removePatient": [
                 "Do you really want to remove the patient?",
                 "Вы действительно хотите удалить пациента?"
+            ],
+            "willBeRemovedFromListOfDoctors": [
+                "Pasha will be removed from the list of doctors",
+                "${name} будет удален из списка докторов"
+            ],
+            "willBeRemovedFromListOfPatients": [
+                "Pasha will be removed from the list of patients",
+                "${name} будет удален из списка пациентов"
+            ],
+            "cancelReception": [
+                "Are you sure want to cancel the reception?",
+                "Вы действительно хотите отменить приём?"
+            ],
+            "attachConclusion": ["Attach the conclusion?", "Прикрепить заключение?"],
+            "doctorCallingYou": [
+                "Dr. ${name} is calling you, do you want to take the call?",
+                "Доктор ${name} звонит вам, хотите ли вы принять вызов?"
             ]
+        },
+        "error": {
+            "errorToAttachConclusion": ["Failed to attach conclusion", "Не удалось прикрепить заключение"],
+            "errorToAttachFile": ["Failed to attach file", "Не удалось прикрепить файл"]
         }
     }
 }
