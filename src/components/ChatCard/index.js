@@ -9,6 +9,7 @@ import ChatSend from '../ChatSend'
 import ChatContent from './ChatContent'
 import ChatVideoContent from './ChatVideoContent'
 import ChatMessage from '../ChatMessage'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -57,64 +58,68 @@ class ChatCard extends React.Component {
                 break;
         }
 
-        return (
-            <div className={rootClass}>
-                <div className='chat-card-head'>
-                    <div className='chat-card-title'>
-                        <Button
-                            btnText=''
-                            size='small'
-                            type='no-brd'
-                            icon='menu'
-                            svg
-                            title='Открыть прикреплённые файлы'
-                            style={{width: 30}}
-                            onClick={() => this.setState(prev => ({isActive: !prev.isActive}))}
-                        />
-                        <div className='chat-card-namePatient'>{patientName}</div>
-                        <div className={statusClass}>{online}</div>
-                    </div>
-                    <div className='chat-card-btns'>
-                        <Radio icons={icons}
-                               defaultValue={this.state.mode}
-                               onChange={(mode) => this.setState({mode})}/>
-                        <div className='chat-card-archive'>
-                            <Button
-                                btnText=''
-                                size='small'
-                                type='no-brd'
-                                icon='archive-box'
-                                title='В архив'
-                            />
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<div className={rootClass}>
+                        <div className='chat-card-head'>
+                            <div className='chat-card-title'>
+                                <Button
+                                    btnText=''
+                                    size='small'
+                                    type='no-brd'
+                                    icon='menu'
+                                    svg
+                                    title={translate('button.title.openAttachments'))}
+                                    style={{width: 30}}
+                                    onClick={() => this.setState(prev => ({isActive: !prev.isActive}))}
+                                />
+                                <div className='chat-card-namePatient'>{patientName}</div>
+                                <div className={statusClass}>{online}</div>
+                            </div>
+                            <div className='chat-card-btns'>
+                                <Radio icons={icons}
+                                       defaultValue={this.state.mode}
+                                       onChange={(mode) => this.setState({mode})}/>
+                                <div className='chat-card-archive'>
+                                    <Button
+                                        btnText=''
+                                        size='small'
+                                        type='no-brd'
+                                        icon='archive-box'
+                                        title={translate('button.title.toArchive')}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div className='chat-card-body'>
-                    <div className={dialogsClass}>
-                            {content}
-                    </div>
-                    <div className={filesClass}>
-                        <div className='chat-card-files__close'>
-                            <Button
-                                btnText=''
-                                size='small'
-                                type='no-brd'
-                                icon='arrow_up'
-                                title='Закрыть'
-                                onClick={() => this.setState(prev => ({isActive: !prev.isActive}))}
-                            />
-                        </div>
-                        {
-                            this.state.isActive && 
-                            <ScrollArea speed={1} className="chat-card-files__items" contentClassName="content" horizontal={false}>
-                                {this.filesRender(this.props.data)}
-                            </ScrollArea>
-                        }
-                    </div>
+                        <div className='chat-card-body'>
+                            <div className={dialogsClass}>
+                                    {content}
+                            </div>
+                            <div className={filesClass}>
+                                <div className='chat-card-files__close'>
+                                    <Button
+                                        btnText=''
+                                        size='small'
+                                        type='no-brd'
+                                        icon='arrow_up'
+                                        title={translate('button.title.close')}
+                                        onClick={() => this.setState(prev => ({isActive: !prev.isActive}))}
+                                    />
+                                </div>
+                                {
+                                    this.state.isActive &&
+                                    <ScrollArea speed={1} className="chat-card-files__items" contentClassName="content" horizontal={false}>
+                                        {this.filesRender(this.props.data)}
+                                    </ScrollArea>
+                                }
+                            </div>
 
-                </div>
-            </div>
-        )
+                        </div>
+                    </div>)
+                }
+            </Translate>
+        </div>)
     }
 }
 

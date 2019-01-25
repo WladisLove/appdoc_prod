@@ -1,5 +1,4 @@
 import React from 'react';
-
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import moment from "moment"
@@ -246,7 +245,7 @@ class ChatCard extends React.Component {
 				                                type='no-brd'
 				                                icon='file'
 				                                svg
-				                                title={translate('openAttachments')}
+				                                title={translate('button.title.openAttachments')}
 				                                style={{width: 30}}
 				                                onClick={this.toggleFilesArea}
 				                            />
