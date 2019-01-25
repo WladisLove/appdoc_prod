@@ -6,6 +6,7 @@ import Button from '../Button'
 import Icon from '../Icon'
 import DownloadLink from '../DownloadLink'
 import Hoc from '../Hoc'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 
@@ -32,14 +33,18 @@ class NotificationItem extends React.Component{
                         download
                     />)
                 })}
-                <Button
-                    size='file'
-                    type='file'
-                    icon='download'
-                    iconSize={20}
-                    svg
-                    title='Скачать всё'
-                />
+                <Translate>
+                    {({ translate }) =>
+                        (<Button
+                            size='file'
+                            type='file'
+                            icon='download'
+                            iconSize={20}
+                            svg
+                            title={translate('button.title.downloadAll')}
+                        />)
+                    }
+                </Translate>
             </div>
         );
     };

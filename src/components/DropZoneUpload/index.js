@@ -21,7 +21,7 @@ class DropZoneUpload extends Component {
             .then(res => {
                 const file = res.data.file[0];
                 if (file.url && file.name) {
-                    message.success(<Translate id="notifications.fileUploadedSuccessfully" />)
+                    message.success(<Translate id="notifications.fileSuccessUpload" />)
                     this.setState({accepted: [...this.state.accepted, {name: file.name, deleteUrl: file.deleteUrl}]})
                 } else if (res.data.file[0].error) {
                     message.error(res.data.file[0].error)

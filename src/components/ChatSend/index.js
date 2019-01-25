@@ -84,8 +84,6 @@ class ChatSend extends React.Component{
                 title: translate('modal.error.errorToAttachFile'),
               });
         }
-
-
     }
 
     render(){
@@ -144,7 +142,7 @@ class ChatSend extends React.Component{
                             />}
                             {this.props.isUser ?
                             (<Button
-                                btnText={translate('button.title.addReview')}
+                                btnText={translate('button.title.addReview').toLowerCase()}
                                 size='default'
                                 type='yellow'
                                 disable = {disable}
