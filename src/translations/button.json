@@ -16,7 +16,8 @@
             "submit": ["Submit", "Отправить"],
             "signUp": ["Sign up", "Записаться"],
             "signUpFor": ["Sign up for", "Записаться на"],
-            "signUpForReception": ["sign up for reception", "записаться на приём"],
+            "signUpOnDate": ["Sign up on ${date}", "Записаться на ${date}"],
+            "signUpForReception": ["Sign up for reception", "Записаться на приём"],
             "addInterval": ["Add interval", "Добавить интервал"],
             "newMessage": ["New message", "Новое сообщение"],
             "sendMessage": ["Send message", "Отправить сообщение"],
@@ -25,9 +26,10 @@
             "addToMyPatients": ["Add to my patients", "Добавить в мои пациенты"],
             "addReview" : ["add review", "оставить отзыв"],
             "receptionComplete": ["reception complete", "завершить приём"],
+            "startReception": ["Start reception", "Начать приём"],
             "cancelReception": ["Cancel reception", "Отменить приём"],
             "addConclusion": ["Add conclusion", "Добавить заключение"],
-            "noFreeTime": ["no free time", "отсутствует свободное время"]
+            "noFreeTime": ["No free time", "Отсутствует свободное время"]
         },
         "description": {
             "add": ["Add new reseption", "Добавить новый приём"]

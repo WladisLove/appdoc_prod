@@ -37,6 +37,8 @@
     "newMessage": ["New message", "Новое сообщение"],
     "messageText": ["Message text", "Текст сообщения"],
     "attachFile": ["Attach file", "Прикрепить файл"],
+    "openAttachments": ["Open attachments", "Открыть прикреплённые файлы"],
+    "about": ["About myself", "О себе"],
     "dateOfBirth": ["Date of birth", "Дата рождения"],
     "age": ["Age", "Возраст"],
     "height": ["Height", "Рост"],
@@ -54,5 +56,9 @@
         "Ближайшие лаборатории, в которых Вы можете сдать данный анализ"
     ],
     "enter": ["Enter", "Введите"],
+    "consultationCost": ["Consultation<br />cost", "Стоимость<br />консультации"],
+    "currency": ["$", "руб"],
+    "languagesKnowledge": ["Languages", "Знание языков"],
+    "audioVideoConsultations": ["Audio and video consultations", "Аудио и видео консультации"],
     "copyright": ["All rights reserved", "Все права защищены"]
 }
