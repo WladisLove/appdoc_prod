@@ -26,10 +26,16 @@
             "addToMyPatients": ["Add to my patients", "Добавить в мои пациенты"],
             "addReview" : ["add review", "оставить отзыв"],
             "receptionComplete": ["reception complete", "завершить приём"],
+            "treatmentComplete": ["Treatment complete", "Завершить обращение"],
+            "completeCall": ["Call complete", "Завершить звонок"],
             "startReception": ["Start reception", "Начать приём"],
             "cancelReception": ["Cancel reception", "Отменить приём"],
+            "startCall": ["Start call", "Начать разговор"],
             "addConclusion": ["Add conclusion", "Добавить заключение"],
-            "noFreeTime": ["No free time", "Отсутствует свободное время"]
+            "noFreeTime": ["No free time", "Отсутствует свободное время"],
+            "openAttachments": ["Open attachments", "Открыть прикреплённые файлы"],
+            "toArchive": ["To archive", "В архив"],
+            "close": ["Close", "Закрыть"]
         },
         "description": {
             "add": ["Add new reseption", "Добавить новый приём"]

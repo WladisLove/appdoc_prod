@@ -1,5 +1,20 @@
 {
     "form": {
+        "textarea": {
+            "chat": ["Your message", "Ваше сообщение"],
+            "cancellationReason": ["Reason for cancellation", "Причина отмены"]
+        },
+        "select": {
+            "drugForUse": ["Drug for use", "Препарат для приема"],
+            "drug": {
+                "analgin": ["Analgin", "Анальгин"],
+                "paracetamol": ["Paracetamol", "Парацетамол"],
+                "vitaminC": ["Vitamin C", "Аскорбиновая кислота"]
+            },
+            "investigation": {
+                "completeBloodCount": ["Complete Blood Count", "Общий анализ крови"]
+            }
+        },
         "radio": {
             "chat": [
                 "The patient will only be available to chat",
@@ -14,8 +29,20 @@
                 "Пациенту будет доступна запись на все виды связи"
             ]
         },
-        "textarea": {
-            "chat": ["Your message", "Ваше сообщение"]
+        "checkbox": {
+            "addToListChronicDiseases": [
+                "Add to list of chronic diseases",
+                "Добавить в список хронических болезней"
+            ]
+        },
+        "errors": {
+            "input": {
+                "enterDiagnosis": ["Enter diagnosis", "Ввведите диагноз"]
+            },
+            "select": {
+                "enterDrug": ["Enter drug", "Ввведите препарат"],
+                "enterInvestigation": ["Enter investigation", "Введите исследование"]
+            }
         }
     }
 }

@@ -17,6 +17,7 @@
         "byResults": ["Receptions by results of analyzes", "Приёмы по результатам анализов"],
         "history": ["History of receptions", "История приёмов"],
         "comment": ["Comment to reception", "Комментарий к приёму"],
+        "awaiting": ["Awaiting reception", "Ожидают приёма"],
         "notClickUpdate": [
             "No receptions. Click to update.",
             "Нет приёмов. Нажмите чтобы обновить."

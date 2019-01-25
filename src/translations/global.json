@@ -1,7 +1,11 @@
 {
     "conclusion": {
         "single": ["Conclusion", "Заключение"],
-        "preliminary": ["Preliminary conclusion", "Предварительное заключение"]
+        "preliminary": ["Preliminary conclusion", "Предварительное заключение"],
+        "writePreliminaryConclusion": [
+            "Write a preliminary conclusion",
+            "Напишите предварительное заключение"
+        ]
     },
     "myRating": ["My rating", "Мой рейтинг"],
     "cost": ["Cost", "Стоимость"],
@@ -37,7 +41,7 @@
     "newMessage": ["New message", "Новое сообщение"],
     "messageText": ["Message text", "Текст сообщения"],
     "attachFile": ["Attach file", "Прикрепить файл"],
-    "openAttachments": ["Open attachments", "Открыть прикреплённые файлы"],
+    "attachDocument": ["Attach document" , "Прикрепить документ"],
     "about": ["About myself", "О себе"],
     "dateOfBirth": ["Date of birth", "Дата рождения"],
     "age": ["Age", "Возраст"],
@@ -60,5 +64,9 @@
     "currency": ["$", "руб"],
     "languagesKnowledge": ["Languages", "Знание языков"],
     "audioVideoConsultations": ["Audio and video consultations", "Аудио и видео консультации"],
+    "diagnosis": ["Diagnosis", "Диагноз"],
+    "investigation": ["Investigation", "Исследование"],
+    "notEarlier": ["Not earlier", "Не ранее"],
+    "notLater": ["Not later", "Не позднее"],
     "copyright": ["All rights reserved", "Все права защищены"]
 }

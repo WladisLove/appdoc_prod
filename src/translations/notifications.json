@@ -51,6 +51,13 @@
             "Проверьте введённый адрес"
         ],
         "requestSubmitted": ["Request submitted", "Заявка отправлена"],
-        "handOverNoLater": ["Hand over no later", "Сдать не позднее"]
+        "handOverNoLater": ["Hand over no later", "Сдать не позднее"],
+        "enterReason": ["Enter reason", "Введите причину"],
+        "choosePeriod": ["Choose a period", "Выберите период"],
+        "receptionCanceledAtLeastThreeHours": [
+            "Reception is canceled at least three hours before it starts",
+            "Отмена приёма осуществляется не менее чем за три часа до его начала"
+        ],
+        "fileUploadedSuccessfully": ["File uploaded successfully", "Файл успешно загружен"]
     }
 }

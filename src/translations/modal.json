@@ -10,7 +10,10 @@
               "addingDoctorToList": [
                   "Adding doctor to your list",
                   "Добавление доктора в свой список"
-              ]
+              ],
+              "cancelReception": ["Cancel reception", "Отмена приёма"],
+              "completeReception": ["Completion of reception", "Завершение приёма"],
+              "completeTreatment": ["Completion of treatment", "Завершение обращения"]
         },
         "confirm": {
             "removeDoctor": [
