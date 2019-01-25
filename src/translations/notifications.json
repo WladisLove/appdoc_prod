@@ -58,6 +58,14 @@
             "Reception is canceled at least three hours before it starts",
             "Отмена приёма осуществляется не менее чем за три часа до его начала"
         ],
-        "fileUploadedSuccessfully": ["File uploaded successfully", "Файл успешно загружен"]
+        "fileSuccessUpload": [
+            "File successfully uploaded",
+            "Файл успешно загружен"
+        ],
+        "conclusionSuccessfulAdd": [
+            "Conclusion successfully added",
+            "Заключение успешно добавлено"
+        ],
+        "waitConclusion": ["Wait conclusion", "Ожидайте заключения"]
     }
 }

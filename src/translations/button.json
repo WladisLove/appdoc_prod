@@ -24,7 +24,8 @@
             "makeAnReception": ["Make an reception", "Записать на приём"],
             "removePatient": ["Remove patient", "Удалить пациента"],
             "addToMyPatients": ["Add to my patients", "Добавить в мои пациенты"],
-            "addReview" : ["add review", "оставить отзыв"],
+            "addReview": ["Add review", "Оставить отзыв"],
+            "writeReview": ["Write review", "Написать отзыв"],
             "receptionComplete": ["reception complete", "завершить приём"],
             "treatmentComplete": ["Treatment complete", "Завершить обращение"],
             "completeCall": ["Call complete", "Завершить звонок"],
@@ -35,7 +36,10 @@
             "noFreeTime": ["No free time", "Отсутствует свободное время"],
             "openAttachments": ["Open attachments", "Открыть прикреплённые файлы"],
             "toArchive": ["To archive", "В архив"],
-            "close": ["Close", "Закрыть"]
+            "close": ["Close", "Закрыть"],
+            "downloadAll": ["Download all", "Скачать всё"],
+            "paidReception": ["Paid", "Платный"],
+            "freeReception": ["Free", "Бесплатный"]
         },
         "description": {
             "add": ["Add new reseption", "Добавить новый приём"]

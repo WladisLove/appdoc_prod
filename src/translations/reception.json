@@ -18,6 +18,7 @@
         "history": ["History of receptions", "История приёмов"],
         "comment": ["Comment to reception", "Комментарий к приёму"],
         "awaiting": ["Awaiting reception", "Ожидают приёма"],
+        "selectType": ["Select type of reception", "Выберите тип приёма"],
         "notClickUpdate": [
             "No receptions. Click to update.",
             "Нет приёмов. Нажмите чтобы обновить."
