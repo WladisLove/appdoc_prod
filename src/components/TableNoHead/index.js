@@ -77,7 +77,7 @@ class TableNoHead extends React.Component{
                             smoothScrolling={true}>
                             {data.length ?
                                 this.scheduleRender(data)
-                                : <div className='entry-list'>Приемов нет</div>}
+                                : <div className='entry-list'><Translate id="reception.not" /></div>}
                         </ScrollArea>
                     </div>
                   </Card>

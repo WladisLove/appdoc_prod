@@ -11,9 +11,12 @@ import Hoc from '../../hoc'
 import './styles.css'
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
-import{compileToClientPatient, compileToServerPatient} from './compilerPatient'
+import {compileToClientPatient, compileToServerPatient} from './compilerPatient'
 import PatientAccardionContact from "../../components/PatientAccardionContact";
 import PatientAccardionDisease from "../../components/PatientAccardionDisease";
+
+import { Translate } from 'react-localize-redux'
+
 
 class PersonalInfo extends React.Component{
     constructor(props){
@@ -108,8 +111,12 @@ class PersonalInfo extends React.Component{
                                 />
                             </Col>
                         </Row>
-                        <WarningModal visible={this.state.visible} onClick={this.onVisible}
-                                      message="Изменения всупят в силу после проверки администратором"/>
+                        <Translate>
+                            {({ translate }) =>
+                                (<WarningModal visible={this.state.visible} onClick={this.onVisible}
+                                              message={translate('notifications.adminVerification')} />)
+                            }
+                        </Translate>
                     </div>)}
             </Hoc>
         )
@@ -137,6 +144,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonalInfo);
-/*
-
-export default PersonalInfo;*/

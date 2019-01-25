@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import moment from 'moment'
-
+import { Translate } from 'react-localize-redux'
 import Button from '../Button'
 import Rate from '../Rate'
 import ProfileAvatar from '../ProfileAvatar'
@@ -21,7 +21,7 @@ class PatientDoctorItem extends React.Component{
         return (
             <div className={rootClass}>
                 <div className='doctor-item-avatar'>
-                    <ProfileAvatar 
+                    <ProfileAvatar
                         img={doctorAvatar}
                         owner='doctor'
                         size="small"
@@ -35,17 +35,21 @@ class PatientDoctorItem extends React.Component{
                     </div>
                     <div className='doctor-item-text'>
                         <div>{doctorRank} {doctorCategory}</div>
-                        <div>Стаж работы {doctorExp}</div>
+                        <div><Translate id="doctor.workExperience" /> {doctorExp}</div>
                     </div>
                     <div className='doctor-item-btn'>
-                        <Button
-                            onClick={() => this.props.checkModal1Visible(true, doctorName, id)}
-                            btnText={intervals.length ? 'записаться на прием' : 'отсутствует свободное время'}
-                            size='small'
-                            type='float'
-                            icon='form'
-                            disable={!intervals.length}
-                        />
+                        <Translate>
+                            {({ translate }) =>
+                                (<Button
+                                    onClick={() => this.props.checkModal1Visible(true, doctorName, id)}
+                                    btnText={intervals.length ? translate('button.title.signUpForReception').toLowerCase() : translate('button.title.noFreeTime').toLowerCase()}
+                                    size='small'
+                                    type='float'
+                                    icon='form'
+                                    disable={!intervals.length}
+                                />)
+                            }
+                        </Translate>
                     </div>
                 </div>
             </div>
