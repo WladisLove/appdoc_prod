@@ -14,6 +14,7 @@ import ChatTextContent from './ChatTextContent'
 import ChatVideoContent from './ChatVideoContent'
 import ChatAudioContent from './ChatAudioContent'
 import Hoc from '../../../hoc'
+import { Translate } from 'react-localize-redux'
 
 import {
 	startReception, call, stop, messAboutStop, messForCloseReception, fileUploadCallback,
@@ -94,7 +95,7 @@ class ChatCard extends React.Component {
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере */
-		console.log("Завершение приёма и чата", this.props.receptionId)
+		// console.log("Завершение приёма и чата", this.props.receptionId)
 		messAboutStop();
 		stop();
 		messForCloseReception(this.props.receptionId);
@@ -222,42 +223,44 @@ class ChatCard extends React.Component {
 
         return (
 			<Hoc>
-            <div className='chat-card'>
-                <div className='chat-card-head'>
-                    <div className='chat-card-title'>
-                        <Button
-                            icon={iconType}
-                            title='Тип приёма'
-                            style={{color: "white", padding: 0, width: "auto"}}
-                        />
+						<Translate>
+            		{({ translate }) =>
+				            (<div className='chat-card'>
+				                <div className='chat-card-head'>
+				                    <div className='chat-card-title'>
+				                        <Button
+				                            icon={iconType}
+				                            title={translate('reception.type')}
+				                            style={{color: "white", padding: 0, width: "auto"}}
+				                        />
 
-                        <div className='chat-card-namePatient'>{patientName}</div>
-                        <div className={statusClass}>{online}</div>
-                    </div>
-                    <div className='chat-card-btns'>
+				                        <div className='chat-card-namePatient'>{patientName}</div>
+				                        <div className={statusClass}>{online}</div>
+				                    </div>
+				                    <div className='chat-card-btns'>
 
-                        <div className='chat-card-archive'>
-                            <Button
-                                btnText=''
-                                size='small'
-                                type='no-brd'
-                                icon='file'
-                                svg
-                                title='Открыть прикреплённые файлы'
-                                style={{width: 30}}
-                                onClick={this.toggleFilesArea}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className='chat-card-body'>
-                    <div className={dialogsClass}>
-                            {content}
-                    </div>
-
-
-                </div>
-            </div>
+				                        <div className='chat-card-archive'>
+				                            <Button
+				                                btnText=''
+				                                size='small'
+				                                type='no-brd'
+				                                icon='file'
+				                                svg
+				                                title={translate('openAttachments')}
+				                                style={{width: 30}}
+				                                onClick={this.toggleFilesArea}
+				                            />
+				                        </div>
+				                    </div>
+				                </div>
+				                <div className='chat-card-body'>
+				                    <div className={dialogsClass}>
+				                            {content}
+				                    </div>
+				                </div>
+				            </div>)
+								}
+						</Translate>
 			<CompletionReceptionModal
 				visible={this.state.reception_vis}
 				onComplete={this.onCloseReception}
