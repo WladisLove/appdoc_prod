@@ -8,8 +8,6 @@ import Checkbox from '../Checkbox'
 import Input from '../Input'
 import { Translate } from 'react-localize-redux'
 
-
-
 import './style.css'
 import '../../icon/style.css'
 
@@ -37,7 +35,7 @@ class LoginForm extends React.Component{
             case 400:
                 error = [{
                     validateStatus: 'error',
-                    help: <Translate id={"auth.errors.wrongLoginOrPassword"}/>
+                    help: <Translate id="auth.errors.wrongLoginOrPassword"/>
                 },{
                     validateStatus: 'error',
                 }];
@@ -45,7 +43,7 @@ class LoginForm extends React.Component{
             case 500:
                 error = [{
                     validateStatus: 'error',
-                    help: <Translate id={"auth.errors.userDoesNotExist"}/>
+                    help: <Translate id="auth.errors.userDoesNotExist"/>
                 },{
                     validateStatus: 'error',
                 }];
@@ -55,85 +53,71 @@ class LoginForm extends React.Component{
                 error = [];
         }
 
-        return (
-            <Form onSubmit={this.handleSubmit} className="login-form">
-                <div className="login-title"><Translate id = {'auth.title'}/></div>
-                <div className="login-notification"><Translate id = {'auth.requiredFields'}/></div>
-                <Translate>
-                    {({translate}) =>
-                        (
-                            <FormItem {...error[0]}>
-                                {getFieldDecorator('userName', {
-                                    rules: [{required: true, message: <Translate id={'auth.errors.inputEmail'}/>}],
-                                })(
-                                    <Input placeholder={translate("auth.emailOrLogin")}
-                                           className='login-form-item'/>
-                                )}
-                            </FormItem>
-                        )
-                    }
-                </Translate>
-                <Translate>
-                    {({translate}) =>
-                        (<FormItem {...error[1]}>
+        return (<div>
+            <Translate>
+                {({translate}) =>
+                    (<Form onSubmit={this.handleSubmit} className="login-form">
+                        <div className="login-title"><Translate id="auth.title"/></div>
+                        <div className="login-notification"><Translate id="auth.requiredFields"/></div>
+                        <FormItem {...error[0]}>
+                            {getFieldDecorator('userName', {
+                                rules: [{required: true, message: translate('auth.errors.inputEmail')}],
+                            })(
+                                <Input placeholder={translate("auth.emailOrLogin")}
+                                        className='login-form-item'/>
+                            )}
+                        </FormItem>
+                        <FormItem {...error[1]}>
                             {getFieldDecorator('password', {
-                                rules: [{required: true, message: <Translate id={'auth.errors.inputPassword'}/>}],
+                                rules: [{required: true, message: translate('auth.errors.inputPassword')}],
                             })(
                                 <Input placeholder={translate("auth.password")}
-                                       addonAfter={<NavLink className="login-form-navlink"
-                                                            to={urlForget}><Translate
-                                           id={'auth.forgotPassword'}/></NavLink>}
-                                       type="password"
-                                       className='login-form-item'/>
+                                      addonAfter={<NavLink className="login-form-navlink" to={urlForget}>{translate('auth.forgotPassword')}</NavLink>}
+                                      type="password"
+                                      className='login-form-item'/>
                             )}
-                        </FormItem>)
-                    }
-                </Translate>
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('remember', {
+                                valuePropName: 'checked',
+                                initialValue: false,
+                            })(
+                                <Checkbox>{translate('auth.rememberMe')}</Checkbox>
+                            )}
+                        </FormItem>
 
-                <FormItem>
-                    {getFieldDecorator('remember', {
-                        valuePropName: 'checked',
-                        initialValue: false,
-                    })(
-                        <Checkbox><Translate id = {'auth.rememberMe'}/></Checkbox>
-                    )}
-                </FormItem>
-                <div className="login-form-control">
-                    <Translate>
-                        {({ translate }) =>
-                            ( <Button htmlType="submit"
-                                      btnText={translate('button.title.signIn')}
-                                      size='large'
-                                      type='gradient'/>)
-                        }
-                    </Translate>
-                    <div><Translate id = {'auth.noAccountYet'}/><br/>
-                        <NavLink
-                            to={urlRegistrationDoctor}
-                            className="login-form-navlink"
-                            data-tip
-                        >
-                            <Translate id = {'auth.registerAsDoctor'}/>
-                        </NavLink>
-                        <ReactTooltip place="top" type="dark" effect="float" multiline={true}>
-                            <Translate id = {'auth.docRegistrationTooltip'}/>
+                        <div className="login-form-control">
+                            <Button htmlType="submit"
+                                    btnText={translate('button.title.signIn')}
+                                    size='large'
+                                    type='gradient'/>
 
-                        </ReactTooltip>
+                            <div>{translate('auth.noAccountYet')}<br/>
+                                <NavLink
+                                    to={urlRegistrationDoctor}
+                                    className="login-form-navlink"
+                                    data-tip
+                                >
+                                    {translate('auth.registerAsDoctor')}
+                                </NavLink>
+                                    <ReactTooltip place="top" type="dark" effect="float" multiline={true}>
+                                        {translate('auth.docRegistrationTooltip')}
+                                    </ReactTooltip>
 
-                        <br/>
+                                    <br/>
 
-                        <NavLink
-                            to={urlRegistrationPatient}
-                            className="login-form-navlink"
-                        >
-                            <Translate id = {'auth.registerAsPatient'}/>
-                        </NavLink>
-
-
-                    </div>
-                </div>
-            </Form>
-        )
+                                <NavLink
+                                    to={urlRegistrationPatient}
+                                    className="login-form-navlink"
+                                >
+                                    {translate('auth.registerAsPatient')}
+                                </NavLink>
+                            </div>
+                        </div>
+                    </Form>)
+                }
+            </Translate>
+        </div>)
     }
 }
 
