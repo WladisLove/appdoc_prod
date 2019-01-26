@@ -38,6 +38,7 @@
             "toArchive": ["To archive", "В архив"],
             "close": ["Close", "Закрыть"],
             "downloadAll": ["Download all", "Скачать всё"],
+            "downloadAllFiles": ["Download all files", "Скачать все файлы"],
             "paidReception": ["Paid", "Платный"],
             "freeReception": ["Free", "Бесплатный"]
         },

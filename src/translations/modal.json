@@ -13,7 +13,8 @@
               ],
               "cancelReception": ["Cancel reception", "Отмена приёма"],
               "completeReception": ["Completion of reception", "Завершение приёма"],
-              "completeTreatment": ["Completion of treatment", "Завершение обращения"]
+              "completeTreatment": ["Completion of treatment", "Завершение обращения"],
+              "errorReport": ["Error report", "Отчёт об ошибке"]
         },
         "confirm": {
             "removeDoctor": [
@@ -45,6 +46,9 @@
         "error": {
             "errorToAttachConclusion": ["Failed to attach conclusion", "Не удалось прикрепить заключение"],
             "errorToAttachFile": ["Failed to attach file", "Не удалось прикрепить файл"]
+        },
+        "map": {
+            "location": ["Location", "Местоположение"]
         }
     }
 }

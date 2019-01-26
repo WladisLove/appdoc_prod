@@ -41,6 +41,7 @@
     "newMessage": ["New message", "Новое сообщение"],
     "messageText": ["Message text", "Текст сообщения"],
     "attachFile": ["Attach file", "Прикрепить файл"],
+    "addFile": ["Add file", "Добавить файл"],
     "attachDocument": ["Attach document" , "Прикрепить документ"],
     "about": ["About myself", "О себе"],
     "dateOfBirth": ["Date of birth", "Дата рождения"],
@@ -68,5 +69,8 @@
     "investigation": ["Investigation", "Исследование"],
     "notEarlier": ["Not earlier", "Не ранее"],
     "notLater": ["Not later", "Не позднее"],
+    "mail": ["Mail", "Почта"],
+    "sendOnMail": ["Send on mail", "Присылать на почту"],
+    "onPhone": ["On phone", "На телефон"],
     "copyright": ["All rights reserved", "Все права защищены"]
 }

@@ -21,11 +21,15 @@
         ],
         "anErrorOccurredTryAgain": [
             "An error has occurred, please try again",
-            "Произошла ошибка попробуйте ещё раз"
+            "Произошла ошибка, попробуйте ещё раз"
         ],
         "anErrorOccurredSendRequest": [
             "An error occurred while sending the request",
             "Произошла ошибка при отправке заявки"
+        ],
+        "errorLoadingFileTryAgain": [
+            "Error loading file, try again",
+            "При загрузке файла произошла ошибка, попробуйте ешё раз"
         ],
         "wrongInterval": [
             "Wrong interval selected",
@@ -51,6 +55,7 @@
             "Проверьте введённый адрес"
         ],
         "requestSubmitted": ["Request submitted", "Заявка отправлена"],
+        "reportHasBeenSent": ["Your report has been sent", "Ваш отчёт отправлен"],
         "handOverNoLater": ["Hand over no later", "Сдать не позднее"],
         "enterReason": ["Enter reason", "Введите причину"],
         "choosePeriod": ["Choose a period", "Выберите период"],
@@ -61,6 +66,10 @@
         "fileSuccessUpload": [
             "File successfully uploaded",
             "Файл успешно загружен"
+        ],
+        "fileSuccessAdd": [
+            "File successfully added",
+            "Файл успешно добавлен"
         ],
         "conclusionSuccessfulAdd": [
             "Conclusion successfully added",
