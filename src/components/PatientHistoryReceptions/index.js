@@ -8,6 +8,7 @@ import Card from '../Card'
 import Button from '../Button'
 import DatePicker from '../DatePicker'
 import Icon from '../Icon'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -42,14 +43,17 @@ class PatientHistoryReceptions extends React.Component{
     renderShowMoreBtn = (revArr) => {
         if (this.state.limit < revArr.length && this.state.limitedShow) {
             return (
-                <div className="table-footer"
-                     key="btn">
-                    <Button btnText='Показать еще'
-                            size='link'
-                            type='link'
-                            title='Показать ещё'
-                            icon='circle_arrow_down'
-                            onClick={() => this.setState(prev => ({limitedShow: false}))}/>
+                <div className="table-footer" key="btn">
+                    <Translate>
+                        {({ translate }) =>
+                            (<Button btnText='Показать еще'
+                                    size='link'
+                                    type='link'
+                                    title={translate('button.title.showMore')}
+                                    icon='circle_arrow_down'
+                                    onClick={() => this.setState(prev => ({limitedShow: false}))}/>)
+                        }
+                    </Translate>
                 </div>)
         }
     };
@@ -70,34 +74,38 @@ class PatientHistoryReceptions extends React.Component{
     render(){
         const rootClass = cn('patient-receptions-all');
 
-        return (
-            <div className={rootClass}>
-                <Card title="История приемов">
-                    <ScrollArea
-                            speed={1}
-                            className="scroll"
-                            contentClassName="content"
-                    >
-                        <div className="tableheader">
-                            <div className="flex-col"><div className="patient-receptions-status new">Новые</div></div>
-                            <div className="flex-col"><div className="patient-receptions-status topical">Актуальные</div></div>
-                            <div className="flex-col"><div className="patient-receptions-status completed">Завершенные</div></div>
-                            <div className="flex-col"><div className="patient-receptions-status extra">Экстренные</div></div>
-                        </div>
-                        <div className="tableheader menu-header">
-                            <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
-                            <div className="flex-col"><div className="tableheader-name">диагноз</div></div>
-                            <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
-                            <div className="flex-col"><div className="tableheader-name">стоимость</div></div>
-                            <div className="flex-col"><div className="tableheader-name">заключение</div></div>
-                            <div className="flex-col"><div className="tableheader-name">отзыв</div></div>
-                            <div className="flex-col"><div className="tableheader-name"></div></div>
-                        </div>
-                        {this.historyRender(this.props.data)}
-                    </ScrollArea>
-                  </Card>
-            </div>
-        )
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<div className={rootClass}>
+                        <Card title={translate('reception.history')}>
+                            <ScrollArea
+                                    speed={1}
+                                    className="scroll"
+                                    contentClassName="content"
+                            >
+                                <div className="tableheader">
+                                    <div className="flex-col"><div className="patient-receptions-status new">{translate('filter.new')}</div></div>
+                                    <div className="flex-col"><div className="patient-receptions-status topical">{translate('filter.topical')}</div></div>
+                                    <div className="flex-col"><div className="patient-receptions-status completed">{translate('filter.completed')}</div></div>
+                                    <div className="flex-col"><div className="patient-receptions-status extra">{translate('filter.emergencies')}</div></div>
+                                </div>
+                                <div className="tableheader menu-header">
+                                    <div className="flex-col"><div className="tableheader-name">{translate('reception.date')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('diagnosis')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('reception.comment')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('cost')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('conclusion.single')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('review.single')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name"></div></div>
+                                </div>
+                                {this.historyRender(this.props.data)}
+                            </ScrollArea>
+                          </Card>
+                    </div>)
+                }
+            </Translate>
+        </div>)
     }
 }
 

@@ -6,6 +6,7 @@ import moment from 'moment'
 import PatientNotificationsItem from '../PatientNotificationsItem'
 import Card from '../Card'
 import Button from '../Button'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -15,21 +16,25 @@ class PatientNotifications extends React.Component{
     render(){
         const { title, contact } = this.props;
 
-        return (
-            <div className='notifications-all'>
-                <Card title="Уведомления">
-                    <PatientNotificationsItem title='Присылать на почту' contact='Почта'/>
-                    <PatientNotificationsItem title='На телефон' contact='+375 (29) 111-1-11'/>
-                    <div className='notifications-btn'>
-                         <Button
-                            btnText='Сохранить изменения'
-                            size='default'
-                            type='float'
-                        />
-                    </div>
-                </Card>
-            </div>
-        )
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<div className='notifications-all'>
+                        <Card title={translate('notifications.title')}>
+                            <PatientNotificationsItem title={translate('sendOnMail')} contact={translate('mail')}/>
+                            <PatientNotificationsItem title={translate('onPhone')} contact='+375 (29) 111-1-11'/>
+                            <div className='notifications-btn'>
+                                 <Button
+                                    btnText={translate('button.title.saveChanges')}
+                                    size='default'
+                                    type='float'
+                                />
+                            </div>
+                        </Card>
+                    </div>)
+                }
+            </Translate>
+        </div>)
     }
 }
 

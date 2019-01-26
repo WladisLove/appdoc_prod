@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import { Collapse } from 'antd';
 import Icon from '../Icon'
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 const Panel = Collapse.Panel;
@@ -14,10 +15,10 @@ class PopoverItem extends React.Component {
 
         const header = (labAdress);
         return (
-            <div className='analyzes-popover-item'>  
+            <div className='analyzes-popover-item'>
                 <div className='analyzes-popover-block'>
                     <div className='analyzes-popover-name'>{labName}</div>
-                    <div className='analyzes-popover-price'>{labPrice} руб</div>
+                    <div className='analyzes-popover-price'>{labPrice} <Translate id="currency" /></div>
                 </div>
                 <Collapse accordion className='analyzes-popover-adress'>
                     <Panel header={header}>
