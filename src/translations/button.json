@@ -14,6 +14,7 @@
             "saveChanges": ["Save changes", "Сохранить изменения"],
             "done": ["Done", "Готово"],
             "submit": ["Submit", "Отправить"],
+            "reply": ["Reply", "Ответить"],
             "signUp": ["Sign up", "Записаться"],
             "signUpFor": ["Sign up for", "Записаться на"],
             "signUpOnDate": ["Sign up on ${date}", "Записаться на ${date}"],
@@ -40,7 +41,9 @@
             "downloadAll": ["Download all", "Скачать всё"],
             "downloadAllFiles": ["Download all files", "Скачать все файлы"],
             "paidReception": ["Paid", "Платный"],
-            "freeReception": ["Free", "Бесплатный"]
+            "freeReception": ["Free", "Бесплатный"],
+            "hideAnswer": ["Hide answer", "Посмотреть ответ"],
+            "showAnswer": ["Show answer", "Скрыть ответ"]
         },
         "description": {
             "add": ["Add new reseption", "Добавить новый приём"]

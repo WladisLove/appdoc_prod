@@ -8,6 +8,7 @@
             "Нет обращений. Нажмите чтобы обновить."
         ],
         "history": ["History of treatments", "История обращений"],
-        "last": ["Last treatment", "Последнее обращение"]
+        "last": ["Last treatment", "Последнее обращение"],
+        "fromDate": ["treatment from ${date}", "Обращение от ${date}"]
     }
 }

@@ -2,7 +2,8 @@
     "form": {
         "textarea": {
             "chat": ["Your message", "Ваше сообщение"],
-            "cancellationReason": ["Reason for cancellation", "Причина отмены"]
+            "cancellationReason": ["Reason for cancellation", "Причина отмены"],
+            "yourText": ["Your text", "Ваш текст"]
         },
         "select": {
             "drugForUse": ["Drug for use", "Препарат для приема"],
