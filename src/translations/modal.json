@@ -14,7 +14,9 @@
               "cancelReception": ["Cancel reception", "Отмена приёма"],
               "completeReception": ["Completion of reception", "Завершение приёма"],
               "completeTreatment": ["Completion of treatment", "Завершение обращения"],
-              "errorReport": ["Error report", "Отчёт об ошибке"]
+              "errorReport": ["Error report", "Отчёт об ошибке"],
+              "attention": ["Attention", "Внимание"],
+              "reviewOnReception": ["Review on reception", "Отзыв на приём"]
         },
         "confirm": {
             "removeDoctor": [

@@ -3,7 +3,8 @@
         "textarea": {
             "chat": ["Your message", "Ваше сообщение"],
             "cancellationReason": ["Reason for cancellation", "Причина отмены"],
-            "yourText": ["Your text", "Ваш текст"]
+            "yourText": ["Your text", "Ваш текст"],
+            "reviewText": ["Review text", "Текст отзыва"]
         },
         "select": {
             "drugForUse": ["Drug for use", "Препарат для приема"],

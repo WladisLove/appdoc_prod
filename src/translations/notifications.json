@@ -49,6 +49,15 @@
             "Review successfully added",
             "Отзыв успешно добавлен"
         ],
+        "enterReviewText": ["Enter review text", "Введите текст отзыва"],
+        "requiredReviewForFreeReception": [
+            "You have not left a required review for a free reception.",
+            "Вы не оставили обязательный отзыв на бесплатный приём."
+        ],
+        "pleaseLeaveReview": [
+            "In order to improve the quality of services, please leave a review.",
+            "С целью повышения качества услуг просим вас оставить отзыв."
+        ],
         "404": ["Page not found", "Страница не найдена"],
         "checkURL": [
             "Check the url entered",
