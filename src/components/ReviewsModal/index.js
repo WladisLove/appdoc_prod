@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import Modal from '../Modal'
 import Content from './content'
 
@@ -10,11 +10,10 @@ const ReviewsModal = (props) => {
     const {visible} = props;
 
     return (
-        <Modal title='Отзыв на прием'
+        <Modal title={<Translate id="modal.title.reviewOnReception" />}
                visible={visible}
                onCancel={props.onCancel}
                afterClose={props.afterClose}
-
         >
             <Content {...props}/>
         </Modal>
