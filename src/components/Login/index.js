@@ -7,6 +7,7 @@ import Button from '../Button'
 import Checkbox from '../Checkbox'
 import Input from '../Input'
 import { Translate } from 'react-localize-redux'
+import LanguageToggle from '../LanguageToggle';
 
 import './style.css'
 import '../../icon/style.css'
@@ -55,10 +56,10 @@ class LoginForm extends React.Component{
 
         return (<div>
             <Translate>
-                {({translate}) =>
-                    (<Form onSubmit={this.handleSubmit} className="login-form">
-                        <div className="login-title"><Translate id="auth.title"/></div>
-                        <div className="login-notification"><Translate id="auth.requiredFields"/></div>
+                {({ translate }) => (
+                    <Form onSubmit={this.handleSubmit} className="login-form">
+                        <div className="login-title">{translate('auth.title')}</div>
+                        <div className="login-notification">{translate('auth.requiredFields')}</div>
                         <FormItem {...error[0]}>
                             {getFieldDecorator('userName', {
                                 rules: [{required: true, message: translate('auth.errors.inputEmail')}],
@@ -77,6 +78,9 @@ class LoginForm extends React.Component{
                                       className='login-form-item'/>
                             )}
                         </FormItem>
+
+                        <LanguageToggle />
+
                         <FormItem>
                             {getFieldDecorator('remember', {
                                 valuePropName: 'checked',
@@ -114,8 +118,8 @@ class LoginForm extends React.Component{
                                 </NavLink>
                             </div>
                         </div>
-                    </Form>)
-                }
+                    </Form>
+                )}
             </Translate>
         </div>)
     }
@@ -137,4 +141,4 @@ Login.defaultProps = {
     onSubmit: () => {},
 };
 
-export default Login
+export default Login;

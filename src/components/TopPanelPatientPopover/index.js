@@ -27,9 +27,9 @@ const TopPanelPatientPopover = (props) => {
 
     return (<div>
         <Translate>
-            {({ translate }) =>
+            {({ translate, activeLanguage }) =>
                 (<div className='panel-popover'>
-                    <div className='panel-popover-date'>{ date.toLocaleString("en", options)}</div>
+                    <div className='panel-popover-date'>{(activeLanguage && activeLanguage.code) && date.toLocaleString(activeLanguage.code, options)}</div>
                     <div className='panel-popover-title'>{ !props.doubleValueInput ? `${translate('patient.inputCurrent')} ${title}` : `${translate('patient.inputCurrent2')} ${title}` }</div>
                     <div className='panel-popover-input'>
                         <Input type="text"

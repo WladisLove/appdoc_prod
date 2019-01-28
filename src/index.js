@@ -4,8 +4,9 @@ import {CookiesProvider} from 'react-cookie'
 import {ConnectedRouter} from 'react-router-redux'
 import {Provider} from 'react-redux'
 import {LocaleProvider} from 'antd'
-import {LocalizeProvider} from 'react-localize-redux'
+import {LocalizeProvider, Translate} from 'react-localize-redux'
 import enUS from 'antd/lib/locale-provider/en_US';
+import ruRU from 'antd/lib/locale-provider/ru_RU';
 import 'moment/locale/ru';
 import "./styles/fonts.css"
 import "./styles/variables.css"
@@ -25,13 +26,19 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
     <LocalizeProvider>
         <CookiesProvider>
-            <LocaleProvider locale={enUS}>
-                <Provider store={store}>
-                    <ConnectedRouter history={history}>
-                        <Root/>
-                    </ConnectedRouter>
-                </Provider>
-            </LocaleProvider>
+            <Translate>
+                {({ activeLanguage }) => {
+                    return (
+                        <LocaleProvider locale={(activeLanguage && activeLanguage.code == 'ru') ? ruRU : enUS}>
+                            <Provider store={store}>
+                                <ConnectedRouter history={history}>
+                                    <Root/>
+                                </ConnectedRouter>
+                            </Provider>
+                        </LocaleProvider>
+                    );
+                }}
+            </Translate>
         </CookiesProvider>
     </LocalizeProvider>,
     rootElement);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
-
+import { Translate } from 'react-localize-redux';
 import { Popover } from 'antd';
 
 import Icon from '../Icon'
@@ -47,10 +47,18 @@ class TopPanelPatientItem extends React.Component{
     handleValueSave = (title, value) => {
         let pole;
         switch(title) {
-            case "вес": { pole = "weight"; break; }
-            case "рост": { pole = "height"; break; }
-            case "давление": { pole = "pressure"; break; }
-            case "пульс": { pole = "pulse"; break; }
+            case "weight":
+            case "вес":
+                { pole = "weight"; break; }
+            case "height":
+            case "рост":
+                { pole = "height"; break; }
+            case "pressure":
+            case "давление":
+                { pole = "pressure"; break; }
+            case "pulse":
+            case "пульс":
+                { pole = "pulse"; break; }
         }
 
         value.indexOf('.') === value.length - 1 ? value = value.slice(0, value.indexOf('.')) : null;
@@ -98,8 +106,14 @@ class TopPanelPatientItem extends React.Component{
                             <div className='panel-patient-icon'>
                                  <Icon svg type='calendar' size={30} />
                             </div>
-                            <div className='panel-patient-date'>{ date.toLocaleString("en", options)}</div>
-                            <div className='panel-patient-time'>{ date.toLocaleString("en", time)}</div>
+                            <Translate>
+                                {({ activeLanguage }) => (
+                                    <div>
+                                        <div className='panel-patient-date'>{(activeLanguage && activeLanguage.code) && date.toLocaleString(activeLanguage.code, options)}</div>
+                                        <div className='panel-patient-time'>{(activeLanguage && activeLanguage.code) && date.toLocaleString(activeLanguage.code, time)}</div>
+                                    </div>
+                                )}
+                            </Translate>
                         </div>
                         :
                         <div className='panel-patient-item'>
