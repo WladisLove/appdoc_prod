@@ -11,7 +11,7 @@
         "patients": ["Patients reviews", "Отзывы пациентов"],
         "notClickUpdate": [
             "No reviews. Click to update.",
-            "Нет reviews. Нажмите чтобы обновить."
+            "Нет отзывов. Нажмите чтобы обновить."
         ]
     }
 }

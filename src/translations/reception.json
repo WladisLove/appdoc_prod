@@ -9,6 +9,7 @@
         "available": ["Available receptions", "Доступные приёмы"],
         "unavailable": ["Unavailable receptions", "Недоступные приёмы"],
         "skipped": ["Reception skipped", "Приём пропущен"],
+        "completed": ["Reception completed", "Приём завершен"],
         "type": ["Reception type", "Тип приёма"],
         "not": ["No receptions", "Приёмов нет"],
         "date": ["Reception date", "Дата приёма"],

@@ -8,8 +8,12 @@
         ]
     },
     "myRating": ["My rating", "Мой рейтинг"],
+    "caller": ["Caller", "Абонент"],
     "cost": ["Cost", "Стоимость"],
     "files": ["files", "Файлы"],
+    "call": ["Call", "Звонок"],
+    "callIsCompleteTime": ["Call is complete. Time: ${callTime}", "Звонок завершен. Продолжительность: ${callTime}"],
+    "notResponding": ["Not responding", "Не отвечает"],
     "emergencyCall": ["Emergency calls", "Экстренные вызовы"],
     "emergencyCallRequest": ["Request for an emergency call", "Запрос на экстренный вызов"],
     "emergencyVisit": {
@@ -64,6 +68,7 @@
     "consultationCost": ["Consultation<br />cost", "Стоимость<br />консультации"],
     "currency": ["$", "руб"],
     "languagesKnowledge": ["Languages", "Знание языков"],
+    "chooseLanguage": ["Choose language", "Выберите язык"],
     "audioVideoConsultations": ["Audio and video consultations", "Аудио и видео консультации"],
     "diagnosis": ["Diagnosis", "Диагноз"],
     "investigation": ["Investigation", "Исследование"],
