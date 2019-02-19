@@ -6,6 +6,7 @@ import PatientsPage from '../containers/PatientsPage'
 import PersonalInfo from '../containers/PersonalInfo'
 import Reviews from '../containers/Reviews'
 import MyDoctors from '../containers/MyDoctors'
+import Payment from '../containers/Payment'
 
 import Chat from '../containers/Chat'
 import DoctorPage from "../containers/DoctorPage";
@@ -94,6 +95,11 @@ export const patientRoutes = [
         component: Reviews,
         exact: true,
     },
+    {
+        path: '/app/payment',
+        component: Payment,
+        exact: true,
+    },
 ];
 
 export const menuDoc =[
@@ -112,5 +118,6 @@ export const menuPatient =[
     {name: 'app/doctors', title: 'Мои врачи', iconType: 'user',},
     {name: 'app/personal-info', title: 'Личные данные', iconType: 'setting_edit', svg: true},
     {name: 'app/reviews', title: 'Мои отзывы', iconType: 'chat', svg: true},
+    {name: 'app/payment', title: 'Оплата', iconType: 'payment', svg: true},
 ];
 

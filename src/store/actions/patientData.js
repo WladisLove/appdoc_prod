@@ -108,3 +108,12 @@ export const getUserInfoShort = (id) => {
             })
     }
 };
+
+export const saveGeolocation = (geo) => {
+    return {
+        type: actionTypes.SAVE_GEOLOCATION,
+        latitude: geo.latitude,
+        longitude: geo.longitude,
+    }
+}
+

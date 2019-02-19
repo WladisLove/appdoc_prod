@@ -31,7 +31,7 @@ class Header extends React.Component {
     };
 
 render() {
-    const {notifications, isUser} = this.props;
+    const {notifications, isUser, userBalance} = this.props;
         return (
             <div className={'header'}>
                 <div className='header-search'>
@@ -47,6 +47,8 @@ render() {
                 <div className='header-call'>
                     {isUser ?
                         <Hoc>
+                            <div className='wrapper-paymet-score'>Текущий счет: {userBalance ? userBalance : '0.00'}</div> 
+                          
                             <Button btnText='ЭКСТРЕННЫЙ ВЫЗОВ'
                                 size='small'
                                 type='emergensy'

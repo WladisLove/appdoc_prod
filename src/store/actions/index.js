@@ -23,6 +23,7 @@ export {
     searchUsers,
     addOrDeleteUserFromSearch,
     sendMessage,
+    getUserBalance,
 } from './patients';
 
 export {
@@ -89,7 +90,8 @@ export {
     deleteAvatar,
     sendUserPoleValue,
     getUserInfoShort,
-    hasNoReviewToFreeApp
+    hasNoReviewToFreeApp,
+    saveGeolocation
 } from './patientData'
 
 export {

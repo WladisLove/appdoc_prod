@@ -259,6 +259,26 @@ export const getNotPatientDoctors = (name) => {
     }
 }
 
+export const getUserBalance = (idUser) => {
+ 
+    return (dispatch, getState) => {
+        
+        return axios.post('/catalog.doc2/getUserBalance', JSON.stringify({idUser}))
+            .then(rez => {
+                
+                dispatch({
+                    type: actionTypes.GET_USER_BALANCE,
+                    userBalance: rez.data.result.balance,
+                })
+                return rez;
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+
 export const clearNotDocPatients = () => {
     return {
         type: actionTypes.GET_NOT_DOCTORS_PATIENTS,
