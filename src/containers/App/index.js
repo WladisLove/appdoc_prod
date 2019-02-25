@@ -132,6 +132,9 @@ class App extends React.Component {
         }, this.props.history);
 
         this.props.id && (this.props.getDocShortInfo());
+        this.props.id && (this.props.onGetUserBalance(this.props.id));
+
+       
     }
 
     makeReview = (obj) => {
@@ -219,6 +222,7 @@ class App extends React.Component {
                                 onMakeVisit={(obj) => this.props.onMakeVisit(obj)}
                                 emergencyAvailable={this.props.emergencyAvailable}
                                 docSpecialities = {this.props.docSpecialities}
+                                userBalance= {this.props.userBalance}
 
                         />
                     </div>
@@ -287,6 +291,7 @@ const mapStateToProps = state =>{
         id: state.auth.id,
         mode: state.auth.mode,
         shortDocInfo: state.doctor.shortInfo,
+        userBalance: state.patients.userBalance,
         usersHeaderSearch: state.patients.usersHeaderSearch,
         isIn: state.doctor.isEx,
         emergencyAvailable: state.doctor.emergencyAvailable,
@@ -328,7 +333,8 @@ const mapDispatchToProps = dispatch => {
         onMakeVisit: (info)=> dispatch(actions.setReceptionByPatient(info)),
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
         getEmergencyAvailability: () => dispatch(actions.getEmergencyAvailability()),
-
+        onGetUserBalance: (id) => dispatch(actions.getUserBalance(id)),
+        
         docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
         docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),
 

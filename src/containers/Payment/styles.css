@@ -1,0 +1,31 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.wrapper-paymet {
+  width: 100%;
+  color: #0495ff;
+  font-size: 14px;
+  font-family: 'GothamPro-Medium';
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.wrapper-block {
+  padding: 30px;
+}
+.wrapper-paymet-input {
+  height: 30px;
+  width: 150px;
+  margin-bottom: 20px;
+}
+.payment-btn-pay {
+  width: 150px;
+}

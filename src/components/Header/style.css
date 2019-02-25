@@ -45,6 +45,9 @@
 .header-call {
   margin-left: auto;
   margin-right: 135px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .header-call button {
   margin-right: 25px;
@@ -77,4 +80,14 @@
 }
 .header-exit .btn:hover .icon {
   color: #0495ff;
+}
+.wrapper-paymet-score {
+  color: #0495ff;
+  font-size: 14px;
+  font-family: 'GothamPro-Medium';
+  text-transform: uppercase;
+  margin-bottom: 0;
+  display: inline;
+  margin-right: 25px;
+  white-space: nowrap;
 }
