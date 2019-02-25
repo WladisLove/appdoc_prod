@@ -7,7 +7,6 @@ import SwitchPanel from '../SwitchPanel'
 import NotificationApp from '../NotificationApp'
 import AutoComplete from '../AutoComplete'
 import Hoc from "../Hoc"
-import specs from "../../helpers/specsArray"
 
 import './style.css'
 import '../../icon/style.css'
@@ -70,7 +69,7 @@ render() {
                             />
                             <NewFreeVisitByPatient
                                 visible = {this.state.isNewFreeVisit}
-                                docTypes = {specs}
+                                docTypes = {this.props.docSpecialities}
                                 onCancel = {() => this.setState({isNewFreeVisit: false})}
                                 onSubmit = {this.props.onMakeVisit}
                                 getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
@@ -126,6 +125,7 @@ Header.propTypes = {
     notifications: PropTypes.array,
     logout: PropTypes.func,
     isUser: PropTypes.bool,
+    docSpecialities: PropTypes.array
 
 };
 

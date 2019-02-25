@@ -26,6 +26,8 @@ class PersonalInfo extends React.Component{
     componentDidMount(){
         this.props.auth.mode === "user" ? this.props.onGetInfoPatient(this.props.auth.id) :
         this.props.onGetInfoDoctor(this.props.auth.id);
+        this.props.onGetDoctorSpecialities();
+        this.props.onGetAvailLangs();
     };
 
     onVisible = () => {
@@ -88,6 +90,7 @@ class PersonalInfo extends React.Component{
                                     profileDoctor={profile}
                                     onSubmit={this.onSubmit}
                                     uploadFile={this.props.uploadFile}
+                                    docSpecialities={this.props.docSpecialities}
                                 />
                             </Col>
                         </Row>
@@ -105,6 +108,7 @@ class PersonalInfo extends React.Component{
                                 <PersonalInformation
                                     profileDoctor={profile}
                                     onSubmit={this.onSubmit}
+                                    langs={this.props.availLanguages}
                                 />
                             </Col>
                         </Row>
@@ -121,6 +125,8 @@ const mapStateToProps = state => {
         profileDoctor: state.profileDoctor,
         profilePatient: state.profilePatient,
         auth: state.auth,
+        docSpecialities: state.doctor.docSpecialities,
+        availLanguages: state.doctor.availLanguages
     }
 };
 
@@ -132,7 +138,9 @@ const mapDispatchToProps = dispatch => {
         onSendNewInfoPatient: (info) => dispatch(actions.sendNewInfoPatient(info)),
         onSendNewPasswordPatient: (oldPass, newPass, id) => dispatch(actions.sendNewPasswordPatient(oldPass, newPass, id)),
         onDeleteAvatar: (id) => dispatch(actions.deleteAvatar(id)),
-        uploadFile: (file) => dispatch(actions.uploadFile(file))
+        uploadFile: (file) => dispatch(actions.uploadFile(file)),
+        onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
+        onGetAvailLangs: () => dispatch(actions.getAvailLangs()),
     }
 };
 

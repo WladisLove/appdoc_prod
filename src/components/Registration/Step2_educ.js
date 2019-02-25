@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import {Form} from 'antd';
 
-import specs from "../../helpers/specsArray"
 import InputNew from "../InputNew";
 import SelectNew from "../SelectNew";
 import DropZoneUpload from "../DropZoneUpload";
@@ -20,6 +19,7 @@ class Step2_educ extends React.Component {
 
     render() {
         const {getFieldDecorator, number} = this.props;
+        const specs = this.props.docSpecialities;
 
         return (
             <div className="step-block">

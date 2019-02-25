@@ -27,6 +27,7 @@ class PersonalInformation extends React.Component{
                         <PersonalInformationItem
                             profileDoctor={this.props.profileDoctor}
                             onSubmit={this.props.onSubmit}
+                            langs={this.props.langs}
                         />
                     </Panel>
                 </Accordion>
@@ -37,12 +38,14 @@ class PersonalInformation extends React.Component{
 
 PersonalInformation.propTypes = {
     profileDoctor: PropTypes.object,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    langs: PropTypes.array
 };
 
 PersonalInformation.defaultProps = {
     profileDoctor: {},
-    onSubmit: () => {}
+    onSubmit: () => {},
+    langs: []
 };
 
 export default PersonalInformation

@@ -106,6 +106,8 @@ class App extends React.Component {
             this.runNotificationsWS();
             this.runChatWS();
             this.props.getEmergencyAvailability();
+            this.props.onGetDoctorSpecialities();
+
             if(this.props.auth.mode === "user") {
                 this.props.hasNoReviewToFreeApp().then(res=>{
                     if(res.result.length) {
@@ -216,6 +218,7 @@ class App extends React.Component {
                                 freeVisitsIntervals={this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
                                 onMakeVisit={(obj) => this.props.onMakeVisit(obj)}
                                 emergencyAvailable={this.props.emergencyAvailable}
+                                docSpecialities = {this.props.docSpecialities}
 
                         />
                     </div>
@@ -289,6 +292,7 @@ const mapStateToProps = state =>{
         emergencyAvailable: state.doctor.emergencyAvailable,
         isUserSet: state.doctor.isUserSetEx,
         freeVisitsIntervals: state.schedules.freeVisitsIntervals,
+        docSpecialities: state.doctor.docSpecialities,
 
         isEmergRequsetConfirmed: state.loading.isConfirmed,
         emergVisitId: state.loading.visitId,

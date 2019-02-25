@@ -7,7 +7,9 @@ const initialState = {
     },
     isEx: false,
     isUserSetEx: false,
-    emergencyAvailable: false
+    emergencyAvailable: false,
+    docSpecialities: [],
+    availLanguages: []
 };
 
 const reducer = (state = initialState, action) => {

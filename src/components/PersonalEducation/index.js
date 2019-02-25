@@ -27,6 +27,7 @@ class PersonalEducation extends React.Component{
                             profileDoctor={this.props.profileDoctor}
                             onSubmit={this.props.onSubmit}
                             uploadFile={this.props.uploadFile}
+                            docSpecialities={this.props.docSpecialities}
                         />
                     </Panel>
                 </Accordion>
@@ -37,7 +38,8 @@ class PersonalEducation extends React.Component{
 
 PersonalEducation.propTypes = {
     profileDoctor: PropTypes.object,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    docSpecialities: PropTypes.array
 };
 
 PersonalEducation.defaultProps = {

@@ -10,7 +10,6 @@ import {Form} from "antd/lib/index";
 import SelectNew from "../SelectNew";
 
 import addInfoObj from "../../helpers/addInfoObj";
-import langsArray from "../../helpers/langsArray";
 import TextArea from "../TextArea";
 
 const FormItem = Form.Item;
@@ -33,6 +32,7 @@ class PersonalInformationItemForm extends React.Component{
     };
 
     render(){
+        const { langs } = this.props;
         const { getFieldDecorator } = this.props.form;
 
         let {language, isChildConsult, consultationPrice, isFreeConsult, about} = this.props.profileDoctor;
@@ -52,7 +52,7 @@ class PersonalInformationItemForm extends React.Component{
                                            bubbleplaceholder="Владение языками"
                                            className="personal-block-form-item"
                                            mode="multiple"
-                                           data={langsArray}
+                                           data={langs}
                                 />
                             )}
                         </FormItem>

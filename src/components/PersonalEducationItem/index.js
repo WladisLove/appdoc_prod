@@ -13,7 +13,6 @@ import './style.css'
 import '../../icon/style.css'
 import InputNew from "../InputNew";
 import SelectNew from "../SelectNew";
-import specs from "../../helpers/specsArray";
 import DropZoneUpload from "../DropZoneUpload";
 import RangeDPNew from "../RangeDPNew";
 import moment from "moment";
@@ -70,6 +69,7 @@ class PersonalEducationItemForm extends React.Component{
     };
 
     renderDp = (getFieldDecorator) => {
+        const specs = this.props.docSpecialities;
         let dpArr = [];
 
         if(this.state.educatBlock === 1)

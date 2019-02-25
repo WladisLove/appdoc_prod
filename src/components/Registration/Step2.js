@@ -93,6 +93,7 @@ class Step2_From extends React.Component{
                                   form = {this.props.form}
                                   fileToState={this.fileToState}
                                   uploadFile={this.props.uploadFile}
+                                  docSpecialities={this.props.docSpecialities}
                                   number={0}/>,];
         while (i < num){
             formArr.push(<Hr key={'hr_' + name + i}/>);
@@ -102,6 +103,7 @@ class Step2_From extends React.Component{
                                     key={name + i}
                                     fileToState={this.fileToState}
                                     uploadFile={this.props.uploadFile}
+                                    docSpecialities={this.props.docSpecialities}
                                     number={i}/>);
             i++;
         }
