@@ -40,7 +40,7 @@ class Step1Form extends React.Component{
         this.setState({ loading: true });
         this.props.uploadFile(info.file)
             .then((res) => {
-                this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name});
+                (res && this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name}) )
                 message.success("Фото загружено")
             });
         reader.addEventListener('load', () => this.setState({

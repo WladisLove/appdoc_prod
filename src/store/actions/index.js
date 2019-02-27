@@ -100,8 +100,6 @@ export {
     setExIntervalInfo,
     switchExInterval,
     getEmergencyAvailability,
-    getDoctorSpecialities,
-    getAvailLangs
 } from './doctor'
 
 export {
@@ -111,7 +109,9 @@ export {
     readNotification,
     getAllDocIntervals,
     getDateWorkIntervalWithoutMakingAppAll,
-    uploadFile
+    uploadFile,
+    getDoctorSpecialities,
+    getAvailLangs,
 } from './doctorData'
 
 export {

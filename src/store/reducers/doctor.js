@@ -41,6 +41,18 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 emergencyAvailable: action.availability
             }
+        
+        case actionTypes.GET_DOCTOR_SPECIALITIES_DOCTORDATA:
+            return {
+                ...state,
+                docSpecialities: action.docSpecialities
+            }
+
+        case actionTypes.GET_AVAIL_LANGUAGES_DOCTORDATA:
+            return {
+                ...state,
+                availLanguages: action.availLanguages
+            }
             
         default: return state;
     }

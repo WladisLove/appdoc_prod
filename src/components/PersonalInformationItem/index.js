@@ -40,12 +40,13 @@ class PersonalInformationItemForm extends React.Component{
         const rootClass = cn('personal-information');
         const RadioGroup = Radio.Group;
 
+    
         return (
                 <Form className={rootClass} onSubmit={this.handleSubmit}>
                     <div className="personal-block">
                         <FormItem>
                             {getFieldDecorator('language', {
-                                initialValue: typeof language === "string" ? language.split(',') : []
+                                initialValue: Array.isArray(language) ? language.map(el => el.id) : []
                             })(
 
                                 <SelectNew width ="100%"

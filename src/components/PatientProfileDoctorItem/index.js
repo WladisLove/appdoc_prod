@@ -13,6 +13,29 @@ import './style.css'
 import '../../icon/style.css'
 
 class PatientProfileDoctorItem extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
+    showLanguageOptions = (doctorLanguages) => {
+       
+        let data = []
+        doctorLanguages.forEach((item, index) => {
+            if(item instanceof Object && (item.hasOwnProperty('language') || item.hasOwnProperty('title')) ){
+                data.push(<div className='profile__doctor-item-language-li'>
+                            {item.title ? item.title : item.language}
+                        </div>)
+            }    
+            else{
+                data.push(<div className='profile__doctor-item-language-li'>
+                    {item}
+                </div>) 
+            }      
+                     
+        })
+        
+        return data;
+    }
 
     render(){
         const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorPrice, doctorLanguages, doctorChild } = this.props;
@@ -58,7 +81,9 @@ class PatientProfileDoctorItem extends React.Component{
                             </div>
                             <div className='profile__doctor-item-language'>
                                 <div className='profile__doctor-item-language-title'>Знание языков</div>
-                                {doctorLanguages.map((item, index)=> <div className='profile__doctor-item-language-li' key={index+1}>{item.language}</div>)}
+                                {
+                                    this.showLanguageOptions(doctorLanguages)
+                                }
                             </div>
                             <div className='profile__doctor-item-child'>
                                 {doctorChild && (

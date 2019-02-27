@@ -18,18 +18,19 @@ class DropZoneUpload extends Component {
         this.setState({loading: true});
         this.props.uploadFile(files[0])
             .then(res => {
-                const file = res.data.file[0];
-                if (file.url && file.name) {
-                    message.success("Файл успешно загружен")
-                    this.setState({accepted: [...this.state.accepted, {name: file.name, deleteUrl: file.deleteUrl}]})
-                } else if (res.data.file[0].error) {
-                    message.error(res.data.file[0].error)
-                } else {
-                    message.error("Произошла ошибка, попробуйте ещё раз")
+                if(res){
+                        const file = res.data.file[0];
+                        if (file.url && file.name) {
+                            message.success("Файл успешно загружен")
+                            this.setState({accepted: [...this.state.accepted, {name: file.name, deleteUrl: file.deleteUrl}]})
+                        } else if (res.data.file[0].error) {
+                            message.error(res.data.file[0].error)
+                        } else {
+                            message.error("Произошла ошибка, попробуйте ещё раз")
+                        }
+                        this.props.onChange && this.props.onChange([...this.props.value, file]);
+                        this.setState({loading: false})
                 }
-                this.props.onChange && this.props.onChange([...this.props.value, file]);
-                this.setState({loading: false})
-
             })
     };
 

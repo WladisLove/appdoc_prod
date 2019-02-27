@@ -36,7 +36,7 @@ class Step2_From extends React.Component{
     };
 
     handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault();   
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 let toSubmit = {

@@ -36,12 +36,22 @@ class PersonalEducationItemForm extends React.Component{
 
     handleSubmit = (e) => {
         e.preventDefault();
+        
         this.props.form.validateFields((err) => {
             if (!err && this.state.educatBlock === 0) {
                 this.props.form.resetFields();
                 this.setState({educatBlock: 0});
+
+                let mainEducation = [];
+                this.state.mainEducationArr.forEach((el,i) => {
+                        mainEducation.push({...el})
+                        el.speciality.forEach((elem, index) => {
+                            mainEducation[i].speciality[index] = elem.id
+                        })
+                })
+
                 let toSubmitObj = {
-                    educationsgroup1: this.state.mainEducationArr,
+                    educationsgroup1: mainEducation,
                     educationsgroup2: this.state.secondEducationArr,
                     academicdegree: this.state.degree.name,
                     academicdegreedoc: this.state.degree.doc,
@@ -49,6 +59,7 @@ class PersonalEducationItemForm extends React.Component{
                     academicstatusdoc: this.state.status.doc,
                     works: this.props.profileDoctor.works // fix server bug
                 };
+
                 this.props.onSubmit(toSubmitObj);
             }
         });
@@ -71,6 +82,7 @@ class PersonalEducationItemForm extends React.Component{
     renderDp = (getFieldDecorator) => {
         const specs = this.props.docSpecialities;
         let dpArr = [];
+
 
         if(this.state.educatBlock === 1)
             dpArr.push(
@@ -129,12 +141,20 @@ class PersonalEducationItemForm extends React.Component{
                         <Button onClick={() => {
                             this.props.form.validateFields((err, values) => {
                                 if (!err) {
+                                    
+                                    let specs = [];
+                                    this.props.docSpecialities.forEach((el) => {
+                                        values['educationsgroup1-speciality'].includes(el.id) ? specs.push(el) : null
+                                    })
+
                                     let newEducationEntry = {
                                         education: values['educationsgroup1-education'],
-                                        speciality: values['educationsgroup1-speciality'],
+                                        speciality: specs,
                                         finishucationyear: values['educationsgroup1-finishucationyear'],
                                         diplomphoto: values['educationsgroup1-diplomphoto']
                                     };
+
+                                   
                                     this.setState({
                                         educatBlock: 0,
                                         mainEducationArr: [...this.state.mainEducationArr, newEducationEntry]
@@ -375,6 +395,7 @@ class PersonalEducationItemForm extends React.Component{
 
     componentWillReceiveProps(nextProps) {
         if (this.props.profileDoctor && JSON.stringify(nextProps.profileDoctor) !== JSON.stringify(this.props.profileDoctor)) {
+            
             this.setState({
                 mainEducationArr: nextProps.profileDoctor.educationsgroup1,
                 secondEducationArr: nextProps.profileDoctor.educationsgroup2,
@@ -390,7 +411,9 @@ class PersonalEducationItemForm extends React.Component{
         const rootClass = cn('personal-education');
 
         const institution = mainEducationArr.map((elem, i) => {
+        
             mainEducationArr[i].id = "mainEducation" + i;
+
             return (
                 <div key={"mainEducation" + i} className="personal-item mb-35 brd-b brd-d">
                     <div className="personal-info">
@@ -400,8 +423,8 @@ class PersonalEducationItemForm extends React.Component{
                     </div>
                     <div className="personal-info">
                         <p>
-                            {elem.speciality.join(', ')}
-                        </p>
+                            {elem.speciality.map((el) => el instanceof Object ? el.title : el).join(', ')}
+                        </p> 
                     </div>
 
                 </div> );

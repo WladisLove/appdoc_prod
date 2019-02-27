@@ -25,9 +25,12 @@ class PersonalInfo extends React.Component{
 
     componentDidMount(){
         this.props.auth.mode === "user" ? this.props.onGetInfoPatient(this.props.auth.id) :
-        this.props.onGetInfoDoctor(this.props.auth.id);
-        this.props.onGetDoctorSpecialities();
-        this.props.onGetAvailLangs();
+         
+        this.props.onGetDoctorSpecialities()
+        this.props.onGetAvailLangs()
+        
+        this.props.onGetInfoDoctor(this.props.auth.id)
+
     };
 
     onVisible = () => {

@@ -126,9 +126,16 @@ class Step3 extends React.Component{
             {langs &&
             <div className='check-row'>
                 <div className='check-title'>Знание языков:</div>
-                <div className='check-text'>{langs.map(el => {
-                    return (<div key={el}>{el} </div>)
-                })}</div>
+                <div className='check-text'>
+                {
+                    langs.map((item, index) => {
+                        if(item instanceof Object && item.hasOwnProperty('title')){
+                            return (<div value={item.id} key={item.id}> {item.title} </div>)
+                        }          
+                        return (<div key={index+1}>{item}</div>)          
+                    })
+                }
+                </div>
             </div>}
             {isChildConsult &&
                 this.renderYesNoItem('Консультация детей', isChildConsult)}
@@ -152,6 +159,7 @@ class Step3 extends React.Component{
             }
 
         }
+        debugger
         this.props.onFinish(data);
     };
 

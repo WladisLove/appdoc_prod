@@ -12,13 +12,23 @@ class SelectNew extends AntSelect{
         }
     }
 
-    renderOptions = (data) => {
-        let dataArr =[];
+    renderOptions = (data) => {    
+        let dataArr = [];
+        
         data.forEach((item, index) => {
-            dataArr.push( <Option value={item} key = {index}>{item}</Option>)
+            
+            if(item instanceof Object && item.hasOwnProperty('title')){
+                
+                    dataArr.push( <Option value={item.id} key = {index}>{item.title}</Option>)
+            }
+            else{
+                    dataArr.push( <Option value={item} key = {index}>{item}</Option>)
+            }
+            
         });
         return dataArr
     };
+
     handleChange = (value) => {
         this.setState({select: value});
         this.props.onChange(value)
@@ -26,6 +36,12 @@ class SelectNew extends AntSelect{
     render() {
         const inputClassName = (this.state.select || this.props.value ? "effect has-content" : "effect");
         const rootCl = "new-input input-effect" +" "+ this.props.className + " " +  'input-root ';
+
+        let data = [...this.props.data];
+        data = data.map((el) => {
+            if(el instanceof Object) return el.id
+            return el
+        })
         return (
             <div className={rootCl}
                  style={{width:this.props.width ? this.props.width : null}}
@@ -41,6 +57,7 @@ class SelectNew extends AntSelect{
                     className={inputClassName}
                     ref = {sel => this.sel = sel}
                     onChange={this.handleChange}
+                    defaultValue={data}
                 >
                     {this.renderOptions(this.props.data)}
                 </AntSelect>

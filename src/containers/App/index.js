@@ -334,6 +334,7 @@ const mapDispatchToProps = dispatch => {
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
         getEmergencyAvailability: () => dispatch(actions.getEmergencyAvailability()),
         onGetUserBalance: (id) => dispatch(actions.getUserBalance(id)),
+        onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
         
         docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
         docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),

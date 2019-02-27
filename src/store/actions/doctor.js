@@ -73,39 +73,3 @@ export const getEmergencyAvailability = () => {
     }
 }
 
-export const getDoctorSpecialities = () => {
-    
-    return (dispatch, getState) => {
-        axios.get('/catalog.doc2/getDoctorSpecialities')
-            .then(res => {
-                console.log(res);
-                debugger
-                dispatch({
-                    type: actionTypes.GET_DOCTOR_SPECIALITIES,
-                    docSpecialities: Array.isArray(res.data.result) ? res.data.result.map(el => el.title) : []
-                })
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
-}
-
-export const getAvailLangs = () => {
-    
-    return (dispatch, getState) => {
-        axios.get('/catalog.doc2/getAvailLangs')
-            .then(res => {
-                console.log(res);
-                debugger
-                dispatch({
-                    type: actionTypes.GET_AVAIL_LANGUAGES,
-                    availLanguages: Array.isArray(res.data.result) ? res.data.result.map(el => el.title) : []
-                })
-                
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
-}
