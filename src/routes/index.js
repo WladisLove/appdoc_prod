@@ -7,6 +7,7 @@ import PersonalInfo from '../containers/PersonalInfo'
 import Reviews from '../containers/Reviews'
 import MyDoctors from '../containers/MyDoctors'
 import Payment from '../containers/Payment'
+import GeoLocation from '../containers/GeoLocation'
 
 import Chat from '../containers/Chat'
 import DoctorPage from "../containers/DoctorPage";
@@ -100,6 +101,11 @@ export const patientRoutes = [
         component: Payment,
         exact: true,
     },
+    {
+        path: '/app/geolocation',
+        component: GeoLocation,
+        exact: true,
+    },
 ];
 
 export const menuDoc =[
@@ -119,5 +125,6 @@ export const menuPatient =[
     {name: 'app/personal-info', title: 'Личные данные', iconType: 'setting_edit', svg: true},
     {name: 'app/reviews', title: 'Мои отзывы', iconType: 'chat', svg: true},
     {name: 'app/payment', title: 'Оплата', iconType: 'payment', svg: true},
+    {name: 'app/geolocation', title: 'Геолокация', iconType: 'geolocation', svg: true},
 ];
 
