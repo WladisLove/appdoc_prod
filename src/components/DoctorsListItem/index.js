@@ -6,11 +6,11 @@ class DoctorsListItem extends React.Component {
     render() {
         const { name, specialty, age } = this.props.doctor;
         return(
-            <li class='doctors-list-item'>
-                <div class='doctors-list-item-avatar'>
+            <li className='doctors-list-item'>
+                <div className='doctors-list-item-avatar'>
                     <img src="" alt=""/>
                 </div>
-                <div class='doctors-list-item-info'>
+                <div onClick={this.handleClick} className='doctors-list-item-info'>
                     <h3>{name}</h3>
                     <div>Specialty:{specialty}</div>
                     <div>Age:{age}</div>
@@ -24,13 +24,14 @@ DoctorsListItem.propTypes = {
     name: PropTypes.string,
     specialty: PropTypes.string,
     age: PropTypes.number,
-
+    active: PropTypes.bool,
 };
 
 DoctorsListItem.defaultProps = {
     name: '',
     specialty: '',
     age: 0,
+    active: false,
 };
 
 export default DoctorsListItem;
