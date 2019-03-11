@@ -8,17 +8,48 @@ import Col from "../../components/Col";
 import './styles.css'
 
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import DoctorsList from '../../components/DoctorsList';
+
 
 
 const mapState = { center: [53.90, 27.55], zoom: 12};
+
+const doctors = [
+    {
+        name: 'Vasya',
+        specialty: 'Therapist',
+        age: 32,
+        id: 1,
+    },
+    {
+        name: 'Ivan',
+        specialty: 'Pediatrician',
+        age: 25,
+        id: 2,
+    },
+    {
+        name: 'Mike',
+        specialty: 'Surgeon',
+        age: 45,
+        id: 3,
+    },
+    {
+        name: 'Kile',
+        specialty: 'Pharmacist',
+        age: 30,
+        id: 4,
+    },
+];
+
 
 class GeoLocation extends React.Component {
     state = {
         width: '100%',
         height: '600px'
-    }
+    };
+
     render() {
-        const { width, height } = this.state
+        const { width, height } = this.state;
         return (
             <Hoc>
                 <Row>
@@ -34,7 +65,7 @@ class GeoLocation extends React.Component {
                         </YMaps>
                     </Col>
                     <Col span={6} md={6} xs={10} sm={10}>
-                        List
+                        <DoctorsList doctors={doctors}/>
                     </Col>
                 </Row>
             </Hoc>
