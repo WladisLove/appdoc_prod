@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 class DoctorsListItem extends React.Component {
+
+    handleClick = () => {
+        const { open, id} = this.props;
+        open(id);
+    };
+
     render() {
         const { name, specialty, age } = this.props.doctor;
         return(

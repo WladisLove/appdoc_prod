@@ -10,6 +10,7 @@ import './styles.css'
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import DoctorsList from '../../components/DoctorsList';
 import DoctorPageNewVisit from '../../components/DoctorPageNewVisit';
+import DoctorsListItemInfo from '../../components/DoctorsListItemInfo';
 
 
 
@@ -99,11 +100,18 @@ class GeoLocation extends React.Component {
 
     }
 
-    handleClick = (e, i) => {
-        this.setState({activeMarker: i});
+    handleClick = (e, id) => {
+        this.setState({activeMarker: id});
         console.log(this.state.activeMarker);
     };
 
+    closeAppointment=() => {
+        this.setState({ activeMarker: null})
+    };
+
+    openAppointment = (id) => {
+        this.setState({ activeMarker: id});
+    };
 
 
     render() {
@@ -112,7 +120,7 @@ class GeoLocation extends React.Component {
         return (
             <Hoc>
                 <Row>
-                    <Col span={18} md={18} xs={14} sm={14}>
+                    <Col span={16} md={16} xs={14} sm={14}>
                         <YMaps>
                             <Map onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
                                 {doctors.map((placemarkParams, i) =>
@@ -121,10 +129,11 @@ class GeoLocation extends React.Component {
                             </Map>
                         </YMaps>
                     </Col>
-                    <Col span={6} md={6} xs={10} sm={10}>
+                    <Col span={8} md={8} xs={10} sm={10}>
                         {
-                            //(activeMarker !== null) ? <p>{doctors[activeMarker].info.name}</p>: <DoctorsList active={activeMarker} doctors={doctors}/>
-                            (activeMarker !== null) ? <DoctorPageNewVisit docIntervalsWithAppsAll={[]}/>: <DoctorsList active={activeMarker} doctors={doctors}/>
+                            (activeMarker !== null)
+                                ? <DoctorsListItemInfo id ={activeMarker} close={this.closeAppointment}/>
+                                : <DoctorsList open={this.openAppointment} active={activeMarker} doctors={doctors}/>
                         }
                     </Col>
                 </Row>

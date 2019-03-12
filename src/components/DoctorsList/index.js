@@ -12,7 +12,7 @@ class DoctorsList extends React.Component {
             <div>
                 <ul className='doctors-list'>
                     {doctors.map((item,i) => (
-                        <DoctorsListItem key={i} doctor={item.info} />
+                        <DoctorsListItem open={this.props.open} key={i} doctor={item.info} id={i}/>
                         )
                     )}
                 </ul>
