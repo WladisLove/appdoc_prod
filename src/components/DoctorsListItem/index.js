@@ -5,7 +5,8 @@ import './styles.css';
 class DoctorsListItem extends React.Component {
 
     handleClick = () => {
-        const { open, id} = this.props;
+        const { open } = this.props;
+        const { id } = this.props.doctor;
         open(id);
     };
 
@@ -30,14 +31,12 @@ DoctorsListItem.propTypes = {
     name: PropTypes.string,
     specialty: PropTypes.string,
     age: PropTypes.number,
-    active: PropTypes.bool,
 };
 
 DoctorsListItem.defaultProps = {
     name: '',
     specialty: '',
     age: 0,
-    active: false,
 };
 
 export default DoctorsListItem;

@@ -23,7 +23,7 @@ const doctors = [
             coordinates: [53.90, 27.55],
         },
         properties: {
-            iconContent: 'Vasya',
+            iconContent: 'Roma',
             hintContent: 'vvvvv',
         },
         options: {
@@ -32,9 +32,10 @@ const doctors = [
             draggable: false,
         },
         info: {
-            name: 'Vasya',
+            name: 'Roma',
             specialty: 'Therapist',
             age: 32,
+            id: 3525,
         }
     },
     {
@@ -43,7 +44,7 @@ const doctors = [
             coordinates: [53.89, 27.56],
         },
         properties: {
-            iconContent: 'Ivan',
+            iconContent: 'teston',
             hintContent: 'iiiii',
         },
         options: {
@@ -52,9 +53,10 @@ const doctors = [
             draggable: false,
         },
         info: {
-            name: 'Ivan',
+            name: 'teston',
             specialty: 'Pediatrician',
             age: 25,
+            id: 3514,
         }
     },
     {
@@ -63,7 +65,7 @@ const doctors = [
             coordinates: [53.90, 27.53],
         },
         properties: {
-            iconContent: 'Mike',
+            iconContent: 'RANDOM',
             hintContent: 'mmmmm',
         },
         options: {
@@ -72,9 +74,10 @@ const doctors = [
             draggable: false,
         },
         info: {
-            name: 'Mike',
+            name: 'RANDOM',
             specialty: 'Surgeon',
-            age: 45,
+            age: 20,
+            id: 3520,
         }
     },
 ];
@@ -99,8 +102,8 @@ class GeoLocation extends React.Component {
     };
 
     handleClick = (e, id) => {
-        this.setState({activeMarker: id});
-        console.log(this.state.activeMarker);
+        this.setState({activeMarker: id}, ()=> { this.getSchedule() });
+
     };
 
     closeAppointment=() => {
@@ -108,17 +111,16 @@ class GeoLocation extends React.Component {
     };
 
     openAppointment = (id) => {
-        this.setState({ activeMarker: id});
+        this.setState({ activeMarker: id}, ()=> { this.getSchedule() });
     };
 
     onMakeNewApp = (obj) => {
-        obj.id_doc = 3514;
+        obj.id_doc = this.state.activeMarker;
         return this.props.onMakeNewAppointment(obj);
     };
 
-    componentDidMount() {
-        const schedule = this.props.onGetDocSchedule(3514);
-        //const schedule = this.props.onGetDocSchedule(this.state.activeMarker);
+    getSchedule() {
+        const schedule = this.props.onGetDocSchedule(this.state.activeMarker);
         Promise.resolve(schedule).then(()=> {this.setState({loading:false})})
     };
 
@@ -132,8 +134,8 @@ class GeoLocation extends React.Component {
                     <Col span={16} md={16} xs={14} sm={14}>
                         <YMaps>
                             <Map onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
-                                {doctors.map((placemarkParams, i) =>
-                                    <Placemark onClick={(e) => {this.handleClick(e, i);}} key={i} {...placemarkParams} />
+                                {doctors.map((placemarkParams) =>
+                                    <Placemark onClick={(e) => {this.handleClick(e, placemarkParams.info.id);}} key={placemarkParams.info.id} {...placemarkParams} />
                                 )}
                             </Map>
                         </YMaps>
@@ -145,7 +147,7 @@ class GeoLocation extends React.Component {
                                     close={this.closeAppointment}
                                     onMakeNewAppointment = {this.onMakeNewApp}
                                     docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll}
-                                    active={activeMarker} />
+                                    />
                                 : <DoctorsList open={this.openAppointment} doctors={doctors}/>
                         }
                     </Col>
