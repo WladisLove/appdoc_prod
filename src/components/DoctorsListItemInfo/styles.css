@@ -1,5 +1,9 @@
-.flex {
+.doctor-list-item-info {
     display: flex;
     justify-content: space-between;
     align-items: self-start;
+}
+
+.close-icon:hover {
+    cursor: pointer;
 }

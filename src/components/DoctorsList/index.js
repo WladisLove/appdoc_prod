@@ -7,7 +7,7 @@ import './styles.css';
 class DoctorsList extends React.Component {
 
     render() {
-        const { doctors, active } = this.props;
+        const { doctors } = this.props;
         return (
             <div>
                 <ul className='doctors-list'>

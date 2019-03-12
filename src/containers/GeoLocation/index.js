@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Hoc from '../../hoc'
 import Row from "../../components/Row";
@@ -9,8 +8,9 @@ import './styles.css'
 
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import DoctorsList from '../../components/DoctorsList';
-import DoctorPageNewVisit from '../../components/DoctorPageNewVisit';
 import DoctorsListItemInfo from '../../components/DoctorsListItemInfo';
+import {connect} from "react-redux";
+import * as actions from "../../store/actions";
 
 
 
@@ -28,7 +28,8 @@ const doctors = [
         },
         options: {
             preset: 'islands#blackStretchyIcon',
-            draggable: true,
+            iconColor: '#1890ff',
+            draggable: false,
         },
         info: {
             name: 'Vasya',
@@ -47,7 +48,8 @@ const doctors = [
         },
         options: {
             preset: 'islands#blackStretchyIcon',
-            draggable: true,
+            iconColor: '#1890ff',
+            draggable: false,
         },
         info: {
             name: 'Ivan',
@@ -66,7 +68,8 @@ const doctors = [
         },
         options: {
             preset: 'islands#blackStretchyIcon',
-            draggable: true,
+            iconColor: '#1890ff',
+            draggable: false,
         },
         info: {
             name: 'Mike',
@@ -77,28 +80,23 @@ const doctors = [
 ];
 
 class GeoLocation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            width: '100%',
-            height: '600px',
-            doctors: doctors,
-            activeMarker: null,
-        };
 
-        this.getMapRef = element => {
-            this.myMap = element;
-        };
+    state = {
+        width: '100%',
+        height: '600px',
+        doctors: doctors,
+        activeMarker: null,
+        loading: true,
+    };
 
-        this.boundsChange = () => {
-            this.setState({activeMarker: null});
-            console.log(this.myMap.getBounds());
-        }
-    }
+    getMapRef = element => {
+        this.myMap = element;
+    };
 
-    componentDidMount() {
-
-    }
+    boundsChange = () => {
+        this.setState({activeMarker: null});
+        console.log(this.myMap.getBounds());
+    };
 
     handleClick = (e, id) => {
         this.setState({activeMarker: id});
@@ -111,6 +109,17 @@ class GeoLocation extends React.Component {
 
     openAppointment = (id) => {
         this.setState({ activeMarker: id});
+    };
+
+    onMakeNewApp = (obj) => {
+        obj.id_doc = 3514;
+        return this.props.onMakeNewAppointment(obj);
+    };
+
+    componentDidMount() {
+        const schedule = this.props.onGetDocSchedule(3514);
+        //const schedule = this.props.onGetDocSchedule(this.state.activeMarker);
+        Promise.resolve(schedule).then(()=> {this.setState({loading:false})})
     };
 
 
@@ -132,8 +141,12 @@ class GeoLocation extends React.Component {
                     <Col span={8} md={8} xs={10} sm={10}>
                         {
                             (activeMarker !== null)
-                                ? <DoctorsListItemInfo id ={activeMarker} close={this.closeAppointment}/>
-                                : <DoctorsList open={this.openAppointment} active={activeMarker} doctors={doctors}/>
+                                ? <DoctorsListItemInfo
+                                    close={this.closeAppointment}
+                                    onMakeNewAppointment = {this.onMakeNewApp}
+                                    docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll}
+                                    active={activeMarker} />
+                                : <DoctorsList open={this.openAppointment} doctors={doctors}/>
                         }
                     </Col>
                 </Row>
@@ -142,4 +155,17 @@ class GeoLocation extends React.Component {
     }
 }
 
-export default GeoLocation
+const mapStateToProps = state => {
+    return {
+        docIntervalsWithAppsAll: state.profileDoctor.docIntervalsWithAppsAll,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onMakeNewAppointment: (obj) => dispatch(actions.setReceptionByPatient(obj)),
+        onGetDocSchedule: (doc_id) => dispatch(actions.getDateWorkIntervalWithoutMakingAppAll(doc_id)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GeoLocation);
