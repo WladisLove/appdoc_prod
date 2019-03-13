@@ -53,6 +53,11 @@ export const docRoutes = [
         component: Reviews,
         exact: true,
     },
+    {
+        path: '/app/location',
+        component: GeoLocation,
+        exact: true,
+    },
 ];
 
 export const patientRoutes = [
@@ -115,6 +120,7 @@ export const menuDoc =[
     {name: 'app/patients', title: 'Мои пациенты', iconType: 'user',},
     {name: 'app/personal-info', title: 'Личные данные', iconType: 'setting_edit', svg: true},
     {name: 'app/reviews', title: 'Отзывы пациентов', iconType: 'chat', svg: true},
+    {name: 'app/location', title: 'Местоположение врачей', iconType: 'geolocation', svg: true},
 ];
 
 export const menuPatient =[

@@ -102,8 +102,11 @@ class GeoLocation extends React.Component {
     };
 
     handleClick = (e, id) => {
-        this.setState({activeMarker: id}, ()=> { this.getSchedule() });
-
+        if(this.props.isUser) {
+            this.setState({activeMarker: id}, ()=> { this.getSchedule() });
+        } else {
+            console.log('hello doctor');
+        }
     };
 
     closeAppointment=() => {
@@ -127,6 +130,21 @@ class GeoLocation extends React.Component {
 
     render() {
         const { width, height, doctors, activeMarker } = this.state;
+        let list;
+        if(this.props.isUser) {
+            list = ((activeMarker !== null)
+                ? <DoctorsListItemInfo
+                    close={this.closeAppointment}
+                    onMakeNewAppointment = {this.onMakeNewApp}
+                    docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll}
+                />
+                : <DoctorsList isUser={this.props.isUser} open={this.openAppointment} doctors={doctors}/>)
+        } else {
+            list = (
+                <DoctorsList isUser={this.props.isUser} open={this.openAppointment} doctors={doctors}/>
+            )
+        }
+
 
         return (
             <Hoc>
@@ -141,15 +159,7 @@ class GeoLocation extends React.Component {
                         </YMaps>
                     </Col>
                     <Col span={8} md={8} xs={10} sm={10}>
-                        {
-                            (activeMarker !== null)
-                                ? <DoctorsListItemInfo
-                                    close={this.closeAppointment}
-                                    onMakeNewAppointment = {this.onMakeNewApp}
-                                    docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll}
-                                    />
-                                : <DoctorsList open={this.openAppointment} doctors={doctors}/>
-                        }
+                        {list}
                     </Col>
                 </Row>
             </Hoc>
@@ -160,6 +170,7 @@ class GeoLocation extends React.Component {
 const mapStateToProps = state => {
     return {
         docIntervalsWithAppsAll: state.profileDoctor.docIntervalsWithAppsAll,
+        isUser: state.auth.mode === "user",
     }
 };
 
