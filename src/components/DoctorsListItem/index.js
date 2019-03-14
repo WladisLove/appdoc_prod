@@ -14,36 +14,19 @@ class DoctorsListItem extends React.Component {
 
     render() {
         const { name, specialty, age, id } = this.props.doctor;
-        const { isUser } = this.props;
-        let info = null;
-        if(isUser) {
-            info = (
-                <div onClick={this.handleClick} className='doctors-list-item-info'>
-                    <NavLink to={`doctor${id}`}>{name}</NavLink>
-                    <div>Specialty:{specialty}</div>
-                    <div>Age:{age}</div>
-                </div>)
-        } else {
-            // info = (
-            //     <div className='doctors-list-item-info'>
-            //         <NavLink to={`doctor${id}`}>{name}</NavLink>
-            //         <div>Specialty:{specialty}</div>
-            //         <div>Age:{age}</div>
-            //     </div>)
-            info = (
-                <div className='doctors-list-item-info'>
-                    <h3>{name}</h3>
-                    <div>Specialty:{specialty}</div>
-                    <div>Age:{age}</div>
-                </div>)
-        }
 
         return(
             <li className='doctors-list-item'>
                 <div className='doctors-list-item-avatar'>
                     <img src="" alt=""/>
                 </div>
-                {info}
+                <div  className='doctors-list-item-info'>
+                    <NavLink to={`doctor${id}`}>{name}</NavLink>
+                    <div onClick={this.handleClick}>
+                        <div>Specialty:{specialty}</div>
+                        <div>Age:{age}</div>
+                    </div>
+                </div>
             </li>
         )
     }

@@ -294,8 +294,8 @@ class ChatCard extends React.Component {
 				onSave={e=> console.log('[NewVisitModal]', e)}
 			/>
 			<MapsModal
-				width={'1000px'}
-				height={'550px'}
+				width={1000}
+				height={550}
 				title={'Map'}
 				visible={this.state.map_vis}
 				onCancel={() => this.setState({ map_vis: false })}

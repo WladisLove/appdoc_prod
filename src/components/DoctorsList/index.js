@@ -7,13 +7,13 @@ import './styles.css';
 class DoctorsList extends React.Component {
 
     render() {
-        const { doctors, open, isUser } = this.props;
+        const { doctors, open } = this.props;
 
         return (
             <div>
                 <ul className='doctors-list'>
                     {doctors.map((item) => (
-                        <DoctorsListItem isUser={isUser} open={open} key={item.info.id} doctor={item.info}/>
+                        <DoctorsListItem open={open} key={item.info.id} doctor={item.info}/>
                         )
                     )}
                 </ul>
