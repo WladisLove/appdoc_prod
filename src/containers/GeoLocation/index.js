@@ -74,8 +74,23 @@ class GeoLocation extends React.Component {
                     <Col span={16} md={16} xs={14} sm={14}>
                         <YMaps>
                             <Map onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
-                                {this.props.doctors.map((item) =>
-                                    <Placemark onClick={(e) => {this.handleClick(e, item.doctor.basic);}} key={item.doctor.basic} {...item} />
+                                {this.props.doctors.map((item) =>{
+                                    const obj = {
+                                        geometry: {
+                                            type: 'Point',
+                                            coordinates: [item.doctor.lat, item.doctor.lng],
+                                        },
+                                        properties: {
+                                            iconContent: item.doctor.name,
+                                        },
+                                        options: {
+                                            preset: 'islands#blackStretchyIcon',
+                                            iconColor: '#1890ff',
+                                            draggable: false,
+                                        },
+                                    };
+                                    return (<Placemark onClick={(e) => {this.handleClick(e, item.doctor.basic);}} key={item.doctor.basic} {...obj} />)
+                                }
                                 )}
                             </Map>
                         </YMaps>
