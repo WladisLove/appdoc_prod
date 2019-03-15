@@ -12,7 +12,6 @@ class MapsModal extends React.Component{
 
     render(){
         const {visible, title, warning, width, height} = this.props;
-        
         return (
             <Modal visible={visible}
                       title={title}

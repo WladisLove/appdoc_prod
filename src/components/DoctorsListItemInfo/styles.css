@@ -1,9 +1,9 @@
 .doctor-list-item-info {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: self-start;
 }
 
-.close-icon:hover {
+.doctor-list-item-info i {
     cursor: pointer;
 }

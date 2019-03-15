@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import logo from '../../img/close.png';
+import { Icon } from 'antd';
 
 import './styles.css'
 
@@ -23,7 +23,7 @@ class DoctorsListItemInfo extends React.Component {
                     onMakeNewAppointment = {this.props.onMakeNewAppointment}
                     docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll}
                     />
-                <img className="close-icon" onClick={this.handleClick}  src={logo} alt="Logo"/>
+                <Icon onClick={this.handleClick} style={{ fontSize: '35px', color: '#1890ff' }} type="close" />
             </div>
         )
     }

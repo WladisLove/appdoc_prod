@@ -143,9 +143,9 @@ class GeoLocation extends React.Component {
                         {
                             (activeMarker !== null)
                             ? <DoctorsListItemInfo
-                            close={this.closeAppointment}
-                            onMakeNewAppointment = {this.onMakeNewApp}
-                            docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll} />
+                                close={this.closeAppointment}
+                                onMakeNewAppointment = {this.onMakeNewApp}
+                                docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll} />
                             : <DoctorsList open={this.openAppointment} doctors={doctors}/>
                         }
                     </Col>

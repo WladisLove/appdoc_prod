@@ -140,7 +140,10 @@ class ChatCard extends React.Component {
 	}
 
 	showOnMap =() => {
-		this.setState(prev => ({map_vis: !prev.map_vis}));
+    	const { user_id } = this.props;
+		if(!isNaN(user_id)) {
+			this.setState(prev => ({map_vis: !prev.map_vis}));
+		}
 	};
 
     getIconByType = () => {
@@ -241,18 +244,20 @@ class ChatCard extends React.Component {
                         <div className={statusClass}>{online}</div>
                     </div>
                     <div className='chat-card-btns'>
-                        <div className='chat-card-archive'>
-							<Button
-								btnText=''
-								size='small'
-								type='no-brd'
-								icon='geolocation'
-								svg
-								title='Посмотреть на карте'
-								style={{width: 30}}
-								onClick={this.showOnMap}
-							/>
-                        </div>
+						{ !chatProps.isUser && !isNaN(user_id) &&
+							(<div className='chat-card-archive'>
+									 <Button
+										btnText=''
+										size='small'
+										type='no-brd'
+										icon='geolocation'
+										svg
+										title='Посмотреть на карте'
+										style={{width: 30}}
+										onClick={this.showOnMap}/>
+
+							</div>)
+						}
 						<div className='chat-card-archive'>
 							<Button
 								btnText=''
