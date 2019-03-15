@@ -132,3 +132,7 @@ export {
     setNewTimer,
 
 } from './chatWS'
+
+export {
+    getDoctorsCoordinates
+} from './geolocation'

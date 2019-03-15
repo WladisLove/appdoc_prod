@@ -8,23 +8,23 @@ class DoctorsListItem extends React.Component {
 
     handleClick = () => {
         const { open } = this.props;
-        const { id } = this.props.doctor;
-        open(id);
+        const { basic } = this.props.doctor;
+        open(basic);
     };
 
     render() {
-        const { name, specialty, age, id } = this.props.doctor;
+        const { name, phone, basic, avatar, email } = this.props.doctor;
 
         return(
             <li className='doctors-list-item'>
                 <div className='doctors-list-item-avatar'>
-                    <img src="" alt=""/>
+                    <img src={avatar} alt=""/>
                 </div>
                 <div  className='doctors-list-item-info'>
-                    <NavLink to={`doctor${id}`}>{name}</NavLink>
+                    <NavLink to={`doctor${basic}`}>{name}</NavLink>
                     <div onClick={this.handleClick}>
-                        <div>Specialty:{specialty}</div>
-                        <div>Age:{age}</div>
+                        <div>Email:{email}</div>
+                        <div>Phone:{phone}</div>
                     </div>
                 </div>
             </li>

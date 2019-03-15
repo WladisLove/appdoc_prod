@@ -16,89 +16,30 @@ import * as actions from "../../store/actions";
 
 const mapState = { center: [53.90, 27.55], zoom: 12};
 
-const doctors = [
-    {
-        geometry: {
-            type: 'Point',
-            coordinates: [53.90, 27.55],
-        },
-        properties: {
-            iconContent: 'Roma',
-            hintContent: 'vvvvv',
-        },
-        options: {
-            preset: 'islands#blackStretchyIcon',
-            iconColor: '#1890ff',
-            draggable: false,
-        },
-        info: {
-            name: 'Roma',
-            specialty: 'Therapist',
-            age: 32,
-            id: 3525,
-        }
-    },
-    {
-        geometry: {
-            type: 'Point',
-            coordinates: [53.89, 27.56],
-        },
-        properties: {
-            iconContent: 'teston',
-            hintContent: 'iiiii',
-        },
-        options: {
-            preset: 'islands#blackStretchyIcon',
-            iconColor: '#1890ff',
-            draggable: false,
-        },
-        info: {
-            name: 'teston',
-            specialty: 'Pediatrician',
-            age: 25,
-            id: 3514,
-        }
-    },
-    {
-        geometry: {
-            type: 'Point',
-            coordinates: [53.90, 27.53],
-        },
-        properties: {
-            iconContent: 'RANDOM',
-            hintContent: 'mmmmm',
-        },
-        options: {
-            preset: 'islands#blackStretchyIcon',
-            iconColor: '#1890ff',
-            draggable: false,
-        },
-        info: {
-            name: 'RANDOM',
-            specialty: 'Surgeon',
-            age: 20,
-            id: 3520,
-        }
-    },
-];
 
 class GeoLocation extends React.Component {
 
     state = {
         width: '100%',
         height: '600px',
-        doctors: doctors,
+        doctors: this.props.doctors,
         activeMarker: null,
         loading: true,
     };
+
+    componentDidMount() {
+        //const coordinates = this.myMap.getBounds();
+        //const result = this.props.getCoordinates(coordinates);
+        //console.log(result);
+    }
 
     getMapRef = element => {
         this.myMap = element;
     };
 
     boundsChange = () => {
-        this.setState({activeMarker: null});
-        console.log(this.myMap.getBounds());
+        const coordinates = this.myMap.getBounds();
+        this.setState({activeMarker: null} , () => this.props.getCoordinates(coordinates));
     };
 
     handleClick = (e, id) => {
@@ -125,7 +66,7 @@ class GeoLocation extends React.Component {
 
 
     render() {
-        const { width, height, doctors, activeMarker } = this.state;
+        const { width, height, activeMarker } = this.state;
 
         return (
             <Hoc>
@@ -133,8 +74,8 @@ class GeoLocation extends React.Component {
                     <Col span={16} md={16} xs={14} sm={14}>
                         <YMaps>
                             <Map onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
-                                {doctors.map((placemarkParams) =>
-                                    <Placemark onClick={(e) => {this.handleClick(e, placemarkParams.info.id);}} key={placemarkParams.info.id} {...placemarkParams} />
+                                {this.props.doctors.map((item) =>
+                                    <Placemark onClick={(e) => {this.handleClick(e, item.doctor.basic);}} key={item.doctor.basic} {...item} />
                                 )}
                             </Map>
                         </YMaps>
@@ -146,7 +87,7 @@ class GeoLocation extends React.Component {
                                 close={this.closeAppointment}
                                 onMakeNewAppointment = {this.onMakeNewApp}
                                 docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll} />
-                            : <DoctorsList open={this.openAppointment} doctors={doctors}/>
+                            : <DoctorsList open={this.openAppointment} doctors={this.props.doctors}/>
                         }
                     </Col>
                 </Row>
@@ -158,6 +99,7 @@ class GeoLocation extends React.Component {
 const mapStateToProps = state => {
     return {
         docIntervalsWithAppsAll: state.profileDoctor.docIntervalsWithAppsAll,
+        doctors: state.geolocation.doctors,
     }
 };
 
@@ -165,6 +107,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onMakeNewAppointment: (obj) => dispatch(actions.setReceptionByPatient(obj)),
         onGetDocSchedule: (doc_id) => dispatch(actions.getDateWorkIntervalWithoutMakingAppAll(doc_id)),
+        getCoordinates: (coordinates) => dispatch(actions.getDoctorsCoordinates(coordinates)),
     }
 };
 
