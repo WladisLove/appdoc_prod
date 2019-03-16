@@ -215,3 +215,7 @@
   content: "\e93e";
   
 }
+
+.icon-geolocation:before {
+  content: "\e948";
+}

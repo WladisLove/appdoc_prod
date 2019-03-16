@@ -1,0 +1,9 @@
+.doctor-list-item-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: self-start;
+}
+
+.doctor-list-item-info i {
+    cursor: pointer;
+}

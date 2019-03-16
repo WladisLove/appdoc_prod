@@ -21,6 +21,7 @@ import {
 } from '../../App/chatWs'
 
 import './style.css'
+import MapsModal from "../../../components/MapsModal";
 
 
 class ChatCard extends React.Component {
@@ -38,9 +39,9 @@ class ChatCard extends React.Component {
 			reception_vis: false,
 			treatment_vis: false,
 			visit_vis: false,
+			map_vis: false,
 		}
     }
-
 
 
 
@@ -137,6 +138,14 @@ class ChatCard extends React.Component {
 		(!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
 		this.setState(prev => ({isActive: !prev.isActive}));
 	}
+
+	showOnMap =() => {
+    	const { user_id } = this.props;
+		if(!isNaN(user_id)) {
+			this.setState(prev => ({map_vis: !prev.map_vis}));
+		}
+	};
+
     getIconByType = () => {
 		let icon;
         switch (this.state.mode) {
@@ -235,19 +244,32 @@ class ChatCard extends React.Component {
                         <div className={statusClass}>{online}</div>
                     </div>
                     <div className='chat-card-btns'>
+						{ !chatProps.isUser && !isNaN(user_id) &&
+							(<div className='chat-card-archive'>
+									 <Button
+										btnText=''
+										size='small'
+										type='no-brd'
+										icon='geolocation'
+										svg
+										title='Посмотреть на карте'
+										style={{width: 30}}
+										onClick={this.showOnMap}/>
 
-                        <div className='chat-card-archive'>
-                            <Button
-                                btnText=''
-                                size='small'
-                                type='no-brd'
-                                icon='file'
-                                svg
-                                title='Открыть прикреплённые файлы'
-                                style={{width: 30}}
-                                onClick={this.toggleFilesArea}
-                            />
-                        </div>
+							</div>)
+						}
+						<div className='chat-card-archive'>
+							<Button
+								btnText=''
+								size='small'
+								type='no-brd'
+								icon='file'
+								svg
+								title='Открыть прикреплённые файлы'
+								style={{width: 30}}
+								onClick={this.toggleFilesArea}
+							/>
+						</div>
                     </div>
                 </div>
                 <div className='chat-card-body'>
@@ -275,6 +297,16 @@ class ChatCard extends React.Component {
 				userName={patientName}
 				id={user_id}
 				onSave={e=> console.log('[NewVisitModal]', e)}
+			/>
+			<MapsModal
+				width={1000}
+				height={550}
+				title={'Map'}
+				visible={this.state.map_vis}
+				onCancel={() => this.setState({ map_vis: false })}
+				userName={patientName}
+				id={user_id}
+				onSave={e=> console.log('[Map]', e)}
 			/>
 			</Hoc>
         )

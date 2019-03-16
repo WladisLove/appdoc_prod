@@ -11,6 +11,7 @@ import infoDoctorReducer from './reducers/doctorData'
 import infoPatientReducer from './reducers/patientData'
 import chatWSReducer from './reducers/chatWS'
 import loadingReducer from './reducers/loading'
+import geolocation from './reducers/geolocation'
 
 
 const rootReducer = combineReducers({
@@ -24,8 +25,9 @@ const rootReducer = combineReducers({
     profilePatient: infoPatientReducer,
     chatWS: chatWSReducer,
     loading: loadingReducer,
+    geolocation: geolocation,
 });
 
 export default function configureStore() {
-    return createStore(rootReducer, applyMiddleware(thunk));
+    return createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk));
 }
