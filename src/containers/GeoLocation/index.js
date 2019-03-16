@@ -14,7 +14,7 @@ import * as actions from "../../store/actions";
 
 
 
-const mapState = { center: [53.90, 27.55], zoom: 12};
+const mapState = { center: [52.232090, 21.007139], zoom: 5};
 
 
 class GeoLocation extends React.Component {
@@ -27,11 +27,6 @@ class GeoLocation extends React.Component {
         loading: true,
     };
 
-    componentDidMount() {
-        //const coordinates = this.myMap.getBounds();
-        //const result = this.props.getCoordinates(coordinates);
-        //console.log(result);
-    }
 
     getMapRef = element => {
         this.myMap = element;
