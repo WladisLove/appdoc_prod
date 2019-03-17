@@ -6,38 +6,26 @@ import Col from "../../components/Col";
 
 import './styles.css'
 
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import Map from '../../components/Map';
 import DoctorsList from '../../components/DoctorsList';
 import DoctorsListItemInfo from '../../components/DoctorsListItemInfo';
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
 
 
-
-const mapState = { center: [52.232090, 21.007139], zoom: 5};
-
-
 class GeoLocation extends React.Component {
 
     state = {
-        width: '100%',
-        height: '600px',
-        doctors: this.props.doctors,
         activeMarker: null,
         loading: true,
     };
 
 
-    getMapRef = element => {
-        this.myMap = element;
-    };
-
-    boundsChange = () => {
-        const coordinates = this.myMap.getBounds();
+    newCoordinates = (coordinates) => {
         this.setState({activeMarker: null} , () => this.props.getCoordinates(coordinates));
     };
 
-    handleClick = (e, id) => {
+    chooseMark = (id) => {
         this.setState({activeMarker: id}, ()=> { this.getSchedule() });
     };
 
@@ -61,44 +49,26 @@ class GeoLocation extends React.Component {
 
 
     render() {
-        const { width, height, activeMarker } = this.state;
+        const { activeMarker } = this.state;
+
+        let content;
+        if(activeMarker !== null) {
+            content = <DoctorsListItemInfo
+                close={this.closeAppointment}
+                onMakeNewAppointment = {this.onMakeNewApp}
+                docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll} />
+        } else {
+            content = <DoctorsList open={this.openAppointment} doctors={this.props.doctors}/>
+        }
 
         return (
             <Hoc>
                 <Row>
                     <Col span={16} md={16} xs={14} sm={14}>
-                        <YMaps>
-                            <Map onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
-                                {this.props.doctors.map((item) =>{
-                                    const obj = {
-                                        geometry: {
-                                            type: 'Point',
-                                            coordinates: [item.doctor.lat, item.doctor.lng],
-                                        },
-                                        properties: {
-                                            iconContent: item.doctor.name,
-                                        },
-                                        options: {
-                                            preset: 'islands#blackStretchyIcon',
-                                            iconColor: '#1890ff',
-                                            draggable: false,
-                                        },
-                                    };
-                                    return (<Placemark onClick={(e) => {this.handleClick(e, item.doctor.basic);}} key={item.doctor.basic} {...obj} />)
-                                }
-                                )}
-                            </Map>
-                        </YMaps>
+                        <Map chooseMark={this.chooseMark} newCoordinates={this.newCoordinates} doctors={this.props.doctors} />
                     </Col>
                     <Col span={8} md={8} xs={10} sm={10}>
-                        {
-                            (activeMarker !== null)
-                            ? <DoctorsListItemInfo
-                                close={this.closeAppointment}
-                                onMakeNewAppointment = {this.onMakeNewApp}
-                                docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll} />
-                            : <DoctorsList open={this.openAppointment} doctors={this.props.doctors}/>
-                        }
+                        {content}
                     </Col>
                 </Row>
             </Hoc>
