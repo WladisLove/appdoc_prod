@@ -1,3 +1,10 @@
+.yandex-map-relative {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 170px);
+}
+
 .ymaps-2-1-73-map {
     width: 100% !important;
 }
+

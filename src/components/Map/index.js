@@ -8,7 +8,7 @@ class Map extends React.Component {
 
     state = {
         width: '100%',
-        height: '600px',
+        height: '100%',
         mapState: { center: [52.232090, 21.007139], zoom: 5}
     };
 
@@ -37,26 +37,29 @@ class Map extends React.Component {
         const { doctors } = this.props;
         return(
             <YMaps onApiAvaliable={this.handleApiReady}>
-                <YandexMap onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
-                    {doctors.map((item) =>{
-                            const obj = {
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates: [item.doctor.lat, item.doctor.lng],
-                                },
-                                properties: {
-                                    iconContent: item.doctor.name,
-                                },
-                                options: {
-                                    preset: 'islands#blackStretchyIcon',
-                                    iconColor: '#1890ff',
-                                    draggable: false,
-                                },
-                            };
-                            return (<Placemark onClick={(e) => {this.handleClick(e, item.doctor.basic);}} key={item.doctor.basic} {...obj} />)
-                        }
-                    )}
-                </YandexMap>
+                <div className="yandex-map-relative">
+                    <YandexMap onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
+                                {doctors.map((item) =>{
+                                        const obj = {
+                                            geometry: {
+                                                type: 'Point',
+                                                coordinates: [item.doctor.lat, item.doctor.lng],
+                                            },
+                                            properties: {
+                                                iconContent: item.doctor.name,
+                                            },
+                                            options: {
+                                                preset: 'islands#blackStretchyIcon',
+                                                iconColor: '#1890ff',
+                                                draggable: false,
+                                            },
+                                        };
+                                        return (<Placemark onClick={(e) => {this.handleClick(e, item.doctor.basic);}} key={item.doctor.basic} {...obj} />)
+                                    }
+                                )}
+                    </YandexMap>
+                </div>
+
             </YMaps>
         )
     }
