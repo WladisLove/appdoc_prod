@@ -6,14 +6,16 @@ import Modal from '../Modal'
 import './styles.css'
 import {Map, Placemark, YMaps} from "react-yandex-maps";
 
-const mapState = { center: [53.90, 27.55], zoom: 12};
-
 class MapsModal extends React.Component{
 
     render(){
         const { visible, title, warning, width, height} = this.props;
-        const { lat, lng} = this.props.location;
+        let { lat, lng} = this.props.location;
 
+        if(!lat && !lng) {
+            lat = 53.90;
+            lng = 27.55;
+        }
         return (
             <Modal visible={visible}
                       title={title}
@@ -24,7 +26,7 @@ class MapsModal extends React.Component{
                       onCancel={this.props.onCancel}
             >
                 <YMaps onApiAvaliable={this.handleApiReady}>
-                    <Map state={mapState} width={'100%'} height={height}>
+                    <Map state={ {center: [lat, lng], zoom: 12 }} width={'100%'} height={height}>
                         <Placemark
                             geometry={{
                                 coordinates: [lat, lng]
