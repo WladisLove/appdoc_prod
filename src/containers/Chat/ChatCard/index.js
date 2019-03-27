@@ -142,7 +142,7 @@ class ChatCard extends React.Component {
 	showOnMap =() => {
     	const { user_id } = this.props;
 		if(!isNaN(user_id)) {
-			this.setState(prev => ({map_vis: !prev.map_vis}));
+			this.setState(prev => ({map_vis: !prev.map_vis}), () => this.props.getPatientLocation(user_id));
 		}
 	};
 
@@ -299,13 +299,14 @@ class ChatCard extends React.Component {
 				onSave={e=> console.log('[NewVisitModal]', e)}
 			/>
 			<MapsModal
+				id={user_id}
 				width={1000}
 				height={550}
 				title={'Map'}
 				visible={this.state.map_vis}
 				onCancel={() => this.setState({ map_vis: false })}
 				userName={patientName}
-				id={user_id}
+				location={this.props.patientLocation}
 				onSave={e=> console.log('[Map]', e)}
 			/>
 			</Hoc>
@@ -326,8 +327,9 @@ ChatCard.propTypes = {
 	uploadFile: PropTypes.func,
 	getAllFilesTreatment: PropTypes.func,
 	setChatToId: PropTypes.func,
-
+	getPatientLocation: PropTypes.func,
     videoContent: PropTypes.node,
+	patientLocation: PropTypes.object
 };
 
 ChatCard.defaultProps = {
@@ -342,6 +344,8 @@ ChatCard.defaultProps = {
 	uploadFile: () => {},
 	getAllFilesTreatment: () => {},
 	setChatToId: () => {},
+	getPatientLocation: () => {},
+	patientLocation: {}
 };
 
 export default ChatCard

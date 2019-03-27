@@ -109,6 +109,13 @@ class App extends React.Component {
             this.props.onGetDoctorSpecialities();
 
             if(this.props.auth.mode === "user") {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.props.setUserLocation(this.props.id,position.coords.longitude, position.coords.latitude);
+                    });
+                } else {
+                    console.log('geolocation not available')
+                }
                 this.props.hasNoReviewToFreeApp().then(res=>{
                     if(res.result.length) {
                         this.setState({mustLeaveReview: true, infoForReview:{
@@ -348,6 +355,7 @@ const mapDispatchToProps = dispatch => {
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
         hasNoReviewToFreeApp: ()=>dispatch(actions.hasNoReviewToFreeApp()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
+        setUserLocation: (id, lat, lng) => dispatch(actions.setUserLocation(id, lat, lng)),
     }
 };
 

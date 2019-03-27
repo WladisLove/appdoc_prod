@@ -11,7 +11,9 @@ const mapState = { center: [53.90, 27.55], zoom: 12};
 class MapsModal extends React.Component{
 
     render(){
-        const {visible, title, warning, width, height} = this.props;
+        const { visible, title, warning, width, height} = this.props;
+        const { lat, lng} = this.props.location;
+
         return (
             <Modal visible={visible}
                       title={title}
@@ -21,11 +23,11 @@ class MapsModal extends React.Component{
                       closable = {!warning}
                       onCancel={this.props.onCancel}
             >
-                <YMaps>
+                <YMaps onApiAvaliable={this.handleApiReady}>
                     <Map state={mapState} width={'100%'} height={height}>
                         <Placemark
                             geometry={{
-                                coordinates: [53.90, 27.55]
+                                coordinates: [lat, lng]
                             }}
                         />
                     </Map>

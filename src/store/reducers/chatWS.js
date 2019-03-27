@@ -45,7 +45,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 timer: action.timer,
             }
-        
+        case actionTypes.GET_PATIENT_LOCATION:
+            return {
+                ...state,
+                patientLocation: action.location,
+            }
+
         default: return state;
     }
 };

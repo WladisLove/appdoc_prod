@@ -91,7 +91,8 @@ export {
     sendUserPoleValue,
     getUserInfoShort,
     hasNoReviewToFreeApp,
-    saveGeolocation
+    saveGeolocation,
+    setUserLocation
 } from './patientData'
 
 export {
@@ -130,6 +131,7 @@ export {
     setIsCallingStatus,
     setChatStory,
     setNewTimer,
+    getPatientLocation
 
 } from './chatWS'
 
