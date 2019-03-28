@@ -50,7 +50,6 @@ class GeoLocation extends React.Component {
 
     render() {
         const { activeMarker } = this.state;
-
         let content;
         if(activeMarker !== null) {
             content = <DoctorsListItemInfo

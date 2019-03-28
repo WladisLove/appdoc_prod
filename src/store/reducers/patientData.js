@@ -52,7 +52,6 @@ const reducer = (state = initialState, action) => {
                 latitude: action.latitude,
                 longitude: action.longitude
             };
-            
 
         default: return state;
     }

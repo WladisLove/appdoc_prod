@@ -10,14 +10,14 @@ class DoctorsList extends React.Component {
         const { doctors, open } = this.props;
 
         return (
-            <div>
+
                 <ul className='doctors-list'>
                     {doctors.map((item) => (
                         <DoctorsListItem open={open} key={item._main.id} doctor={item.doctor}/>
                         )
                     )}
                 </ul>
-            </div>
+
         )
     }
 

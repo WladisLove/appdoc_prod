@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import axios from "./axiosSettings";
 
 
 export const setReceptionStatus = (isStart) => {
@@ -42,3 +43,27 @@ export const setNewTimer = (timer) => {
         timer,
     });
 }
+
+export const getPatientLocation = (id) => {
+    return (dispatch) => {
+        const userID = {
+            id: '' + id,
+        };
+
+        axios.post('catalog.doc2/infoUser', JSON.stringify(userID))
+            .then(res => {
+                if(res.data.result) {
+                    dispatch({
+                        type: actionTypes.GET_PATIENT_LOCATION,
+                        location:  {
+                            lat: res.data.result.lat,
+                            lng: res.data.result.lng,
+                        }
+                    });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+};
