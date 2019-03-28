@@ -12,12 +12,7 @@
 
 .doctors-list-item-avatar {
     width: 30%;
-}
-
-.doctors-list-item-avatar img {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
+    height: 100px;
 }
 
 .doctors-list-item-info {
