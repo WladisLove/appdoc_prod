@@ -17,8 +17,11 @@ class DoctorsListItem extends React.Component {
 
         return(
             <li className='doctors-list-item'>
-                <div className='doctors-list-item-avatar'>
-                    <img src={avatar} alt=""/>
+                <div style={{  backgroundImage: `url(${avatar})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',}}
+                     className='doctors-list-item-avatar'>
                 </div>
                 <div  className='doctors-list-item-info'>
                     <NavLink to={`doctor${basic}`}>{name}</NavLink>
