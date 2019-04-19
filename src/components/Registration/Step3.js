@@ -159,7 +159,7 @@ class Step3 extends React.Component{
             }
 
         }
-        debugger
+        
         this.props.onFinish(data);
     };
 

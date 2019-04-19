@@ -33,7 +33,6 @@ const PatientPageDoctorItem = props => {
 
     const showLanguageOptions = (doctorLanguages) => {
         let data = []
-
         doctorLanguages.map((item, index) => {
             if(item instanceof Object && (item.hasOwnProperty('language') || item.hasOwnProperty('title'))){
                 data.push(<div className='page__doctor-item-language-li'>
@@ -42,7 +41,7 @@ const PatientPageDoctorItem = props => {
             }        
             else{
                 data.push(<div className='page__doctor-item-language-li'>
-                    {item}
+                    {!Number.isInteger(item) }
                 </div>)   
             }  
         })

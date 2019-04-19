@@ -18,6 +18,8 @@ import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";
 import ReviewsModal from "../../components/ReviewsModal";
+import { detect } from 'detect-browser';
+const browser = detect();
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />

@@ -446,3 +446,40 @@ export const sendMessage = (message) => {
             })
     }
 }
+
+export const getPaymentForm = (idUser, price) => {
+    let obj = {
+        idUser,
+        price,
+    }
+    return (dispatch, getState) => {
+        
+
+        axios.post('/catalog.doc2/putOnAccount', JSON.stringify(obj))
+            .then(rez => {
+                return {
+                    type: actionTypes.GET_PAYMENT_FORM,
+                    formPayment: rez.data.result,
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+
+export const payBalance = (data) => {
+
+    debugger
+    return (dispatch, getState) => {
+        fetch("https://test.paysec.by/pay/order.cfm", data)
+            .then((rez) => {
+                debugger
+                    console.log(rez)
+            })
+
+      
+    }
+}
+

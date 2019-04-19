@@ -102,7 +102,7 @@ export const uploadFile = (file) => {
   return () => {
     const data = new FormData();
     data.append('file', file);
-    return axios.post(`${window.location.origin}/upload.php`, data)
+      return axios.post(`https://appdoc.by/upload.php`, data)
       .then(res => {
         return res
       })

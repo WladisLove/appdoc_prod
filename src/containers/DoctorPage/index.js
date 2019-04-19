@@ -85,7 +85,7 @@ class PatientsPage extends React.Component{
     getDoctorExperienceArr = () => {
         let experienceArr = [];
 
-        debugger
+        
         if (this.props.profileDoctor.educationsgroup1) {
             this.props.profileDoctor.educationsgroup1.map((item) => {
                 experienceArr.push({

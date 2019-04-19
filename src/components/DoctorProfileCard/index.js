@@ -17,6 +17,7 @@ class DoctorProfileCard extends React.Component{
     }
 
     render(){
+        
         const {short, name, specialty, isUser} = this.props;
         let specialtyOneArray =[];
         specialty.map((elem)=> {
@@ -26,11 +27,14 @@ class DoctorProfileCard extends React.Component{
             return elem.toUpperCase();
         }): "";
         if(spec.length > 5) {
+            
             spec = spec.slice(0, 4).join(", ") + "..."
         } else {
+            
             spec = spec ? spec.join(", ") : spec;
         }
 
+        console.log('spec :', spec);
         const rootClass = short ?
             (isUser ?
             "patientProfileCard-short" : "doctorProfileCard-short")

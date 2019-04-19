@@ -81,6 +81,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userBalance: action.userBalance,
             }
+        case actionTypes.GET_PAYMENT_FORM:
+            return {
+                ...state,
+                formPayment: action.formPayment,
+            }    
             
         default: return state;
     }

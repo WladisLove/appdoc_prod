@@ -46,9 +46,9 @@ const reducer = (state = initialState, action) => {
                 ...state
             };
         case actionTypes.INFO_DOCTOR:
-        
             let language = [];
 
+            console.log('specialAndLanguage', specialAndLanguage)
             if(specialAndLanguage.langs.length){
                     specialAndLanguage.langs.forEach((el) => {
                         
@@ -74,7 +74,6 @@ const reducer = (state = initialState, action) => {
                      })
             }
 
-            
             return {
                 ...state,
                 ...action.profileDoctor
@@ -90,9 +89,8 @@ const reducer = (state = initialState, action) => {
                 docIntervalsWithAppsAll: action.intervals
             };
         case actionTypes.GET_DOCTOR_SPECIALITIES:
-
             specialAndLanguage.specs = [...action.docSpecialities]
-            
+            console.log('2specialAndLanguage', specialAndLanguage)
             if(specialAndLanguage.specs.length && state.educationsgroup1.length){
                 specialAndLanguage.specs.forEach((el) => {
                         state.educationsgroup1.forEach((elem, index) => {
@@ -106,7 +104,6 @@ const reducer = (state = initialState, action) => {
                         })
                      })
             }
-
             return {
                 ...state
             };

@@ -55,6 +55,7 @@
 .panelItem-header .icon,
 .panelItem-header .anticon {
   margin-right: 1.25rem;
+  margin-left: 10px;
   color: #fdc401;
 }
 .panelItem-header .panel-title {

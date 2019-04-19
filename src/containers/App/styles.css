@@ -177,7 +177,7 @@ button {
 .ps__rail-y:focus > .ps__thumb-y,
 .ps__thumb-x,
 .ps__thumb-y {
-  background-color: #0495ff !important;
+  background-color: #0495ff!important;
 }
 .ps__rail-y,
 .ps__rail-x {

@@ -24,6 +24,8 @@ export {
     addOrDeleteUserFromSearch,
     sendMessage,
     getUserBalance,
+    getPaymentForm,
+    payBalance,
 } from './patients';
 
 export {
