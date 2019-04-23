@@ -457,10 +457,11 @@ export const getPaymentForm = (idUser, price) => {
 
         axios.post('/catalog.doc2/putOnAccount', JSON.stringify(obj))
             .then(rez => {
-                return {
+                console.log('rez :', rez);
+                dispatch({
                     type: actionTypes.GET_PAYMENT_FORM,
                     formPayment: rez.data.result,
-                }
+                })
             })
             .catch(err => {
                 console.log(err);
@@ -470,16 +471,12 @@ export const getPaymentForm = (idUser, price) => {
 
 
 export const payBalance = (data) => {
-
     debugger
     return (dispatch, getState) => {
         fetch("https://test.paysec.by/pay/order.cfm", data)
             .then((rez) => {
-                debugger
                     console.log(rez)
-            })
-
-      
+            })   
     }
 }
 

@@ -8,7 +8,7 @@ import './styles.css';
 import {connect} from "react-redux";
 import Card from './../../components/Card/index';
 import Button from './../../components/Button/index';
-import PaymentForm from '../../components/PaymentForm/index';
+import NewPaymentForm from '../../components/NewPaymentForm/index';
 
 
 class Payment extends React.Component{
@@ -27,39 +27,51 @@ class Payment extends React.Component{
         };
     }
     
-    getPayment = () => {
-        let price = this.refs.inputnumber.inputNumberRef.cursorBefore;
-        this.setState({ isPaymentForm: true})
-        console.log("this.price", this.refs.inputnumber.inputNumberRef.cursorBefore)
-        this.props.onGetPaymentForm(this.props.id, price)
+    getPayment = () => {            
+        const {formPayment} = this.props;
+        console.log('this.refs.inputPrice.inputNumberRef.state :', this.refs.inputPrice.inputNumberRef.state);
+        let price = this.refs.inputPrice.inputNumberRef.state.value;       
+
+        if (!formPayment || formPayment.OrderAmount !== price){
+            this.props.onGetPaymentForm(this.props.id, price)
+        }
+
+        this.setState({ isPaymentForm: true })
     }
 
+    payBalance = (data) => {
+        const { name } = this.props.shortDocInfo
+
+        this.props.onPayBalance({ ...data, FirstName: name, LastName: name})
+    }
     render() {
-      
-        return (
+       return (
             <div >
                 <Card title="Пополнить счет" bordered={false} style={{ width: '100%' }}>
                     <div className='wrapper-block'>
                         <div className='wrapper-paymet'>Введите сумму пополнения</div>
                         
                         <div className='patient-contacts-block'>
-                            <InputNumber ref="inputnumber" min={0.01}  defaultValue={3} className='wrapper-paymet-input' step={0.01}/>
+                            <InputNumber ref="inputPrice" min={0.01}  defaultValue={3} className='wrapper-paymet-input' step={0.01}/>
                         </div>
                         <div>
                             <Button btnText="Оплатить"
-                            className='payment-btn-pay'
-                                onClick={this.getPayment}
-                            size='small'
-                            type='float'/>
+                                    className='payment-btn-pay'
+                                    onClick={this.getPayment}
+                                    size='small'
+                                    type='float'/>
                         </div>
                                   
                     </div>
                 </Card>
 
-                {this.state.isPaymentForm && <PaymentForm 
+                <NewPaymentForm 
+                    visible={this.state.isPaymentForm}
                     formPayment={this.props.formPayment}
-                    submit={this.props.onPayBalance}
-            />}
+                    onSubmit={this.payBalance}
+                    onCancel={() => this.setState({isPaymentForm:false})}
+                    name={this.props.shortDocInfo ? this.props.shortDocInfo.name : ''}
+                />
             </div>
         )
     }
@@ -69,8 +81,8 @@ class Payment extends React.Component{
 const mapStateToProps = state => {
     return {
         id: state.auth.id,
-        formPayment: state.patients.formPayment
-        
+        formPayment: state.patients.formPayment,
+        shortDocInfo: state.doctor.shortInfo,
     };
 };
 
