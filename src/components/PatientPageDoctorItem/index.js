@@ -24,9 +24,9 @@ const PatientPageDoctorItem = props => {
         if(speciality.length) {
             return speciality.reduce((acc, current)=> {
                 return `${acc}, ${current}`
-            })+"."
+            })
         } else {
-            return "Нет специальностей."
+            return "Нет специальностей"
         }
 
     };
@@ -41,7 +41,7 @@ const PatientPageDoctorItem = props => {
             }        
             else{
                 data.push(<div className='page__doctor-item-language-li'>
-                    {!Number.isInteger(item) }
+                    {item }
                 </div>)   
             }  
         })

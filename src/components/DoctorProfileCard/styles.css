@@ -21,10 +21,13 @@
 }
 .doctorProfileCard-specialty {
   color: #204d8d;
-  font-size: 12px;
+  font-size: 11px;
   margin-bottom: 37px;
   text-transform: uppercase;
   font-family: 'GothamPro-Medium';
+}
+.doctorProfileCard-specialty-block {
+  display: inline-block;
 }
 .doctorProfileCard-short {
   width: 170px;

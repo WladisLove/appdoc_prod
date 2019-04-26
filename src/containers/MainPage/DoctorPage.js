@@ -19,14 +19,14 @@ const DoctorPage = props => {
 	}
     return (
         <Hoc>
-					<Row>
-						<Col span={24} className='section'>
+					<Row className="section-panel">
+						<Col xs={24} xxl={24} className='section'>
 							<TopPanel  {...props.docTodayInfo}/>
 						</Col>
 					</Row>
 
 					<Row>
-						<Col xs={24} xxl={14} className='section'>
+						<Col xs={12} xxl={14} className='section'>
 							<TableNoHead data={props.visits}
 										onGoto={(val) => gotoHandler(val)}
 										onBegin={(val) => {
@@ -37,7 +37,7 @@ const DoctorPage = props => {
 										onAdd = {props.onAdd}
 							/>
 						</Col>
-						<Col xs={24} xxl={10} className='section'>
+						<Col xs={12} xxl={10} className='section'>
 							<Reviews data={props.reviews}
 									 numToDisplay = {7}
 									 onGoto={(val) => gotoHandler(val)}
@@ -48,9 +48,9 @@ const DoctorPage = props => {
 									 isDoctor={true}
 									 redirect={() => {props.history.push('/app/reviews');}}/>
 						</Col>
-					</Row>
-					<Row>
-						<Col span={24} className='section'>
+					
+					
+						<Col xs={24} xxl={24} className='section'>
 							<TreatmentTable data={props.actualTreatments}
 											dataCount = {props.treatmentsCount}
 											onGoto={(id) => gotoHandler(id)}

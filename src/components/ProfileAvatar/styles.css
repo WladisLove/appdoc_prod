@@ -40,13 +40,13 @@
   margin-bottom: 20px;
 }
 .profileAvatar-size-medium .profileImg {
-  width: 90px;
-  height: 90px;
+  width: 70px;
+  height: 70px;
   border: 2px solid #fff;
 }
 .profileAvatar-size-medium .profileImg .profileAvatar-indicator {
-  right: 14px;
-  top: 2px;
+  right: 8px;
+  top: 1px;
   width: 10px;
   height: 10px;
   border: 1px solid #fff;

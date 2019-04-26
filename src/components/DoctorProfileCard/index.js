@@ -20,21 +20,23 @@ class DoctorProfileCard extends React.Component{
         
         const {short, name, specialty, isUser} = this.props;
         let specialtyOneArray =[];
+        let spec = [];
+
         specialty.map((elem)=> {
             specialtyOneArray.push(...elem)
         });
-        let spec = specialtyOneArray.length ?  specialtyOneArray.map(function(elem) {
-            return elem.toUpperCase();
-        }): "";
-        if(spec.length > 5) {
-            
-            spec = spec.slice(0, 4).join(", ") + "..."
-        } else {
-            
-            spec = spec ? spec.join(", ") : spec;
-        }
+        if(Array.isArray(specialty)) {
+            const style = "doctorProfileCard-specialty-block"
+            for(let i = 0; i < specialty.length; i++){
+                if(specialty.length == i+1){
+                    spec.push(<div className={style}><span>{specialty[i]}</span></div>)
+                    continue
+                }
+                spec.push(<div className={style}><span>{specialty[i]}, </span><br/></div>)
+            }
+           
+        } 
 
-        console.log('spec :', spec);
         const rootClass = short ?
             (isUser ?
             "patientProfileCard-short" : "doctorProfileCard-short")
@@ -48,7 +50,9 @@ class DoctorProfileCard extends React.Component{
                 {
                     isUser ? null : (
                         <Hoc>
-                            <div className={'doctorProfileCard-specialty'}>{spec}</div>
+                            <div className={'doctorProfileCard-specialty'}>
+                                {spec}
+                            </div>
                             <RatePanel {...this.props} disable={true}/>
                         </Hoc>
                     )

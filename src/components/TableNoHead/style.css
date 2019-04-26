@@ -30,13 +30,12 @@
   top: 0;
   width: 100%;
   z-index: 2;
-  min-width: 820px;
 }
 .schedule-all .tableheader .ico-btn {
   display: flex;
 }
 .schedule-all .ant-card-body {
-  height: 485px;
+  height: 400px;
 }
 .schedule-all .ant-card-body > div {
   width: 100%;

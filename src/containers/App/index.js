@@ -34,6 +34,7 @@ class App extends React.Component {
             notifications: [],
             mustLeaveReview: false
         };
+        this.isSafari = browser ? browser.name == 'safari' : true;
     }
 
     toggle = () => {
@@ -162,6 +163,7 @@ class App extends React.Component {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
+        const headerClass = this.isSafari ? "main-header main-header-insafari" : "main-header";
         const isUser = (this.props.mode === "user");
         if (this.state.mustLeaveReview) {
             return <ReviewsModal
@@ -196,7 +198,7 @@ class App extends React.Component {
                 </div>
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
-                    <div className="main-header">
+                    <div className={headerClass}>
                         <button onClick={this.toggle}
                                 className="sidenav-root-btn">
                             {
