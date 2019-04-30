@@ -82,7 +82,8 @@ export {
     resetRegisterStatus,
     setOnlineStatus,
     checkEmailAvailability,
-    reportBug
+    reportBug,
+    getSelectorToolTip
 } from './auth'
 
 export {

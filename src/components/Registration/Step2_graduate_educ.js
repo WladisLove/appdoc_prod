@@ -6,6 +6,9 @@ import { Form } from 'antd';
 import InputNew from "../InputNew";
 import RangeDPNew from "../RangeDPNew";
 import DropZoneUpload from "../DropZoneUpload";
+import { AutoComplete } from 'antd';
+
+const dataSource = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
 
 const FormItem = Form.Item;
 
@@ -65,9 +68,14 @@ class Step2_graduate_educ extends React.Component{
                             message: 'Введите учебное заведение'
                         }],
                     })(
-                        <InputNew width ="100%" bubbleplaceholder="Учебное заведение" className="step-form-item"
-                        onChange={(e)=>this.handleChange(e, "eduName")}/>
-                    )}
+                        <AutoComplete
+                            className="reg-auto-complete"
+                            style={{ width: '100%' }}
+                            dataSource={this.props.selectorToolTip}
+                            placeholder="Учебное заведение"
+                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        />
+                        )}
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('educationsgroup2-ciklname-'+number, {

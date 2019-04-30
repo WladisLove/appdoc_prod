@@ -105,21 +105,24 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        const {mode} = this.props.auth;
+
         if(this.props.id){
             this.runNotificationsWS();
             this.runChatWS();
             this.props.getEmergencyAvailability();
             this.props.onGetDoctorSpecialities();
 
-            if(this.props.auth.mode === "user") {
+            if(this.props.auth.mode) {
                 if ("geolocation" in navigator) {
                     navigator.geolocation.getCurrentPosition((position) => {
+                        debugger
                         this.props.setUserLocation(this.props.id,position.coords.longitude, position.coords.latitude);
                     });
                 } else {
                     console.log('geolocation not available')
                 }
-                this.props.hasNoReviewToFreeApp().then(res=>{
+                mode ==='user' && this.props.hasNoReviewToFreeApp().then(res=>{
                     if(res.result.length) {
                         this.setState({mustLeaveReview: true, infoForReview:{
                                 id_doc: res.result[0].id_doc,

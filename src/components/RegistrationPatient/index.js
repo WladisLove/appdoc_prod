@@ -196,7 +196,9 @@ class RegistrationPatientForm extends React.Component{
                             valuePropName: 'checked',
                             initialValue: false,
                         })(
-                            <Checkbox onChange={this.handleCheckBoxClick}>Я ознакомлен с условиями и принимаю их</Checkbox>
+                            <Checkbox onChange={this.handleCheckBoxClick}>
+                            Я принимаю условия <a href="https://appdoc.by/public-offer">пользовательского соглашения</a>
+                            </Checkbox>
                         )}
                     </FormItem>
 

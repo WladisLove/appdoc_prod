@@ -201,7 +201,8 @@ class Step3 extends React.Component{
                 <Checkbox checked={this.state.checked}
                           style={{marginTop:"20px"}}
                           onChange={(e) => this.setState({checked: e.target.checked})}>
-                    {this.props.finalText}
+                          {this.props.finalText}
+                   
                 </Checkbox>
 
                 <div className="steps-action">

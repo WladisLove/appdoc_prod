@@ -69,6 +69,12 @@ const reducer = (state = initialState, action) => {
                 isRegistrationFinished: false,
                 isUserExist: false
             };
+        case actionTypes.GET_SELECTOR_TOOL_TIP:
+            return {
+                ...state,
+                selectorToolTip: action.selectorToolTip,
+            };
+            
         default: return state;
     }
 };

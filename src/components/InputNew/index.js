@@ -12,11 +12,11 @@ class InputNew extends AntInput{
         }
     }
 
-
+    
     render() {
         const inputClassName = ((this.inp && this.inp.input.value) || this.props.value ? "effect has-content" : "effect");
         const rootCl = "new-input input-effect" +" "+ this.props.className + " " +  'input-root ';
-        return (
+         return (
             <div className={rootCl}
                  style={{width:this.props.width ? this.props.width : null}}
             >
@@ -26,7 +26,7 @@ class InputNew extends AntInput{
                 />
                 <label>{this.props.bubbleplaceholder}</label>
 
-
+               
             </div>
         )
     }

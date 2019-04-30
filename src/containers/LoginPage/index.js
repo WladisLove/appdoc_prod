@@ -30,6 +30,7 @@ class LoginPage extends React.Component {
     componentDidMount(){
         this.props.onGetDoctorSpecialities();
         this.props.onGetAvailLangs();
+        this.props.onGetSelectorToolTip();
     }
 
 
@@ -115,6 +116,7 @@ class LoginPage extends React.Component {
                                                            onCheckEmailAvailability={this.props.onCheckEmailAvailability}
                                                            uploadFile = {this.props.uploadFile}
                                                            docSpecialities = {this.props.docSpecialities}
+                                                           selectorToolTip = {this.props.selectorToolTip}
                                />}
                         />
                         <Route path="/app/patient-registration"
@@ -151,7 +153,8 @@ const mapStateToProps = state => {
 	return {
         errorCode: state.auth.errorCode,
         docSpecialities: state.doctor.docSpecialities,
-        availLanguages: state.doctor.availLanguages
+        availLanguages: state.doctor.availLanguage,
+        selectorToolTip: state.auth.selectorToolTip
 	}
 };
 
@@ -163,6 +166,7 @@ const mapDispatchToProps = dispatch => {
         onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email)),
         onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
         onGetAvailLangs: () => dispatch(actions.getAvailLangs()),
+        onGetSelectorToolTip: () => dispatch(actions.getSelectorToolTip()),
         
         
         reportBug: (message, href) => dispatch(actions.reportBug(message, href)),

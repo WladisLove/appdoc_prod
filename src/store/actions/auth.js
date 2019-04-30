@@ -226,3 +226,26 @@ export const reportBug = (text, href) => {
             })
     }
 };
+
+
+export const getSelectorToolTip = () => {
+
+    return (dispatch, getState) => {
+        axios.post('/catalog.doc2/getSelector')
+            .then(rez => {
+                console.log('rez :', rez);
+                let fdata = [];
+                rez.data.result.forEach((el) => {
+                    el.hasOwnProperty('selector') && fdata.push(el['selector'].value)
+                })
+                debugger
+                dispatch({
+                    type: actionTypes.GET_SELECTOR_TOOL_TIP,
+                    selectorToolTip: fdata,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
