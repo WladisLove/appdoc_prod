@@ -23,6 +23,9 @@ export {
     searchUsers,
     addOrDeleteUserFromSearch,
     sendMessage,
+    getUserBalance,
+    getPaymentForm,
+    payBalance,
 } from './patients';
 
 export {
@@ -89,7 +92,9 @@ export {
     deleteAvatar,
     sendUserPoleValue,
     getUserInfoShort,
-    hasNoReviewToFreeApp
+    hasNoReviewToFreeApp,
+    saveGeolocation,
+    setUserLocation
 } from './patientData'
 
 export {
@@ -97,7 +102,7 @@ export {
     getDocShortInfo,
     setExIntervalInfo,
     switchExInterval,
-    getEmergencyAvailability
+    getEmergencyAvailability,
 } from './doctor'
 
 export {
@@ -107,7 +112,9 @@ export {
     readNotification,
     getAllDocIntervals,
     getDateWorkIntervalWithoutMakingAppAll,
-    uploadFile
+    uploadFile,
+    getDoctorSpecialities,
+    getAvailLangs,
 } from './doctorData'
 
 export {
@@ -126,5 +133,10 @@ export {
     setIsCallingStatus,
     setChatStory,
     setNewTimer,
+    getPatientLocation
 
 } from './chatWS'
+
+export {
+    getDoctorsCoordinates
+} from './geolocation'

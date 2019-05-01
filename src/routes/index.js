@@ -6,6 +6,8 @@ import PatientsPage from '../containers/PatientsPage'
 import PersonalInfo from '../containers/PersonalInfo'
 import Reviews from '../containers/Reviews'
 import MyDoctors from '../containers/MyDoctors'
+import Payment from '../containers/Payment'
+import GeoLocation from '../containers/GeoLocation'
 
 import Chat from '../containers/Chat'
 import DoctorPage from "../containers/DoctorPage";
@@ -51,6 +53,11 @@ export const docRoutes = [
         component: Reviews,
         exact: true,
     },
+    {
+        path: '/app/geolocation',
+        component: GeoLocation,
+        exact: true,
+    }
 ];
 
 export const patientRoutes = [
@@ -94,6 +101,16 @@ export const patientRoutes = [
         component: Reviews,
         exact: true,
     },
+    {
+        path: '/app/payment',
+        component: Payment,
+        exact: true,
+    },
+    {
+        path: '/app/geolocation',
+        component: GeoLocation,
+        exact: true,
+    },
 ];
 
 export const menuDoc =[
@@ -103,13 +120,16 @@ export const menuDoc =[
     {name: 'app/patients', title: 'menu.doctor.myPatients', iconType: 'user',},
     {name: 'app/personal-info', title: 'menu.personalData', iconType: 'setting_edit', svg: true},
     {name: 'app/reviews', title: 'menu.doctor.patientsReviews', iconType: 'chat', svg: true},
+    { name: 'app/payment', title: 'Оплата', iconType: 'payment', svg: true },
 ];
 
 export const menuPatient =[
-    {name: 'app', title: 'menu.dashboard', iconType: 'dashboard', svg: true},
+     {name: 'app', title: 'menu.dashboard', iconType: 'dashboard', svg: true},
     {name: 'app/calendar', title: 'menu.patient.calendar', iconType: 'calendar', svg: true},
     {name: 'app/treatment', title: 'menu.treatments', iconType: 'order-form', svg: true},
-    {name: 'app/doctors', title: 'menu.patient.myDoctors', iconType: 'user',},
-    {name: 'app/personal-info', title: 'menu.personalData', iconType: 'setting_edit', svg: true},
+     {name: 'app/doctors', title: 'menu.patient.myDoctors', iconType: 'user',},
+     {name: 'app/personal-info', title: 'menu.personalData', iconType: 'setting_edit', svg: true},
     {name: 'app/reviews', title: 'menu.patient.myReviews', iconType: 'chat', svg: true},
+    {name: 'app/payment', title: 'Оплата', iconType: 'payment', svg: true},
+    {name: 'app/geolocation', title: 'Геолокация', iconType: 'geolocation', svg: true},
 ];

@@ -8,7 +8,9 @@ let  profilePatient = {
     "sex": "",
     "active" :'1',
     "avatar" : null,
-    "chronic" : []
+    "chronic" : [],
+    "latitude" : null,
+    "longitude" : null
 };
 
 let userInfoShort = {
@@ -43,6 +45,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.userInfoShort
+            };
+        case actionTypes.SAVE_GEOLOCATION:
+            return {
+                ...state,
+                latitude: action.latitude,
+                longitude: action.longitude
             };
 
         default: return state;

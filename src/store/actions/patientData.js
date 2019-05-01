@@ -108,3 +108,28 @@ export const getUserInfoShort = (id) => {
             })
     }
 };
+
+export const saveGeolocation = (geo) => {
+    return {
+        type: actionTypes.SAVE_GEOLOCATION,
+        latitude: geo.latitude,
+        longitude: geo.longitude,
+    }
+}
+
+export const setUserLocation = (id, lng, lat) => {
+    return (dispatch) => {
+        const obj = { id, lng, lat };
+        axios.post('/catalog.doc2/changeCoordinates', JSON.stringify(obj))
+            .then(res => {
+                dispatch ({
+                    type: actionTypes.SET_USER_LOCATION,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+};
+

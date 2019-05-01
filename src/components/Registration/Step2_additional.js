@@ -15,8 +15,8 @@ const RadioGroup = Radio.Group;
 
 class Step2_additional extends React.Component {
 
-    render() {
-        const {getFieldDecorator, langs, payments} = this.props;
+    render(){
+        const {getFieldDecorator,langs, payments} = this.props;
 
         return (
             <Translate>

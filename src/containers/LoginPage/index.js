@@ -11,7 +11,6 @@ import { message } from 'antd';
 import LoginForget from "../../components/LoginForget/index.js";
 import Registration from "../../components/Registration/index.js";
 import RegistrationPatient from "../../components/RegistrationPatient/index.js";
-import langsArray from "../../helpers/langsArray"
 import addInfoObj from "../../helpers/addInfoObj"
 import {Translate} from "react-localize-redux";
 
@@ -29,6 +28,10 @@ class LoginPage extends React.Component {
         };
     }
 
+    componentDidMount(){
+        this.props.onGetDoctorSpecialities();
+        this.props.onGetAvailLangs();
+    }
 
 
     registerDoctor = (data) => {
@@ -58,7 +61,6 @@ class LoginPage extends React.Component {
     };
 
     render(){
-        const langs = langsArray;
         const payments = addInfoObj.payments;
         const academicTitle = addInfoObj.title ;
         const academicDegree = addInfoObj.degree ;
@@ -101,7 +103,7 @@ class LoginPage extends React.Component {
                         <Route path="/app/registration"
                                exact
                                render={() => <Registration onFinish={this.registerDoctor}
-                                                           langs={langs}
+                                                           langs={this.props.availLanguages}
                                                            payments={payments}
                                                            category = {category}
                                                            academicTitle = {academicTitle}
@@ -113,12 +115,13 @@ class LoginPage extends React.Component {
                                                            regInProgress = {this.state.regInProgress}
                                                            onCheckEmailAvailability={this.props.onCheckEmailAvailability}
                                                            uploadFile = {this.props.uploadFile}
+                                                           docSpecialities = {this.props.docSpecialities}
                                />}
                         />
                         <Route path="/app/patient-registration"
                                exact
                                render={() => <RegistrationPatient onFinish={this.registerPatient}
-                                                                  langs={langs}
+                                                                  langs={this.props.availLanguages}
                                                                   urlLogin = "/app/login"
                                                                   payments={payments}
                                                                   academicTitle={academicTitle}
@@ -148,6 +151,8 @@ class LoginPage extends React.Component {
 const mapStateToProps = state => {
 	return {
         errorCode: state.auth.errorCode,
+        docSpecialities: state.doctor.docSpecialities,
+        availLanguages: state.doctor.availLanguages
 	}
 };
 
@@ -157,6 +162,10 @@ const mapDispatchToProps = dispatch => {
         onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
         onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo)),
         onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email)),
+        onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
+        onGetAvailLangs: () => dispatch(actions.getAvailLangs()),
+        
+        
         reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
         uploadFile: (file) => dispatch(actions.uploadFile(file))
 	}

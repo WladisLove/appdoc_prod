@@ -308,6 +308,7 @@
 }
 .check-title {
   max-width: 200px;
+  line-height: 34px;
   width: 100%;
   color: #777;
 }

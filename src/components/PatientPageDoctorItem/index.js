@@ -30,6 +30,25 @@ const PatientPageDoctorItem = props => {
         }
 
     };
+
+    const showLanguageOptions = (doctorLanguages) => {
+        let data = []
+        doctorLanguages.map((item, index) => {
+            if(item instanceof Object && (item.hasOwnProperty('language') || item.hasOwnProperty('title'))){
+                data.push(<div className='page__doctor-item-language-li'>
+                            {item.title ? item.title : item.language}
+                        </div>)
+            }        
+            else{
+                data.push(<div className='page__doctor-item-language-li'>
+                    {!Number.isInteger(item) }
+                </div>)   
+            }  
+        })
+        
+        return data;
+    }
+
     return (
             <div className='page__doctor-item'>
                 <div className='page__doctor-item-block'>
@@ -78,8 +97,13 @@ const PatientPageDoctorItem = props => {
                     </div>
                     {doctorLanguages &&
                         <div className='page__doctor-item-language'>
-                            <div className='page__doctor-item-language-title'><Translate id="languagesKnowledge" /></div>
-                            {doctorLanguages.map((item, index)=> <div className='page__doctor-item-language-li' key={index+1}>{item}</div>)}
+
+                             <div className='page__doctor-item-language-title'>
+                                <Translate id="languagesKnowledge" />
+                            </div>
+                            {
+                                showLanguageOptions(doctorLanguages)
+                            }
                         </div>
                     }
                     <div className='page__doctor-item-child'>

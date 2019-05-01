@@ -22,6 +22,10 @@ class MainPage extends React.Component{
 
 	}
 
+	componentDidMount(){
+		this.props.onGetDoctorSpecialities();
+        this.props.onGetAvailLangs();
+	}
 	componentWillMount(){
 		if (this.props.mode === "user") {
 			this.props.onGetPatientDoctors(2);
@@ -74,7 +78,7 @@ class MainPage extends React.Component{
 			|| this.state.addModal !== nextState.addModal
 			|| this.props.patients.length !== nextProps.patients.length;
 	}*/
-
+	
     render(){
         return (this.props.mode === "user") ? (
 			<PatientPage
@@ -93,7 +97,8 @@ class MainPage extends React.Component{
 				getCompletedApps = {this.props.onGetCompletedApp}
                 onSubmitReview={this.props.makeReview}
                 makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
-                cancelAppByPatient = {this.props.cancelAppByPatient}
+				cancelAppByPatient = {this.props.cancelAppByPatient}
+				onSaveGeolocation = {this.props.onSaveGeolocation}
             />
 		) : (
 			<DoctorPage
@@ -154,6 +159,9 @@ const mapDispatchToProps = dispatch => {
 		onGetAllDocIntervals: (id) => dispatch(actions.getAllDocIntervals(id)),
 		onSendUserPoleValue: (pole, value) => dispatch(actions.sendUserPoleValue(pole, value)),
 		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort()),
+		onSaveGeolocation: (geo) => dispatch(actions.saveGeolocation(geo)),
+		onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
+        onGetAvailLangs: () => dispatch(actions.getAvailLangs()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file)),
         makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),

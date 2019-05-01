@@ -48,7 +48,7 @@ class PatientsPage extends React.Component{
 
         if (this.props.profileDoctor.works) {
             this.props.profileDoctor.educationsgroup1.forEach((item, i, arr) => {
-                specialityStr += item.speciality.join(", ");
+                specialityStr += item.speciality.map((el) => el.title).join(", ");
                 if (i < arr.length - 1) specialityStr += ", ";
             });
         }
@@ -86,11 +86,12 @@ class PatientsPage extends React.Component{
     getDoctorExperienceArr = () => {
         let experienceArr = [];
 
+        
         if (this.props.profileDoctor.educationsgroup1) {
             this.props.profileDoctor.educationsgroup1.map((item) => {
                 experienceArr.push({
                     experience: (item.education
-                        + ", специальность - " + item.speciality
+                        + ", специальность - " + item.speciality.map((el) => el.title)
                         + ", " + item.finishucationyear + " г.")
                 });
             });
@@ -122,6 +123,7 @@ class PatientsPage extends React.Component{
         if(this.state.loading) {
             return <Spinner size="large"/>
         }
+        
         if(!this.props.profileDoctor.fio) {
             return(
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>

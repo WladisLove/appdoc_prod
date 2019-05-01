@@ -32,9 +32,9 @@ class Header extends React.Component {
     };
 
 render() {
-    const {notifications, isUser} = this.props;
+    const {notifications, isUser, userBalance} = this.props;
         return (
-            <Translate>
+             <Translate>
                 {({ translate }) =>
                     (<div className={'header'}>
                         <div className='header-search'>
@@ -50,6 +50,7 @@ render() {
                         <div className='header-call'>
                             {isUser ?
                                 <Hoc>
+                                    <div className='wrapper-paymet-score'>Текущий счет: {userBalance ? userBalance : '0.00'}</div> 
                                     <Button btnText={translate('emergencyCall')}
                                         size='small'
                                         type='emergensy'
@@ -68,12 +69,13 @@ render() {
                                                 chooseTypeVisitVisible: false,
                                                 isNewFreeVisit: true
                                             })}
+                                     
 
                                         }
                                     />
-                                    <NewFreeVisitByPatient
+                                     <NewFreeVisitByPatient
                                         visible = {this.state.isNewFreeVisit}
-                                        docTypes = {specs}
+                                        docTypes = {this.props.docSpecialities}
                                         onCancel = {() => this.setState({isNewFreeVisit: false})}
                                         onSubmit = {this.props.onMakeVisit}
                                         getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
@@ -131,6 +133,7 @@ Header.propTypes = {
     notifications: PropTypes.array,
     logout: PropTypes.func,
     isUser: PropTypes.bool,
+    docSpecialities: PropTypes.array
 
 };
 

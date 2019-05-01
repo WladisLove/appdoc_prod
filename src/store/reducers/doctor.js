@@ -7,7 +7,9 @@ const initialState = {
     },
     isEx: false,
     isUserSetEx: false,
-    emergencyAvailable: false
+    emergencyAvailable: false,
+    docSpecialities: [],
+    availLanguages: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -38,6 +40,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 emergencyAvailable: action.availability
+            }
+        
+        case actionTypes.GET_DOCTOR_SPECIALITIES_DOCTORDATA:
+            return {
+                ...state,
+                docSpecialities: action.docSpecialities
+            }
+
+        case actionTypes.GET_AVAIL_LANGUAGES_DOCTORDATA:
+            return {
+                ...state,
+                availLanguages: action.availLanguages
             }
             
         default: return state;

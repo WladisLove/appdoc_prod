@@ -65,7 +65,9 @@ class Chat extends React.Component{
             uploadConclusion: this.props.uploadConclusion,
             getAllFilesTreatment: this.props.getAllFilesTreatment,
             treatmFiles: this.props.treatmFiles,
-            appShouldStartAt: this.props.visitInfo.date
+            appShouldStartAt: this.props.visitInfo.date,
+            getPatientLocation: this.props.getPatientLocation,
+            patientLocation: this.props.patientLocation
         }
 
         return (
@@ -133,6 +135,7 @@ const mapStateToProps = state =>{
         receptionStarts: state.chatWS.receptionStarts,
         isCalling: state.chatWS.isCalling,
         timer: state.chatWS.timer,
+        patientLocation: state.chatWS.patientLocation,
     }
 }
 
@@ -154,6 +157,7 @@ const mapDispatchToProps = dispatch => {
         setReceptionStatus: (isStart) => dispatch(actions.setReceptionStatus(isStart)),
         setChatToId: (id) => dispatch(actions.setChatToId(id)),
         clearCallback: () => dispatch(actions.clearCallback()),
+        getPatientLocation: (id) => dispatch(actions.getPatientLocation(id))
 	}
 };
 

@@ -125,11 +125,18 @@ class Step3 extends React.Component{
             isFreeConsult = data['isFreeConsult'];
         return (<Hoc>
             {langs &&
-            <div className='check-row'>rea
+            <div className='check-row'>
                 <div className='check-title'><Translate id={"auth.langSkills"}/>:</div>
-                <div className='check-text'>{langs.map(el => {
-                    return (<div key={el}>{el} </div>)
-                })}</div>
+                <div className='check-text'>
+                {
+                    langs.map((item, index) => {
+                        if(item instanceof Object && item.hasOwnProperty('title')){
+                            return (<div value={item.id} key={item.id}> {item.title} </div>)
+                        }          
+                        return (<div key={index+1}>{item}</div>)          
+                    })
+                }
+                </div>
             </div>}
             {isChildConsult &&
                 this.renderYesNoItem(<Translate id={"auth.langSkills"}/>, isChildConsult)}
@@ -153,6 +160,7 @@ class Step3 extends React.Component{
             }
 
         }
+        
         this.props.onFinish(data);
     };
 

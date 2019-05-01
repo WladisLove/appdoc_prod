@@ -24,6 +24,7 @@
     "react-dom": "^16.4.2",
     "react-dropzone": "^5.1.0",
     "react-localize-redux": "^3.5.1",
+    "react-geolocated": "^2.4.1",
     "react-perfect-scrollbar": "^1.2.1",
     "react-prop-types": "^0.4.0",
     "react-redux": "^5.0.6",

@@ -76,7 +76,17 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isLoadingPatientDoctors: true,
             }
-
+        case actionTypes.GET_USER_BALANCE:
+            return {
+                ...state,
+                userBalance: action.userBalance,
+            }
+        case actionTypes.GET_PAYMENT_FORM:
+            return {
+                ...state,
+                formPayment: action.formPayment,
+            }    
+            
         default: return state;
     }
 }

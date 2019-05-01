@@ -2,193 +2,237 @@
 /* COLORS */
 /* VAR */
 .entry-list {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 1.25rem;
-  color: #eee;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.25rem;
+    color: #eee;
 }
+
 :global(.ant-menu-item) {
-  padding: 0 !important;
-  display: flex;
-  overflow: visible !important;
-  height: 62px !important;
-  margin: 5px 0 !important;
+    padding: 0 !important;
+    display: flex;
+    overflow: visible !important;
+    height: 52px !important;
+    margin: 5px 0 !important;
 }
-:global(.ant-menu-item) > a {
-  margin: auto 0 auto 66px;
+
+:global(.ant-menu-item)>a {
+    margin: auto 0 auto 66px;
 }
+
 .ant-menu-item-selected {
-  background-color: transparent !important;
+    background-color: transparent !important;
 }
+
 .ant-menu-inline .ant-menu-item:last-child .selectedNavLink {
-  padding: 0 25px;
+    padding: 0 25px;
 }
+
 .ant-menu-inline .ant-menu-item:after {
-  border: none;
+    border: none;
 }
+
 .sidenav-root {
-  width: 340px;
-  position: absolute;
-  height: 100%;
-  border-right: 1px solid #e8e8e8;
-  transition: 0.2s linear;
-  min-height: 840px;
+    width: 340px;
+    position: absolute;
+    height: 100%;
+    border-right: 1px solid #e8e8e8;
+    transition: 0.2s linear;
+    min-height: 840px;
 }
+
 .sidenav-root * {
-  transition: 0.2s linear;
+    transition: 0.2s linear;
 }
+
 .sidenav-root .doctorProfileCard-specialty {
-  margin-bottom: 25px;
+    margin-bottom: 25px;
 }
+
 .sidenav-root .logo {
-  position: relative;
-  width: 100%;
-  height: 100px;
-  padding: 24px 0;
-  border-bottom: 1px solid #e8e8e8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100px;
+    padding: 24px 0;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .sidenav-root .logo-img {
-  display: block;
-  background-image: url('../../img/logo.svg');
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 45px;
-  width: 210px;
+    display: block;
+    background-image: url('../../img/logo.svg');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 45px;
+    width: 210px;
 }
+
 .sidenav-root .logo-img:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 .sidenav-root-short {
-  width: 170px;
+    width: 170px;
 }
+
 .sidenav-root-short .logo-img {
-  background-image: url('../../img/logo-small.svg');
-  height: 51px;
-  width: 66px;
+    background-image: url('../../img/logo-small.svg');
+    height: 51px;
+    width: 66px;
 }
+
 .sidenav-root-short .logo-img:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 .sidenav-root-short a {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 55px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 60px;
 }
+
 .sidenav-root-short a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
+
 .sidenav-root-short a:before {
-  display: none;
+    display: none;
 }
+
 .sidenav-root-short a:active:before {
-  display: none;
+    display: none;
 }
+
 .sidenav-root .ant-menu-inline {
-  border-right: none;
+    border-right: none;
 }
+
 .sidenav-root-menu a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
+
 .sidenav-root-menu a:hover .item-title {
-  color: #0495ff;
+    color: #0495ff;
 }
+
 .sidenav-root-menu a:hover .icon,
 .sidenav-root-menu a:hover .anticon {
-  color: #0495ff;
+    color: #0495ff;
 }
+
 .sidenav-root-menu a:before {
-  display: none;
+    display: none;
 }
+
 .sidenav-root-menu a:active:before {
-  display: none;
+    display: none;
 }
+
 .sidenav-root-menu .selectedNavLink {
-  display: flex !important;
-  background-color: #0495ff;
-  box-shadow: 5px 5px 27px rgba(4, 149, 255, 0.44);
-  height: 60px;
-  border-radius: 31.5px;
-  padding: 0 35px;
-  width: auto;
+    display: flex !important;
+    background-color: #0495ff;
+    box-shadow: 5px 5px 27px rgba(4, 149, 255, 0.44);
+    height: 50px;
+    border-radius: 31.5px;
+    padding: 0 35px;
+    width: auto;
 }
+
 .sidenav-root-menu .selectedNavLink:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
+
 .sidenav-root-menu .selectedNavLink:hover .item-title {
-  color: #fff;
+    color: #fff;
 }
+
 .sidenav-root-menu .selectedNavLink:hover .icon {
-  color: #fff;
+    color: #fff;
 }
+
 .sidenav-root-menu .selectedNavLink:hover .anticon {
-  color: #fff;
-  margin: auto 20px auto 0;
+    color: #fff;
+    margin: auto 20px auto 0;
 }
+
 .sidenav-root-menu .selectedNavLink .icon,
 .sidenav-root-menu .selectedNavLink .anticon {
-  color: #fff;
+    color: #fff;
 }
+
 .sidenav-root-menu .selectedNavLink .item-title {
-  color: #fff;
+    color: #fff;
 }
+
 .sidenav-root-menu-item {
-  font-size: 16px;
-  font-family: 'GothamPro-Medium';
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    font-size: 16px;
+    font-family: 'GothamPro-Medium';
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.sidenav-root-menu-item > .anticon {
-  margin: auto 20px auto 0;
+
+.sidenav-root-menu-item>.anticon {
+    margin: auto 20px auto 0;
 }
-.sidenav-root-menu-item > .icon {
-  margin: auto 20px auto 0;
+
+.sidenav-root-menu-item>.icon {
+    margin: auto 20px auto 0;
 }
+
 .sidenav-root-menu-short .selectedNavLink {
-  display: flex !important;
-  background-color: #0495ff;
-  box-shadow: 5px 5px 27px rgba(4, 149, 255, 0.44);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+    display: flex !important;
+    background-color: #0495ff;
+    box-shadow: 5px 5px 27px rgba(4, 149, 255, 0.44);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
-.sidenav-root-menu-short .selectedNavLink > .sidenav-root-menu-item {
-  margin: auto !important;
+
+.sidenav-root-menu-short .selectedNavLink>.sidenav-root-menu-item {
+    margin: auto !important;
 }
+
 .sidenav-root-menu-short .selectedNavLink .icon,
 .sidenav-root-menu-short .selectedNavLink .anticon {
-  color: #fff;
+    color: #fff;
 }
+
 .sidenav-root-menu-short .selectedNavLink .item-title {
-  color: #fff;
+    color: #fff;
 }
+
 .sidenav-root-menu-short .sidenav-root-menu-item {
-  display: flex;
-  font-size: 16px;
-  font-family: 'GothamPro-Medium';
+    display: flex;
+    font-size: 16px;
+    font-family: 'GothamPro-Medium';
 }
-.sidenav-root-menu-short .sidenav-root-menu-item > .item-title {
-  display: none;
+
+.sidenav-root-menu-short .sidenav-root-menu-item>.item-title {
+    display: none;
 }
-.sidenav-root-menu-short .sidenav-root-menu-item > .icon {
-  margin: auto;
+
+.sidenav-root-menu-short .sidenav-root-menu-item>.icon {
+    margin: auto;
 }
-.sidenav-root-menu-short .sidenav-root-menu-item > .anticon {
-  margin: auto;
+
+.sidenav-root-menu-short .sidenav-root-menu-item>.anticon {
+    margin: auto;
 }
+
 .site-link {
-  margin: 40px 0 0 60px;
+    margin: 40px 0 0 60px;
 }
+
 .scrollableSideNav {
-  height: calc(100vh - 100px) !important;
+    height: calc(100vh - 100px) !important;
 }

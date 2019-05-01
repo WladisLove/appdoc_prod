@@ -31,6 +31,12 @@ let  profileDoctor = {
     "docIntervalsWithAppsAll": []
 };
 
+let specialAndLanguage = {
+    specs: [],
+    langs: []
+
+}
+
 const initialState = profileDoctor;
 
 const reducer = (state = initialState, action) => {
@@ -40,6 +46,34 @@ const reducer = (state = initialState, action) => {
                 ...state
             };
         case actionTypes.INFO_DOCTOR:
+            let language = [];
+
+            console.log('specialAndLanguage', specialAndLanguage)
+            if(specialAndLanguage.langs.length){
+                    specialAndLanguage.langs.forEach((el) => {
+                        
+                         action.profileDoctor.language.includes(el.id) ? language.push(el) : null
+                    })
+                    action.profileDoctor.language = language;
+
+            }
+            
+            if(specialAndLanguage.specs.length){
+                specialAndLanguage.specs.forEach((el) => {
+                       
+                        action.profileDoctor.educationsgroup1.forEach((elem, index) => {
+
+                                if(elem.speciality.length){
+                                    elem.speciality.forEach((element, i) => {   
+                                       
+                                        (el.id == element || el.title == element) ? action.profileDoctor.educationsgroup1[index].speciality[i] = el : null
+                                    })
+                                }
+                                
+                        })
+                     })
+            }
+
             return {
                 ...state,
                 ...action.profileDoctor
@@ -54,7 +88,43 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 docIntervalsWithAppsAll: action.intervals
             };
+        case actionTypes.GET_DOCTOR_SPECIALITIES:
+            specialAndLanguage.specs = [...action.docSpecialities]
+            console.log('2specialAndLanguage', specialAndLanguage)
+            if(specialAndLanguage.specs.length && state.educationsgroup1.length){
+                specialAndLanguage.specs.forEach((el) => {
+                        state.educationsgroup1.forEach((elem, index) => {
 
+                            if(elem.speciality.length){
+                                elem.speciality.forEach((element, i) => {                  
+                                        (el.id == element || el.title == element) ? state.educationsgroup1[index].speciality[i] = el : null
+                                })
+                            }
+                            
+                        })
+                     })
+            }
+            return {
+                ...state
+            };
+
+        case actionTypes.GET_AVAIL_LANGUAGES:
+
+            let languageB = [];
+            specialAndLanguage.langs = [...action.availLanguages];
+
+            if(specialAndLanguage.langs.length){
+                specialAndLanguage.langs.forEach((el) => {        
+                        
+                        state.language.includes(el.id) ? languageB.push(el) : null
+                })
+            }
+            
+            return {
+                ...state,
+                language: languageB
+            };
+            
         default: return state;
     }
 };

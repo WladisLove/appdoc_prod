@@ -1,0 +1,62 @@
+/* fonts */
+/* COLORS */
+/* VAR */
+.entry-list {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.25rem;
+  color: #eee;
+}
+.payment-form {
+  max-width: 770px;
+  width: 100%;
+  padding: 35px 40px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  /* Параметры тени */
+  background-color: #ffffff;
+}
+.payment-form .ant-form-item {
+  position: relative;
+  margin-bottom: 35px;
+}
+.payment-form .ant-form-item .ant-form-explain {
+  position: absolute;
+  top: 45px;
+}
+.payment-form-item .ant-input-group-addon:first-child {
+  text-align: left;
+}
+.payment-form-navlink {
+  color: #0495ff;
+  font-size: 14px;
+  line-height: 1;
+}
+.payment-form-navlink:hover {
+  color: #0495ff;
+}
+.payment-form-control {
+  text-align: center;
+}
+.payment-form-control button {
+  margin: 30px 0;
+}
+.payment-title {
+  font-family: 'GothamPro-Bold';
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.88px;
+  color: #333;
+  margin-bottom: 40px;
+}
+.payment-notification {
+  font-family: 'GothamPro-Light';
+  font-size: 12px;
+  line-height: 1;
+  color: #333;
+  margin-bottom: 50px;
+}

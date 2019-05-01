@@ -23,6 +23,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 .icon-remove:before {
   content: "\e900";
 }
@@ -208,4 +209,13 @@
 }
 .icon-toy_kids:before {
   content: "\e93d";
+}
+
+.icon-payment:before {
+  content: "\e93e";
+  
+}
+
+.icon-geolocation:before {
+  content: "\e948";
 }

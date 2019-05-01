@@ -1,0 +1,20 @@
+.doctors-list-item {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+
+    padding: 10px;
+}
+
+.doctors-list-item:not(:first-child) {
+    margin-top: 15px;
+}
+
+.doctors-list-item-avatar {
+    width: 30%;
+    height: 100px;
+}
+
+.doctors-list-item-info {
+    width: 60%;
+}

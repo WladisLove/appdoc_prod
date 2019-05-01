@@ -41,6 +41,7 @@ class RegistrationForm extends React.Component{
                                        langs = {this.props.langs}
                                        payments = {this.props.payments}
                                        uploadFile={this.props.uploadFile}
+                                       docSpecialities={this.props.docSpecialities}
             /> ,
         },
             {
@@ -91,7 +92,8 @@ RegistrationForm.propTypes = {
     urlForget: PropTypes.string,
     urlRegistration: PropTypes.string,
     onFinish: PropTypes.func,
-    onCheckEmailAvailability: PropTypes.func
+    onCheckEmailAvailability: PropTypes.func,
+    docSpecialities: PropTypes.array
 };
 
 RegistrationForm.defaultProps = {

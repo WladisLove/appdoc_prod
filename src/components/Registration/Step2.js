@@ -38,7 +38,7 @@ class Step2_From extends React.Component{
     };
 
     handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault();   
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 let toSubmit = {
@@ -95,6 +95,7 @@ class Step2_From extends React.Component{
                                   form = {this.props.form}
                                   fileToState={this.fileToState}
                                   uploadFile={this.props.uploadFile}
+                                  docSpecialities={this.props.docSpecialities}
                                   number={0}/>,];
         while (i < num){
             formArr.push(<Hr key={'hr_' + name + i}/>);
@@ -104,6 +105,7 @@ class Step2_From extends React.Component{
                                     key={name + i}
                                     fileToState={this.fileToState}
                                     uploadFile={this.props.uploadFile}
+                                    docSpecialities={this.props.docSpecialities}
                                     number={i}/>);
             i++;
         }
@@ -127,208 +129,207 @@ class Step2_From extends React.Component{
         const {academicDegree, academicTitle, category, langs, payments} = this.props;
 
         return (
-            <Translate>
-                {({translate}) =>
-                    (
-                        <Form onSubmit={this.handleSubmit} className="step-form">
-                            <div className="step-posttitle">{translate("auth.inputEduAndWorkInfo")}</div>
-                            <div className="step-notification">{translate("auth.eduWish")}</div>
-                            <div className="step-notification">{translate("auth.requiredFields")}</div>
+<Translate>
+    {({translate}) =>
+        (
+  <Form onSubmit={this.handleSubmit} className="step-form">
+                 <div className="step-posttitle">{translate("auth.inputEduAndWorkInfo")}</div>
+                <div className="step-notification">{translate("auth.eduWish")}</div>
+                <div className="step-notification">{translate("auth.requiredFields")}</div>
 
-                            <div className="step-block-title">{translate("auth.eduInfo")}</div>
-                            {this.addFormElem(Step2_educ, this.state.educNum, getFieldDecorator)}
-                            <div>
-                                <Button onClick={e => this.increaseStateNum(e, 'educNum')}
-                                        className="personal-btn"
-                                        btnText={translate("button.title.add")}
-                                        size='small'
-                                        type='no-brd'
-                                        icon='plus'
-                                        iconSize={11}
-                                        svg
-                                        style={{marginRight: "10px"}}
-                                />
-                                {this.state.educNum > 1 && <Button onClick={e => this.decreaseStateNum(e, 'educNum')}
-                                                                   className="personal-btn"
-                                                                   btnText={translate("button.title.delete")}
-                                                                   size='small'
-                                                                   type='no-brd'
-                                                                   icon='remove'
-                                                                   iconSize={11}
-                                                                   svg
-                                />}
-                            </div>
+                <div className="step-block-title">{translate("auth.eduInfo")}</div>
+                {this.addFormElem(Step2_educ, this.state.educNum, getFieldDecorator)}
+                <div>
+                    <Button onClick={e => this.increaseStateNum(e, 'educNum')}
+                        className="personal-btn"
+                        btnText={translate("button.title.add")}
+                        size='small'
+                        type='no-brd'
+                        icon='plus'
+                        iconSize={11}
+                        svg
+                        style={{marginRight:"10px"}}
+                    />
+                    {this.state.educNum>1 && <Button onClick={e => this.decreaseStateNum(e, 'educNum')}
+                        className="personal-btn"
+                        btnText={translate("button.title.delete")}
+                        size='small'
+                        type='no-brd'
+                        icon='remove'
+                        iconSize={11}
+                        svg
+                    />}
+                </div>
 
-                            <div className="step-block-title">{translate("auth.postgraduateEdu")}</div>
-                            {this.addFormElem(Step2_graduate_educ, this.state.gradEducNum, getFieldDecorator)}
-                            <div>
-                                <Button onClick={e => this.increaseStateNum(e, 'gradEducNum')}
-                                        className="personal-btn"
-                                        btnText={translate("button.title.add")}
-                                        size='small'
-                                        type='no-brd'
-                                        icon='plus'
-                                        iconSize={11}
-                                        svg
-                                        style={{marginRight: "10px"}}
-                                />
-                                {this.state.gradEducNum > 1 &&
-                                <Button onClick={e => this.decreaseStateNum(e, 'gradEducNum')}
-                                        className="personal-btn"
-                                        btnText={translate("button.title.delete")}
-                                        size='small'
-                                        type='no-brd'
-                                        icon='remove'
-                                        iconSize={11}
-                                        svg
-                                />}
-                            </div>
+                <div className="step-block-title">{translate("auth.postgraduateEdu")}</div>
+                {this.addFormElem(Step2_graduate_educ, this.state.gradEducNum, getFieldDecorator)}
+                <div>
+                    <Button onClick={e => this.increaseStateNum(e, 'gradEducNum')}
+                            className="personal-btn"
+                            btnText={translate("button.title.add")}
+                            size='small'
+                            type='no-brd'
+                            icon='plus'
+                            iconSize={11}
+                            svg
+                            style={{marginRight:"10px"}}
+                    />
+                    {this.state.gradEducNum >1 && <Button onClick={e => this.decreaseStateNum(e, 'gradEducNum')}
+                            className="personal-btn"
+                            btnText={translate("button.title.delete")}
+                            size='small'
+                            type='no-brd'
+                            icon='remove'
+                            iconSize={11}
+                            svg
+                    />}
+                </div>
 
-                            <Hr/>
-                            <FormItem>
-                                {getFieldDecorator('academicdegree')(
-                                    <SelectNew width="100%"
-                                               bubbleplaceholder={translate("auth.academicDegree")}
-                                               className="step-form-item"
-                                               data={academicDegree}
-                                               onChange={(e) => this.selectChangeHandler(e, "degree")}
-                                    />
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator('academicdegreedoc', {
-                                    rules: [{
-                                        required: this.state.isDegree,
-                                        message: translate("auth.errors.uploadConfirmingDoc")
-                                    }],
-                                })(
-                                    <DropZoneUpload
-                                        uploadFile={this.props.uploadFile}
-                                        text={translate("auth.addDegreeDocument")}
-                                    />
-                                )}
-                            </FormItem>
+                <Hr/>
+                <FormItem>
+                    {getFieldDecorator('academicdegree')(
 
-                            <FormItem>
-                                {getFieldDecorator('academicstatus')(
-                                    <SelectNew width="100%"
-                                               bubbleplaceholder={translate("auth.academicTitle")}
-                                               className="step-form-item"
-                                               data={academicTitle}
-                                               onChange={(e) => this.selectChangeHandler(e, "status")}
-                                    />
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator('academicstatusdoc', {
-                                    rules: [{
-                                        required: this.state.isStatus,
-                                        message: translate("auth.errors.uploadConfirmingDoc")
-                                    }]
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder={translate("auth.academicDegree")}
+                                   className="step-form-item"
+                                   data={academicDegree}
+                                   onChange={(e)=>this.selectChangeHandler(e,"degree")}
+                        />
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('academicdegreedoc', {
+                        rules: [{
+                            required: this.state.isDegree,
+                            message: translate("auth.errors.uploadConfirmingDoc")
+                        }],
+                    })(
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text={translate("auth.addDegreeDocument")}
+                        />
+                    )}
+                </FormItem>
 
-                                })(
-                                    <DropZoneUpload
-                                        uploadFile={this.props.uploadFile}
-                                        text={translate("auth.addTitleDocument")}
-                                    />
-                                )}
-                            </FormItem>
+                <FormItem>
+                    {getFieldDecorator('academicstatus')(
+                        <SelectNew width ="100%"
+                        bubbleplaceholder={translate("auth.academicTitle")}
+                        className="step-form-item"
+                        data={academicTitle}
+                        onChange={(e)=>this.selectChangeHandler(e,"status")}
+                        />
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('academicstatusdoc', {
+                        rules: [{
+                            required: this.state.isStatus,
+                            message: translate("auth.errors.uploadConfirmingDoc")
+                        }]
 
-
-                            <div className="step-block-title">{translate("auth.workInfo")}</div>
-                            {this.addFormElem(Step2_work, this.state.placesNum, getFieldDecorator)}
-
-                            <div>
-                                <Button onClick={e => this.increaseStateNum(e, 'placesNum')}
-                                        className="personal-btn"
-                                        btnText={translate("button.title.add")}
-                                        size='small'
-                                        type='no-brd'
-                                        icon='plus'
-                                        iconSize={11}
-                                        svg
-                                        style={{marginRight: "10px"}}
-                                />
-                                {this.state.placesNum > 1 &&
-                                <Button onClick={e => this.decreaseStateNum(e, 'placesNum')}
-                                        className="personal-btn"
-                                        btnText={translate("button.title.delete")}
-                                        size='small'
-                                        type='no-brd'
-                                        icon='remove'
-                                        iconSize={11}
-                                        svg
-                                />}
-                            </div>
-
-                            <Hr/>
-
-                            <FormItem>
-
-                                {getFieldDecorator('category', {
-                                    rules: [{
-                                        required: true,
-                                        message: translate("auth.errors.inputCategory")
-                                    }],
-                                })(
-                                    <SelectNew width="100%"
-                                               bubbleplaceholder={`* ${translate("auth.category")}`}
-                                               className="step-form-item"
-                                               data={category}
-                                               onChange={(e) => this.selectChangeHandler(e, "category")}
-                                    />
-                                )}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator('categorydoc', {
-                                    rules: [{
-                                        required: this.state.isCategory,
-                                        message: translate("auth.errors.uploadConfirmingDoc")
-                                    }],
-                                })(
-                                    <DropZoneUpload
-                                        uploadFile={this.props.uploadFile}
-                                        text={translate("auth.addCategoryDocument")}
-                                    />
-                                )}
-                            </FormItem>
-                            <Hr/>
-                            <FormItem>
-
-                                {getFieldDecorator('experience', {
-                                    rules: [{
-                                        required: true,
-                                        message: translate("auth.errors.inputWorkExperience")
-                                    }],
-                                })(
-                                    <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.workExperience")}`}
-                                              className="step-form-item"/>
-                                )}
-                            </FormItem>
+                    })(
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text={translate("auth.addTitleDocument")}
+                        />
+                    )}
+                </FormItem>
 
 
-                            <div className="step-block-title">{translate("auth.additionalInfo")}</div>
-                            <Step2_additional getFieldDecorator={getFieldDecorator}
-                                              langs={langs}
-                                              payments={payments}/>
+                <div className="step-block-title">{translate("auth.workInfo")}</div>
+                {this.addFormElem(Step2_work, this.state.placesNum, getFieldDecorator)}
 
-                            <div className="steps-action">
-                                <Button onClick={this.handleGoBack}
-                                        btnText={translate("button.title.back")}
-                                        size='large'
-                                        type='float'
-                                        style={{marginRight: "20px"}}
-                                />
-                                <Button htmlType="submit"
-                                        btnText={translate("button.title.next")}
-                                        size='large'
-                                        type='gradient'
-                                />
-                            </div>
-                        </Form>
-                    )
-                }
-            </Translate>
+                <div>
+                    <Button onClick={e => this.increaseStateNum(e, 'placesNum')}
+                            className="personal-btn"
+                            btnText={translate("button.title.add")}
+                            size='small'
+                            type='no-brd'
+                            icon='plus'
+                            iconSize={11}
+                            svg
+                            style={{marginRight:"10px"}}
+                    />
+                    {this.state.placesNum > 1 && <Button onClick={e => this.decreaseStateNum(e, 'placesNum')}
+                            className="personal-btn"
+                            btnText={translate("button.title.delete")}
+                            size='small'
+                            type='no-brd'
+                            icon='remove'
+                            iconSize={11}
+                            svg
+                    />}
+                </div>
+
+                <Hr/>
+
+                <FormItem>
+
+                    {getFieldDecorator('category', {
+                        rules: [{
+                            required: true,
+                            message: translate("auth.errors.inputCategory")
+                        }],
+                    })(
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder={`* ${translate("auth.category")}`}
+                                   className="step-form-item"
+                                   data={category}
+                                   onChange={(e)=>this.selectChangeHandler(e,"category")}
+                        />
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('categorydoc', {
+                        rules: [{
+                            required: this.state.isCategory,
+                            message: translate("auth.errors.uploadConfirmingDoc")
+                        }],
+                    })(
+                        <DropZoneUpload
+                            uploadFile = {this.props.uploadFile}
+                            text={translate("auth.addCategoryDocument")}
+                        />
+                    )}
+                </FormItem>
+                <Hr/>
+                <FormItem>
+
+                    {getFieldDecorator('experience', {
+                        rules: [{
+                            required: true,
+                            message: translate("auth.errors.inputWorkExperience")
+                        }],
+                    })(
+                        <InputNew width ="100%" bubbleplaceholder={`* ${translate("auth.workExperience")}`} className="step-form-item"/>
+
+                    )}
+                </FormItem>
+
+
+                <div className="step-block-title">{translate("auth.additionalInfo")}</div>
+                <Step2_additional getFieldDecorator={getFieldDecorator}
+                                  langs={langs}
+                                  payments={payments}/>
+
+                <div className="steps-action">
+                    <Button onClick={this.handleGoBack}
+                            btnText={translate("button.title.back")}
+                            size='large'
+                            type='float'
+                            style = {{marginRight: "20px"}}
+                    />
+                    <Button htmlType="submit"
+                            btnText={translate("button.title.next")}
+                            size='large'
+                            type='gradient'
+                    />
+                </div>
+            </Form>
+            )
+        }
+    </Translate>
         )
     }
 }

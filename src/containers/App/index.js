@@ -18,6 +18,8 @@ import '../../styles/fonts.css';
 import ab from '../../autobahn.js'
 import Icon from "../../components/Icon";
 import ReviewsModal from "../../components/ReviewsModal";
+import { detect } from 'detect-browser';
+const browser = detect();
 
 const renderRoutes = ({ path, component, exact }) => (
     <Route key={path} exact={exact} path={path} component={component} />
@@ -106,7 +108,16 @@ class App extends React.Component {
             this.runNotificationsWS();
             this.runChatWS();
             this.props.getEmergencyAvailability();
+            this.props.onGetDoctorSpecialities();
+
             if(this.props.auth.mode === "user") {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.props.setUserLocation(this.props.id,position.coords.longitude, position.coords.latitude);
+                    });
+                } else {
+                    console.log('geolocation not available')
+                }
                 this.props.hasNoReviewToFreeApp().then(res=>{
                     if(res.result.length) {
                         this.setState({mustLeaveReview: true, infoForReview:{
@@ -130,6 +141,9 @@ class App extends React.Component {
         }, this.props.history);
 
         this.props.id && (this.props.getDocShortInfo());
+        this.props.id && (this.props.onGetUserBalance(this.props.id));
+
+       
     }
 
     makeReview = (obj) => {
@@ -216,6 +230,8 @@ class App extends React.Component {
                                 freeVisitsIntervals={this.props.freeVisitsIntervals ? this.props.freeVisitsIntervals : []}
                                 onMakeVisit={(obj) => this.props.onMakeVisit(obj)}
                                 emergencyAvailable={this.props.emergencyAvailable}
+                                docSpecialities = {this.props.docSpecialities}
+                                userBalance= {this.props.userBalance}
 
                         />
                     </div>
@@ -284,11 +300,13 @@ const mapStateToProps = state =>{
         id: state.auth.id,
         mode: state.auth.mode,
         shortDocInfo: state.doctor.shortInfo,
+        userBalance: state.patients.userBalance,
         usersHeaderSearch: state.patients.usersHeaderSearch,
         isIn: state.doctor.isEx,
         emergencyAvailable: state.doctor.emergencyAvailable,
         isUserSet: state.doctor.isUserSetEx,
         freeVisitsIntervals: state.schedules.freeVisitsIntervals,
+        docSpecialities: state.doctor.docSpecialities,
 
         isEmergRequsetConfirmed: state.loading.isConfirmed,
         emergVisitId: state.loading.visitId,
@@ -324,7 +342,9 @@ const mapDispatchToProps = dispatch => {
         onMakeVisit: (info)=> dispatch(actions.setReceptionByPatient(info)),
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
         getEmergencyAvailability: () => dispatch(actions.getEmergencyAvailability()),
-
+        onGetUserBalance: (id) => dispatch(actions.getUserBalance(id)),
+        onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
+        
         docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
         docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),
 
@@ -337,6 +357,7 @@ const mapDispatchToProps = dispatch => {
         setNewTimer: (timer) => dispatch(actions.setNewTimer(timer)),
         hasNoReviewToFreeApp: ()=>dispatch(actions.hasNoReviewToFreeApp()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
+        setUserLocation: (id, lat, lng) => dispatch(actions.setUserLocation(id, lat, lng)),
     }
 };
 

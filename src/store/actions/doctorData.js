@@ -102,7 +102,7 @@ export const uploadFile = (file) => {
   return () => {
     const data = new FormData();
     data.append('file', file);
-    return axios.post(`${window.location.origin}/upload.php`, data)
+      return axios.post(`https://appdoc.by/upload.php`, data)
       .then(res => {
         return res
       })
@@ -111,3 +111,51 @@ export const uploadFile = (file) => {
       })
   }
 };
+
+export const getDoctorSpecialities = () => {
+    
+    return (dispatch, getState) => {
+        return axios.get('/catalog.doc2/getDoctorSpecialities')
+            .then(res => {
+                console.log(res);
+                dispatch({
+                    type: actionTypes.GET_DOCTOR_SPECIALITIES,
+                    docSpecialities: Array.isArray(res.data.result) ? res.data.result : []
+                })
+                dispatch({
+                    type: actionTypes.GET_DOCTOR_SPECIALITIES_DOCTORDATA,
+                    docSpecialities: Array.isArray(res.data.result) ? res.data.result : []
+                })
+
+                
+                return Array.isArray(res.data.result) ? res.data.result : []
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+export const getAvailLangs = () => {
+    
+    return (dispatch, getState) => {
+        return axios.get('/catalog.doc2/getAvailLangs')
+            .then(res => {
+                
+                console.log(res);
+                dispatch({
+                    type: actionTypes.GET_AVAIL_LANGUAGES,
+                    availLanguages: Array.isArray(res.data.result) ? res.data.result : []
+                })
+                dispatch({
+                    type: actionTypes.GET_AVAIL_LANGUAGES_DOCTORDATA,
+                    availLanguages: Array.isArray(res.data.result) ? res.data.result : []
+                })
+                
+                return Array.isArray(res.data.result) ? res.data.result : []
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}

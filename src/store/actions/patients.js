@@ -259,6 +259,26 @@ export const getNotPatientDoctors = (name) => {
     }
 }
 
+export const getUserBalance = (idUser) => {
+ 
+    return (dispatch, getState) => {
+        
+        return axios.post('/catalog.doc2/getUserBalance', JSON.stringify({idUser}))
+            .then(rez => {
+                
+                dispatch({
+                    type: actionTypes.GET_USER_BALANCE,
+                    userBalance: rez.data.result.balance,
+                })
+                return rez;
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+
 export const clearNotDocPatients = () => {
     return {
         type: actionTypes.GET_NOT_DOCTORS_PATIENTS,
@@ -426,3 +446,37 @@ export const sendMessage = (message) => {
             })
     }
 }
+
+export const getPaymentForm = (idUser, price) => {
+    let obj = {
+        idUser,
+        price,
+    }
+    return (dispatch, getState) => {
+        
+
+        axios.post('/catalog.doc2/putOnAccount', JSON.stringify(obj))
+            .then(rez => {
+                console.log('rez :', rez);
+                dispatch({
+                    type: actionTypes.GET_PAYMENT_FORM,
+                    formPayment: rez.data.result,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+}
+
+
+export const payBalance = (data) => {
+    debugger
+    return (dispatch, getState) => {
+        fetch("https://test.paysec.by/pay/order.cfm", data)
+            .then((rez) => {
+                    console.log(rez)
+            })   
+    }
+}
+

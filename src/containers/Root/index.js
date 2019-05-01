@@ -28,6 +28,7 @@ class Root extends React.Component{
     }
 
     render(){
+        console.log('window.location :', window.location);
         return (
         window.location.search ?
             <Redirect to={`/app/${window.location.search.split("?path=")[1]}`}/>

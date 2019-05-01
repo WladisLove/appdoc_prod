@@ -21,6 +21,7 @@ import {
 } from '../../App/chatWs'
 
 import './style.css'
+import MapsModal from "../../../components/MapsModal";
 
 
 class ChatCard extends React.Component {
@@ -38,9 +39,9 @@ class ChatCard extends React.Component {
 			reception_vis: false,
 			treatment_vis: false,
 			visit_vis: false,
+			map_vis: false,
 		}
     }
-
 
 
 
@@ -137,6 +138,14 @@ class ChatCard extends React.Component {
 		(!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
 		this.setState(prev => ({isActive: !prev.isActive}));
 	}
+
+	showOnMap =() => {
+    	const { user_id } = this.props;
+		if(!isNaN(user_id)) {
+			this.setState(prev => ({map_vis: !prev.map_vis}), () => this.props.getPatientLocation(user_id));
+		}
+	};
+
     getIconByType = () => {
 		let icon;
         switch (this.state.mode) {
@@ -222,44 +231,59 @@ class ChatCard extends React.Component {
 
         return (
 			<Hoc>
-						<Translate>
-            		{({ translate }) =>
-				            (<div className='chat-card'>
-				                <div className='chat-card-head'>
-				                    <div className='chat-card-title'>
-				                        <Button
-				                            icon={iconType}
-				                            title={translate('reception.type')}
-				                            style={{color: "white", padding: 0, width: "auto"}}
-				                        />
+<Translate>
+    {({ translate }) =>
+ <div className='chat-card'>
+                <div className='chat-card-head'>
+                    <div className='chat-card-title'>
+                        <Button
+                            icon={iconType}
+                            title={translate('reception.type')}
+                            style={{color: "white", padding: 0, width: "auto"}}
+                        />
 
-				                        <div className='chat-card-namePatient'>{patientName}</div>
-				                        <div className={statusClass}>{online}</div>
-				                    </div>
-				                    <div className='chat-card-btns'>
+                        <div className='chat-card-namePatient'>{patientName}</div>
+                        <div className={statusClass}>{online}</div>
+                    </div>
+                    <div className='chat-card-btns'>
+						{ !chatProps.isUser && !isNaN(user_id) &&
+							(<div className='chat-card-archive'>
+									 <Button
+										btnText=''
+										size='small'
+										type='no-brd'
+										icon='geolocation'
+										svg
+										title={translate('button.title.openAttachments')}
+										style={{width: 30}}
+										onClick={this.showOnMap}/>
 
-				                        <div className='chat-card-archive'>
-				                            <Button
-				                                btnText=''
-				                                size='small'
-				                                type='no-brd'
-				                                icon='file'
-				                                svg
-				                                title={translate('button.title.openAttachments')}
-				                                style={{width: 30}}
-				                                onClick={this.toggleFilesArea}
-				                            />
-				                        </div>
-				                    </div>
-				                </div>
-				                <div className='chat-card-body'>
-				                    <div className={dialogsClass}>
-				                            {content}
-				                    </div>
-				                </div>
-				            </div>)
-								}
-						</Translate>
+							</div>)
+						}
+						<div className='chat-card-archive'>
+							<Button
+								btnText=''
+								size='small'
+								type='no-brd'
+								icon='file'
+								svg
+								title='Открыть прикреплённые файлы'
+								style={{width: 30}}
+								onClick={this.toggleFilesArea}
+							/>
+						</div>
+                    </div>
+                </div>
+                <div className='chat-card-body'>
+                    <div className={dialogsClass}>
+                            {content}
+                    </div>
+
+
+                </div>
+            </div>)
+		}
+    </Translate>
 			<CompletionReceptionModal
 				visible={this.state.reception_vis}
 				onComplete={this.onCloseReception}
@@ -277,6 +301,17 @@ class ChatCard extends React.Component {
 				userName={patientName}
 				id={user_id}
 				onSave={e=> console.log('[NewVisitModal]', e)}
+			/>
+			<MapsModal
+				id={user_id}
+				width={1000}
+				height={550}
+				title={'Map'}
+				visible={this.state.map_vis}
+				onCancel={() => this.setState({ map_vis: false })}
+				userName={patientName}
+				location={this.props.patientLocation}
+				onSave={e=> console.log('[Map]', e)}
 			/>
 			</Hoc>
         )
@@ -296,8 +331,9 @@ ChatCard.propTypes = {
 	uploadFile: PropTypes.func,
 	getAllFilesTreatment: PropTypes.func,
 	setChatToId: PropTypes.func,
-
+	getPatientLocation: PropTypes.func,
     videoContent: PropTypes.node,
+	patientLocation: PropTypes.object
 };
 
 ChatCard.defaultProps = {
@@ -312,6 +348,8 @@ ChatCard.defaultProps = {
 	uploadFile: () => {},
 	getAllFilesTreatment: () => {},
 	setChatToId: () => {},
+	getPatientLocation: () => {},
+	patientLocation: {}
 };
 
 export default ChatCard
