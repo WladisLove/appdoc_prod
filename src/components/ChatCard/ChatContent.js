@@ -25,84 +25,77 @@ class ChatContent extends React.Component {
                     contentClassName="content chat-card-message__box"
                     horizontal={false}
                 >
-                    {/*<div className='chat-card-message__comments'>
-                     <ChatComments
-                     comments="Жалоба пациента или комментарий к приему. Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах."
-                     />  
-                     </div>*/}
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hey Ya!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            isMy
+                            message="Seen healthier!!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hello!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hi!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            isMy
+                            message="Seen healthier!!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hey Ya!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hello!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            isMy
+                            message="Seen healthier!!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hi!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hey Ya!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            isMy
+                            message="Seen healthier!!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hi!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
+                            message="Hello!"
+                            time={Date.now()}
+                        />
+                        <ChatMessage
+                            isMy
+                            message="Seen healthier!!"
+                            time={Date.now()}
+                        />
 
-    
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            isMy
-                            message="Здоровей видали!!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            isMy
-                            message="Здоровей видали!!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            isMy
-                            message="Здоровей видали!!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            isMy
-                            message="Здоровей видали!!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            img="https://www.proza.ru/pics/2017/06/03/1990.jpg"
-                            message="Здарова!"
-                            time={Date.now()}
-                        />
-                        <ChatMessage
-                            isMy
-                            message="Здоровей видали!!"
-                            time={Date.now()}
-                        />
-               
                 </ScrollArea>
                 <div className='chat-card-message__send'>
                     <ChatSend />

@@ -8,7 +8,7 @@ import DatePicker from '../DatePicker'
 import Button from '../Button'
 import Spinner from '../Spinner'
 import moment from 'moment'
-
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import {message} from "antd";
 const TabPane = Tabs.TabPane;
@@ -68,10 +68,10 @@ class ReviewsTree extends React.Component{
             .then((res)=>{
                 console.log(res, "RES ANSWER")
                 if(res.data.code === 200) {
-                    message.success("Отзыв успешно добавлен");
+                    message.success(<Translate id="notifications.reviewSuccessfulAdd" />);
                     this.refresh();
                 } else {
-                    message.error("Произошла ошибка попробуйте ещё раз")
+                    message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
                 }
             })
     }
@@ -130,14 +130,17 @@ class ReviewsTree extends React.Component{
     };
 
     renderShowMoreBtn = (refreshBtn) => {
-        return (
-            <div className="reviewsTree-underTreeElement" key="btn">
-                <Button btnText={refreshBtn ? 'Нет отзывов. Нажмите чтобы обновить' : 'Показать еще'}
-                        size='link'
-                        type='link'
-                        icon={refreshBtn ? 'circle_close' : 'circle_arrow_down'}
-                        onClick={() => this.loadMoreData(this.state.tab)}/>
-            </div>);
+        return (<Translate>
+                  {({ translate }) =>
+                      (<div className="reviewsTree-underTreeElement" key="btn">
+                          <Button btnText={refreshBtn ? translate(`review.notClickUpdate`) : translate(`button.title.showMore`)}
+                                  size='link'
+                                  type='link'
+                                  icon={refreshBtn ? 'circle_close' : 'circle_arrow_down'}
+                                  onClick={() => this.loadMoreData(this.state.tab)}/>
+                      </div>)
+                  }
+                </Translate>);
     };
 
     renderRevs = (dataArr) => {
@@ -161,7 +164,7 @@ class ReviewsTree extends React.Component{
         else if (this.state.tab === "periodTab" && !this.state.range.length)
             arr.push(
                 <div className="reviewsTree-underTreeElement" key="suggestion">
-                    <p>Выберите дату.</p>
+                    <p><Translate id="notifications.chooseDate" />.</p>
                 </div>);
         else if (!this.state[this.state.tab].reviews.length)
             arr.push(this.renderShowMoreBtn(true));
@@ -172,23 +175,27 @@ class ReviewsTree extends React.Component{
 
     render() {
         return (
-            <Card title={this.props.isOnDoctorPage ? "Отзывы" : "Все отзывы"}
-                  className="reviewsTree"
-                  extra={!this.props.numberOfReviews ? null : this.props.numberOfReviews}>
-                <Tabs onChange={this.tabChangeHandler}
-                      tabBarExtraContent={this.state.displayDP &&
-                      <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
-                    <TabPane tab="Все" key="allTab">
-                        {this.renderRevs(this.state.allTab.reviews)}
-                    </TabPane>
-                    <TabPane tab="За сегодня" key="todayTab">
-                        {this.renderRevs(this.state.todayTab.reviews)}
-                    </TabPane>
-                    <TabPane tab="За период" key="periodTab">
-                        {this.renderRevs(this.state.periodTab.reviews)}
-                    </TabPane>
-                </Tabs>
-            </Card>
+            <Translate>
+                {({ translate }) =>
+                    (<Card title={this.props.isOnDoctorPage ? translate(`review.lot`) : translate(`review.all`)}
+                          className="reviewsTree"
+                          extra={!this.props.numberOfReviews ? null : this.props.numberOfReviews}>
+                        <Tabs onChange={this.tabChangeHandler}
+                              tabBarExtraContent={this.state.displayDP &&
+                              <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
+                            <TabPane tab={translate(`all`)} key="allTab">
+                                {this.renderRevs(this.state.allTab.reviews)}
+                            </TabPane>
+                            <TabPane tab={translate(`filter.forToday`)} key="todayTab">
+                                {this.renderRevs(this.state.todayTab.reviews)}
+                            </TabPane>
+                            <TabPane tab={translate(`filter.forPeriod`)} key="periodTab">
+                                {this.renderRevs(this.state.periodTab.reviews)}
+                            </TabPane>
+                        </Tabs>
+                    </Card>)
+                }
+            </Translate>
         )
     }
 }

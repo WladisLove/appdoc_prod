@@ -8,8 +8,8 @@ import PatientDoctor from "../../components/PatientDoctor";
 import TopPanelPatient from "../../components/TopPanelPatient";
 import TreatmentTable from "../../components/TreatmentTable";
 import NewFreeVisitByPatient from "../../components/NewFreeVisitByPatient";
-
 import {geolocated} from 'react-geolocated';
+import { Translate } from 'react-localize-redux'
 
 class PatientPage extends React.Component {
     gotoHandler = (id) => {
@@ -28,6 +28,9 @@ class PatientPage extends React.Component {
             <Hoc>
                 <Row>
                     <Col>
+                        <Translate>
+                        {({ translate }) =>
+                            (
                         <TopPanelPatient
                             data={[
                                 {
@@ -35,25 +38,25 @@ class PatientPage extends React.Component {
                                 }, {
                                     className: "",
                                     num: this.props.userInfoShort.PatientAge || '—',
-                                    text: "возраст",
+                                    text: translate('age').toLowerCase(),
                                     notChangeable: true,
                                 }, {
                                     className: "",
                                     num: this.props.userInfoShort.PatientWeight || '—',
-                                    text: "вес",
+                                    text: translate('weight').toLowerCase(),
                                 }, {
                                     className: "",
                                     num: this.props.userInfoShort.PatientHeight || '—',
-                                    text: "рост",
+                                    text: translate('height').toLowerCase(),
                                 }, {
                                     className: "",
                                     num: this.props.userInfoShort.PatientPressure || '—',
-                                    text: "давление",
+                                    text: translate('pressure').toLowerCase(),
                                     doubleValueInput: true,
                                 }, {
                                     className: "",
                                     num: this.props.userInfoShort.PatientPulse || '—',
-                                    text: "пульс",
+                                    text: translate('pulse').toLowerCase(),
                                 },
                             ]}
                             onSave={this.props.onSendUserPoleValue}
@@ -131,6 +134,7 @@ class PatientPage extends React.Component {
                 </Row>
     
             </Hoc>
+            )
         )
     }
     

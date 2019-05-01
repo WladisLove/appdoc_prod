@@ -6,7 +6,7 @@ import SideNav from '../../components/SideNav'
 import Header from "../../components/Header";
 import { Modal } from 'antd';
 import Adapter from 'webrtc-adapter'
-
+import { Translate } from 'react-localize-redux'
 import {connect} from 'react-redux';
 import {createSocket, closeSocket,register} from './chatWs'
 
@@ -243,8 +243,8 @@ class App extends React.Component {
                             <Route
                                 render ={() => (
                                     <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                                        <h3>Страница не найдена</h3>
-                                        <p>Проверьте введённый адрес</p>
+                                        <h3><Translate id="notifications.404" /></h3>
+                                        <p><Translate id="notifications.checkURL" /></p>
                                     </div>
                                 )}
                             />
@@ -253,14 +253,14 @@ class App extends React.Component {
                 </div>
                 <div className="main-footer">
                         <div className="main-footer-item company">AppDoc 2018</div>
-                        <div className="main-footer-item copirate">© Все права защищены</div>
+                        <div className="main-footer-item copirate">© <Translate id="copyright" /></div>
                 </div>
                     { this.state.isExtrActual && this.props.isIn
                         &&
                     <div>
                         <button className='emergencyCall' onClick={this.props.docEmergancyCallSend}>
-                            Запрос на экстренный вызов<br/>
-                            Жалоба: {this.state.extrMessage}
+                            <Translate id="emergencyCallRequest" /><br/>
+                            <Translate id="complaint" />: {this.state.extrMessage}
                         </button>
                     </div> }
                     {

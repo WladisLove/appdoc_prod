@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-
+import { Translate } from 'react-localize-redux'
 import Card from '../Card'
 import Button from '../Button'
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -28,15 +28,19 @@ class HistoryReceptions extends React.Component{
     historyRender = (dataArr) => {
         let historyArr = [];
         if (!dataArr.length && !this.state.loading) {
-            return <div className="table-footer"
-                        key="btn">
-                <Button btnText={'Нет приёмов. Нажмите чтобы обновить.' }
-                        size='link'
-                        type='link'
-                        icon={'circle_close'}
-                        onClick={() => this.getApps()}
-                />
-            </div>
+            return (<Translate>
+                        {({ translate }) =>
+                            (<div className="table-footer"
+                                        key="btn">
+                                <Button btnText={translate('reception.notClickUpdate')}
+                                        size='link'
+                                        type='link'
+                                        icon={'circle_close'}
+                                        onClick={() => this.getApps()}
+                                />
+                            </div>)
+                        }
+                    </Translate>)
         } else {
             historyArr = dataArr.map((item, i) => {
                  return(<HistoryReceptionsItems {...item}
@@ -55,20 +59,23 @@ class HistoryReceptions extends React.Component{
         }
         if(this.props.appsBetweenCount > dataArr.length && !this.state.loading) {
             historyArr.push(
-                <div className="table-footer"
-                     key="btn">
-                    <Button btnText='Показать еще'
-                            size='link'
-                            type='link'
-                            title='Показать ещё'
-                            icon='circle_arrow_down'
-                            onClick={this.loadMore}/>
-                </div>
+                <Translate>
+                    {({ translate }) =>
+                        (<div className="table-footer"
+                             key="btn">
+                            <Button btnText={translate('button.title.showMore')}
+                                    size='link'
+                                    type='link'
+                                    title={translate('button.title.showMore')}
+                                    icon='circle_arrow_down'
+                                    onClick={this.loadMore}/>
+                        </div>)
+                    }
+                </Translate>
             );
         } else if(this.state.loading){
             historyArr.push(
-                <div className="table-footer"
-                     key="btn">
+                <div className="table-footer" key="btn">
                     <Spinner size="small" />
                 </div>)
         }
@@ -122,36 +129,39 @@ class HistoryReceptions extends React.Component{
 
     render(){
         return (
-            <div className='receptions-personal-page'>
-                <Card title="История приёмов">
-                    <PerfectScrollbar
-                    horizontal = {true}>
-                        <div className="tableheader">
-                            <div className="flex-col"><div className="receptions-status new">Новые</div></div>
-                            <div className="flex-col"><div className="receptions-status topical">Актуальные</div></div>
-                            <div className="flex-col"><div className="receptions-status completed">Завершенные</div></div>
-                            <div className="flex-col"><div className="receptions-status extra">Экстренные</div></div>
-                        </div>
-                        <div className="tableheader menu-header">
-                            <div className="flex-col"><div className="tableheader-name">Дата приема</div></div>
-                            <div className="flex-col"><div className="tableheader-name">Предварительное заключение</div></div>
-                            <div className="flex-col"><div className="tableheader-name">Комментарий к приему</div></div>
-                            <div className="flex-col"><div className="tableheader-name">Стоимость</div></div>
-                            <div className="flex-col"><div className="tableheader-name">Заключение</div></div>
-                            <div className="flex-col"><div className="tableheader-name">Отзыв</div></div>
-                            <div className="flex-col"><div className="tableheader-name">Файлы</div></div>
-                        </div>
-                    {this.historyRender(this.state.data)}
-                    </PerfectScrollbar>
-                  </Card>
-                <ReviewsModal
-                    visible={this.state.showReviewModal}
-                    onSubmit ={this.props.onSubmit}
-                    info = {this.state.dataForReview}
-                    onCancel={()=>this.setState({showReviewModal:false})}
-                    refresh={this.refresh}
-                />
-            </div>
+            <Translate>
+                {({ translate }) =>
+                    (<div className='receptions-personal-page'>
+                        <Card title={translate('reception.history')}>
+                            <PerfectScrollbar horizontal = {true}>
+                                <div className="tableheader">
+                                    <div className="flex-col"><div className="receptions-status new">{translate('filter.new')}</div></div>
+                                    <div className="flex-col"><div className="receptions-status topical">{translate('filter.topical')}</div></div>
+                                    <div className="flex-col"><div className="receptions-status completed">{translate('filter.completed')}</div></div>
+                                    <div className="flex-col"><div className="receptions-status extra">{translate('filter.emergencies')}</div></div>
+                                </div>
+                                <div className="tableheader menu-header">
+                                    <div className="flex-col"><div className="tableheader-name">{translate('reception.date')} /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('conclusion.preliminary')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('reception.comment')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('cost')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('conclusion.single')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('review.single')}</div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('files')}</div></div>
+                                </div>
+                            {this.historyRender(this.state.data)}
+                            </PerfectScrollbar>
+                          </Card>
+                        <ReviewsModal
+                            visible={this.state.showReviewModal}
+                            onSubmit ={this.props.onSubmit}
+                            info = {this.state.dataForReview}
+                            onCancel={()=>this.setState({showReviewModal:false})}
+                            refresh={this.refresh}
+                        />
+                    </div>)
+                }
+            </Translate>
         )
     }
 }

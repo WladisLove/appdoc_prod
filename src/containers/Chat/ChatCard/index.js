@@ -1,5 +1,4 @@
 import React from 'react';
-
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import moment from "moment"
@@ -14,6 +13,7 @@ import ChatTextContent from './ChatTextContent'
 import ChatVideoContent from './ChatVideoContent'
 import ChatAudioContent from './ChatAudioContent'
 import Hoc from '../../../hoc'
+import { Translate } from 'react-localize-redux'
 
 import {
 	startReception, call, stop, messAboutStop, messForCloseReception, fileUploadCallback,
@@ -95,7 +95,7 @@ class ChatCard extends React.Component {
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере */
-		console.log("Завершение приёма и чата", this.props.receptionId)
+		// console.log("Завершение приёма и чата", this.props.receptionId)
 		messAboutStop();
 		stop();
 		messForCloseReception(this.props.receptionId);
@@ -231,12 +231,14 @@ class ChatCard extends React.Component {
 
         return (
 			<Hoc>
-            <div className='chat-card'>
+<Translate>
+    {({ translate }) =>
+ <div className='chat-card'>
                 <div className='chat-card-head'>
                     <div className='chat-card-title'>
                         <Button
                             icon={iconType}
-                            title='Тип приёма'
+                            title={translate('reception.type')}
                             style={{color: "white", padding: 0, width: "auto"}}
                         />
 
@@ -252,7 +254,7 @@ class ChatCard extends React.Component {
 										type='no-brd'
 										icon='geolocation'
 										svg
-										title='Посмотреть на карте'
+										title={translate('button.title.openAttachments')}
 										style={{width: 30}}
 										onClick={this.showOnMap}/>
 
@@ -279,7 +281,9 @@ class ChatCard extends React.Component {
 
 
                 </div>
-            </div>
+            </div>)
+		}
+    </Translate>
 			<CompletionReceptionModal
 				visible={this.state.reception_vis}
 				onComplete={this.onCloseReception}

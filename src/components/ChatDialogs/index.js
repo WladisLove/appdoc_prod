@@ -8,6 +8,7 @@ import Button from '../Button'
 import Rate from '../Rate'
 import Icon from '../Icon'
 import ChatDialog from '../ChatDialog'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -26,7 +27,7 @@ class ChatDialogs extends React.Component{
         clearTimeout(this.timeout);
         clearInterval(this.timer);
     }
-    
+
     firstTick = () => {
         this.tick();
         this.timer = setInterval(this.tick, 60000);
@@ -38,7 +39,7 @@ class ChatDialogs extends React.Component{
 
     dialogRender = (dataArr) => {
         return dataArr.map((item, index) => {
-            return (<ChatDialog {...item} 
+            return (<ChatDialog {...item}
                 onGotoChat={this.props.onGotoChat}
                 key={item.id}/>)
         });
@@ -51,7 +52,7 @@ class ChatDialogs extends React.Component{
 
         return (
             <div className={rootClass}>
-                <div className='dialog-title'>Ожидают приема<span className='dialog-num_item'>{data.length}</span></div>
+                <div className='dialog-title'><Translate id="reception.awaiting" /> <span className='dialog-num_item'>{data.length}</span></div>
                 <ScrollArea
                     speed={1}
                     className="dialog-list"

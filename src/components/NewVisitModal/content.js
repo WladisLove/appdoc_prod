@@ -9,6 +9,7 @@ import Select from '../Select'
 import Icon from '../Icon'
 import TimePicker from '../TimePicker'
 import Spinner from "../Spinner";
+import { Translate } from 'react-localize-redux'
 
 const FormItem = Form.Item;
 
@@ -44,8 +45,8 @@ class ContentForm extends React.Component {
                 );
                 this.props.onSave(response).then((res)=> {
                     res.data.code === 200
-                        ? (message.success("Запись прошла успешно"), this.props.onCancel())
-                        : message.error("Произошла ошибка, выберете другое время");
+                        ? (message.success(<Translate id="notifications.recordSuccessful" />), this.props.onCancel())
+                        : message.error(<Translate id="notifications.anErrorOccurred" />);
                     this.setState({loading:false})
                 });
             }
@@ -132,20 +133,24 @@ class ContentForm extends React.Component {
         const {getFieldDecorator} = this.props.form;
         const {visible, date} = this.props;
         const icons = this.getType();
-        let timeElement = this.props.isChoosebleTime 
+        let timeElement = this.props.isChoosebleTime
             ? <div className='modal-time'>
-                <FormItem>
-                    {getFieldDecorator('time',{
-                        rules: [{required: true, message: 'Введите время',}],
-                    })(
-                        <TimePicker format="HH:mm"
-                            placeholder='Время приёма'
-                            availableArea={this.state.availableArea}
-                            minuteStep={this.getAppointmentDuration()}
-                            isReset={this.state.isResetTime}
-                            onChange={this.onChangeTime}/>
-                    )}
-                </FormItem>
+              <Translate>
+                  {({ translate }) =>
+                      (<FormItem>
+                          {getFieldDecorator('time',{
+                              rules: [{required: true, message: translate(`reception.form.errors.timepicker`)}],
+                          })(
+                              <TimePicker format="HH:mm"
+                                  placeholder={translate(`reception.form.timepicker`)}
+                                  availableArea={this.state.availableArea}
+                                  minuteStep={this.getAppointmentDuration()}
+                                  isReset={this.state.isResetTime}
+                                  onChange={this.onChangeTime}/>
+                          )}
+                      </FormItem>)
+                  }
+              </Translate>
             </div>
             : <div className='modal-time'>
                 <Icon svg type='alarm' size={26}/>
@@ -153,67 +158,68 @@ class ContentForm extends React.Component {
             </div>;
 
         return (
-            <Form onSubmit={this.handleSubmit}
-                  className="NewVisitModal">
+            <Translate>
+                {({ translate }) =>
+                    (<Form onSubmit={this.handleSubmit} className="NewVisitModal">
+                        <div className='modal-row'>
+                            <div className='modal-data'>
+                                <Icon svg type='calendar' size={26}/>
+                                <div className='modal-result'>{moment(date).format('DD MMMM')}</div>
+                            </div>
+                            {timeElement}
+                        </div>
+
+                        {!this.props.patients.length ?
+                            <FormItem className="user-select"
+                                validateStatus='error'
+                                      help={translate(`reception.form.help.select.patient`)}
+                            >
+                                {getFieldDecorator('id_user', {
+                                    rules: [{required: true, message: translate(`reception.form.errors.select.patient`)}],
+                                })(
+                                    <Select placeholder={translate(`reception.form.select.patient`)}>
+                                        {this.renderOptions()}
+                                    </Select>
+                                )}
+                            </FormItem> :
+                        <FormItem className="user-select"
+
+                        >
+                                {getFieldDecorator('id_user', {
+                                    rules: [{required: true, message: translate(`reception.form.errors.select.patient`)}],
+                                })(
+                                    <Select placeholder={translate(`reception.form.select.patient`)}>
+                                        {this.renderOptions()}
+                                    </Select>
+                                )}
+                        </FormItem>}
+
+                        <TextArea label={translate(`reception.form.textarea.comment`)}
+                                    value={this.state.message}
+                                    onChange={message => this.setState({message})}
+                                  className="NewVisitModal-txtarea"/>
 
 
-                <div className='modal-row'>
-                    <div className='modal-data'>
-                        <Icon svg type='calendar' size={26}/>
-                        <div className='modal-result'>{moment(date).format('DD MMMM')}</div>
-                    </div>
-                    {timeElement}
-                </div>
+                        <FormItem>
+                            {getFieldDecorator('type', {
+                                initialValue: 'chat'
+                            })(
+                                <Radio icons={icons}/>
+                            )}
+                        </FormItem>
 
-                {!this.props.patients.length ?
-                    <FormItem className="user-select"
-                        validateStatus='error'
-                              help="Добавьте пациентов в свой список"
-                    >
-                        {getFieldDecorator('id_user', {
-                            rules: [{required: true, message: 'Выберите пациента',}],
-                        })(
-                            <Select placeholder="ФИО">
-                                {this.renderOptions()}
-                            </Select>
-                        )}
-                    </FormItem> :
-                <FormItem className="user-select"
+                        <Button size='default'
+                                btnText={translate(`button.title.save`)}
+                                htmlType="submit"
+                                type='float'
+                                style={{marginRight: "20px"}}
+                                disable={this.state.loading}
 
-                >
-                        {getFieldDecorator('id_user', {
-                            rules: [{required: true, message: 'Выберите пациента',}],
-                        })(
-                            <Select placeholder="ФИО">
-                                {this.renderOptions()}
-                            </Select>
-                        )}
-                </FormItem>}
-                
-                <TextArea label='Комментарий к приему'
-                            value={this.state.message}
-                            onChange={message => this.setState({message})}
-                          className="NewVisitModal-txtarea"/>
-                
-
-                <FormItem>
-                    {getFieldDecorator('type', {
-                        initialValue: 'chat'
-                    })(
-                        <Radio icons={icons}/>
-                    )}
-                </FormItem>
-
-                <Button size='default'
-                        btnText='Сохранить'
-                        htmlType="submit"
-                        type='float'
-                        style={{marginRight: "20px"}}
-                        disable={this.state.loading}
-
-                />
-                 {this.state.loading && <Spinner isInline={true} size="small"/>}
-            </Form>
+                        />
+                         {this.state.loading && <Spinner isInline={true} size="small"/>}
+                    </Form>)
+                }
+            </Translate>
         )
     }
 }

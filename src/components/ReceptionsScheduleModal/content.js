@@ -7,6 +7,7 @@ import Radio from '../Radio'
 import Select from '../Select'
 import Checkbox from '../Checkbox'
 import Button from '../Button'
+import { Translate } from 'react-localize-redux'
 
 const FormItem = Form.Item;
 
@@ -228,7 +229,7 @@ class ContentForm extends React.Component {
         return (
             <div>
                 <div className="receptionsScheduleModal-tabs-title">
-                    Интервал рабочего времени
+                    <Translate id="workingTimeInterval" />
                 </div>
                 {this.renderTp(tab, timeSet, fieldDecorator)}
             </div>
@@ -250,96 +251,97 @@ class ContentForm extends React.Component {
         const {getFieldDecorator} = this.props.form;
         const {dateSet, selOptions, intervalTime, type, isDayOff, emergencyAvailable} = this.props;
         return (
-            <Form onSubmit={this.handleSubmit}
-                  className="receptionsScheduleModal">
+            <Translate>
+                {({ translate }) =>
+                    (<Form onSubmit={this.handleSubmit}
+                          className="receptionsScheduleModal">
 
-                <FormItem>
-                    {getFieldDecorator('day')(
-                        <DatePicker range
-                                    shouldUpdate={this.state.shouldDPUpdate}
-                                    rangeSet={dateSet}
-                                    delimiter='&mdash;'
-
-                        />
-                    )}
-                </FormItem>
-                <Tabs defaultActiveKey="1"
-                      className="receptionsScheduleModal-tabs">
-                        <Tabs.TabPane tab="Плановые приемы"
-                                  key="1">
-                            {this.renderTpBlock(
-                                'call',
-                                this.state.timeSetCall,
-                                getFieldDecorator
+                        <FormItem>
+                            {getFieldDecorator('day')(
+                                <DatePicker range
+                                            shouldUpdate={this.state.shouldDPUpdate}
+                                            rangeSet={dateSet}
+                                            delimiter='&mdash;'
+                                />
                             )}
-                            <FormItem>
-                                {getFieldDecorator('type', {
-                                    initialValue: type
-                                })(
-                                    <Radio
-                                        icons={['chat1','telephone', "video-camera"]}
-                                        makingSchedule = {true}
+                        </FormItem>
+                        <Tabs defaultActiveKey="1"
+                              className="receptionsScheduleModal-tabs">
+                                <Tabs.TabPane tab={translate(`reception.planned`)}
+                                          key="1">
+                                    {this.renderTpBlock(
+                                        'call',
+                                        this.state.timeSetCall,
+                                        getFieldDecorator
+                                    )}
+                                    <FormItem>
+                                        {getFieldDecorator('type', {
+                                            initialValue: type
+                                        })(
+                                            <Radio
+                                                icons={['chat1','telephone', "video-camera"]}
+                                                makingSchedule = {true}
+                                            />
+                                        )}
+                                    </FormItem>
+                                    <FormItem>
+                                        {getFieldDecorator('intervalTime', {
+                                            initialValue: intervalTime
+                                        })(
+                                            <Select  placeholder={translate(`reception.form.select.duration`)}>
+                                                {this.renderOptions(selOptions)}
+                                            </Select>
+                                        )}
+                                    </FormItem>
+                                        <Button onClick={(e) => this.addTp('call', e)}
+                                                btnText={translate(`button.title.addInterval`)}
+                                                iconSize={30}
+                                                size='file'
+                                                type='file'
+                                                icon='add-button'
+                                                svg/>
+                                </Tabs.TabPane>
 
-                                    />
+                            <Tabs.TabPane disabled={!emergencyAvailable}
+                                          tab={translate(`emergencyCall`)}
+                                          key="2"
+                            >
+                                {this.renderTpBlock(
+                                    'reception',
+                                    this.state.timeSetReception,
+                                    getFieldDecorator
                                 )}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator('intervalTime', {
-                                    initialValue: intervalTime
-                                })(
-                                    <Select  placeholder="Длительность приема">
-                                        {this.renderOptions(selOptions)}
-                                    </Select>
-                                )}
-                            </FormItem>
-                                <Button onClick={(e) => this.addTp('call', e)}
-                                        btnText='Добавить интервал'
+                                <Button className='mb-1r'
+                                        onClick={(e) => this.addTp('reception', e)}
+                                        btnText={translate(`button.title.addInterval`)}
                                         iconSize={30}
                                         size='file'
                                         type='file'
                                         icon='add-button'
-                                        svg/>
-                        </Tabs.TabPane>
+                                        svg
+                                />
+                            </Tabs.TabPane>
+                        </Tabs>
+                        <FormItem>
+                            {getFieldDecorator('isDayOff', {
+                                initialValue: isDayOff
+                            })(
+                                <Checkbox checked={this.state.isDayOff} onClick={this.handleCheckboxClick}>{translate(`dayOff`)}</Checkbox>
+                            )}
 
-                    <Tabs.TabPane disabled={!emergencyAvailable}
-                                  tab="Экстренные вызовы"
-                                  key="2"
-                    >
-                        {this.renderTpBlock(
-                            'reception',
-                            this.state.timeSetReception,
-                            getFieldDecorator
-                        )}
-                        <Button className='mb-1r'
-                                onClick={(e) => this.addTp('reception', e)}
-                                btnText='Добавить интервал'
-                                iconSize={30}
-                                size='file'
-                                type='file'
-                                icon='add-button'
-                                svg
-                        />
-                    </Tabs.TabPane>
-                </Tabs>
-                <FormItem>
-                    {getFieldDecorator('isDayOff', {
-                        initialValue: isDayOff
-                    })(
-                        <Checkbox checked={this.state.isDayOff} onClick={this.handleCheckboxClick}>Выходной</Checkbox>
-                    )}
+                        </FormItem>
+                        <div className='receptionsScheduleModal-submit'>
+                            <Button size='default'
+                                    btnText={translate(`button.title.save`)}
+                                    htmlType="submit"
+                                    type='float'/>
 
-                </FormItem>
-                <div className='receptionsScheduleModal-submit'>
-                    <Button size='default'
-                            btnText='Сохранить'
-                            htmlType="submit"
-                            type='float'/>
-
-                    {this.state.wrongInterval && <div className='receptionsScheduleModal-submit-error'>Выбран неподходящий интервал</div>}
-                    {this.state.emptyTimePickers && <div className='receptionsScheduleModal-submit-error'>Выберите время</div>}
-                </div>
-            </Form>
-
+                            {this.state.wrongInterval && <div className='receptionsScheduleModal-submit-error'>{translate(`notifications.wrongInterval`)}</div>}
+                            {this.state.emptyTimePickers && <div className='receptionsScheduleModal-submit-error'>{translate(`notifications.chooseTime`)}</div>}
+                        </div>
+                    </Form>)
+                }
+            </Translate>
         )
     }
 }

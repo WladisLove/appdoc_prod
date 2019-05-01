@@ -6,7 +6,7 @@ import '../../icon/style.css'
 import PatientDoctorsHeader from "../PatientDoctorsHeader";
 import PatientDoctorsItem from "../PatientDoctorsItem";
 import {search} from '../../helpers/searching'
-
+import { Translate } from 'react-localize-redux'
 
 
 class PatientDoctors extends React.Component {
@@ -50,7 +50,7 @@ class PatientDoctors extends React.Component {
                 />
 
                 {this.state.data.length === 0 ?
-                    (<div className="no-doctors">Добавьте врачей в свой список</div>)
+                    (<div className="no-doctors"><Translate id="patient.addDoctors" /></div>)
                     : (this.state.data.map((item, index)=>
                     <PatientDoctorsItem
                         key = {index+1}

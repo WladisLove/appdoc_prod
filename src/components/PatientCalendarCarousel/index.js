@@ -7,6 +7,7 @@ import Button from '../Button'
 import './style.css'
 import '../../icon/style.css'
 import {Alert} from 'antd'
+import { Translate } from 'react-localize-redux'
 
 class PatientCalendarCarousel extends React.Component {
 
@@ -150,7 +151,7 @@ class PatientCalendarCarousel extends React.Component {
         const rootClass = intervals.length ? cn('calendar-carousel') : cn('calendar-carousel no-intervals');
         return (
             <div className={rootClass}>
-                {!intervals.length ? (<span className="no-schedule">Расписание не определено</span>)
+                {!intervals.length ? (<span className="no-schedule"><Translate id="schedule.notDefined" /></span>)
                     :
                     (<div>
                             <div className='calendar-carousel-slide'>
@@ -176,19 +177,25 @@ class PatientCalendarCarousel extends React.Component {
                                     {this.renderAvailableAppointments(intervals)}
                                 </div>
                             </div>
-                            <div className="table-footer"
-                                 key="btn"
-                            >
-                                <Button size='link'
-                                        type='link'
-                                        title='Показать ещё'
-                                        icon={this.state.isFull ? 'circle_arrow_up' : 'circle_arrow_down'}
-                                        onClick={() => this.setState({
-                                            rowCount: this.state.rowCount === 4 ? 0 : 4,
-                                            isFull: !this.state.isFull
-                                        })}/>
-                            </div>
-                            {this.props.shouldChooseTime && <Alert message="Выберите время" type="error" style={{marginTop: "10px"}}/>}
+                            <Translate>
+                                {({ translate }) =>
+                                    (<div>
+                                      <div className="table-footer"
+                                           key="btn"
+                                      >
+                                          <Button size='link'
+                                                  type='link'
+                                                  title={translate('button.title.showMore')}
+                                                  icon={this.state.isFull ? 'circle_arrow_up' : 'circle_arrow_down'}
+                                                  onClick={() => this.setState({
+                                                      rowCount: this.state.rowCount === 4 ? 0 : 4,
+                                                      isFull: !this.state.isFull
+                                                  })}/>
+                                      </div>
+                                      {this.props.shouldChooseTime && <Alert message={translate('notifications.chooseTime')} type="error" style={{marginTop: "10px"}}/>}
+                                    </div>)
+                                }
+                            </Translate>
                             <NewVisitModalPage
                                 visible={this.state.modalVisible}
                                 onOk={() => this.setModalVisible(false)}

@@ -6,6 +6,7 @@ import Modal from '../Modal'
 import Input from '../Input'
 import './styles.css'
 import Spinner from "../Spinner";
+import { Translate } from 'react-localize-redux'
 
 
 class AddNewDoctor extends React.Component {
@@ -87,36 +88,40 @@ class AddNewDoctor extends React.Component {
         const {visible, onCancel} = this.props;
 
         return (
-            <Modal title='Добавление доктора в свой список'
+            <Modal title={<Translate id="modal.title.addingDoctorToList" />}
                    visible={visible}
                    onCancel={onCancel}
                    width={560}
             >
-                <div className='new-doctor'>
-                    <div className='new-doctor-search'>
-                        <Input.Search placeholder="Введите ФИО доктора"
-                                      ref={inp => this.inp = inp}
-                                      onSearch={this.handleSearch}
-                                      onChange={this.handleChange}
-                                      onKeyDown={this.handleKeyDown}
-                                      value={this.state.inputValue}/>
-                    </div>
-                    <div className='new-doctor-title'>Результаты поиска</div>
-                    <ScrollArea
-                        speed={1}
-                        className="new-doctor-list"
-                        contentClassName="content"
-                        horizontal={false}>
-                        {this.state.inputValue.length > 2 ?
-                            (
-                                this.state.loading ? <Spinner/> :
-                                    this.props.data.length === 0 ?
-                                        (<div className="no-doctors">Доктора не найдены</div>)
-                                        : this.doctorsRender(this.props.data)
-                            )
-                            : (<div className="no-doctors">Введите больше символов для поиска</div>)}
-                    </ScrollArea>
-                </div>
+                <Translate>
+                    {({ translate }) =>
+                        (<div className='new-doctor'>
+                            <div className='new-doctor-search'>
+                                <Input.Search placeholder={translate('doctor.search.input')}
+                                              ref={inp => this.inp = inp}
+                                              onSearch={this.handleSearch}
+                                              onChange={this.handleChange}
+                                              onKeyDown={this.handleKeyDown}
+                                              value={this.state.inputValue}/>
+                            </div>
+                            <div className='new-doctor-title'>{translate('searchResult')}</div>
+                            <ScrollArea
+                                speed={1}
+                                className="new-doctor-list"
+                                contentClassName="content"
+                                horizontal={false}>
+                                {this.state.inputValue.length > 2 ?
+                                    (
+                                        this.state.loading ? <Spinner/> :
+                                            this.props.data.length === 0 ?
+                                                (<div className="no-doctors">{translate('doctor.search.notFound')}</div>)
+                                                : this.doctorsRender(this.props.data)
+                                    )
+                                    : (<div className="no-doctors">{translate('notifications.moreCharactersForSearch')}</div>)}
+                            </ScrollArea>
+                        </div>)
+                    }
+                </Translate>
             </Modal>
         )
 

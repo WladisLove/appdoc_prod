@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import DownloadLink from '../DownloadLink'
 import Button from '../Button'
-
+import { Translate } from 'react-localize-redux'
 import {Popover, message} from 'antd';
 
 import './style.css'
 import Upload from "../Upload";
 import Spinner from "../Spinner";
+
 
 class PopoverFile extends React.Component {
     constructor(props) {
@@ -41,22 +42,22 @@ class PopoverFile extends React.Component {
         );
     };
     handleChange = (file) => {
-        console.log(file, "Функция handleChange, принимает файл из инпута, лог - file")
+        // console.log(file, "Функция handleChange, принимает файл из инпута, лог - file")
         this.setState({loading: true});
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.addEventListener('load', () => {
-            console.log(reader.result, "reader result - результата чтения файла ридером")
+            // console.log(reader.result, "reader result - результата чтения файла ридером")
             file={thumbUrl: reader.result, name: file.name};
             this.props.onAddFiles(file, this.props.id_app)
                 .then((res)=> {
-                    console.log(res, "результат с сервера о загрузке файла");
+                    // console.log(res, "результат с сервера о загрузке файла");
                     this.setState({loading: false});
                     if(res.data.code===200) {
-                        message.success("Файл успешно добавлен");
+                        message.success(<Translate id="notifications.fileSuccessAdd" />);
                         this.props.refresh();
                     } else {
-                        message.error("При загрузке файла произошла ошибка, попробуйте ешё раз")
+                        message.error(<Translate id="notifications.errorLoadingFileTryAgain" />)
                     }
                 });
         });
@@ -96,10 +97,14 @@ class PopoverFile extends React.Component {
                         />}
                         {this.props.canAddFiles && !!this.props.id_app &&
                         <div className="add-files">
-                            <Upload className="add-new-file-upload"
-                                    onChange={({file}) => this.handleChange(file)}
-                                    listType='text'
-                                    text="Добавить файл"/>
+                            <Translate>
+                                {({ translate }) =>
+                                    (<Upload className="add-new-file-upload"
+                                            onChange={({file}) => this.handleChange(file)}
+                                            listType='text'
+                                            text={translate('addFile')}/>)
+                                }
+                            </Translate>
                             {this.state.loading && <Spinner size="small" isInline={true} />}
                         </div>}
                     </div>}
@@ -110,15 +115,19 @@ class PopoverFile extends React.Component {
             >
                 <div className='popover-btn'>
                     {this.props.children}
-                    <Button onClick={() => {}}
-                            btnText=''
-                            size='icon'
-                            type='icon'
-                            icon='file-download'
-                            svg
-                            iconSize={32}
-                            title="Скачать все файлы"
-                    />
+                    <Translate>
+                        {({ translate }) =>
+                            (<Button onClick={() => {}}
+                                    btnText=''
+                                    size='icon'
+                                    type='icon'
+                                    icon='file-download'
+                                    svg
+                                    iconSize={32}
+                                    title={translate('button.title.downloadAllFiles')}
+                            />)
+                        }
+                    </Translate>
 
                     <div className={'popover-num active'}>
                         {this.props.data.length}

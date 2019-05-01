@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import { Form, Upload, Icon, message } from 'antd';
+import {Form, Upload, Icon, message} from 'antd';
 import InputNew from '../InputNew'
 import Radio from '../RadioBox'
 import DatePicker from '../DatePicker'
 import Button from '../Button'
+import {Translate} from "react-localize-redux";
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
 
-class Step1Form extends React.Component{
+class Step1Form extends React.Component {
     state = {
         fileList: [],
         avatarUrl: "",
@@ -26,7 +27,7 @@ class Step1Form extends React.Component{
                     ...values,
                     avatarThumb: this.state.avatarThumb ? this.state.avatarThumb : this.props.data.avatarThumb
                 };
-                if(!values.avatar.url && !values.avatar.name) {
+                if (!values.avatar.url && !values.avatar.name) {
                     fields.avatar = {name: this.state.avatarName, url: this.state.avatarUrl};
                 }
                 this.props.onSubmit(fields);
@@ -37,11 +38,11 @@ class Step1Form extends React.Component{
 
     handleChange = (info) => {
         const reader = new FileReader();
-        this.setState({ loading: true });
+        this.setState({loading: true});
         this.props.uploadFile(info.file)
             .then((res) => {
-                (res && this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name}) )
-                message.success("Фото загружено")
+                this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name});
+                message.success(<Translate id={"auth.messages.photoUploaded"}/>)
             });
         reader.addEventListener('load', () => this.setState({
             avatarThumb: reader.result,
@@ -55,125 +56,138 @@ class Step1Form extends React.Component{
             this.props.checkEmailAvailability(email)
                 .then((res) => {
                     if (res && res.status === 200)
-                        res.data.email && res.data.login ? callBack() : callBack("Данный email уже занят")
+                        res.data.email && res.data.login ? callBack() : callBack(<Translate id={"auth.errors.emailTaken"}/>)
                 });
         }
         else callBack();
     };
 
-    render(){
-        const { getFieldDecorator } = this.props.form;
+    render() {
+        const {getFieldDecorator} = this.props.form;
         const uploadButton = (
             <div>
-                <Icon type={this.state.loading ? 'loading' : 'plus'} />
-                <div className="ant-upload-text">Загрузить</div>
+                <Icon type={this.state.loading ? 'loading' : 'plus'}/>
+                <div className="ant-upload-text"><Translate id={"button.title.upload"}/></div>
             </div>
         );
         const avatarUrl = this.state.avatarThumb ? this.state.avatarThumb : this.props.data.avatarThumb ? this.props.data.avatarThumb : "";
         return (
-            <Form onSubmit={this.handleSubmit} className="step-form">
-                <div className="step-posttitle">Заполните основные контактные данные</div>
-                <div className="step-notification">* Поля, обязательные для заполнения</div>
-                <FormItem>
-                    {getFieldDecorator('fio', {
-                        rules: [{
-                            required: true,
-                            message: 'Введите ФИО, пожалуйста'
-                        }],
-                    })(
-                        <InputNew width ="100%" bubbleplaceholder="* ФИО" className="step-form-item"/>
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('email', {
-                        rules:
-                            [
-                                {type: 'email', message: 'Неправильный формат e-mail адреса'},
-                                {required: true, message: "Введите ваш e-mail, пожалуйста"},
-                                {validator: this.checkEmail}
-                            ]
-                    })(
-                        <InputNew width="100%" bubbleplaceholder="* E-mail" className="step-form-item"/>
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('phone', {
-                        rules:
-                            [{
-                                required: true,
-                                message: 'Введите телефон, пожалуйста'
-                            },{
-                                pattern: /^[+]?[0-9()\- ]+$/,
-                                message: 'Неправильный формат номера телефона'
-                            }]})
+            <Translate>
+                {({translate}) =>
                     (
-                        <InputNew width ="100%" bubbleplaceholder="* Телефон" className="step-form-item"/>
-                    )}
-                </FormItem>
-                <div className="step-row">
-                    <FormItem>
-                        <div className='radio-label'>* Пол
-                            {getFieldDecorator('sex', {
-                                rules: [{ required: true,
-                                    message: 'Выберите пол, пожалуйста' }],
-                            })(
-                                <RadioGroup>
-                                    <Radio value='w'>Жен.</Radio>
-                                    <Radio value='m'>Муж.</Radio>
-                                </RadioGroup>
-                            )}
-                        </div>
-                    </FormItem>
-                    <FormItem>
-                        <div className='radio-label'>* Дата рождения
-                            {getFieldDecorator('datebirth', {
-                                rules: [{ required: true,
-                                    message: 'Введите дату, пожалуйста' }],
-                            })(
-                                <DatePicker placeholder="дд.мм.гггг"/>
-                            )}
-                        </div>
-                    </FormItem>
-                </div>
-                    <FormItem className="avatar-doctor-uploader">
-                        <div >* Фото</div>
+                        <Form onSubmit={this.handleSubmit} className="step-form">
+                            <div className="step-posttitle">{translate("auth.inputContactInfo")}</div>
+                            <div className="step-notification">{translate("auth.requiredFields")}</div>
+                            <FormItem>
+                                {getFieldDecorator('fio', {
+                                    rules: [{
+                                        required: true,
+                                        message: translate("auth.errors.inputName")
+                                    }],
+                                })(
+                                    <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.fullName")}`} className="step-form-item"/>
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('email', {
+                                    rules:
+                                        [
+                                            {type: 'email', message: translate("auth.errors.wrongEmailFormat")},
+                                            {required: true, message: translate("auth.errors.inputEmail")},
+                                            {validator: this.checkEmail}
+                                        ]
+                                })(
+                                    <InputNew width="100%" bubbleplaceholder="* E-mail" className="step-form-item"/>
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('phone', {
+                                    rules:
+                                        [{
+                                            required: true,
+                                            message: translate("auth.errors.inputPhone")
+                                        }, {
+                                            pattern: /^[+]?[0-9()\- ]+$/,
+                                            message: translate("auth.errors.wrongPhoneFormat")
+                                        }]
+                                })
+                                (
+                                    <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.phone")}`} className="step-form-item"/>
+                                )}
+                            </FormItem>
+                            <div className="step-row">
+                                <FormItem>
+                                    <div className='radio-label'>{`* ${translate("auth.gender")}`}
+                                        {getFieldDecorator('sex', {
+                                            rules: [{
+                                                required: true,
+                                                message: translate("auth.errors.inputGender")
+                                            }],
+                                        })(
+                                            <RadioGroup>
+                                                <Radio value='w'>{translate("auth.female")}</Radio>
+                                                <Radio value='m'>{translate("auth.male")}</Radio>
+                                            </RadioGroup>
+                                        )}
+                                    </div>
+                                </FormItem>
+                                <FormItem>
+                                    <div className='radio-label'>{`* ${translate("auth.birthday")}`}
+                                        {getFieldDecorator('datebirth', {
+                                            rules: [{
+                                                required: true,
+                                                message: translate("auth.errors.inputBirthday")
+                                            }],
+                                        })(
+                                            <DatePicker placeholder={translate("auth.birthdayFormat")}/>
+                                        )}
+                                    </div>
+                                </FormItem>
+                            </div>
+                            <FormItem className="avatar-doctor-uploader">
+                                <div>{translate("auth.photo")}</div>
 
-                            {getFieldDecorator('avatar', {
-                                rules: [{
-                                    required: true,
-                                    message: 'Загрузите фото, пожалуйста'
-                                }]})
-                            (
-                                <Upload
-                                    name="avatar"
-                                    listType="picture-card"
-                                    className="avatar-uploader"
-                                    showUploadList={false}
-                                    beforeUpload = {()=>false}
-                                    onChange={this.handleChange}
-                                >
-                                    {avatarUrl ? <img src={avatarUrl} alt="avatar" className="avatar-image"/> : uploadButton}
-                                </Upload>
-                            )}
-                    </FormItem>
+                                {getFieldDecorator('avatar', {
+                                    rules: [{
+                                        required: true,
+                                        message: translate("auth.errors.uploadPhoto")
+                                    }]
+                                })
+                                (
+                                    <Upload
+                                        name="avatar"
+                                        listType="picture-card"
+                                        className="avatar-uploader"
+                                        showUploadList={false}
+                                        beforeUpload={() => false}
+                                        onChange={this.handleChange}
+                                    >
+                                        {avatarUrl ?
+                                            <img src={avatarUrl} alt="avatar" className="avatar-image"/> : uploadButton}
+                                    </Upload>
+                                )}
+                            </FormItem>
 
-                <div className="steps-action">
-                    <Button htmlType="submit"
-                            btnText='Далее'
-                            size='large'
-                            type='gradient'/>
+                            <div className="steps-action">
+                                <Button htmlType="submit"
+                                        btnText={translate("button.title.next")}
+                                        size='large'
+                                        type='gradient'/>
 
-                </div>
-            </Form>
+                            </div>
+                        </Form>
+                    )
+                }
+            </Translate>
         )
     }
 }
 
 const Step1 = Form.create({
     mapPropsToFields(props) {
-        let fields ={};
-        for (let key in props.data){
-            if (key !== 'current'){
+        let fields = {};
+        for (let key in props.data) {
+            if (key !== 'current') {
                 fields[key] = Form.createFormField({
                     value: props.data[key],
                 })
@@ -194,8 +208,10 @@ Step1.propTypes = {
 Step1.defaultProps = {
     urlForget: '',
     urlRegistration: '',
-    onSubmit: () => {},
-    checkEmailAvailability: () => {}
+    onSubmit: () => {
+    },
+    checkEmailAvailability: () => {
+    }
 };
 
 export default Step1

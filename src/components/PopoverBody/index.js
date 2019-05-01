@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import Button from '../Button'
 import Icon from '../Icon'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 
@@ -13,7 +14,7 @@ const PopoverBody = (props) => {
 	  const icons = ['chat1', 'telephone', "video-camera"];
 	  const key_val = {
 		'chat' : 'chat1',
-		'voice': 'telephone', 
+		'voice': 'telephone',
 		'video': "video-camera",
 	}
 
@@ -25,7 +26,7 @@ const PopoverBody = (props) => {
 				<div className = 'iconwrapper'>
 					<Icon svg type={key_val[props.type]} size={21} />
 				</div>
-				
+
 			</div>
 
 			<div className='calendar-time'>
@@ -34,15 +35,19 @@ const PopoverBody = (props) => {
 			<div className='calendar-text'>{comment}</div>
 
 			<div className='calendar-block'>
-				<Button
-					size='file'
-					type='file'
-					icon='mail'
-					title='Отправить сообщение'
-					svg
-					iconSize={16}
-					onClick={onEmail}
-				/>
+				<Translate>
+						{({ translate }) =>
+								(<Button
+									size='file'
+									type='file'
+									icon='mail'
+									title={translate('button.title.sendMessage')}
+									svg
+									iconSize={16}
+									onClick={onEmail}
+								/>)
+						}
+				</Translate>
 			</div>
 		</div>
     );

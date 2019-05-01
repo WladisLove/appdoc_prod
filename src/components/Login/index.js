@@ -6,7 +6,8 @@ import { NavLink } from 'react-router-dom'
 import Button from '../Button'
 import Checkbox from '../Checkbox'
 import Input from '../Input'
-
+import { Translate } from 'react-localize-redux'
+import LanguageToggle from '../LanguageToggle';
 
 import './style.css'
 import '../../icon/style.css'
@@ -35,7 +36,7 @@ class LoginForm extends React.Component{
             case 400:
                 error = [{
                     validateStatus: 'error',
-                    help: "Неверное имя или пароль",
+                    help: <Translate id="auth.errors.wrongLoginOrPassword"/>
                 },{
                     validateStatus: 'error',
                 }];
@@ -43,7 +44,7 @@ class LoginForm extends React.Component{
             case 500:
                 error = [{
                     validateStatus: 'error',
-                    help: "Такого пользователя не существует",
+                    help: <Translate id="auth.errors.userDoesNotExist"/>
                 },{
                     validateStatus: 'error',
                 }];
@@ -53,70 +54,74 @@ class LoginForm extends React.Component{
                 error = [];
         }
 
-        return (
-            <Form onSubmit={this.handleSubmit} className="login-form">
-                <div className="login-title">Авторизация</div>
-                <div className="login-notification">* Поля, обязательные для заполнения</div>
-                <FormItem {...error[0]}>
-                    {getFieldDecorator('userName', {
-                        rules: [{ required: true, message: 'Введите ваш логин или e-mail, пожалуйста' }],
-                    })(
-                        <Input placeholder='* E-mail или логин'
-                               className='login-form-item'/>
-                    )}
-                </FormItem>
-                <FormItem {...error[1]}>
-                    {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Введите ваш пароль, пожалуйста' }],
-                    })(
-                        <Input placeholder='* Пароль'
-                               addonAfter={<NavLink className="login-form-navlink"
-                                                    to={urlForget}>Забыли пароль?</NavLink>}
-                               type="password"
-                               className='login-form-item'/>
-                    )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('remember', {
-                        valuePropName: 'checked',
-                        initialValue: false,
-                    })(
-                        <Checkbox>Запомнить меня</Checkbox>
-                    )}
-                </FormItem>
-                <div className="login-form-control">
-                    <Button htmlType="submit"
-                            btnText='Войти'
-                            size='large'
-                            type='gradient'/>
-                    <div>У вас еще нет аккаунта? <br/>
-                        <NavLink
-                            to={urlRegistrationDoctor}
-                            className="login-form-navlink"
-                            data-tip
-                        >
-                            Зарегистрироваться как доктор
-                        </NavLink>
-                        <ReactTooltip place="top" type="dark" effect="float" multiline={true}>
-                            <p>При регистрации вам будут необходимы фото или сканы документов подтверждающих ваше
-                                образование,<br/> дипломы и свидетельства о послевузовском образовании,
-                            свидетельство о подтверждении категории и <br/>дипломы ученой степени и ученого звания при наличии</p>
-                        </ReactTooltip>
+        return (<div>
+            <Translate>
+                {({ translate }) => (
+                    <Form onSubmit={this.handleSubmit} className="login-form">
+                        <div className="login-title">{translate('auth.title')}</div>
+                        <div className="login-notification">{translate('auth.requiredFields')}</div>
+                        <FormItem {...error[0]}>
+                            {getFieldDecorator('userName', {
+                                rules: [{required: true, message: translate('auth.errors.inputEmail')}],
+                            })(
+                                <Input placeholder={translate("auth.emailOrLogin")}
+                                        className='login-form-item'/>
+                            )}
+                        </FormItem>
+                        <FormItem {...error[1]}>
+                            {getFieldDecorator('password', {
+                                rules: [{required: true, message: translate('auth.errors.inputPassword')}],
+                            })(
+                                <Input placeholder={translate("auth.password")}
+                                      addonAfter={<NavLink className="login-form-navlink" to={urlForget}>{translate('auth.forgotPassword')}</NavLink>}
+                                      type="password"
+                                      className='login-form-item'/>
+                            )}
+                        </FormItem>
 
-                        <br/>
+                        <LanguageToggle />
 
-                        <NavLink
-                            to={urlRegistrationPatient}
-                            className="login-form-navlink"
-                        >
-                            Зарегистрироваться как пациент
-                        </NavLink>
+                        <FormItem>
+                            {getFieldDecorator('remember', {
+                                valuePropName: 'checked',
+                                initialValue: false,
+                            })(
+                                <Checkbox>{translate('auth.rememberMe')}</Checkbox>
+                            )}
+                        </FormItem>
 
+                        <div className="login-form-control">
+                            <Button htmlType="submit"
+                                    btnText={translate('button.title.signIn')}
+                                    size='large'
+                                    type='gradient'/>
 
-                    </div>
-                </div>
-            </Form>
-        )
+                            <div>{translate('auth.noAccountYet')}<br/>
+                                <NavLink
+                                    to={urlRegistrationDoctor}
+                                    className="login-form-navlink"
+                                    data-tip
+                                >
+                                    {translate('auth.registerAsDoctor')}
+                                </NavLink>
+                                    <ReactTooltip place="top" type="dark" effect="float" multiline={true}>
+                                        {translate('auth.docRegistrationTooltip')}
+                                    </ReactTooltip>
+
+                                    <br/>
+
+                                <NavLink
+                                    to={urlRegistrationPatient}
+                                    className="login-form-navlink"
+                                >
+                                    {translate('auth.registerAsPatient')}
+                                </NavLink>
+                            </div>
+                        </div>
+                    </Form>
+                )}
+            </Translate>
+        </div>)
     }
 }
 
@@ -136,4 +141,4 @@ Login.defaultProps = {
     onSubmit: () => {},
 };
 
-export default Login
+export default Login;

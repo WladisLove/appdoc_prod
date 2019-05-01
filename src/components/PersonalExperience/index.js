@@ -9,6 +9,7 @@ import Input from '../Input'
 import Rate from '../Rate'
 import Icon from '../Icon'
 import Popover from '../Popover'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -26,7 +27,7 @@ class PersonalExperience extends React.Component{
 
             <div className={rootClass}>
                 <Accordion defaultActiveKey={['1']}>
-                    <Panel header="Опыт работы" key="1">
+                    <Panel header={<Translate id={"personal.experience"}/>} key="1">
                         <PersonalExperienceItem
                             profileDoctor={this.props.profileDoctor}
                             onSubmit={this.props.onSubmit}

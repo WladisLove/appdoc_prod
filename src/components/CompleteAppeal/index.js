@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import Modal from '../Modal'
 import Button from '../Button'
+import { Translate } from 'react-localize-redux'
+
 import './styles.css'
 
 const CompleteAppealModal = (props) => {
@@ -10,21 +12,27 @@ const CompleteAppealModal = (props) => {
     const {visible, onCancel, onAdd, onComplete} = props;
 
     return (
-        <Modal title='Завершение обращения'
+        <Modal title={<Translate id="modal.title.completeTreatment" />}
                visible={visible}
                onCancel={onCancel}
         >
-            <div className='completeAppealModal'>
-                <Button btnText="Добавить"
-                        onClick={onAdd}
-                        size='default'
-                        type='float'
-                        icon='form'/>
-                <br/>
-                <Button btnText="Завершить обращение"
-                        onClick={onComplete}
-                        size='default'
-                        type='yellow'/>
+            <div>
+                <Translate>
+                    {({ translate }) =>
+                        (<div className='completeAppealModal'>
+                            <Button btnText={translate('button.title.add')}
+                                    onClick={onAdd}
+                                    size='default'
+                                    type='float'
+                                    icon='form'/>
+                            <br/>
+                            <Button btnText={translate('button.title.treatmentComplete')}
+                                    onClick={onComplete}
+                                    size='default'
+                                    type='yellow'/>
+                        </div>)
+                    }
+                </Translate>
             </div>
         </Modal>
     )

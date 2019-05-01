@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import Card from '../Card'
 import NotificationItem from '../Notification'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -23,9 +24,8 @@ class NotificationCard extends React.Component{
 
     render() {
         return (
-
             <div className='notification-card'>
-                    <Card title="Уведомления" >
+                    <Card title={<Translate id="notifications.title" />}>
                         <PerfectScrollbar
                             speed={1}
                             className="scroll"

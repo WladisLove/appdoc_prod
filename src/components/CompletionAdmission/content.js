@@ -6,12 +6,10 @@ import Select from '../Select'
 import Button from '../Button'
 import Checkbox from '../Checkbox'
 import DatePicker from '../DatePicker'
+import { Translate } from 'react-localize-redux'
 
 const FormItem = Form.Item;
-const rangeSet = {
-    placeholderStart: 'Не ранее',
-    placeholderEnd: 'Не позднее',
-};
+
 class ContentForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
@@ -22,67 +20,83 @@ class ContentForm extends React.Component {
         const {getFieldDecorator} = this.props.form;
         const rootClass = 'admission_form';
 
-        return (
-            <Form onSubmit={this.handleSubmit}
-                  className={rootClass}>
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<Form onSubmit={this.handleSubmit}
+                          className={rootClass}>
 
-                    <FormItem>
-                        {getFieldDecorator('diagnosis',{
-                            rules: [{required: true, message: 'Ввведите диагноз',}]
-                        })(
-                            <Input className={rootClass + '-input'}
-                                   placeholder="Диагноз"/>
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        {getFieldDecorator('isChronic')(
-                            <Checkbox className={rootClass + '-checkbox'}>
-                                Добавить в список хронических болезней</Checkbox>
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        {getFieldDecorator('drug',{
-                            rules: [{required: true, message: 'Ввведите препарат',}]
-                        })(
-                            <Select 
-                                className={rootClass + '-select'}
-                                mode="multiple"
-                                placeholder="Препарат для приема"
-                            >
-                                <Option value="Анальгин">Анальгин</Option>
-                                <Option value="Парацетамол">Парацетамол</Option>
-                                <Option value="Аскорбиновая кислота">Аскорбиновая кислота</Option>
-                            </Select>,
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        {getFieldDecorator('investigation',{
-                            rules: [{required: true, message: 'Ввведите исследование',}]
-                        })(
-                            <Select 
-                                className={rootClass + '-select'}
-                                mode="multiple"
-                                placeholder="Исследование"
-                            >
-                                <Option value="Общий анализ крови">Общий анализ крови</Option>
-                            </Select>,
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        {getFieldDecorator('time')(
-                            <DatePicker range
-                                rangeSet={rangeSet}
-                                delimiter='&mdash;'/>
-                        )}
-                    </FormItem>
-                    <Button 
-                            htmlType="submit"
-                            btnText="Завершить"
-                            size="default"
-                            type="float"
-                    />
-            </Form>
-        )
+                            <FormItem>
+                                {getFieldDecorator('diagnosis',{
+                                    rules: [{required: true, message: translate('form.errors.input.enterDiagnosis')}]
+                                })(
+                                    <Input className={rootClass + '-input'}
+                                           placeholder={translate('diagnosis')} />
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('isChronic')(
+                                    <Checkbox className={rootClass + '-checkbox'}>
+                                        {translate('form.checkbox.addToListChronicDiseases')}
+                                    </Checkbox>
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('drug',{
+                                    rules: [{required: true, message: translate('form.errors.select.enterDrug')}]
+                                })(
+                                    <Select
+                                        className={rootClass + '-select'}
+                                        mode="multiple"
+                                        placeholder={translate('form.select.drugForUse')}
+                                    >
+                                        <Option value={translate('form.select.drug.analgin')}>
+                                            {translate('form.select.drugs.analgin')}
+                                        </Option>
+                                        <Option value={translate('form.select.drug.paracetamol')}>
+                                            {translate('form.select.drugs.paracetamol')}
+                                        </Option>
+                                        <Option value={translate('form.select.drug.vitaminC')}>
+                                            {translate('form.select.drugs.vitaminC')}
+                                        </Option>
+                                    </Select>,
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('investigation',{
+                                    rules: [{required: true, message: translate('form.errors.select.enterInvestigation')}]
+                                })(
+                                    <Select
+                                        className={rootClass + '-select'}
+                                        mode="multiple"
+                                        placeholder={translate('investigation')}
+                                    >
+                                        <Option value={translate('form.select.investigation.completeBloodCount')}>
+                                            {translate('form.select.investigation.completeBloodCount')}
+                                        </Option>
+                                    </Select>,
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('time')(
+                                    <DatePicker range
+                                        rangeSet={{
+                                            placeholderStart: translate('notEarlier'),
+                                            placeholderEnd: translate('notLater')
+                                        }}
+                                        delimiter='&mdash;'/>
+                                )}
+                            </FormItem>
+                            <Button
+                                    htmlType="submit"
+                                    btnText={translate('button.title.complete')}
+                                    size="default"
+                                    type="float"
+                            />
+                    </Form>)
+                }
+            </Translate>
+        </div>)
     }
 }
 

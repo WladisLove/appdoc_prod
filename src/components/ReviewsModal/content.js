@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Translate } from 'react-localize-redux'
 import { Form } from 'antd';
 import TextArea from '../TextArea'
 import Rate from '../Rate'
@@ -34,7 +34,7 @@ class ContentForm extends React.Component{
     handleSubmit = (e) => {
         e.preventDefault();
         if(!this.state.message) {
-            message.error("Введите текст отзыва");
+            message.error(<Translate id="notifications.enterReviewText" />);
             return
         }
         const obj = {
@@ -51,33 +51,36 @@ class ContentForm extends React.Component{
                 if(+res.data.code===200) {
                     this.props.onCancel();
                     this.props.refresh();
-                    message.success("Отзыв успешно оставлен")
+                    message.success(<Translate id="notifications.reviewSuccessfulAdd" />)
                 } else {
-                    message.error("Произошла ошибка, попробуйте ещё раз")
+                    message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
                 }
             })
         })
     };
     render(){
-        return (
-            <Form onSubmit={this.handleSubmit}
-                  className="cancelVisitModal">
-                {this.props.mustLeave && <p>Вы не оставили обязательный отзыв на бесплатный приём.</p>}
-                <p>С целью повышения качества услуг просим вас оставить отзыв.</p>
-                <FormItem>
-                    <Rate onChange = {this.handleChange} value={this.state.value} defaultValue={1} starSize={20}/>
-                    <span className="rate-number">{this.state.value ? this.state.value : 1}</span>
-                </FormItem>
-                <TextArea label='Текст отзыва'
-                          value={this.state.message}
-                          onChange={message => this.setState({message})}
-                          className="cancelVisitModal-txtarea"/>
-                <Button htmlType="submit"
-                        size='default'
-                        btnText='Сохранить'
-                        type='float'/> {this.state.loading &&<Spinner isInline={true} size = "small"/>}
-            </Form>
-        )
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<Form onSubmit={this.handleSubmit} className="cancelVisitModal">
+                        {this.props.mustLeave && <p>{translate('notifications.requiredReviewForFreeReception')}</p>}
+                        <p><Translate id="notifications.pleaseLeaveReview" /></p>
+                        <FormItem>
+                            <Rate onChange = {this.handleChange} value={this.state.value} defaultValue={1} starSize={20}/>
+                            <span className="rate-number">{this.state.value ? this.state.value : 1}</span>
+                        </FormItem>
+                        <TextArea label={translate('form.textarea.reviewText')}
+                                  value={this.state.message}
+                                  onChange={message => this.setState({message})}
+                                  className="cancelVisitModal-txtarea"/>
+                        <Button htmlType="submit"
+                                size='default'
+                                btnText={translate('button.title.save')}
+                                type='float'/> {this.state.loading &&<Spinner isInline={true} size = "small"/>}
+                    </Form>)
+                }
+            </Translate>
+        </div>)
     }
 }
 

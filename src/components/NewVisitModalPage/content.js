@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment'
 import {Form, Alert} from 'antd';
+import { Translate } from 'react-localize-redux'
 import TextArea from '../TextArea'
 import Button from '../Button'
 import Radio from '../Radio'
@@ -175,8 +176,8 @@ class ContentForm extends React.Component {
                 this.props.onSave(response)
                     .then((res) => {
                         res.data.code === 200
-                            ? (message.success("Запись прошла успешно"), this.props.onCancel())
-                            : message.error("Произошла ошибка, выберете другое время")
+                            ? (message.success(<Translate id="notifications.recordSuccessful" />), this.props.onCancel())
+                            : message.error(<Translate id="notifications.anErrorOccurred" />)
                         this.setState({loading: false})
                     });
             } else {
@@ -200,75 +201,78 @@ class ContentForm extends React.Component {
         const {visible, date, time, userName, defaultDate} = this.props;
 
         return (
-            <Form onSubmit={this.handleSubmit}
-                  className="NewVisitModal">
-                <Input addonBefore="ФИО" value={userName} readOnly/>
+            <Translate>
+                {({ translate }) =>
+                    (<Form onSubmit={this.handleSubmit}
+                          className="NewVisitModal">
+                        <Input addonBefore={translate('reception.form.input.patient')} value={userName} readOnly/>
 
-                <div className='flex-row'>
-                    <FormItem>
-                        {getFieldDecorator('day', {
-                            rules: [{required: true, message: 'Введите дату',}],
-                        })(
-                            <DatePicker placeholder="Дата приёма"
-                                        onChange={this.onChangeDate}
-                                        disabledDate={this.isDayDisabled}
+                        <div className='flex-row'>
+                            <FormItem>
+                                {getFieldDecorator('day', {
+                                    rules: [{required: true, message: translate('reception.form.errors.datepicker')}],
+                                })(
+                                    <DatePicker placeholder={translate('reception.date')}
+                                                onChange={this.onChangeDate}
+                                                disabledDate={this.isDayDisabled}
+                                    />
+                                )}
+                            </FormItem>
+
+                            <FormItem>
+                                {getFieldDecorator('time', {
+                                    rules: [{required: true, message: translate('reception.form.errors.timepicker')}],
+                                })(
+                                    <TimePicker format="HH:mm"
+                                                minuteStep={this.state.appointmentDuration}
+                                                availableArea={this.state.availableArea}
+                                                placeholder={translate('reception.form.timepicker')}
+                                                isReset={this.state.isResetTime}
+                                                onChange={this.onChangeTime}/>
+                                )}
+                            </FormItem>
+
+                        </div>
+
+
+                        <TextArea label={translate('reception.form.textarea.comment')}
+                                  value={this.state.message}
+                                  onChange={message => this.setState({message})}
+                                  className="NewVisitModal-txtarea"/>
+                        {this.props.isUser && <FormItem>
+                            {getFieldDecorator('file')(
+                                <Upload className="newMessageModal-upload"
+                                        onChange={({file}) => this.modifyFiles(file)}
+                                        listType='text'
+                                        text={translate('reception.form.uploadFile')}/>
+                            )}
+                        </FormItem>}
+
+                        <FormItem>
+                            {getFieldDecorator('radio', {
+                                initialValue: 'chat',
+                            })(
+                                this.getIconsFromType(this.state.type)
+                            )}
+                        </FormItem>
+
+                        <div className='NewVisitModal-submit'>
+                            <Button size='default'
+                                    btnText={translate(`button.title.save`)}
+                                    disable={this.state.loading}
+                                    htmlType="submit"
+                                    type='float'
+                                    style={{marginRight: "20px"}}
+
                             />
-                        )}
-                    </FormItem>
+                            {this.state.loading && <Spinner inline={true} size="small"/>}
 
-                    <FormItem>
-                        {getFieldDecorator('time', {
-                            rules: [{required: true, message: 'Введите время',}],
-                        })(
-                            <TimePicker format="HH:mm"
-                                        minuteStep={this.state.appointmentDuration}
-                                        availableArea={this.state.availableArea}
-                                        placeholder='Время приёма'
-                                        isReset={this.state.isResetTime}
-                                        onChange={this.onChangeTime}/>
-                        )}
-                    </FormItem>
-
-                </div>
-
-
-                <TextArea label='Комментарий к приему'
-                          value={this.state.message}
-                          onChange={message => this.setState({message})}
-                          className="NewVisitModal-txtarea"/>
-                {this.props.isUser && <FormItem>
-                    {getFieldDecorator('file')(
-                        <Upload className="newMessageModal-upload"
-                                onChange={({file}) => this.modifyFiles(file)}
-                                listType='text'
-                                text="Прикрепить результаты исследований"/>
-                    )}
-                </FormItem>}
-
-                <FormItem>
-                    {getFieldDecorator('radio', {
-                        initialValue: 'chat',
-                    })(
-                        this.getIconsFromType(this.state.type)
-                    )}
-                </FormItem>
-
-                <div className='NewVisitModal-submit'>
-                    <Button size='default'
-                            btnText='Сохранить'
-                            disable={this.state.loading}
-                            htmlType="submit"
-                            type='float'
-                            style={{marginRight: "20px"}}
-
-                    />
-                    {this.state.loading && <Spinner inline={true} size="small"/>}
-
-                    {this.state.showSubmitError &&
-                    <div className='NewVisitModal-submit-error'>Это время уже занято</div>}
-                </div>
-
-            </Form>
+                            {this.state.showSubmitError &&
+                            <div className='NewVisitModal-submit-error'>{translate(`notifications.timeIsAlreadyTaken`)}</div>}
+                        </div>
+                    </Form>)
+                }
+            </Translate>
         )
     }
 }

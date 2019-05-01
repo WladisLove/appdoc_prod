@@ -14,6 +14,7 @@ import PatientProfileDoctorItem from "../../components/PatientProfileDoctorItem"
 import DoctorPageNewVisit from "../../components/DoctorPageNewVisit";
 import ReviewsTree from "../../components/ReviewsTree";
 import Spinner from "../../components/Spinner";
+import { Translate } from 'react-localize-redux'
 
 class PatientsPage extends React.Component{
     constructor(props) {
@@ -126,8 +127,8 @@ class PatientsPage extends React.Component{
         if(!this.props.profileDoctor.fio) {
             return(
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                    <h3>Страница не найдена</h3>
-                    <p>Проверьте введённый адрес</p>
+                    <h3><Translate id="notifications.404" /></h3>
+                    <p><Translate id="notifications.checkURL" /></p>
                 </div>
             )
         } else {
@@ -136,7 +137,7 @@ class PatientsPage extends React.Component{
                 <div>
                     <Row>
                         <Col span={24}>
-                            <h1 className='page-title'>Профиль врача</h1>
+                            <h1 className='page-title'><Translate id="doctor.profile" /></h1>
                         </Col>
                     </Row>
                     <Row>

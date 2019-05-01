@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Translate} from "react-localize-redux";
 
 import {Form} from 'antd';
 
@@ -18,68 +19,69 @@ class Step2_work extends React.Component {
     }
 
     render() {
-        const {getFieldDecorator , number} = this.props;
-        const {langs, payments} = this.props;
+        const {getFieldDecorator, number} = this.props;
 
         return (
-            <div className="step-block">
-                    <FormItem>
-                        {getFieldDecorator('work-worknow-'+number, {
-                            rules: [{
-                                required: true,
-                                message: 'Введите текущее место работы'
-                            }],
-                        })(
-
-                            <InputNew width ="100%" bubbleplaceholder="* Текущее место работы" className="step-form-item"/>
-                        )}
-                    </FormItem>
-                <FormItem>
-                    {getFieldDecorator('work-adress-'+number, {
-                        rules: [{
-                            required: true,
-                            message: 'Введите адрес места работы'
-                        }],
-                    })(
-                        <InputNew width ="100%" bubbleplaceholder="* Адрес места работы" className="step-form-item"/>
-
-                        )}
-                </FormItem>
-
-
-                <div className="step-row">
-                    <FormItem>
-                        {getFieldDecorator('work-post-'+number, {
-                            rules: [{
-                                required: true,
-                                message: 'Введите текущую должность'
-                            }],
-                        })(
-                            <InputNew width ="100%" bubbleplaceholder="* Должность" className="step-form-item"/>
-
-                            )}
-                    </FormItem>
-                    <FormItem>
-                        {getFieldDecorator('work-copycontract-'+number, {
-                            rules: [{
-                                required: true,
-                                message: 'Загрузите подтверждающий документ'
-                            }],
-                        })(
-                            <DropZoneUpload
-                                uploadFile = {this.props.uploadFile}
-                                text="Прикрепить копию контракта"
-                            />
-                        )}
-                    </FormItem>
-
-                </div>
+            <Translate>
+                {({translate}) =>
+                    (
+                        <div className="step-block">
+                            <FormItem>
+                                {getFieldDecorator('work-worknow-' + number, {
+                                    rules: [{
+                                        required: true,
+                                        message: translate("auth.errors.inputCurrentWorkPlace")
+                                    }],
+                                })(
+                                    <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.currentWorkPlace")}`} className="step-form-item"/>
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('work-adress-' + number, {
+                                    rules: [{
+                                        required: true,
+                                        message: translate("auth.errors.inputWorkAddress")
+                                    }],
+                                })(
+                                    <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.workAddress")}`}
+                                              className="step-form-item"/>
+                                )}
+                            </FormItem>
 
 
+                            <div className="step-row">
+                                <FormItem>
+                                    {getFieldDecorator('work-post-' + number, {
+                                        rules: [{
+                                            required: true,
+                                            message: translate("auth.errors.inputPosition")
+                                        }],
+                                    })(
+                                        <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.position")}`}
+                                                  className="step-form-item"/>
+                                    )}
+                                </FormItem>
+                                <FormItem>
+                                    {getFieldDecorator('work-copycontract-' + number, {
+                                        rules: [{
+                                            required: true,
+                                            message: translate("auth.errors.uploadConfirmingDoc")
+                                        }],
+                                    })(
+                                        <DropZoneUpload
+                                            uploadFile={this.props.uploadFile}
+                                            text={translate("auth.addContractCopy")}
+                                        />
+                                    )}
+                                </FormItem>
+
+                            </div>
 
 
-
-            </div>
+                        </div>
+                    )
+                }
+            </Translate>
         )
     }
 }

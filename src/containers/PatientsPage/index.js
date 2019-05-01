@@ -5,7 +5,7 @@ import Col from "../../components/Col";
 import ProfilePatient from "../../components/ProfilePatient";
 import DiseasesTable from "../../components/DiseasesTable";
 import HistoryReceptions from "../../components/HistoryReceptions";
-
+import { Translate } from 'react-localize-redux'
 import Hoc from '../../hoc'
 
 import * as actions from '../../store/actions'
@@ -15,7 +15,6 @@ import Spinner from "../../components/Spinner";
 import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
 class PatientsPage extends React.Component{
-
     constructor(props){
         super(props);
         this.state = {
@@ -50,8 +49,8 @@ class PatientsPage extends React.Component{
         else if (info === null) {
             return(
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                    <h3>Страница не найдена</h3>
-                    <p>Проверьте введённый адрес</p>
+                    <h3><Translate id="404" /></h3>
+                    <p><Translate id="checkURL" /></p>
                 </div>
             )
         }
@@ -61,7 +60,7 @@ class PatientsPage extends React.Component{
                 <div>
                     <Row>
                         <Col span={24}>
-                            <h1 className='page-title'>Профиль пациента</h1>
+                            <h1 className='page-title'><Translate id="patient.profile" /></h1>
                         </Col>
                     </Row>
                     <Row>

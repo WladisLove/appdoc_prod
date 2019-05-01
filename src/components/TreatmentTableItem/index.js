@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import moment from 'moment'
-
+import { Translate } from 'react-localize-redux'
 import Button from '../Button'
 import Rate from '../Rate'
 import Icon from '../Icon'
@@ -33,9 +33,9 @@ class TreatmentTableItem extends React.Component{
             this.props.addConclusion(this.props.lastMA, filesend)
                 .then((res)=>{
                     if(+res.data.code===200) {
-                        message.success("Заключение успешно добавлено")
+                        message.success(<Translate id="notifications.conclusionSuccessfulAdd" />)
                     } else {
-                        message.error("Произошла ошибка попробуйте ещё раз")
+                        message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
                     }
                     this.props.refresh();
                 })
@@ -69,7 +69,7 @@ class TreatmentTableItem extends React.Component{
             'video': "video-camera",
         }
         const name = isUser ? doc_name: user_name;
-        const conclusionMessage = isUser ? "Ожидайте заключение":
+        const conclusionMessage = isUser ? <Translate id="notifications.waitConclusion" /> :
             <div onClick={e=>{e.stopPropagation()}}>
             <input type="file"
                    id="addConclusion"
@@ -84,7 +84,7 @@ class TreatmentTableItem extends React.Component{
                    onChange={e => this.addConclusion(e.target.files[0])}
             />
             <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
-                <span>Добавить</span>
+                <span><Translate id="button.title.add" /></span>
             </label>
         </div>;;
         return (
@@ -130,24 +130,28 @@ class TreatmentTableItem extends React.Component{
                                     {conclusion.btnText}
                                 </a>
                             ) : (moment().format("X") > moment(+date*1000).format("X")) ? patientWasnt ?
-                                <span>Приём пропущен</span> : <span>{conclusionMessage}</span> : <span>&mdash;</span>
+                                <span><Translate id="reception.skipped" /></span> : <span>{conclusionMessage}</span> : <span>&mdash;</span>
                         }
                     </div>
                 </div>
-                <div className="flex-col">
-                    {
-                        rate ? (
-                            <Hoc>
-                                <Rate defaultValue={+rate} disabled/>
-                                <div className="patient-review">{comment}</div>
-                            </Hoc>
-                        ) : conclusion && isUser ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
-                                                  onClick={this.writeReview}
-                                                  size='small'
-                                                  type='float'
-                                                  icon='form'/> : <span>&mdash;</span>
+                <Translate>
+                    {({ translate }) =>
+                        (<div className="flex-col">
+                            {
+                                rate ? (
+                                    <Hoc>
+                                        <Rate defaultValue={+rate} disabled/>
+                                        <div className="patient-review">{comment}</div>
+                                    </Hoc>
+                                ) : conclusion && isUser ?  <Button btnText={translate('button.title.writeReview')}
+                                                          onClick={this.writeReview}
+                                                          size='small'
+                                                          type='float'
+                                                          icon='form'/> : <span>&mdash;</span>
+                            }
+                        </div>)
                     }
-                </div>
+                </Translate>
                 <div className="flex-col"
                      onClick={this.handleClick}>
                     <PopoverFile

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import PatientAnalyzesItem from '../PatientAnalyzesItem'
 import Card from '../Card'
 import Icon from '../Icon'
@@ -27,7 +27,7 @@ class PatientAnalyzes extends React.Component{
 
         return (
             <div className='analyzes-all'>
-                <Card style={{height: 500}} title="Напоминания">
+                <Card style={{height: 500}} title={<Translate id="reminding" />}>
                     <ScrollArea
                         speed={1}
                         className="content-wrapper"

@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import moment from 'moment'
 import Row from "../../components/Row";
 import Col from "../../components/Col";
@@ -10,7 +10,8 @@ import PatientDoctors from "../../components/PatientDoctors";
 import AddNewDoctor from "../../components/AddNewDoctor";
 import NewVisitByPatientModal from "../../components/NewVisitByPatientModal";
 import Spinner from "../../components/Spinner";
-import {Modal} from 'antd';
+import { Modal } from 'antd';
+import { Translate } from 'react-localize-redux'
 
 class Patients extends React.Component{
 	constructor(props){
@@ -54,14 +55,14 @@ class Patients extends React.Component{
 	addNewDoctor = (id) => {
         this.props.addDoctor(id, this.state.searchName)
 	};
-	onDeleteDoctorHandler = (id, patientName) => {
+	onDeleteDoctorHandler = (id, patientName, translate) => {
 		const {removeDoctor} = this.props;
         Modal.confirm({
-            title: `Вы действительно хотите удалить доктора?`,
-            content: `${patientName} будет удален из списка докторов`,
+            title: translate("modal.confirm.removeDoctor"),
+            content: translate('modal.confirm.willBeRemovedFromListOfDoctors', {name: patientName}),
             width: '445px',
-            okText: 'Да',
-            cancelText: 'Нет',
+            okText: translate("yes"),
+            cancelText: translate("no"),
             onOk() {
                 removeDoctor(id);
             },
@@ -79,7 +80,7 @@ class Patients extends React.Component{
         	<Hoc>
         		<Row>
         			<Col span={24}>
-        				<h1 className='page-title'>Мои врачи</h1>
+        				<h1 className='page-title'><Translate id="patient.myDoctors" /></h1>
         			</Col>
         		</Row>
 				 <Row>

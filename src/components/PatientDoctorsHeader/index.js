@@ -6,6 +6,7 @@ import {search} from '../../helpers/searching'
 import './style.css'
 import '../../icon/style.css'
 import {Icon} from 'antd'
+import { Translate } from 'react-localize-redux'
 
 
 class PatientDoctorsHeader extends React.Component{
@@ -30,42 +31,46 @@ class PatientDoctorsHeader extends React.Component{
     };
 
     render(){
-        return (
-                <div className="patient-doctors-header">
-                    <div className="patient-doctors-actions">
-                        <div className="flex-col">
-                            <Button
-                                onClick={this.props.addNewDoctorVisible}
-                                btnText='Добавить'
-                                size='default'
-                                type='yellow'
-                                icon='plus'
-                                iconSize={11}
-                                svg
-                            />
-                        </div>
-                        {this.props.data.length !== 0 && <div className="flex-col ico-btn">
-                            <button className="sortByName" onClick={()=>{
-                                this.props.onSort(this.state.sortByName==="down"?"up":"down");
-                                this.setState({sortByName: this.state.sortByName==="down"?"up":"down"});
-                            }}>
-                                <span> Сортировать по: <span style={{fontWeight: 700}}>ФИО </span><Icon type={this.state.sortByName} /></span>
-                            </button>
-                            <Input.Search
-                                placeholder="Поиск..."
-                                onChange={this.onInputChange}
-                                onSearch={this.props.onSearch}
-                                value={this.state.searchInputValue}
-                            />
-                        </div>}
-                    </div>
-                    {this.props.data.length !== 0 && <div className="legend">
-                        <span className="AppAfterAnalyses">Приёмы по результатам анализов</span>
-                        <span className="AppWithVideoAudio">Доступные приёмы</span>
-                        <span className="AppUnavailable">Недоступные приёмы</span>
-                    </div>}
-                </div>
-        )
+        return (<div>
+                <Translate>
+                    {({ translate }) =>
+                        (<div className="patient-doctors-header">
+                            <div className="patient-doctors-actions">
+                                <div className="flex-col">
+                                    <Button
+                                        onClick={this.props.addNewDoctorVisible}
+                                        btnText={translate('button.title.add')}
+                                        size='default'
+                                        type='yellow'
+                                        icon='plus'
+                                        iconSize={11}
+                                        svg
+                                    />
+                                </div>
+                                {this.props.data.length !== 0 && <div className="flex-col ico-btn">
+                                    <button className="sortByName" onClick={()=>{
+                                        this.props.onSort(this.state.sortByName==="down"?"up":"down");
+                                        this.setState({sortByName: this.state.sortByName==="down"?"up":"down"});
+                                    }}>
+                                        <span> {translate('sortBy')}: <span style={{fontWeight: 700}}>{translate('patient.form.input.fullName')} </span><Icon type={this.state.sortByName} /></span>
+                                    </button>
+                                    <Input.Search
+                                        placeholder={`${translate('search')}...`}
+                                        onChange={this.onInputChange}
+                                        onSearch={this.props.onSearch}
+                                        value={this.state.searchInputValue}
+                                    />
+                                </div>}
+                            </div>
+                            {this.props.data.length !== 0 && <div className="legend">
+                                <span className="AppAfterAnalyses">{translate('reception.byResults')}</span>
+                                <span className="AppWithVideoAudio">{translate('reception.available')}</span>
+                                <span className="AppUnavailable">{translate('reception.unavailable')}</span>
+                            </div>}
+                        </div>)
+                    }
+                </Translate>
+        </div>)
     }
 }
 

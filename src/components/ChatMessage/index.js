@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import moment from 'moment'
-
+import { Translate } from 'react-localize-redux'
 import ProfileAvatar from '../ProfileAvatar'
 import Hoc from "../Hoc"
 import Icon from "../Icon"
@@ -42,14 +42,14 @@ const ChatMessage = props => {
             case "stop":
             // phone-call-outcoming
                 content = callInfoMessage(
-                    "Звонок завершен. Продолжительность: " + callTime,
+                    (<Translate id="callIsCompleteTime" data={{ "callTime": callTime }} />),
                     "", "",
                     "end-call-button"
                 );
                 break;
             case "begin":
                 content = callInfoMessage(
-                    "Звонок",
+                    (<Translate id="call" />),
                     name,
                     "",
                     "phone-call-outcoming"
@@ -57,9 +57,9 @@ const ChatMessage = props => {
                 break;
             case "notBegin":
                 content = callInfoMessage(
-                    "Абонент",
+                    (<Translate id="caller" />),
                     name,
-                    "не отвечает",
+                    (<Translate id="notResponding" />),
                     "phone-call-outcoming",
                     true
                 );
@@ -103,12 +103,9 @@ const ChatMessage = props => {
                     isDate ?
                         ( <div className='message-today'>{moment(date*1000).format("D MMMM YYYY")}</div>)
                         : isVisEnd ?
-                            (<div className='message-visit-end'>Прием завершен</div>)
-                            : (
-                            content
-                )
+                            (<div className='message-visit-end'><Translate id="reception.completed" /></div>)
+                            : (content)
                 }
-
             </Hoc>
         )
 

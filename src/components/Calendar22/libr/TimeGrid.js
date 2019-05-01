@@ -10,6 +10,7 @@ import TimeColumn from './TimeColumn'
 import Header from './Header'
 import Icon from '../../Icon'
 import Button from '../../Button'
+import { Translate } from 'react-localize-redux'
 
 import getWidth from 'dom-helpers/query/width'
 import scrollbarSize from 'dom-helpers/util/scrollbarSize'
@@ -185,7 +186,7 @@ export default class TimeGrid extends Component {
         {this.renderHeader(range, allDayEvents, width, resources)}
 
 {
-  this.props.intervals.length ? 
+  this.props.intervals.length ?
   (
     <div ref="content" className="rbc-time-content">
           {/*<div ref="timeIndicator" className="rbc-current-time-indicator" />*/}
@@ -201,19 +202,23 @@ export default class TimeGrid extends Component {
         </div>
   ) : (
     <div ref="content" className="calendar-empty-content">
-      <div className="warning">График не заполнен.</div>
-      <div className="decision">Для его редактирования перейдите в 
-      <Button
-                    btnText='Редактор графика'
-                    size='go'
-                    type='go'
-                    svg
-                    onClick={this.props.gotoEditor}
-            />.</div>
+      <div className="warning"><Translate id="schedule.notFilled" /></div>
+      <div className="decision"><Translate id="schedule.goTo" />
+      <Translate>
+          {({ translate }) =>
+              (<Button
+                  btnText={translate(`schedule.editor`)}
+                  size='go'
+                  type='go'
+                  svg
+                  onClick={this.props.gotoEditor}
+              />)
+          }
+      </Translate>.</div>
     </div>
   )
 }
-        
+
       </div>
     )
   }
@@ -327,7 +332,7 @@ export default class TimeGrid extends Component {
       getDrilldownView,
     } = this.props
     let HeaderComponent = Header
-      
+
     return range.map((date, i) => {
       let drilldownView = getDrilldownView(date)
         let labels = [localizer.format(date, 'dddd', culture),
@@ -365,7 +370,7 @@ export default class TimeGrid extends Component {
                         <span>{header}</span>
                     )
             }
-          
+
         </div>
       )
     })

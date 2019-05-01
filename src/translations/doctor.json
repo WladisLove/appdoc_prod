@@ -1,0 +1,33 @@
+{
+    "doctor": {
+        "title": ["Doctor", "Врач"],
+        "myPatients": ["My patients", "Мои пациенты"],
+        "not": ["No doctors", "Докторов нет"],
+        "category": ["Doctor category ", "Категория врача"],
+        "workExperience": ["Work experience", "Стаж работы"],
+        "workPlaces": ["Work places", "Места работы"],
+        "profile": ["Doctor profile", "Профиль врача"],
+        "takesInClinics": ["Doctor takes in clinics", "Доктор принимает в клиниках"],
+        "noSpecialties": ["No specialties.", "Нет специальностей."],
+        "categoryList": {
+            "noCategory": ["No category", "Без категории"],
+            "firstCategory": ["First category", "Первая категория"],
+            "secondCategory": ["Second category", "Вторая категория"],
+            "higherCategory": ["Higher category", "Высшая категория"]
+        },
+        "rankList": {
+            "noRank": ["No rank", "Нет звания"],
+            "professorAssistant": ["Professor assistant", "Доцент"],
+            "professor": ["Professor", "Профессор"]
+        },
+        "degreeList": {
+            "noDegree": ["No degree", "Нет степени"],
+            "candidate": ["Candidate of Medical Sciences", "Кандидат медицинских наук"],
+            "doctor": ["Doctor of Medical Sciences", "Доктор медицинских наук"]
+        },
+        "search": {
+            "input": ["Input doctor full name", "Введите ФИО доктора"],
+            "notFound": ["Doctors not found", "Доктора не найдены"]
+        }
+    }
+}

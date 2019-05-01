@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import Modal from '../Modal'
 import Button from '../Button'
 import './styles.css'
@@ -10,7 +10,7 @@ const WarningModal = (props) => {
     const {visible, message, onClick} = props;
 
     return (
-        <Modal title='Внимание'
+        <Modal title={<Translate id="modal.title.attention" />}
                 warning = {true}
                 visible={visible}>
             <div className="root">
@@ -36,4 +36,3 @@ WarningModal.defaultProps = {
 };
 
 export default WarningModal;
-
