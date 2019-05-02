@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import Icon from '../Icon'
 import {DatePicker} from 'antd'
 const { RangePicker } = DatePicker;
@@ -30,11 +30,15 @@ class SmallRP extends React.Component{
             <div style={{width:250}}>
                 <Icon type="calendar" svg size={19}/>
                 <div className={this.props.className}>
-                    <RangePicker format={this.props.format}
-                                 onChange={this.RPHandler}
-                                 value={this.state.values}
-                                 allowClear={false}
-                                 placeholder={['Начало', 'Конец']}/>
+                    <Translate>
+                        {({ translate }) =>
+                            (<RangePicker format={this.props.format}
+                                         onChange={this.RPHandler}
+                                         value={this.state.values}
+                                         allowClear={false}
+                                         placeholder={[translate('start'), translate('end')]}/>)
+                        }
+                    </Translate>
                 </div>
                 <Icon type="circle_close" svg size={15}
                       onClick={() => this.RPHandler([])}/>

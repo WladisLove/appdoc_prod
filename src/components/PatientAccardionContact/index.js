@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import PatientAccardionContactItem from '../PatientAccardionContactItem'
 import Accordion from '../Accordion'
-
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 
@@ -14,11 +14,11 @@ class PatientAccardionContact extends React.Component{
         const { fio, phone, email, address, avatar} = this.props.profile;
         const rootClass = cn('patient-contacts-accardion');
         const Panel = Accordion.Panel;
-        
+
         return (
             <div className={rootClass}>
                <Accordion defaultActiveKey={['1']}>
-                    <Panel header="Контакты" key="1" >
+                    <Panel header={<Translate id="contacts" />} key="1" >
                         <PatientAccardionContactItem
                             contactFio={fio}
                             contactPhone={phone}

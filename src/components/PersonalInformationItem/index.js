@@ -4,6 +4,8 @@ import cn from 'classnames'
 import Button from '../Button'
 import Radio from '../RadioBox'
 
+import { Translate } from 'react-localize-redux'
+
 import './style.css'
 import '../../icon/style.css'
 import {Form} from "antd/lib/index";
@@ -43,6 +45,10 @@ class PersonalInformationItemForm extends React.Component{
     
         return (
                 <Form className={rootClass} onSubmit={this.handleSubmit}>
+                    <Translate>
+                        {({ translate }) =>
+                            (<div>
+                               
                     <div className="personal-block">
                         <FormItem>
                             {getFieldDecorator('language', {
@@ -94,22 +100,66 @@ class PersonalInformationItemForm extends React.Component{
                                 initialValue: about
                             })(
 
-                                    <textarea className="textarea-field"
-                                              style={{height: "200px"}}
+                                            <SelectNew width ="100%"
+                                                       bubbleplaceholder={translate(`personal.form.select.language`)}
+                                                       className="personal-block-form-item"
+                                                       mode="multiple"
+                                                       data={langs}
+                                            />
+                                        )}
+                                    </FormItem>
+                                    <div className='radio-label'>{translate(`personal.form.radio.childrensConsultation`)}
+                                        {getFieldDecorator('isChildConsult', {
+                                            initialValue: isChildConsult
+                                        })(
+                                            <RadioGroup>
+                                                <Radio value={true}>{translate(`yes`)}</Radio>
+                                                <Radio value={false}>{translate(`no`)}</Radio>
+                                            </RadioGroup>
+                                        )}
+                                    </div>
+                                    <FormItem>
+                                        {getFieldDecorator('consultationPrice', {
+                                            initialValue: consultationPrice
+                                        })(
+                                            <SelectNew width ="100%"
+                                                       bubbleplaceholder={translate(`personal.form.select.consultationPrice`)}
+                                                       className="personal-block-form-item"
+                                                       data={addInfoObj.payments}
+                                            />
+                                        )}
+                                    </FormItem>
+                                    <div className='radio-label'>{translate(`personal.form.radio.freeConsult`)}
+                                        {getFieldDecorator('isFreeConsult', {
+                                            initialValue: isFreeConsult
+                                        })(
+                                            <RadioGroup>
+                                                <Radio value={true}>{translate(`yes`)}</Radio>
+                                                <Radio value={false}>{translate(`no`)}</Radio>
+                                            </RadioGroup>
+                                        )}
+                                    </div>
+                                    <FormItem>
+                                        <div className="textarea-label">{translate(`personal.form.textarea.about`)}</div>
+                                        {getFieldDecorator('about', {
+                                            initialValue: about
+                                        })(
+                                              <textarea className="textarea-field" style={{height: "200px"}} />
+                                        )}
+                                    </FormItem>
+                                </div>
 
+                                <div className="personal-block">
+                                    <Button
+                                        htmlType="submit"
+                                        btnText={translate(`button.title.saveChanges`)}
+                                        size='default'
+                                        type='float'
                                     />
-                            )}
-                        </FormItem>
-                    </div>
-
-                    <div className="personal-block">
-                        <Button
-                            htmlType="submit"
-                            btnText='Сохранить изменения'
-                            size='default'
-                            type='float'
-                        />
-                    </div>
+                                </div>
+                            </div>)
+                        }
+                    </Translate>
                 </Form>
         )
     }

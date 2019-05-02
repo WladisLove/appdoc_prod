@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import RatePanel from '../RatePanel'
 import Icon from '../Icon'
 import './styles.css'
@@ -10,12 +10,12 @@ const RateIndicator = (props) => {
         <div className="rateIndicator">
             <div className="rateIndicator-main">
                 <div className="rateIndicator-main-title">
-                    Мой рейтинг
+                    <Translate id="myRating" />
                 </div>
                 <RatePanel starSize={24} {...props}/>
                 <div className="rateIndicator-main-reviewsNum">
                     <Icon type="chat" svg size={17}/>
-                    {props.reviewsNum} отзывов
+                    {props.reviewsNum} <Translate id="review.lot2" />
                 </div>
             </div>
             <div className="rateIndicator-behind"/>

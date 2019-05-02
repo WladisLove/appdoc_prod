@@ -1,0 +1,22 @@
+{
+    "language": {
+        "azerbaijani": ["Azerbaijani", "Азербайджанский"],
+        "english": ["English", "Английский"],
+        "armenian": ["Armenian", "Армянский"],
+        "belorussian": ["Belorussian", "Белорусский"],
+        "spanish": ["Spanish", "Испанский"],
+        "italian": ["Italian", "Итальянский"],
+        "kazakh": ["Kazakh", "Казахский"],
+        "kyrgyz": ["Kyrgyz", "Киргизский"],
+        "chinese": ["Chinese", "Китайский"],
+        "lithuanian": ["Lithuanian", "Литовский"],
+        "moldavian": ["Moldavian", "Молдавский"],
+        "deutsch": ["Deutsch", "Немецкий"],
+        "polish": ["Polish", "Польский"],
+        "russian": ["Russian", "Русский"],
+        "tajik": ["Tajik", "Таджикский"],
+        "uzbek": ["Uzbek", "Узбекский"],
+        "ukrainian": ["Ukrainian", "Украинский"],
+        "french": ["French", "Французский"]
+    }
+}

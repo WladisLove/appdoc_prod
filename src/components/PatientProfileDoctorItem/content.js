@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import cn from 'classnames'
-
+import { Translate } from 'react-localize-redux'
 import Icon from '../Icon'
 import './style.css'
 import '../../icon/style.css'
@@ -10,29 +10,33 @@ class Content extends React.Component {
     render() {
         const { doctorExperience, doctorMaps,onGoto } = this.props;
 
-        return (
-            <div className='profile__doctor-information'>
-                {this.props.about && <div className='profile__doctor-information-block'>
-                    <div className='profile__doctor-information-title'>О себе</div>
-                    <div className='profile__doctor-information-postitle'>{this.props.about}</div>
-                </div>}
-                <div className='profile__doctor-information-block'>
-                    <div className='profile__doctor-information-title'>Места работы</div>
-                    <div className='profile__doctor-information-postitle'>Доктор принимает в клиниках:</div>
-                    {doctorMaps.map((item, index)=> (<div onClick={() => onGoto(item.map)}
-                                                            className='profile__doctor-information-text go-to'
-                                                            key={index+1}>
-                                                                {item.map}
-                                                            </div>))}
-                </div>
-                <div className='profile__doctor-information-block'>
-                    <div className='profile__doctor-information-title'>Образование</div>
-                    <ul className='profile__doctor-information-list'>
-                        {doctorExperience.map((item, index)=> <li className='profile__doctor-information-text' key={index+1}>{item.experience}</li>)}
-                    </ul>
-                </div>
-            </div>
-        )
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<div className='profile__doctor-information'>
+                        {this.props.about && <div className='profile__doctor-information-block'>
+                            <div className='profile__doctor-information-title'>{translate('about')}</div>
+                            <div className='profile__doctor-information-postitle'>{this.props.about}</div>
+                        </div>}
+                        <div className='profile__doctor-information-block'>
+                            <div className='profile__doctor-information-title'>{translate('doctor.workPlaces')}</div>
+                            <div className='profile__doctor-information-postitle'>{translate('doctor.takesInClinics')}:</div>
+                            {doctorMaps.map((item, index)=> (<div onClick={() => onGoto(item.map)}
+                                                                    className='profile__doctor-information-text go-to'
+                                                                    key={index+1}>
+                                                                        {item.map}
+                                                                    </div>))}
+                        </div>
+                        <div className='profile__doctor-information-block'>
+                            <div className='profile__doctor-information-title'>{translate('education')}</div>
+                            <ul className='profile__doctor-information-list'>
+                                {doctorExperience.map((item, index)=> <li className='profile__doctor-information-text' key={index+1}>{item.experience}</li>)}
+                            </ul>
+                        </div>
+                    </div>)
+                }
+            </Translate>
+        </div>)
     }
 }
 

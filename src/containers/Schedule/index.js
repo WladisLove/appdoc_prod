@@ -18,6 +18,7 @@ import './styles.css'
 import {findTimeInterval} from '../../helpers/timeInterval'
 import {timePeriod} from './mock-data'
 import PatientPage from "../MainPage/PatientPage";
+import { Translate } from 'react-localize-redux'
 
 class Schedule extends React.Component {
     constructor(props) {
@@ -252,10 +253,14 @@ class Schedule extends React.Component {
 
             />)
         } else if (this.state.isEditorMode) {
-            editorBtn = (<Button btnText='Вернуться к графику'
-                                 onClick={() => this.changeToEditorMode(false)}
-                                 type='yellow'
-                                 icon='arrow2_left'/>);
+            editorBtn = (<Translate>
+                            {({ translate }) =>
+                                (<Button btnText={translate(`schedule.backto`)}
+                                         onClick={() => this.changeToEditorMode(false)}
+                                         type='yellow'
+                                         icon='arrow2_left'/>)
+                            }
+                        </Translate>);
             calendar = (<Calendar receptionNum={this.getCountOfScheduledIntervals()}
                                   selectable
                                   editor
@@ -274,11 +279,15 @@ class Schedule extends React.Component {
                 currD = currDate.getDate();
             let min = new Date(new Date(this.props.min * 1000).setFullYear(currY, currM, currD)),
                 max = new Date(new Date(this.props.max * 1000).setFullYear(currY, currM, currD));
-            editorBtn = (<Button btnText='Редактор графика'
-                                 onClick={() => this.changeToEditorMode(true)}
-                                 type='yellow'
-                                 icon='setting_edit'/>)
-            calendar = (<Calendar receptionNum={this.props.visits.length}
+                editorBtn = (<Translate>
+                                {({ translate }) =>
+                                    (<Button btnText={translate(`schedule.editor`)}
+                                             onClick={() => this.changeToEditorMode(true)}
+                                             type='yellow'
+                                             icon='setting_edit'/>)
+                                }
+                            </Translate>)
+                calendar = (<Calendar receptionNum={this.props.visits.length}
                                   selectable
                                   onSelectEvent={this.props.onSelectEvent}
                                   onSelectSlot={(slot) => this.onAddVisit(slot)}
@@ -306,7 +315,7 @@ class Schedule extends React.Component {
             <Hoc>
                 <Row style={{marginBottom: 25,}}>
                     <Col span={19} className='schedule-title'>
-                        {this.props.isUser ? "График приёмов" : "График работы"}
+                        {this.props.isUser ? (<Translate id="reception.schedule" />) : (<Translate id="schedule.title" />)}
                     </Col>
                     <Col span={5}
                          className='schedule-editBtn'>
@@ -318,15 +327,19 @@ class Schedule extends React.Component {
                         {calendar}
                     </Col>
                     <Col span={5} style={{textAlign: 'center'}}>
-                        {!this.props.isUser && <Button
-                            btnText='Отменить приемы'
-                            className={'cancel_rec'}
-                            onClick={() => this.setState({cancelModal: true})}
-                            size='link'
-                            type='link'
-                            icon='circle_close'
-                            svg
-                        />}
+                        {!this.props.isUser && (<Translate>
+                            {({ translate }) =>
+                                (<Button
+                                    btnText={translate(`reception.cancel`)}
+                                    className={'cancel_rec'}
+                                    onClick={() => this.setState({cancelModal: true})}
+                                    size='link'
+                                    type='link'
+                                    icon='circle_close'
+                                    svg
+                                />)
+                            }
+                        </Translate>)}
                         <SmallCalendar date={this.state.currentDate}
                                        onChange={this.dateChangeHandler}
                                        isUser = {this.props.isUser}
@@ -368,9 +381,13 @@ class Schedule extends React.Component {
                                          isDayOff={!!(+isDayOff)}
                                          emergencyAvailable={this.props.emergencyAvailable}
                 />
-                <WarningModal visible={this.state.warningModal}
-                              onClick={() => this.setState({warningModal: false})}
-                              message='Изменения всупят в силу после проверки администратором'/>
+                <Translate>
+                    {({ translate }) =>
+                        (<WarningModal visible={this.state.warningModal}
+                                       onClick={() => this.setState({warningModal: false})}
+                                       message={translate(`notifications.adminVerification`)} />)
+                    }
+                </Translate>
             </Hoc>
         )
     }

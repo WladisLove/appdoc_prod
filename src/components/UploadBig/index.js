@@ -1,7 +1,7 @@
 import React from 'react'
 import {Upload} from 'antd';
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import Icon from '../Icon'
 
 import './styles.css'
@@ -28,7 +28,7 @@ class UploadBig extends React.Component {
 
 
         const uploadButton = (
-            <div className='upload-btn' title='Загрузить файл'>
+            <div className='upload-btn' title={<Translate id="button.title.uploadFile" />}>
                 <Icon type="add-button" size={40} svg/>
             </div>
         );

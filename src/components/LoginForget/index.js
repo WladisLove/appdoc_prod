@@ -10,6 +10,7 @@ import Input from '../Input'
 
 import './style.css'
 import '../../icon/style.css'
+import {Translate} from "react-localize-redux";
 
 const FormItem = Form.Item;
 
@@ -46,32 +47,38 @@ class LoginForgetForm extends React.Component{
         const {phone} = this.props.form.getFieldsValue();
         const link = this.props.onUrlChange ?
             (<span onClick={this.goBackHandler}
-                   className="loginforget-backlink">Авторизации</span>)
+                   className="loginforget-backlink"><Translate id={"auth.title"}/></span>)
             :
             (<NavLink to={this.props.urlLogin}
-                      className="login-form-navlink">Авторизации</NavLink>);
+                      className="login-form-navlink"><Translate id={"auth.title"}/></NavLink>);
 
         return (
-            <Form onSubmit={this.handleSubmit} className="login-form">
-                <div className="login-title">Забыли пароль?</div>
-                <div className="loginforget-body">
-                    Нет проблем. Мы отправим вам инструкцию по сбросу пароля.
-                    <FormItem>
-                        {getFieldDecorator('phone')(
-                            <Input placeholder="Телефон"/>
-                        )}
-                    </FormItem>
-                    {this.props.text}
-                </div>
-                <div className="login-form-control">
-                    <Button disable={!(validatePhone(phone))}
-                            htmlType="submit"
-                            btnText='Отправить ссылку'
-                            size='large'
-                            type='gradient'/>
-                    <div>Вернуться на страницу {link}</div>
-                </div>
-            </Form>
+            <Translate>
+                {({translate}) =>
+                    (
+                        <Form onSubmit={this.handleSubmit} className="login-form">
+                            <div className="login-title">{translate("auth.forgotPassword")}</div>
+                            <div className="loginforget-body">
+                                {translate("auth.weWillSendPass")}
+                                <FormItem>
+                                    {getFieldDecorator('phone')(
+                                        <Input placeholder={translate("auth.phone")}/>
+                                    )}
+                                </FormItem>
+                                {this.props.text}
+                            </div>
+                            <div className="login-form-control">
+                                <Button disable={!(validatePhone(phone))}
+                                        htmlType="submit"
+                                        btnText= {translate("auth.sendLink")}
+                                        size='large'
+                                        type='gradient'/>
+                                <div>{translate("auth.backTo")} {link}</div>
+                            </div>
+                        </Form>
+                    )
+                }
+            </Translate>
         )
     }
 }

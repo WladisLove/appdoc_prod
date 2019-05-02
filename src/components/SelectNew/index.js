@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Select as AntSelect} from "antd"
+import { Translate } from 'react-localize-redux'
 import './style.css'
 
 const Option = AntSelect.Option;
@@ -19,10 +20,10 @@ class SelectNew extends AntSelect{
             
             if(item instanceof Object && item.hasOwnProperty('title')){
                 
-                    dataArr.push( <Option value={item.id} key = {index}>{item.title}</Option>)
+                    dataArr.push( <Option value={item.id} key = {index}><Translate id={item} /></Option>)
             }
             else{
-                    dataArr.push( <Option value={item} key = {index}>{item}</Option>)
+                    dataArr.push( <Option value={item} key = {index}><Translate id={item} /></Option>)
             }
             
         });

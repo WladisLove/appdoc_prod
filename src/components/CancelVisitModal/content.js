@@ -5,6 +5,7 @@ import TextArea from '../TextArea'
 import Upload from '../Upload'
 import DatePicker from '../DatePicker'
 import Button from '../Button'
+import { Translate } from 'react-localize-redux'
 
 import {previewFile} from '../../helpers/modifyFiles'
 
@@ -26,7 +27,7 @@ class ContentForm extends React.Component{
         e.preventDefault();
 
         if(!this.state.message) {
-            message.error("Введите причину")
+            message.error(<Translate id="notifications.enterReason" />)
             return
         }
         let response = {};
@@ -44,7 +45,7 @@ class ContentForm extends React.Component{
             }
 
             if(!rangeArr.length) {
-                message.error("Выберите период")
+                message.error(<Translate id="notifications.choosePeriod" />)
                 return
             }
             response.range = rangeArr;
@@ -58,10 +59,10 @@ class ContentForm extends React.Component{
         this.props.onSave(response).then((res)=>{
             console.log(res, "RES SINGLE")
             if(res.data.code===300) {
-                message.error("Отмена приёма осуществляется не менее чем за три часа до его начала");
+                message.error(<Translate id="notifications.receptionCanceledAtLeastThreeHours" />);
                 return;
             }
-            message.success("Заявка успешно отправлена");
+            message.success(<Translate id="notifications.requestSubmitted" />);
             this.props.onCancel();
             if(this.props.showWarning) {
                 this.props.showWarning()
@@ -162,38 +163,42 @@ class ContentForm extends React.Component{
     render(){
         const { getFieldDecorator } = this.props.form;
 
-        return (
-            <Form onSubmit={this.handleSubmit}
-                  className="cancelVisitModal">
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<Form onSubmit={this.handleSubmit}
+                          className="cancelVisitModal">
 
-                <TextArea label='Причина отмены'
-                          value={this.state.message}
-                          onChange={message => this.setState({message})}
-                          className="cancelVisitModal-txtarea"/>
+                        <TextArea label={translate('form.textarea.cancellationReason')}
+                                  value={this.state.message}
+                                  onChange={message => this.setState({message})}
+                                  className="cancelVisitModal-txtarea"/>
 
-                <FormItem>
-                    {getFieldDecorator('file')(
-                        <Upload className="cancelVisitModal-upload"
-                                onChange={({file}) => this.modifyFiles(file)}
-                                listType = 'text'
-                                text="Прикрепить файл"/>
-                    )}
-                </FormItem>
-                {!this.props.singleCancel && this.renderDp(getFieldDecorator)}
-                {!this.props.singleCancel && <Button onClick={(e) => this.addDp(e)}
-                        className='cancelVisitModal-dpAdd'
-                        btnText='Добавить интервал'
-                        size='file'
-                        type='file'
-                        icon='add-button'
-                        svg
-                />}
-                <Button htmlType="submit"
-                        size='default'
-                        btnText='Сохранить'
-                        type='float'/>
-            </Form>
-        )
+                        <FormItem>
+                            {getFieldDecorator('file')(
+                                <Upload className="cancelVisitModal-upload"
+                                        onChange={({file}) => this.modifyFiles(file)}
+                                        listType = 'text'
+                                        text={translate('attachFile')} />
+                            )}
+                        </FormItem>
+                        {!this.props.singleCancel && this.renderDp(getFieldDecorator)}
+                        {!this.props.singleCancel && <Button onClick={(e) => this.addDp(e)}
+                                className='cancelVisitModal-dpAdd'
+                                btnText={translate('button.title.addInterval')}
+                                size='file'
+                                type='file'
+                                icon='add-button'
+                                svg
+                        />}
+                        <Button htmlType="submit"
+                                size='default'
+                                btnText={translate('button.title.save')}
+                                type='float'/>
+                    </Form>)
+                }
+            </Translate>
+        </div>)
     }
 }
 

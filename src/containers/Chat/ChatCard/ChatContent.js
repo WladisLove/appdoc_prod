@@ -8,6 +8,7 @@ import Button from "../../../components/Button";
 import ChatSend from "../../../components/ChatSend";
 import ChatMessage from "../../../components/ChatMessage";
 import ChatComments from "../../../components/ChatComments";
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 
@@ -46,7 +47,6 @@ class ChatContent extends React.Component {
         scrlClname = scrlClname + " chat-card-message__overlay";
         const ref = this.scrollarea
         return (
-
             <div className={dialogsClass}>
                 <div className='chat-card-message__area'>
                     <div className='chat-card-message__comments'>
@@ -82,12 +82,16 @@ class ChatContent extends React.Component {
                         }
                         {this.props.fromTR_VIS === 2 && !this.props.receptionStarts && this.props.user_mode !== "user"
                         && <div className='btn-start'>
-                            <Button
-                                btnText='Начать приём'
-                                size='small'
-                                type='yellow'
-                                onClick={this.props.onBegin}
-                            />
+                            <Translate>
+                                {({ translate }) =>
+                                    (<Button
+                                        btnText={translate('button.title.startReception')}
+                                        size='small'
+                                        type='yellow'
+                                        onClick={this.props.onBegin}
+                                    />)
+                                }
+                            </Translate>
                         </div>}
                         {/*<div ref={(ref) => { this.scrollRef = ref }}></div>*/}
 

@@ -7,6 +7,7 @@ import Button from '../Button'
 import Rate from '../Rate'
 import Icon from '../Icon'
 import PopoverFile from '../PopoverFile'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -42,9 +43,9 @@ class HistoryReceptionsItems extends React.Component{
             this.props.addConclusion(this.props.id, filesend)
                 .then((res)=>{
                     if(+res.data.code===200) {
-                        message.success("Заключение успешно добавлено")
+                        message.success(<Translate id="notifications.conclusionSuccessfulAdd" />)
                     } else {
-                        message.error("Произошла ошибка попробуйте ещё раз")
+                        message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
                     }
                     this.props.refresh();
                 })
@@ -78,7 +79,7 @@ class HistoryReceptionsItems extends React.Component{
             'voice': 'telephone',
             'video': "video-camera",
         }
-        const conclusionMessage = isUser? "Ожидайте заключения" : <div onClick={e=>{e.stopPropagation()}}>
+        const conclusionMessage = isUser? <Translate id="notifications.waitConclusion" /> : <div onClick={e=>{e.stopPropagation()}}>
             <input type="file"
                    id="addConclusion"
                    style={{
@@ -92,7 +93,7 @@ class HistoryReceptionsItems extends React.Component{
                    onChange={e => this.addConclusion(e.target.files[0])}
             />
             <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
-                <span>Добавить</span>
+                <span><Translate id="button.title.add" /></span>
             </label>
         </div>;
         const status = +moment(+date*1000).format("X") > +moment().format("X") ? "new" : conclusion ? "completed" : "topical";
@@ -142,11 +143,11 @@ class HistoryReceptionsItems extends React.Component{
                                 <Rate defaultValue={rate} disabled/>
                                 <div className="patient-review">{comment}</div>
                             </Hoc>
-                        ) : conclusion && isUser ?  <Button btnText='НАПИСАТЬ ОТЗЫВ'
+                        ) : conclusion && isUser ? <Translate>{({ translate })=>(<Button btnText={translate('button.title.writeReview').toUpperCase()}
                                                   onClick={this.openModal}
                                                   size='small'
                                                   type='float'
-                                                  icon='form'/> : <span>&mdash;</span>
+                                                  icon='form'/>)}</Translate> : <span>&mdash;</span>
                     }
                 </div>
                 <div className="flex-col"

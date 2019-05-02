@@ -7,6 +7,8 @@ import Steps from '../Step'
 import './style.css'
 import '../../icon/style.css'
 import RegistrationComplete from "../RegistrationComplete";
+import {Translate} from "react-localize-redux";
+
 
 
 
@@ -18,7 +20,7 @@ class RegistrationForm extends React.Component{
         };
         this.steps = [
             {
-                title: 'Контактная информация',
+                title: <Translate id={'auth.contactInfo'}/>,
                 content:
                     (state) => <Step1 data={state}
                                       onSubmit={(data) => this.setState({...data})}
@@ -28,7 +30,7 @@ class RegistrationForm extends React.Component{
                     />,
             },
             {
-            title: 'Образование, опыт работы',
+            title: <Translate id={'auth.eduAndWorkExp'}/>,
             content: (state) => <Step2 data={state}
                                        onSubmit={(data) => this.setState({...data})}
                                        onPrev = {this.prev}
@@ -44,7 +46,7 @@ class RegistrationForm extends React.Component{
             /> ,
         },
             {
-            title: 'Проверка данных',
+            title: <Translate id={'auth.dataVerification'}/>,
             content: (state) => <Step3 data = {state}
                                        onPrev = {this.prev}
                                        onNext = {this.next}
@@ -74,7 +76,7 @@ class RegistrationForm extends React.Component{
         }
         return (
             <div className="registration-form">
-                <div className="registration-title">Регистрация</div>
+                <div className="registration-title"><Translate id = {"auth.registration"}/></div>
                 <Steps steps={this.steps}
                        curState={this.state}
                        current={this.state.current}

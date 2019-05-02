@@ -4,6 +4,7 @@ import moment from 'moment'
 
 import Icon from '../Icon'
 import TopPanelItem from '../TopPanelItem';
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 
@@ -21,7 +22,7 @@ class TopPanel extends React.Component{
         clearTimeout(this.timeout);
         clearInterval(this.timer);
     }
-    
+
     firstTick = () => {
         this.tick();
         this.timer = setInterval(this.tick, 60000);
@@ -41,16 +42,16 @@ class TopPanel extends React.Component{
                             panelTitle={time.format("DD MMMM YYYY")}
                             panelText={time.format("dddd HH:mm")}
                             icon='calendar'/>
-                <TopPanelItem 
-                            panelTitle="Приемы сегодня"
+                <TopPanelItem
+                            panelTitle={<Translate id="reception.today" />}
                             panelText={receptionsToday}
                             icon='mark'/>
-                <TopPanelItem 
-                            panelTitle="Актуальные обращения"
+                <TopPanelItem
+                            panelTitle={<Translate id="treatment.actual" />}
                             panelText={receptionsActual}
                             icon='clock'/>
-                <TopPanelItem 
-                            panelTitle="Мои пациенты"
+                <TopPanelItem
+                            panelTitle={<Translate id="doctor.myPatients" />}
                             panelText={patients}
                             icon='people'/>
             </div>

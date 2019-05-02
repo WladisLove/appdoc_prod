@@ -1,0 +1,89 @@
+{
+    "notifications": {
+        "title": ["Notifications", "Уведомления"],
+        "adminVerification": [
+            "Changes will take effect after administrator verification.",
+            "Изменения вступят в силу после проверки администратором"
+        ],
+        "saved": ["Changes saved", "Изменения сохранены"],
+        "recordSuccessful": [
+            "Record was successful",
+            "Запись прошла успешно"
+        ],
+        "receptionCanceled": [
+            "Reception successfully canceled",
+            "Приём успешно отменён"
+        ],
+        "noRecords": ["No records", "Записи отсутствуют"],
+        "anErrorOccurred": [
+            "An error occurred, please try another time",
+            "Произошла ошибка, попробуйте другое время"
+        ],
+        "anErrorOccurredTryAgain": [
+            "An error has occurred, please try again",
+            "Произошла ошибка, попробуйте ещё раз"
+        ],
+        "anErrorOccurredSendRequest": [
+            "An error occurred while sending the request",
+            "Произошла ошибка при отправке заявки"
+        ],
+        "errorLoadingFileTryAgain": [
+            "Error loading file, try again",
+            "При загрузке файла произошла ошибка, попробуйте ешё раз"
+        ],
+        "wrongInterval": [
+            "Wrong interval selected",
+            "Выбран неподходящий интервал"
+        ],
+        "chooseTime": ["Choose time", "Выберите время"],
+        "moreCharactersForSearch": [
+            "Input more characters to search",
+            "Введите больше символов для поиска"
+        ],
+        "timeIsAlreadyTaken": [
+            "This time is already taken",
+            "Данное время уже занято"
+        ],
+        "chooseDate": ["Choose date", "Выберите дату"],
+        "reviewSuccessfulAdd": [
+            "Review successfully added",
+            "Отзыв успешно добавлен"
+        ],
+        "enterReviewText": ["Enter review text", "Введите текст отзыва"],
+        "requiredReviewForFreeReception": [
+            "You have not left a required review for a free reception.",
+            "Вы не оставили обязательный отзыв на бесплатный приём."
+        ],
+        "pleaseLeaveReview": [
+            "In order to improve the quality of services, please leave a review.",
+            "С целью повышения качества услуг просим вас оставить отзыв."
+        ],
+        "404": ["Page not found", "Страница не найдена"],
+        "checkURL": [
+            "Check the url entered",
+            "Проверьте введённый адрес"
+        ],
+        "requestSubmitted": ["Request submitted", "Заявка отправлена"],
+        "reportHasBeenSent": ["Your report has been sent", "Ваш отчёт отправлен"],
+        "handOverNoLater": ["Hand over no later", "Сдать не позднее"],
+        "enterReason": ["Enter reason", "Введите причину"],
+        "choosePeriod": ["Choose a period", "Выберите период"],
+        "receptionCanceledAtLeastThreeHours": [
+            "Reception is canceled at least three hours before it starts",
+            "Отмена приёма осуществляется не менее чем за три часа до его начала"
+        ],
+        "fileSuccessUpload": [
+            "File successfully uploaded",
+            "Файл успешно загружен"
+        ],
+        "fileSuccessAdd": [
+            "File successfully added",
+            "Файл успешно добавлен"
+        ],
+        "conclusionSuccessfulAdd": [
+            "Conclusion successfully added",
+            "Заключение успешно добавлено"
+        ],
+        "waitConclusion": ["Wait conclusion", "Ожидайте заключения"]
+    }
+}

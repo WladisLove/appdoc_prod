@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import {Translate} from "react-localize-redux";
 
 import Button from '../Button'
 
@@ -11,32 +12,38 @@ import {Form} from "antd";
 
 class RegistrationComplete extends React.Component{
 
-    render(){
-        const {text,phone} = this.props;
+    render() {
+        const {text, phone} = this.props;
         return (
-            <div className="registration-form">
-                <div className="registration-title">Спасибо, что вы с нами!</div>
-                <div className="loginforget-body">
-                    {this.props.isPatientReg ?
-                        "Регистрация завершена. Пароль для входа отправлен на вашу почту" :
-                        "После обработки данных мы пришлём пароль вам на почту"}
-                        <br />
-                    {text}
-                </div>
-                <div className="login-form-control">
-                    <NavLink to={this.props.urlLogin}
-                             className="login-form-navlink">
-                        <Button
-                            onClick={this.props.onOk}
-                            htmlType="submit"
-                            btnText='Ок'
-                            size='large'
-                            type='gradient'/>
-                    </NavLink>
-                </div>
-                <div className="login-forget-body">Остались вопросы?</div>
-                <a href={`tel:${phone}`} className="login-form-navlink">{phone}</a>
-            </div>
+            <Translate>
+                {({translate}) =>
+                    (
+                        <div className="registration-form">
+                            <div className="registration-title">{translate("auth.thankYouWithUs")}</div>
+                            <div className="loginforget-body">
+                                {this.props.isPatientReg ?
+                                    translate("auth.completeRegPatient") :
+                                    translate("auth.completeRegDoc")}
+                                <br/>
+                                {text}
+                            </div>
+                            <div className="login-form-control">
+                                <NavLink to={this.props.urlLogin}
+                                         className="login-form-navlink">
+                                    <Button
+                                        onClick={this.props.onOk}
+                                        htmlType="submit"
+                                        btnText='Ок'
+                                        size='large'
+                                        type='gradient'/>
+                                </NavLink>
+                            </div>
+                            <div className="login-forget-body">{translate("auth.haveQuestions")}</div>
+                            <a href={`tel:${phone}`} className="login-form-navlink">{phone}</a>
+                        </div>
+                    )
+                }
+            </Translate>
         )
     }
 }

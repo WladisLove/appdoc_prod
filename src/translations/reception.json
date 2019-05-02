@@ -1,0 +1,61 @@
+{
+    "reception": {
+        "single": ["Reception", "Приём"],
+        "lot": ["Receptions", "Приёмы"],
+        "today": ["Receptions today", "Приёмы сегодня"],
+        "past": ["Past receptions", "Прошедшие приёмы"],
+        "last": ["Last reception", "Последний приём"],
+        "nearRecords": ["Near records", "Ближайшие записи"],
+        "available": ["Available receptions", "Доступные приёмы"],
+        "unavailable": ["Unavailable receptions", "Недоступные приёмы"],
+        "skipped": ["Reception skipped", "Приём пропущен"],
+        "completed": ["Reception completed", "Приём завершен"],
+        "type": ["Reception type", "Тип приёма"],
+        "not": ["No receptions", "Приёмов нет"],
+        "date": ["Reception date", "Дата приёма"],
+        "cancel": ["Cancel reception", "Отменить приёмы"],
+        "schedule": ["Reception schedule", "График приёмов"],
+        "planned": ["Planned receptions", "Плановые приёмы"],
+        "byResults": ["Receptions by results of analyzes", "Приёмы по результатам анализов"],
+        "history": ["History of receptions", "История приёмов"],
+        "comment": ["Comment to reception", "Комментарий к приёму"],
+        "awaiting": ["Awaiting reception", "Ожидают приёма"],
+        "selectType": ["Select type of reception", "Выберите тип приёма"],
+        "notClickUpdate": [
+            "No receptions. Click to update.",
+            "Нет приёмов. Нажмите чтобы обновить."
+        ],
+        "form": {
+            "timepicker": ["Reception time", "Время приёма"],
+            "input": {
+                "patient": ["Patient", "ФИО"]
+            },
+            "select": {
+                "patient" :["Patient", "ФИО"],
+                "duration": ["Duration of reception", "Длительность приёма"]
+            },
+            "textarea": {
+                "comment": ["Comment to reception", "Комментарий к приёму"]
+            },
+            "uploadFile": [
+                "Attach research results",
+                "Прикрепить результаты исследований"
+            ],
+            "errors": {
+                "timepicker": ["Please input time", "Введите время"],
+                "datepicker": ["Please input date", "Введите дату"],
+                "select": {
+                    "patient" :["Choose a patient", "Выберите пациента"]
+                }
+            },
+            "help": {
+                "select": {
+                    "patient" :[
+                        "Add patients to your list",
+                        "Добавьте пациентов в свой список"
+                    ]
+                }
+            }
+        }
+    }
+}

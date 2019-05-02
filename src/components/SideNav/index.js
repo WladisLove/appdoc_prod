@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import { NavLink } from 'react-router-dom'
 import ReactScrollbar from "react-perfect-scrollbar"
+import { Translate } from 'react-localize-redux'
 
 import './styles.css'
 
@@ -12,20 +13,23 @@ import Icon from '../Icon'
 import Button from "../Button"
 
 const SideNav = props => {
-
-    const renderMenuItems = (menuItems) =>{
+    const renderMenuItems = (menuItems) => {
         return menuItems.map(({name, title, iconType, svg}) => {
             const path = `/${name}`;
             return (<Menu.Item key={path}>
-                <NavLink exact to={path} activeClassName="selectedNavLink">
-                    <div className='sidenav-root-menu-item'>
-                        {iconType && <Icon type={iconType} size={26} svg={svg} title={title}/>}
-                        <span className="item-title">
-                            {title}
-                        </span>
-                    </div>
-                </NavLink>
-            </Menu.Item>);
+                        <NavLink exact to={path} activeClassName="selectedNavLink">
+                            <Translate>
+                                {({ translate }) =>
+                                    (<div className='sidenav-root-menu-item'>
+                                        {iconType && <Icon type={iconType} size={26} svg={svg} title={translate(title)}/>}
+                                            <span className="item-title">
+                                                {translate(title)}
+                                            </span>
+                                    </div>)
+                                }
+                            </Translate>
+                        </NavLink>
+                    </Menu.Item>);
         });
     };
 

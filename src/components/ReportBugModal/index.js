@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import Modal from '../Modal'
 import Content from './content'
 import './styles.css'
@@ -8,7 +8,7 @@ import './styles.css'
 const ReportBugModal = (props) => {
     const {visible, onCancel} = props;
     return (
-        <Modal title='Отчёт об ошибке'
+        <Modal title={<Translate id="modal.title.errorReport" />}
                visible={visible}
                onCancel={onCancel}
         >

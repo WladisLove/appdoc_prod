@@ -6,6 +6,7 @@ import DiseasesTableItem from '../DiseasesTableItem'
 import Card from '../Card'
 import Button from '../Button'
 import Icon from '../Icon'
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -27,7 +28,7 @@ class DiseasesTable extends React.Component{
 
         return (
             <div className={rootClass}>
-                <Card title="Хронические болезни/аллергии" extra={<div className="right-icon"><Icon svg iconSize="24" type="caution" /></div>}>
+                <Card title={<Translate id="patient.chronicDiseases" />} extra={<div className="right-icon"><Icon svg iconSize="24" type="caution" /></div>}>
                     <PerfectScrollbar
                             speed={1}
                             className="new-patient-list"

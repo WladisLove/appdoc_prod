@@ -6,6 +6,7 @@ import Checkbox from '../Checkbox'
 import Button from '../Button'
 import Hr from "../Hr";
 import Spinner from "../Spinner";
+import {Translate} from "react-localize-redux";
 
 class Step3 extends React.Component{
     constructor(props){
@@ -30,7 +31,7 @@ class Step3 extends React.Component{
     renderYesNoItem = (title, value) => {
         return (<div className='check-row'>
             <div className='check-title'>{title}:</div>
-            <div className='check-text'>{value ? 'Да' : 'Нет'}</div>
+            <div className='check-text'>{value ? <Translate id={"yes"}/> : <Translate id={"no"}/>}</div>
         </div>)
     };
 
@@ -40,9 +41,9 @@ class Step3 extends React.Component{
         while (true){
             if(data['educationsgroup1-education-'+i]){
                 elArr.push(<Hoc key={'educInfo'+i}>
-                    {this.renderItem(`Учебное заведение`,'educationsgroup1-education-'+i)}
-                    {this.renderItem(`Специальность`,'educationsgroup1-speciality-'+i)}
-                    {this.renderItem('Год окончания','educationsgroup1-finishucationyear-'+i)}
+                    {this.renderItem(<Translate id={"auth.universityName"}/>,'educationsgroup1-education-'+i)}
+                    {this.renderItem(<Translate id={"auth.qualification"}/>,'educationsgroup1-speciality-'+i)}
+                    {this.renderItem(<Translate id={"auth.graduationYear"}/>,'educationsgroup1-finishucationyear-'+i)}
                     <Hr/>
                 </Hoc>)
             }
@@ -58,9 +59,9 @@ class Step3 extends React.Component{
             while (true){
                 if(data['work-worknow-'+i]){
                     elArr.push(<Hoc key={'workInfo'+i}>
-                        {this.renderItem(`Место работы`,'work-worknow-'+i)}
-                        {this.renderItem(`Адрес`,'work-adress-'+i)}
-                        {this.renderItem('Должность','work-post-'+i)}
+                        {this.renderItem(<Translate id={"auth.currentWorkPlace"}/>,'work-worknow-'+i)}
+                        {this.renderItem(<Translate id={"auth.workAddress"}/>,'work-adress-'+i)}
+                        {this.renderItem(<Translate id={"auth.position"}/>,'work-post-'+i)}
                         <Hr/>
                     </Hoc>)
                 }
@@ -87,18 +88,18 @@ class Step3 extends React.Component{
                     {institution &&
                     <div className='check-row'>
                         <div className='check-title'>
-                            Учебное заведение:</div>
+                            <Translate id={"auth.universityName"}/>:</div>
                         <div className='check-text'>{institution}</div>
                     </div>}
                     {educCycle &&
                     <div className='check-row'>
                         <div className='check-title'>
-                            Цикл обучения:</div>
+                            <Translate id={"auth.courseName"}/>:</div>
                         <div className='check-text'>{educCycle}</div>
                     </div>}
                     {educPeriod &&
                     <div className='check-row'>
-                        <div className='check-title'>Период обучения:</div>
+                        <div className='check-title'><Translate id={"auth.coursePeriod"}/>:</div>
                         <div className='check-text'>
                             {
                                 moment(educPeriod[0]).format('DD.MM.YYYY')
@@ -125,7 +126,7 @@ class Step3 extends React.Component{
         return (<Hoc>
             {langs &&
             <div className='check-row'>
-                <div className='check-title'>Знание языков:</div>
+                <div className='check-title'><Translate id={"auth.langSkills"}/>:</div>
                 <div className='check-text'>
                 {
                     langs.map((item, index) => {
@@ -138,16 +139,16 @@ class Step3 extends React.Component{
                 </div>
             </div>}
             {isChildConsult &&
-                this.renderYesNoItem('Консультация детей', isChildConsult)}
+                this.renderYesNoItem(<Translate id={"auth.langSkills"}/>, isChildConsult)}
             {consultPayment &&
             <div className='check-row'>
-                <div className='check-title'>Желаемая оплата консльтации:</div>
+                <div className='check-title'><Translate id={"auth.paymentAmount"}/>:</div>
                 <div className='check-text'>
                     {consultPayment}
                 </div>
             </div>}
             {isFreeConsult &&
-                this.renderYesNoItem('Бесплатные консультации', isFreeConsult)}
+                this.renderYesNoItem(<Translate id={"auth.freeConsult"}/>, isFreeConsult)}
         </Hoc>)
     };
 
@@ -167,61 +168,66 @@ class Step3 extends React.Component{
         this.props.onPrev();
     };
 
-    render(){
+    render() {
         const {data} = this.props;
         return (
-            <div className="step-form">
-                <div className="step-posttitle">Проверьте введенные данные</div>
+            <Translate>
+                {({translate}) =>
+                    (
+                        <div className="step-form">
+                            <div className="step-posttitle">{translate("auth.checkEnteredData")}</div>
 
 
-                {this.renderItem('ФИО','fio')}
-                {this.renderItem('E-mail','email')}
-                {this.renderItem('Телефон','phone')}
-                <div className='check-row'>
-                    <div className='check-title'>Пол:</div>
-                    <div className='check-text'>
-                        {data.sex === 'm' ? "Мужской" : "Женский"}
-                    </div>
-                </div>
-                {this.renderTimeItem('Дата рождения','datebirth')}
-                <Hr/>
-                {this.renderEducInfo(data)}
+                            {this.renderItem(translate("auth.fullName"), 'fio')}
+                            {this.renderItem('E-mail', 'email')}
+                            {this.renderItem(translate("auth.phone"), 'phone')}
+                            <div className='check-row'>
+                                <div className='check-title'>{translate("auth.gender")}</div>
+                                <div className='check-text'>
+                                    {data.sex === 'm' ? translate("auth.male") : translate("auth.female")}
+                                </div>
+                            </div>
+                            {this.renderTimeItem(translate("auth.birthday"), 'datebirth')}
+                            <Hr/>
+                            {this.renderEducInfo(data)}
 
-                {this.renderGraduateEducInfo(data)}
-                {this.renderWorkInfo(data)}
+                            {this.renderGraduateEducInfo(data)}
+                            {this.renderWorkInfo(data)}
 
-                {data.category && this.renderItem('Категория','category')}
-                {data.academicdegree && this.renderItem('Ученая степень','academicdegree')}
-                {data.academicstatus && this.renderItem('Ученое звание','academicstatus')}
-                {data.experience && this.renderItem('Стаж работы','experience')}
+                            {data.category && this.renderItem(translate("auth.category"), 'category')}
+                            {data.academicdegree && this.renderItem(translate("auth.academicDegree"), 'academicdegree')}
+                            {data.academicstatus && this.renderItem(translate("auth.academicTitle"), 'academicstatus')}
+                            {data.experience && this.renderItem(translate("auth.workExperience"), 'experience')}
 
 
-                {this.renderAdditionalInfo(data)}
-                {data.about && this.renderItem('О себе','about')}
-                <Checkbox checked={this.state.checked}
-                          style={{marginTop:"20px"}}
-                          onChange={(e) => this.setState({checked: e.target.checked})}>
-                          {this.props.finalText}
-                   
-                </Checkbox>
+                            {this.renderAdditionalInfo(data)}
+                            {data.about && this.renderItem(translate("auth.aboutMyself"), 'about')}
+                            <Checkbox checked={this.state.checked}
+                                      style={{marginTop: "20px"}}
+                                      onChange={(e) => this.setState({checked: e.target.checked})}>
+                                {this.props.finalText}
+                            </Checkbox>
 
-                <div className="steps-action">
-                    <Button onClick={this.handleGoBack}
-                            btnText='Назад'
-                            disable={this.props.regInProgress}
-                            size='large'
-                            type='float'
-                            style = {{marginRight: "20px"}}
-                    />
-                    <Button btnText='Завершить'
-                            disable={!this.state.checked || this.props.regInProgress}
-                            onClick={this.finishHandler}
-                            size='large'
-                            type='gradient'
-                    />
-                </div>
-                {this.props.regInProgress && <Spinner/>}
-            </div>
+                            <div className="steps-action">
+                                <Button onClick={this.handleGoBack}
+                                        btnText={translate("button.title.back")}
+                                        disable={this.props.regInProgress}
+                                        size='large'
+                                        type='float'
+                                        style={{marginRight: "20px"}}
+                                />
+                                <Button btnText={translate("button.title.complete")}
+                                        disable={!this.state.checked || this.props.regInProgress}
+                                        onClick={this.finishHandler}
+                                        size='large'
+                                        type='gradient'
+                                />
+                            </div>
+                            {this.props.regInProgress && <Spinner/>}
+                        </div>)
+                }
+            </Translate>
+
         )
     }
 }

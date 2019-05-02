@@ -6,6 +6,7 @@ import { Form } from 'antd';
 import InputNew from "../InputNew";
 import RangeDPNew from "../RangeDPNew";
 import DropZoneUpload from "../DropZoneUpload";
+import {Translate} from "react-localize-redux";
 import { AutoComplete } from 'antd';
 
 const dataSource = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
@@ -26,11 +27,11 @@ class Step2_graduate_educ extends React.Component{
     validateYears = (rule, value, cb) => {
 
         if( (this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile) && !this.state.isDate) {
-            cb("Введите период обучения")
+            cb(<Translate id={'auth.errors.inputStudyPeriod'}/>)
         }
         if((value && value[0] && value[1]) || (value && !value[0] && !value[1]) || !value) {
             cb()
-        } else cb("Введите период обучения")
+        } else cb(<Translate id={'auth.errors.inputStudyPeriod'}/>)
     }
     handleChange = (e, name) => {
         const validate = () => {
@@ -57,66 +58,75 @@ class Step2_graduate_educ extends React.Component{
             default: return;
         }
     };
-    render(){
-        const { getFieldDecorator, number } = this.props;
-        return (
-            <div className="step-block">
-                <FormItem>
-                    {getFieldDecorator('educationsgroup2-education-'+number, {
-                        rules: [{
-                            required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
-                            message: 'Введите учебное заведение'
-                        }],
-                    })(
-                        <AutoComplete
-                            className="reg-auto-complete"
-                            style={{ width: '100%' }}
-                            dataSource={this.props.selectorToolTip}
-                            placeholder="Учебное заведение"
-                            filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                        />
-                        )}
-                </FormItem>
-                <FormItem>
-                    {getFieldDecorator('educationsgroup2-ciklname-'+number, {
-                            rules: [{
-                                required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
-                                message: 'Введите название цикла обучения'
-                            }],
-                        })(
-                        <InputNew width ="100%" bubbleplaceholder="Название цикла обучения" className="step-form-item"
-                        onChange={(e)=>this.handleChange(e, "eduCycle")}/>
-                    )}
-                </FormItem>
-                <div className="step-row">
-                    <FormItem>
-                        {getFieldDecorator('educationsgroup2-ucationyears-'+number, {
-                                valuePropName: 'rangeSet',
-                                rules: [{
-                                    validator: this.validateYears
-                                }],
-                            })(
-                            <RangeDPNew
-                            onChange={(e)=>this.handleChange(e, "eduDate")}/>
-                        )}
-                    </FormItem>
-                    <FormItem>
-                        {getFieldDecorator('educationsgroup2-diplomphoto-'+number, {
-                                rules: [{
-                                    required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
-                                    message: 'Загрузите подтверждающий документ'
-                                }],
-                            })(
-                            <DropZoneUpload
-                                uploadFile = {this.props.uploadFile}
-                                text="Прикрепить диплом, свидетельство"
-                                onChange={(e)=>this.handleChange(e, "eduFile")}
 
-                            />
-                        )}
-                    </FormItem>
-                </div>
-            </div>
+    render() {
+        const {getFieldDecorator, number} = this.props;
+        return (
+            <Translate>
+                {({translate}) =>
+                    (
+                        <div className="step-block">
+                            <FormItem>
+                                {getFieldDecorator('educationsgroup2-education-' + number, {
+                                    rules: [{
+                                        required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
+                                        message: translate("auth.errors.inputUniversityName")
+                                    }],
+                                })(
+                                    <AutoComplete
+                                        className="reg-auto-complete"
+                                        style={{ width: '100%' }}
+                                        dataSource={this.props.selectorToolTip}
+                                        placeholder="Учебное заведение"
+                                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                                    />
+                                )}
+                            </FormItem>
+                            <FormItem>
+                                {getFieldDecorator('educationsgroup2-ciklname-' + number, {
+                                    rules: [{
+                                        required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
+                                        message: translate("auth.errors.inputCourseName")
+                                    }],
+                                })(
+                                    <InputNew width="100%" bubbleplaceholder={translate("auth.courseName")}
+                                              className="step-form-item"
+                                              onChange={(e) => this.handleChange(e, "eduCycle")}/>
+                                )}
+                            </FormItem>
+                            <div className="step-row">
+                                <FormItem>
+                                    {getFieldDecorator('educationsgroup2-ucationyears-' + number, {
+                                        valuePropName: 'rangeSet',
+                                        rules: [{
+                                            validator: this.validateYears
+                                        }],
+                                    })(
+                                        <RangeDPNew
+                                            onChange={(e) => this.handleChange(e, "eduDate")}/>
+                                    )}
+                                </FormItem>
+                                <FormItem>
+                                    {getFieldDecorator('educationsgroup2-diplomphoto-' + number, {
+                                        rules: [{
+                                            required: this.state.isName || this.state.isCycle || this.state.isDate || this.state.isFile,
+                                            message: translate("auth.errors.uploadConfirmingDoc")
+                                        }],
+                                    })(
+                                        <DropZoneUpload
+                                            uploadFile={this.props.uploadFile}
+                                            text={translate("auth.addDiplomaCertificate")}
+                                            onChange={(e) => this.handleChange(e, "eduFile")}
+
+
+                                        />
+                                    )}
+                                </FormItem>
+                            </div>
+                        </div>
+                    )
+                }
+            </Translate>
         )
     }
 }

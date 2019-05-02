@@ -9,6 +9,7 @@ import Icon from '../Icon'
 import TimePicker from '../TimePicker'
 import {previewFile} from "../../helpers/modifyFiles";
 import Spinner from "../Spinner";
+import { Translate } from 'react-localize-redux'
 
 const FormItem = Form.Item;
 
@@ -52,9 +53,9 @@ class ContentForm extends React.Component {
 
                 this.props.onSave(response).then((res)=> {
                    if(res.data.code===200) {
-                       message.success("Запись прошла успешно");
+                       message.success(<Translate id="notifications.recordSuccessful" />);
                    } else {
-                       message.error("Произошла ошибка, попробуйте другое время")
+                       message.error(<Translate id="notifications.anErrorOccurred" />)
                    }
                     this.props.onCancel();
                     this.setState({loading:false})
@@ -104,63 +105,75 @@ class ContentForm extends React.Component {
         const date = this.props.date*1000;
 
         let timeElement = this.props.isChoosebleTime
-            ? <div className='modal-time'><FormItem>
-                {getFieldDecorator('time', {
-                    rules: [{required: true, message: 'Введите время',}],
-                })(
-                    <TimePicker placeholder='Время приёма'
-                                availableArea={this.props.availableArea}
-                                onChange={time => this.setState({time})}/>
-                )}
-            </FormItem></div>
+            ? <div className='modal-time'>
+                <Translate>
+                    {({ translate }) =>
+                        (<FormItem>
+                            {getFieldDecorator('time', {
+                                rules: [{required: true, message: translate(`reception.form.errors.timepicker`)}],
+                            })(
+                                <TimePicker placeholder={translate(`reception.form.timepicker`)}
+                                            availableArea={this.props.availableArea}
+                                            onChange={time => this.setState({time})}/>
+                            )}
+                        </FormItem>)
+                    }
+                </Translate>
+            </div>
             : <div className='modal-time'>
                 <Icon svg type='alarm' size={26}/>
                 <div className='modal-result'>{moment(+date).format('HH:mm')}</div>
             </div>;
 
         return (
-            <Form onSubmit={this.handleSubmit}
-                  className="NewVisitModal">
-                <div className='modal-row'>
-                    <div className='modal-data'>
-                        <Icon svg type='calendar' size={26}/>
-                        <div className='modal-result'>{moment(+date).format('DD MMMM')}</div>
-                    </div>
-                    {timeElement}
-                </div>
-                <div className='modal-doctor-row'>
-                    <span className="modal-doctor-title">Врач:</span>
-                    <span className="modal-doctor-name">{this.props.doctorName}</span>
-                </div>
-                <FormItem>
-                    {getFieldDecorator('type',{
-                        initialValue: 'chat',
-                    })(
-                        this.getIconsFromType(this.props.type)
-                    )}
-                </FormItem>
-                <TextArea label='Комментарий к приему'
-                          value={this.state.message}
-                          onChange={message => this.setState({message})}
-                          className="NewVisitModal-txtarea"/>
-                <FormItem>
-                    {getFieldDecorator('file')(
-                        <Upload className="newMessageModal-upload"
-                                onChange={({file}) => this.modifyFiles(file)}
-                                listType = 'text'
-                                text="Прикрепить результаты исследований"/>
-                    )}
-                </FormItem>
-                <Button size='default'
-                        btnText={`Записаться на ${moment(date).format("D MMMM H:mm")}`}
-                        htmlType="submit"
-                        type='float'
-                        disable={this.state.loading}
-                        style={{marginRight: "20px"}}
+            <Translate>
+                {({ translate }) =>
+                    (<Form onSubmit={this.handleSubmit} className="NewVisitModal">
+                        <div className='modal-row'>
+                            <div className='modal-data'>
+                                <Icon svg type='calendar' size={26}/>
+                                <div className='modal-result'>{moment(+date).format('DD MMMM')}</div>
+                            </div>
+                            {timeElement}
+                        </div>
+                        <div className='modal-doctor-row'>
+                            <span className="modal-doctor-title">{translate(`doctor.title`)}:</span>
+                            <span className="modal-doctor-name">{this.props.doctorName}</span>
+                        </div>
+                        <FormItem>
+                            {getFieldDecorator('type',{
+                                initialValue: 'chat',
+                            })(
+                                this.getIconsFromType(this.props.type)
+                            )}
+                        </FormItem>
+                        <TextArea label={translate(`reception.form.textarea.comment`)}
+                                  value={this.state.message}
+                                  onChange={message => this.setState({message})}
+                                  className="NewVisitModal-txtarea"/>
+                        <FormItem>
+                            {getFieldDecorator('file')(
+                                <Upload className="newMessageModal-upload"
+                                        onChange={({file}) => this.modifyFiles(file)}
+                                        listType = 'text'
+                                        text={translate(`reception.form.uploadFile`)}/>
+                            )}
+                        </FormItem>
+                        <Translate id="button.title.signUpFor" data={{ time: moment(date).format("D MMMM H:mm") }}>
+                            <Button size='default'
+                                    // btnText={`Записаться на ${moment(date).format("D MMMM H:mm")}`}
+                                    btnText={" ${ time }"}
+                                    htmlType="submit"
+                                    type='float'
+                                    disable={this.state.loading}
+                                    style={{marginRight: "20px"}}
 
-                />
-                {this.state.loading && <Spinner isInline={true} size="small" />}
-            </Form>
+                            />
+                        </Translate>
+                        {this.state.loading && <Spinner isInline={true} size="small" />}
+                    </Form>)
+                }
+            </Translate>
         )
     }
 }

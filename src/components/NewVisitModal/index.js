@@ -3,19 +3,20 @@ import PropTypes from 'prop-types'
 
 import Modal from '../Modal'
 import Content from './content'
+import { Translate } from 'react-localize-redux'
 import './styles.css'
 
 const NewVisitModal = (props) => {
-    
+
     return (
-        <Modal title='Запись на прием'
+        <Modal title={<Translate id="modal.title.makeAnReception" />}
                visible={props.visible}
                onCancel={props.onCancel}
                 >
              <Content {...props}/>
         </Modal>
         )
-    
+
 }
 
 NewVisitModal.propTypes = {

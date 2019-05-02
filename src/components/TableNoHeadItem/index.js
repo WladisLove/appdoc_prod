@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import moment from 'moment'
-
+import { Translate } from 'react-localize-redux'
 import ProfileAvatar from '../ProfileAvatar'
 import Button from '../Button'
 import Icon from '../Icon'
@@ -40,38 +40,42 @@ class TableNoHeadItem extends React.Component{
         } = this.props;
         const key_val = {
             'chat': 'chat1',
-            'voice': 'telephone', 
+            'voice': 'telephone',
             'video': "video-camera",
         }
         const isOnline = status_user === undefined ? !!online : !!status_user;
         const photo = avatar ? avatar : img;
 
-        return (
-            <div className='schedule'>
-                <ProfileAvatar owner="patient" online={isOnline} img={photo} size={'small'}/>
-                <div className="flex-col">
-                    <div className="patient-name">
-                        <div onClick={() => onGoto(id_user)} className='go-to'>{fio}</div>
-                    </div>
-                    <div className="patient-info">{comment}</div>
-                </div>
-                <div className="flex-col ml-a">
-                    <div className="patient-time">{moment((+start)*1000).format('HH:mm')}</div>
-                </div>
-                <div className="flex-col"><Icon svg type={key_val[type]} size={16} title='title'/></div>
-                <div className="flex-col">
-                    <Button
-                        onClick={this.onBeginHandler}
-                        btnText='Начать прием'
-                        size='default'
-                        type='float'
-                    />
-                </div>
-                <div className="flex-col" onClick={this.onCancelHandler}>
-                    <div className='go-to'>Отменить</div>
-                </div>
-            </div>
-        )
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<div className='schedule'>
+                        <ProfileAvatar owner="patient" online={isOnline} img={photo} size={'small'}/>
+                        <div className="flex-col">
+                            <div className="patient-name">
+                                <div onClick={() => onGoto(id_user)} className='go-to'>{fio}</div>
+                            </div>
+                            <div className="patient-info">{comment}</div>
+                        </div>
+                        <div className="flex-col ml-a">
+                            <div className="patient-time">{moment((+start)*1000).format('HH:mm')}</div>
+                        </div>
+                        <div className="flex-col"><Icon svg type={key_val[type]} size={16} title='title'/></div>
+                        <div className="flex-col">
+                            <Button
+                                onClick={this.onBeginHandler}
+                                btnText={translate('button.title.startReception')}
+                                size='default'
+                                type='float'
+                            />
+                        </div>
+                        <div className="flex-col" onClick={this.onCancelHandler}>
+                            <div className='go-to'>{translate('button.title.cancel')}</div>
+                        </div>
+                    </div>)
+                }
+            </Translate>
+        </div>)
     }
 }
 
@@ -101,7 +105,7 @@ TableNoHeadItem.defaultProps = {
     id_user: 0,
     start: 0,
     img: '',
-    
+
     onBegin: () => {},
     onCancel: () => {},
     onGoto: () => {},

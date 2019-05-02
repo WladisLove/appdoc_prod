@@ -8,7 +8,7 @@ import Icon from '../Icon'
 import RatePanel from '../RatePanel'
 import ProfileAvatar from '../ProfileAvatar'
 import Content from './content'
-
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 
@@ -76,14 +76,16 @@ class PatientProfileDoctorItem extends React.Component{
                         </div>
                         <div className='profile__doctor-item-block'>
                             <div className='profile__doctor-item-price'>
-                                <div className='profile__doctor-item-price-title'>Стоимость<br />консультации</div>
-                                <div className='profile__doctor-item-price-coast'>{doctorPrice} руб</div>
+                                <div className='profile__doctor-item-price-title'><Translate id="consultationCost" /></div>
+                                <div className='profile__doctor-item-price-coast'>{doctorPrice} <Translate id="currency" /></div>
                             </div>
                             <div className='profile__doctor-item-language'>
-                                <div className='profile__doctor-item-language-title'>Знание языков</div>
+
+                                <div className='profile__doctor-item-language-title'><Translate id="languagesKnowledge" /></div>
                                 {
                                     this.showLanguageOptions(doctorLanguages)
                                 }
+
                             </div>
                             <div className='profile__doctor-item-child'>
                                 {doctorChild && (

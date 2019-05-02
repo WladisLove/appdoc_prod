@@ -5,6 +5,7 @@ import Review from '../Review'
 import Card from '../Card'
 import Icon from '../Icon'
 import ScrollArea from 'react-scrollbar'
+import { Translate } from 'react-localize-redux';
 import './style.css'
 
 class Reviews extends React.Component{
@@ -29,20 +30,20 @@ class Reviews extends React.Component{
         const {data} = this.props;
 
         return (
-                <Card title="Новые отзывы"
+                <Card title={<Translate id="review.news" />}
                       className="reviews"
                       extra={<a onClick={this.props.redirect}>
-                                <Icon type="chat" svg size={20}/> 
-                                <span>Все отзывы</span>
+                                <Icon type="chat" svg size={20}/>
+                                <span><Translate id="review.all" /></span>
                             </a>}>
                     <ScrollArea
                             speed={1}
                             className="reviews-list"
                             contentClassName="content"
                     >
-                    {data.length ? 
-                        this.reviewRender(data) 
-                        : <div className='entry-list'>Отзывов нет</div>}
+                    {data.length ?
+                        this.reviewRender(data)
+                        : <div className='entry-list'><Translate id="review.not" /></div>}
                     </ScrollArea>
                 </Card>
         )
@@ -65,4 +66,4 @@ Reviews.defaultProps = {
     onGotoChat: () => {},
 };
 
-export default Reviews
+export default Reviews;

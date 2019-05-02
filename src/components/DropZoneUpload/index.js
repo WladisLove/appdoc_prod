@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone'
 import {message} from "antd"
 import Spinner from "../Spinner";
 import RegistrationForm from "../Registration";
+import { Translate } from 'react-localize-redux'
 
 class DropZoneUpload extends Component {
     constructor() {
@@ -21,12 +22,12 @@ class DropZoneUpload extends Component {
                 if(res){
                         const file = res.data.file[0];
                         if (file.url && file.name) {
-                            message.success("Файл успешно загружен")
+                            message.success(<Translate id="notifications.fileSuccessUpload" />)
                             this.setState({accepted: [...this.state.accepted, {name: file.name, deleteUrl: file.deleteUrl}]})
                         } else if (res.data.file[0].error) {
                             message.error(res.data.file[0].error)
                         } else {
-                            message.error("Произошла ошибка, попробуйте ещё раз")
+                            message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
                         }
                         this.props.onChange && this.props.onChange([...this.props.value, file]);
                         this.setState({loading: false})
@@ -57,45 +58,49 @@ class DropZoneUpload extends Component {
         } else {
             files = [];
         }
-        return (
-            <div data-files={this.state.accepted}>
-                <Dropzone
-                    onDrop={this.handleDrop}
-                    style={{width: "100%", display: "flex", alignItems: "center"}}
-                    multiple={false}
-                    docsfiles={this.state.accepted}
+        return (<div>
+            <Translate>
+                {({ translate }) =>
+                    (<div data-files={this.state.accepted}>
+                        <Dropzone
+                            onDrop={this.handleDrop}
+                            style={{width: "100%", display: "flex", alignItems: "center"}}
+                            multiple={false}
+                            docsfiles={this.state.accepted}
 
-                >
-                    <Button btnText={this.props.text || "Прикрепить документ"}
-                            size='upload'
-                            type='upload'
-                            icon='upload'
-                            iconSize={36}
-                            svg
-                            onClick={e => e.preventDefault()}
-                    /> {this.state.loading && <Spinner size="small" isInline={true}></Spinner>}
-                </Dropzone>
-                {
-                    files.length > 0 && files.map(f => <div key={f.name}>{f.name}
-                        <button
-                            onClick={(e)=>{
-                                this.deleteElement(e, f)
-                            }}
-                            style={{
-                                display: "inline-block",
-                                background: "none",
-                                outline: "none",
-                                marginLeft: "10px",
-                                border: "none",
-                                cursor: "pointer"
-                            }}
                         >
-                        x
-                    </button>
+                            <Button btnText={this.props.text || translate('attachDocument')}
+                                    size='upload'
+                                    type='upload'
+                                    icon='upload'
+                                    iconSize={36}
+                                    svg
+                                    onClick={e => e.preventDefault()}
+                            /> {this.state.loading && <Spinner size="small" isInline={true}></Spinner>}
+                        </Dropzone>
+                        {
+                            files.length > 0 && files.map(f => <div key={f.name}>{f.name}
+                                <button
+                                    onClick={(e)=>{
+                                        this.deleteElement(e, f)
+                                    }}
+                                    style={{
+                                        display: "inline-block",
+                                        background: "none",
+                                        outline: "none",
+                                        marginLeft: "10px",
+                                        border: "none",
+                                        cursor: "pointer"
+                                    }}
+                                >
+                                x
+                            </button>
+                            </div>)
+                        }
                     </div>)
                 }
-            </div>
-        );
+            </Translate>
+        </div>);
     }
 }
 

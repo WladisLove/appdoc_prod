@@ -1,6 +1,7 @@
 import React from 'react'
 import  moment from 'moment'
 import {TimePicker  as AntTimePicker} from 'antd'
+import { Translate } from 'react-localize-redux'
 import PropTypes from "prop-types";
 
 
@@ -180,27 +181,31 @@ class RangeTp extends React.Component {
         const {startValue, endValue} = this.state;
 
         return (
-            <div className="timepicker-base-range">
-                <AntTimePicker placeholder ={"Начало"}
-                               value={this.state.startValue ? this.state.startValue : null}
-                               format={format}
-                               minuteStep={minuteStep}
-                               onChange={(val) => this.onChange("start", val)}
-                               disabledHours={() => this.state.disabledHours}
-                               disabledMinutes={() => this.disabledMinutes}/>
+            <Translate>
+                {({ translate }) =>
+                    (<div className="timepicker-base-range">
+                        <AntTimePicker placeholder ={translate('start')}
+                                       value={this.state.startValue ? this.state.startValue : null}
+                                       format={format}
+                                       minuteStep={minuteStep}
+                                       onChange={(val) => this.onChange("start", val)}
+                                       disabledHours={() => this.state.disabledHours}
+                                       disabledMinutes={() => this.disabledMinutes}/>
 
-                {delimiter && <span className="timepicker-base-range-delim"> {delimiter} </span>}
+                        {delimiter && <span className="timepicker-base-range-delim"> {delimiter} </span>}
 
-                <AntTimePicker placeholder = {"Конец"}
-                               value={this.state.endValue ? this.state.endValue: null}
-                               format={format}
-                               minuteStep={minuteStep}
-                               disabledHours={() => this.state.disabledHours}
-                               disabledMinutes={() => this.disabledMinutes}
-                               onChange={(val) => {
-                                   this.onChange("end", val)
-                               }}/>
-            </div>
+                        <AntTimePicker placeholder = {translate('end')}
+                                       value={this.state.endValue ? this.state.endValue: null}
+                                       format={format}
+                                       minuteStep={minuteStep}
+                                       disabledHours={() => this.state.disabledHours}
+                                       disabledMinutes={() => this.disabledMinutes}
+                                       onChange={(val) => {
+                                           this.onChange("end", val)
+                                       }}/>
+                    </div>)
+                }
+            </Translate>
         )
     }
 }

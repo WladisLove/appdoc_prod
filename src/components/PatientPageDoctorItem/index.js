@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Icon from '../Icon'
 import RatePanel from '../RatePanel'
 import ProfileAvatar from '../ProfileAvatar'
-
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 
@@ -26,7 +26,7 @@ const PatientPageDoctorItem = props => {
                 return `${acc}, ${current}`
             })
         } else {
-            return "Нет специальностей"
+            return (<Translate id="doctor.noSpecialties" />)
         }
 
     };
@@ -65,7 +65,6 @@ const PatientPageDoctorItem = props => {
                                 size={20}
                                 svg
                                 onClick={handleClick}
-
                             />
                         )}
                     </div>
@@ -85,20 +84,23 @@ const PatientPageDoctorItem = props => {
                             onClick={onGoTo}>{doctorName}
                         </div>
 
-                        
+
                         <div className='page__doctor-item-speciality'>{renderSpecialities(speciality)}</div>
                         <div className='page__doctor-item-category'>{doctorCategory}</div>
-                        <div className='page__doctor-item-exp'>Стаж работы {doctorExp}</div>
+                        <div className='page__doctor-item-exp'><Translate id="doctor.workExperience" /> {doctorExp}</div>
                     </div>
                 </div>
                 <div className='page__doctor-item-block'>
                     <div className='page__doctor-item-price'>
-                        <div className='page__doctor-item-price-title'>Стоимость<br />консультации</div>
-                        <div className='page__doctor-item-price-coast'>{doctorPrice} руб</div>
+                        <div className='page__doctor-item-price-title'><Translate id="consultationCost" /></div>
+                        <div className='page__doctor-item-price-coast'>{doctorPrice} <Translate id="currency" /></div>
                     </div>
                     {doctorLanguages &&
                         <div className='page__doctor-item-language'>
-                            <div className='page__doctor-item-language-title'>Знание языков</div>
+
+                             <div className='page__doctor-item-language-title'>
+                                <Translate id="languagesKnowledge" />
+                            </div>
                             {
                                 showLanguageOptions(doctorLanguages)
                             }

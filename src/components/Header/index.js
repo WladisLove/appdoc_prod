@@ -7,6 +7,8 @@ import SwitchPanel from '../SwitchPanel'
 import NotificationApp from '../NotificationApp'
 import AutoComplete from '../AutoComplete'
 import Hoc from "../Hoc"
+import specs from "../../helpers/specsArray"
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -32,93 +34,97 @@ class Header extends React.Component {
 render() {
     const {notifications, isUser, userBalance} = this.props;
         return (
-            <div className={'header'}>
-                <div className='header-search'>
-                    <AutoComplete
-                        onAdd = {this.props.onAdd}
-                        onDelete = {this.props.onDelete}
-                        onGoto = {this.props.onGoto}
-                        findName= {this.props.findName}
-                        data={this.props.data}
-                        isUser = {isUser}
-                    />
-                </div>
-                <div className='header-call'>
-                    {isUser ?
-                        <Hoc>
-                            <div className='wrapper-paymet-score'>Текущий счет: {userBalance ? userBalance : '0.00'}</div> 
-                          
-                            <Button btnText='ЭКСТРЕННЫЙ ВЫЗОВ'
-                                size='small'
-                                type='emergensy'
-                                icon='emergency-call'
-                                onClick = {() => this.setState({emergencyVisit: true})}/>
-                            <Button btnText='ЗАПИСАТЬСЯ НА ПРИЕМ'
-                                onClick={this.handleClick}
-                                size='small'
-                                type='float'
-                                icon='form'/>
-                            <NewVisitTypeModal
-                                visible = {this.state.chooseTypeVisitVisible}
-                                onCancel = {() => this.setState({chooseTypeVisitVisible: false})}
-                                onFree = {
-                                    () => {this.setState({
-                                        chooseTypeVisitVisible: false,
-                                        isNewFreeVisit: true
-                                    })}
+             <Translate>
+                {({ translate }) =>
+                    (<div className={'header'}>
+                        <div className='header-search'>
+                            <AutoComplete
+                                onAdd = {this.props.onAdd}
+                                onDelete = {this.props.onDelete}
+                                onGoto = {this.props.onGoto}
+                                findName= {this.props.findName}
+                                data={this.props.data}
+                                isUser = {isUser}
+                            />
+                        </div>
+                        <div className='header-call'>
+                            {isUser ?
+                                <Hoc>
+                                    <div className='wrapper-paymet-score'>Текущий счет: {userBalance ? userBalance : '0.00'}</div> 
+                                    <Button btnText={translate('emergencyCall')}
+                                        size='small'
+                                        type='emergensy'
+                                        icon='emergency-call'
+                                        onClick = {() => this.setState({emergencyVisit: true})}/>
+                                    <Button btnText={translate('button.title.makeAnReception')}
+                                        onClick={this.handleClick}
+                                        size='small'
+                                        type='float'
+                                        icon='form'/>
+                                    <NewVisitTypeModal
+                                        visible = {this.state.chooseTypeVisitVisible}
+                                        onCancel = {() => this.setState({chooseTypeVisitVisible: false})}
+                                        onFree = {
+                                            () => {this.setState({
+                                                chooseTypeVisitVisible: false,
+                                                isNewFreeVisit: true
+                                            })}
+                                     
 
-                                }
-                            />
-                            <NewFreeVisitByPatient
-                                visible = {this.state.isNewFreeVisit}
-                                docTypes = {this.props.docSpecialities}
-                                onCancel = {() => this.setState({isNewFreeVisit: false})}
-                                onSubmit = {this.props.onMakeVisit}
-                                getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
-                                freeVisitsIntervals = {this.props.freeVisitsIntervals}
-                                onMakeFreeVisit = {this.props.onMakeVisit}
+                                        }
+                                    />
+                                     <NewFreeVisitByPatient
+                                        visible = {this.state.isNewFreeVisit}
+                                        docTypes = {this.props.docSpecialities}
+                                        onCancel = {() => this.setState({isNewFreeVisit: false})}
+                                        onSubmit = {this.props.onMakeVisit}
+                                        getFreeVisitIntervals = {this.props.getFreeVisitIntervals}
+                                        freeVisitsIntervals = {this.props.freeVisitsIntervals}
+                                        onMakeFreeVisit = {this.props.onMakeVisit}
 
+                                    />
+                                    <NewEmergencyVisit
+                                        visible = {this.state.emergencyVisit}
+                                        onCancel = {() => this.setState({emergencyVisit: false})}
+                                        onSubmit = {this.props.onMakeVisit}
+                                    />
+                                </Hoc>
+                                : (this.props.emergencyAvailable && <SwitchPanel
+                                    icon='emergency-call'
+                                    title={translate(`emergencyCall`)}
+                                    onChange={this.props.onChange}
+                                    checked={this.props.checked}
+                                    disabled={this.props.disabled}/>)
+                            }
+                        </div>
+                        <div className='header-notification'>
+                            <NotificationApp
+                                data={notifications}
+                                getNotifications={this.props.getNotifications}
+                                getId={this.props.getNotifId}>
+                                    <Icon
+                                        svg
+                                        type='notification'
+                                        size={20}
+                                        title={translate(`notifications`)}
+                                    />
+                            </NotificationApp>
+                        </div>
+                        <div className='header-exit'>
+                            <Button
+                                btnText=''
+                                size='icon'
+                                type='icon'
+                                icon='exit'
+                                iconSize={20}
+                                svg
+                                title={translate(`exit`)}
+                                onClick={this.props.logout}
                             />
-                            <NewEmergencyVisit
-                                visible = {this.state.emergencyVisit}
-                                onCancel = {() => this.setState({emergencyVisit: false})}
-                                onSubmit = {this.props.onMakeVisit}
-                            />
-                        </Hoc>
-                        : (this.props.emergencyAvailable && <SwitchPanel
-                            icon='emergency-call'
-                            title="Экстренные вызовы"
-                            onChange={this.props.onChange}
-                            checked={this.props.checked}
-                            disabled={this.props.disabled}/>)
-                    }
-                </div>
-                <div className='header-notification'>
-                    <NotificationApp
-                        data={notifications}
-                        getNotifications={this.props.getNotifications}
-                        getId={this.props.getNotifId}>
-                         <Icon
-                            svg
-                            type='notification'
-                            size={20}
-                            title='Уведомления'
-                        />
-                    </NotificationApp>
-                </div>
-                <div className='header-exit'>
-                    <Button
-                        btnText=''
-                        size='icon'
-                        type='icon'
-                        icon='exit'
-                        iconSize={20}
-                        svg
-                        title='Выход'
-                        onClick={this.props.logout}
-                    />
-                </div>
-            </div>
+                        </div>
+                    </div>)
+                }
+            </Translate>
         )
     }
 }

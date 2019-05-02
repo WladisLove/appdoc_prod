@@ -14,17 +14,20 @@ const SwitchPanel = (props) => {
             <div className={checked ? 'switch-panel switch-panel-checked' : 'switch-panel'}>
                 {icon && (<Icon type={icon} />)}
                 <span className="switch-panel-title">{title}</span>
-                <Switch 
+                <Switch
                         checked = {checked}
                         disabled = {disabled}
-                        onChange={onChange}/> 
+                        onChange={onChange}/>
             </div>
         )
 }
 
 SwitchPanel.propTypes = {
     icon: PropTypes.string,
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
     defaultChecked: PropTypes.bool,
     checked: PropTypes.bool,
     disabled: PropTypes.bool,

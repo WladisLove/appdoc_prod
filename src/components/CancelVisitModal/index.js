@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Modal from '../Modal'
 import Content from './content'
+import { Translate } from 'react-localize-redux'
 
 import './styles.css'
 
@@ -10,7 +11,7 @@ const CancelVisitModal = (props) => {
     const {visible} = props;
 
     return (
-        <Modal title='Отмена приема'
+        <Modal title={<Translate id="modal.title.cancelReception" />}
                visible={visible}
                onCancel={props.onCancel}
         >

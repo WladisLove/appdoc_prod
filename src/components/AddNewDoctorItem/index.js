@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import Button from '../Button'
 import ProfileAvatar from '../ProfileAvatar'
-
+import { Translate } from 'react-localize-redux'
 
 import './style.css'
 import '../../icon/style.css'
@@ -28,7 +28,7 @@ class AddNewDoctorItem extends React.Component{
                 </div>
                 <div className='new-doctor-info'>
                     <div className='new-doctor-name'>{name}</div>
-                    <div className='new-doctor-age'>{age} лет</div>
+                    <div className='new-doctor-age'>{age} <Translate id="yearsOld" /></div>
                 </div>
                 {
                     !isSearchItem && <div className='doctor-btn'>

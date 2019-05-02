@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-
+import { Translate } from 'react-localize-redux'
 import MainReview from './MainReview'
 
 import './style.css'
@@ -9,7 +9,7 @@ import '../../icon/style.css'
 const Review = props => {
 
         const {fio} = props;
-        let authorFIO = fio ? fio.split(' ') : ["Пациент"];
+        let authorFIO = fio ? fio.split(' ') : [<Translate id="patient.single" />];
         let author = authorFIO[0] + " ";
 
         for(let i = 1, len = authorFIO.length; i < len; i++){

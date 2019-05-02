@@ -11,6 +11,8 @@ import Upload from '../Upload'
 import DropZoneUpload from '../DropZoneUpload'
 import SelectNew from "../SelectNew";
 import InputNew from "../InputNew";
+import {Translate} from "react-localize-redux";
+
 
 const FormItem = Form.Item;
 
@@ -124,22 +126,25 @@ class Step2_From extends React.Component{
     };
 
 
-    render(){
+    render() {
         const {getFieldDecorator} = this.props.form;
         const {academicDegree, academicTitle, category,  langs, payments, selectorToolTip} = this.props;
 
         return (
-            <Form onSubmit={this.handleSubmit} className="step-form">
-                <div className="step-posttitle">Заполните сведения об образовании и работе</div>
-                <div className="step-notification">Просим образование по основным специальностям указывать в блоке Образование (с дипломом и свидетельством), а по дополнительным квалификационным программам  (в том числе присвоение ученой степени) - в блоке «Последипломное образование»</div>
-                <div className="step-notification">* Поля, обязательные для заполнения</div>
+<Translate>
+    {({translate}) =>
+        (
+  <Form onSubmit={this.handleSubmit} className="step-form">
+                 <div className="step-posttitle">{translate("auth.inputEduAndWorkInfo")}</div>
+                <div className="step-notification">{translate("auth.eduWish")}</div>
+                <div className="step-notification">{translate("auth.requiredFields")}</div>
 
-                <div className="step-block-title">Сведения об образовании</div>
+                <div className="step-block-title">{translate("auth.eduInfo")}</div>
                 {this.addFormElem(Step2_educ, this.state.educNum, getFieldDecorator)}
                 <div>
                     <Button onClick={e => this.increaseStateNum(e, 'educNum')}
                         className="personal-btn"
-                        btnText='Добавить'
+                        btnText={translate("button.title.add")}
                         size='small'
                         type='no-brd'
                         icon='plus'
@@ -149,7 +154,7 @@ class Step2_From extends React.Component{
                     />
                     {this.state.educNum>1 && <Button onClick={e => this.decreaseStateNum(e, 'educNum')}
                         className="personal-btn"
-                        btnText='Удалить'
+                        btnText={translate("button.title.delete")}
                         size='small'
                         type='no-brd'
                         icon='remove'
@@ -158,12 +163,12 @@ class Step2_From extends React.Component{
                     />}
                 </div>
 
-                <div className="step-block-title">Последипломное образование</div>
+                <div className="step-block-title">{translate("auth.postgraduateEdu")}</div>
                 {this.addFormElem(Step2_graduate_educ, this.state.gradEducNum, getFieldDecorator)}
                 <div>
                     <Button onClick={e => this.increaseStateNum(e, 'gradEducNum')}
                             className="personal-btn"
-                            btnText='Добавить'
+                            btnText={translate("button.title.add")}
                             size='small'
                             type='no-brd'
                             icon='plus'
@@ -173,7 +178,7 @@ class Step2_From extends React.Component{
                     />
                     {this.state.gradEducNum >1 && <Button onClick={e => this.decreaseStateNum(e, 'gradEducNum')}
                             className="personal-btn"
-                            btnText='Удалить'
+                            btnText={translate("button.title.delete")}
                             size='small'
                             type='no-brd'
                             icon='remove'
@@ -187,7 +192,7 @@ class Step2_From extends React.Component{
                     {getFieldDecorator('academicdegree')(
 
                         <SelectNew width ="100%"
-                                   bubbleplaceholder="Учёная степень"
+                                   bubbleplaceholder={translate("auth.academicDegree")}
                                    className="step-form-item"
                                    data={academicDegree}
                                    onChange={(e)=>this.selectChangeHandler(e,"degree")}
@@ -198,12 +203,12 @@ class Step2_From extends React.Component{
                     {getFieldDecorator('academicdegreedoc', {
                         rules: [{
                             required: this.state.isDegree,
-                            message: 'Загрузите подтверждающий документ'
+                            message: translate("auth.errors.uploadConfirmingDoc")
                         }],
                     })(
                         <DropZoneUpload
                             uploadFile = {this.props.uploadFile}
-                            text="Прикрепить документ, подтверждающий учёную степень"
+                            text={translate("auth.addDegreeDocument")}
                         />
                     )}
                 </FormItem>
@@ -211,7 +216,7 @@ class Step2_From extends React.Component{
                 <FormItem>
                     {getFieldDecorator('academicstatus')(
                         <SelectNew width ="100%"
-                        bubbleplaceholder="Учёное звание"
+                        bubbleplaceholder={translate("auth.academicTitle")}
                         className="step-form-item"
                         data={academicTitle}
                         onChange={(e)=>this.selectChangeHandler(e,"status")}
@@ -222,25 +227,25 @@ class Step2_From extends React.Component{
                     {getFieldDecorator('academicstatusdoc', {
                         rules: [{
                             required: this.state.isStatus,
-                            message: 'Загрузите подтверждающий документ'
+                            message: translate("auth.errors.uploadConfirmingDoc")
                         }]
 
                     })(
                         <DropZoneUpload
                             uploadFile = {this.props.uploadFile}
-                            text="Прикрепить документ, подтверждающий учёное звание"
+                            text={translate("auth.addTitleDocument")}
                         />
                     )}
                 </FormItem>
 
 
-                <div className="step-block-title">Сведения о работе</div>
+                <div className="step-block-title">{translate("auth.workInfo")}</div>
                 {this.addFormElem(Step2_work, this.state.placesNum, getFieldDecorator)}
 
                 <div>
                     <Button onClick={e => this.increaseStateNum(e, 'placesNum')}
                             className="personal-btn"
-                            btnText='Добавить'
+                            btnText={translate("button.title.add")}
                             size='small'
                             type='no-brd'
                             icon='plus'
@@ -250,7 +255,7 @@ class Step2_From extends React.Component{
                     />
                     {this.state.placesNum > 1 && <Button onClick={e => this.decreaseStateNum(e, 'placesNum')}
                             className="personal-btn"
-                            btnText='Удалить'
+                            btnText={translate("button.title.delete")}
                             size='small'
                             type='no-brd'
                             icon='remove'
@@ -266,11 +271,11 @@ class Step2_From extends React.Component{
                     {getFieldDecorator('category', {
                         rules: [{
                             required: true,
-                            message: 'Введите категорию'
+                            message: translate("auth.errors.inputCategory")
                         }],
                     })(
                         <SelectNew width ="100%"
-                                   bubbleplaceholder="* Категория"
+                                   bubbleplaceholder={`* ${translate("auth.category")}`}
                                    className="step-form-item"
                                    data={category}
                                    onChange={(e)=>this.selectChangeHandler(e,"category")}
@@ -281,12 +286,12 @@ class Step2_From extends React.Component{
                     {getFieldDecorator('categorydoc', {
                         rules: [{
                             required: this.state.isCategory,
-                            message: 'Загрузите подтверждающий документ'
+                            message: translate("auth.errors.uploadConfirmingDoc")
                         }],
                     })(
                         <DropZoneUpload
                             uploadFile = {this.props.uploadFile}
-                            text="Прикрепить документ, подтверждающий категорию"
+                            text={translate("auth.addCategoryDocument")}
                         />
                     )}
                 </FormItem>
@@ -296,16 +301,16 @@ class Step2_From extends React.Component{
                     {getFieldDecorator('experience', {
                         rules: [{
                             required: true,
-                            message: 'Введите общий стаж работы'
+                            message: translate("auth.errors.inputWorkExperience")
                         }],
                     })(
-                        <InputNew width ="100%" bubbleplaceholder="* Общий стаж работы" className="step-form-item"/>
+                        <InputNew width ="100%" bubbleplaceholder={`* ${translate("auth.workExperience")}`} className="step-form-item"/>
 
                     )}
                 </FormItem>
 
 
-                <div className="step-block-title">Дополнительная информация</div>
+                <div className="step-block-title">{translate("auth.additionalInfo")}</div>
                 <Step2_additional getFieldDecorator={getFieldDecorator}
                                   langs={langs}
                                   payments={payments}
@@ -313,18 +318,21 @@ class Step2_From extends React.Component{
 
                 <div className="steps-action">
                     <Button onClick={this.handleGoBack}
-                            btnText='Назад'
+                            btnText={translate("button.title.back")}
                             size='large'
                             type='float'
                             style = {{marginRight: "20px"}}
                     />
                     <Button htmlType="submit"
-                            btnText='Далее'
+                            btnText={translate("button.title.next")}
                             size='large'
                             type='gradient'
                     />
                 </div>
             </Form>
+            )
+        }
+    </Translate>
         )
     }
 }

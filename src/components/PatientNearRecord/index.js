@@ -4,7 +4,7 @@ import PatientNearRecordItem from '../PatientNearRecordItem'
 import Card from '../Card'
 import Icon from '../Icon'
 import Spinner from "../Spinner"
-
+import { Translate } from 'react-localize-redux'
 import './style.css'
 import '../../icon/style.css'
 import Button from "../Button";
@@ -22,16 +22,21 @@ class PatientNearRecord extends React.Component{
                 nearArr.push(<PatientNearRecordItem key={index} {...item} cancelAppByPatient={this.props.cancelAppByPatient}/>)
             });
         } else {
-            nearArr.push(
-                <div className='noNearRecords'>
-                    <span>
-                        Записи отсутствуют
-                    </span>
-                    <Button btnText='Записаться'
-                            onClick={this.props.onGoto}
-                            size='small'
-                            type='float'/>
-                </div>)
+            nearArr.push(<div>
+                            <Translate>
+                                {({ translate }) =>
+                                  (<div className='noNearRecords'>
+                                      <span>
+                                          {translate('notifications.noRecords')}
+                                      </span>
+                                      <Button btnText={translate('button.title.signUp')}
+                                              onClick={this.props.onGoto}
+                                              size='small'
+                                              type='float'/>
+                                  </div>)
+                                }
+                            </Translate>
+                        </div>)
         }
 
 
@@ -46,7 +51,7 @@ class PatientNearRecord extends React.Component{
     render(){
         return (
             <div className='record-all'>
-                <Card title="Ближайшие записи" style={{height: 500}} extra={<div onClick={this.props.redirect} className='go-to' ><Icon svg type='calendar' size={18} /> Все</div>}>
+                <Card title={<Translate id="reception.nearRecords" />} style={{height: 500}} extra={<div onClick={this.props.redirect} className='go-to'><Icon svg type='calendar' size={18} /> <Translate id="all" /></div>}>
                     {this.state.isLoading ? <Spinner/> : this.nearRender(this.props.data)}
                 </Card>
             </div>

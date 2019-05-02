@@ -10,7 +10,7 @@ import './react-big-calendar.css'
 import './style.css'
 import PatientPage from "../../containers/MainPage/PatientPage";
 
-moment.locale('ru');
+moment.locale('en');
 momentLocalizer(moment);
 
 class BigCalendar extends React.Component{

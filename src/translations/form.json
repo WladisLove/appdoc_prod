@@ -1,0 +1,50 @@
+{
+    "form": {
+        "textarea": {
+            "chat": ["Your message", "Ваше сообщение"],
+            "cancellationReason": ["Reason for cancellation", "Причина отмены"],
+            "yourText": ["Your text", "Ваш текст"],
+            "reviewText": ["Review text", "Текст отзыва"]
+        },
+        "select": {
+            "drugForUse": ["Drug for use", "Препарат для приема"],
+            "drug": {
+                "analgin": ["Analgin", "Анальгин"],
+                "paracetamol": ["Paracetamol", "Парацетамол"],
+                "vitaminC": ["Vitamin C", "Аскорбиновая кислота"]
+            },
+            "investigation": {
+                "completeBloodCount": ["Complete Blood Count", "Общий анализ крови"]
+            }
+        },
+        "radio": {
+            "chat": [
+                "The patient will only be available to chat",
+                "Пациенту будет доступна только запись на чат"
+            ],
+            "telephone": [
+                "The patient will be available to record in the chat and audio",
+                "Пациенту будет доступна запись на чат и аудиосвязь"
+            ],
+            "videoCamera": [
+                "The patient will be available to record for all types of communication",
+                "Пациенту будет доступна запись на все виды связи"
+            ]
+        },
+        "checkbox": {
+            "addToListChronicDiseases": [
+                "Add to list of chronic diseases",
+                "Добавить в список хронических болезней"
+            ]
+        },
+        "errors": {
+            "input": {
+                "enterDiagnosis": ["Enter diagnosis", "Ввведите диагноз"]
+            },
+            "select": {
+                "enterDrug": ["Enter drug", "Ввведите препарат"],
+                "enterInvestigation": ["Enter investigation", "Введите исследование"]
+            }
+        }
+    }
+}
