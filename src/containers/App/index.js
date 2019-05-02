@@ -34,6 +34,7 @@ class App extends React.Component {
             notifications: [],
             mustLeaveReview: false
         };
+        this.isSafari = browser ? browser.name == 'safari' : true;
     }
 
     toggle = () => {
@@ -104,21 +105,24 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        const {mode} = this.props.auth;
+
         if(this.props.id){
             this.runNotificationsWS();
             this.runChatWS();
             this.props.getEmergencyAvailability();
             this.props.onGetDoctorSpecialities();
 
-            if(this.props.auth.mode === "user") {
+            if(this.props.auth.mode) {
                 if ("geolocation" in navigator) {
                     navigator.geolocation.getCurrentPosition((position) => {
+                        debugger
                         this.props.setUserLocation(this.props.id,position.coords.longitude, position.coords.latitude);
                     });
                 } else {
                     console.log('geolocation not available')
                 }
-                this.props.hasNoReviewToFreeApp().then(res=>{
+                mode ==='user' && this.props.hasNoReviewToFreeApp().then(res=>{
                     if(res.result.length) {
                         this.setState({mustLeaveReview: true, infoForReview:{
                                 id_doc: res.result[0].id_doc,
@@ -162,6 +166,7 @@ class App extends React.Component {
         const {collapsed} = this.state;
         const  siderClass = collapsed ? 'main-sidebar collapsed' : 'main-sidebar';
         const  wrapperClass = collapsed ? 'main-wrapper collapsed' : 'main-wrapper';
+        const headerClass = this.isSafari ? "main-header main-header-insafari" : "main-header";
         const isUser = (this.props.mode === "user");
         if (this.state.mustLeaveReview) {
             return <ReviewsModal
@@ -196,7 +201,7 @@ class App extends React.Component {
                 </div>
                 <div className={wrapperClass}>
                 <div style={{position: 'absolute', zIndex: 999}}></div>
-                    <div className="main-header">
+                    <div className={headerClass}>
                         <button onClick={this.toggle}
                                 className="sidenav-root-btn">
                             {

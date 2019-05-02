@@ -39,11 +39,6 @@ class Payment extends React.Component{
         this.setState({ isPaymentForm: true })
     }
 
-    payBalance = (data) => {
-        const { name } = this.props.shortDocInfo
-
-        this.props.onPayBalance({ ...data, FirstName: name, LastName: name})
-    }
     render() {
        return (
             <div >
@@ -68,7 +63,6 @@ class Payment extends React.Component{
                 <NewPaymentForm 
                     visible={this.state.isPaymentForm}
                     formPayment={this.props.formPayment}
-                    onSubmit={this.payBalance}
                     onCancel={() => this.setState({isPaymentForm:false})}
                     name={this.props.shortDocInfo ? this.props.shortDocInfo.name : ''}
                 />
@@ -89,7 +83,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGetPaymentForm: (id, price) => dispatch(actions.getPaymentForm(id, price)),
-        onPayBalance: (data) => dispatch(actions.payBalance(data)),
     }
 };
 

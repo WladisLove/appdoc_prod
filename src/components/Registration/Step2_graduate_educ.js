@@ -7,6 +7,9 @@ import InputNew from "../InputNew";
 import RangeDPNew from "../RangeDPNew";
 import DropZoneUpload from "../DropZoneUpload";
 import {Translate} from "react-localize-redux";
+import { AutoComplete } from 'antd';
+
+const dataSource = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
 
 const FormItem = Form.Item;
 
@@ -70,9 +73,13 @@ class Step2_graduate_educ extends React.Component{
                                         message: translate("auth.errors.inputUniversityName")
                                     }],
                                 })(
-                                    <InputNew width="100%" bubbleplaceholder={translate("auth.universityName")}
-                                              className="step-form-item"
-                                              onChange={(e) => this.handleChange(e, "eduName")}/>
+                                    <AutoComplete
+                                        className="reg-auto-complete"
+                                        style={{ width: '100%' }}
+                                        dataSource={this.props.selectorToolTip}
+                                        placeholder="Учебное заведение"
+                                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                                    />
                                 )}
                             </FormItem>
                             <FormItem>
@@ -110,6 +117,7 @@ class Step2_graduate_educ extends React.Component{
                                             uploadFile={this.props.uploadFile}
                                             text={translate("auth.addDiplomaCertificate")}
                                             onChange={(e) => this.handleChange(e, "eduFile")}
+
 
                                         />
                                     )}

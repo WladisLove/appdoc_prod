@@ -96,6 +96,7 @@ class Step2_From extends React.Component{
                                   fileToState={this.fileToState}
                                   uploadFile={this.props.uploadFile}
                                   docSpecialities={this.props.docSpecialities}
+                                  selectorToolTip={this.props.selectorToolTip}
                                   number={0}/>,];
         while (i < num){
             formArr.push(<Hr key={'hr_' + name + i}/>);
@@ -106,6 +107,7 @@ class Step2_From extends React.Component{
                                     fileToState={this.fileToState}
                                     uploadFile={this.props.uploadFile}
                                     docSpecialities={this.props.docSpecialities}
+                                    selectorToolTip={this.props.selectorToolTip}
                                     number={i}/>);
             i++;
         }
@@ -126,7 +128,7 @@ class Step2_From extends React.Component{
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {academicDegree, academicTitle, category, langs, payments} = this.props;
+        const {academicDegree, academicTitle, category,  langs, payments, selectorToolTip} = this.props;
 
         return (
 <Translate>
@@ -311,7 +313,8 @@ class Step2_From extends React.Component{
                 <div className="step-block-title">{translate("auth.additionalInfo")}</div>
                 <Step2_additional getFieldDecorator={getFieldDecorator}
                                   langs={langs}
-                                  payments={payments}/>
+                                  payments={payments}
+                                  selectorToolTip = {selectorToolTip}/>
 
                 <div className="steps-action">
                     <Button onClick={this.handleGoBack}

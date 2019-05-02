@@ -7,9 +7,10 @@ import InputNew from "../InputNew";
 import SelectNew from "../SelectNew";
 import DropZoneUpload from "../DropZoneUpload";
 import {Translate} from "react-localize-redux";
+import { AutoComplete } from 'antd';
 
 const FormItem = Form.Item;
-
+const dataSource = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
 /* styles in style.css (importing in Step2.js)*/
 
 class Step2_educ extends React.Component {
@@ -19,7 +20,7 @@ class Step2_educ extends React.Component {
     }
 
     render() {
-        const {getFieldDecorator, number} = this.props;
+        const {getFieldDecorator, number,selectorToolTip} = this.props;
         const specs = this.props.docSpecialities;
 
         return (
@@ -27,7 +28,6 @@ class Step2_educ extends React.Component {
                 {({translate}) =>
                     (
                         <div className="step-block">
-
                             <FormItem>
                                 {getFieldDecorator('educationsgroup1-education-' + number, {
                                     rules: [{
@@ -35,9 +35,13 @@ class Step2_educ extends React.Component {
                                         message: translate("auth.errors.inputUniversityName")
                                     }],
                                 })(
-                                    <InputNew width="100%"
-                                              bubbleplaceholder={`* ${translate("auth.universityName")}`}
-                                              className="step-form-item"/>
+                                   <AutoComplete
+                                      className="reg-auto-complete"
+                                      style={{ width: '100%' }}
+                                      dataSource={this.props.selectorToolTip}
+                                      placeholder="* Учебное заведение"
+                                      filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                                  />
                                 )}
                             </FormItem>
                             <FormItem>

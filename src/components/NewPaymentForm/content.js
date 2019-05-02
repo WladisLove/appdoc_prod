@@ -29,14 +29,9 @@ class PayForm extends React.Component {
         const { getFieldDecorator } = this.props.form;
         const { formPayment } = this.props;
 
-
-        console.log('formPayment :', formPayment);
         return (
-            <Form className="payment-form" action={"https://test.paysec.by/pay/order.cfm"} >
-                {formPayment && <div>
-                    <div className='wrapper-paymet'>
-                        <p>ID: {formPayment.Merchant_ID}</p>
-                    </div>
+            formPayment ? 
+            <form className="payment-form" action="https://test.paysec.by/pay/order.cfm" method="POST"> 
                     <div className='wrapper-paymet'>
                         <p>Номер заказа: {formPayment.OrderNumber}</p>
                     </div>
@@ -46,37 +41,24 @@ class PayForm extends React.Component {
                     <div className='wrapper-paymet'>
                         <p>Валюта: {formPayment.OrderCurrency}</p>
                     </div>
-                    <div className='wrapper-paymet'>
-                        <p>Имя: {formPayment.FirstName} {formPayment.LastName}</p>
-                    </div>
-                    <div className='wrapper-paymet'>
-                        <p>Email: {formPayment.Email}</p>
-                    </div>
-                    <div className='wrapper-paymet'>
-                        <p>Комментарий: {formPayment.OrderComment}</p>
-                    </div>
-                    <div className="payment-form-control">
-                        <Button htmlType="submit"
+                <input type="HIDDEN" name="Merchant_ID" value={formPayment.Merchant_ID} /> 
+                <input type="HIDDEN" name="OrderNumber" value={formPayment.OrderNumber} />
+                <input type="HIDDEN" name="OrderAmount" value={formPayment.OrderAmount} />
+                <input type="HIDDEN" name="OrderCurrency" value={formPayment.OrderCurrency} />
+                <input type="HIDDEN" name="FirstName" value={formPayment.FirstName} />
+                <input type="HIDDEN" name="LastName" value={formPayment.LastName} /> 
+                <input type="HIDDEN" name="Email" value={formPayment.Email} /> 
+                <input type="HIDDEN" name="OrderComment" value={formPayment.OrderComment} /> 
+                <div className="payment-form-control">
+                        <Button type="submit"
                             btnText='Подтвердить'
                             size='large'
                             type='gradient'
                             class='payment-btn-pay'
-                            onClick={this.handleSubmit}
+                            value="Оплатить"
                         />
                     </div>
-                </div>}
-                {/* INPUT TYPE="HIDDEN" NAME="Merchant_ID" VALUE="Ваш Merchant_ID"> 
-                <INPUT TYPE="HIDDEN" NAME="OrderNumber" VALUE="A03032011_26"> 
-                <INPUT TYPE="HIDDEN" NAME="OrderAmount" VALUE="6000"> 
-                <INPUT TYPE="HIDDEN" NAME="OrderCurrency" VALUE="BYR"> 
-                <INPUT TYPE="HIDDEN" NAME="FirstName" VALUE="Test"> 
-                <INPUT TYPE="HIDDEN" NAME="LastName" VALUE="Testov"> 
-                <INPUT TYPE="HIDDEN" NAME="Email" VALUE="test@test.by">
-                <INPUT TYPE="HIDDEN" NAME="OrderComment" VALUE="Пример оплаты заказа"> 
-                <INPUT TYPE="SUBMIT" NAME="Submit" VALUE="Оплатить"> */}
-
-            </Form>
-        )
+            </form> : null)
     }
 }
 

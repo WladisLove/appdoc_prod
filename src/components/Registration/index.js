@@ -42,6 +42,7 @@ class RegistrationForm extends React.Component{
                                        payments = {this.props.payments}
                                        uploadFile={this.props.uploadFile}
                                        docSpecialities={this.props.docSpecialities}
+                                       selectorToolTip = {this.props.selectorToolTip}
             /> ,
         },
             {

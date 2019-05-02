@@ -101,7 +101,7 @@ class PatientPage extends React.Component {
                             }]
                         }/>
                     </Col>
-                    <Col xs={24} xxl={10} className='section'>
+                    <Col xs={10} xxl={10} className='section'>
                         <PatientDoctor
                             data = {this.props.doctors}
                             onGoto={this.gotoHandler}
@@ -117,22 +117,21 @@ class PatientPage extends React.Component {
                             myDoctorsLoaded={this.props.myDoctorsLoaded}
                         />
                     </Col>
+                    <Col xs={14} xxl={24} className='section'>
+                    <TreatmentTable
+                        isUser={this.props.isUser}
+                        redirect={() => this.props.history.push('/app/treatment')}
+                        data={this.props.completedApps ? this.props.completedApps.result : []}
+                        dataCount = {this.props.completedApps ? this.props.completedApps.count : 0}
+                        onGoto={this.gotoHandler}
+                        onGotoChat={(id) => console.log(id)}
+                        getCompletedApps ={this.props.getCompletedApps}
+                        onSubmitReview={this.props.onSubmitReview}
+                        makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
+                    />
+                </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <TreatmentTable
-                            isUser={this.props.isUser}
-                            redirect={() => this.props.history.push('/app/treatment')}
-                            data={this.props.completedApps ? this.props.completedApps.result : []}
-                            dataCount = {this.props.completedApps ? this.props.completedApps.count : 0}
-                            onGoto={this.gotoHandler}
-                            onGotoChat={(id) => console.log(id)}
-                            getCompletedApps ={this.props.getCompletedApps}
-                            onSubmitReview={this.props.onSubmitReview}
-                            makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
-                        />
-                    </Col>
-                </Row>
+               
     
             </Hoc>
             )

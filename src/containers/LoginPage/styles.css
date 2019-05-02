@@ -35,3 +35,15 @@
   border: 0;
   outline: 0;
 }
+.reg-auto-complete {
+  border-bottom: 1px solid #e1e1e1;
+  font-size: 13px;
+  font-variant: tabular-nums;
+  color: #e1e1e1;
+}
+.reg-auto-complete .ant-select-auto-complete.ant-select .ant-select-selection__placeholder {
+  margin-left: 0px !important;
+}
+.reg-auto-complete .new-input.effect.ant-select-focused ~ label.new-input.has-content.effect ~ label {
+  color: black;
+}

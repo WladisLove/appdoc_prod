@@ -22,8 +22,8 @@ class Map extends React.Component {
     };
 
     boundsChange = () => {
-        const coordinates = this.myMap.getBounds();
-        this.props.newCoordinates(coordinates);
+        const coordinates = this.myMap.getBounds()
+        coordinates && this.props.newCoordinates(coordinates);
     };
 
     handleApiReady = () => {

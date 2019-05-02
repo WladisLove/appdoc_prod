@@ -227,6 +227,7 @@ class Step3 extends React.Component{
                         </div>)
                 }
             </Translate>
+
         )
     }
 }

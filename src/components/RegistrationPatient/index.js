@@ -65,7 +65,7 @@ class RegistrationPatientForm extends React.Component {
                 let response = {
                     ...values,
                     avatar: avatar,
-                    date: moment(values.date).format("X")
+                    datebirth: moment(values.date).format("X")
                 };
                 console.log(response);
                 this.props.onFinish(response);
@@ -238,6 +238,7 @@ class RegistrationPatientForm extends React.Component {
                     )
                 }
             </Translate>
+
         )
     }
 }

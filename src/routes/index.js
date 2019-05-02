@@ -120,7 +120,7 @@ export const menuDoc =[
     {name: 'app/patients', title: 'menu.doctor.myPatients', iconType: 'user',},
     {name: 'app/personal-info', title: 'menu.personalData', iconType: 'setting_edit', svg: true},
     {name: 'app/reviews', title: 'menu.doctor.patientsReviews', iconType: 'chat', svg: true},
-    { name: 'app/payment', title: 'Оплата', iconType: 'payment', svg: true },
+    {name: 'app/geolocation', title: 'Геолокация', iconType: 'geolocation', svg: true},
 ];
 
 export const menuPatient =[

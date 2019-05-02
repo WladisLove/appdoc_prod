@@ -17,7 +17,7 @@
   width: 100%;
 }
 .reviews .ant-card-body {
-  height: 485px;
+  height: 400px;
   overflow-y: auto;
 }
 .reviews-list {
