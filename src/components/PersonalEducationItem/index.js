@@ -145,23 +145,23 @@ class PersonalEducationItemForm extends React.Component{
                                 <Button onClick={() => {
                                     this.props.form.validateFields((err, values) => {
                                         let specs = [];
-                                    this.props.docSpecialities.forEach((el) => {
-                                        values['educationsgroup1-speciality'].includes(el.id) ? specs.push(el) : null
-                                    })
+                                        this.props.docSpecialities.forEach((el) => {
+                                            values['educationsgroup1-speciality'].includes(el.id) ? specs.push(el) : null
+                                        })
 
-                                    let newEducationEntry = {
-                                        education: values['educationsgroup1-education'],
-                                        speciality: specs,
-                                        finishucationyear: values['educationsgroup1-finishucationyear'],
-                                        diplomphoto: values['educationsgroup1-diplomphoto']
-                                    };
+                                        let newEducationEntry = {
+                                            education: values['educationsgroup1-education'],
+                                            speciality: specs,
+                                            finishucationyear: values['educationsgroup1-finishucationyear'],
+                                            diplomphoto: values['educationsgroup1-diplomphoto']
+                                        };
 
-                                   
-                                    this.setState({
-                                        educatBlock: 0,
-                                        mainEducationArr: [...this.state.mainEducationArr, newEducationEntry]
-                                    });
-                                }}
+                                    
+                                        this.setState({
+                                            educatBlock: 0,
+                                            mainEducationArr: [...this.state.mainEducationArr, newEducationEntry]
+                                        });
+                                    })}}
                                         className="personal-btn"
                                         btnText={translate(`button.title.done`)}
                                         size='small'

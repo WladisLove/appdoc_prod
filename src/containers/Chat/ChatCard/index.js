@@ -281,7 +281,7 @@ class ChatCard extends React.Component {
 
 
                 </div>
-            </div>)
+            </div>})
 		}
     </Translate>
 			<CompletionReceptionModal

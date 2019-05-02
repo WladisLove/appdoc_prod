@@ -104,7 +104,7 @@ class PersonalInformationItemForm extends React.Component{
                                                        bubbleplaceholder={translate(`personal.form.select.language`)}
                                                        className="personal-block-form-item"
                                                        mode="multiple"
-                                                       data={langsArray}
+                                                       data={langs}
                                             />
                                         )}
                                     </FormItem>

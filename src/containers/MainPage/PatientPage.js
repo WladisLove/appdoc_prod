@@ -60,7 +60,8 @@ class PatientPage extends React.Component {
                                 },
                             ]}
                             onSave={this.props.onSendUserPoleValue}
-                        />
+                        />)}
+                        </Translate>
                     </Col>
                 </Row>
                 <Row>
@@ -135,9 +136,9 @@ class PatientPage extends React.Component {
     
             </Hoc>
             )
-        )
+        
     }
-    
 }
+
 
 export default geolocated()(PatientPage);
