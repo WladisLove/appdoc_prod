@@ -22,7 +22,7 @@ class Root extends React.Component{
             options: {
                 renderToStaticMarkup,
                 renderInnerHtml: true,
-                defaultLanguage: "en"
+                defaultLanguage: localStorage.getItem("lang") ? localStorage.getItem("lang"): 'ru'
             }
         });
     }

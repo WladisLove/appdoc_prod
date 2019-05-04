@@ -120,7 +120,7 @@ export const menuDoc =[
     {name: 'app/patients', title: 'menu.doctor.myPatients', iconType: 'user',},
     {name: 'app/personal-info', title: 'menu.personalData', iconType: 'setting_edit', svg: true},
     {name: 'app/reviews', title: 'menu.doctor.patientsReviews', iconType: 'chat', svg: true},
-    {name: 'app/geolocation', title: 'Геолокация', iconType: 'geolocation', svg: true},
+    {name: 'app/geolocation', title: 'menu.geolocation', iconType: 'geolocation', svg: true},
 ];
 
 export const menuPatient =[
@@ -130,6 +130,6 @@ export const menuPatient =[
      {name: 'app/doctors', title: 'menu.patient.myDoctors', iconType: 'user',},
      {name: 'app/personal-info', title: 'menu.personalData', iconType: 'setting_edit', svg: true},
     {name: 'app/reviews', title: 'menu.patient.myReviews', iconType: 'chat', svg: true},
-    {name: 'app/payment', title: 'Оплата', iconType: 'payment', svg: true},
-    {name: 'app/geolocation', title: 'Геолокация', iconType: 'geolocation', svg: true},
+    {name: 'app/payment', title: 'menu.patient.payment', iconType: 'payment', svg: true},
+    {name: 'app/geolocation', title: 'menu.geolocation', iconType: 'geolocation', svg: true},
 ];

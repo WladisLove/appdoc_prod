@@ -64,7 +64,6 @@ body {
 }
 .main-wrapper.collapsed .main-header {
   width: calc(100% - 170px);
-  min-width: calc(1300px - 170px);
 }
 .main-header {
   position: fixed;
@@ -76,7 +75,6 @@ body {
   border-bottom: 1px solid #e8e8e8;
   align-items: center;
   z-index: 30;
-  min-width: calc(1300px - 340px);
 }
 .main-header .sidenav-root-btn {
   position: absolute;

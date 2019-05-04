@@ -11,7 +11,7 @@ import DoctorsList from '../../components/DoctorsList';
 import DoctorsListItemInfo from '../../components/DoctorsListItemInfo';
 import {connect} from "react-redux";
 import * as actions from "../../store/actions";
-
+import { Translate } from 'react-localize-redux'
 
 class GeoLocation extends React.Component {
 
@@ -62,14 +62,18 @@ class GeoLocation extends React.Component {
 
         return (
             <Hoc>
-                <Row>
-                    <Col span={16} md={16} xs={14} sm={14}>
-                        <Map chooseMark={this.chooseMark} newCoordinates={this.newCoordinates} doctors={this.props.doctors} />
-                    </Col>
-                    <Col span={8} md={8} xs={10} sm={10}>
-                        {content}
-                    </Col>
-                </Row>
+                
+                            <Row>
+                                <Col span={16} md={16} xs={14} sm={14}>
+                                    
+                                    <Map chooseMark={this.chooseMark} newCoordinates={this.newCoordinates} doctors={this.props.doctors} />
+                                        
+                                </Col>
+                                <Col span={8} md={8} xs={10} sm={10}>
+                                    {content}
+                                </Col>
+                            </Row>
+                       
             </Hoc>
         )
     }

@@ -36,10 +36,12 @@ export const login = (userName, password, remember, history, isAuto) => {
 
     return (dispatch) => {
         dispatch(authStart());
+        const lang = localStorage.getItem("lang") ? localStorage.getItem("lang") : 'ru'
         axios.post('/fusers.doc/loginDoc',
                 JSON.stringify({
                     login: userName,
                     password: password,
+                    lang
                 }))
                     .then(res => {
                         !res.data.error
@@ -238,7 +240,6 @@ export const getSelectorToolTip = () => {
                 rez.data.result.forEach((el) => {
                     el.hasOwnProperty('selector') && fdata.push(el['selector'].value)
                 })
-                debugger
                 dispatch({
                     type: actionTypes.GET_SELECTOR_TOOL_TIP,
                     selectorToolTip: fdata,

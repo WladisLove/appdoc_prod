@@ -50,7 +50,7 @@ render() {
                         <div className='header-call'>
                             {isUser ?
                                 <Hoc>
-                                    <div className='wrapper-paymet-score'>Текущий счет: {userBalance ? userBalance : '0.00'}</div> 
+                                    <div className='wrapper-paymet-score'>{translate('button.title.theBalance').toUpperCase()}: {userBalance ? userBalance : '0.00'}</div> 
                                     <Button btnText={translate('emergencyCall')}
                                         size='small'
                                         type='emergensy'

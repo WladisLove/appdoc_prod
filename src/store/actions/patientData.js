@@ -119,7 +119,6 @@ export const saveGeolocation = (geo) => {
 
 export const setUserLocation = (idUser, lng, lat) => {
     return (dispatch) => {
-        debugger
         const obj = { idUser, lng, lat };
         axios.post('/catalog.doc2/setCoordinates', JSON.stringify(obj))
             .then(res => {

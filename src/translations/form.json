@@ -1,5 +1,8 @@
 {
     "form": {
+        "notification": {
+            "new" : ["Added new entry","Добавлена новая запись"]
+        },
         "textarea": {
             "chat": ["Your message", "Ваше сообщение"],
             "cancellationReason": ["Reason for cancellation", "Причина отмены"],
@@ -44,6 +47,20 @@
             "select": {
                 "enterDrug": ["Enter drug", "Ввведите препарат"],
                 "enterInvestigation": ["Enter investigation", "Введите исследование"]
+            }
+        },
+        "payment": {
+            "button": {
+                "pay": ["Pay", "Оплатить"]
+            },
+            "label": {
+                "previewPay": ["Enter the replenishment amount", "Введите сумму пополнения"],
+                "payNumber": ["Order number", "Номер заказа"],
+                "amount": ["Amount" , "Сумма"],
+                "currency": ["Currency", "Валюта"],
+                "confirm": ["Confirm", "Подтвердить"]
+
+                
             }
         }
     }

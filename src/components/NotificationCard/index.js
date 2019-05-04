@@ -14,10 +14,21 @@ class NotificationCard extends React.Component{
 
     notificationRender = (dataArr) => {
         let notificationArr = [];
+        console.log('notification', dataArr)
         dataArr.map((item, index) => {
-            notificationArr.push(<NotificationItem {...item}
-                getId={this.props.getId}
-                key={item.id}/>)
+
+
+
+            notificationArr.push(
+                <Translate>
+                    {({ translate, activeLanguage  }) => 
+                        <NotificationItem {...item}
+                                getId={this.props.getId}
+                                key={item.id}
+                                activeLanguage={activeLanguage}
+                                translate={translate}/>
+                    }
+                </Translate>)
         });
         return notificationArr;
     };

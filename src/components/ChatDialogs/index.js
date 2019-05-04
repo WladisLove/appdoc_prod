@@ -52,7 +52,6 @@ class ChatDialogs extends React.Component{
 
         return (
             <div className={rootClass}>
-                <div className='dialog-title'><Translate id="reception.awaiting" /> <span className='dialog-num_item'>{data.length}</span></div>
                 <ScrollArea
                     speed={1}
                     className="dialog-list"

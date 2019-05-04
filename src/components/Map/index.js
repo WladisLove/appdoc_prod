@@ -2,7 +2,7 @@ import React from 'react'
 import './style.css'
 
 import { YMaps, Map as YandexMap, Placemark } from 'react-yandex-maps';
-
+import { Translate } from 'react-localize-redux'
 
 class Map extends React.Component {
 
@@ -22,7 +22,7 @@ class Map extends React.Component {
     };
 
     boundsChange = () => {
-        const coordinates = this.myMap.getBounds()
+        const coordinates = this.myMap && this.myMap.hasOwnProperty('getBounds') && this.myMap.getBounds()
         coordinates && this.props.newCoordinates(coordinates);
     };
 
@@ -36,7 +36,9 @@ class Map extends React.Component {
         const { width, height, mapState } = this.state;
         const { doctors } = this.props;
         return(
-            <YMaps onApiAvaliable={this.handleApiReady}>
+            <Translate>
+                        {({ activeLanguage }) => 
+            <YMaps query={(activeLanguage && console.log("activeLanguage", activeLanguage) && activeLanguage.code == 'ru') ? {} : { lang: 'en_RU' }} onApiAvaliable={this.handleApiReady}>
                 <div className="yandex-map-relative">
                     <YandexMap onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
                                 {doctors.map((item) =>{
@@ -61,6 +63,9 @@ class Map extends React.Component {
                 </div>
 
             </YMaps>
+        }
+        </Translate>
+        
         )
     }
 }

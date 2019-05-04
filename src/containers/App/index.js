@@ -116,7 +116,6 @@ class App extends React.Component {
             if(this.props.auth.mode) {
                 if ("geolocation" in navigator) {
                     navigator.geolocation.getCurrentPosition((position) => {
-                        debugger
                         this.props.setUserLocation(this.props.id,position.coords.longitude, position.coords.latitude);
                     });
                 } else {

@@ -42,7 +42,9 @@ class PersonalInformationItemForm extends React.Component{
         const rootClass = cn('personal-information');
         const RadioGroup = Radio.Group;
 
-    
+        console.log('language', language)
+        console.log('langs :', langs);
+        console.log("----------------------------------------------------");
         return (
                 <Form className={rootClass} onSubmit={this.handleSubmit}>
                     <Translate>
@@ -56,20 +58,20 @@ class PersonalInformationItemForm extends React.Component{
                             })(
 
                                 <SelectNew width ="100%"
-                                           bubbleplaceholder="Владение языками"
+                                           bubbleplaceholder={translate(`personal.form.select.language`)}
                                            className="personal-block-form-item"
                                            mode="multiple"
                                            data={langs}
                                 />
                             )}
                         </FormItem>
-                        <div className='radio-label'>Консультация детей:
+                        <div className='radio-label'>{translate(`personal.form.radio.childrensConsultation`)}
                             {getFieldDecorator('isChildConsult', {
                                 initialValue: isChildConsult
                             })(
                                 <RadioGroup>
-                                    <Radio value={true}>Да</Radio>
-                                    <Radio value={false}>Нет</Radio>
+                                    <Radio value={true}>{translate(`yes`)}</Radio>
+                                    <Radio value={false}>{translate(`no`)}</Radio>
                                 </RadioGroup>
                             )}
                         </div>
@@ -78,24 +80,24 @@ class PersonalInformationItemForm extends React.Component{
                                 initialValue: consultationPrice
                             })(
                                 <SelectNew width ="100%"
-                                           bubbleplaceholder="Желаемая сумма оплаты за консультацию"
+                                           bubbleplaceholder={translate(`personal.form.select.consultationPrice`)}
                                            className="personal-block-form-item"
                                            data={addInfoObj.payments}
                                 />
                             )}
                         </FormItem>
-                        <div className='radio-label'>Готовы проводить консультации бесплатно?
+                        <div className='radio-label'>{translate(`personal.form.select.freeConsult`)}
                             {getFieldDecorator('isFreeConsult', {
                                 initialValue: isFreeConsult
                             })(
                                 <RadioGroup>
-                                    <Radio value={true}>Да</Radio>
-                                    <Radio value={false}>Нет</Radio>
+                                    <Radio value={true}>{translate(`yes`)}</Radio>
+                                    <Radio value={false}>{translate(`no`)}</Radio>
                                 </RadioGroup>
                             )}
                         </div>
                         <FormItem>
-                            <div className="textarea-label">О себе</div>
+                            <div className="textarea-label">{translate(`personal.form.textarea.about`)}</div>
                             {getFieldDecorator('about', {
                                 initialValue: about
                             })(

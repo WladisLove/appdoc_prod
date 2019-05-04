@@ -45,7 +45,8 @@
             "paidReception": ["Paid", "Платный"],
             "freeReception": ["Free", "Бесплатный"],
             "hideAnswer": ["Hide answer", "Посмотреть ответ"],
-            "showAnswer": ["Show answer", "Скрыть ответ"]
+            "showAnswer": ["Show answer", "Скрыть ответ"],
+            "theBalance": ["Current account", "Текущий счет"]
         },
         "description": {
             "add": ["Add new reseption", "Добавить новый приём"]

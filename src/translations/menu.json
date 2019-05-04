@@ -3,6 +3,7 @@
         "dashboard": ["Dashboard", "Главная"],
         "treatments": ["Treatments", "Обращения"],
         "personalData": ["Personal data", "Личные данные"],
+        "geolocation": ["Geolocation", "Геолокация"],
         "doctor": {
             "schedule": ["Schedule", "График работы"],
             "myPatients": ["My patients", "Мои пациенты"],
@@ -11,7 +12,8 @@
         "patient": {
             "calendar": ["Calendar", "Календарь"],
             "myDoctors": ["My doctors", "Мои врачи"],
-            "myReviews": ["My reviews", "Мои отзывы"]
+            "myReviews": ["My reviews", "Мои отзывы"],
+            "payment": ["Payment", "Оплата"]
         }
     }
 }

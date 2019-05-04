@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 import Card from './../../components/Card/index';
 import Button from './../../components/Button/index';
 import NewPaymentForm from '../../components/NewPaymentForm/index';
-
+import { Translate } from 'react-localize-redux'
 
 class Payment extends React.Component{
 
@@ -29,10 +29,11 @@ class Payment extends React.Component{
     
     getPayment = () => {            
         const {formPayment} = this.props;
-        console.log('this.refs.inputPrice.inputNumberRef.state :', this.refs.inputPrice.inputNumberRef.state);
-        let price = this.refs.inputPrice.inputNumberRef.state.value;       
-
-        if (!formPayment || formPayment.OrderAmount !== price){
+        
+        let price = document.getElementById('wrapper-paymet-input')
+            price = price && price.value 
+       
+        if ((!formPayment || formPayment.OrderAmount !== price) && price){
             this.props.onGetPaymentForm(this.props.id, price)
         }
 
@@ -41,25 +42,28 @@ class Payment extends React.Component{
 
     render() {
        return (
+        <Translate>
+        {({ translate }) => 
             <div >
-                <Card title="Пополнить счет" bordered={false} style={{ width: '100%' }}>
-                    <div className='wrapper-block'>
-                        <div className='wrapper-paymet'>Введите сумму пополнения</div>
-                        
-                        <div className='patient-contacts-block'>
-                            <InputNumber ref="inputPrice" min={0.01}  defaultValue={3} className='wrapper-paymet-input' step={0.01}/>
+              
+                    <Card title="Пополнить счет" bordered={false} style={{ width: '100%' }}>
+                        <div className='wrapper-block'>
+                            <div className='wrapper-paymet'>{translate('form.payment.label.previewPay')}</div>
+                            
+                            <div className='patient-contacts-block'>
+                                <InputNumber id="wrapper-paymet-input"ref="inputPrice" min={0.01}  defaultValue={3} className='wrapper-paymet-input' step={0.01}/>
+                            </div>
+                            <div>
+                                <Button btnText={translate('form.payment.button.pay')}
+                                        className='payment-btn-pay'
+                                        onClick={this.getPayment}
+                                        size='small'
+                                        type='float'/>
+                            </div>
+                                    
                         </div>
-                        <div>
-                            <Button btnText="Оплатить"
-                                    className='payment-btn-pay'
-                                    onClick={this.getPayment}
-                                    size='small'
-                                    type='float'/>
-                        </div>
-                                  
-                    </div>
-                </Card>
-
+                    </Card>
+                
                 <NewPaymentForm 
                     visible={this.state.isPaymentForm}
                     formPayment={this.props.formPayment}
@@ -67,6 +71,9 @@ class Payment extends React.Component{
                     name={this.props.shortDocInfo ? this.props.shortDocInfo.name : ''}
                 />
             </div>
+        }
+        </Translate>
+
         )
     }
 }

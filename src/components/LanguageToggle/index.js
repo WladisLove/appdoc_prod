@@ -7,14 +7,17 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 const LanguageToggle = ({languages, setActiveLanguage}) => {
-    const handleChange = (langCode) => langCode && setActiveLanguage(langCode);
+    const handleChange = (langCode) => {
+        localStorage.setItem("lang", langCode);
+        setActiveLanguage(langCode)
+    }
 
     return (
         <div>
             <FormItem>
                 <Select
                     placeholder={<Translate id="chooseLanguage" />}
-                    onChange={handleChange}
+                    onChange={(code) => handleChange(code)}
                 >
                     {languages.map((lang) =>
                         <Option value={lang.code}>{lang.name}</Option>

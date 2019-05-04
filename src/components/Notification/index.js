@@ -16,6 +16,7 @@ class NotificationItem extends React.Component{
     }
 
     renderLinks = () =>{
+        
         return (
             <div className='notification-links'
                 onClick = {e => {
@@ -24,6 +25,7 @@ class NotificationItem extends React.Component{
                 }}
             >
                 {this.props.file.map((el,i) => {
+                    console.log('el :', el);
                     return (<DownloadLink
                         key={i}
                         btnText={el.btnText ? el.btnText : "undefined name"}
@@ -50,9 +52,10 @@ class NotificationItem extends React.Component{
     };
 
     render() {
-        const {id, title, desc, time, thisTime, status, watch, getId} = this.props;
+        const {id, title, desc, time, thisTime, status, watch, getId,activeLanguage,translate} = this.props;
         let iconType = 'notification';
         let links;
+        let translateTitle;
 
         switch (status) {
             case 'research':
@@ -62,7 +65,11 @@ class NotificationItem extends React.Component{
             //     links = this.renderLinks();
             //     break;
         }
-    //false   false
+        
+        if(activeLanguage.code == "en" && status == 'new') {
+            translateTitle = translate("form.notification."+status)
+        }
+        
         let flag = this.state.watchInverse ? watch : !watch;
         let rootClass = (flag) ? cn( `notification-item` ,`notification-${status}`) : cn( `notification-item` ,`notification-watch`);
         let madeDate = new Date((+thisTime)*1000),
@@ -79,7 +86,7 @@ class NotificationItem extends React.Component{
                         </div>
                         <div className='notification-row'>
                             <div className='notification-title'>
-                                {title}
+                                {translateTitle}
                                 {(status != 'negative' && status != 'research' && time)
                                     ? `- ${moment((+time)*1000).format('HH:mm')}` : ''}
                                 </div>
