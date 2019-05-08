@@ -62,16 +62,16 @@ class ReviewsTree extends React.Component{
         const initialTab = this.state.tab;
         this.loadMoreData(initialTab);
     }
-    sendAnswerForReview = (obj) => {
+    sendAnswerForReview = (obj, translate) => {
         console.log(obj)
         this.props.onSend(obj)
             .then((res)=>{
                 console.log(res, "RES ANSWER")
                 if(res.data.code === 200) {
-                    message.success(<Translate id="notifications.reviewSuccessfulAdd" />);
+                    message.success(translate('notifications.reviewSuccessfulAdd'));
                     this.refresh();
                 } else {
-                    message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
+                    message.error(translate('notifications.anErrorOccurredTryAgain'))
                 }
             })
     }
@@ -143,7 +143,7 @@ class ReviewsTree extends React.Component{
                 </Translate>);
     };
 
-    renderRevs = (dataArr) => {
+    renderRevs = (dataArr, translate) => {
         let arr = [];
         dataArr.map((item) => {
                 arr.push(<Review {...item}
@@ -152,7 +152,7 @@ class ReviewsTree extends React.Component{
                                 key={item.id}
                                 onGoto={this.props.onGoto}
                                 onGotoChat={this.props.onGotoChat}
-                                onSend={this.sendAnswerForReview}/>)
+                                onSend={obj => this.sendAnswerForReview(obj, translate)}/>)
         });
 
         if(this.state.loadingReviewsFor)
@@ -184,13 +184,13 @@ class ReviewsTree extends React.Component{
                               tabBarExtraContent={this.state.displayDP &&
                               <DatePicker small onChange={this.dpHandler} defaultValue={this.state.range}/>}>
                             <TabPane tab={translate(`all`)} key="allTab">
-                                {this.renderRevs(this.state.allTab.reviews)}
+                                {this.renderRevs(this.state.allTab.reviews, translate)}
                             </TabPane>
                             <TabPane tab={translate(`filter.forToday`)} key="todayTab">
-                                {this.renderRevs(this.state.todayTab.reviews)}
+                                {this.renderRevs(this.state.todayTab.reviews, translate)}
                             </TabPane>
                             <TabPane tab={translate(`filter.forPeriod`)} key="periodTab">
-                                {this.renderRevs(this.state.periodTab.reviews)}
+                                {this.renderRevs(this.state.periodTab.reviews, translate)}
                             </TabPane>
                         </Tabs>
                     </Card>)

@@ -41,7 +41,7 @@ class PopoverFile extends React.Component {
                                        key={item.id + '' + index}/>)
         );
     };
-    handleChange = (file) => {
+    handleChange = (file, translate) => {
         // console.log(file, "Функция handleChange, принимает файл из инпута, лог - file")
         this.setState({loading: true});
         const reader = new FileReader();
@@ -54,10 +54,10 @@ class PopoverFile extends React.Component {
                     // console.log(res, "результат с сервера о загрузке файла");
                     this.setState({loading: false});
                     if(res.data.code===200) {
-                        message.success(<Translate id="notifications.fileSuccessAdd" />);
+                        message.success(translate('notifications.fileSuccessAdd'));
                         this.props.refresh();
                     } else {
-                        message.error(<Translate id="notifications.errorLoadingFileTryAgain" />)
+                        message.error(translate('notifications.errorLoadingFileTryAgain'))
                     }
                 });
         });
@@ -100,7 +100,7 @@ class PopoverFile extends React.Component {
                             <Translate>
                                 {({ translate }) =>
                                     (<Upload className="add-new-file-upload"
-                                            onChange={({file}) => this.handleChange(file)}
+                                            onChange={({file}) => this.handleChange(file, translate)}
                                             listType='text'
                                             text={translate('addFile')}/>)
                                 }

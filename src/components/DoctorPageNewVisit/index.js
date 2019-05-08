@@ -17,6 +17,7 @@ import {previewFile} from "../../helpers/modifyFiles";
 import Spinner from "../Spinner";
 import { Translate } from 'react-localize-redux'
 
+
 const FormItem = Form.Item;
 
 class DoctorPageNewVisitForm extends React.Component {
@@ -55,7 +56,7 @@ class DoctorPageNewVisitForm extends React.Component {
         })
     };
 
-    handleSubmit = (e) => {
+    handleSubmit = (e, translate) => {
         e.preventDefault();
         if(!this.state.timeStamp) {
             this.setState({shouldChooseTime: true});
@@ -78,10 +79,12 @@ class DoctorPageNewVisitForm extends React.Component {
                 }
                 this.props.onMakeNewAppointment(obj).then((res)=>{
                     if(res.data.code===200) {
-                        message.success(<Translate id="notifications.recordSuccessful" />);
+                        const mes = translate('notifications.recordSuccessful')
+                        message.success(mes);
 
                     } else {
-                        message.error(<Translate id="notifications.anErrorOccurred" />)
+                        const mes = translate('notifications.anErrorOccurred')
+                        message.error(mes)
                     }
                     this.setState({loading:false,timeStamp: 0})
                     this.props.form.resetFields();
@@ -104,7 +107,7 @@ class DoctorPageNewVisitForm extends React.Component {
         return (<div>
             <Translate>
                 {({ translate }) =>
-                    (<Form onSubmit={this.handleSubmit}
+                    (<Form onSubmit={(e) => this.handleSubmit(e, translate)}
                           className="DoctorPageNewVisit">
                         <div className='doctor-page-new-visit'>
                             <Card title={translate('button.title.signUpForReception')}>

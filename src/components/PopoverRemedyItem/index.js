@@ -29,7 +29,7 @@ class PopoverRemedyItem extends React.Component{
 
 	    return (<div>
 					<Translate>
-							{({ translate }) =>
+							{({ translate, activeLanguage }) =>
 									(<div className='remedy__item'>
 										<div className='patient-contacts-title'>{namePharmacy}<span>{pricePharmacy}</span></div>
 										<a className="link link-size-default link-type-link" >
@@ -42,7 +42,7 @@ class PopoverRemedyItem extends React.Component{
 											onOk={this.handleOk}
 											onCancel={this.handleCancelModal}
 										>
-											<YMaps>
+											<YMaps query={(activeLanguage && activeLanguage.code == 'ru') ? {} : { lang: 'en_RU' }} >
 												<Map state={{
 													center: [53.90, 27.55],
 													zoom: 12

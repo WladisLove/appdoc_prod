@@ -28,6 +28,7 @@ class Chat extends React.Component{
     }
 
     render(){
+        console.log('fromTR_VIS', this.props.fromTR_VIS)
         //console.log('visitInfo',this.props.visitInfo)
         //console.log('treatInfo',this.props.treatInfo)
         let  id_user, id_doc, name, name_doc, avatar, name_user, status, avatar_doc, chat, visitId, contactLevel, comment, id_treatment;
@@ -40,8 +41,8 @@ class Chat extends React.Component{
         const isUser = this.props.user_mode === "user";
 
         const chatProps = {
-            //wsURL: 'wss://appdoc.by:8443/one2one',
-            wsURL: 'wss://localhost:8443/one2one',
+            wsURL: 'wss://appdoc.by:8443/one2one',
+           // wsURL: 'wss://localhost:8443/one2one',
             callback: this.props.callback,
             clearCallback: this.props.clearCallback,
             timer: this.props.timer,

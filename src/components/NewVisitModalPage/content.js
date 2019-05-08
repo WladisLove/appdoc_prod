@@ -155,7 +155,7 @@ class ContentForm extends React.Component {
         }
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = (e, translate) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
@@ -176,8 +176,8 @@ class ContentForm extends React.Component {
                 this.props.onSave(response)
                     .then((res) => {
                         res.data.code === 200
-                            ? (message.success(<Translate id="notifications.recordSuccessful" />), this.props.onCancel())
-                            : message.error(<Translate id="notifications.anErrorOccurred" />)
+                            ? (message.success(translate("notifications.recordSuccessful")), this.props.onCancel())
+                            : message.error(translate("notifications.anErrorOccurred"))
                         this.setState({loading: false})
                     });
             } else {
@@ -203,7 +203,7 @@ class ContentForm extends React.Component {
         return (
             <Translate>
                 {({ translate }) =>
-                    (<Form onSubmit={this.handleSubmit}
+                    (<Form onSubmit={e => this.handleSubmit(e, translate)}
                           className="NewVisitModal">
                         <Input addonBefore={translate('reception.form.input.patient')} value={userName} readOnly/>
 

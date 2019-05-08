@@ -36,13 +36,13 @@ class Step1Form extends React.Component {
         })
     };
 
-    handleChange = (info) => {
+    handleChange = (info, translate) => {
         const reader = new FileReader();
         this.setState({loading: true});
         this.props.uploadFile(info.file)
             .then((res) => {
                 this.setState({avatarUrl: res.data.file[0].url, avatarName: res.data.file[0].name});
-                message.success(<Translate id={"auth.messages.photoUploaded"}/>)
+                message.success(translate("auth.messages.photoUploaded"))
             });
         reader.addEventListener('load', () => this.setState({
             avatarThumb: reader.result,
@@ -160,7 +160,7 @@ class Step1Form extends React.Component {
                                         className="avatar-uploader"
                                         showUploadList={false}
                                         beforeUpload={() => false}
-                                        onChange={this.handleChange}
+                                        onChange={e => this.handleChange(e, translate)}
                                     >
                                         {avatarUrl ?
                                             <img src={avatarUrl} alt="avatar" className="avatar-image"/> : uploadButton}

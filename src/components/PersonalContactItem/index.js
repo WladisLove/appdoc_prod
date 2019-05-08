@@ -50,7 +50,7 @@ class PersonalContactItemForm extends React.Component{
         });
     };
 
-    handleSubmitPassword = (e) => {
+    handleSubmitPassword = (e, translate) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
@@ -60,13 +60,13 @@ class PersonalContactItemForm extends React.Component{
                     .then((res) => {
                         this.setState({loadingPass: false});
                         if (res.data.code === 200) {
-                            message.success(<Translate id="notifications.saved"/>);
+                            message.success(translate('notifications.saved'));
                             this.props.form.resetFields();
                         } else if(res.data.code===601){
-                            message.error(<Translate id="personal.form.errors.input.password.wrongOldPassword"/>)
+                            message.error(translate('personal.form.errors.input.password.wrongOldPassword'));
                         }
                         else{
-                            message.error(<Translate id="personal.form.errors.input.password.tryAgain"/>)
+                            message.error(translate('personal.form.errors.input.password.tryAgain'))
                         }
                     })
             } else {
@@ -236,7 +236,7 @@ class PersonalContactItemForm extends React.Component{
 
                             <Button
                                 btnText={translate(`button.title.saveChanges`)}
-                                onClick={this.handleSubmitPassword}
+                                onClick={e => this.handleSubmitPassword(e, translate)}
                                 size='default'
                                 type='float'
                                 style={{marginRight: "20px"}}

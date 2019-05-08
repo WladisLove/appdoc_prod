@@ -23,7 +23,7 @@ class PatientAccardionContactItemForm extends React.Component{
         }
     }
 
-    handleSubmitInfo = (e) => {
+    handleSubmitInfo = (e, translate) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
@@ -35,9 +35,9 @@ class PatientAccardionContactItemForm extends React.Component{
                     .then((res) => {
                         this.setState({loadingInfo: false});
                         if (res.data.code === 200) {
-                            message.success(<Translate id="notifications.saved"/>)
+                            message.success(translate('notifications.saved'))
                         } else {
-                            message.error(<Translate id="notifications.anErrorOccurredTryAgain"/>)
+                            message.error(translate('notifications.anErrorOccurredTryAgain'))
                         }
                     })
             } else {
@@ -46,7 +46,7 @@ class PatientAccardionContactItemForm extends React.Component{
         });
     };
 
-    handleSubmitPassword = (e) => {
+    handleSubmitPassword = (e, translate) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
@@ -56,9 +56,9 @@ class PatientAccardionContactItemForm extends React.Component{
                     .then((res) => {
                         this.setState({loadingPass: false});
                         if (res.data.code === 200) {
-                            message.success(<Translate id="notifications.saved"/>)
+                            message.success(translate("notifications.saved"))
                         } else if(res.data.code===601){
-                            message.error(<Translate id="personal.form.errors.input.password.wrongOldPassword"/>)
+                            message.error(translate('personal.form.errors.input.password.wrongOldPassword'))
                         }
                         else{
                             message.error(<Translate id="notifications.anErrorOccurredTryAgain"/>)
@@ -200,7 +200,7 @@ class PatientAccardionContactItemForm extends React.Component{
 
                             <Button
                                 className="patient-contacts-saveBtn"
-                                onClick={this.handleSubmitInfo}
+                                onClick={e => this.handleSubmitInfo(e, translate)}
                                 btnText={translate(`button.title.saveChanges`)}
                                 size='default'
                                 disable={this.state.loadingInfo}
@@ -251,7 +251,7 @@ class PatientAccardionContactItemForm extends React.Component{
 
                             <Button
                                 btnText={translate(`button.title.saveChanges`)}
-                                onClick={this.handleSubmitPassword}
+                                onClick={e => this.handleSubmitPassword(e, translate)}
                                 size='default'
                                 type='float'
                                 style={{marginRight: "20px"}}

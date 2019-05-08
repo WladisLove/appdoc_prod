@@ -23,11 +23,11 @@ class ContentForm extends React.Component{
         };
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = (e, translate) => {
         e.preventDefault();
 
         if(!this.state.message) {
-            message.error(<Translate id="notifications.enterReason" />)
+            message.error(translate("notifications.enterReason"))
             return
         }
         let response = {};
@@ -45,7 +45,7 @@ class ContentForm extends React.Component{
             }
 
             if(!rangeArr.length) {
-                message.error(<Translate id="notifications.choosePeriod" />)
+                message.error(translate("notifications.choosePeriod"))
                 return
             }
             response.range = rangeArr;
@@ -59,10 +59,10 @@ class ContentForm extends React.Component{
         this.props.onSave(response).then((res)=>{
             console.log(res, "RES SINGLE")
             if(res.data.code===300) {
-                message.error(<Translate id="notifications.receptionCanceledAtLeastThreeHours" />);
+                message.error(translate("notifications.receptionCanceledAtLeastThreeHours"));
                 return;
             }
-            message.success(<Translate id="notifications.requestSubmitted" />);
+            message.success(translate("notifications.requestSubmitted"));
             this.props.onCancel();
             if(this.props.showWarning) {
                 this.props.showWarning()
@@ -166,7 +166,7 @@ class ContentForm extends React.Component{
         return (<div>
             <Translate>
                 {({ translate }) =>
-                    (<Form onSubmit={this.handleSubmit}
+                    (<Form onSubmit={(e) => this.handleSubmit(e,translate)}
                           className="cancelVisitModal">
 
                         <TextArea label={translate('form.textarea.cancellationReason')}

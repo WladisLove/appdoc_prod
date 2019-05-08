@@ -19,7 +19,7 @@ class ContentForm extends React.Component {
         loading:false
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = (e, translate) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             console.log(values, "VALUES FROM NEW VISIT");
@@ -53,9 +53,9 @@ class ContentForm extends React.Component {
 
                 this.props.onSave(response).then((res)=> {
                    if(res.data.code===200) {
-                       message.success(<Translate id="notifications.recordSuccessful" />);
+                       message.success(translate('notifications.recordSuccessful'));
                    } else {
-                       message.error(<Translate id="notifications.anErrorOccurred" />)
+                       message.error(translate('notifications.anErrorOccurred'));
                    }
                     this.props.onCancel();
                     this.setState({loading:false})
@@ -128,7 +128,7 @@ class ContentForm extends React.Component {
         return (
             <Translate>
                 {({ translate }) =>
-                    (<Form onSubmit={this.handleSubmit} className="NewVisitModal">
+                    (<Form onSubmit={e => this.handleSubmit(e, translate)} className="NewVisitModal">
                         <div className='modal-row'>
                             <div className='modal-data'>
                                 <Icon svg type='calendar' size={26}/>

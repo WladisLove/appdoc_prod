@@ -5,6 +5,7 @@ import Icon from '../Icon'
 import Modal from '../Modal'
 import './styles.css'
 import {Map, Placemark, YMaps} from "react-yandex-maps";
+import { Translate } from 'react-localize-redux'
 
 class MapsModal extends React.Component{
 
@@ -25,15 +26,18 @@ class MapsModal extends React.Component{
                       closable = {!warning}
                       onCancel={this.props.onCancel}
             >
-                <YMaps onApiAvaliable={this.handleApiReady}>
-                    <Map state={ {center: [lat, lng], zoom: 12 }} width={'100%'} height={height}>
-                        <Placemark
-                            geometry={{
-                                coordinates: [lat, lng]
-                            }}
-                        />
-                    </Map>
-                </YMaps>
+                <Translate>
+                    {({ activeLanguage }) => 
+                        <YMaps query={(activeLanguage && activeLanguage.code == 'ru') ? {} : { lang: 'en_RU' }}  onApiAvaliable={this.handleApiReady}>
+                            <Map state={ {center: [lat, lng], zoom: 12 }} width={'100%'} height={height}>
+                                <Placemark
+                                    geometry={{
+                                        coordinates: [lat, lng]
+                                    }}
+                                />
+                            </Map>
+                        </YMaps>}
+                </Translate>
                 {warning && <Icon type="caution" svg size={24}/>}
                 {this.props.children}
             </Modal>

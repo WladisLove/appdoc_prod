@@ -12,7 +12,7 @@ class ContentForm extends React.Component {
         loading: false
     };
 
-    handleSubmit = (e) => {
+    handleSubmit = (e, translate) => {
         e.preventDefault();
         if(this.state.message) {
             this.setState({loading: true});
@@ -20,9 +20,9 @@ class ContentForm extends React.Component {
                 if(res.data.res) {
                     this.setState({loading:false});
                     this.props.onCancel();
-                    message.success(<Translate id="notifications.reportHasBeenSent" />)
+                    message.success(translate('notifications.reportHasBeenSent'))
                 } else {
-                    message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
+                    message.error(translate('notifications.anErrorOccurredTryAgain'))
                 }
             })
         } else message.error(<Translate id="emergencyVisit.describeProblem" />);
@@ -40,7 +40,7 @@ class ContentForm extends React.Component {
         return (<div>
             <Translate>
                 {({ translate }) =>
-                    (<Form onSubmit={this.handleSubmit}
+                    (<Form onSubmit={e => this.handleSubmit(e, translate)}
                           className="reportBugModal">
 
                         <TextArea label={translate('emergencyVisit.describeProblem')}

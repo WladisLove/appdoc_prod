@@ -11,7 +11,7 @@ storiesOf('MapsModal', module)
             <MapsModal 
                 title="Местоположение"
                 visible={true}>
-                <YMaps>
+                <YMaps >
                     <Map state={mapState}>
                         <Placemark
                             geometry={{

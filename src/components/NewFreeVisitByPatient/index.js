@@ -77,7 +77,7 @@ class NewFreeVisitByPatientForm extends React.Component {
         }),
             this.props.form.resetFields()) : null;
     }
-    handleSubmit = (e) => {
+    handleSubmit = (e, translate) => {
         e.preventDefault();
         if(!this.state.timeStamp) {
             this.setState({shouldChooseTime: true});
@@ -106,7 +106,7 @@ class NewFreeVisitByPatientForm extends React.Component {
                 this.setState({isSubmitInProgress: true});
                 this.props.onMakeFreeVisit(obj).then((res) => {
                         if (res.data.code === 200) {
-                            message.success(<Translate id={`notifications.requestSubmitted`} />);
+                            message.success(translate('notifications.requestSubmitted'));
                             this.props.onCancel();
                             this.setState({
                                 showSubmitError: false,
@@ -247,7 +247,7 @@ class NewFreeVisitByPatientForm extends React.Component {
                                                 disable={this.state.isSubmitInProgress}
                                                 htmlType="submit"
                                                 type='float'
-                                                onClick={this.handleSubmit}
+                                                onClick={e => this.handleSubmit(e, translate)}
 
                                         />
                                         {this.state.isSubmitInProgress && <div className="new-visit-content-submit-spinner"><Spinner/></div>}

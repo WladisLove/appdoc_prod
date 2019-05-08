@@ -22,7 +22,7 @@ class NewEmergencyVisitForm extends React.Component {
         isSubmitInProgress: false
     };
 
-    handleSubmit = (e) => {
+    handleSubmit = (e, translate) => {
         e.preventDefault();
 
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -45,13 +45,13 @@ class NewEmergencyVisitForm extends React.Component {
                     this.props.onSubmit(obj)
                         .then((res) => {
                                 if (res.data.code === 200) {
-                                    message.success(<Translate id="notifications.requestSubmitted" />);
+                                    message.success(translate("notifications.requestSubmitted"));
                                     this.props.onCancel();
                                     this.setState({isSubmitInProgress: false});
                                 }
                                 else {
                                     this.setState({isSubmitInProgress: false});
-                                    message.error(<Translate id="notifications.anErrorOccurredSendRequest" />);
+                                    message.error(translate("notifications.anErrorOccurredSendRequest"));
                                 }
                             }
                         )
@@ -98,48 +98,51 @@ class NewEmergencyVisitForm extends React.Component {
             <Modal visible={visible}
                    onCancel={onCancel}
             >
-            <Form onSubmit={this.handleSubmit}
-                  className="newEmergencyVisit">
-                    <Card title={<Translate id="emergencyCallRequest" />}>
-                        <Translate>
-                            {({ translate }) =>
-                                (<div className="new-emergency-visit-content">
-                                    <div className="textarea-label">{translate('emergencyVisit.describeProblem')}</div>
-                                    <FormItem>
-                                        {getFieldDecorator('comment',{
-                                            rules: [{
-                                                required: true,
-                                                message: translate('emergencyVisit.describeComplaint')
-                                            }],
-                                            initialValue: ""
-                                        })(
-                                            <textarea className="textarea-field"/>
-                                        )}
-                                    </FormItem>
+            <Translate>
+                {({ translate }) =>
+                    <Form onSubmit={(e) => this.handleSubmit(e, translate)}
+                        className="newEmergencyVisit">
+                            <Card title={<Translate id="emergencyCallRequest" />}>
+                                <Translate>
+                                    {({ translate }) =>
+                                        (<div className="new-emergency-visit-content">
+                                            <div className="textarea-label">{translate('emergencyVisit.describeProblem')}</div>
+                                            <FormItem>
+                                                {getFieldDecorator('comment',{
+                                                    rules: [{
+                                                        required: true,
+                                                        message: translate('emergencyVisit.describeComplaint')
+                                                    }],
+                                                    initialValue: ""
+                                                })(
+                                                    <textarea className="textarea-field"/>
+                                                )}
+                                            </FormItem>
 
-                                    <FormItem>
-                                        {getFieldDecorator('file')(
-                                                <Upload className="newEmergencyVisit-upload"
-                                                        onChange={({file}) => this.modifyFiles(file)}
-                                                        listType='text'
-                                                        text={translate('attachFile')}/>
-                                        )}
-                                    </FormItem>
-                                    <div className="new-emergency-visit-content-submit">
-                                        <Button size='default'
-                                                btnText={translate('button.title.submit')}
-                                                htmlType="submit"
-                                                disable={this.state.isSubmitInProgress}
-                                                type='emergency'
-                                        />
-                                        {this.state.isSubmitInProgress && <div className="new-emergency-visit-content-submit-spinner"><Spinner/></div>}
-                                    </div>
-                                    {this.state.shouldWriteComment && <Alert message={translate('reasonForTreatment.reasonForTreatment')} type="error"/>}
-                                </div>)
-                            }
-                        </Translate>
-                    </Card>
-                </Form>
+                                            <FormItem>
+                                                {getFieldDecorator('file')(
+                                                        <Upload className="newEmergencyVisit-upload"
+                                                                onChange={({file}) => this.modifyFiles(file)}
+                                                                listType='text'
+                                                                text={translate('attachFile')}/>
+                                                )}
+                                            </FormItem>
+                                            <div className="new-emergency-visit-content-submit">
+                                                <Button size='default'
+                                                        btnText={translate('button.title.submit')}
+                                                        htmlType="submit"
+                                                        disable={this.state.isSubmitInProgress}
+                                                        type='emergency'
+                                                />
+                                                {this.state.isSubmitInProgress && <div className="new-emergency-visit-content-submit-spinner"><Spinner/></div>}
+                                            </div>
+                                            {this.state.shouldWriteComment && <Alert message={translate('reasonForTreatment.reasonForTreatment')} type="error"/>}
+                                        </div>)
+                                    }
+                                </Translate>
+                            </Card>
+                        </Form>}
+                </Translate>                    
             </Modal>
         )
     }

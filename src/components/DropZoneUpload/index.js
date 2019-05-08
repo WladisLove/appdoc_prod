@@ -15,14 +15,14 @@ class DropZoneUpload extends Component {
         }
     }
 
-    handleDrop = (files) => {
+    handleDrop = (files, traslate) => {
         this.setState({loading: true});
         this.props.uploadFile(files[0])
             .then(res => {
                 if(res){
                         const file = res.data.file[0];
                         if (file.url && file.name) {
-                            message.success(<Translate id="notifications.fileSuccessUpload" />)
+                            traslate("notifications.fileSuccessUpload")
                             this.setState({accepted: [...this.state.accepted, {name: file.name, deleteUrl: file.deleteUrl}]})
                         } else if (res.data.file[0].error) {
                             message.error(res.data.file[0].error)
@@ -63,7 +63,7 @@ class DropZoneUpload extends Component {
                 {({ translate }) =>
                     (<div data-files={this.state.accepted}>
                         <Dropzone
-                            onDrop={this.handleDrop}
+                            onDrop={(files) => this.handleDrop(files, translate)}
                             style={{width: "100%", display: "flex", alignItems: "center"}}
                             multiple={false}
                             docsfiles={this.state.accepted}

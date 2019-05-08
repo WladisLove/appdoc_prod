@@ -56,7 +56,6 @@ class ChatCard extends React.Component {
 					this.props.setChatToId(nextProps.calledID)
 				);
 
-
 		//---------
 		''+this.state.mode != ''+nextProps.mode
 			&& this.setState({mode: nextProps.mode})
@@ -165,6 +164,7 @@ class ChatCard extends React.Component {
         return icon
     };
     render() {
+		
 		const {patientName, user_id, online: onl} = this.props;
 		const online = +onl ?'online' :  'offline';
 		const iconType = this.getIconByType();
@@ -206,6 +206,7 @@ class ChatCard extends React.Component {
 			isEnded: this.props.isEnded,
         }
 
+		console.log('index :',this.state.mode);
         switch (this.state.mode) {
             case 'chat':
                 content = <ChatTextContent isActive={this.state.isActive}
@@ -224,7 +225,13 @@ class ChatCard extends React.Component {
                     {...chatProps}
                     {...chatAdditionalProps}
                 />;
-                break;
+				break;
+			default:
+				content = <ChatTextContent isActive={this.state.isActive}
+						{...chatProps}
+						{...chatAdditionalProps}
+				/>;
+				break;
         }
 
 

@@ -38,7 +38,7 @@ class Map extends React.Component {
         return(
             <Translate>
                         {({ activeLanguage }) => 
-            <YMaps query={(activeLanguage && console.log("activeLanguage", activeLanguage) && activeLanguage.code == 'ru') ? {} : { lang: 'en_RU' }} onApiAvaliable={this.handleApiReady}>
+            <YMaps query={(activeLanguage && activeLanguage.code == 'ru') ? {} : { lang: 'en_RU' }} onApiAvaliable={this.handleApiReady}>
                 <div className="yandex-map-relative">
                     <YandexMap onBoundsChange={this.boundsChange} instanceRef={this.getMapRef} state={mapState} width={width} height={height}>
                                 {doctors.map((item) =>{

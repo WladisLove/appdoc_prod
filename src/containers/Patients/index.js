@@ -62,7 +62,12 @@ class Patients extends React.Component{
     componentWillReceiveProps(nextProps) {
         if (this.state.isRecordInProcess)
             if (nextProps.isReceptionRecorded && nextProps.receptionRecordedID !== this.props.receptionRecordedID) {
-                message.success(<Translate id="notifications.recordSuccessful" />);
+                debugger
+                const buf =
+                <Translate>
+                    {({ translate }) =>  message.success(translate("notifications.recordSuccessful")) }
+                </Translate>
+               
                 this.setState({modal1Visible: false, isRecordInProcess: false});
             }
             else {

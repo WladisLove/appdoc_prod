@@ -31,7 +31,7 @@ class ContentForm extends React.Component{
     }
 
 
-    handleSubmit = (e) => {
+    handleSubmit = (e, translate) => {
         e.preventDefault();
         if(!this.state.message) {
             message.error(<Translate id="notifications.enterReviewText" />);
@@ -51,9 +51,9 @@ class ContentForm extends React.Component{
                 if(+res.data.code===200) {
                     this.props.onCancel();
                     this.props.refresh();
-                    message.success(<Translate id="notifications.reviewSuccessfulAdd" />)
+                    message.success(translate('notifications.reviewSuccessfulAdd'))
                 } else {
-                    message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
+                    message.error(translate('notifications.anErrorOccurredTryAgain'))
                 }
             })
         })
@@ -62,7 +62,7 @@ class ContentForm extends React.Component{
         return (<div>
             <Translate>
                 {({ translate }) =>
-                    (<Form onSubmit={this.handleSubmit} className="cancelVisitModal">
+                    (<Form onSubmit={e => this.handleSubmit(e, translate)} className="cancelVisitModal">
                         {this.props.mustLeave && <p>{translate('notifications.requiredReviewForFreeReception')}</p>}
                         <p><Translate id="notifications.pleaseLeaveReview" /></p>
                         <FormItem>

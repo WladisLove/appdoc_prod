@@ -36,16 +36,17 @@ class HistoryReceptionsItems extends React.Component{
         this.props.showReviewModal(obj);
     }
 
-    addConclusion = (file) => {
+    addConclusion = (file, translate) => {
         const reader = new FileReader();
         reader.addEventListener('load', () => {
             const filesend = {name: file.name, thumbUrl: reader.result};
             this.props.addConclusion(this.props.id, filesend)
                 .then((res)=>{
                     if(+res.data.code===200) {
-                        message.success(<Translate id="notifications.conclusionSuccessfulAdd" />)
+
+                        message.success(translate("notifications.conclusionSuccessfulAdd"))
                     } else {
-                        message.error(<Translate id="notifications.anErrorOccurredTryAgain" />)
+                        message.error(translate("notifications.anErrorOccurredTryAgain"))
                     }
                     this.props.refresh();
                 })
@@ -79,23 +80,28 @@ class HistoryReceptionsItems extends React.Component{
             'voice': 'telephone',
             'video': "video-camera",
         }
-        const conclusionMessage = isUser? <Translate id="notifications.waitConclusion" /> : <div onClick={e=>{e.stopPropagation()}}>
-            <input type="file"
-                   id="addConclusion"
-                   style={{
-                       width: "0.1px",
-                       height: "0.1px",
-                       opacity: 0,
-                       overflow: "hidden",
-                       position: "absolute",
-                       zIndex: -1
-                   }}
-                   onChange={e => this.addConclusion(e.target.files[0])}
-            />
-            <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
-                <span><Translate id="button.title.add" /></span>
-            </label>
-        </div>;
+        const conclusionMessage = isUser? <Translate id="notifications.waitConclusion" /> : 
+        <Translate>
+                {({ translate }) =>
+                <div onClick={e=>{e.stopPropagation()}}>
+                    <input type="file"
+                        id="addConclusion"
+                        style={{
+                            width: "0.1px",
+                            height: "0.1px",
+                            opacity: 0,
+                            overflow: "hidden",
+                            position: "absolute",
+                            zIndex: -1
+                        }}
+                        onChange={e => this.addConclusion(e.target.files[0], translate)}
+                    />
+                    <label htmlFor="addConclusion" className='btn btn-size-small btn-type-float'>
+                        <span><Translate id="button.title.add" /></span>
+                    </label>
+                </div>}
+        </Translate>
+
         const status = +moment(+date*1000).format("X") > +moment().format("X") ? "new" : conclusion ? "completed" : "topical";
         const statusClass = cn('patient-status', 'reception-status',`${status}`);
         return (
