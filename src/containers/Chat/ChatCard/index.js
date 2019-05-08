@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import moment from "moment"
@@ -95,7 +96,6 @@ class ChatCard extends React.Component {
 
 	onCloseReception = (obj) => {
 		/* завершение чата, обнуление истории на сервере */
-		// console.log("Завершение приёма и чата", this.props.receptionId)
 		messAboutStop();
 		stop();
 		messForCloseReception(this.props.receptionId);
@@ -231,88 +231,90 @@ class ChatCard extends React.Component {
 
         return (
 			<Hoc>
-<Translate>
-    {({ translate }) =>
- <div className='chat-card'>
-                <div className='chat-card-head'>
-                    <div className='chat-card-title'>
-                        <Button
-                            icon={iconType}
-                            title={translate('reception.type')}
-                            style={{color: "white", padding: 0, width: "auto"}}
-                        />
-
-                        <div className='chat-card-namePatient'>{patientName}</div>
-                        <div className={statusClass}>{online}</div>
-                    </div>
-                    <div className='chat-card-btns'>
-						{ !chatProps.isUser && !isNaN(user_id) &&
-							(<div className='chat-card-archive'>
-									 <Button
-										btnText=''
-										size='small'
-										type='no-brd'
-										icon='geolocation'
-										svg
-										title={translate('button.title.openAttachments')}
-										style={{width: 30}}
-										onClick={this.showOnMap}/>
-
-							</div>)
-						}
-						<div className='chat-card-archive'>
+			<Translate>
+			{({ translate }) => 
+			
+				<div className='chat-card'>
+					<div className='chat-card-head'>
+						<div className='chat-card-title'>
 							<Button
-								btnText=''
-								size='small'
-								type='no-brd'
-								icon='file'
-								svg
-								title='Открыть прикреплённые файлы'
-								style={{width: 30}}
-								onClick={this.toggleFilesArea}
+								icon={iconType}
+								title={translate('reception.type')}
+								style={{color: "white", padding: 0, width: "auto"}}
 							/>
+
+							<div className='chat-card-namePatient'>{patientName}</div>
+							<div className={statusClass}>{online}</div>
 						</div>
-                    </div>
-                </div>
-                <div className='chat-card-body'>
-                    <div className={dialogsClass}>
-                            {content}
-                    </div>
+						<div className='chat-card-btns'>
+							{ !chatProps.isUser && !isNaN(user_id) &&
+								(<div className='chat-card-archive'>
+										<Button
+											btnText=''
+											size='small'
+											type='no-brd'
+											icon='geolocation'
+											svg
+											title={translate('button.title.openAttachments')}
+											style={{width: 30}}
+											onClick={this.showOnMap}/>
+
+								</div>)
+							}
+							<div className='chat-card-archive'>
+								<Button
+									btnText=''
+									size='small'
+									type='no-brd'
+									icon='file'
+									svg
+									title='Открыть прикреплённые файлы'
+									style={{width: 30}}
+									onClick={this.toggleFilesArea}
+								/>
+							</div>
+						</div>
+					</div>
+					<div className='chat-card-body'>
+						<div className={dialogsClass}>
+								{content}
+						</div>
 
 
-                </div>
-            </div>})
-		}
-    </Translate>
-			<CompletionReceptionModal
-				visible={this.state.reception_vis}
-				onComplete={this.onCloseReception}
-				onCancel={() => this.setState({reception_vis: false})}
-			/>
-			<CompleteAppeal
-				visible={this.state.treatment_vis}
-				onCancel={() =>  this.setState({treatment_vis: false})}
-				onAdd={() => this.setState({treatment_vis: false, visit_vis: true})}
-				onComplete={this.onCloseTreatment}
-			/>
-			<NewVisitModalPage
-				visible={this.state.visit_vis}
-				onCancel={() => this.setState({visit_vis: false, treatment_vis: true})}
-				userName={patientName}
-				id={user_id}
-				onSave={e=> console.log('[NewVisitModal]', e)}
-			/>
-			<MapsModal
-				id={user_id}
-				width={1000}
-				height={550}
-				title={'Map'}
-				visible={this.state.map_vis}
-				onCancel={() => this.setState({ map_vis: false })}
-				userName={patientName}
-				location={this.props.patientLocation}
-				onSave={e=> console.log('[Map]', e)}
-			/>
+					</div>
+				</div>
+			}
+			</Translate>
+				<CompletionReceptionModal
+					visible={this.state.reception_vis}
+					onComplete={this.onCloseReception}
+					onCancel={() => this.setState({reception_vis: false})}
+				/>
+				<CompleteAppeal
+					visible={this.state.treatment_vis}
+					onCancel={() =>  this.setState({treatment_vis: false})}
+					onAdd={() => this.setState({treatment_vis: false, visit_vis: true})}
+					onComplete={this.onCloseTreatment}
+				/>
+				<NewVisitModalPage
+					visible={this.state.visit_vis}
+					onCancel={() => this.setState({visit_vis: false, treatment_vis: true})}
+					userName={patientName}
+					id={user_id}
+					onSave={e=> console.log('[NewVisitModal]', e)}
+				/>
+				<MapsModal
+					id={user_id}
+					width={1000}
+					height={550}
+					title={'Map'}
+					visible={this.state.map_vis}
+					onCancel={() => this.setState({ map_vis: false })}
+					userName={patientName}
+					location={this.props.patientLocation}
+					onSave={e=> console.log('[Map]', e)}
+				/>
+			
 			</Hoc>
         )
     }
