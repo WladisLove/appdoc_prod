@@ -22,7 +22,7 @@ class Map extends React.Component {
     };
 
     boundsChange = () => {
-        const coordinates = this.myMap && this.myMap.hasOwnProperty('getBounds') && this.myMap.getBounds()
+        const coordinates = this.myMap && this.myMap.getBounds()
         coordinates && this.props.newCoordinates(coordinates);
     };
 

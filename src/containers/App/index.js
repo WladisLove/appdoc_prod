@@ -256,7 +256,7 @@ class App extends React.Component {
                     </div>
                 </div>
                 <div className="main-footer">
-                        <div className="main-footer-item company">AppDoc 2018</div>
+                        <div className="main-footer-item company">AppDoc 2019</div>
                         <div className="main-footer-item copirate">© <Translate id="copyright" /></div>
                 </div>
                     { this.state.isExtrActual && this.props.isIn
