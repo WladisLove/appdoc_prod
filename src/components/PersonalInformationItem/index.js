@@ -86,7 +86,7 @@ class PersonalInformationItemForm extends React.Component{
                                 />
                             )}
                         </FormItem>
-                        <div className='radio-label'>{translate(`personal.form.select.freeConsult`)}
+                        <div className='radio-label'>{translate(`personal.form.radio.freeConsult`)}
                             {getFieldDecorator('isFreeConsult', {
                                 initialValue: isFreeConsult
                             })(
@@ -97,7 +97,7 @@ class PersonalInformationItemForm extends React.Component{
                             )}
                         </div>
                         <FormItem>
-                            <div className="textarea-label">{translate(`personal.form.textarea.about`)}</div>
+                            <div className="textarea-label">{translate(`about`)}</div>
                             {getFieldDecorator('about', {
                                 initialValue: about
                             })(
@@ -142,7 +142,7 @@ class PersonalInformationItemForm extends React.Component{
                                         )}
                                     </div>
                                     <FormItem>
-                                        <div className="textarea-label">{translate(`personal.form.textarea.about`)}</div>
+                                        <div className="textarea-label">{translate(`about`)}</div>
                                         {getFieldDecorator('about', {
                                             initialValue: about
                                         })(

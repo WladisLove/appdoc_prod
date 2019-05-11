@@ -110,13 +110,14 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.GET_AVAIL_LANGUAGES:
 
+        
             let languageB = [];
             specialAndLanguage.langs = [...action.availLanguages];
-
+            
             if(specialAndLanguage.langs.length){
                 specialAndLanguage.langs.forEach((el) => {        
                         
-                        state.language.includes(el.id) ? languageB.push(el) : null
+                        !state.language.includes(el.id) ? languageB.push(el) : null
                 })
             }
             

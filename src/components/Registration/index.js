@@ -53,6 +53,7 @@ class RegistrationForm extends React.Component{
                                        finalText={this.props.finalText}
                                        onFinish={this.props.onFinish}
                                        regInProgress = {this.props.regInProgress}
+                                       docSpecialities={this.props.docSpecialities}
             />,
         }];
     }

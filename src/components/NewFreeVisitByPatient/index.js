@@ -151,7 +151,8 @@ class NewFreeVisitByPatientForm extends React.Component {
     }
     renderOptions = () => {
         return this.props.docTypes.map((docType, i) => {
-            return (<Select.Option value={docType} key={`my_patient_${i}`}><Translate id={`${docType}`} /></Select.Option>);
+            if(docType)
+            return (<Select.Option value={docType.id} key={`my_patient_${i}`}>{docType.title ? docType.title : docType.name}</Select.Option>);
         })
     };
     handleSelectChange = (speciality) => {

@@ -131,10 +131,10 @@ class Step2_From extends React.Component{
         const {academicDegree, academicTitle, category,  langs, payments, selectorToolTip} = this.props;
 
         return (
-<Translate>
-    {({translate}) =>
-        (
-  <Form onSubmit={this.handleSubmit} className="step-form">
+        <Translate>
+        {({translate}) =>
+            (
+            <Form onSubmit={this.handleSubmit} className="step-form">
                  <div className="step-posttitle">{translate("auth.inputEduAndWorkInfo")}</div>
                 <div className="step-notification">{translate("auth.eduWish")}</div>
                 <div className="step-notification">{translate("auth.requiredFields")}</div>
@@ -194,7 +194,7 @@ class Step2_From extends React.Component{
                         <SelectNew width ="100%"
                                    bubbleplaceholder={translate("auth.academicDegree")}
                                    className="step-form-item"
-                                   data={academicDegree}
+                                   data={academicDegree.map(el => translate(el))}
                                    onChange={(e)=>this.selectChangeHandler(e,"degree")}
                         />
                     )}
@@ -218,7 +218,7 @@ class Step2_From extends React.Component{
                         <SelectNew width ="100%"
                         bubbleplaceholder={translate("auth.academicTitle")}
                         className="step-form-item"
-                        data={academicTitle}
+                        data={academicTitle.map(el => translate(el))}
                         onChange={(e)=>this.selectChangeHandler(e,"status")}
                         />
                     )}
@@ -277,7 +277,7 @@ class Step2_From extends React.Component{
                         <SelectNew width ="100%"
                                    bubbleplaceholder={`* ${translate("auth.category")}`}
                                    className="step-form-item"
-                                   data={category}
+                                   data={category.map(el => translate(el))}
                                    onChange={(e)=>this.selectChangeHandler(e,"category")}
                         />
                     )}

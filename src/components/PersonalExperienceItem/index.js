@@ -164,7 +164,7 @@ class PersonalExperienceItemForm extends React.Component{
                                         }],
                                     })(
                                         <Select placeholder={translate(`personal.form.select.workCategory`)}>
-                                            {addInfoObj.category.map((item) => <Option value={item}>{translate(item)}</Option>)}
+                                            {addInfoObj.category.map((item) => <Option value={translate(item)}>{translate(item)}</Option>)}
                                         </Select>
                                     )}
                                 </FormItem>

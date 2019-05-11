@@ -29,9 +29,9 @@ class LoginPage extends React.Component {
     }
 
     componentDidMount(){
-        this.props.onGetDoctorSpecialities();
-        this.props.onGetAvailLangs();
+        this.props.onGetDoctorSpecialities(localStorage.getItem('lang'));
         this.props.onGetSelectorToolTip();
+        this.props.onGetAvailLangs(localStorage.getItem('lang'))
     }
 
 
@@ -67,6 +67,7 @@ class LoginPage extends React.Component {
         const academicDegree = addInfoObj.degree ;
         const category = addInfoObj.category;
 
+        console.log('this.props.availLanguages', this.props.availLanguages)
         return (
             <Hoc>
 
@@ -154,7 +155,7 @@ const mapStateToProps = state => {
 	return {
         errorCode: state.auth.errorCode,
         docSpecialities: state.doctor.docSpecialities,
-        availLanguages: state.doctor.availLanguage,
+        availLanguages: state.doctor.availLanguages,
         selectorToolTip: state.auth.selectorToolTip
 	}
 };
@@ -165,8 +166,8 @@ const mapDispatchToProps = dispatch => {
         onRegisterUser: (userInfo) => dispatch(actions.registerUser(userInfo)),
         onRegisterDoctor: (docInfo) => dispatch(actions.registerDoctor(docInfo)),
         onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email)),
-        onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
-        onGetAvailLangs: () => dispatch(actions.getAvailLangs()),
+        onGetDoctorSpecialities: (lang) => dispatch(actions.getDoctorSpecialities(lang)),
+        onGetAvailLangs: (lang) => dispatch(actions.getAvailLangs(lang)),
         onGetSelectorToolTip: () => dispatch(actions.getSelectorToolTip()),
         
         

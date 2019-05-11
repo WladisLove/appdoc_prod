@@ -77,7 +77,7 @@ class Step2_graduate_educ extends React.Component{
                                         className="reg-auto-complete"
                                         style={{ width: '100%' }}
                                         dataSource={this.props.selectorToolTip}
-                                        placeholder="Учебное заведение"
+                                        placeholder={translate('auth.universityName')}
                                         filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
                                     />
                                 )}

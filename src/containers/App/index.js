@@ -111,7 +111,7 @@ class App extends React.Component {
             this.runNotificationsWS();
             this.runChatWS();
             this.props.getEmergencyAvailability();
-            this.props.onGetDoctorSpecialities();
+            this.props.onGetDoctorSpecialities(localStorage.getItem('lang'));
 
             if(this.props.auth.mode) {
                 if ("geolocation" in navigator) {
@@ -347,7 +347,7 @@ const mapDispatchToProps = dispatch => {
         setOnlineStatus: (id,isOnline) => dispatch(actions.setOnlineStatus(id,isOnline)),
         getEmergencyAvailability: () => dispatch(actions.getEmergencyAvailability()),
         onGetUserBalance: (id) => dispatch(actions.getUserBalance(id)),
-        onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
+        onGetDoctorSpecialities: (lang) => dispatch(actions.getDoctorSpecialities(lang)),
         
         docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
         docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),

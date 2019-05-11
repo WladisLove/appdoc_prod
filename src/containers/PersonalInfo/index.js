@@ -29,8 +29,8 @@ class PersonalInfo extends React.Component{
     componentDidMount(){
         this.props.auth.mode === "user" ? this.props.onGetInfoPatient(this.props.auth.id) :
          
-        this.props.onGetDoctorSpecialities()
-        this.props.onGetAvailLangs()
+        this.props.onGetDoctorSpecialities(localStorage.getItem('lang'))
+        this.props.onGetAvailLangs(localStorage.getItem('lang'))
         
         this.props.onGetInfoDoctor(this.props.auth.id)
 
@@ -149,8 +149,8 @@ const mapDispatchToProps = dispatch => {
         onSendNewPasswordPatient: (oldPass, newPass, id) => dispatch(actions.sendNewPasswordPatient(oldPass, newPass, id)),
         onDeleteAvatar: (id) => dispatch(actions.deleteAvatar(id)),
         uploadFile: (file) => dispatch(actions.uploadFile(file)),
-        onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
-        onGetAvailLangs: () => dispatch(actions.getAvailLangs()),
+        onGetDoctorSpecialities: (lang) => dispatch(actions.getDoctorSpecialities(lang)),
+        onGetAvailLangs: (lang) => dispatch(actions.getAvailLangs(lang)),
     }
 };
 

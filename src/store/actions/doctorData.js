@@ -112,10 +112,10 @@ export const uploadFile = (file) => {
   }
 };
 
-export const getDoctorSpecialities = () => {
+export const getDoctorSpecialities = (lang = 'ru') => {
     
     return (dispatch, getState) => {
-        return axios.get('/catalog.doc2/getDoctorSpecialities')
+        return axios.get('/catalog.doc2/getDoctorSpecialities/lang/'+lang)
             .then(res => {
                 console.log(res);
                 dispatch({
@@ -136,10 +136,10 @@ export const getDoctorSpecialities = () => {
     }
 }
 
-export const getAvailLangs = () => {
+export const getAvailLangs = (lang = 'ru') => {
     
     return (dispatch, getState) => {
-        return axios.get('/catalog.doc2/getAvailLangs')
+        return axios.get('/catalog.doc2/getAvailLangs/lang/'+lang)
             .then(res => {
                 
                 console.log(res);

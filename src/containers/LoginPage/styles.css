@@ -47,3 +47,10 @@
 .reg-auto-complete .new-input.effect.ant-select-focused ~ label.new-input.has-content.effect ~ label {
   color: black;
 }
+.ant-select-selection__placeholder {
+  font-family: 'GothamPro-Light';
+  font-size: 14px;
+  line-height: 1;
+  color: black;
+  margin-left: 0px !important;
+}

@@ -34,15 +34,32 @@ class Step3 extends React.Component{
             <div className='check-text'>{value ? <Translate id={"yes"}/> : <Translate id={"no"}/>}</div>
         </div>)
     };
+    renderSpecsItem = (title, key) => {
+        const{data, docSpecialities: specs} = this.props;
+        let arr = [];
+        for(let i = 0; i < data[key].length; i++){
+            for(let j = 0; j < specs.length; j++){
+                if(specs[j].id == data[key][i]){
+                    arr.push(specs[j].title ? specs[j].title : specs[j].name)   
+                    break;         
+                }
+            }
+        }
+        return (<div className='check-row' key={key}>
+                    <div className='check-title'>{title}:</div>
+                    <div className='check-text'>{arr.join(',')}</div>
+                </div>)
+    };
 
     renderEducInfo = (data) => {
         let i = 0,
             elArr = [];
+               
         while (true){
             if(data['educationsgroup1-education-'+i]){
                 elArr.push(<Hoc key={'educInfo'+i}>
                     {this.renderItem(<Translate id={"auth.universityName"}/>,'educationsgroup1-education-'+i)}
-                    {this.renderItem(<Translate id={"auth.qualification"}/>,'educationsgroup1-speciality-'+i)}
+                    {this.renderSpecsItem(<Translate id={"auth.qualification"}/>,'educationsgroup1-speciality-'+i)}
                     {this.renderItem(<Translate id={"auth.graduationYear"}/>,'educationsgroup1-finishucationyear-'+i)}
                     <Hr/>
                 </Hoc>)

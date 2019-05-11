@@ -23,8 +23,8 @@ class MainPage extends React.Component{
 	}
 
 	componentDidMount(){
-		this.props.onGetDoctorSpecialities();
-        this.props.onGetAvailLangs();
+		this.props.onGetDoctorSpecialities(localStorage.getItem('lang'));
+        this.props.onGetAvailLangs(localStorage.getItem('lang'));
 	}
 	componentWillMount(){
 		if (this.props.mode === "user") {
@@ -160,8 +160,8 @@ const mapDispatchToProps = dispatch => {
 		onSendUserPoleValue: (pole, value) => dispatch(actions.sendUserPoleValue(pole, value)),
 		onGetUserInfoShort: () => dispatch(actions.getUserInfoShort()),
 		onSaveGeolocation: (geo) => dispatch(actions.saveGeolocation(geo)),
-		onGetDoctorSpecialities: () => dispatch(actions.getDoctorSpecialities()),
-        onGetAvailLangs: () => dispatch(actions.getAvailLangs()),
+		onGetDoctorSpecialities: (lang) => dispatch(actions.getDoctorSpecialities(lang)),
+        onGetAvailLangs: (lang) => dispatch(actions.getAvailLangs(lang)),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         addConclusion:(id_zap, file) => dispatch(actions.uploadConclusion(id_zap, file)),
         makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),
