@@ -113,7 +113,8 @@ class Patients extends React.Component{
                     }}
 					onClear={this.props.onClearNotPatientDoctors}
 					onSearch={this.handleDoctorsSearch}
-                    onAdd={(id)=>this.addNewDoctor(id)}
+					onAdd={(id)=>this.addNewDoctor(id)}
+					myDoctorsPage
                 />
             </Hoc>
         )

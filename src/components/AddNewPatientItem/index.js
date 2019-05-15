@@ -22,7 +22,8 @@ class AddNewPatientItem extends React.Component{
     }
     render(){
         const { name, age, avatar, online, isSearchItem, usertype, academicdegree,
-            academicstatus, category, specialitys, favorite, searchQuery} = this.props;
+            academicstatus, category, specialitys, favorite, searchQuery, myDoctorsPage} = this.props;
+        const isHideAddButton = this.props.isFavorite;
 
         return (<div>
             <Translate>
@@ -34,21 +35,20 @@ class AddNewPatientItem extends React.Component{
                         <div className='new-patient-info'>
                             <div className='new-patient-name'>{this.highlight(name, searchQuery)}</div>
                             <div className='new-patient-age'>
-
                                 {
                                     usertype === "doc" ?
                                         <span>
-                                            {specialitys ? this.highlight(specialitys.join(". ") + ". ", searchQuery) : ""}
-                                            {academicdegree ? academicdegree + ". " : ""}
-                                            {academicstatus ? academicstatus + ". " : ""}
-                                            {category ? category + ". " : ""}
+                                            {specialitys.length ? this.highlight(specialitys.join(". ") + ". ", searchQuery) : ""}
+                                            {((academicdegree !== 'Нет степени') && academicdegree) ? academicdegree + ". " : ""}
+                                            {((academicstatus !== 'Нет звания') && academicstatus) ? academicstatus + ". " : ""}
+                                            {((category !== 'Нет категории') && category) ? category + ". " : ""}
                                         </span>
                                         : `${age} ${translate('yearsOld')}`
                                 }
                             </div>
                         </div>
                         {
-                            !isSearchItem && <div className='new-patient-btn'>
+                            !isHideAddButton &&!isSearchItem && <div className='new-patient-btn'>
                                 {!favorite ?
                                     <Button
                                         btnText=''

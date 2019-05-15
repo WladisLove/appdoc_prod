@@ -117,9 +117,10 @@ class PatientsPage extends React.Component{
     render(){
         const { fio, academicdegree, academicstatus, category, experience, consultationPrice, isChildConsult, avatar, about} = this.props.profileDoctor;
         const reviewsLoadCount = 7;
-        const categoryString = academicdegree
-            ? (academicstatus ? academicdegree + '. ' + academicstatus + '. ' + category + '.': academicdegree + '. ' + category + '.')
-            :(academicstatus ? academicstatus + '. ' + category + '.' : category + '.') ;
+        const categoryString = `${((academicdegree !== 'Нет степени') && academicdegree) ? (academicdegree + '.') : ''} 
+        ${((academicstatus !== 'Нет звания') && academicstatus) ? (academicstatus + '.') : ''} 
+        ${((category !== 'Нет категории') && category) ? (category + '.') : ''}`;
+    
         if(this.state.loading) {
             return <Spinner size="large"/>
         }

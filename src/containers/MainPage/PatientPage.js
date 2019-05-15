@@ -49,7 +49,7 @@ class PatientPage extends React.Component {
                                     num: this.props.userInfoShort.PatientHeight || '—',
                                     text: translate('height').toLowerCase(),
                                 }, {
-                                    className: "",
+                                    className: "pressure",
                                     num: this.props.userInfoShort.PatientPressure || '—',
                                     text: translate('pressure').toLowerCase(),
                                     doubleValueInput: true,
