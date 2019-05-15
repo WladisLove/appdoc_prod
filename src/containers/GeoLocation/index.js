@@ -57,7 +57,7 @@ class GeoLocation extends React.Component {
                 onMakeNewAppointment = {this.onMakeNewApp}
                 docIntervalsWithAppsAll={this.props.docIntervalsWithAppsAll} />
         } else {
-            content = <DoctorsList open={this.openAppointment} doctors={this.props.doctors}/>
+            content = <DoctorsList isUser={this.props.isUser} open={this.openAppointment} doctors={this.props.doctors}/>
         }
 
         return (
@@ -83,6 +83,7 @@ const mapStateToProps = state => {
     return {
         docIntervalsWithAppsAll: state.profileDoctor.docIntervalsWithAppsAll,
         doctors: state.geolocation.doctors,
+        isUser: state.auth.mode === "user",
     }
 };
 

@@ -47,6 +47,28 @@
 .reg-auto-complete .new-input.effect.ant-select-focused ~ label.new-input.has-content.effect ~ label {
   color: black;
 }
+.logo {
+  position: absolute;
+  left: 0;
+  height: 100px;
+  padding: 24px 70px;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo-img {
+  display: block;
+  background-image: url('../../img/logo.svg');
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 45px;
+  width: 210px;
+}
+.logo-img:hover {
+  cursor: pointer;
+}
 .ant-select-selection__placeholder {
   font-family: 'GothamPro-Light';
   font-size: 14px;

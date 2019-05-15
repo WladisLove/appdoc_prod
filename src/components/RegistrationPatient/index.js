@@ -72,6 +72,10 @@ class RegistrationPatientForm extends React.Component {
             }
         });
     };
+    handleSubmitAgreement = (e) => {
+        e.preventDefault();
+        window.open('https://appdoc.by/public-offer')
+    }
 
     render() {
         const {getFieldDecorator} = this.props.form;
@@ -88,6 +92,7 @@ class RegistrationPatientForm extends React.Component {
                                       isPatientReg={true}/>
             )
         }
+        
         return (
             <Translate>
                 {({translate}) =>
@@ -214,7 +219,11 @@ class RegistrationPatientForm extends React.Component {
                                         valuePropName: 'checked',
                                         initialValue: false,
                                     })(
-                                        <Checkbox onChange={this.handleCheckBoxClick}>{translate("auth.termsAndConditions")}</Checkbox>
+                                        <Checkbox onChange={this.handleCheckBoxClick}>
+                                            {translate("auth.termsAndConditions1")}
+                                            <a onClick={this.handleSubmitAgreement} >{translate("auth.termsAndConditions2")}</a>
+                                            {translate("auth.termsAndConditions3")}
+                                        </Checkbox>
                                     )}
                                 </FormItem>
 

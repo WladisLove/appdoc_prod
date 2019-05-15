@@ -7,13 +7,18 @@ import './styles.css';
 class DoctorsList extends React.Component {
 
     render() {
-        const { doctors, open } = this.props;
+        const { doctors, open, isUser } = this.props;
 
         return (
 
                 <ul className='doctors-list'>
                     {doctors.map((item) => (
-                        <DoctorsListItem open={open} key={item._main.id} doctor={item.doctor}/>
+                        <DoctorsListItem 
+                            open={open} 
+                            key={item._main.id} 
+                            doctor={item.doctor}
+                            isUser={isUser}
+                        />
                         )
                     )}
                 </ul>

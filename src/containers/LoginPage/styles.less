@@ -55,6 +55,31 @@
     }
 }
 
+.logo {
+  position: absolute;
+  left: 0;
+  height: 100px;
+  padding: 24px 70px;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-img {
+      display: block;
+      background-image: url('../../img/logo.svg');
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: 45px;
+      width: 210px;
+
+      &:hover {
+          cursor: pointer;
+      }
+  }
+}
+
 
 .ant-select-selection__placeholder{
   font-family: 'GothamPro-Light';

@@ -16,7 +16,7 @@ class DoctorsListItem extends React.Component {
         const { name, phone, basic, avatar, email } = this.props.doctor;
 
         return(
-            <li className='doctors-list-item'>
+            <li className='doctors-list-item' onClick={this.handleClick}>
                 <div style={{  backgroundImage: `url(${avatar})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
@@ -25,9 +25,13 @@ class DoctorsListItem extends React.Component {
                 </div>
                 <div  className='doctors-list-item-info'>
                     <NavLink to={`doctor${basic}`}>{name}</NavLink>
-                    <div onClick={this.handleClick}>
-                        <div>Email:{email}</div>
-                        <div>Phone:{phone}</div>
+                    <div >
+                        {!this.props.isUser ?
+                            <div>
+                                <div>Email:{email}</div>
+                                <div>Phone:{phone}</div>
+                            </div> : null }
+                        
                     </div>
                 </div>
             </li>
