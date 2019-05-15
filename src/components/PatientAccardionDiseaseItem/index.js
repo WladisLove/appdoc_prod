@@ -16,7 +16,11 @@ class PatientAccardionDiseaseItem extends React.Component{
             <div className={rootClass}>
                 <div className='disease-item'>
                     <div className='disease-item-list'>
-                       {diseases.map((item, index)=> <div className='disease-item-li' key={index+1}>{item.diseases} (c {moment(item.date*1000).format("DD.MM.YYYY")})</div>)}
+                       {diseases.map((item, index)=> {
+                        console.log(item, "ITEM WITH DISEASES")
+                        return item.diseases !== "Аллергия на нет" ? (<div className='disease-item-li' key={index+1}>{item.diseases} (c {moment(item.date*1000).format("DD.MM.YYYY")})</div>) :
+                        (<div></div>)
+                    })}
                     </div>
                 </div>
             </div>

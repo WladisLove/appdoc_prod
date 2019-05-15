@@ -56,9 +56,7 @@ class LoginPage extends React.Component {
         })
     };
 
-    logoClick = () => {
-        (this.props.history.location.pathname !== "/app") && this.props.history.push('/app');
-    }
+
 
     onOk = () => {
         this.setState({isRegFinished: false, regInProgress: false})
@@ -76,13 +74,14 @@ class LoginPage extends React.Component {
             <Hoc>
 
                 <div className="loginPage-header">
-                    <div className="logo" onClick={this.logoClick}><span className="logo-img"></span></div>
+                    <a href='https://appdoc.by'><div className="logo"><span className="logo-img"></span></div></a>
+                    {this.props.match.path !== "/app/login" && 
                     <div className="loginPage-header-close">
-                        <NavLink to="/app/login" onClick={this.onOk}>
-                            <Icon type='close' svg />
-                        </NavLink>
-
+                            <NavLink to="/app/login" onClick={this.onOk}>
+                                <Icon type='close' svg />
+                            </NavLink>
                     </div>
+                    }
                 </div>
 
                 <Row style={{marginLeft: 0, marginRight: 0}}>

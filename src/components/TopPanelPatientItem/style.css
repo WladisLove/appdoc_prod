@@ -14,6 +14,9 @@
   position: relative;
   z-index: 2;
 }
+.panel-patient-block.pressure .panel-patient-num {
+  font-size: 20px;
+}
 .panel-patient-item {
   display: flex;
   flex-direction: column;

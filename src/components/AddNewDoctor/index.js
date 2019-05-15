@@ -25,6 +25,7 @@ class AddNewDoctor extends React.Component {
                                       onAdd={this.props.onAdd}
                                       key={item.id + '' + index}
                                       searchQuery={this.state.inputValue}
+                                      myDoctorsPage={this.props.myDoctorsPage}
 
             />)
         });

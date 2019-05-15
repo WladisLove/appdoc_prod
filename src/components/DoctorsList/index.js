@@ -18,6 +18,7 @@ class DoctorsList extends React.Component {
                             key={item._main.id} 
                             doctor={item.doctor}
                             isUser={isUser}
+                            
                         />
                         )
                     )}

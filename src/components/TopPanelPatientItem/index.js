@@ -95,7 +95,7 @@ class TopPanelPatientItem extends React.Component{
 
 
 
-        const rootClass = cn( 'panel-patient-block')
+        const rootClass = cn( 'panel-patient-block', this.props.className)
         let panelTextStyle = {}
         let panelTitleStyle = {}
 
