@@ -7,12 +7,14 @@ import Button from '../Button'
 import Hr from "../Hr";
 import Spinner from "../Spinner";
 import {Translate} from "react-localize-redux";
+import TermsModal from "../TermsModal";
 
 class Step3 extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             checked: false,
+            termsVisible: false,
         }
     }
 
@@ -50,7 +52,10 @@ class Step3 extends React.Component{
                     <div className='check-text'>{arr.join(',')}</div>
                 </div>)
     };
-
+    handleSubmitAgreement = (e) => {
+        e.preventDefault();
+        this.setState({termsVisible: true})
+    }
     renderEducInfo = (data) => {
         let i = 0,
             elArr = [];
@@ -222,8 +227,11 @@ class Step3 extends React.Component{
                             <Checkbox checked={this.state.checked}
                                       style={{marginTop: "20px"}}
                                       onChange={(e) => this.setState({checked: e.target.checked})}>
-                                {this.props.finalText}
+                                {translate("auth.termsAndConditions1")}
+                                <a onClick={this.handleSubmitAgreement} >{translate("auth.termsAndConditions2")}</a>
+                                {translate("auth.termsAndConditions3")}
                             </Checkbox>
+
 
                             <div className="steps-action">
                                 <Button onClick={this.handleGoBack}
@@ -240,6 +248,12 @@ class Step3 extends React.Component{
                                         type='gradient'
                                 />
                             </div>
+                            <TermsModal
+                              visible={this.state.termsVisible}
+                              onCancel={()=>this.setState({termsVisible: false})}
+
+
+                            />
                             {this.props.regInProgress && <Spinner/>}
                         </div>)
                 }

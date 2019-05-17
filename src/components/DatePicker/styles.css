@@ -16,6 +16,9 @@
 .ant-calendar-picker-icon:after {
   color: #0495ff;
 }
+.ant-calendar-picker-icon {
+  z-index: 0;
+}
 .ant-calendar-picker-clear {
   color: #d8d8d8;
 }
@@ -91,3 +94,4 @@
 .datepicker > div .datepicker-small .ant-calendar-picker-input .ant-calendar-picker-icon {
   display: none;
 }
+/*# sourceMappingURL=styles.css.map */
