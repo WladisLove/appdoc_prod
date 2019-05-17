@@ -27,6 +27,7 @@ export const getInfoDoctor = (id) => {
         return axios.post('/fusers.doc/infoDoc',
          JSON.stringify(ids))
             .then(res => {
+                console.log("DOCTOR INFO RESPONSE", res)
                 res.data.result.id= ids.id;
 
                 dispatch({
@@ -113,7 +114,7 @@ export const uploadFile = (file) => {
 };
 
 export const getDoctorSpecialities = (lang = 'ru') => {
-    
+
     return (dispatch, getState) => {
         return axios.get('/catalog.doc2/getDoctorSpecialities/lang/'+lang)
             .then(res => {
@@ -127,7 +128,7 @@ export const getDoctorSpecialities = (lang = 'ru') => {
                     docSpecialities: Array.isArray(res.data.result) ? res.data.result : []
                 })
 
-                
+
                 return Array.isArray(res.data.result) ? res.data.result : []
             })
             .catch(err => {
@@ -137,11 +138,11 @@ export const getDoctorSpecialities = (lang = 'ru') => {
 }
 
 export const getAvailLangs = (lang = 'ru') => {
-    
+
     return (dispatch, getState) => {
         return axios.get('/catalog.doc2/getAvailLangs/lang/'+lang)
             .then(res => {
-                
+
                 console.log(res);
                 dispatch({
                     type: actionTypes.GET_AVAIL_LANGUAGES,
@@ -151,7 +152,7 @@ export const getAvailLangs = (lang = 'ru') => {
                     type: actionTypes.GET_AVAIL_LANGUAGES_DOCTORDATA,
                     availLanguages: Array.isArray(res.data.result) ? res.data.result : []
                 })
-                
+
                 return Array.isArray(res.data.result) ? res.data.result : []
             })
             .catch(err => {
