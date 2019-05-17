@@ -46,34 +46,23 @@ const reducer = (state = initialState, action) => {
                 ...state
             };
         case actionTypes.INFO_DOCTOR:
-            let language = [];
 
-            console.log('specialAndLanguage', specialAndLanguage)
-            if(specialAndLanguage.langs.length){
-                    specialAndLanguage.langs.forEach((el) => {
-                        
-                         action.profileDoctor.language.includes(el.id) ? language.push(el) : null
-                    })
-                    action.profileDoctor.language = language;
-
-            }
-            
             if(specialAndLanguage.specs.length){
                 specialAndLanguage.specs.forEach((el) => {
-                       
+
                         action.profileDoctor.educationsgroup1.forEach((elem, index) => {
 
                                 if(elem.speciality.length){
-                                    elem.speciality.forEach((element, i) => {   
-                                       
+                                    elem.speciality.forEach((element, i) => {
+
                                         (el.id == element || el.title == element) ? action.profileDoctor.educationsgroup1[index].speciality[i] = el : null
                                     })
                                 }
-                                
+
                         })
                      })
             }
-
+            console.log(action.profileDoctor, "DOC PROFILE FROM ACTION");
             return {
                 ...state,
                 ...action.profileDoctor
@@ -96,11 +85,11 @@ const reducer = (state = initialState, action) => {
                         state.educationsgroup1.forEach((elem, index) => {
 
                             if(elem.speciality.length){
-                                elem.speciality.forEach((element, i) => {                  
+                                elem.speciality.forEach((element, i) => {
                                         (el.id == element || el.title == element) ? state.educationsgroup1[index].speciality[i] = el : null
                                 })
                             }
-                            
+
                         })
                      })
             }
@@ -110,22 +99,22 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.GET_AVAIL_LANGUAGES:
 
-        
+
             let languageB = [];
             specialAndLanguage.langs = [...action.availLanguages];
-            
+
             if(specialAndLanguage.langs.length){
-                specialAndLanguage.langs.forEach((el) => {        
-                        
+                specialAndLanguage.langs.forEach((el) => {
+
                         !state.language.includes(el.id) ? languageB.push(el) : null
                 })
             }
-            
+
             return {
                 ...state,
-                language: languageB
+                langs: languageB
             };
-            
+
         default: return state;
     }
 };
