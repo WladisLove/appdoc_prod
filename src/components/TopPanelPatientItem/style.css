@@ -15,7 +15,7 @@
   z-index: 2;
 }
 .panel-patient-block.pressure .panel-patient-num {
-  font-size: 20px;
+  font-size: 18px;
 }
 .panel-patient-item {
   display: flex;
@@ -84,3 +84,4 @@
   transition: 0.25s ease;
   margin-right: 0;
 }
+/*# sourceMappingURL=style.css.map */

@@ -10,8 +10,8 @@ import '../../icon/style.css'
 
 const PatientPageDoctorItem = props => {
     console.log(props, "PROPS EVERY DOC");
-    const handleClick = () => {
-        props.onDelete(props.id, props.doctorName);
+    const handleClick = (translate) => {
+        props.onDelete(props.id, props.doctorName, translate);
     }
 
     const { id, doctorRate, doctorReviews, doctorFavorite, doctorName, doctorCategory, doctorExp,
@@ -38,14 +38,14 @@ const PatientPageDoctorItem = props => {
                 data.push(<div className='page__doctor-item-language-li'>
                             {item.title ? item.title : item.language}
                         </div>)
-            }        
+            }
             else{
                 data.push(<div className='page__doctor-item-language-li'>
                     {item }
-                </div>)   
-            }  
+                </div>)
+            }
         })
-        
+
         return data;
     }
 
@@ -60,12 +60,16 @@ const PatientPageDoctorItem = props => {
                     </div>
                     <div className='page__doctor-item-favorites'>
                         {doctorFavorite && (
-                            <Icon
-                                type='empty'
-                                size={20}
-                                svg
-                                onClick={handleClick}
-                            />
+                            <Translate>
+                                {({translate}) =>
+                                    <Icon
+                                        type='empty'
+                                        size={20}
+                                        svg
+                                        onClick={()=>handleClick(translate)}
+                                    />
+                                }
+                            </Translate>
                         )}
                     </div>
                 </div>

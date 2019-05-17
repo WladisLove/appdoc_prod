@@ -58,6 +58,7 @@ class PatientsPage extends React.Component{
 
     getDoctorLanguagesArr = () => {
         let languagesArr = [];
+
         if(!this.props.profileDoctor.language) {
             return["-"]
         }
@@ -65,9 +66,7 @@ class PatientsPage extends React.Component{
             languagesArr = this.props.profileDoctor.language.split(',');
         }
 
-        return languagesArr.map((item) => {
-            return {language: item};
-        });
+        return this.props.profileDoctor.language;
     };
 
     getDoctorMapsArr = () => {
@@ -86,7 +85,7 @@ class PatientsPage extends React.Component{
     getDoctorExperienceArr = () => {
         let experienceArr = [];
 
-        
+
         if (this.props.profileDoctor.educationsgroup1) {
             this.props.profileDoctor.educationsgroup1.map((item) => {
                 experienceArr.push({
@@ -120,11 +119,11 @@ class PatientsPage extends React.Component{
         const categoryString = `${((academicdegree !== 'Нет степени') && academicdegree) ? (academicdegree + '.') : ''} 
         ${((academicstatus !== 'Нет звания') && academicstatus) ? (academicstatus + '.') : ''} 
         ${((category !== 'Нет категории') && category) ? (category + '.') : ''}`;
-    
+
         if(this.state.loading) {
             return <Spinner size="large"/>
         }
-        
+
         if(!this.props.profileDoctor.fio) {
             return(
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>
@@ -133,7 +132,9 @@ class PatientsPage extends React.Component{
                 </div>
             )
         } else {
-        return (
+            console.log(this.getDoctorLanguagesArr(), "DOCTOR LANGS FROM PAGE");
+
+            return (
             <Hoc>
                 <div>
                     <Row>

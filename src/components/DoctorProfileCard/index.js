@@ -17,11 +17,11 @@ class DoctorProfileCard extends React.Component{
     }
 
     render(){
-        
+
         const {short, name, specialty, isUser} = this.props;
         let specialtyOneArray =[];
         let spec = [];
-
+        console.log(specialty, "SPECIALITY");
         specialty.map((elem)=> {
             specialtyOneArray.push(...elem)
         });
@@ -34,8 +34,8 @@ class DoctorProfileCard extends React.Component{
                 }
                 spec.push(<div className={style}><span>{specialty[i]}, </span><br/></div>)
             }
-           
-        } 
+
+        }
 
         const rootClass = short ?
             (isUser ?
