@@ -20,9 +20,9 @@ class PatientPage extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (!this.props.coords && nextProps.coords ){
 			this.props.onSaveGeolocation(nextProps.coords);
-		}       
+		}
     }
-    
+
     render() {
         return (
             <Hoc>
@@ -65,7 +65,7 @@ class PatientPage extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={10} xxl={6} className='section' height={100}>
+                    <Col xs={24} xxl={6} className='section' height={100}>
                         <PatientNearRecord
                             style={{height: 485}}
                             data={this.props.nearVisits}
@@ -75,7 +75,7 @@ class PatientPage extends React.Component {
                             cancelAppByPatient = {this.props.cancelAppByPatient}
                         />
                     </Col>
-                    <Col xs={14} xxl={8} className='section'>
+                    <Col xs={12} xxl={8} className='section'>
                         <PatientAnalyzes data={
                             [{
                                 comeDate: true,
@@ -101,7 +101,7 @@ class PatientPage extends React.Component {
                             }]
                         }/>
                     </Col>
-                    <Col xs={10} xxl={10} className='section'>
+                    <Col xs={12} xxl={10} className='section'>
                         <PatientDoctor
                             data = {this.props.doctors}
                             onGoto={this.gotoHandler}
@@ -117,7 +117,7 @@ class PatientPage extends React.Component {
                             myDoctorsLoaded={this.props.myDoctorsLoaded}
                         />
                     </Col>
-                    <Col xs={14} xxl={24} className='section'>
+                    <Col xs={24} xxl={24} className='section'>
                     <TreatmentTable
                         isUser={this.props.isUser}
                         redirect={() => this.props.history.push('/app/treatment')}
@@ -131,11 +131,11 @@ class PatientPage extends React.Component {
                     />
                 </Col>
                 </Row>
-               
-    
+
+
             </Hoc>
             )
-        
+
     }
 }
 
