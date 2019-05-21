@@ -1,6 +1,8 @@
 import axios from './axiosSettings'
+import moment from 'moment'
 import * as actionTypes from './actionTypes';
 import {getDocShortInfo} from "./doctor";
+
 
 export const sendNewInfoPatient = (data) => {
     return (dispatch) => {
@@ -125,6 +127,23 @@ export const setUserLocation = (idUser, lng, lat) => {
                 dispatch ({
                     type: actionTypes.SET_USER_LOCATION,
                 })
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+};
+
+export const addChronicDisease = (disease) => {
+    return (dispatch, getState) => {
+        const id_user = getState().auth.id;
+        const date = moment().format("X");
+        const obj = { ...disease, id_user, date };
+        return axios.post('/catalog.doc2/putInChronicDisease', JSON.stringify(obj))
+            .then(res => {
+                dispatch(getInfoPatient(id_user));
+                return res
             })
             .catch(err => {
                 console.log(err);

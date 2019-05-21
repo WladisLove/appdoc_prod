@@ -29,11 +29,41 @@
 .disease-item-list {
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
+}
+.disease-item-actions {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+.disease-item-actions button {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  line-height: 20px;
+  border: 0;
+  transition: 0.3s;
+}
+.disease-item-actions button:hover {
+  background-color: #0495ff;
 }
 .disease-item-li {
   position: relative;
   color: #344051;
   font-size: 14px;
-  margin-bottom: 10px;
-  width: 100%;
+  margin-right: 10px;
 }
+.disease .add-disease-action {
+  display: flex;
+}
+.disease .add-disease-action .ant-form-item {
+  width: 300px;
+  margin: 0 30px 0 0;
+}
+/*# sourceMappingURL=style.css.map */

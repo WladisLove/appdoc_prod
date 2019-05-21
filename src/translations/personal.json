@@ -2,6 +2,10 @@
     "personal": {
         "contacts": ["Contact details", "Контактные данные"],
         "changePassword": ["Change Password", "Изменить пароль"],
+        "chronic": {
+            "enterDisease": ["Enter disease", "Введите заболевание"],
+            "diseaseOrAllergy": ["Disease or allergy", "Заболевание или аллергия"]
+        },
         "education": {
             "basic": ["Basic education", "Основное образование"],
             "postgraduate": [

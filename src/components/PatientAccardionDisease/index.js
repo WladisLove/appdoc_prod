@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 import PatientAccardionDiseaseItem from '../PatientAccardionDiseaseItem'
@@ -9,13 +8,7 @@ import './style.css'
 import '../../icon/style.css'
 
 class PatientAccardionDisease extends React.Component{
-    renderDiseases = (diseases) => {
-        return diseases.map((item, index)=> {
-
-        })
-    };
     render(){
-        const { title, disease, diseaseDate } = this.props;
         const rootClass = cn('disease-all');
         const Panel = Accordion.Panel;
 
@@ -26,6 +19,7 @@ class PatientAccardionDisease extends React.Component{
                     <Panel header={<Translate id="personal.chronicDiseases" />} key="1">
                         <PatientAccardionDiseaseItem
                             diseases={this.props.diseases}
+                            onAddChronic = {this.props.onAddChronic}
                         />
                     </Panel>
                 </Accordion>
@@ -33,13 +27,5 @@ class PatientAccardionDisease extends React.Component{
         )
     }
 }
-
-PatientAccardionDisease.propTypes = {
-
-};
-
-PatientAccardionDisease.defaultProps = {
-
-};
 
 export default PatientAccardionDisease
