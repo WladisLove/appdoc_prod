@@ -28,10 +28,10 @@ class PersonalInfo extends React.Component{
 
     componentDidMount(){
         this.props.auth.mode === "user" ? this.props.onGetInfoPatient(this.props.auth.id) :
-         
+
         this.props.onGetDoctorSpecialities(localStorage.getItem('lang'))
         this.props.onGetAvailLangs(localStorage.getItem('lang'))
-        
+
         this.props.onGetInfoDoctor(this.props.auth.id)
 
     };
@@ -75,6 +75,8 @@ class PersonalInfo extends React.Component{
                             <Col xs={24} xxl={18}>
                                 <PatientAccardionDisease
                                     diseases = {profile.chronic}
+                                    onAddChronic = {this.props.onAddChronic}
+                                    onDeleteChronic = {this.props.onDeleteChronic}
                                 />
                             </Col>
                         </Row>
@@ -151,6 +153,8 @@ const mapDispatchToProps = dispatch => {
         uploadFile: (file) => dispatch(actions.uploadFile(file)),
         onGetDoctorSpecialities: (lang) => dispatch(actions.getDoctorSpecialities(lang)),
         onGetAvailLangs: (lang) => dispatch(actions.getAvailLangs(lang)),
+        onAddChronic: (disease) => dispatch(actions.addChronicDisease(disease)),
+        onDeleteChronic: (id) => dispatch(actions.deleteChronicDisease(id))
     }
 };
 

@@ -29,11 +29,58 @@
 .disease-item-list {
   display: flex;
   flex-direction: column;
+  margin-bottom: 40px;
+}
+.disease-item-actions {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+.disease-item-actions button {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  line-height: 20px;
+  border: 0;
+  transition: 0.3s;
+}
+.disease-item-actions button:hover {
+  background-color: #0495ff;
 }
 .disease-item-li {
   position: relative;
   color: #344051;
   font-size: 14px;
-  margin-bottom: 10px;
-  width: 100%;
+  margin-right: 10px;
 }
+.disease .add-disease-action {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.disease .add-disease-action .ant-form-item {
+  width: 45%;
+  margin: 0 0 40px 0;
+}
+.disease .add-disease-action .ant-form-item.start-disease-date {
+  width: 50%;
+}
+.disease .add-disease-action .ant-form-item.start-disease-date .start-disease-date-title {
+  margin-right: 30px;
+  display: inline-block;
+}
+.disease .add-disease-action .ant-form-item.start-disease-date .ant-form-item-control.has-error {
+  border-bottom: 1px solid #f5222d;
+}
+.disease .add-disease-action .ant-form-item.start-disease-date .radio-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/*# sourceMappingURL=style.css.map */

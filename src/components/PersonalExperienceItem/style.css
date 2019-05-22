@@ -67,6 +67,7 @@ a:hover {
   position: relative;
   max-width: 650px;
   width: 100%;
+  padding-right: 50px;
 }
 .personal-experience .personal-item .expWork {
   color: #344051;
@@ -141,3 +142,4 @@ a:hover {
 .add_category {
   margin-top: 20px;
 }
+/*# sourceMappingURL=style.css.map */
