@@ -3,8 +3,10 @@
         "contacts": ["Contact details", "Контактные данные"],
         "changePassword": ["Change Password", "Изменить пароль"],
         "chronic": {
-            "enterDisease": ["Enter disease", "Введите заболевание"],
-            "diseaseOrAllergy": ["Disease or allergy", "Заболевание или аллергия"]
+            "enterDisease": ["Please, enter disease", "Пожалуйста, введите заболевание"],
+            "diseaseOrAllergy": ["Disease or allergy", "Заболевание или аллергия"],
+            "chronicDiseaseStartDate": ["Disease start date", "Дата уставновленного диагноза"],
+            "inputDate": ["Please, input date", "Пожалуйста, выберите дату"]
         },
         "education": {
             "basic": ["Basic education", "Основное образование"],

@@ -54,9 +54,26 @@
 	}
 	.add-disease-action{
 		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
 		.ant-form-item {
-			width: 300px;
-			margin: 0 30px 0 0;
+			width: 45%;
+			margin: 0 0 40px 0;
+			&.start-disease-date {
+				width: 50%;
+				.start-disease-date-title {
+					margin-right: 30px;
+					display: inline-block;
+				}
+				.ant-form-item-control.has-error {
+					border-bottom: 1px solid #f5222d;
+				}
+				.radio-label {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+				}
+			}
 		}
 	}
 }

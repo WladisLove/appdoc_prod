@@ -96,7 +96,8 @@ export {
     hasNoReviewToFreeApp,
     saveGeolocation,
     setUserLocation,
-    addChronicDisease
+    addChronicDisease,
+    deleteChronicDisease,
 } from './patientData'
 
 export {

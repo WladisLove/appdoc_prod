@@ -10,6 +10,7 @@ import InputNew from "../InputNew";
 import Button from '../Button'
 import {Form, message} from "antd";
 import {Translate} from "react-localize-redux";
+import DatePicker from "../DatePicker";
 const FormItem = Form.Item;
 
 class PatientAccardionDiseaseItemForm extends React.Component{
@@ -24,7 +25,7 @@ class PatientAccardionDiseaseItemForm extends React.Component{
                             this.props.form.resetFields();
                         }
                         else{
-                            message.error(<Translate id="notifications.anErrorOccurredTryAgain"/>)
+                            message.error(translate("notifications.anErrorOccurredTryAgain"))
                         }
                     })
             } else {
@@ -32,6 +33,20 @@ class PatientAccardionDiseaseItemForm extends React.Component{
             }
         });
     };
+
+    deleteDisease = (id, translate) => {
+        this.props.onDeleteChronic(id)
+            .then((res) => {
+                if (res.data.code === 200) {
+                    message.success(translate("notifications.saved"));
+                    this.props.form.resetFields();
+                }
+                else{
+                    message.error(translate("notifications.anErrorOccurredTryAgain"))
+                }
+            })
+    };
+
     render(){
         const { getFieldDecorator } = this.props.form;
         const { diseases } = this.props;
@@ -48,7 +63,7 @@ class PatientAccardionDiseaseItemForm extends React.Component{
                                         <div className='disease-item-li' key={index+1}>
                                             {item.diseases} (c {moment(item.date*1000).format("DD.MM.YYYY")})
                                         </div>
-                                        <button>X</button>
+                                        <button onClick={()=>this.deleteDisease(item.id, translate)}>X</button>
                                     </div>
                                     ) : (<div></div>)
                             })}
@@ -63,6 +78,19 @@ class PatientAccardionDiseaseItemForm extends React.Component{
                                     })(
                                         <InputNew width ="100%" bubbleplaceholder={translate("personal.chronic.diseaseOrAllergy")}/>
                                     )}
+                                </FormItem>
+                                <FormItem className='start-disease-date'>
+                                    <div className='radio-label'>
+                                        <span className='start-disease-date-title'>{translate("personal.chronic.chronicDiseaseStartDate")}</span>
+                                        {getFieldDecorator('date', {
+                                            rules: [{
+                                                required: true,
+                                                message: translate("personal.chronic.inputDate")
+                                            }],
+                                        })(
+                                            <DatePicker placeholder={translate("auth.birthdayFormat")}/>
+                                        )}
+                                    </div>
                                 </FormItem>
                                 <Button
                                     btnText={translate('button.title.add')}

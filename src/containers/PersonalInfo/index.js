@@ -76,6 +76,7 @@ class PersonalInfo extends React.Component{
                                 <PatientAccardionDisease
                                     diseases = {profile.chronic}
                                     onAddChronic = {this.props.onAddChronic}
+                                    onDeleteChronic = {this.props.onDeleteChronic}
                                 />
                             </Col>
                         </Row>
@@ -152,7 +153,8 @@ const mapDispatchToProps = dispatch => {
         uploadFile: (file) => dispatch(actions.uploadFile(file)),
         onGetDoctorSpecialities: (lang) => dispatch(actions.getDoctorSpecialities(lang)),
         onGetAvailLangs: (lang) => dispatch(actions.getAvailLangs(lang)),
-        onAddChronic: (disease) => dispatch(actions.addChronicDisease(disease))
+        onAddChronic: (disease) => dispatch(actions.addChronicDisease(disease)),
+        onDeleteChronic: (id) => dispatch(actions.deleteChronicDisease(id))
     }
 };
 

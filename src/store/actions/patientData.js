@@ -138,9 +138,24 @@ export const setUserLocation = (idUser, lng, lat) => {
 export const addChronicDisease = (disease) => {
     return (dispatch, getState) => {
         const id_user = getState().auth.id;
-        const date = moment().format("X");
-        const obj = { ...disease, id_user, date };
+        const obj = { ...disease, date: moment(disease.date).format("X"),id_user };
         return axios.post('/catalog.doc2/putInChronicDisease', JSON.stringify(obj))
+            .then(res => {
+                dispatch(getInfoPatient(id_user));
+                return res
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+};
+
+export const deleteChronicDisease = (id) => {
+    return (dispatch, getState) => {
+        const id_user = getState().auth.id;
+        const obj = { id };
+        return axios.post('/catalog.doc2/deleteChronicDisease', JSON.stringify(obj))
             .then(res => {
                 dispatch(getInfoPatient(id_user));
                 return res

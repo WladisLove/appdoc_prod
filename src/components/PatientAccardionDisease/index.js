@@ -20,6 +20,7 @@ class PatientAccardionDisease extends React.Component{
                         <PatientAccardionDiseaseItem
                             diseases={this.props.diseases}
                             onAddChronic = {this.props.onAddChronic}
+                            onDeleteChronic = {this.props.onDeleteChronic}
                         />
                     </Panel>
                 </Accordion>
