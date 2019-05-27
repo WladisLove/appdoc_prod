@@ -12,8 +12,19 @@ class DoctorsListItem extends React.Component {
         open(basic);
     };
 
+    getSpecString = () => {
+        let specString = '';
+        if(this.props.doctor && this.props.doctor.specialty) {
+            this.props.doctor.specialty.forEach(spec=>{
+                specString +=spec.selector.value + ", ";
+            });
+            return specString.slice(0, -2);
+        }
+        return "";
+    };
+
     render() {
-        const { name, phone, basic, avatar, email } = this.props.doctor;
+        const { name, basic, avatar } = this.props.doctor;
 
         return(
             <li className='doctors-list-item' onClick={this.handleClick}>
@@ -25,13 +36,8 @@ class DoctorsListItem extends React.Component {
                 </div>
                 <div  className='doctors-list-item-info'>
                     <NavLink to={`doctor${basic}`}>{name}</NavLink>
-                    <div >
-                        {!this.props.isUser ?
-                            <div>
-                                <div>Email:{email}</div>
-                                <div>Phone:{phone}</div>
-                            </div> : null }
-                        
+                    <div>
+                        {this.getSpecString()}
                     </div>
                 </div>
             </li>
