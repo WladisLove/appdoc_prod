@@ -6,14 +6,14 @@ import Select from '../Select';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-const LanguageToggle = ({languages, setActiveLanguage}) => {
+const LanguageToggle = ({languages, setActiveLanguage, className=""}) => {
     const handleChange = (langCode) => {
         localStorage.setItem("lang", langCode);
         setActiveLanguage(langCode)
     }
 
     return (
-        <div>
+        <div className={className}>
             <FormItem>
                 <Select
                     placeholder={<Translate id="chooseLanguage" />}

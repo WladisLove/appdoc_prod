@@ -103,6 +103,12 @@
             },
             "errors": {
                 "input": {
+                    "date": {
+                        "underEighteen": [
+                            "You cannot be registered since you are under 18",
+                            "К сожалению, вам ещё не исполнилось 18 лет, для получения помощи на сервисе AppDoc вам  необходимо обратиться для помощи к своим родителям или опекунам"
+                        ]
+                    },
                     "fullName": [
                         "Please input full name",
                         "Введите ФИО, пожалуйста"],

@@ -86,6 +86,16 @@ class RegistrationPatientForm extends React.Component {
 
     }
 
+    validateAge = (rule, value, callback) => {
+        console.log('asd');
+        const now = moment();
+        if (now.diff(value, "years", true) < 18) {
+            callback(<Translate id="personal.form.errors.input.date.underEighteen"/>);
+        } else {
+            callback();
+        }
+    };
+
     render() {
         const {getFieldDecorator} = this.props.form;
         const uploadButton = (
@@ -101,7 +111,7 @@ class RegistrationPatientForm extends React.Component {
                                       isPatientReg={true}/>
             )
         }
-        
+
         return (
             <Translate>
                 {({translate}) =>
@@ -191,6 +201,9 @@ class RegistrationPatientForm extends React.Component {
                                                     rules: [{
                                                         required: true,
                                                         message: translate("auth.errors.inputBirthday")
+                                                    },
+                                                    {
+                                                        validator: this.validateAge,
                                                     }],
                                                 })(
                                                     <DatePicker placeholder={translate("auth.birthdayFormat")}/>
