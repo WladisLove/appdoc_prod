@@ -44,8 +44,8 @@
             "uploadFile": ["Upload file", "Загрузить файл"],
             "paidReception": ["Paid", "Платный"],
             "freeReception": ["Free", "Бесплатный"],
-            "hideAnswer": ["Hide answer", "Посмотреть ответ"],
-            "showAnswer": ["Show answer", "Скрыть ответ"],
+            "hideAnswer": ["Hide answer", "Скрыть ответ"],
+            "showAnswer": ["Show answer", "Посмотреть ответ"],
             "theBalance": ["Current account", "Текущий счет"]
         },
         "description": {
