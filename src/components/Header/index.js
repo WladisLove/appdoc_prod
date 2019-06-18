@@ -63,8 +63,6 @@ render() {
                                         size='small'
                                         type='float'
                                         icon='form'/>
-                                    <LanguageToggle  className='header-lang-select'/>
-
                                     <NewVisitTypeModal
                                         visible = {this.state.chooseTypeVisitVisible}
                                         onCancel = {() => this.setState({chooseTypeVisitVisible: false})}
@@ -101,6 +99,7 @@ render() {
                                     disabled={this.props.disabled}/>)
                             }
                         </div>
+                        <LanguageToggle  className='header-lang-select'/>
                         <div className='header-notification'>
                             <NotificationApp
                                 data={notifications}

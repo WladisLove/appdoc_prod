@@ -14,9 +14,6 @@
   position: relative;
   z-index: 2;
 }
-.panel-patient-block.pressure .panel-patient-num {
-  font-size: 18px;
-}
 .panel-patient-item {
   display: flex;
   flex-direction: column;
@@ -66,7 +63,7 @@
   color: #344051;
 }
 .panel-patient-num {
-  font-size: 32px;
+  font-size: 18px;
   color: #0495ff;
   line-height: 1;
   font-family: 'GothamPro-Light';

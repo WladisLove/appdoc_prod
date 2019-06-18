@@ -152,11 +152,16 @@ class RegistrationPatientForm extends React.Component {
                                     </FormItem>
                                     <FormItem>
                                         {getFieldDecorator('phone', {
-                                            rules: [{
-                                                required: true,
-                                                message: translate("auth.errors.wrongPhoneFormat"),
-                                                pattern: /^[+]?[0-9()\- ]+$/
-                                            }]
+                                            rules: [
+                                                {
+                                                    required: true,
+                                                    message: translate("auth.errors.wrongPhoneFormat"),
+                                                },
+                                                {
+                                                    pattern: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
+                                                    message: translate("auth.errors.wrongPhoneFormat"),
+                                                }
+                                            ]
 
                                         })(
                                             <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.phone")}`}

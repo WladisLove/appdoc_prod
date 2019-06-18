@@ -17,7 +17,13 @@ class Step2_work extends React.Component {
     static get getName() {
         return 'work'
     }
+    componentDidMount() {
+        const {number} = this.props;
+        window.ymaps.ready(function () {
+            const suggest = new window.ymaps.SuggestView('work-adress-' + number);
+        })
 
+    }
     render() {
         const {getFieldDecorator, number} = this.props;
 
@@ -36,7 +42,7 @@ class Step2_work extends React.Component {
                                     <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.currentWorkPlace")}`} className="step-form-item"/>
                                 )}
                             </FormItem>
-                            <FormItem>
+                            <FormItem className="work-address-block">
                                 {getFieldDecorator('work-adress-' + number, {
                                     rules: [{
                                         required: true,

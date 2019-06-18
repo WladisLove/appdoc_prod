@@ -18,20 +18,16 @@ class PatientProfileDoctorItem extends React.Component{
     }
 
     showLanguageOptions = (doctorLanguages) => {
-        let data = []
+        let data = [];
+        const { availLanguages } = this.props;
+        console.log(doctorLanguages, availLanguages, "LANGLANGLANG")
         doctorLanguages.forEach((item, index) => {
-            if(item instanceof Object && (item.hasOwnProperty('language') || item.hasOwnProperty('title')) ){
-                data.push(<div className='profile__doctor-item-language-li'>
-                            {item.title ? item.title : item.language}
-                        </div>)
-            }
-            else{
-                data.push(<div className='profile__doctor-item-language-li'>
-                    {item}
-                </div>)
-            }
-
-        })
+            availLanguages.forEach(lang => {
+                if (lang.id === item) {
+                    data.push(<div>{lang.title}</div>)
+                }
+            });
+        });
 
         return data;
     }

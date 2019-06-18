@@ -16,7 +16,7 @@
 }
 .header-search {
   width: 100%;
-  max-width: 300px;
+  max-width: 220px;
   min-width: 150px;
   z-index: 12;
 }
@@ -57,7 +57,7 @@
 }
 .header-notification {
   position: relative;
-  margin-right: 65px;
+  margin: 0 20px;
 }
 .header-notification .icon {
   cursor: pointer;
@@ -82,8 +82,9 @@
   color: #0495ff;
 }
 .header-lang-select {
-  width: 130px;
+  min-width: 160px;
   display: flex;
+  margin-left: 14px;
   align-items: center;
   justify-content: center;
 }

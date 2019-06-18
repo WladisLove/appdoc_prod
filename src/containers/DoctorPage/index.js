@@ -43,6 +43,10 @@ class PatientsPage extends React.Component{
         }
     }
 
+    componentDidMount() {
+        this.props.onGetAvailLangs(localStorage.getItem('lang'));
+    }
+
     getDoctorSpecialityStr = () => {
         let specialityStr = "";
 
@@ -159,6 +163,7 @@ class PatientsPage extends React.Component{
                               doctorMaps={this.getDoctorMapsArr()}
                               doctorExperience={this.getDoctorExperienceArr()}
                               about = {about}
+                              availLanguages={this.props.availLanguages}
                           />
                         </Col>
                         <Col xs={24} xxl={9} className='section'>
@@ -221,6 +226,7 @@ const mapStateToProps = state => {
         profileDoctor: state.profileDoctor,
         docIntervalsWithAppsAll: state.profileDoctor.docIntervalsWithAppsAll,
         mode: state.auth.mode,
+        availLanguages: state.doctor.availLanguages,
     }
 };
 
@@ -237,6 +243,7 @@ const mapDispatchToProps = dispatch => {
         onSelectTretment: (id) => dispatch(actions.selectTreatment(id)),
         onAddFiles: (file, id) => dispatch(actions.addFileToApp(file, id)),
         makeArchiveOfFiles: (files) => dispatch(actions.makeArchiveOfFiles(files)),
+        onGetAvailLangs: (lang) => dispatch(actions.getAvailLangs(lang)),
     }
 };
 
