@@ -19,16 +19,16 @@ class RegistrationForm extends React.Component{
             current: 0,
         };
         this.steps = [
-            {
-                title: <Translate id={'auth.contactInfo'}/>,
-                content:
-                    (state) => <Step1 data={state}
-                                      onSubmit={(data) => this.setState({...data})}
-                                      onNext={this.next}
-                                      checkEmailAvailability={this.props.onCheckEmailAvailability}
-                                      uploadFile={this.props.uploadFile}
-                    />,
-            },
+            // {
+            //     title: <Translate id={'auth.contactInfo'}/>,
+            //     content:
+            //         (state) => <Step1 data={state}
+            //                           onSubmit={(data) => this.setState({...data})}
+            //                           onNext={this.next}
+            //                           checkEmailAvailability={this.props.onCheckEmailAvailability}
+            //                           uploadFile={this.props.uploadFile}
+            //         />,
+            // },
             {
             title: <Translate id={'auth.eduAndWorkExp'}/>,
             content: (state) => <Step2 data={state}

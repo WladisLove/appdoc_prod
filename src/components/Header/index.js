@@ -15,6 +15,8 @@ import '../../icon/style.css'
 import NewFreeVisitByPatient from "../NewFreeVisitByPatient";
 import NewVisitTypeModal from "../NewVisitTypeModal";
 import NewEmergencyVisit from "../NewEmergencyVisit";
+import LanguageToggle from "../LanguageToggle";
+import {Form} from "antd";
 
 
 class Header extends React.Component {
@@ -50,7 +52,7 @@ render() {
                         <div className='header-call'>
                             {isUser ?
                                 <Hoc>
-                                    <div className='wrapper-paymet-score'>{translate('button.title.theBalance').toUpperCase()}: {userBalance ? userBalance : '0.00'}</div> 
+                                    <div className='wrapper-paymet-score'>{translate('button.title.theBalance').toUpperCase()}: {userBalance ? userBalance : '0.00'}</div>
                                     <Button btnText={translate('emergencyCall')}
                                         size='small'
                                         type='emergensy'
@@ -69,7 +71,7 @@ render() {
                                                 chooseTypeVisitVisible: false,
                                                 isNewFreeVisit: true
                                             })}
-                                     
+
 
                                         }
                                     />
@@ -97,6 +99,7 @@ render() {
                                     disabled={this.props.disabled}/>)
                             }
                         </div>
+                        <LanguageToggle  className='header-lang-select'/>
                         <div className='header-notification'>
                             <NotificationApp
                                 data={notifications}

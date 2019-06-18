@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { withRouter } from 'react-router-dom';
 import ProfileAvatar from '../ProfileAvatar'
 import RatePanel from '../RatePanel'
 import Hoc from "../Hoc"
@@ -26,10 +26,10 @@ class DoctorProfileCard extends React.Component{
             specialtyOneArray.push(...elem)
         });
         if(Array.isArray(specialty)) {
-            const style = "doctorProfileCard-specialty-block"
+            const style = "doctorProfileCard-specialty-block";
             for(let i = 0; i < specialty.length; i++){
                 if(specialty.length == i+1){
-                    spec.push(<div className={style}><span>{specialty[i]}</span></div>)
+                    spec.push(<div className={style}><span>{specialty[i]}</span></div>);
                     continue
                 }
                 spec.push(<div className={style}><span>{specialty[i]}, </span><br/></div>)
@@ -44,7 +44,10 @@ class DoctorProfileCard extends React.Component{
                 "patientProfileCard" : "doctorProfileCard");
 
         return (
-            <div className={rootClass}>
+            <div
+                className={rootClass}
+                onClick={() => this.props.history.push('/app/personal-info')}
+            >
                 <ProfileAvatar owner="doctor" {...this.props} short={short} size={(short ? 'medium' : 'large')}/>
                 <div className={'doctorProfileCard-name'}>{name}</div>
                 {
@@ -78,4 +81,4 @@ DoctorProfileCard.defaultProps = {
     isUser: false,
 };
 
-export default DoctorProfileCard;
+export default withRouter(DoctorProfileCard);

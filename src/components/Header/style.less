@@ -6,10 +6,10 @@
 
 	&-search{
 		width: 100%;
-		max-width: 300px;
+		max-width: 220px;
 		min-width: 150px;
 		z-index: 12;
-    	
+
 		.ant-input-search{
 			display: flex;
 		    flex-direction: row;
@@ -38,8 +38,7 @@
 	}
 
 	&-call{
-		margin-left: auto;
-		margin-right: 135px;
+		margin: 0 auto;
 
 		display: flex;
 		align-items: center;
@@ -56,7 +55,7 @@
 
 	&-notification{
 		position: relative;
-		margin-right: 65px;
+		margin: 0 20px;
 
 		.icon{
 			cursor: pointer;
@@ -68,7 +67,7 @@
 	}
 
 	&-exit{
-		
+
 		.btn{
 			width: auto;
 			height: auto;
@@ -91,7 +90,17 @@
 	}
 }
 
-
+.header-lang-select{
+	min-width: 160px;
+	display: flex;
+    margin-left: 14px;
+	align-items: center;
+	justify-content: center;
+	.ant-form-item {
+		width: 100%;
+		margin-bottom: 0;
+	}
+}
 
 .wrapper-paymet-score{
 	color: #0495ff;

@@ -16,7 +16,7 @@
 }
 .header-search {
   width: 100%;
-  max-width: 300px;
+  max-width: 220px;
   min-width: 150px;
   z-index: 12;
 }
@@ -44,8 +44,7 @@
   color: #344051;
 }
 .header-call {
-  margin-left: auto;
-  margin-right: 135px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -58,7 +57,7 @@
 }
 .header-notification {
   position: relative;
-  margin-right: 65px;
+  margin: 0 20px;
 }
 .header-notification .icon {
   cursor: pointer;
@@ -82,6 +81,17 @@
 .header-exit .btn:hover .icon {
   color: #0495ff;
 }
+.header-lang-select {
+  min-width: 160px;
+  display: flex;
+  margin-left: 14px;
+  align-items: center;
+  justify-content: center;
+}
+.header-lang-select .ant-form-item {
+  width: 100%;
+  margin-bottom: 0;
+}
 .wrapper-paymet-score {
   color: #0495ff;
   font-size: 14px;
@@ -92,3 +102,4 @@
   margin-right: 25px;
   white-space: nowrap;
 }
+/*# sourceMappingURL=style.css.map */

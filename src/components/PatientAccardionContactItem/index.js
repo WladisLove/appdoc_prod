@@ -237,9 +237,9 @@ class PatientAccardionContactItemForm extends React.Component{
                                             rules: [{ required: this.state.passwordsRequired,
                                                 message: translate(`personal.form.errors.input.password.required`)
                                             },
-                                                {
-                                                    validator: this.compareToFirstPassword,
-                                                }],
+                                            {
+                                                validator: this.compareToFirstPassword,
+                                            }],
                                         })(
                                             <InputNew type="password" width ="100%" bubbleplaceholder={translate(`personal.form.input.password.repeat`)} onChange={this.handleChange}/>
                                         )}
