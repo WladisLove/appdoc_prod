@@ -34,7 +34,7 @@ class App extends React.Component {
     renderVideos = () => (
         <Hoc>
             <video className='chat-card-video__box'
-                //poster={this.props.avatar}
+                poster={this.props.avatar}
                 autoPlay
                 ref={this.setVideoOutRef}
             ></video>
@@ -48,7 +48,7 @@ class App extends React.Component {
     renderSafariVideos = () => (
         <Hoc>
             <video className='chat-card-video__box'
-                //poster={this.props.avatar}
+                poster={this.props.avatar}
                 playsInline
                 ref={this.setVideoOutRef}
             ></video>
@@ -77,7 +77,7 @@ class App extends React.Component {
                     : 'reception-video-wrapper';
 
         return (
-            <div className={className} style={{ display: isCalling ? 'block' : 'none' }} onClick={this.onClickHandler}>
+            <div className={className} style={{ display: isChatRoute ? 'block' : isCalling ? 'block' : 'none' }} onClick={this.onClickHandler}>
                 {this.isSafari ? this.renderSafariVideos() : this.renderVideos()}
                 { !isChatRoute && <div className='reception-mini-back-btn'>Вернуться к приему</div> }
             </div>
@@ -85,8 +85,14 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({ chatState: { isChatArea, isFilesArea }, chatWS: { isCalling } }) => {
-    return { isChatArea, isFilesArea, isCalling }
+const mapStateToProps = ({
+    auth: { mode },
+    chatState: { isChatArea, isFilesArea },
+    chatWS: { isCalling },
+    treatments: { visitInfo }
+}) => {
+    const avatar = mode === 'doc' ? visitInfo.avatar : visitInfo.avatar_doc;
+    return { isChatArea, isFilesArea, isCalling, avatar }
 }
 
 const mapDispatchToProps = dispatch => {
