@@ -28,14 +28,14 @@ let  profileDoctor = {
     "avatar" : null,
     "works": [],
     "workIntervals": [],
-    "docIntervalsWithAppsAll": []
+    "docIntervalsWithAppsAll": [],
+    "availableProfs": [],
 };
 
 let specialAndLanguage = {
     specs: [],
     langs: []
-
-}
+};
 
 const initialState = profileDoctor;
 
@@ -76,6 +76,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 docIntervalsWithAppsAll: action.intervals
+            };
+        case actionTypes.GET_AVAIL_PROFS:
+            return {
+                ...state,
+                availableProfs: action.payload
             };
         case actionTypes.GET_DOCTOR_SPECIALITIES:
             specialAndLanguage.specs = [...action.docSpecialities]

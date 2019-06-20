@@ -38,7 +38,7 @@ class Step2_From extends React.Component{
     };
 
     handleSubmit = (e) => {
-        e.preventDefault();   
+        e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 let toSubmit = {
@@ -125,6 +125,11 @@ class Step2_From extends React.Component{
             ({[type]: prev[type] -1}))
     };
 
+    getAvailProfs = () => {
+        const { availableProfs } = this.props;
+        const lang = window.localStorage.getItem("lang");
+        return availableProfs.map(el => lang === "ru" ? el.nameRus : el.nameEng);
+    };
 
     render() {
         const {getFieldDecorator} = this.props.form;
@@ -186,7 +191,22 @@ class Step2_From extends React.Component{
                             svg
                     />}
                 </div>
+                <FormItem>
+                    {getFieldDecorator('profile', {
+                        rules: [{
+                            required: true,
+                            message: translate("auth.errors.inputJobProfile")
+                        }],
+                    })(
 
+                        <SelectNew width ="100%"
+                                   bubbleplaceholder={translate("auth.profile")}
+                                   className="step-form-item"
+                                   data={this.getAvailProfs()}
+                                   onChange={(e)=>this.selectChangeHandler(e,"degree")}
+                        />
+                    )}
+                </FormItem>
                 <Hr/>
                 <FormItem>
                     {getFieldDecorator('academicdegree')(

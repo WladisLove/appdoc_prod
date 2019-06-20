@@ -160,3 +160,27 @@ export const getAvailLangs = (lang = 'ru') => {
             })
     }
 }
+
+export const getAvailProfs = () => {
+
+    return (dispatch, getState) => {
+        const lang = window.localStorage.getItem("lang");
+        const code = {
+          "code": "profile"
+        };
+
+        return axios.post('/catalog.doc2/getSelectors', JSON.stringify(code))
+            .then(res => {
+
+                dispatch({
+                    type: actionTypes.GET_AVAIL_PROFS,
+                    payload: res.data,
+                });
+
+                return null
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};

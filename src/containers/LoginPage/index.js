@@ -31,7 +31,8 @@ class LoginPage extends React.Component {
     componentDidMount(){
         this.props.onGetDoctorSpecialities(localStorage.getItem('lang'));
         this.props.onGetSelectorToolTip();
-        this.props.onGetAvailLangs(localStorage.getItem('lang'))
+        this.props.onGetAvailLangs(localStorage.getItem('lang'));
+        this.props.onGetAvailProfs();
     }
 
 
@@ -69,13 +70,12 @@ class LoginPage extends React.Component {
         const academicDegree = addInfoObj.degree ;
         const category = addInfoObj.category;
 
-        console.log('this.props.availLanguages', this.props.availLanguages)
         return (
             <Hoc>
 
                 <div className="loginPage-header">
                     <a href='https://appdoc.by'><div className="logo"><span className="logo-img"></span></div></a>
-                    {this.props.match.path !== "/app/login" && 
+                    {this.props.match.path !== "/app/login" &&
                     <div className="loginPage-header-close">
                             <NavLink to="/app/login" onClick={this.onOk}>
                                 <Icon type='close' svg />
@@ -123,6 +123,7 @@ class LoginPage extends React.Component {
                                                            uploadFile = {this.props.uploadFile}
                                                            docSpecialities = {this.props.docSpecialities}
                                                            selectorToolTip = {this.props.selectorToolTip}
+                                                           availableProfs = {this.props.availableProfs}
                                />}
                         />
                         <Route path="/app/patient-registration"
@@ -160,6 +161,7 @@ const mapStateToProps = state => {
         errorCode: state.auth.errorCode,
         docSpecialities: state.doctor.docSpecialities,
         availLanguages: state.doctor.availLanguages,
+        availableProfs: state.profileDoctor.availableProfs,
         selectorToolTip: state.auth.selectorToolTip
 	}
 };
@@ -172,9 +174,8 @@ const mapDispatchToProps = dispatch => {
         onCheckEmailAvailability: (email) => dispatch(actions.checkEmailAvailability(email)),
         onGetDoctorSpecialities: (lang) => dispatch(actions.getDoctorSpecialities(lang)),
         onGetAvailLangs: (lang) => dispatch(actions.getAvailLangs(lang)),
+        onGetAvailProfs: () => dispatch(actions.getAvailProfs()),
         onGetSelectorToolTip: () => dispatch(actions.getSelectorToolTip()),
-        
-        
         reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
         uploadFile: (file) => dispatch(actions.uploadFile(file))
 	}

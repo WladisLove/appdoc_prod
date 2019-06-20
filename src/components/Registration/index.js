@@ -10,78 +10,78 @@ import RegistrationComplete from "../RegistrationComplete";
 import {Translate} from "react-localize-redux";
 
 
-
-
-class RegistrationForm extends React.Component{
-    constructor(props){
+class RegistrationForm extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             current: 0,
         };
         this.steps = [
-            // {
-            //     title: <Translate id={'auth.contactInfo'}/>,
-            //     content:
-            //         (state) => <Step1 data={state}
-            //                           onSubmit={(data) => this.setState({...data})}
-            //                           onNext={this.next}
-            //                           checkEmailAvailability={this.props.onCheckEmailAvailability}
-            //                           uploadFile={this.props.uploadFile}
-            //         />,
-            // },
             {
-            title: <Translate id={'auth.eduAndWorkExp'}/>,
-            content: (state) => <Step2 data={state}
-                                       onSubmit={(data) => this.setState({...data})}
-                                       onPrev = {this.prev}
-                                       onNext={this.next}
-                                       category ={this.props.category}
-                                       academicDegree={this.props.academicDegree}
-                                       academicTitle = {this.props.academicTitle}
-                                       langs = {this.props.langs}
-                                       payments = {this.props.payments}
-                                       uploadFile={this.props.uploadFile}
-                                       docSpecialities={this.props.docSpecialities}
-                                       selectorToolTip = {this.props.selectorToolTip}
-            /> ,
-        },
+                title: <Translate id={'auth.contactInfo'}/>,
+                content:
+                    (state) => <Step1 data={state}
+                                      onSubmit={(data) => this.setState({...data})}
+                                      onNext={this.next}
+                                      checkEmailAvailability={this.props.onCheckEmailAvailability}
+                                      uploadFile={this.props.uploadFile}
+                    />,
+            },
             {
-            title: <Translate id={'auth.dataVerification'}/>,
-            content: (state) => <Step3 data = {state}
-                                       onPrev = {this.prev}
-                                       onNext = {this.next}
-                                       finalText={this.props.finalText}
-                                       onFinish={this.props.onFinish}
-                                       regInProgress = {this.props.regInProgress}
-                                       docSpecialities={this.props.docSpecialities}
-            />,
-        }];
+                title: <Translate id={'auth.eduAndWorkExp'}/>,
+                content: (state) => <Step2 data={state}
+                                           onSubmit={(data) => this.setState({...data})}
+                                           onPrev={this.prev}
+                                           onNext={this.next}
+                                           category={this.props.category}
+                                           academicDegree={this.props.academicDegree}
+                                           academicTitle={this.props.academicTitle}
+                                           langs={this.props.langs}
+                                           payments={this.props.payments}
+                                           uploadFile={this.props.uploadFile}
+                                           docSpecialities={this.props.docSpecialities}
+                                           selectorToolTip={this.props.selectorToolTip}
+                                           availableProfs = {this.props.availableProfs}
+                />,
+            },
+            {
+                title: <Translate id={'auth.dataVerification'}/>,
+                content: (state) => <Step3 data={state}
+                                           onPrev={this.prev}
+                                           onNext={this.next}
+                                           finalText={this.props.finalText}
+                                           onFinish={this.props.onFinish}
+                                           regInProgress={this.props.regInProgress}
+                                           docSpecialities={this.props.docSpecialities}
+                />,
+            }];
     }
 
     next = () => {
         const current = this.state.current + 1;
-        this.setState({ current });
+        this.setState({current});
     };
     prev = () => {
         const current = this.state.current - 1;
-        this.setState({ current });
+        this.setState({current});
     };
 
 
-    render(){
+    render() {
 
-        if(this.props.isRegFinished) {
+        if (this.props.isRegFinished) {
             return (
-                <RegistrationComplete onOk={this.props.onOk} urlLogin={this.props.urlLogin} phone={"+375777777777"} isPatientReg={false}/>
+                <RegistrationComplete onOk={this.props.onOk} urlLogin={this.props.urlLogin} phone={"+375777777777"}
+                                      isPatientReg={false}/>
             )
         }
         return (
             <div className="registration-form">
-                <div className="registration-title"><Translate id = {"auth.registration"}/></div>
+                <div className="registration-title"><Translate id={"auth.registration"}/></div>
                 <Steps steps={this.steps}
                        curState={this.state}
                        current={this.state.current}
-                       onNext = {this.next}
+                       onNext={this.next}
                        onPrev={this.prev}
                 />
             </div>

@@ -118,6 +118,7 @@ export {
     uploadFile,
     getDoctorSpecialities,
     getAvailLangs,
+    getAvailProfs,
 } from './doctorData'
 
 export {
