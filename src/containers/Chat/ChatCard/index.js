@@ -30,7 +30,6 @@ class ChatCard extends React.Component {
         super(props);
         this.state = {
             isActive: false,
-			isActiveChat: true,
 			mode: this.props.mode,
 			isCurVisEnd: false,
 
@@ -129,13 +128,13 @@ class ChatCard extends React.Component {
 			)
 
 				: this.props.uploadFile(id_zap,id_user, file,callback);
-			this.state.isActive && this.props.getAllFilesTreatment(this.props.id_treatment);
+			this.props.isFilesAreaActive && this.props.getAllFilesTreatment(this.props.id_treatment);
 		}
 	}
 
 	toggleFilesArea = () => {
-		(!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
-		this.setState(prev => ({isActive: !prev.isActive}));
+		(!this.props.isFilesAreaActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
+		this.props.toggleFilesArea();
 	}
 
 	showOnMap =() => {
@@ -170,7 +169,7 @@ class ChatCard extends React.Component {
 		const iconType = this.getIconByType();
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
 
-        const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.state.isActive});
+        const dialogsClass = cn('chat-card-dialogs', {'chat-card-dialogs-active': this.props.isFilesAreaActive});
 
 		let content;
 		const chatProps= {
@@ -191,7 +190,7 @@ class ChatCard extends React.Component {
 			treatmFiles: this.props.treatmFiles,
 			id_treatment: this.props.id_treatment,
 			getAllFilesTreatment: this.props.getAllFilesTreatment,
-			filesActive: this.state.isActive,
+			filesActive: this.props.isFilesAreaActive,
             isUser: this.props.isUser
 		};
 		const chatAdditionalProps = {
@@ -199,17 +198,14 @@ class ChatCard extends React.Component {
 			setVideoIn: (video)=>setVideoIn(video),
 			onStop: this.onStop,
 			onCall: this.onCall,
-			onChat: () => this.setState(prev => ({isActiveChat: !prev.isActiveChat})),
 			timer: this.props.timer,
 			isCalling: this.props.isCalling,
-			isActiveChat: this.state.isActiveChat,
 			isEnded: this.props.isEnded,
         }
 
-		console.log('index :',this.state.mode);
-        switch (this.state.mode) {
+		switch (this.state.mode) {
             case 'chat':
-                content = <ChatTextContent isActive={this.state.isActive}
+                content = <ChatTextContent isActive={this.props.isFilesAreaActive}
                                            {...chatProps}
                                            {...chatAdditionalProps}
                 />;
@@ -227,7 +223,7 @@ class ChatCard extends React.Component {
                 />;
 				break;
 			default:
-				content = <ChatTextContent isActive={this.state.isActive}
+				content = <ChatTextContent isActive={this.prosp.isFilesAreaActive}
 						{...chatProps}
 						{...chatAdditionalProps}
 				/>;
@@ -237,7 +233,7 @@ class ChatCard extends React.Component {
 
 
         return (
-			<Hoc>
+			<Hoc>	
 			<Translate>
 			{({ translate }) => 
 			
@@ -284,10 +280,8 @@ class ChatCard extends React.Component {
 					</div>
 					<div className='chat-card-body'>
 						<div className={dialogsClass}>
-								{content}
+							{content}
 						</div>
-
-
 					</div>
 				</div>
 			}
@@ -332,7 +326,6 @@ ChatCard.propTypes = {
 	patientName: PropTypes.string,
 	user_id: PropTypes.number,
     online: PropTypes.number,//oneOf(['offline', 'online']),
-    isActive: PropTypes.bool,
 	mode: PropTypes.oneOf(['chat', 'voice', "video"]),
 	isEnded: PropTypes.bool,
 	treatmFiles: PropTypes.array,
@@ -350,7 +343,6 @@ ChatCard.defaultProps = {
 	patientName: '',
 	user_id: 0,
     online: 0,
-    isActive: false,
 	mode: 'chat',
 	chat: [],
 	changeReceptionStatus: () => {},

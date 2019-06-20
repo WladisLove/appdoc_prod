@@ -34,9 +34,9 @@ class ChatTextContent extends Component {
         this.setState({isActive: nextProps.filesActive})
     }
     render() {
-        const {isActive,isActiveChat} = this.props;
+        const {isActive} = this.props;
         const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
-        const filesClass = cn('chat-card-files only-chat', {'chat-card-files-active': isActiveChat});
+        const filesClass = cn('chat-card-files only-chat', {'chat-card-files-active': true});
         const attachmentsClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
         return (
 

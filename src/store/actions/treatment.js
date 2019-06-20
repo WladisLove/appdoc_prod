@@ -228,7 +228,6 @@ export const seletVisit = (visId, callback) => {
     return (dispatch) => {
         axios.get('/catalog.doc2/getInfoByMakingAppId/id/'+visId)
             .then(res => {
-                console.log('[seletVisit]',res.data)
                 dispatch({
                     type: actionTypes.SELECT_VISIT,
                     visitInfo: res.data,
