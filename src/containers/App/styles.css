@@ -224,6 +224,16 @@ button {
   top: calc(80px + (750px - 315px - 55px) / 2);
 }
 
+.reception-mini-back-btn{
+  text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+    cursor: pointer;
+    text-decoration: underline;
+    border-radius: 25px;
+    background-color: rgba(0,0,0,.2);
+}
+
 @media(max-width: 1540px){
   .reception-video-wrapper{
     width: 1050px;

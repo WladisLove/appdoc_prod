@@ -61,7 +61,6 @@ class App extends React.Component {
     );
 
     onClickHandler = () => {
-        console.log('[handler]');
         const { history, isChatRoute } = this.props;
         !isChatRoute && history.push('/app/chat');
         
@@ -80,6 +79,7 @@ class App extends React.Component {
         return (
             <div className={className} style={{ display: isCalling ? 'block' : 'none' }} onClick={this.onClickHandler}>
                 {this.isSafari ? this.renderSafariVideos() : this.renderVideos()}
+                { !isChatRoute && <div className='reception-mini-back-btn'>Вернуться к приему</div> }
             </div>
         );
     }
