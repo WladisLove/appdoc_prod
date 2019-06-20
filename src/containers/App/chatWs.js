@@ -69,6 +69,8 @@ export function createSocket(wsUrl,_props,_callbacks) {
                 startCommunication(parsedMessage);
                 break;
             case 'stopCommunication':
+                callbacks.get_history().location.pathname !== '/app/chat'
+                && callbacks.get_history().push('/app/chat');
 				stop(true);
                 break;
             case 'chat':
