@@ -3,11 +3,10 @@ import Hoc from '../../hoc'
 import Adapter from 'webrtc-adapter'
 import { connect } from 'react-redux';
 import { setVideoIn, setVideoOut } from './chatWs'
+import { Translate } from 'react-localize-redux'
 
-import * as actions from '../../store/actions'
 import './styles.css';
 import '../../styles/fonts.css';
-import ab from '../../autobahn.js'
 import { detect } from 'detect-browser';
 const browser = detect();
 
@@ -20,14 +19,14 @@ class App extends React.Component {
     }
 
     setVideoOutRef = (video) => {
-		this.isSafari && (this.videoOut = video); 
+        this.isSafari && (this.videoOut = video);
         setVideoOut(video);
-	}
-	setVideoInRef = (video) => {
-		this.isSafari && (
-			this.videoIn = video,
-			video && video.play()
-		);
+    }
+    setVideoInRef = (video) => {
+        this.isSafari && (
+            this.videoIn = video,
+            video && video.play()
+        );
         setVideoIn(video);
     }
 
@@ -63,13 +62,13 @@ class App extends React.Component {
     onClickHandler = () => {
         const { history, isChatRoute } = this.props;
         !isChatRoute && history.push('/app/chat');
-        
+
     }
 
     render() {
         const { isChatArea, isFilesArea, isChatRoute = false, isCalling } = this.props;
-        const className = !isChatRoute 
-            ? 'reception-mini-video-wrapper' 
+        const className = !isChatRoute
+            ? 'reception-mini-video-wrapper'
             : (isChatArea && isFilesArea)
                 ? 'reception-video-wrapper reception-video-wrapper_2additionalAreas'
                 : (isChatArea || isFilesArea)
@@ -79,7 +78,14 @@ class App extends React.Component {
         return (
             <div className={className} style={{ display: isChatRoute ? 'block' : isCalling ? 'block' : 'none' }} onClick={this.onClickHandler}>
                 {this.isSafari ? this.renderSafariVideos() : this.renderVideos()}
-                { !isChatRoute && <div className='reception-mini-back-btn'>Вернуться к приему</div> }
+
+                {!isChatRoute && (
+                    <Translate>
+                        {({ translate }) =>
+                            (<div className='reception-mini-back-btn'>{translate('button.title.backToReception')}</div>)
+                        }
+                    </Translate>
+                )}
             </div>
         );
     }
