@@ -57,16 +57,15 @@ class LoginPage extends React.Component {
                     const tempAssigment = JSON.parse(window.localStorage.getItem("tempAssigment"));
                     const reception = {
                         type: tempAssigment.type,
-                        realFile: tempAssigment.tempUploadfile,
+                        file: [{"fileLink": "media/"+tempAssigment.tempUploadfile}],
                         comment: tempAssigment["appointment-comment"],
                         date: tempAssigment.timestamp,
                         id_doc: tempAssigment.doctorId,
                     };
-                    console.log(res, "RES");
                     const userID = +res.data.result.id;
-                    console.log(userID, "USER ID");
 
-                    this.props.onSaveReceptionByPatient(reception, userID);
+                    this.props.onSaveReceptionByPatient(reception, userID)
+                        .then(() => window.localStorage.setItem("tempAssigment", ""));
                 }
             }
         })
