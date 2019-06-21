@@ -12,6 +12,7 @@ import infoPatientReducer from './reducers/patientData'
 import chatWSReducer from './reducers/chatWS'
 import loadingReducer from './reducers/loading'
 import geolocation from './reducers/geolocation'
+import chatContentState from './reducers/chatContentState'
 
 
 const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     chatWS: chatWSReducer,
     loading: loadingReducer,
     geolocation: geolocation,
+    chatState: chatContentState,
 });
 
 export default function configureStore() {

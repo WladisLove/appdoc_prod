@@ -20,8 +20,7 @@ class ChatContent extends React.Component {
     shouldComponentUpdate(nextProps) {
         return this.props.data.length !== nextProps.data.length
             || this.props.receptionStarts !== nextProps.receptionStarts
-            || this.props.fromTR_VIS !== nextProps.fromTR_VIS
-            || (this.props.isActiveChat !== nextProps.isActiveChat && this.props.isActiveChat === false);
+            || this.props.fromTR_VIS !== nextProps.fromTR_VIS;
     }
 
 

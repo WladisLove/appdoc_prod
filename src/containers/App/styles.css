@@ -91,6 +91,7 @@ body {
 .main-content {
   margin-top: 100px;
   padding: 30px 50px 40px 30px;
+  position: relative;
 }
 .main-footer {
   position: relative;
@@ -183,4 +184,65 @@ button {
 .ps__rail-y,
 .ps__rail-x {
   z-index: 6;
+}
+
+.reception-video-wrapper{
+  position: absolute;
+  /*
+    video ratio = 950/475 (width/height)
+    80px - main containet padding + chat card header height
+    750px - height of chat card's content div
+    55px - button margin for call controll panel
+  */
+  top: calc(80px);
+  width: 950px;
+  max-height: 750px;
+}
+
+.reception-mini-video-wrapper{
+  position: fixed;
+  /*
+    video ratio = 950/475 (width/height)
+    80px - main containet padding + chat card header height
+    750px - height of chat card's content div
+    55px - button margin for call controll panel
+  */
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  max-height: 225px;
+  z-index: 50;
+}
+
+/* 320px - chat's right area width */
+.reception-video-wrapper_1additionalArea{
+  width: 629px !important;
+  top: calc(80px + (750px - 475px - 55px) / 2);
+}
+.reception-video-wrapper_2additionalAreas{
+  width: 300px !important;
+  top: calc(80px + (750px - 315px - 55px) / 2);
+}
+
+.reception-mini-back-btn{
+  text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+    cursor: pointer;
+    text-decoration: underline;
+    border-radius: 25px;
+    background-color: rgba(0,0,0,.2);
+}
+
+@media(max-width: 1540px){
+  .reception-video-wrapper{
+    width: 1050px;
+  }
+  /* 360px - chat's right area width */
+  .reception-video-wrapper_1additionalArea{
+    width: 690px !important;
+  }
+  .reception-video-wrapper_2additionalAreas{
+    width: 320px !important;
+  }
 }

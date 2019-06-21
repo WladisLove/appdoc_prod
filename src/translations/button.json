@@ -32,6 +32,7 @@
             "treatmentComplete": ["Treatment complete", "Завершить обращение"],
             "completeCall": ["Call complete", "Завершить звонок"],
             "startReception": ["Start reception", "Начать приём"],
+            "backToReception": ["Back to reception", "Вернуться к приёму"],
             "cancelReception": ["Cancel reception", "Отменить приём"],
             "startCall": ["Start call", "Начать разговор"],
             "addConclusion": ["Add conclusion", "Добавить заключение"],

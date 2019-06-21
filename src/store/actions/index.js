@@ -144,3 +144,10 @@ export {
 export {
     getDoctorsCoordinates
 } from './geolocation'
+
+export {
+    setChatAreaActive,
+    toggleChatArea,
+    toggleFilesArea,
+    resetChatActiveAreas,
+} from './chatContentState'

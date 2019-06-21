@@ -1,0 +1,26 @@
+.chat-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.chat-col-dialogs{
+    width: 100%;
+    max-width: 950px;
+}
+
+.chat-col-mediaArea{
+    width: 950px;
+    min-width: 950px;
+    margin-right: 15px;
+}
+
+@media(max-width: 1540px){
+    .chat-row{
+        flex-direction: column;
+    }
+    
+    .chat-col-mediaArea{
+        width: 1050px;
+        margin-right: 0px;
+    }
+}
