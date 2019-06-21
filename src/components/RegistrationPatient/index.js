@@ -80,7 +80,7 @@ class RegistrationPatientForm extends React.Component {
 
     componentDidMount() {
 
-        window.ymaps.ready(function () {
+        window.ymaps && window.ymaps.ready(function () {
             const suggest = new window.ymaps.SuggestView('adress');
         })
 
