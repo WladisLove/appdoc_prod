@@ -69,12 +69,12 @@ export const setReception = (reception) => {
             });
     }
 }
-export const setReceptionByPatient = (reception) => {
+export const setReceptionByPatient = (reception, userId) => {
 
     return (dispatch, getState) => {
         let obj = {
             ...reception,
-            id_user: getState().auth.id
+            id_user: userId || getState().auth.id
         };
         return axios.post('/catalog.doc2/makingApp',
             JSON.stringify(obj))
@@ -260,12 +260,12 @@ export const getNotPatientDoctors = (name) => {
 }
 
 export const getUserBalance = (idUser) => {
- 
+
     return (dispatch, getState) => {
-        
+
         return axios.post('/catalog.doc2/getUserBalance', JSON.stringify({idUser}))
             .then(rez => {
-                
+
                 dispatch({
                     type: actionTypes.GET_USER_BALANCE,
                     userBalance: rez.data.result.balance,

@@ -167,6 +167,7 @@ export const logout = () => {
         sessionStorage.removeItem('_appdoc-mode');
         dispatch(setOnlineStatus(getState().auth.id, false));
         dispatch(authSuccess(0, ''));
+        axios.get('/fusers.doc/logoutDoc')
     }
 
 }

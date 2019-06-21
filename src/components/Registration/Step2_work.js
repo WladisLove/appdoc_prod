@@ -19,7 +19,7 @@ class Step2_work extends React.Component {
     }
     componentDidMount() {
         const {number} = this.props;
-        window.ymaps.ready(function () {
+        window.ymaps && window.ymaps.ready(function () {
             const suggest = new window.ymaps.SuggestView('work-adress-' + number);
         })
 

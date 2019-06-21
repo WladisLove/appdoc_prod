@@ -52,7 +52,21 @@ class LoginPage extends React.Component {
             if(res.data.code !== 200) {
                 message.error('Заполнены не все обязательные поля', 4);
             } else {
-                this.setState({isRegFinished:true})
+                this.setState({isRegFinished:true});
+                if(window.localStorage.getItem("tempAssigment")) {
+                    const tempAssigment = JSON.parse(window.localStorage.getItem("tempAssigment"));
+                    const reception = {
+                        type: tempAssigment.type,
+                        file: [{"fileLink": "media/"+tempAssigment.tempUploadfile}],
+                        comment: tempAssigment["appointment-comment"],
+                        date: tempAssigment.timestamp,
+                        id_doc: tempAssigment.doctorId,
+                    };
+                    const userID = +res.data.result.id;
+
+                    this.props.onSaveReceptionByPatient(reception, userID)
+                        .then(() => window.localStorage.setItem("tempAssigment", ""));
+                }
             }
         })
     };
@@ -177,8 +191,9 @@ const mapDispatchToProps = dispatch => {
         onGetAvailProfs: () => dispatch(actions.getAvailProfs()),
         onGetSelectorToolTip: () => dispatch(actions.getSelectorToolTip()),
         reportBug: (message, href) => dispatch(actions.reportBug(message, href)),
-        uploadFile: (file) => dispatch(actions.uploadFile(file))
-	}
+        uploadFile: (file) => dispatch(actions.uploadFile(file)),
+        onSaveReceptionByPatient: (reception, userId) => dispatch(actions.setReceptionByPatient(reception, userId)),
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

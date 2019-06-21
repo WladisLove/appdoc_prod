@@ -80,7 +80,7 @@ class RegistrationPatientForm extends React.Component {
 
     componentDidMount() {
 
-        window.ymaps.ready(function () {
+        window.ymaps && window.ymaps.ready(function () {
             const suggest = new window.ymaps.SuggestView('adress');
         })
 
@@ -93,6 +93,25 @@ class RegistrationPatientForm extends React.Component {
             callback(<Translate id="personal.form.errors.input.date.underEighteen" />);
         } else {
             callback();
+        }
+    };
+
+    getAppointmentMessage = () => {
+        if(window.localStorage.getItem("tempAssigment")) {
+            const timestamp = +JSON.parse(window.localStorage.getItem("tempAssigment")).timestamp;
+            console.log(timestamp, moment().format("X"));
+            if(timestamp > moment().format("X")) {
+                return  <Translate>
+                    {({translate}) =>
+                        (
+                            <div style={{marginBottom: "20px"}}>{`${translate('auth.preAppFirst')} ${moment(timestamp*1000).format("DD MMM H:mm")} ${translate('auth.preAppSecond')}`}</div>
+                        )
+                    }
+                </Translate>
+            } else {
+                window.localStorage.setItem("tempAssigment", "")
+            }
+
         }
     };
 
@@ -119,6 +138,7 @@ class RegistrationPatientForm extends React.Component {
                     return (
                         <div className="registration-patient-form">
                             <div className="registration-title">{translate("auth.registration")}</div>
+                            {this.getAppointmentMessage()}
                             <Form onSubmit={this.handleSubmit} className="step-patient-form">
                                 <div className="step-notification">{translate("auth.requiredFields")}</div>
 
