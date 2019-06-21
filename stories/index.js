@@ -101,7 +101,6 @@ const loadStories = () => {
     require('../src/components/ChatComments/stories');
     require('../src/components/NewVisitModal/stories');
     require('../src/components/NewVisitByPatientModal/stories');
-    require('../src/components/ChatCard/stories');
     require('../src/components/ChatFiles/stories');
     require('../src/components/ChatSend/stories');
     require('../src/components/NewVisitModalPage/stories');

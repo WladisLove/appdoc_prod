@@ -1,15 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import cn from 'classnames'
 
 import ChatVideoPanel from "../../../components/ChatVideoPanel";
-
 import ChatContent from './ChatContent'
-
-import './style.css'
 import Hoc from '../../../hoc'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
 import ChatFiles from "../../../components/ChatFiles";
+
+import './style.css'
+
+import * as actions from '../../../store/actions'
 import { detect } from 'detect-browser';
 const browser = detect();
 
@@ -81,57 +82,14 @@ class ChatVideoContent extends React.Component {
 
         });
     };
-    toggleFilesArea = () => {
-        (!this.state.isActive) && this.props.getAllFilesTreatment(this.props.id_treatment);
-        this.setState(prev => ({isActive: !prev.isActive}));
-	}
-	setVideoOutRef = (video) => {
-		this.isSafari && (this.videoOut = video); 
-        this.props.setVideoOut(video);
-	}
-	setVideoInRef = (video) => {
-		this.isSafari && (
-			this.videoIn = video,
-			video && video.play()
-		);
-        this.props.setVideoIn(video);
-    }
 
-	renderVideos = () => (
-		<Hoc>
-			<video className='chat-card-video__box'
-						poster={this.props.avatar}
-						autoPlay
-						ref={this.setVideoOutRef}
-						></video>
-			<video className='chat-card-video__mini'
-						autoPlay
-						ref={this.setVideoInRef}
-						id='setVideoInRef'
-						></video>
-		</Hoc>
-	)
-	renderSafariVideos = () => (
-		<Hoc>
-			<video className='chat-card-video__box'
-						poster={this.props.avatar}
-						playsInline
-						ref={this.setVideoOutRef}
-						></video>
-			<video className='chat-card-video__mini'
-						playsInline
-						ref={this.setVideoInRef}
-						id='setVideoInRef'
-						></video>
-		</Hoc>
-	)
 	renderCallArea = () => {
-		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isActiveChat});
+		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isChatArea});
 
 		let {s, m, h} = this.props.timer;
 		return (<Hoc>
 			<div className='chat-card-video__area'>
-				{this.isSafari ? this.renderSafariVideos() : this.renderVideos()}
+				
                 <div className={panelClass}>
                     {this.props.receptionId &&(
                         <ChatVideoPanel
@@ -143,7 +101,7 @@ class ChatVideoContent extends React.Component {
                                 this.props.onBegin();
                                 this.props.onCall();
                             }}
-                            onChat = {this.props.onChat}
+                            onChat = {this.props.toggleChatArea}
                             uploadFiles={this.props.uploadFile}
                             sec= {s}
                             min={m}
@@ -160,10 +118,10 @@ class ChatVideoContent extends React.Component {
 
 
     render() {
-        const {isActive,isActiveChat, onVideoCallBegin, onVideoCallStop} = this.props;
+        const { isActive, isChatArea, isFilesArea, onVideoCallBegin, onVideoCallStop} = this.props;
 		const dialogsClass = cn('chat-card-dialogs', 'chat-card-dialogs-row', {'chat-card-dialogs-active': isActive});
-		const filesClass = cn('chat-card-files', {'chat-card-files-active': isActiveChat});
-        const attachmentsClass = cn('chat-card-files', {'chat-card-files-active': this.state.isActive});
+		const filesClass = cn('chat-card-files', {'chat-card-files-active': isChatArea});
+        const attachmentsClass = cn('chat-card-files', {'chat-card-files-active': isFilesArea });
 
 			let videoContent = /*this.props.isEnded ?
 			this.renderPlayer() :*/ this.renderCallArea()
@@ -188,7 +146,7 @@ class ChatVideoContent extends React.Component {
                 <div className={attachmentsClass}>
                     <PerfectScrollbar>
 						{
-							this.state.isActive && <div className='chat-card-files__items'>
+							isFilesArea && <div className='chat-card-files__items'>
 								{this.filesRender()}
 							</div>
                     	}
@@ -200,4 +158,12 @@ class ChatVideoContent extends React.Component {
     }
 }
 
-export default ChatVideoContent
+const mapStateToProps = ({ chatState: { isChatArea, isFilesArea } }) => ({ isChatArea, isFilesArea });
+
+const mapDispatchToProps = dispatch => {
+    return {
+		toggleChatArea: () => dispatch(actions.toggleChatArea()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatVideoContent);

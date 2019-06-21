@@ -73,7 +73,7 @@ class Step1Form extends React.Component {
         const avatarUrl = this.state.avatarThumb ? this.state.avatarThumb : this.props.data.avatarThumb ? this.props.data.avatarThumb : "";
         return (
             <Translate>
-                {({translate}) =>
+                {({ translate, activeLanguage = {} }) =>
                     (
                         <Form onSubmit={this.handleSubmit} className="step-form">
                             <div className="step-posttitle">{translate("auth.inputContactInfo")}</div>
@@ -83,6 +83,9 @@ class Step1Form extends React.Component {
                                     rules: [{
                                         required: true,
                                         message: translate("auth.errors.inputName")
+                                    }, {
+                                        pattern: activeLanguage.code === 'en' ? /^([A-Za-z-]+\s){1}[A-Za-z-]+\s*$/ : /^([А-ЯЁа-яё-]+\s){2}[А-ЯЁа-яё]+\s*$/,
+                                        message: translate("auth.errors.wrongNameFormat")
                                     }],
                                 })(
                                     <InputNew width="100%" bubbleplaceholder={`* ${translate("auth.fullName")}`} className="step-form-item"/>
