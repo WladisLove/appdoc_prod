@@ -22,6 +22,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
 }
 .record-all .noNearRecords span {
   font-weight: 700;
@@ -35,4 +36,3 @@
 .record-all .noNearRecords button span {
   font-size: 12px;
 }
-/*# sourceMappingURL=style.css.map */

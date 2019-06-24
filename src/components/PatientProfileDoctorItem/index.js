@@ -19,11 +19,12 @@ class PatientProfileDoctorItem extends React.Component{
 
     showLanguageOptions = (doctorLanguages) => {
         let data = [];
+        
         const { availLanguages } = this.props;
         console.log(doctorLanguages, availLanguages, "LANGLANGLANG")
         doctorLanguages.forEach((item, index) => {
             availLanguages.forEach(lang => {
-                if (lang.id === item) {
+                if (lang.id === item || lang.id == item.id) {
                     data.push(<div>{lang.title}</div>)
                 }
             });

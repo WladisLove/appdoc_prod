@@ -156,6 +156,11 @@ class App extends React.Component {
         return this.props.makeReview(obj).then(res => res)
     }
 
+    changeLangSelector = (langCode) => {
+        this.props.onGetDoctorSpecialities(langCode);
+        this.props.onGetAvailLangs(langCode);
+    }
+
     gotoHandler = (id) => {
         this.props.auth.mode !== "user" ? this.props.history.push('/app/patient' + id) : this.props.history.push('/app/doctor' + id)
     };
@@ -231,6 +236,7 @@ class App extends React.Component {
                                         getNotifId={id => this.props.readNotification(id)}
                                         getNotifications={() => this.props.getNotifications(this.props.id)}
                                         onChange={(flag) => this.props.switchExInterval(flag)}
+                                        changeLangSelector={this.changeLangSelector}
                                         checked={this.props.isIn}
                                         disabled={this.props.isIn && !this.props.isUserSet}
                                         logout={this.props.onLogout}
@@ -354,6 +360,7 @@ const mapDispatchToProps = dispatch => {
         getEmergencyAvailability: () => dispatch(actions.getEmergencyAvailability()),
         onGetUserBalance: (id) => dispatch(actions.getUserBalance(id)),
         onGetDoctorSpecialities: (lang) => dispatch(actions.getDoctorSpecialities(lang)),
+        onGetAvailLangs: (lang) => dispatch(actions.getAvailLangs(lang)),
 
         docEmergancyCallSend: () => dispatch(actions.docEmergancyCallSend()),
         docEmergancyCallReceivedMark: () => dispatch(actions.docEmergancyCallReceivedMark()),
