@@ -79,9 +79,15 @@ class RegistrationPatientForm extends React.Component {
     }
 
     componentDidMount() {
-
+        const { setFieldsValue } = this.props.form;
         window.ymaps && window.ymaps.ready(function () {
-            const suggest = new window.ymaps.SuggestView('adress');
+            const suggest = new window.ymaps.SuggestView('address');
+            suggest.events.add("select", event => {
+                setFieldsValue({
+                    address: event.get("item").value,
+                })
+            });
+            console.log(suggest);
         })
 
     }
@@ -193,7 +199,7 @@ class RegistrationPatientForm extends React.Component {
                                     )}
                                 </FormItem>
                                 <FormItem>
-                                    {getFieldDecorator('adress', {
+                                    {getFieldDecorator('address', {
                                         rules: [{
                                             required: true,
                                             message: translate("auth.errors.inputAddress"),

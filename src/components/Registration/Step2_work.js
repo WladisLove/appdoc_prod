@@ -18,9 +18,18 @@ class Step2_work extends React.Component {
         return 'work'
     }
     componentDidMount() {
-        const {number} = this.props;
+        const { number } = this.props;
+        const { setFieldsValue } = this.props.form;
+        const name = "work-adress-"+number;
+
         window.ymaps && window.ymaps.ready(function () {
             const suggest = new window.ymaps.SuggestView('work-adress-' + number);
+            suggest.events.add("select", event => {
+                setFieldsValue({
+                    [name]: event.get("item").value,
+                })
+            });
+            console.log(suggest);
         })
 
     }
