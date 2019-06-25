@@ -99,7 +99,10 @@ render() {
                                     disabled={this.props.disabled}/>)
                             }
                         </div>
-                        <LanguageToggle  className='header-lang-select'/>
+                        <LanguageToggle  
+                                className='header-lang-select'
+                                changeLangSelector={this.props.changeLangSelector}
+                            />
                         <div className='header-notification'>
                             <NotificationApp
                                 data={notifications}
