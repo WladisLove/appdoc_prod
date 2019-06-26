@@ -196,7 +196,7 @@ button {
   */
   top: calc(80px);
   width: 950px;
-  max-height: 750px;
+  max-height: 550px;
 }
 
 .reception-mini-video-wrapper{
@@ -216,12 +216,13 @@ button {
 
 /* 320px - chat's right area width */
 .reception-video-wrapper_1additionalArea{
-  width: 629px !important;
+  width: 555px !important;
   top: calc(80px + (750px - 475px - 55px) / 2);
 }
 .reception-video-wrapper_2additionalAreas{
-  width: 300px !important;
+  width: 175px !important;
   top: calc(80px + (750px - 315px - 55px) / 2);
+  max-height: 555px;
 }
 
 .reception-mini-back-btn{

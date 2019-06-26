@@ -16,11 +16,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isChatArea: !state.isChatArea,
+                isFilesArea: false,
             }
         case actionTypes.TOGGLE_CHAT_FILES_AREA:
             return {
                 ...state,
                 isFilesArea: !state.isFilesArea,
+                isChatArea: false,
             }
         case actionTypes.RESET_CHAT_ACTIVE_AREAS:
             return initialState
