@@ -240,9 +240,9 @@ button {
   }
   /* 360px - chat's right area width */
   .reception-video-wrapper_1additionalArea{
-    width: 690px !important;
+    width: 650px !important;
   }
   .reception-video-wrapper_2additionalAreas{
-    width: 320px !important;
+    width: 250px !important;
   }
 }
