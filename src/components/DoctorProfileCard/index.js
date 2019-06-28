@@ -5,6 +5,7 @@ import ProfileAvatar from '../ProfileAvatar'
 import RatePanel from '../RatePanel'
 import Hoc from "../Hoc"
 import './styles.css'
+import translit from '../../helpers/translit'
 
 class DoctorProfileCard extends React.Component{
 
@@ -15,7 +16,9 @@ class DoctorProfileCard extends React.Component{
                     || (this.props.name !== nextProps.name)
                     || (this.props.isShort !== nextProps.isShort)
     }
+   
 
+    
     render(){
 
         const {short, name, specialty, isUser} = this.props;
@@ -49,7 +52,7 @@ class DoctorProfileCard extends React.Component{
                 onClick={() => this.props.history.push('/app/personal-info')}
             >
                 <ProfileAvatar owner="doctor" {...this.props} short={short} size={(short ? 'medium' : 'large')}/>
-                <div className={'doctorProfileCard-name'}>{name}</div>
+                <div className={'doctorProfileCard-name'}>{translit(name)}</div>
                 {
                     isUser ? null : (
                         <Hoc>

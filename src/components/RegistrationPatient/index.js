@@ -110,7 +110,13 @@ class RegistrationPatientForm extends React.Component {
                 return  <Translate>
                     {({translate}) =>
                         (
-                            <div style={{marginBottom: "20px"}}>{`${translate('auth.preAppFirst')} ${moment(timestamp*1000).format("DD MMM H:mm")} ${translate('auth.preAppSecond')}`}</div>
+                            <div style={{
+                                marginBottom: "20px",
+                                fontWeight: 700,
+                                color: "green"
+                            }}>
+                                {`${translate('auth.preAppFirst')} ${moment(timestamp*1000).format("DD MMM H:mm")} ${translate('auth.preAppSecond')}`}
+                            </div>
                         )
                     }
                 </Translate>
@@ -188,7 +194,7 @@ class RegistrationPatientForm extends React.Component {
                                                 message: translate("auth.errors.wrongPhoneFormat"),
                                             },
                                             {
-                                                pattern: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
+                                                pattern: /^[+]?[0-9()\- ]+$/,
                                                 message: translate("auth.errors.wrongPhoneFormat"),
                                             }
                                         ]

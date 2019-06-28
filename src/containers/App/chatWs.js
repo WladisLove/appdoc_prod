@@ -34,64 +34,90 @@ export const setVideoOut = (video) => {
 }
 
 export function createSocket(wsUrl,_props,_callbacks) {
+
     ws = new WebSocket(wsUrl);
     props = _props;
     callbacks = _callbacks;
+
+    function heartbeat() {
+        console.log('123, HEARTBEAT')
+
+        clearTimeout(this.pingTimeout);
+        // Use `WebSocket#terminate()`, which immediately destroys the connection,
+        // instead of `WebSocket#close()`, which waits for the close timer.
+        // Delay should be equal to the interval at which your server
+        // sends out pings plus a conservative assumption of the latency.
+        this.pingTimeout = setTimeout(() => {
+            this.terminate();
+        }, 6000);
+    }
+
+    ws.onopen = heartbeat;
+    ws.onclose = function clear() {
+        clearTimeout(this.pingTimeout);
+    };
     ws.onmessage = (message) => {
         let parsedMessage = JSON.parse(message.data);
-        switch (parsedMessage.id){
+        switch (parsedMessage.id) {
+            case 'ping':
+                heartbeat();
+                break;
             case 'registerResponse':
                 resgisterResponse(parsedMessage);
                 break;
             case 'startReception':
-            callbacks.get_history().location.pathname !== '/app/chat'
-                && callbacks.get_history().push('/app/chat');
+                callbacks.get_history().location.pathname !== '/app/chat' &&
+                    callbacks.get_history().push('/app/chat');
                 callbacks.setReceptionStatus(true);
 
                 const visitInfo = callbacks.get_visitInfo();
-                const {visitId} = visitInfo;
+                const {
+                    visitId
+                } = visitInfo;
                 !visitId && (
                     callbacks.onSelectReception(parsedMessage.receptionId),
                     callbacks.setChatToId(parsedMessage.by)
                 )
-				break;
-			case 'closeReception':
+                break;
+            case 'closeReception':
                 callbacks.setReceptionStatus(false);
                 callbacks.show_review_modal(parsedMessage.receptionId, parsedMessage.by);
                 break;
             case 'callResponse':
-				callResponse(parsedMessage);
+                callResponse(parsedMessage);
                 break;
             case 'incomingCall':
-				incomingCall(parsedMessage);
+                incomingCall(parsedMessage);
                 break;
             case 'startCommunication':
                 startCommunication(parsedMessage);
                 break;
             case 'stopCommunication':
-                callbacks.get_history().location.pathname !== '/app/chat'
-                && callbacks.get_history().push('/app/chat');
-				stop(true);
+                callbacks.get_history().location.pathname !== '/app/chat' &&
+                    callbacks.get_history().push('/app/chat');
+                stop(true);
                 break;
             case 'chat':
-                callbacks.setChatStory([...callbacks.get_chatStory(), {...parsedMessage}]);
+                callbacks.setChatStory([...callbacks.get_chatStory(), {
+                    ...parsedMessage
+                }]);
                 break;
             case 'chatHistory':
-				(parsedMessage.chat.length > 0) && (
+                (parsedMessage.chat.length > 0) && (
                     callbacks.setReceptionStatus(true),
                     callbacks.setChatStory(parsedMessage.chat)
                 );
                 break;
             case 'iceCandidate':
-				webRtcPeer.addIceCandidate(parsedMessage.candidate)
+                webRtcPeer.addIceCandidate(parsedMessage.candidate)
                 break;
             default:
-				console.error('Unrecognized message', parsedMessage);
+                console.error('Unrecognized message', parsedMessage);
         }
     }
 
     return ws;
-}
+    }
 export function closeSocket() {
     clearInterval(timerInterval);
     ws && ws.close();
@@ -379,6 +405,7 @@ export const call = () => {
 
     webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(
             error) {
+                
         if (error) {
             console.error(error);
             setCallState(NO_CALL);
