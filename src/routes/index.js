@@ -114,7 +114,7 @@ export const patientRoutes = [
 ];
 
 export const menuDoc =[
-    {name: 'app', title: 'menu.dashboard', iconType: 'dashboard', svg: true},
+    {name: 'app', title: 'menu.dashboard', iconType: 'iconHome', svg: true},
     {name: 'app/schedule', title: 'menu.doctor.schedule', iconType: 'calendar', svg: true},
     {name: 'app/treatment', title: 'menu.treatments', iconType: 'order-form', svg: true},
     {name: 'app/patients', title: 'menu.doctor.myPatients', iconType: 'user',},
@@ -124,7 +124,7 @@ export const menuDoc =[
 ];
 
 export const menuPatient =[
-     {name: 'app', title: 'menu.dashboard', iconType: 'dashboard', svg: true},
+     {name: 'app', title: 'menu.dashboard', iconType: 'iconHome', svg: true},
     {name: 'app/calendar', title: 'menu.patient.calendar', iconType: 'calendar', svg: true},
     {name: 'app/treatment', title: 'menu.treatments', iconType: 'order-form', svg: true},
      {name: 'app/doctors', title: 'menu.patient.myDoctors', iconType: 'user',},
