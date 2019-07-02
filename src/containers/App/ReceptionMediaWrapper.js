@@ -19,6 +19,8 @@ class App extends React.Component {
     }
 
     setVideoOutRef = (video) => {
+        console.log('VIDEOGO')
+        console.log(video);
         this.isSafari && (this.videoOut = video);
         setVideoOut(video);
     }
@@ -49,10 +51,12 @@ class App extends React.Component {
             <video className='chat-card-video__box'
                 poster={this.props.avatar}
                 playsInline
+                autoPlay
                 ref={this.setVideoOutRef}
             ></video>
             <video className='chat-card-video__mini'
                 playsInline
+                autoPlay
                 ref={this.setVideoInRef}
                 id='setVideoInRef'
             ></video>

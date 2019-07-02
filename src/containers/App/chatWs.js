@@ -321,6 +321,8 @@ const incomingCall = (message) => {
                     onicecandidate : onIceCandidate
                 };
 
+                
+
             webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
                     function(error) {
                         if (error) {
@@ -405,7 +407,7 @@ export const call = () => {
 
     webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(
             error) {
-                
+
         if (error) {
             console.error(error);
             setCallState(NO_CALL);
