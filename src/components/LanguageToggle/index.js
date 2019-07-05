@@ -17,7 +17,7 @@ const LanguageToggle = ({languages, setActiveLanguage, className="", changeLangS
 
     const setBackendLang = (lang) => {
         axios.get(`https://appdoc.by/~api/json/catalog.doc2/setLang/lang/${lang}`)
-        console.log(lang)
+        handleChange(lang)    
     }
 
     return (
@@ -26,7 +26,6 @@ const LanguageToggle = ({languages, setActiveLanguage, className="", changeLangS
             <FormItem>
                 <Select
                     placeholder={<Translate id="chooseLanguage" />}
-                    onChange={(code) => handleChange(code)}
                     defaultValue={activeLang}
                     onChange={setBackendLang}
                 >
