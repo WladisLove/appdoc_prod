@@ -23,7 +23,7 @@
 }
 .notification-card .ant-card-head {
   background-color: #fdc401;
-  position: sticky;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -44,5 +44,5 @@
 .notification-card .ps__rail-y:focus > .ps__thumb-y,
 .notification-card .ps__thumb-x,
 .notification-card .ps__thumb-y {
-  background-color: #fdc401 !important;
+  background-color: #fdc401!important;
 }

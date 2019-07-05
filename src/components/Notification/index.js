@@ -68,6 +68,8 @@ class NotificationItem extends React.Component{
         
         if(activeLanguage.code == "en" && status == 'new') {
             translateTitle = translate("form.notification."+status)
+        } else {
+            translateTitle = status;
         }
         
         let flag = this.state.watchInverse ? watch : !watch;
@@ -86,7 +88,7 @@ class NotificationItem extends React.Component{
                         </div>
                         <div className='notification-row'>
                             <div className='notification-title'>
-                                {translateTitle}
+                                {title}
                                 {(status != 'negative' && status != 'research' && time)
                                     ? `- ${moment((+time)*1000).format('HH:mm')}` : ''}
                                 </div>
