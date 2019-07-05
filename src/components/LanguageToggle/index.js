@@ -16,8 +16,10 @@ const LanguageToggle = ({languages, setActiveLanguage, className="", changeLangS
     const activeLang = localStorage.getItem("lang");
 
     const setBackendLang = (lang) => {
-        axios.get(`https://appdoc.by/~api/json/catalog.doc2/setLang/lang/${lang}`)
-        handleChange(lang)    
+        handleChange(lang);
+        axios.get(`https://appdoc.by/~api/json/catalog.doc2/setLang/lang/${lang}`).then(res=>{
+            window.location.reload(true)
+        });
     }
 
     return (
