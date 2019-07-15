@@ -141,7 +141,7 @@ class HistoryReceptions extends React.Component{
                                     <div className="flex-col"><div className="receptions-status extra">{translate('filter.emergencies')}</div></div>
                                 </div>
                                 <div className="tableheader menu-header">
-                                    <div className="flex-col"><div className="tableheader-name">{translate('reception.date')} /></div></div>
+                                    <div className="flex-col"><div className="tableheader-name">{translate('reception.date')}</div></div>
                                     <div className="flex-col"><div className="tableheader-name">{translate('conclusion.preliminary')}</div></div>
                                     <div className="flex-col"><div className="tableheader-name">{translate('reception.comment')}</div></div>
                                     <div className="flex-col"><div className="tableheader-name">{translate('cost')}</div></div>
