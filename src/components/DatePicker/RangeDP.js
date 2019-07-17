@@ -4,6 +4,7 @@ import cn from 'classnames'
 import {DatePicker as AntDatePicker} from 'antd'
 
 import './styles.css'
+import moment from 'moment';
 
 class RangeDP extends React.Component{
    constructor(props){
@@ -35,6 +36,8 @@ class RangeDP extends React.Component{
     };
 
     onChange = (field, value) => {
+        if(value < moment()) return
+        
 
         if (field === 'endValue' && value) {
             this.setState({

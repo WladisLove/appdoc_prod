@@ -30,7 +30,8 @@ class HistoryReceptionsTabs extends React.Component {
             rangeSet: [],
             dataForReview: {},
             showReviewModal: false,
-            refresh: false
+            refresh: false,
+            status: ''
         };
         this.timer = null;
     }
@@ -273,7 +274,7 @@ class HistoryReceptionsTabs extends React.Component {
             <div className='receptions-all'>
                 <Card title={<Translate id="treatment.history" />}>
                     <Tabs onChange={this.tabChangeHadler}
-                          defaultActiveKey='all'
+                    defaultActiveKey='all'
                           tabBarExtraContent={
                               <div className='extra-panel'>
                                   <DatePicker small

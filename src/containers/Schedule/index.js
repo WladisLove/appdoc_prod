@@ -188,7 +188,12 @@ class Schedule extends React.Component {
     };
 
     openReceptionSchedule = (date, schedule) => {
-
+        
+        if(Array.isArray(date) && date.length){
+            const selectTime = +date[0].getTime()
+            const curretTime = +moment().startOf('day').format('x')
+            if(selectTime < curretTime) return
+        }
 
         if (schedule) {
             this.setState({
