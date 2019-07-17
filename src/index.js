@@ -22,23 +22,17 @@ import Root from './containers/Root'
 import registerServiceWorker from './registerServiceWorker';
 
 const rootElement = document.getElementById('root');
-
+const activeLanguage = window.localStorage.getItem('lang')
 ReactDOM.render(
     <LocalizeProvider>
         <CookiesProvider>
-            <Translate>
-                {({ activeLanguage }) => {
-                    return (
-                        <LocaleProvider locale={(activeLanguage && activeLanguage.code == 'ru') ? ruRU : enUS}>
-                            <Provider store={store}>
-                                <ConnectedRouter history={history}>
-                                    <Root/>
-                                </ConnectedRouter>
-                            </Provider>
-                        </LocaleProvider>
-                    );
-                }}
-            </Translate>
+            <LocaleProvider locale={(activeLanguage && activeLanguage == 'en') ? enUS : ruRU}>
+                <Provider store={store}>
+                    <ConnectedRouter history={history}>
+                        <Root/>
+                    </ConnectedRouter>
+                </Provider>
+            </LocaleProvider>
         </CookiesProvider>
     </LocalizeProvider>,
     rootElement);
