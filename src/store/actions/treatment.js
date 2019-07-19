@@ -145,7 +145,7 @@ export const completeReception = (obj) => {
 export const closeTreatment = (id) => {
     return dispatch => {
         console.log('closeTreatment', id)
-        axios.get('/catalog.doc2/changeStatus/id/'+id+'/status/completed')
+        axios.get('/catalog.doc2/changeStatus/id/'+id+'/status/topical')
             .then(res => {
                 console.log(res.data)
             })
