@@ -6,6 +6,8 @@ import { setVideoIn, setVideoOut } from "./chatWs";
 import { Translate } from "react-localize-redux";
 import { Icon } from "antd";
 
+import * as actions from "../../store/actions";
+
 import "./styles.css";
 import "../../styles/fonts.css";
 import { detect } from "detect-browser";
@@ -14,9 +16,7 @@ const browser = detect();
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fullscreenMode: false
-    };
+
     this.isSafari = browser ? browser.name == "safari" : true;
   }
 
@@ -71,20 +71,15 @@ class App extends React.Component {
     !isChatRoute && history.push("/app/chat");
   };
 
-  toggleFullscreenMode = () => {
-    const { fullscreenMode } = this.state;
-
-    this.setState({ fullscreenMode: !fullscreenMode });
-  };
-
   render() {
     const {
       isChatArea,
       isFilesArea,
       isChatRoute = false,
-      isCalling
+      isCalling,
+      fullscreenMode,
+      exitFullscreenMode
     } = this.props;
-    const { fullscreenMode } = this.state;
     const className = !isChatRoute
       ? "reception-mini-video-wrapper"
       : isChatArea && isFilesArea
@@ -95,18 +90,19 @@ class App extends React.Component {
 
     return (
       <div
-        className={`${className} ${
-          this.state.fullscreenMode ? "fullscreen-mode" : null
-        }`}
+        className={`${className} ${fullscreenMode ? "fullscreen-mode" : null}`}
         style={{
           display: isChatRoute ? "block" : isCalling ? "block" : "none"
         }}
         onClick={this.onClickHandler}
       >
         {this.isSafari ? this.renderSafariVideos() : this.renderVideos()}
-        {isCalling && (
-          <div className="expand-icon" onClick={this.toggleFullscreenMode}>
-            <Icon type={fullscreenMode ? "fullscreen-exit" : "fullscreen"} />
+        {fullscreenMode && (
+          <div
+            className="fullcreen-exit-icon"
+            onClick={() => exitFullscreenMode()}
+          >
+            <Icon type="fullscreen-exit" />
           </div>
         )}
         {!isChatRoute && (
@@ -125,16 +121,18 @@ class App extends React.Component {
 
 const mapStateToProps = ({
   auth: { mode },
-  chatState: { isChatArea, isFilesArea },
+  chatState: { isChatArea, isFilesArea, fullscreenMode },
   chatWS: { isCalling },
   treatments: { visitInfo }
 }) => {
   const avatar = mode === "doc" ? visitInfo.avatar : visitInfo.avatar_doc;
-  return { isChatArea, isFilesArea, isCalling, avatar };
+  return { isChatArea, isFilesArea, isCalling, avatar, fullscreenMode };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    exitFullscreenMode: () => dispatch(actions.exitFullscreenMode())
+  };
 };
 
 export default connect(

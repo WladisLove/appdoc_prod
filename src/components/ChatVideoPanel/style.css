@@ -93,3 +93,9 @@
   margin-right: 0;
   font-weight: 300;
 }
+.expand-icon {
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
+  margin-left: 10px;
+}

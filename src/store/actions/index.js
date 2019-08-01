@@ -2,152 +2,148 @@ import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
 export {
-    getDocPatients,
-    getPatientDoctors,
-    getNotDocPatients,
-    clearNotDocPatients,
-    addPatient,
-    addDoctor,
-    removePatient,
-    removeDoctor,
-    getDateInterval,
-    getDateIntervalWithoutMakingApp,
-    setReception,
-    setReceptionByPatient,
-    selectPatient,
-    unselectPatient,
-    makeReview,
-    getNotPatientDoctors,
-    clearNotPatientDoctors,
-    getSelectedPatientInfo,
-    searchUsers,
-    addOrDeleteUserFromSearch,
-    sendMessage,
-    getUserBalance,
-    getPaymentForm,
-    payBalance,
-} from './patients';
+  getDocPatients,
+  getPatientDoctors,
+  getNotDocPatients,
+  clearNotDocPatients,
+  addPatient,
+  addDoctor,
+  removePatient,
+  removeDoctor,
+  getDateInterval,
+  getDateIntervalWithoutMakingApp,
+  setReception,
+  setReceptionByPatient,
+  selectPatient,
+  unselectPatient,
+  makeReview,
+  getNotPatientDoctors,
+  clearNotPatientDoctors,
+  getSelectedPatientInfo,
+  searchUsers,
+  addOrDeleteUserFromSearch,
+  sendMessage,
+  getUserBalance,
+  getPaymentForm,
+  payBalance
+} from "./patients";
 
 export {
-    getAllReviews,
-    getAllReviewsByPatient,
-    putCommentAnswer,
-
-} from './reviews';
-
-export {
-    selectEvent,
-    deleteEvent,
-    cancelEventsRange,
-
-    getAllIntervals,
-    clearIntervals,
-    clearVisits,
-    addInterval,
-    addVisit,
-    getAllVisits,
-    getAllPatientVisits,
-    getCountNearVisits,
-    getTodayVisits,
-    getFreeVisitsBySpec,
-} from './schedules';
-export {
-    getActualTreatments,
-    getCompletedTreatments,
-    getAllTreatments,
-    getPaginationTreatments,
-    getAppsBetweenDocAndUser,
-    getCompletedApps,
-    seletVisit,
-    selectTreatment,
-    clearSelections,
-    completeReception,
-    closeTreatment,
-    uploadChatFile,
-    uploadConclusion,
-    addFileToApp,
-    getAllFilesTreatment,
-    changeReceptionStatus,
-    getReceptionDuration,
-    clearCallback,
-    cancelAppByPatient
-} from './treatment'
-
+  getAllReviews,
+  getAllReviewsByPatient,
+  putCommentAnswer
+} from "./reviews";
 
 export {
-    login,
-    logout,
-    registerDoctor,
-    registerUser,
-    resetRegisterStatus,
-    setOnlineStatus,
-    checkEmailAvailability,
-    reportBug,
-    getSelectorToolTip
-} from './auth'
+  selectEvent,
+  deleteEvent,
+  cancelEventsRange,
+  getAllIntervals,
+  clearIntervals,
+  clearVisits,
+  addInterval,
+  addVisit,
+  getAllVisits,
+  getAllPatientVisits,
+  getCountNearVisits,
+  getTodayVisits,
+  getFreeVisitsBySpec
+} from "./schedules";
+export {
+  getActualTreatments,
+  getCompletedTreatments,
+  getAllTreatments,
+  getPaginationTreatments,
+  getAppsBetweenDocAndUser,
+  getCompletedApps,
+  seletVisit,
+  selectTreatment,
+  clearSelections,
+  completeReception,
+  closeTreatment,
+  uploadChatFile,
+  uploadConclusion,
+  addFileToApp,
+  getAllFilesTreatment,
+  changeReceptionStatus,
+  getReceptionDuration,
+  clearCallback,
+  cancelAppByPatient
+} from "./treatment";
 
 export {
-    getInfoPatient,
-    sendNewInfoPatient,
-    sendNewPasswordPatient,
-    deleteAvatar,
-    sendUserPoleValue,
-    getUserInfoShort,
-    hasNoReviewToFreeApp,
-    saveGeolocation,
-    setUserLocation,
-    addChronicDisease,
-    deleteChronicDisease,
-} from './patientData'
+  login,
+  logout,
+  registerDoctor,
+  registerUser,
+  resetRegisterStatus,
+  setOnlineStatus,
+  checkEmailAvailability,
+  reportBug,
+  getSelectorToolTip
+} from "./auth";
 
 export {
-    getDocTodayInfo,
-    getDocShortInfo,
-    setExIntervalInfo,
-    switchExInterval,
-    getEmergencyAvailability,
-} from './doctor'
+  getInfoPatient,
+  sendNewInfoPatient,
+  sendNewPasswordPatient,
+  deleteAvatar,
+  sendUserPoleValue,
+  getUserInfoShort,
+  hasNoReviewToFreeApp,
+  saveGeolocation,
+  setUserLocation,
+  addChronicDisease,
+  deleteChronicDisease
+} from "./patientData";
 
 export {
-    sendNewInfoDoctor,
-    getInfoDoctor,
-    getNotifications,
-    readNotification,
-    getAllDocIntervals,
-    getDateWorkIntervalWithoutMakingAppAll,
-    uploadFile,
-    getDoctorSpecialities,
-    getAvailLangs,
-    getAvailProfs,
-} from './doctorData'
+  getDocTodayInfo,
+  getDocShortInfo,
+  setExIntervalInfo,
+  switchExInterval,
+  getEmergencyAvailability
+} from "./doctor";
 
 export {
-    loadingStart,
-    loadingEnd,
-    docEmergancyCallReceived,
-    docEmergancyCallSend,
-    docEmergancyCallReceivedMark,
-    makeArchiveOfFiles,
-} from './loading'
+  sendNewInfoDoctor,
+  getInfoDoctor,
+  getNotifications,
+  readNotification,
+  getAllDocIntervals,
+  getDateWorkIntervalWithoutMakingAppAll,
+  uploadFile,
+  getDoctorSpecialities,
+  getAvailLangs,
+  getAvailProfs
+} from "./doctorData";
 
 export {
-    setReceptionStatus,
-    setChatFromId,
-    setChatToId,
-    setIsCallingStatus,
-    setChatStory,
-    setNewTimer,
-    getPatientLocation
-
-} from './chatWS'
+  loadingStart,
+  loadingEnd,
+  docEmergancyCallReceived,
+  docEmergancyCallSend,
+  docEmergancyCallReceivedMark,
+  makeArchiveOfFiles
+} from "./loading";
 
 export {
-    getDoctorsCoordinates
-} from './geolocation'
+  setReceptionStatus,
+  setChatFromId,
+  setChatToId,
+  setIsCallingStatus,
+  setChatStory,
+  setNewTimer,
+  getPatientLocation
+} from "./chatWS";
+
+export { getDoctorsCoordinates } from "./geolocation";
 
 export {
-    setChatAreaActive,
-    toggleChatArea,
-    toggleFilesArea,
-    resetChatActiveAreas,
-} from './chatContentState'
+  setChatAreaActive,
+  toggleChatArea,
+  toggleFilesArea,
+  resetChatActiveAreas,
+  setFullscreenMode,
+  exitFullscreenMode
+} from "./chatContentState";
