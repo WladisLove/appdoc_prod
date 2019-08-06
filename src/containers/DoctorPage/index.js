@@ -29,8 +29,12 @@ class PatientsPage extends React.Component{
     componentWillMount(){
         const info = this.props.onGetInfoDoctor(this.props.match.params.id);
         const schedule = this.props.onGetDocSchedule(this.props.match.params.id);
+
         Promise.all([info, schedule])
-            .then(()=> {this.setState({loading:false})})
+            .then(()=> {
+                this.setState({loading:false})
+            })
+            
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,7 +48,8 @@ class PatientsPage extends React.Component{
     }
 
     componentDidMount() {
-        this.props.onGetAvailLangs(localStorage.getItem('lang'));
+        const lang = localStorage.getItem('lang')
+        lang && this.props.onGetAvailLangs(lang);
     }
 
     getDoctorSpecialityStr = () => {

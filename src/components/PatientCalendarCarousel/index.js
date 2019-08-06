@@ -64,9 +64,15 @@ class PatientCalendarCarousel extends React.Component {
             return
         }
 
-
         let headers = [];
         let timeIntervals = [];
+
+        const setDefaultInterval = function(interval){
+            
+            if(interval ) return interval
+            
+            return 25 //  в некоторых равно 0 поэтому ставим 25 по умолчанию
+        }
 
         if (this.props.isOnFreeAppointments) {
             for (let i = 0; i < intervals.length; i++) {
@@ -92,6 +98,8 @@ class PatientCalendarCarousel extends React.Component {
                 let time = [];
                 if (intervals[i].intervalOb.length) {
                     for (let j = 0; j < intervals[i].intervalOb.length; j++) {
+                        intervals[i].interval = setDefaultInterval(+intervals[i].interval)
+
                         for (let t = +intervals[i].intervalOb[j].start; t < +intervals[i].intervalOb[j].end; t += intervals[i].interval * 60) {
                             if(+t >= +moment().format("X")+1800) {
                                 time.push({
