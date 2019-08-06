@@ -6,6 +6,7 @@ import SideNav from '../../components/SideNav'
 import Header from "../../components/Header";
 import { Modal } from 'antd';
 import Adapter from 'webrtc-adapter'
+import { message } from 'antd';
 import { Translate } from 'react-localize-redux'
 import { connect } from 'react-redux';
 import { createSocket, closeSocket, register } from './chatWs'
@@ -20,6 +21,7 @@ import Icon from "../../components/Icon";
 import ReviewsModal from "../../components/ReviewsModal";
 import ReceptionMediaWrapper from "./ReceptionMediaWrapper";
 import { detect } from 'detect-browser';
+import WarningModal from '../../components/WarningModal';
 const browser = detect();
 
 const renderRoutes = ({ path, component, exact }) => (
@@ -33,7 +35,8 @@ class App extends React.Component {
         this.state = {
             collapsed: true,
             notifications: [],
-            mustLeaveReview: false
+            mustLeaveReview: false,
+            isWarningModal: false
         };
         this.isSafari = browser ? browser.name == 'safari' : true;
     }
@@ -99,9 +102,11 @@ class App extends React.Component {
                 get_visitInfo: () => this.props.visitInfo,
                 get_timer: () => this.props.timer,
                 get_history: () => this.props.history,
+                show_error: () => this.setState({isWarningModal: true}),
                 show_review_modal: (id_zap, id_doc) => { this.setState({ showReviewModal: true, infoForReview: { id_zap, id_doc } }) }
             }
         );
+
         register('' + this.props.id, ''/*+this.props.user_id*/, this.props.auth.mode);
     }
 
@@ -187,6 +192,7 @@ class App extends React.Component {
         }
         return (
             <div className="main">
+            
                 {
                     this.props.id ?
 
@@ -300,6 +306,16 @@ class App extends React.Component {
                                 onCancel={() => this.setState({ showReviewModal: false })}
                                 refresh={() => { }}
                             />
+                            <Translate>
+                            {({ translate }) =>
+                            
+                                <WarningModal 
+                                    onClick={() => this.setState({isWarningModal: false})}
+                                    visible={this.state.isWarningModal} 
+                                    message={translate('notifications.userNotRegister')}
+                                />
+                            }
+                            </Translate>
                         </Hoc>)
                         : (
                             <Redirect to='/app/login' />

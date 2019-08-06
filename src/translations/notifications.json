@@ -84,6 +84,7 @@
             "Conclusion successfully added",
             "Заключение успешно добавлено"
         ],
-        "waitConclusion": ["Wait conclusion", "Ожидайте заключения"]
+        "waitConclusion": ["Wait conclusion", "Ожидайте заключения"],
+        "userNotRegister": ["User is not register", "Пользователь не зарегистрирован"]
     }
 }

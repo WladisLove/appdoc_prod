@@ -40,16 +40,12 @@ export function createSocket(wsUrl,_props,_callbacks) {
     callbacks = _callbacks;
 
     function heartbeat() {
-        console.log('123, HEARTBEAT')
+        console.log('HEARTBEAT')
 
         clearTimeout(this.pingTimeout);
-        // Use `WebSocket#terminate()`, which immediately destroys the connection,
-        // instead of `WebSocket#close()`, which waits for the close timer.
-        // Delay should be equal to the interval at which your server
-        // sends out pings plus a conservative assumption of the latency.
         this.pingTimeout = setTimeout(() => {
             this.terminate();
-        }, 6000);
+        }, 20000);
     }
 
     ws.onopen = heartbeat;
@@ -221,7 +217,11 @@ const callResponse = (message) => {
                 : 'Unknown reason for call rejection.';
         console.log(errorMessage);
         stop(true);
-    } else {
+    } 
+    if (message.code == 409){
+        callbacks.show_error()
+    }
+    else {
         setCallState(IN_CALL);
         webRtcPeer.processAnswer(message.sdpAnswer);
     }
