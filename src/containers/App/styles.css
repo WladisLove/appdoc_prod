@@ -197,6 +197,7 @@ button {
   top: calc(80px);
   width: 950px;
   max-height: 550px;
+  height: 75%;
 }
 
 .reception-mini-video-wrapper {

@@ -39,6 +39,7 @@ class App extends React.Component {
             isWarningModal: false
         };
         this.isSafari = browser ? browser.name == 'safari' : true;
+        window.addEventListener('beforeunload', () => this.props.setOnlineStatus(this.props.id, false))
     }
 
     toggle = () => {
