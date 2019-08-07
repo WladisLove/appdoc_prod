@@ -103,6 +103,7 @@ class App extends React.Component {
                 get_timer: () => this.props.timer,
                 get_history: () => this.props.history,
                 show_error: () => this.setState({isWarningModal: true}),
+                show_error_from_server: () => this.setState({isServerWarningModal: true}),
                 show_review_modal: (id_zap, id_doc) => { this.setState({ showReviewModal: true, infoForReview: { id_zap, id_doc } }) }
             }
         );
@@ -112,7 +113,6 @@ class App extends React.Component {
 
     componentDidMount() {
         const { mode } = this.props.auth;
-
         if (this.props.id) {
             this.runNotificationsWS();
             this.runChatWS();
@@ -308,12 +308,19 @@ class App extends React.Component {
                             />
                             <Translate>
                             {({ translate }) =>
-                            
-                                <WarningModal 
-                                    onClick={() => this.setState({isWarningModal: false})}
-                                    visible={this.state.isWarningModal} 
-                                    message={translate('notifications.userNotRegister')}
-                                />
+                                <React.Fragment>
+                                    <WarningModal 
+                                        onClick={() => this.setState({isWarningModal: false})}
+                                        visible={this.state.isWarningModal} 
+                                        message={translate('notifications.userNotRegister')}
+                                    />
+
+                                    <WarningModal 
+                                        onClick={() => this.setState({isServerWarningModal: false})}
+                                        visible={this.state.isServerWarningModal} 
+                                        message={translate('notifications.serverNotEnable')}
+                                    />
+                                </React.Fragment>       
                             }
                             </Translate>
                         </Hoc>)

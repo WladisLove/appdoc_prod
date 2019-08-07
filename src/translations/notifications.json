@@ -85,6 +85,7 @@
             "Заключение успешно добавлено"
         ],
         "waitConclusion": ["Wait conclusion", "Ожидайте заключения"],
-        "userNotRegister": ["User is not register", "Пользователь не зарегистрирован"]
+        "userNotRegister": ["User is not register", "Пользователь не зарегистрирован"],
+        "serverNotEnable": ["You are disconnected from the video server. Log out and log in again", "Вы отключены от видеосервера. Выйдите и зайдите в систему снова"]
     }
 }

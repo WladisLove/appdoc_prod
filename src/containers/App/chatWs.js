@@ -21,6 +21,8 @@ const IN_CALL = 2;
 var callState = null;
 
 let timerInterval;
+let timerPing;
+let dateNow;
 
 export const sendMessage = (message) => {
     ws.send(JSON.stringify(message));
@@ -39,24 +41,13 @@ export function createSocket(wsUrl,_props,_callbacks) {
     props = _props;
     callbacks = _callbacks;
 
-    function heartbeat() {
-        console.log('HEARTBEAT')
+    openSocketConnection(ws);
 
-        clearTimeout(this.pingTimeout);
-        this.pingTimeout = setTimeout(() => {
-            this.terminate();
-        }, 20000);
-    }
-
-    ws.onopen = heartbeat;
-    ws.onclose = function clear() {
-        clearTimeout(this.pingTimeout);
-    };
     ws.onmessage = (message) => {
         let parsedMessage = JSON.parse(message.data);
         switch (parsedMessage.id) {
-            case 'ping':
-                heartbeat();
+            case 'ping':    
+                heartbeat();   
                 break;
             case 'registerResponse':
                 resgisterResponse(parsedMessage);
@@ -116,7 +107,37 @@ export function createSocket(wsUrl,_props,_callbacks) {
     }
 export function closeSocket() {
     clearInterval(timerInterval);
+    clearInterval(timerPing);
     ws && ws.close();
+}
+
+
+function openSocketConnection(ws){
+
+    function startCycle(){
+        timerPing = setInterval(() => {
+            dateNow = Date.now()
+            sendMessage({id: 'ping'})
+        }, 5000)
+    }
+    setTimeout(
+        function () {
+            if (ws.readyState !== 1) {
+                openSocketConnection(ws);
+            }
+            else {
+                startCycle();
+            }
+        }, 5);
+}
+
+function heartbeat() {  
+    if(Date.now() - dateNow > 5000){
+        //server wrong
+        clearInterval(timerPing);
+        callbacks.show_error_from_server()
+    }
+    //"server good"); 
 }
 
 const resgisterResponse = (message) => {
@@ -263,7 +284,7 @@ const incomingCall = (message) => {
             }})
 
     } else {
-        let call = new Audio("/project/templates/_ares/static/media/incoming_call.mp3");
+        let call = new Audio("/project/templates/default/_ares/static/media/incoming_call.mp3");
         call.play().then(
             Modal.confirm({
                 title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124
