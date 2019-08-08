@@ -62,6 +62,26 @@
   min-width: 5.3125rem;
   padding: 0.625rem 0.85rem;
 }
+@media (max-width: 1320px) {
+  .btn-size-verysmall {
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    font-size: 0.58rem;
+    font-family: GothamPro-Medium;
+    min-width: 4.3125rem;
+    padding: 0.425rem 0.85rem;
+  }
+}
+@media (min-width: 1320px) {
+  .btn-size-verysmall {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 0.67rem;
+    font-family: GothamPro-Medium;
+    min-width: 4.3125rem;
+    padding: 0.425rem 0.85rem;
+  }
+}
 .btn-size-default {
   text-transform: uppercase;
   padding: 13.5px 1.25rem;
