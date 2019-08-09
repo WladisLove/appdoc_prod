@@ -255,7 +255,7 @@ class App extends React.Component {
                                         emergencyAvailable={this.props.emergencyAvailable}
                                         docSpecialities={this.props.docSpecialities}
                                         userBalance={this.props.userBalance}
-
+                                        isShort={!this.state.collapsed}
                                     />
                                 </div>
                                 <div className="main-content">

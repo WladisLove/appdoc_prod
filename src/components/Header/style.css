@@ -20,6 +20,12 @@
   min-width: 150px;
   z-index: 12;
 }
+@media (max-width: 1280px) {
+  .header-search-short {
+    max-width: 140px;
+    min-width: 115px;
+  }
+}
 .header-search .ant-input-search {
   display: flex;
   flex-direction: row;
@@ -88,9 +94,37 @@
   align-items: center;
   justify-content: center;
 }
+.header-lang-select-short {
+  min-width: 160px;
+  display: flex;
+  margin-left: 14px;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 1320px) {
+  .header-lang-select-short {
+    min-width: 120px;
+  }
+}
+.header-lang-select-short .ant-form-item {
+  width: 100%;
+  margin-bottom: 0;
+}
+@media (max-width: 1320px) {
+  .header-lang-select-short .ant-form-item {
+    min-width: 120px;
+    max-width: 120px;
+  }
+}
 .header-lang-select .ant-form-item {
   width: 100%;
   margin-bottom: 0;
+}
+@media (max-width: 1320px) {
+  .header-lang-select .ant-form-item {
+    min-width: 120px;
+    max-width: 120px;
+  }
 }
 .wrapper-paymet-score {
   color: #0495ff;

@@ -34,12 +34,12 @@ class Header extends React.Component {
     };
 
 render() {
-    const {notifications, isUser, userBalance} = this.props;
+    const {notifications, isUser, userBalance, isShort} = this.props;
         return (
              <Translate>
                 {({ translate }) =>
                     (<div className={'header'}>
-                        <div className='header-search'>
+                        <div className={"header-search" + " " + (isShort ? 'header-search-short':'')}>
                             <AutoComplete
                                 onAdd = {this.props.onAdd}
                                 onDelete = {this.props.onDelete}
@@ -54,13 +54,13 @@ render() {
                                 <Hoc>
                                     <div className='wrapper-paymet-score'>{translate('button.title.theBalance').toUpperCase()}: {userBalance ? userBalance : '0.00'}</div>
                                     <Button btnText={translate('emergencyCall')}
-                                        size='small'
+                                        size={isShort?"verysmall":"small"}
                                         type='emergensy'
                                         icon='emergency-call'
                                         onClick = {() => this.setState({emergencyVisit: true})}/>
                                     <Button btnText={translate('button.title.makeAnReception')}
                                         onClick={this.handleClick}
-                                        size='small'
+                                        size={isShort?"verysmall":"small"}
                                         type='float'
                                         icon='form'/>
                                     <NewVisitTypeModal
@@ -100,7 +100,7 @@ render() {
                             }
                         </div>
                         <LanguageToggle  
-                                className='header-lang-select'
+                                className={'header-lang-select' + (isShort ? '-short':'')}
                                 changeLangSelector={this.props.changeLangSelector}
                             />
                         <div className='header-notification'>

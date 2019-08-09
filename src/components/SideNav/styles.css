@@ -150,9 +150,15 @@
 }
 .sidenav-root-menu-item > .anticon {
   margin: auto 20px auto 0;
+  display: flex;
+  justify-content: center;
+  min-width: 35px;
 }
 .sidenav-root-menu-item > .icon {
   margin: auto 20px auto 0;
+  display: flex;
+  justify-content: center;
+  min-width: 35px;
 }
 .sidenav-root-menu-short .selectedNavLink {
   display: flex !important;
