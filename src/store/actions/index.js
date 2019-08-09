@@ -134,6 +134,7 @@ export {
   setIsCallingStatus,
   setChatStory,
   setNewTimer,
+  setUserStatus,
   getPatientLocation
 } from "./chatWS";
 

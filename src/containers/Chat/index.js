@@ -8,7 +8,20 @@ import Hoc from '../../hoc'
 import ChatCard from './ChatCard'
 
 import * as actions from '../../store/actions'
+
 import './styles.css';
+
+function setCardVideoSize(){
+    let videos = document.getElementsByClassName('reception-video-wrapper');
+    let areas = document.getElementsByClassName('chat-card-video__area');
+    if(areas.length){
+        if(videos.length){
+            videos[0].style.width = areas[0].offsetWidth+'px'
+            videos[0].style.height = areas[0].offsetHeight+'px'
+        }
+    }
+}
+
 
 class Chat extends React.Component {
     state = {
@@ -17,7 +30,11 @@ class Chat extends React.Component {
 
     componentDidMount() {
         this.props.onGetTodayVisits();
-        console.log('chat version 1.0');
+        
+        setCardVideoSize()
+        window.addEventListener("resize", function() {
+            setCardVideoSize()
+        }, false);
     }
     componentWillMount() {
         //this.props.getTodayReceptions();
@@ -43,6 +60,7 @@ class Chat extends React.Component {
         const chatProps = {
             wsURL: 'wss://appdoc.by:8443/one2one',
             // wsURL: 'wss://localhost:8443/one2one',
+            id: +id_user,
             callback: this.props.callback,
             clearCallback: this.props.clearCallback,
             timer: this.props.timer,
@@ -53,7 +71,7 @@ class Chat extends React.Component {
             callerID: this.props.id,
             calledID: isUser ? id_doc : id_user,
             user_mode: this.props.user_mode,
-            user_id: +id_user,
+            user_id: +id_user,      
             patientName: isUser ? name_doc : name,
             id_treatment,
             online: +status,
@@ -85,6 +103,7 @@ class Chat extends React.Component {
                                 onSelectReception={this.props.onSelectReception}
                                 completeReception={this.props.completeReception}
                                 closeTreatm={this.props.closeTreatment}
+                                status={this.props.status}
                                 fromTR_VIS={2}
                                 isUser={true}
                             />
@@ -97,7 +116,8 @@ class Chat extends React.Component {
                                     completeReception={this.props.completeReception}
                                     closeTreatm={this.props.closeTreatment}
                                     uploadConclusion={this.props.uploadConclusion}
-                                    fromTR_VIS={this.props.fromTR_VIS} />
+                                    fromTR_VIS={this.props.fromTR_VIS}
+                                    status={this.props.status} />
                             )
                     }
                 </div>
@@ -137,6 +157,7 @@ const mapStateToProps = state => {
         receptionStarts: state.chatWS.receptionStarts,
         isCalling: state.chatWS.isCalling,
         timer: state.chatWS.timer,
+        status: state.chatWS.status,
         patientLocation: state.chatWS.patientLocation,
         isFilesAreaActive: state.chatState.isFilesArea,
     }

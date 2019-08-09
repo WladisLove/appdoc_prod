@@ -11,7 +11,7 @@ import CancelVisitModal from "../../components/CancelVisitModal";
 import Hoc from '../../hoc'
 import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
 
-const DoctorPage = props => {
+const DoctorPage = 	props => {
 
     const gotoHandler = (id) => {
 		props.onSelectPatient(id);
@@ -35,6 +35,7 @@ const DoctorPage = props => {
 										}}
 										onCancel={props.showCancel}
 										onAdd = {props.onAdd}
+										getStatusUser={props.getStatusUser}
 							/>
 						</Col>
 						<Col xs={12} xxl={10} className='section'>

@@ -34,7 +34,7 @@ class PatientProfileDoctorItem extends React.Component{
     }
 
     render(){
-        const { doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorPrice, doctorLanguages, doctorChild } = this.props;
+        const { id, doctorRate, doctorReviews, doctorFavorite, doctorName, doctorSpeciality, doctorCategory, doctorPrice, doctorLanguages, doctorChild } = this.props;
         const rootClass = cn('profile__doctor-item');
 
         return (
@@ -59,6 +59,7 @@ class PatientProfileDoctorItem extends React.Component{
                     <div className='profile__doctor-item-block'>
                         <div className='profile__doctor-item-avatar'>
                             <ProfileAvatar
+                                id={id}
                               img={this.props.doctorAvatar}
                               owner='doctor'
                               size="large"

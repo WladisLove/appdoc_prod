@@ -112,7 +112,7 @@ class PatientAccardionContactItemForm extends React.Component{
 
     render(){
         const { getFieldDecorator } = this.props.form;
-        const { contactFio, contactPhone, contactEmail, contactAddress, contactAvatar} = this.props;
+        const { id, contactFio, contactPhone, contactEmail, contactAddress, contactAvatar} = this.props;
         const rootClass = cn('patient-contacts');
 
         return (
@@ -124,6 +124,7 @@ class PatientAccardionContactItemForm extends React.Component{
                             <div className='patient-contacts-block'>
                                 <div className='patient-contacts-avatar'>
                                     <ProfileAvatar
+                                        id={id}
                                         img={this.state.avatar.thumbUrl ? this.state.avatar.thumbUrl : contactAvatar}
                                         owner='patient'
                                         size="large"

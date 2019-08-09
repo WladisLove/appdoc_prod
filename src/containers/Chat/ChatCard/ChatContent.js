@@ -76,6 +76,7 @@ class ChatContent extends React.Component {
                                     {...messProps}
                                     //isMy={e.from === this.props.from}
                                     key={i}
+                                    isRedefinitionOnlineStatus
                                 />)
                             })
                         }

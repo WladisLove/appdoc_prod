@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import hocUserStatus from './../HocUserStatus';
 import './styles.css'
+
 
 class ProfileAvatar extends React.Component{
 
@@ -38,4 +40,4 @@ ProfileAvatar.defaultProps = {
     size: 'medium'
 };
 
-export default ProfileAvatar;
+export default hocUserStatus(ProfileAvatar);

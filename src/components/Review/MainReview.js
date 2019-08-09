@@ -66,6 +66,7 @@ class MainReview extends React.Component{
                         <ProfileAvatar owner="patient"
                                         img={avatar}
                                         online={isOnline}
+                                        id={id_user}
                                         size='small'/>
                         <div className="patient-info">
                             <div className="flex-row">

@@ -51,7 +51,7 @@ class ChatDialog extends React.Component{
                     this.props.onGotoChat(id);
                 }}>
                 <div className="flex-col" > 
-                    <ProfileAvatar owner="patient" online={isOnline} img={avatar} size={size}/>
+                    <ProfileAvatar id={id_user} owner="patient" online={isOnline} img={avatar} size={size}/>
                 </div>
                 <div className="flex-col">
                     <div className="dialog-item-name">

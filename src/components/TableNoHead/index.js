@@ -20,6 +20,7 @@ class TableNoHead extends React.Component{
                                     onBegin={this.props.onBegin}
                                     onCancel={this.props.onCancel}
                                     onGoto={this.props.onGoto}
+                                    getStatusUser={this.props.getStatusUser}
             />)
         });
     };

@@ -6,6 +6,7 @@ const initialState = {
     receptionStarts: false,
     isCalling: false,
     chatStory: [],
+    status: false,
     timer: {
         s: 0,
         m: 0,
@@ -45,6 +46,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 timer: action.timer,
             }
+        case actionTypes.SET_USER_STATUS:
+                return {
+                    ...state,
+                    status: action.status,
+            }      
         case actionTypes.GET_PATIENT_LOCATION:
             return {
                 ...state,

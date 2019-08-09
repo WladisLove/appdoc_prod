@@ -17,7 +17,7 @@ class PatientTableItem extends React.Component{
             <Translate>
                 {({ translate }) =>
                     (<div className='patient-item'>
-                        <div className="flex-col"><ProfileAvatar owner="patient" online={isOnline} img={avatar} size={size}/></div>
+                        <div className="flex-col"><ProfileAvatar id={id} owner="patient" online={isOnline} img={avatar} size={size}/></div>
                         <div className="flex-col">
                             <div className="patient-item-name">
                                 <div onClick={() => onGoto(id)} className='go-to'>{name}</div>

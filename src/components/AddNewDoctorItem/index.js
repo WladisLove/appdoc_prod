@@ -18,13 +18,13 @@ class AddNewDoctorItem extends React.Component{
     };
 
     render(){
-        const { name, age, avatar, online, isSearchItem} = this.props;
+        const { id, name, age, avatar, online, isSearchItem} = this.props;
         const rootClass = cn('new-doctor-item');
 
         return (
             <div className='new-doctor-item' onClick={() => this.props.onGoto(this.props.id)}>
                 <div className='new-doctor-avatar'>
-                    <ProfileAvatar owner="doctor" online={online} img={avatar} size='small'/>
+                    <ProfileAvatar id={id} owner="doctor" online={online} img={avatar} size='small'/>
                 </div>
                 <div className='new-doctor-info'>
                     <div className='new-doctor-name'>{name}</div>

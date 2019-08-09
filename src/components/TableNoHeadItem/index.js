@@ -50,7 +50,7 @@ class TableNoHeadItem extends React.Component{
             <Translate>
                 {({ translate }) =>
                     (<div className='schedule'>
-                        <ProfileAvatar owner="patient" online={isOnline} img={photo} size={'small'}/>
+                        <ProfileAvatar id={id_user} owner="patient" online={isOnline} img={photo} size={'small'}/>
                         <div className="flex-col">
                             <div className="patient-name">
                                 <div onClick={() => onGoto(id_user)} className='go-to'>{fio}</div>

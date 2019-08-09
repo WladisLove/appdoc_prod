@@ -12,10 +12,11 @@ import '../../icon/style.css'
 
 const ChatMessage = props => {
     const {
-        text, size, date, online, img, isMy, isDate, isVisEnd, type, callTime, name, isConclusion: isConcl
+        from, text, size, date, online, img, isMy, isDate, isVisEnd, type, callTime, name,isRedefinitionOnlineStatus,  isConclusion: isConcl
     } = props;
     const rootClass = isMy ? 'message__out' : 'message__in';
 
+    console.log('from', from)
     const callInfoMessage = (text1, name, text2, iconType, isRed = false) => {
         return (
             <div className={`${rootClass}-item`}>
@@ -68,10 +69,14 @@ const ChatMessage = props => {
             default:
                 content = (
                     <div className={`${rootClass}-item`}>
-                                {!isMy && <ProfileAvatar owner="patient"
+                                {!isMy && <ProfileAvatar 
+                                                        id={from}
+                                                        owner="patient"
                                                         online={online}
                                                         img={img}
-                                                        size={size}/>}
+                                                        size={size}
+                                                        isRedefinitionOnlineStatus={isRedefinitionOnlineStatus}/>
+                                                    }
                                 <div className={`${rootClass}-area`}>
                                     {
                                         date && <div className={`${rootClass}-time`}>

@@ -44,6 +44,15 @@ export const setNewTimer = (timer) => {
     });
 }
 
+export const setUserStatus = (status) => {
+    return ({
+        type: actionTypes.SET_USER_STATUS,
+        status,
+    });
+}
+
+
+
 export const getPatientLocation = (id) => {
     return (dispatch) => {
         const userID = {

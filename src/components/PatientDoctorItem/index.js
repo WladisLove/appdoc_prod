@@ -22,6 +22,7 @@ class PatientDoctorItem extends React.Component{
             <div className={rootClass}>
                 <div className='doctor-item-avatar'>
                     <ProfileAvatar
+                        id={id}
                         img={doctorAvatar}
                         owner='doctor'
                         size="small"

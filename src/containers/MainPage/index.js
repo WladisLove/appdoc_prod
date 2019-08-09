@@ -9,6 +9,7 @@ import moment from 'moment'
 
 import './styles.css'
 import HistoryReceptionsTabs from "../../components/HistoryReceptionsTabs";
+import { sendMessage } from './../App/chatWs';
 
 class MainPage extends React.Component{
 	constructor(props) {
@@ -22,6 +23,12 @@ class MainPage extends React.Component{
 
 	}
 
+
+	
+	getStatusUser = (callerID) => {
+		//sendMessage({id: "isonline", idUser: callerID})
+	}
+	
 	componentDidMount(){
 		this.props.onGetDoctorSpecialities(localStorage.getItem('lang'));
         this.props.onGetAvailLangs(localStorage.getItem('lang'));
@@ -114,7 +121,8 @@ class MainPage extends React.Component{
 				getCompletedApps = {(pagination)=>this.props.onGetActualTreatments({status: "topical", ...pagination})}
                 treatmentsCount={this.props.treatmentsCount}
                 addConclusion = {this.props.addConclusion}
-                makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
+				makeArchiveOfFiles = {this.props.makeArchiveOfFiles}
+				getStatusUser = {this.getStatusUser}
 				{...this.props}/>
 		)
     }

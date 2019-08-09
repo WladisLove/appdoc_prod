@@ -117,7 +117,7 @@ class PersonalContactItemForm extends React.Component{
 
     render(){
         const { getFieldDecorator } = this.props.form;
-        const { fio, phone, email, oldPassword, newPassword, avatar} = this.props.profileDoctor;
+        const { id, fio, phone, email, oldPassword, newPassword, avatar} = this.props.profileDoctor;
         const rootClass = cn('personal-contact');
 
         return (
@@ -129,6 +129,7 @@ class PersonalContactItemForm extends React.Component{
                             <div className='patient-contacts-block'>
                                 <div className='patient-contacts-avatar'>
                                     <ProfileAvatar
+                                        id={id}
                                         img={this.state.avatar.thumbUrl ? this.state.avatar.thumbUrl : avatar}
                                         owner='patient'
                                         size="large"

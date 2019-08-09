@@ -76,6 +76,7 @@ const PatientPageDoctorItem = props => {
                 <div className='page__doctor-item-block'>
                     <div className='page__doctor-item-avatar'>
                         <ProfileAvatar
+                            id={id}
                           img={doctorAvatar}
                           owner='doctor'
                           size="large"

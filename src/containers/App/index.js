@@ -40,6 +40,7 @@ class App extends React.Component {
         };
         this.isSafari = browser ? browser.name == 'safari' : true;
         window.addEventListener('beforeunload', () => this.props.setOnlineStatus(this.props.id, false))
+        
     }
 
     toggle = () => {
@@ -103,6 +104,7 @@ class App extends React.Component {
                 get_visitInfo: () => this.props.visitInfo,
                 get_timer: () => this.props.timer,
                 get_history: () => this.props.history,
+                set_user_status: (status) => this.props.onSetUserStatus(status),
                 show_error: () => this.setState({isWarningModal: true}),
                 show_error_from_server: () => this.setState({isServerWarningModal: true}),
                 show_review_modal: (id_zap, id_doc) => { this.setState({ showReviewModal: true, infoForReview: { id_zap, id_doc } }) }
@@ -399,6 +401,8 @@ const mapDispatchToProps = dispatch => {
         hasNoReviewToFreeApp: () => dispatch(actions.hasNoReviewToFreeApp()),
         makeReview: (obj) => dispatch(actions.makeReview(obj)),
         setUserLocation: (id, lat, lng) => dispatch(actions.setUserLocation(id, lat, lng)),
+        onSetUserStatus: (status) => dispatch(actions.setUserStatus(status)),
+    
     }
 };
 

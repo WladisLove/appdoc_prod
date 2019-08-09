@@ -47,6 +47,7 @@ class ProfilePatient extends React.Component{
                                     smoothScrolling={true}
                             >
                                 <ProfileAvatar
+                                    id={id}
                                   img={img}
                                   owner='patient'
                                   size="large"

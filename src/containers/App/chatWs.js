@@ -22,6 +22,7 @@ var callState = null;
 
 let timerInterval;
 let timerPing;
+let callbackUserStatus = {};
 let dateNow;
 
 export const sendMessage = (message) => {
@@ -34,6 +35,12 @@ export const setVideoIn = (video) => {
 export const setVideoOut = (video) => {
     videoOutput = video;
 }
+export const getReadyState = () => { 
+    if(ws){
+        return 'CONNECTING'
+    }
+    return 'NOCONNECTING'
+}
 
 export function createSocket(wsUrl,_props,_callbacks) {
 
@@ -44,10 +51,17 @@ export function createSocket(wsUrl,_props,_callbacks) {
     openSocketConnection(ws);
 
     ws.onmessage = (message) => {
+        
         let parsedMessage = JSON.parse(message.data);
+        console.log('parsedMessage', parsedMessage)
         switch (parsedMessage.id) {
             case 'ping':    
                 heartbeat();   
+                break;
+            case 'isonline':    
+                console.log("isonline")
+                statusUser(parsedMessage);  
+
                 break;
             case 'registerResponse':
                 resgisterResponse(parsedMessage);
@@ -111,6 +125,16 @@ export function closeSocket() {
     ws && ws.close();
 }
 
+export function getHocStatus(idCallback, idUser, callback){
+    callbackUserStatus[idCallback] = callback;
+    let obj = {id:'isonline', idUser, idCallback};
+    sendMessage(obj)
+    
+}
+
+export function removeCallback(idCallback){
+    delete callbackUserStatus[idCallback]
+}
 
 function openSocketConnection(ws){
 
@@ -138,6 +162,17 @@ function heartbeat() {
         callbacks.show_error_from_server()
     }
     //"server good"); 
+}
+
+function statusUser(message){
+    const {idCallback} = message;
+    console.log("statusUser", message)
+    //callbacks.set_user_status(message.status)
+    if(callbackUserStatus.hasOwnProperty(idCallback)){
+        callbackUserStatus[idCallback](message)
+    }
+    
+    
 }
 
 const resgisterResponse = (message) => {
@@ -284,7 +319,7 @@ const incomingCall = (message) => {
             }})
 
     } else {
-        let call = new Audio("/project/templates/default/_ares/static/media/incoming_call.mp3");
+        let call = new Audio("https://appdoc.by/static/media/incoming-call.mp3");
         call.play().then(
             Modal.confirm({
                 title: `Доктор ${message.userData.name} звонит вам, хотите ли вы принять вызов?`, //4124

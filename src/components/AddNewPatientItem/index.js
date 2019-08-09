@@ -21,7 +21,7 @@ class AddNewPatientItem extends React.Component{
         return <span>{parts.map(part => part.toLowerCase() === higlight.toLowerCase() ? <b>{part}</b> : part)}</span>;
     }
     render(){
-        const { name, age, avatar, online, isSearchItem, usertype, academicdegree,
+        const { id, name, age, avatar, online, isSearchItem, usertype, academicdegree,
             academicstatus, category, specialitys, favorite, searchQuery, myDoctorsPage} = this.props;
         const isHideAddButton = this.props.isFavorite;
 
@@ -30,7 +30,7 @@ class AddNewPatientItem extends React.Component{
                 {({ translate }) =>
                     (<div className='new-patient-item' onClick={() => this.props.onGoto(this.props.id)}>
                         <div className='new-patient-avatar'>
-                            <ProfileAvatar owner="patient" online={online} img={avatar} size='small'/>
+                            <ProfileAvatar id={id} owner="patient" online={online} img={avatar} size='small'/>
                         </div>
                         <div className='new-patient-info'>
                             <div className='new-patient-name'>{this.highlight(name, searchQuery)}</div>

@@ -35,18 +35,18 @@ class ChatCard extends React.Component {
 
 			duration: 0,
 
-
 			reception_vis: false,
 			treatment_vis: false,
 			visit_vis: false,
 			map_vis: false,
 		}
+		//this.intervalStatus = null;
     }
 
 
 
-
 	componentWillReceiveProps(nextProps){
+		const {calledID} = this.props;
 		// ---- TO FIX (chack)
 		((''+this.props.receptionId != ''+nextProps.receptionId) && nextProps.user_mode === "doc")
 				&& (
@@ -58,6 +58,8 @@ class ChatCard extends React.Component {
 		//---------
 		''+this.state.mode != ''+nextProps.mode
 			&& this.setState({mode: nextProps.mode})
+
+		
 	}
 
 	componentDidUpdate(prevProps){
@@ -164,8 +166,8 @@ class ChatCard extends React.Component {
     };
     render() {
 		
-		const {patientName, user_id, online: onl} = this.props;
-		const online = +onl ?'online' :  'offline';
+		const {patientName, user_id, online: onl, status} = this.props;
+		const online = onl ? 'online' :  'offline';
 		const iconType = this.getIconByType();
         const statusClass = cn('chat-card-status', `chat-card-${online}`);
 
@@ -191,7 +193,8 @@ class ChatCard extends React.Component {
 			id_treatment: this.props.id_treatment,
 			getAllFilesTreatment: this.props.getAllFilesTreatment,
 			filesActive: this.props.isFilesAreaActive,
-            isUser: this.props.isUser
+			isUser: this.props.isUser,
+			isRedefinitionOnlineStatus: true
 		};
 		const chatAdditionalProps = {
 			setVideoOut: (video)=>setVideoOut(video),
@@ -354,3 +357,4 @@ ChatCard.defaultProps = {
 };
 
 export default ChatCard
+

@@ -194,10 +194,10 @@ button {
     750px - height of chat card's content div
     55px - button margin for call controll panel
   */
-  top: calc(80px);
+  top: 83px !important;
   width: 950px;
-  max-height: 550px;
-  height: 75%;
+ /*max-height: 550px; */
+  height: 67%;
 }
 
 .reception-mini-video-wrapper {
