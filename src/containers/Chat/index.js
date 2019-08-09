@@ -13,7 +13,7 @@ import './styles.css';
 
 function setCardVideoSize(){
     let videos = document.getElementsByClassName('reception-video-wrapper');
-    let areas = document.getElementsByClassName('chat-card-video__area');
+    let areas = document.getElementsByClassName('chat-card-body');
     if(areas.length){
         if(videos.length){
             videos[0].style.width = areas[0].offsetWidth+'px'

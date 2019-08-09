@@ -35,7 +35,6 @@ class App extends React.Component {
     <Hoc>
       <video
         className="chat-card-video__box"
-        poster={this.props.avatar}
         autoPlay
         ref={this.setVideoOutRef}
       />
@@ -51,7 +50,6 @@ class App extends React.Component {
     <Hoc>
       <video
         className="chat-card-video__box"
-        poster={this.props.avatar}
         playsInline
         autoPlay
         ref={this.setVideoOutRef}
@@ -88,6 +86,8 @@ class App extends React.Component {
       ? "reception-video-wrapper reception-video-wrapper_1additionalArea"
       : "reception-video-wrapper";
 
+    const background = 'url(' + this.props.avatar + ')';
+
     return (
       <div
         className={`${className} ${fullscreenMode ? "fullscreen-mode" : null}`}
@@ -96,7 +96,7 @@ class App extends React.Component {
         }}
         onClick={this.onClickHandler}
       >
-        {this.isSafari ? this.renderSafariVideos() : this.renderVideos()}
+        {this.isSafari ? this.renderSafariVideos() : this.renderVideos() }
         {fullscreenMode && (
           <div
             className="fullcreen-exit-icon"

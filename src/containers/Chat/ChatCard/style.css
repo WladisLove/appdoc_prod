@@ -314,6 +314,15 @@
     display: block;
 }
 
+.chat-card-video__area-avatar {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    border-radius: 100px;
+    background-size: cover;
+  }
+  
+
 .chat-card-video__mini {
     position: absolute;
     right: 40px;

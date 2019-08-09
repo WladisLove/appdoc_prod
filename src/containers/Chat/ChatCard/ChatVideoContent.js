@@ -24,7 +24,7 @@ class ChatVideoContent extends React.Component {
 		this.isSafari = browser ? browser.name == 'safari' : true;
 	}
 
-	/*renderPlayer = () => {
+		/*renderPlayer = () => {
 		console.log('renderPlayer',this.props.fileURL)
 		return (<Hoc>
 			<div className='chat-card-message__area'>
@@ -81,16 +81,20 @@ class ChatVideoContent extends React.Component {
 			}
 
         });
-    };
-
+	};
+	
 	renderCallArea = () => {
 		const panelClass = cn('chat-card-video__panel', {'chat-card-video__panel-active': this.props.isChatArea});
+		const background = 'url('+this.props.avatar+')';
 
 		let {s, m, h} = this.props.timer;
 		return (<Hoc>
-			<div className='chat-card-video__area'>
+			<figure className='chat-card-video__area'>		
+				<div className='chat-card-video__area-avatar' style={{background}}>
+				</div>
 				
-                <div className={panelClass}>
+				<div className={panelClass}>
+					
                     {this.props.receptionId &&(
                         <ChatVideoPanel
                             onStop={() => {
@@ -102,7 +106,7 @@ class ChatVideoContent extends React.Component {
                                 this.props.onCall();
                             }}
                             onChat = {this.props.toggleChatArea}
-                            uploadFiles={this.props.uploadFile}
+							uploadFiles={this.props.uploadFile}
                             sec= {s}
                             min={m}
 							isUser={this.props.isUser}
@@ -110,7 +114,7 @@ class ChatVideoContent extends React.Component {
                             isCalling={this.props.isCalling}/>)}
 
                 </div>
-			</div>
+			</figure>
 
 
 		</Hoc>)

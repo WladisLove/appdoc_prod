@@ -36,10 +36,10 @@ export const setVideoOut = (video) => {
     videoOutput = video;
 }
 export const getReadyState = () => { 
-    if(ws){
+    if(ws && ws.readyState == 1){
         return 'CONNECTING'
     }
-    return 'NOCONNECTING'
+    return 'NO_CONNECTING'
 }
 
 export function createSocket(wsUrl,_props,_callbacks) {

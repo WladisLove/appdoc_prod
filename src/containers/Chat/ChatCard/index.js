@@ -23,6 +23,7 @@ import {
 
 import './style.css'
 import MapsModal from "../../../components/MapsModal";
+import hocUserStatus from '../../../components/HocUserStatus';
 
 
 class ChatCard extends React.Component {
@@ -356,5 +357,5 @@ ChatCard.defaultProps = {
 	patientLocation: {}
 };
 
-export default ChatCard
+export default hocUserStatus(ChatCard)
 
