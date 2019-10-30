@@ -14,7 +14,7 @@
     "history": "^4.7.2",
     "kurento-client": "^6.6.0",
     "kurento-utils": "^6.7.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "minimist": "^1.2.0",
     "moment": "^2.20.1",
     "react": "^16.2.0",
