@@ -16,7 +16,7 @@
     "kurento-utils": "^6.7.0",
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
-    "moment": "^2.20.1",
+    "moment": "^2.29.2",
     "react": "^16.2.0",
     "react-big-calendar": "^0.17.0",
     "react-calendar": "^2.12.0",
